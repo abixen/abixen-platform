@@ -1,0 +1,199 @@
+@import 'variables';
+@import 'bootstrap-nav-wizard';
+
+@mixin platform-button($font-color, $font-color-hover, $background-color, $border-color, $background-color-hover, $border-color-hover) {
+  color: $font-color !important;
+  background-color: $background-color !important;
+  border: 1px solid $border-color !important;
+  font-size: 22px !important;
+  padding: 2px 12px !important;
+
+  span {
+    margin-left: 7px !important;
+  }
+
+  &:hover {
+    color: $font-color-hover !important;
+    background-color: $background-color-hover !important;
+    border: 1px solid $border-color-hover !important;
+  }
+}
+
+.bottom-prev-next {
+  margin-top: 15px;
+  .nav-button {
+    @include platform-button($font-color-reversed, $font-color-reversed, $base-color, $base-color-darkest, $base-color-lighter, $base-color-darker);
+  }
+
+}
+
+.chart-view-wizard-component {
+  border-bottom: 1px solid $wizard-border-color-lighter;
+  min-height: 450px;
+  .list-group-item:first-child {
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+
+  }
+  .list-group-item:last-child {
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+  }
+
+  .list-group-item {
+    border-left: 0px !important;
+    border-right: 0px !important;
+  }
+  .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: $base-color !important;
+    border-color: $base-color !important;
+    border-left: 3px solid $complementary-color !important;
+  }
+}
+
+.wizard-init {
+  height: 450px;
+  > div {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 0px;
+  }
+  .wizard-init-wrapper {
+    height: 450px;
+    overflow-y: auto;
+    border-bottom: 1px solid $wizard-border-color-lighter;
+  }
+  .wizard-init-preview {
+    min-height: 450px;
+    border-bottom: 1px solid #f2f2f2;
+  }
+
+}
+
+.wizard-datasource {
+  height: 450px;
+  .wizard-datasource-wrapper {
+    height: 400px;
+    overflow-y: auto;
+    border-bottom: 1px solid $wizard-border-color-lighter;
+  }
+
+  > div {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 0px;
+  }
+  .wizard-datasource-header {
+    width: 100%;
+    padding-left: 18px;
+    padding-right: 22px;
+    height: 40px;
+    margin-top: 10px;
+    border-bottom: 1px solid $wizard-border-color;
+    > div {
+      float: left;
+      > h5 {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .list-group-item {
+    height: 64px;
+    > span {
+      float: left;
+    }
+  }
+}
+
+.wizard-chart-configuration, .wizard-table-configuration {
+  height: 450px;
+  .wizard-chart-configuration-header {
+    background-color: $complementary-background-color;
+    padding-bottom: 5px;
+    border-bottom: 1px solid $wizard-border-color-lighter;
+    .row > div {
+      margin-bottom: 0px;
+    }
+
+    label {
+      > span {
+        margin-left: 3px;
+      }
+      margin-top: 6px;
+      margin-left: 3px;
+    }
+  }
+
+  .form-control {
+    display: inline;
+    width: 100%;
+    margin-left: 3px;
+  }
+
+  .add-new-button {
+    margin-top: 23px;
+    @include platform-button($font-color-reversed, $font-color-reversed, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
+  }
+
+  .wizard-chart-configuration-content, .wizard-table-configuration-content {
+    .wizard-datasource-label-col {
+      padding-left: 15px;
+      padding-right: 1px;
+    }
+    .wizard-datasource-label {
+      margin-top: 7px;
+      margin-left: 0px;
+      /*    font-weight: 200;
+          color: $wizard-label-font-color;*/
+
+    }
+    padding-top: 15px;
+    background: $background-color;
+  }
+  .wizard-chart-configuration-content-series, .wizard-table-configuration-content-columns {
+
+    overflow-y: auto;
+    margin-top: 0px;
+    margin-right: 15px;
+    .list-group-item {
+      padding: 7px 10px;
+    }
+
+    h5 {
+      width: 80%;
+      display: inline;
+    }
+  }
+  .wizard-chart-configuration-content-series {
+    height: 335px;
+    i {
+      margin-top: 3px;
+      color: $error-color;
+    }
+    i:hover {
+      color: $error-color-lighter;
+    }
+  }
+  .wizard-table-configuration-content-columns {
+    height: 420px;
+
+    i {
+      margin-top: 3px;
+      &.active {
+        color: $success-color-lighter;
+      }
+      &.nonactive {
+        color: $nonactive-color-lighter;
+      }
+    }
+
+  }
+  .wizard-datasource-configuration-content-details {
+
+    input {
+      width: 100%;
+    }
+  }
+}
+

@@ -1,0 +1,11 @@
+server:
+  port: ${vcap.application.port:8888}
+  address: 127.0.0.1
+
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: false
+  profiles:
+    active: native

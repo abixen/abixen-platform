@@ -1,0 +1,307 @@
+ul.nav-wizard {
+  background-color: #f9f9f9;
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  *zoom: 1;
+  position: relative;
+  overflow: hidden; }
+
+ul.nav-wizard:before {
+  display: block;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 46px;
+  height: 47px;
+  border-top: 1px solid #ddddde;
+  border-bottom: 1px solid #ddddde;
+  z-index: 11;
+  content: " "; }
+
+ul.nav-wizard:after {
+  display: block;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 138px;
+  height: 47px;
+  border-top: 1px solid #ddddde;
+  border-bottom: 1px solid #ddddde;
+  z-index: 11;
+  content: " "; }
+
+ul.nav-wizard li {
+  position: relative;
+  float: left;
+  height: 46px;
+  display: inline-block;
+  text-align: middle;
+  padding: 0 20px 0 30px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 46px; }
+
+ul.nav-wizard li a {
+  color: #468847;
+  padding: 0; }
+
+ul.nav-wizard li a:hover {
+  background-color: transparent; }
+
+ul.nav-wizard li:before {
+  position: absolute;
+  display: block;
+  border: 24px solid transparent;
+  border-left: 16px solid #ddddde;
+  border-right: 0;
+  top: -1px;
+  z-index: 10;
+  content: '';
+  right: -16px; }
+
+/*
+ul.nav-wizard li.non-active:before {
+  border-left: 16px solid $font-color-reversed!important;
+}
+*/
+ul.nav-wizard li:after {
+  position: absolute;
+  display: block;
+  border: 24px solid transparent;
+  border-left: 16px solid #07609e;
+  border-right: 0;
+  top: -1px;
+  z-index: 10;
+  content: '';
+  right: -15px; }
+
+ul.nav-wizard li.active {
+  color: #ffffff;
+  background: #054e81; }
+
+ul.nav-wizard li.non-active {
+  color: #ffffff;
+  background: #07609e; }
+
+ul.nav-wizard li.active:after {
+  border-left: 16px solid #054e81; }
+
+ul.nav-wizard li.non-active:after {
+  border-left: 16px solid #07609e; }
+
+ul.nav-wizard .active ~ li {
+  color: #999999;
+  background: #ededed; }
+
+ul.nav-wizard .active ~ li:after {
+  border-left: 16px solid #ededed; }
+
+ul.nav-wizard.nav-wizard-backnav .active ~ li {
+  color: #999999;
+  background: #ededed; }
+
+ul.nav-wizard.nav-wizard-backnav .active ~ li:after {
+  border-left: 16px solid #ededed; }
+
+.bottom-prev-next {
+  margin-top: 15px; }
+  .bottom-prev-next .nav-button {
+    color: #ffffff !important;
+    background-color: #054e81 !important;
+    border: 1px solid #012d4b !important;
+    font-size: 22px !important;
+    padding: 2px 12px !important; }
+    .bottom-prev-next .nav-button span {
+      margin-left: 7px !important; }
+    .bottom-prev-next .nav-button:hover {
+      color: #ffffff !important;
+      background-color: #07609e !important;
+      border: 1px solid #033e68 !important; }
+
+.chart-view-wizard-component {
+  border-bottom: 1px solid #f2f2f2;
+  min-height: 450px; }
+  .chart-view-wizard-component .list-group-item:first-child {
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0px !important; }
+  .chart-view-wizard-component .list-group-item:last-child {
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important; }
+  .chart-view-wizard-component .list-group-item {
+    border-left: 0px !important;
+    border-right: 0px !important; }
+  .chart-view-wizard-component .list-group-item.active, .chart-view-wizard-component .list-group-item.active:focus, .chart-view-wizard-component .list-group-item.active:hover {
+    background-color: #054e81 !important;
+    border-color: #054e81 !important;
+    border-left: 3px solid #b60031 !important; }
+
+.wizard-init {
+  height: 450px; }
+  .wizard-init > div {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 0px; }
+  .wizard-init .wizard-init-wrapper {
+    height: 450px;
+    overflow-y: auto;
+    border-bottom: 1px solid #f2f2f2; }
+  .wizard-init .wizard-init-preview {
+    min-height: 450px;
+    border-bottom: 1px solid #f2f2f2; }
+
+.wizard-datasource {
+  height: 450px; }
+  .wizard-datasource .wizard-datasource-wrapper {
+    height: 400px;
+    overflow-y: auto;
+    border-bottom: 1px solid #f2f2f2; }
+  .wizard-datasource > div {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 0px; }
+  .wizard-datasource .wizard-datasource-header {
+    width: 100%;
+    padding-left: 18px;
+    padding-right: 22px;
+    height: 40px;
+    margin-top: 10px;
+    border-bottom: 1px solid #ddddde; }
+    .wizard-datasource .wizard-datasource-header > div {
+      float: left; }
+      .wizard-datasource .wizard-datasource-header > div > h5 {
+        font-weight: 700; }
+  .wizard-datasource .list-group-item {
+    height: 64px; }
+    .wizard-datasource .list-group-item > span {
+      float: left; }
+
+.wizard-chart-configuration, .wizard-table-configuration {
+  height: 450px; }
+  .wizard-chart-configuration .wizard-chart-configuration-header, .wizard-table-configuration .wizard-chart-configuration-header {
+    background-color: #FFFFFF;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f2f2f2; }
+    .wizard-chart-configuration .wizard-chart-configuration-header .row > div, .wizard-table-configuration .wizard-chart-configuration-header .row > div {
+      margin-bottom: 0px; }
+    .wizard-chart-configuration .wizard-chart-configuration-header label, .wizard-table-configuration .wizard-chart-configuration-header label {
+      margin-top: 6px;
+      margin-left: 3px; }
+      .wizard-chart-configuration .wizard-chart-configuration-header label > span, .wizard-table-configuration .wizard-chart-configuration-header label > span {
+        margin-left: 3px; }
+  .wizard-chart-configuration .form-control, .wizard-table-configuration .form-control {
+    display: inline;
+    width: 100%;
+    margin-left: 3px; }
+  .wizard-chart-configuration .add-new-button, .wizard-table-configuration .add-new-button {
+    margin-top: 23px;
+    color: #ffffff !important;
+    background-color: #4ab200 !important;
+    border: 1px solid #2b6800 !important;
+    font-size: 22px !important;
+    padding: 2px 12px !important; }
+    .wizard-chart-configuration .add-new-button span, .wizard-table-configuration .add-new-button span {
+      margin-left: 7px !important; }
+    .wizard-chart-configuration .add-new-button:hover, .wizard-table-configuration .add-new-button:hover {
+      color: #ffffff !important;
+      background-color: #5ad900 !important;
+      border: 1px solid #3c9000 !important; }
+  .wizard-chart-configuration .wizard-chart-configuration-content, .wizard-chart-configuration .wizard-table-configuration-content, .wizard-table-configuration .wizard-chart-configuration-content, .wizard-table-configuration .wizard-table-configuration-content {
+    padding-top: 15px;
+    background: #F6F6F6; }
+    .wizard-chart-configuration .wizard-chart-configuration-content .wizard-datasource-label-col, .wizard-chart-configuration .wizard-table-configuration-content .wizard-datasource-label-col, .wizard-table-configuration .wizard-chart-configuration-content .wizard-datasource-label-col, .wizard-table-configuration .wizard-table-configuration-content .wizard-datasource-label-col {
+      padding-left: 15px;
+      padding-right: 1px; }
+    .wizard-chart-configuration .wizard-chart-configuration-content .wizard-datasource-label, .wizard-chart-configuration .wizard-table-configuration-content .wizard-datasource-label, .wizard-table-configuration .wizard-chart-configuration-content .wizard-datasource-label, .wizard-table-configuration .wizard-table-configuration-content .wizard-datasource-label {
+      margin-top: 7px;
+      margin-left: 0px;
+      /*    font-weight: 200;
+          color: $wizard-label-font-color;*/ }
+  .wizard-chart-configuration .wizard-chart-configuration-content-series, .wizard-chart-configuration .wizard-table-configuration-content-columns, .wizard-table-configuration .wizard-chart-configuration-content-series, .wizard-table-configuration .wizard-table-configuration-content-columns {
+    overflow-y: auto;
+    margin-top: 0px;
+    margin-right: 15px; }
+    .wizard-chart-configuration .wizard-chart-configuration-content-series .list-group-item, .wizard-chart-configuration .wizard-table-configuration-content-columns .list-group-item, .wizard-table-configuration .wizard-chart-configuration-content-series .list-group-item, .wizard-table-configuration .wizard-table-configuration-content-columns .list-group-item {
+      padding: 7px 10px; }
+    .wizard-chart-configuration .wizard-chart-configuration-content-series h5, .wizard-chart-configuration .wizard-table-configuration-content-columns h5, .wizard-table-configuration .wizard-chart-configuration-content-series h5, .wizard-table-configuration .wizard-table-configuration-content-columns h5 {
+      width: 80%;
+      display: inline; }
+  .wizard-chart-configuration .wizard-chart-configuration-content-series, .wizard-table-configuration .wizard-chart-configuration-content-series {
+    height: 335px; }
+    .wizard-chart-configuration .wizard-chart-configuration-content-series i, .wizard-table-configuration .wizard-chart-configuration-content-series i {
+      margin-top: 3px;
+      color: #c6000a; }
+    .wizard-chart-configuration .wizard-chart-configuration-content-series i:hover, .wizard-table-configuration .wizard-chart-configuration-content-series i:hover {
+      color: #f2000c; }
+  .wizard-chart-configuration .wizard-table-configuration-content-columns, .wizard-table-configuration .wizard-table-configuration-content-columns {
+    height: 420px; }
+    .wizard-chart-configuration .wizard-table-configuration-content-columns i, .wizard-table-configuration .wizard-table-configuration-content-columns i {
+      margin-top: 3px; }
+      .wizard-chart-configuration .wizard-table-configuration-content-columns i.active, .wizard-table-configuration .wizard-table-configuration-content-columns i.active {
+        color: #5ad900; }
+      .wizard-chart-configuration .wizard-table-configuration-content-columns i.nonactive, .wizard-table-configuration .wizard-table-configuration-content-columns i.nonactive {
+        color: #E6E6E6; }
+  .wizard-chart-configuration .wizard-datasource-configuration-content-details input, .wizard-table-configuration .wizard-datasource-configuration-content-details input {
+    width: 100%; }
+
+.magic-number-module .magic-number-chart .magic-number-chart-description {
+  font-size: 22px;
+  color: #333333; }
+
+.magic-number-module .magic-number-chart .magic-number-chart-value {
+  font-size: 28px; }
+
+.magic-number-module .magic-number-chart .magic-number-chart-additional-value {
+  font-size: 18px; }
+  .magic-number-module .magic-number-chart .magic-number-chart-additional-value .additional-number-description {
+    margin-right: 10px; }
+
+.magic-number-module .magic-number-chart .magic-number-chart-icon {
+  font-size: 54px; }
+
+.magic-number-module .magic-number-chart .default {
+  color: #333333; }
+
+.magic-number-module .magic-number-chart .danger {
+  color: #c6000a; }
+
+.magic-number-module .magic-number-chart .warning {
+  color: #c97200; }
+
+.magic-number-module .magic-number-chart .success {
+  color: #4ab200; }
+
+.magic-number-module .configuration-form-row {
+  margin-top: 10px; }
+
+.magic-number-module .configuration-bottom-navigation-row {
+  margin-top: 10px; }
+  .magic-number-module .configuration-bottom-navigation-row > div {
+    text-align: right; }
+    .magic-number-module .configuration-bottom-navigation-row > div .btn {
+      margin-left: 5px; }
+
+.kpi-chart-view {
+  text-align: center; }
+  .kpi-chart-view .kpi-chart-description {
+    margin-top: 10px;
+    font-size: 20px; }
+  .kpi-chart-view .kpi-chart-wrapper {
+    margin-top: 10px;
+    position: relative; }
+    .kpi-chart-view .kpi-chart-wrapper .kpi-chart-value {
+      top: 50%;
+      bottom: auto;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      font-size: 32px;
+      position: absolute; }
+
+.kpi-chart-configuration .configuration-form-row {
+  margin-top: 10px; }
+
+.kpi-chart-configuration .configuration-bottom-navigation-row {
+  margin-top: 10px; }
+  .kpi-chart-configuration .configuration-bottom-navigation-row > div {
+    text-align: right; }
+    .kpi-chart-configuration .configuration-bottom-navigation-row > div .btn {
+      margin-left: 5px; }

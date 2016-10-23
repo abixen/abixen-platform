@@ -1,0 +1,129 @@
+ul.nav-wizard {
+  background-color: #f9f9f9;
+  border-top: 1px solid $wizard-border-color-lighter;
+  border-bottom: 1px solid $wizard-border-color-lighter;
+  *zoom: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+ul.nav-wizard:before {
+  display: block;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 46px;
+  height: 47px;
+  border-top: 1px solid $wizard-border-color;
+  border-bottom: 1px solid $wizard-border-color;
+  z-index: 11;
+  content: " ";
+}
+
+ul.nav-wizard:after {
+  display: block;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 138px;
+  height: 47px;
+  border-top: 1px solid $wizard-border-color;
+  border-bottom: 1px solid $wizard-border-color;
+  z-index: 11;
+  content: " ";
+}
+
+ul.nav-wizard li {
+  position: relative;
+  float: left;
+  height: 46px;
+  display: inline-block;
+  text-align: middle;
+  padding: 0 20px 0 30px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 46px;
+}
+
+ul.nav-wizard li a {
+  color: #468847;
+  padding: 0;
+}
+
+ul.nav-wizard li a:hover {
+  background-color: transparent;
+}
+
+ul.nav-wizard li:before {
+  position: absolute;
+  display: block;
+  border: 24px solid transparent;
+  border-left: 16px solid $wizard-border-color;
+
+  border-right: 0;
+  top: -1px;
+  z-index: 10;
+  content: '';
+  right: -16px;
+}
+
+/*
+ul.nav-wizard li.non-active:before {
+  border-left: 16px solid $font-color-reversed!important;
+}
+*/
+
+ul.nav-wizard li:after {
+  position: absolute;
+  display: block;
+  border: 24px solid transparent;
+  border-left: 16px solid $base-color-lighter;
+  border-right: 0;
+  top: -1px;
+  z-index: 10;
+  content: '';
+  right: -15px;
+}
+
+ul.nav-wizard li.active {
+  color: $font-color-reversed;
+  background: $base-color;
+}
+
+ul.nav-wizard li.non-active {
+  color: $font-color-reversed;
+  background: $base-color-lighter;
+}
+
+ul.nav-wizard li.active:after {
+  border-left: 16px solid $base-color;
+
+}
+
+ul.nav-wizard li.non-active:after {
+  border-left: 16px solid $base-color-lighter;
+
+}
+
+ul.nav-wizard .active ~ li {
+  color: #999999;
+  background: #ededed;
+}
+
+ul.nav-wizard .active ~ li:after {
+  border-left: 16px solid #ededed;
+}
+
+
+
+
+
+ul.nav-wizard.nav-wizard-backnav .active ~ li {
+  color: #999999;
+  background: #ededed;
+}
+
+ul.nav-wizard.nav-wizard-backnav .active ~ li:after {
+  border-left: 16px solid #ededed;
+}
+

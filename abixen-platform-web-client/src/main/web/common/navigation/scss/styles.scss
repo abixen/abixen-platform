@@ -1,0 +1,43 @@
+@import "sidebar";
+@import "content";
+@import "top-bar";
+
+html {
+  overflow-y: scroll;
+}
+
+@mixin platform-navigation($font-color, $base-color-darkest, $base-color-darker, $complementary-color) {
+  padding-left: 70px;
+  height: 100%;
+  transition: all .4s ease 0s;
+
+  @media only screen and (min-width: 561px) {
+    &.open {
+      padding-left: 250px;
+    }
+  }
+  @media only screen and (max-width: 560px) {
+    &.open {
+      padding-left: 70px;
+    }
+  }
+  &.open .sidebar-wrapper {
+    left: 150px;
+  }
+
+  .sidebar-wrapper {
+    @include sidebar($font-color, $base-color-darkest, $base-color-darker, $complementary-color);
+  }
+
+  .content-wrapper {
+    @include content();
+  }
+
+  .top-bar {
+    @include top-bar();
+  }
+}
+
+
+
+

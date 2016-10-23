@@ -1,0 +1,14 @@
+@mixin content() {
+  padding-left: 0;
+  margin-left: 0;
+  width: 100%;
+  height: auto;
+
+  .page-content{
+    .top-bar {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      border-bottom: 1px solid #DDDDDE;
+    }
+  }
+}

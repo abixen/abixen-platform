@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: abixen-platform-configuration
+
+eureka:
+  instance:
+    hostname: ${APPLICATION_DOMAIN:localhost}
+    nonSecurePort: 8888
+    metadataMap:
+      cluster: AbixenPlatform
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/

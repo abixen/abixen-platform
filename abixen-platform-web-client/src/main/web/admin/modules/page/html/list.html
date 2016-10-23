@@ -1,0 +1,26 @@
+<div class="row module-navigation-row">
+    <div class="col-xs-12 module-navigation-col">
+        <button type="button" ui-sref="application.pages.edit({id:selectedEntityId})"
+                ng-disabled="!editButtonEnabled" class="btn btn-default pull-left"><i
+                class="fa fa-pencil-square-o"></i>
+            Edit Page
+        </button>
+        <span class="buttons-separator"></span>
+        <button type="button" ui-sref="application.pages.permissions({id:selectedEntityId})"
+                ng-disabled="!editButtonEnabled" class="btn btn-default pull-left"><i class="fa fa-key"></i>
+            Permissions
+        </button>
+        <span class="buttons-separator"></span>
+        <button type="button" ng-click="delete()" ng-disabled="!deleteButtonEnabled"
+                class="btn btn-warning pull-left">
+            <i class="fa fa-trash-o"></i> Delete Page
+        </button>
+    </div>
+</div>
+<div class="row grid-row">
+    <div class="col-xs-12">
+        <!--ui-sref="editMovie({id:movie._id})"-->
+        <div id="pageListGridId" ui-grid="entityListGrid" ui-grid-exporter ui-grid-selection ui-grid-pinning
+             ui-grid-resize-columns ui-grid-move-columns ui-grid-auto-resize class="grid"></div>
+    </div>
+</div>

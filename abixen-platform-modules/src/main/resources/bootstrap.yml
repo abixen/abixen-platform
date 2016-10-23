@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: abixen-platform-modules
+  cloud:
+    config:
+      uri: http://localhost:8888

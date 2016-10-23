@@ -1,0 +1,18 @@
+<div class="multi-visualization">
+    <ul class="nav nav-tabs tabset platform-tabset">
+        <li ng-class="selectedModule == 'databaseDataSource' ? 'active':''">
+            <a ui-sref="application.multiVisualization.modules.databaseDataSource.list"
+               ng-click="selectDatabaseDataSources()">Database Data Sources</a>
+        </li>
+        <li ng-class="selectedModule == 'databaseConnection' ? 'active':''">
+            <a ui-sref="application.multiVisualization.modules.databaseConnection.list"
+               ng-click="selectDatabaseConnections()">Database Connections</a>
+        </li>
+        <li ng-class="selectedModule == 'fileDataSource' ? 'active':''">
+            <a ui-sref="application.multiVisualization.modules.fileDataSource.list"
+               ng-click="selectFileDataSources()">File Data Sources</a>
+        </li>
+    </ul>
+    <ui-view></ui-view>
+</div>
+

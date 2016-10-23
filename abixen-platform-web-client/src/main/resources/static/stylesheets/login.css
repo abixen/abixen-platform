@@ -1,0 +1,70 @@
+.add-new-button {
+  color: #ffffff;
+  background-color: #4ab200;
+  border: 1px solid #2b6800;
+  font-size: 22px;
+  padding: 2px 12px; }
+  .add-new-button span {
+    margin-left: 7px; }
+  .add-new-button:hover {
+    color: #ffffff;
+    background-color: #5AD900;
+    border: 1px solid #3c9000; }
+
+.login-container .left-side {
+  background: #07609e url("/login/image/left-side-bg.png");
+  border-right: 2px solid #2176b2; }
+  .login-container .left-side > .row {
+    height: 100%;
+    text-align: center; }
+  .login-container .left-side .abixen-logo {
+    width: 450px;
+    margin-top: 150px;
+    margin-bottom: 100px; }
+  .login-container .left-side .abixen-profit-row {
+    text-align: left; }
+    .login-container .left-side .abixen-profit-row .abixen-profit {
+      color: #FFFFFF;
+      font-size: 26px;
+      margin-bottom: 20px; }
+
+.login-container .right-side {
+  background: #07609e url("/login/image/right-side-bg.jpg") center; }
+  .login-container .right-side > .row {
+    height: 100%; }
+  .login-container .right-side .panel {
+    margin-top: 150px;
+    background: rgba(5, 78, 129, 0.6);
+    color: #FFFFFF; }
+    .login-container .right-side .panel label {
+      font-size: 16px; }
+    .login-container .right-side .panel .panel-heading {
+      background: rgba(5, 78, 129, 0.7);
+      color: #FFFFFF;
+      font-size: 20px; }
+    .login-container .right-side .panel .panel-footer {
+      background: rgba(5, 78, 129, 0.7); }
+    .login-container .right-side .panel .login-button {
+      color: #FFFFFF !important;
+      background-color: #4ab200 !important;
+      border: 1px solid #2b6800 !important;
+      font-size: 22px !important;
+      padding: 2px 12px !important; }
+      .login-container .right-side .panel .login-button span {
+        margin-left: 7px !important; }
+      .login-container .right-side .panel .login-button:hover {
+        color: #FFFFFF !important;
+        background-color: #5ad900 !important;
+        border: 1px solid #3c9000 !important; }
+    .login-container .right-side .panel .reset-button {
+      color: #b60031 !important;
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      border: 1px solid #b60031 !important;
+      font-size: 22px !important;
+      padding: 2px 12px !important; }
+      .login-container .right-side .panel .reset-button span {
+        margin-left: 7px !important; }
+      .login-container .right-side .panel .reset-button:hover {
+        color: #df003c !important;
+        background-color: rgba(255, 255, 255, 0.3) !important;
+        border: 1px solid #df003c !important; }

@@ -1,0 +1,65 @@
+@import "variables";
+@import "../../common/button/scss/styles";
+
+.login-container {
+  .left-side {
+    background: $base-color-lighter url("/login/image/left-side-bg.png");
+    > .row {
+      height: 100%;
+      text-align: center;
+    }
+    border-right: 2px solid $base-color-brightest;
+
+    .abixen-logo {
+      width: 450px;
+      margin-top: 150px;
+      margin-bottom: 100px;
+    }
+
+    .abixen-profit-row {
+      text-align: left;
+      .abixen-profit {
+        color: #FFFFFF;
+        font-size: 26px;
+        margin-bottom: 20px;
+      }
+    }
+
+  }
+
+  .right-side {
+    background: $base-color-lighter url("/login/image/right-side-bg.jpg") center;
+
+    > .row {
+      height: 100%;
+    }
+
+    .panel {
+      margin-top: 150px;
+      background: rgba(5, 78, 129, 0.6);
+      color: #FFFFFF;
+
+      label {
+        font-size: 16px;
+      }
+
+      .panel-heading {
+        background: rgba(5, 78, 129, 0.7);
+        color: #FFFFFF;
+        font-size: 20px;
+      }
+
+      .panel-footer {
+        background: rgba(5, 78, 129, 0.7);
+      }
+
+      .login-button {
+        @include platform-button($font-color, $font-color, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
+      }
+
+      .reset-button {
+        @include platform-button($complementary-color, $complementary-color-lighter, rgba(255, 255, 255, 0.3), $complementary-color, rgba(255, 255, 255, 0.3), $complementary-color-lighter);
+      }
+    }
+  }
+}

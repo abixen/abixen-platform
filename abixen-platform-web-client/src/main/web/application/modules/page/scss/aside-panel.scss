@@ -1,0 +1,26 @@
+.aside-panel-header {
+  background-color: #173346;
+  color: #ffffff;
+  max-height: 60px;
+  border: 1px solid #054e81;
+}
+
+.aside-panel-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid #173346;
+  width: 100%;
+
+  .save-button {
+    background-color: #92cd18;
+    border: 1px solid #92cd18;
+    color: #ffffff;
+
+  }
+
+  .cancel-button {
+    background-color: #ffffff;
+    border: 1px solid lightgray;
+  }
+}

@@ -1,0 +1,45 @@
+server:
+  port: ${vcap.application.port:8080}
+
+zuul:
+  routes:
+    api:
+      path: /api/**
+      url: http://localhost:9090/api
+    user:
+       path: /user
+       url: http://localhost:9090/
+    applicationModules:
+      path: /application/modules/abixen/**
+      url: http://localhost:9090/application/modules/abixen
+    adminModules:
+      path: /admin/modules/abixen/**
+      url: http://localhost:9090/admin/modules/abixen
+
+---
+
+spring:
+  profiles: cloud
+eureka:
+  instance:
+    hostname: ${APPLICATION_DOMAIN:localhost}
+    nonSecurePort: 9090
+    metadataMap:
+      cluster: AbixenPlatform
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+
+---
+
+spring:
+  profiles: dev
+eureka:
+  instance:
+    hostname: ${APPLICATION_DOMAIN:localhost}
+    nonSecurePort: 9090
+    metadataMap:
+      cluster: AbixenPlatform
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/

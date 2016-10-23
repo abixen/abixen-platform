@@ -1,0 +1,1 @@
+var platformLayoutModule = angular.module('platformLayoutModule', ['layoutControllers', 'layoutServices']);

@@ -1,0 +1,125 @@
+@import "variables";
+@import "../../common/navigation/scss/styles";
+@import "../../common/button/scss/styles";
+@import "../../common/utils/scss/styles";
+@import "../modules/page/scss/style";
+@import "../modules/user/scss/style";
+
+body {
+  background-color: #F6F6F6;
+  font-family: 'Roboto', sans-serif;
+}
+
+.grid-row {
+  padding-top: 13px;
+  .grid {
+    width: 100%;
+    height: 80vh;
+
+    .ui-grid-top-panel {
+      background: #f0f0ee;
+    }
+
+    .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+      background: rgba(5, 78, 129, 0.93);
+      color: #FFFFFF;
+    }
+  }
+}
+
+.form-row {
+  padding-top: 13px;
+}
+
+.buttons-separator:after {
+  content: ' ';
+  display: block;
+  float: left;
+  background: #ADADAD;
+  margin: 0 10px;
+  height: 34px;
+  width: 1px;
+}
+
+.module-navigation-row {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .module-navigation-col {
+    padding: 11px 0px;
+    border-bottom: 1px solid #DDDDDE;
+
+    button {
+      &.btn-default[disabled] {
+        border: 1px solid transparent;
+        background: none;
+      }
+      &.btn-warning[disabled] {
+        border: 1px solid transparent;
+        background: none;
+        color: #333;
+      }
+    }
+  }
+}
+
+.platform-navigation {
+  @include platform-navigation($font-color, $base-color-darkest, $base-color-darker, $complementary-color);
+}
+
+.add-new-object-button {
+  @include platform-button($font-color, $font-color, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
+}
+
+.save-button {
+  @include platform-button($font-color, $font-color, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
+}
+
+.platform-success-button{
+  background-color: $success-color;
+  border: 1px solid $success-color-darkest;
+  color: $font-color;
+
+  span {
+    margin-left: 7px;
+  }
+
+  &:hover {
+    background-color: $success-color-lighter;
+    border: 1px solid $success-color-darker;
+    color: $font-color;
+  }
+}
+
+.platform-warning-button{
+  background-color: $warning-color;
+  border: 1px solid $warning-color-darkest;
+  color: $font-color;
+
+  span {
+    margin-left: 7px;
+  }
+
+  &:hover {
+    background-color: $warning-color-lighter;
+    border: 1px solid $warning-color-darker;
+    color: $font-color;
+  }
+}
+
+.cancel-button {
+  @include platform-button($complementary-color, $complementary-color-lighter, $complementary-background-color, $complementary-color, $complementary-background-color, $complementary-color-lighter);
+}
+
+.bottom-navigation {
+  margin-top: 10px;
+
+  > div {
+    text-align: right;
+
+    .btn {
+      margin-left: 5px;
+    }
+  }
+}
+

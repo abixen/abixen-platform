@@ -1,0 +1,52 @@
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.abixen.platform.core.controller.application;
+
+import com.abixen.platform.core.controller.common.AbstractPageController;
+import com.abixen.platform.core.model.impl.User;
+import com.abixen.platform.core.service.PageService;
+import com.abixen.platform.core.service.UserService;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+
+
+@RestController
+@RequestMapping(value = "/api/user-activation")
+public class ApplicationUserActivationController {
+
+    private final Logger log = Logger.getLogger(ApplicationUserActivationController.class.getName());
+
+    private final UserService userService;
+
+    @Autowired
+    public ApplicationUserActivationController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @RequestMapping(value = "/activate/{userHashKey}/", method = RequestMethod.GET)
+    public void  activate(@PathVariable String userHashKey) {
+        log.debug("activate() - userHashKey: " + userHashKey);
+
+        userService.activate(userHashKey);
+
+    }
+
+}

@@ -1,0 +1,17 @@
+.user-details {
+  .avatar {
+    img {
+      height: 150px;
+      border: 1px solid black;
+      padding: 10px;
+      @include border-radius(5px);
+    }
+    a {
+      float: right;
+      margin-top: 10px;
+    }
+  }
+  .user-id {
+    margin-top: 108px;
+  }
+}

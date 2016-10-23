@@ -1,0 +1,131 @@
+@mixin sidebar($font-color, $base-color-darkest, $base-color-darker, $complementary-color) {
+  background: $base-color-darkest;
+  margin-left: -150px;
+  left: -30px;
+  width: 250px;
+  position: fixed;
+  height: 100%;
+  z-index: 999;
+  transition: all .4s ease 0s;
+
+  ul.sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-indent: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    li {
+      a {
+        color: $font-color;
+        display: block;
+        float: left;
+        text-decoration: none;
+        width: 250px;
+      }
+    }
+    .sidebar-main {
+      height: 65px;
+      a {
+        font-size: 18px;
+        line-height: 60px;
+      }
+      a:hover {
+        cursor: pointer;
+      }
+      .menu-icon {
+        float: right;
+        font-size: 18px;
+        padding-right: 28px;
+        line-height: 60px;
+      }
+    }
+    .sidebar-title {
+      color: $font-color;
+      font-size: 12px;
+      height: 35px;
+      line-height: 40px;
+      text-transform: uppercase;
+      transition: all .6s ease 0s;
+    }
+    .sidebar-list {
+      height: 40px;
+      a {
+        text-indent: 25px;
+        font-size: 15px;
+        color: #b2bfdc;
+        line-height: 40px;
+      }
+      a:hover, a.selected {
+        color: $font-color;
+        border-left: 3px solid $complementary-color;
+        text-indent: 22px;
+        cursor: pointer;
+      }
+      .menu-icon {
+        float: right;
+        padding-right: 29px;
+        line-height: 40px;
+        width: 70px;
+        text-indent: 25px;
+      }
+    }
+  }
+}
+
+ul.sidebar .sidebar-main a, .sidebar-footer, ul.sidebar .sidebar-list a:hover, ul.sidebar .sidebar-list a.selected,
+.platform-navigation:not(.open) ul.sidebar .sidebar-title.separator {
+  background: $base-color-darker;
+}
+
+.platform-navigation:not(.open) {
+  ul.sidebar {
+    bottom: 0;
+    .sidebar-title {
+      display: none;
+      height: 0;
+      text-indent: -100px;
+    }
+    .sidebar-title.separator {
+      display: block;
+      height: 2px;
+      margin: 13px 0;
+    }
+    .sidebar-list {
+      a:hover, a.selected {
+        span {
+          border-left: 3px solid $complementary-color;
+          text-indent: 22px;
+        }
+      }
+    }
+  }
+  .sidebar-footer {
+    display: none;
+  }
+}
+
+.sidebar-footer {
+  position: absolute;
+  height: 40px;
+  bottom: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  transition: all .6s ease 0s;
+  text-align: center;
+  div {
+    a {
+      color: #b2bfdc;
+      font-size: 12px;
+      line-height: 43px;
+    }
+    a:hover {
+      color: $font-color;
+      text-decoration: none;
+    }
+  }
+}

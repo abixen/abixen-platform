@@ -1,0 +1,5 @@
+turbine:
+  aggregator:
+    clusterConfig: AbixenPlatform
+  appConfig: abixen-platform-core,abixen-platform-modules,abixen-platform-gateway
+  clusterNameExpression: 'cluster'

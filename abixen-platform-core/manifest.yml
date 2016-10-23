@@ -1,0 +1,14 @@
+---
+applications:
+- name: abixen-platform-core
+  memory: 512M
+  instances: 1
+  host: abixen-platform-core-${random-word}
+  domain: cfapps.io
+  path: target/abixen-platform-core.jar
+  services:
+      - abixen-platform-eureka
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+    DEBUG: "true"
+    debug: "true"

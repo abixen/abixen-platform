@@ -1,0 +1,62 @@
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.abixen.platform.core.controller.common;
+
+import com.abixen.platform.core.configuration.properties.PlatformResourceConfigurationProperties;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+
+@RestController
+@RequestMapping(value = "/api/images")
+public class ImageLibraryController {
+
+    private final Logger log = LoggerFactory.getLogger(ImageLibraryController.class);
+
+    @Autowired
+    PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+
+    @RequestMapping(value = "/{fileName}/", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getImage(@PathVariable String fileName) throws IOException {
+
+        log.debug("fileName: " + fileName);
+
+        InputStream in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + fileName);
+
+        byte[] b = IOUtils.toByteArray(in);
+
+        in.close();
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+
+        return new ResponseEntity<byte[]>(b, headers, HttpStatus.CREATED);
+    }
+
+}

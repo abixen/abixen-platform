@@ -1,0 +1,123 @@
+@import "variables";
+@import "../../common/navigation/scss/styles";
+@import "../../common/button/scss/styles";
+@import "../../common/utils/scss/styles";
+@import "../../common/modal/scss/styles";
+@import "../modules/page/scss/angular-aside";
+@import "../modules/page/scss/aside-panel";
+@import "../modules/user/scss/styles";
+@import "../modules/dashboard/scss/dashboard-custom";
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  background: #f3f3f3;
+  font-family: 'Roboto', sans-serif;
+  color: #333333 !important;
+}
+
+.row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.row > div {
+  margin-bottom: 15px;
+}
+
+.platform-navigation {
+  @include platform-navigation($font-color, $base-color-darkest, $base-color-darker, $complementary-color);
+}
+
+.welcome-message {
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.add-new-page-button {
+  @include platform-button($font-color, $font-color, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
+}
+
+.edit-mode-button {
+  margin-left: 10px;
+  @include platform-button($font-color, $font-color, $base-color, $base-color-darkest, $base-color-lighter, $base-color-darker);
+}
+
+.save-button {
+  @include platform-button($font-color, $font-color, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
+}
+
+.cancel-button {
+  @include platform-button($complementary-color, $complementary-color-lighter, $complementary-background-color, $complementary-color, $complementary-background-color, $complementary-color-lighter);
+}
+
+.action-dropdown {
+  margin-left: 10px;
+
+  ul.dropdown-menu {
+    border-radius: 2px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .05);
+    .dropdown-header {
+      text-align: center;
+    }
+    li.link {
+      text-align: left;
+      a {
+        padding-left: 7px;
+        padding-right: 7px;
+      }
+    }
+  }
+  ul.dropdown-menu:before {
+    position: absolute;
+    top: -7px;
+    right: 23px;
+    display: inline-block;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+    border-left: 7px solid transparent;
+    content: '';
+  }
+  ul.dropdown-menu:after {
+    position: absolute;
+    top: -6px;
+    right: 24px;
+    display: inline-block;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #ffffff;
+    border-left: 6px solid transparent;
+    content: '';
+  }
+  .main-button {
+    margin-left: 10px;
+    background-color: $base-color !important;
+    border: 1px solid $base-color-darkest !important;
+    font-size: 22px;
+    padding: 2px 12px;
+
+    &:hover {
+      background-color: $base-color-lighter !important;
+      border: 1px solid $base-color-darker !important;
+    }
+  }
+  .main-menu {
+    margin-left: 10px;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+}
+
+.error-modal {
+  @include modal-dialog($error-color);
+}
+
+.warning-modal {
+  @include modal-dialog($warning-color);
+}
+
+
+

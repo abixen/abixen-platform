@@ -1,0 +1,25 @@
+<div class="query-builder">
+    <div class="form-inline">
+        <select ng-options="o.name as o.name for o in operators" ng-model="group.operator" class="form-control input"></select>
+        <a style="margin-left: 5px" class="btn btn-default platform-success-button" ng-click="addCondition()"><i class="fa fa-plus"></i><span>Add Condition</span></a>
+        <a style="margin-left: 5px" class="btn btn-default platform-success-button" ng-click="addGroup()"><i class="fa fa-plus"></i><span>Add Group</span></a>
+        <a style="margin-left: 5px" class="btn btn-default platform-warning-button" ng-click="removeGroup()"><i class="fa fa-trash-o"></i><span>Remove Group</span></a>
+    </div>
+    <div class="group-conditions">
+        <div ng-repeat="rule in group.rules | orderBy:'index'" class="condition">
+            <div ng-switch="rule.hasOwnProperty('group')">
+                <div ng-switch-when="true">
+                    <query-builder fields="fields" group="rule.group"></query-builder>
+                </div>
+                <div ng-switch-default="ng-switch-default">
+                    <div class="form-inline">
+                        <select ng-options="t.name as t.name for t in fields" ng-model="rule.field" class="form-control"></select>
+                        <select style="margin-left: 5px" ng-options="c.name as c.name for c in conditions" ng-model="rule.condition" class="form-control"></select>
+                        <input style="margin-left: 5px" type="text" ng-model="rule.data" class="form-control"/>
+                        <a style="margin-left: 5px" class="btn btn-default platform-warning-button" ng-click="removeCondition($index)"><i class="fa fa-trash-o"></i><span>Remove Condition</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

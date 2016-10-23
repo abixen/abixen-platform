@@ -1,0 +1,91 @@
+<div class="fluid-container login-container">
+    <div class="col-md-6 hidden-sm hidden-xs left-side">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <img class="abixen-logo" src="/login/image/abixen-logo-white.png">
+                </div>
+
+                <div class="row abixen-profit-row">
+                    <div class="col-md-5 col-md-offset-1 col-lg-4 col-lg-offset-2">
+                        <div class="abixen-profit">
+                            <i class="fa fa-check-circle"></i><span>&nbsp;First profit</span>
+                        </div>
+                        <div class="abixen-profit">
+                            <i class="fa fa-check-circle"></i><span>&nbsp;Second profit</span>
+                        </div>
+                        <div class="abixen-profit">
+                            <i class="fa fa-check-circle"></i><span>&nbsp;Third profit</span>
+                        </div>
+                        <div class="abixen-profit">
+                            <i class="fa fa-check-circle"></i><span>&nbsp;Fourth profit</span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1">
+                        <div class="abixen-profit">
+                            <i class="fa fa-check-circle"></i><span>&nbsp;First profit</span>
+                        </div>
+                        <div class="abixen-profit">
+                            <i class="fa fa-check-circle"></i><span>&nbsp;Second profit</span>
+                        </div>
+                        <div class="abixen-profit">
+                            <i class="fa fa-check-circle"></i><span>&nbsp;Third profit</span>
+                        </div>
+                        <div class="abixen-profit">
+                            <i class="fa fa-check-circle"></i><span>&nbsp;Fourth profit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 right-side">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong class="">Welcome to Abixen Platform</strong>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" ng-submit="login()">
+                            <div class="form-group">
+                                <label for="usernameInput" class="col-sm-3 control-label">E-mail</label>
+
+                                <div class="col-sm-9">
+                                    <input ng-model="credentials.username" type="text" name="username"
+                                           class="form-control" id="usernameInput" placeholder="Email"
+                                           required="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordInput" class="col-sm-3 control-label">Password</label>
+
+                                <div class="col-sm-9">
+                                    <input ng-model="credentials.password" type="password" name="password"
+                                           class="form-control" id="passwordInput" placeholder="Password"
+                                           required="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox">
+                                        <label class="">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group last">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn login-button">Sign in</button>
+                                    <button type="reset" class="btn reset-button">Reset</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

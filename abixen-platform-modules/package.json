@@ -1,0 +1,19 @@
+{
+  "name": "abixen-platform-modules",
+  "version": "1.0.0",
+  "dependencies": {
+    "bower": "~1.3.12",
+    "grunt": "*",
+    "grunt-bowercopy": "*",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-sass": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-htmlmin": "*"
+  }
+}

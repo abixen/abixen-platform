@@ -1,0 +1,12 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin border-radius-custom($radius-top-left, $radius-top-right, $radius-bottom-left, $radius-bottom-right) {
+  border-radius: $radius-top-left $radius-top-right $radius-bottom-right $radius-bottom-left;
+  -webkit-border-radius: $radius-top-left $radius-top-right $radius-bottom-right $radius-bottom-left;
+  background-clip: padding-box;
+}

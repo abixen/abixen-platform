@@ -1,0 +1,12 @@
+---
+applications:
+- name: abixen-platform-eureka
+  memory: 512M
+  instances: 1
+  host: abixen-platform-eureka-${random-word}
+  domain: cfapps.io
+  path: target/abixen-platform-eureka.jar
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+    DEBUG: "true"
+    debug: "true"

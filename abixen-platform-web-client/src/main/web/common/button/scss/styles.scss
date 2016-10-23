@@ -1,0 +1,35 @@
+.add-new-button {
+  color: #ffffff;
+  background-color: #4ab200;
+  border: 1px solid #2b6800;
+  font-size: 22px;
+  padding: 2px 12px;
+
+  span {
+    margin-left: 7px;
+  }
+
+  &:hover {
+    color: #ffffff;
+    background-color: #5AD900;
+    border: 1px solid #3c9000;
+  }
+}
+
+@mixin platform-button($font-color, $font-color-hover, $background-color, $border-color, $background-color-hover, $border-color-hover) {
+  color: $font-color !important;
+  background-color: $background-color !important;
+  border: 1px solid $border-color !important;
+  font-size: 22px !important;
+  padding: 2px 12px !important;
+
+  span {
+    margin-left: 7px !important;
+  }
+
+  &:hover {
+    color: $font-color-hover !important;
+    background-color: $background-color-hover !important;
+    border: 1px solid $border-color-hover !important;
+  }
+}

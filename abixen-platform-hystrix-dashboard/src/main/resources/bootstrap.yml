@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: abixen-platform-hystrix-dashboard
+  cloud:
+    config:
+      uri: http://localhost:8888

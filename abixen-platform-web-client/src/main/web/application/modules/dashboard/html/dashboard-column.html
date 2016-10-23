@@ -1,0 +1,12 @@
+<div class="column" ng-class="column.styleClass" ng-model="column.widgets">
+    <div id="wid_{{column.cid}}" adf-id="{{column.cid}}" class="custom-column-inner">
+        <adf-widget ng-repeat="definition in column.widgets"
+                definition="definition"
+                column="column"
+                edit-mode="editMode"
+                options="options"
+                widget-state="widgetState"
+                />
+    </div>
+    <!-- If present, a new row will be injected here -->
+</div>

@@ -1,0 +1,46 @@
+<div class="row form-row">
+    <div class="col-md-4">
+        <div class="bs-example" data-example-id="simple-nav-stacked">
+            <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+                <li ng-repeat="roleType in uniqueRoleTypes" ng-class="{active: roleType==selectedRoleType}"
+                    ng-click="setSelectedRoleType(roleType)" role="presentation">
+                    <a href="">{{roleType}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <form role="form" name="entityForm" novalidate>
+            <div class="form-group">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Selected</th>
+                        <th>Role Name</th>
+                        <th>Role Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="ur in userRole.userRoles"
+                        ng-show="selectedRoleType==ur.role.roleType || selectedRoleType=='ALL'">
+                        <td><input type="checkbox" ng-model="ur.selected"/></td>
+                        <td>{{ur.role.name}}</td>
+                        <td>To be done</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="form-group last">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="entityForm.$invalid"
+                            ng-click="saveForm()">Save
+                    </button>
+                    <button type="reset" class="btn btn-default btn-sm">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
