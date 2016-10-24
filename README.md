@@ -240,6 +240,16 @@ There are three initial users:
 * username *user* and password *password*
 * username *editor* and password *password*
 
+#Dealing with static resources
+The are static resources in the Web Client and the Modules microservices.
+A developer have to modify files in the web directory. 
+Once some changes has been done,
+running the grunt task from the Maven Frontend Plugin, resources are processing and putting into static directory.
+Don't modify a content of the static directory - it is overwritten every time, once the grunt task is performed.
+Refresh a browser after the grunt task is finished.
+
+![IDEA gateway create](documentation/idea_grunt_run.png)
+
 
 #License
 
