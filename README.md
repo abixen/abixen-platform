@@ -38,7 +38,7 @@ However there are some rector needs at this time.
 Preliminary we have to focus on following refactor and changes:
 
 * Change AngularJS style to Papa Style
-* Apply Lombock library on Java side
+* Apply Lombok library on Java side
 * Migrate to Liquibase
 
 In relation to issues, there will be worth to talk about them once refactor and several features described in the section below will be done.
