@@ -140,7 +140,7 @@ If yes, go to the next step.
 ###Run Web Client
 
 ```
-java -Dspring.profiles.active=dev -jar abixen-platform-web-client/target/abixen-platform.jar
+java -Dspring.profiles.active=dev -jar abixen-platform-web-client/target/abixen-platform.war
 ```
 Refresh the Eureka's page and check if the ABIXEN-PLATFORM-WEB-CLIENT has been registered.
 If yes, in a browser go to the address http://localhost:8080 and sign in to the platform.

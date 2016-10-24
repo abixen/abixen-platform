@@ -5,5 +5,5 @@ spring:
     config:
       uri: http://localhost:8888
   view:
-    prefix: /META-INF/jsp/
+    prefix: /WEB-INF/jsp/
     suffix: .jsp
