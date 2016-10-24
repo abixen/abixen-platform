@@ -267,18 +267,18 @@ details.
 
 
 
-#Faq
-1) I'm getting "[ERROR] bower angular-svg-round-progressbar#0.3.8 ENOGIT git is not installed or not in the PATH when try start abixen-platform-modules". Why?
+#FAQ
+* I'm getting "[ERROR] bower angular-svg-round-progressbar#0.3.8 ENOGIT git is not installed or not in the PATH when try start abixen-platform-modules". Why?
 
-    You get this error, becouse you don't have installed git or your configuration of path (on Windows) is default.
-    On Windows you should have in the path two variable "<You path to git folder>\Git\cmd" (is default) and "<You path to git folder>\Git\bin" (it isn't default).
-    Add not default variable and should work. Please remember if you changing path when you IDE is started then you need to restart IDE.
+    *You are getting this error, because you don't have installed git or your configuration of path (on Windows) is default.
+    On Windows you should have in the path two variables "<You path to git folder>\Git\cmd" (is default) and "<You path to git folder>\Git\bin" (it isn't default).
+    Add the not default variable and it should work. Please remember if you are changing the path when your IDE is running then you need to restart IDE.*
     
-2) Abixen-platform-gateway can't save data in redis.
+* Abixen Platform Gateway can't save data in the redis.
 
-    Please run redis server with administrator right.
+    *Please run the redis server with the administrator right.*
     
-3) I done some many good works on front-end side in abixen-platform-web-client and I lost it.
+* I did some many good works on the front-end side in the abixen-platform-web-client and I lost it.
 
-    Probable, you work in "resource/static" folder. This folder is target for grunt build task.
-    Every change should be done in "web" folder. Files from this folder will be auto builded to "static" folder
+    *Probably, you are working in "resource/static" folder. This folder is the target of the grunt build task.
+    Every change should be done in the "web" folder. Files from this folder will be auto built to the "static" folder*
