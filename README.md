@@ -266,3 +266,8 @@ details.
 2) Abixen-platform-gateway can't save data in redis.
 
     Please run redis server with administrator right.
+    
+3) I done some many good works on front-end side in abixen-platform-web-client and I lost it.
+
+    Probable, you work in "resource/static" folder. This folder is target for grunt build task.
+    Every change should be done in "web" folder. Files from this folder will be auto builded to "static" folder
