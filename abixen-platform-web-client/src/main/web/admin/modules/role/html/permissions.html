@@ -35,13 +35,17 @@
                 </div>
 
 
-                <div class="form-group last">
+                <div class="form-group last bottom-navigation">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-success btn-sm" ng-disabled="entityForm.$invalid"
-                                ng-click="saveForm()">Save
-                        </button>
-                        <button type="reset" class="btn btn-default btn-sm" ui-sref="application.roles.list">Cancel
-                        </button>
+                        <a type="submit" class="btn save-button" ng-disabled="entityForm.$invalid"
+                                ng-click="saveForm()">
+                            <i class="fa fa-floppy-o"></i>
+                            <span> Save</span>
+                        </a>
+                        <a class="btn cancel-button" ui-sref="application.roles.list">
+                            <i class="fa fa-times"></i>
+                            <span> Cancel</span>
+                        </a>
                     </div>
                 </div>
             </form>
