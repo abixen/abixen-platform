@@ -261,4 +261,8 @@ details.
 
     You get this error, becouse you don't have installed git or your configuration of path (on Windows) is default.
     On Windows you should have in the path two variable "<You path to git folder>\Git\cmd" (is default) and "<You path to git folder>\Git\bin" (it isn't default).
-    Add not default variable and should work. Please remember if you changing path when you IDE is started then you need to restart IDE
+    Add not default variable and should work. Please remember if you changing path when you IDE is started then you need to restart IDE.
+    
+2) Abixen-platform-gateway can't save data in redis.
+
+    Please run redis server with administrator right.
