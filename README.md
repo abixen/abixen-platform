@@ -94,6 +94,13 @@ java -jar abixen-platform-eureka/target/abixen-platform-eureka.jar
 In a browser go to address http://localhost:8761 and if you can see the Eureka's page, go to the next step. 
 ###Run Configuration Server
 
+Go to the abixen-platform-core.yml in the abixen-platform-configuration microservice.
+Set a correct absolute path of the imageLibraryDirectory property. In the future this config will be improvement.
+In example like this:
+
+```
+imageLibraryDirectory: /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library/
+```
 ```
 java -jar abixen-platform-configuration/target/abixen-platform-configuration.jar
 ```
@@ -178,6 +185,13 @@ Temporary there is an test issue, that is why the skip tests is needed. The issu
 
 In a browser go to address http://localhost:8761 and if you can see the Eureka's page, go to the next step. 
 ###Run Configuration Server
+Go to the abixen-platform-core.yml in the abixen-platform-configuration microservice.
+Set a correct absolute path of the imageLibraryDirectory property. In the future this config will be improvement.
+In example like this:
+
+```
+imageLibraryDirectory: /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library/
+```
 
 Similarly as Eureka, start Abixen Platform Configuration microservice.
 Refresh the Eureka's page and check if the ABIXEN-PLATFORM-CONFIGURATION has been registered. 

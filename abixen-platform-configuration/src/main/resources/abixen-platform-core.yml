@@ -51,7 +51,7 @@ platform:
             enable: true
         debug: true
     resource:
-      imageLibraryDirectory: F:/abixen-platform/data/image-library/
+      imageLibraryDirectory: /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library/
 eureka:
   instance:
     hostname: ${APPLICATION_DOMAIN:localhost}
