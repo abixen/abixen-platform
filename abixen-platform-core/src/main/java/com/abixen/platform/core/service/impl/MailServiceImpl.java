@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.configuration.properties.AbstractPlatformMailConfigurationProperties;
 import com.abixen.platform.core.configuration.properties.PlatformMailConfigurationProperties;
 import com.abixen.platform.core.service.MailService;
 import freemarker.template.Configuration;
@@ -49,7 +50,7 @@ public class MailServiceImpl implements MailService, ServletContextAware {
 
 
     @Autowired
-    private PlatformMailConfigurationProperties platformMailConfigurationProperties;
+    private AbstractPlatformMailConfigurationProperties platformMailConfigurationProperties;
 
 
     @Override

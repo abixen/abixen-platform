@@ -14,13 +14,11 @@
 
 package com.abixen.platform.core.configuration;
 
-import com.abixen.platform.core.configuration.properties.PlatformDataSourceConfigurationProperties;
-import com.abixen.platform.core.util.PlatformProfiles;
+import com.abixen.platform.core.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 
@@ -29,12 +27,11 @@ import javax.sql.DataSource;
 public class PlatformDataSourceConfiguration {
 
     @Autowired
-    PlatformDataSourceConfigurationProperties platformJdbcConfiguration;
+    AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
 
     //http://stackoverflow.com/questions/20039333/how-to-spring-3-2-hibernate-4-on-javaconfig-correctly
 
 
-    @Profile(PlatformProfiles.DEV)
     @Bean(destroyMethod = "close")
     public DataSource devDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -48,17 +45,6 @@ public class PlatformDataSourceConfiguration {
         //return dataSource;
     }
 
-    @Profile(PlatformProfiles.TEST)
-    @Bean(destroyMethod = "close")
-    public DataSource testDataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(platformJdbcConfiguration.getDriverClassName());
-        dataSource.setUrl(platformJdbcConfiguration.getDatabaseUrl());
-        dataSource.setUsername(platformJdbcConfiguration.getUsername());
-        dataSource.setPassword(platformJdbcConfiguration.getPassword());
-        // DatabasePopulatorUtils.execute(databasePopulator(), dataSource);
-        return dataSource;
-    }
 
     /*private DatabasePopulator databasePopulator() {
         log.debug ("databasePopulator()");

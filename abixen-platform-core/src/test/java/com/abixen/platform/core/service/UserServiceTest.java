@@ -15,8 +15,10 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.*;
-import com.abixen.platform.core.configuration.properties.PlatformDataSourceConfigurationProperties;
+import com.abixen.platform.core.configuration.properties.PlatformJdbcConfigurationProperties;
 import com.abixen.platform.core.configuration.properties.PlatformMailConfigurationProperties;
+import com.abixen.platform.core.configuration.properties.PlatformTestJdbcConfigurationProperties;
+import com.abixen.platform.core.configuration.properties.PlatformTestMailConfigurationProperties;
 import com.abixen.platform.core.model.enumtype.UserGender;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.util.PlatformProfiles;
@@ -34,9 +36,8 @@ import java.util.Date;
 import static org.junit.Assert.assertNotNull;
 
 
-@ActiveProfiles(PlatformProfiles.TEST)
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {PlatformAclConfiguration.class, PlatformJpaConfiguration.class, PlatformDataSourceConfigurationProperties.class, PlatformMailConfigurationProperties.class, PlatformDataSourceConfiguration.class, PlatformServiceConfiguration.class, PlatformSecurityConfiguration.class})
+@SpringApplicationConfiguration(classes = {PlatformAclConfiguration.class, PlatformJpaConfiguration.class, PlatformTestJdbcConfigurationProperties.class, PlatformTestMailConfigurationProperties.class, PlatformDataSourceConfiguration.class, PlatformServiceConfiguration.class, PlatformSecurityConfiguration.class})
 //@ContextConfiguration(classes = {PlatformJpaConfiguration.class, PlatformDataSourceConfigurationProperties.class, PlatformMailConfigurationProperties.class, PlatformDataSourceConfiguration.class, PlatformServiceConfiguration.class, PlatformSecurityConfiguration.class})
 public class UserServiceTest {
 

@@ -14,21 +14,26 @@
 
 package com.abixen.platform.core.configuration.properties;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 
-@Component
-@EnableConfigurationProperties
-@ConfigurationProperties(prefix = "platform.core.jdbc")
-public class PlatformDataSourceConfigurationProperties {
+public abstract class AbstractPlatformJdbcConfigurationProperties {
 
+    @NotNull
     private String driverClassName;
-    private String dialect;
+
+    @NotNull
     private String databaseUrl;
+
+    @NotNull
+    private String dialect;
+
+    @NotNull
     private String username;
+
+    @NotNull
     private String password;
 
     public String getDriverClassName() {
@@ -39,20 +44,20 @@ public class PlatformDataSourceConfigurationProperties {
         this.driverClassName = driverClassName;
     }
 
-    public String getDialect() {
-        return dialect;
-    }
-
-    public void setDialect(String dialect) {
-        this.dialect = dialect;
-    }
-
     public String getDatabaseUrl() {
         return databaseUrl;
     }
 
     public void setDatabaseUrl(String databaseUrl) {
         this.databaseUrl = databaseUrl;
+    }
+
+    public String getDialect() {
+        return dialect;
+    }
+
+    public void setDialect(String dialect) {
+        this.dialect = dialect;
     }
 
     public String getUsername() {

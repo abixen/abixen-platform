@@ -17,7 +17,9 @@ package com.abixen.platform.core.util;
 
 public final class PlatformProfiles {
 
-    public static final String TEST = "test";
-
     public static final String DEV = "dev";
+
+    public static final String PROD = "prod";
+
+    public static final String CLOUD = "cloud";
 }

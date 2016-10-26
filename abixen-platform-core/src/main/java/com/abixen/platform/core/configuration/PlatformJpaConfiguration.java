@@ -14,7 +14,8 @@
 
 package com.abixen.platform.core.configuration;
 
-import com.abixen.platform.core.configuration.properties.PlatformDataSourceConfigurationProperties;
+import com.abixen.platform.core.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
+import com.abixen.platform.core.configuration.properties.PlatformJdbcConfigurationProperties;
 import com.abixen.platform.core.security.PlatformAuditorAware;
 import com.abixen.platform.core.util.PlatformProfiles;
 import org.apache.log4j.Logger;
@@ -54,7 +55,7 @@ public class PlatformJpaConfiguration {
     Environment environment;
 
     @Autowired
-    PlatformDataSourceConfigurationProperties platformJdbcConfiguration;
+    AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
 
 
     @Bean(name = "entityManagerFactory")
@@ -71,10 +72,10 @@ public class PlatformJpaConfiguration {
         jpaProperties.put("hibernate.show_sql", "true");
         jpaProperties.put("hibernate.dialect", platformJdbcConfiguration.getDialect());
 
-        String activeProfile = environment.getActiveProfiles()[0];
+        String activeProfile = environment.getActiveProfiles().length > 0 ? environment.getActiveProfiles()[0] : "test";
         String createDbSchema = environment.getProperty("createDbSchema");
 
-        if ((createDbSchema != null && createDbSchema.equalsIgnoreCase("true")) || activeProfile.equals(PlatformProfiles.TEST)) {
+        if ((createDbSchema != null && createDbSchema.equalsIgnoreCase("true")) || activeProfile == "test") {
             log.info("Import database will be executing. Active profile is " + activeProfile);
             jpaProperties.put("hibernate.hbm2ddl.auto", "create");
             jpaProperties.put("hibernate.hbm2ddl.import_files", "sql/import_" + activeProfile + ".sql");

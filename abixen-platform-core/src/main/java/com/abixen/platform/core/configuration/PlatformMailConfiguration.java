@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.configuration;
 
+import com.abixen.platform.core.configuration.properties.AbstractPlatformMailConfigurationProperties;
 import com.abixen.platform.core.configuration.properties.PlatformMailConfigurationProperties;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class PlatformMailConfiguration {
     static Logger log = Logger.getLogger(PlatformMailConfiguration.class.getName());
 
     @Autowired
-    private PlatformMailConfigurationProperties platformMailConfigurationProperties;
+    private AbstractPlatformMailConfigurationProperties platformMailConfigurationProperties;
 
     @Bean
     public JavaMailSender javaMailService() {
@@ -51,9 +52,9 @@ public class PlatformMailConfiguration {
     private Properties getMailProperties() {
         Properties properties = new Properties();
         properties.setProperty("mail.transport.protocol", platformMailConfigurationProperties.getTransport().getProtocol());
-        properties.setProperty("mail.smtp.auth", platformMailConfigurationProperties.getSmtp().isAuth() ? "true" : "false");
-        properties.setProperty("mail.smtp.starttls.enable", platformMailConfigurationProperties.getSmtp().getStarttls().isEnable() ? "true" : "false");
-        properties.setProperty("mail.debug", platformMailConfigurationProperties.isDebug() ? "true" : "false");
+        properties.setProperty("mail.smtp.auth", platformMailConfigurationProperties.getSmtp().getAuth() ? "true" : "false");
+        properties.setProperty("mail.smtp.starttls.enable", platformMailConfigurationProperties.getSmtp().getStarttls().getEnable() ? "true" : "false");
+        properties.setProperty("mail.debug", platformMailConfigurationProperties.getDebug() ? "true" : "false");
         return properties;
     }
 
