@@ -296,3 +296,7 @@ details.
 
     *Probably, you are working in "resource/static" folder. This folder is the target of the grunt build task.
     Every change should be done in the "web" folder. Files from this folder will be auto built to the "static" folder*
+
+* I'm getting InvalidDataAccessApiUsageException: ERR Unsupported CONFIG parameter: notify-keyspace-events; nested exception is redis.clients.jedis.exceptions.JedisDataException:
+
+    *You are getting this error, because you have installed redis server in version lower then 2.8. Please upgrade your redis server and try again.
