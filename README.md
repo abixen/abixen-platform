@@ -79,10 +79,9 @@ If you wish to only run project, without development, please follow the below st
 In a terminal go to the project directory and execute:
 
 ```
-mvn install -DskipTests=true
+mvn install
 ```
 Maven should download all required dependencies, both java libraries and using Maven Frontend Plugin trigger the bower ones downloading process.
-Temporary there is an test issue, that is why the skip tests is needed. The issue will be fixed.
 
 ##Run particular microservices
 
@@ -167,7 +166,6 @@ At the first open the project in IntelliJ IDEA. Then, click the right mouse butt
 ![IDEA install](documentation/idea_install.png)
 
 Maven should download all required dependencies, both java libraries and using Maven Frontend Plugin trigger the bower ones downloading process.
-Temporary there is an test issue, that is why the skip tests is needed. The issue will be fixed.
 
 ##Run particular microservices
 
