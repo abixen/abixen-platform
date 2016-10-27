@@ -15,8 +15,6 @@
 package com.abixen.platform.core.configuration.properties;
 
 
-import org.springframework.stereotype.Component;
-
 import javax.validation.constraints.NotNull;
 
 public abstract class AbstractPlatformJdbcConfigurationProperties {

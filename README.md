@@ -162,17 +162,9 @@ For development work can start above microservices in the development environmen
 following below steps.
 
 ##Build the project
-At the first open the project in IntelliJ IDEA. Then, click the right mouse button on the install option and select create one.: 
+At the first open the project in IntelliJ IDEA. Then, click the right mouse button on the install option and select Run maven build: 
 
-![IDEA install create](documentation/idea_install_create.png)
-
-In the opened window select skip tests option
-
-![IDEA install config](documentation/idea_install_config.png)
-
-Save changes and run install:
-
-![IDEA install run](documentation/idea_install_run.png)
+![IDEA install](documentation/idea_install.png)
 
 Maven should download all required dependencies, both java libraries and using Maven Frontend Plugin trigger the bower ones downloading process.
 Temporary there is an test issue, that is why the skip tests is needed. The issue will be fixed.

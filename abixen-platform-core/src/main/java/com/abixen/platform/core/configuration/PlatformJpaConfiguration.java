@@ -75,7 +75,7 @@ public class PlatformJpaConfiguration {
         String activeProfile = environment.getActiveProfiles().length > 0 ? environment.getActiveProfiles()[0] : "test";
         String createDbSchema = environment.getProperty("createDbSchema");
 
-        if ((createDbSchema != null && createDbSchema.equalsIgnoreCase("true")) || activeProfile == "test") {
+        if ((createDbSchema != null && createDbSchema.equalsIgnoreCase("true")) || activeProfile.equals("test")) {
             log.info("Import database will be executing. Active profile is " + activeProfile);
             jpaProperties.put("hibernate.hbm2ddl.auto", "create");
             jpaProperties.put("hibernate.hbm2ddl.import_files", "sql/import_" + activeProfile + ".sql");

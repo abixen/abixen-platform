@@ -14,6 +14,7 @@
 
 package com.abixen.platform.module.configuration;
 
+import com.abixen.platform.core.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import com.abixen.platform.module.security.PlatformAuditorAware;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ import java.util.Properties;
 
 
 @Configuration
-@Import({PlatformModuleDataSourceConfiguration.class, PlatformModulePropertiesConfiguration.class})
+@Import({PlatformModuleDataSourceConfiguration.class})
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "platformAuditorAware")
 @EnableJpaRepositories(basePackages = {"com.abixen.platform.module.chart.repository", "com.abixen.platform.module.magicnumber.repository", "com.abixen.platform.module.kpichart.repository"})
@@ -52,8 +53,8 @@ public class PlatformModuleJpaConfiguration {
     @Autowired
     Environment environment;
 
-    @Value("#{jdbcProperties['jdbc.dialect']}")
-    private String hibernateDialect;
+    @Autowired
+    AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
 
 
     //http://java.dzone.com/articles/springmvc4-spring-data-jpa
@@ -70,9 +71,9 @@ public class PlatformModuleJpaConfiguration {
         Properties jpaProperties = new Properties();
 
         jpaProperties.put("hibernate.show_sql", "true");
-        jpaProperties.put("hibernate.dialect", hibernateDialect);
+        jpaProperties.put("hibernate.dialect", platformJdbcConfiguration.getDialect());
 
-        String activeProfile = environment.getActiveProfiles()[0];
+        String activeProfile = environment.getActiveProfiles().length > 0 ? environment.getActiveProfiles()[0] : "test";
         String createDbSchema = environment.getProperty("createDbSchema");
 
         if ((createDbSchema != null && createDbSchema.equalsIgnoreCase("true")) || activeProfile.equals("test")) {

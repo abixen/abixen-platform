@@ -55,5 +55,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.springframework:spring-context:4.1.6.RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.springframework:spring-webmvc:4.1.6.RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.springframework:spring-expression:4.1.6.RELEASE" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: commons-dbcp:commons-dbcp:1.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: commons-pool:commons-pool:1.6" level="project" />
   </component>
 </module>

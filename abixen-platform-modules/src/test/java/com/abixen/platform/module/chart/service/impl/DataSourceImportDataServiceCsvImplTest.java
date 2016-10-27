@@ -1,8 +1,15 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- * <p>
- * This file contains proprietary information of Abixen Systems.
- * Copying or reproduction without prior written approval is prohibited.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  */
 
 package com.abixen.platform.module.chart.service.impl;
@@ -22,6 +29,7 @@ import com.abixen.platform.module.chart.repository.DatabaseDataSourceRepository;
 import com.abixen.platform.module.chart.service.DataSourceImportDataService;
 import com.abixen.platform.module.chart.service.DomainBuilderService;
 import com.abixen.platform.module.chart.util.*;
+import com.abixen.platform.module.configuration.properties.PlatformTestJdbcConfigurationProperties;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -49,11 +57,11 @@ import static org.junit.Assert.*;
 
 
 
-@ActiveProfiles(PlatformProfiles.TEST)
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PlatformModuleJpaConfiguration.class, PlatformModuleDataSourceConfiguration.class,
         PlatformModuleServiceConfiguration.class, PlatformModuleSecurityConfiguration.class, FileDataSource.class,
-        DatabaseDataSourceRepository.class
+        DatabaseDataSourceRepository.class,
+        PlatformTestJdbcConfigurationProperties.class
 })
 
 public class DataSourceImportDataServiceCsvImplTest {
