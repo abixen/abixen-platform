@@ -113,7 +113,16 @@
                         </div>
                     </form>
                 </uib-tab>
-                <uib-tab heading="Roles">Roles content</uib-tab>
+                <uib-tab heading="Roles">
+                    <form class="form form-instance" ng-repeat="role in user.roles" ng-init="show=false;">
+                        <div class="roles">
+                            <span class="name" ng-click="show=!show"> <a class="fa" ng-class="{'fa-plus':!show, 'fa-minus':show}" ></a> {{role.name}} </span>
+                            <ul ng-class="{clicked:show}" class="list" ng-show="show">
+                                <li ng-repeat="permission in role.permissions">{{permission.description}}</li>
+                            </ul>
+                        </div>
+                    </form>
+                </uib-tab>
             </uib-tabset>
         </div>
     </div>

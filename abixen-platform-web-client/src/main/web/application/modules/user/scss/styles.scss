@@ -31,3 +31,22 @@
     margin-top: 108px;
   }
 }
+
+.roles{
+  .name{
+    & > a {
+      text-decoration: none;
+    }
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .clicked{
+    transform:scaleY(1)!important;
+  }
+
+  .list {
+    transform-origin:50% 0;
+    transform:scaleY(0);
+    transition-duration:250ms;
+  }
+}
