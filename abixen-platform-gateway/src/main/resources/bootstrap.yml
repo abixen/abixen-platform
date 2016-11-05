@@ -1,3 +1,7 @@
+spring:
+  profiles:
+    active: dev
+
 logging:
   level:
     org:
@@ -7,6 +11,9 @@ logging:
     com:
       abixen:
         platform: DEBUG
+
+
+---
 
 
 spring:

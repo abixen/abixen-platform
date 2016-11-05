@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   view:
     prefix: /WEB-INF/jsp/
     suffix: .jsp
@@ -13,6 +15,7 @@ logging:
 
 
 ---
+
 
 spring:
   profiles: cloud

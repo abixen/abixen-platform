@@ -1,9 +1,16 @@
+spring:
+  profiles:
+    active: dev
+
 logging:
   level:
     org:
       springframework:
         retry: DEBUG
     redis: DEBUG
+
+
+---
 
 
 spring:
