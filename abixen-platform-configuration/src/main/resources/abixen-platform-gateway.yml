@@ -1,46 +1,85 @@
+server:
+  port: 9090
+
+security:
+  sessions: ALWAYS
+
+
+---
+
+
+spring:
+  profiles: cloud
+  redis:
+    host: redis
+    port: 6379
+
+zuul:
+  routes:
+    resource:
+      path: /resource/**
+      url: http://core:9000
+      sensitive-headers:
+    api:
+      path: /api/**
+      url: http://core:9000/api
+      sensitive-headers:
+    applicationModules:
+      path: /application/modules/abixen/**
+      url: http://modules:9091/application/modules/abixen
+      sensitive-headers:
+    adminModules:
+      path: /admin/modules/abixen/**
+      url: http://modules:9091/admin/modules/abixen
+      sensitive-headers:
+
+eureka:
+  instance:
+    preferIpAddress: true
+    metadataMap:
+      cluster: AbixenPlatform
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${abixen.services.eureka.uri}:8761/eureka/
+
+
+---
+
+
+spring:
+  profiles: dev
+  redis:
+    host: localhost
+    port: 6379
+
 zuul:
   routes:
     resource:
       path: /resource/**
       url: http://localhost:9000
+      sensitive-headers:
     api:
       path: /api/**
       url: http://localhost:9000/api
+      sensitive-headers:
     applicationModules:
       path: /application/modules/abixen/**
       url: http://localhost:9091/application/modules/abixen
+      sensitive-headers:
     adminModules:
       path: /admin/modules/abixen/**
       url: http://localhost:9091/admin/modules/abixen
+      sensitive-headers:
 
-server:
-  port: ${vcap.application.port:9090}
-  address: 127.0.0.1
-
----
-
-spring:
-  profiles: cloud
 eureka:
   instance:
-    hostname: ${APPLICATION_DOMAIN:localhost}
-    nonSecurePort: 9090
+    hostname: localhost
     metadataMap:
       cluster: AbixenPlatform
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
-
----
-
-spring:
-  profiles: dev
-eureka:
-  instance:
-    hostname: ${APPLICATION_DOMAIN:localhost}
-    nonSecurePort: 9090
-    metadataMap:
-      cluster: AbixenPlatform
-  client:
-    serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+      defaultZone: http://localhost:8761/eureka/

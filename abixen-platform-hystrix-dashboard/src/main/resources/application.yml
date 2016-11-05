@@ -1,5 +1,9 @@
+spring:
+  application:
+    name: abixen-platform-hystrix-dashboard
+
 turbine:
   aggregator:
     clusterConfig: AbixenPlatform
   appConfig: abixen-platform-core,abixen-platform-modules,abixen-platform-gateway
-  clusterNameExpression: 'cluster'
+  clusterNameExpression: new String("default")

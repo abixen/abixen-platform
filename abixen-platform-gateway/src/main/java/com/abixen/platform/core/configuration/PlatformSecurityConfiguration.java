@@ -34,9 +34,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.session.SessionManagementFilter;
 
 
 @Configuration
@@ -68,6 +70,7 @@ public class PlatformSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .antMatchers("/test").permitAll()
                 .antMatchers("/application/modules/**").permitAll()
                 .antMatchers("/admin/modules/**").permitAll()
+                .antMatchers("/api/user").permitAll()
                 .antMatchers("/api/user-activation/activate/*/").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -75,7 +78,7 @@ public class PlatformSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
                 .and()
-                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+                .addFilterAfter(new CsrfHeaderFilter(), SessionManagementFilter.class)
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository());
     }

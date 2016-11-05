@@ -289,4 +289,4 @@ details.
 
 * I'm getting InvalidDataAccessApiUsageException: ERR Unsupported CONFIG parameter: notify-keyspace-events; nested exception is redis.clients.jedis.exceptions.JedisDataException:
 
-    *You are getting this error, because you have installed redis server in version lower then 2.8. Please upgrade your redis server and try again.
+    *You are getting this error, because you have installed the redis server in version lower then 2.8. Please upgrade your redis server and try again.*

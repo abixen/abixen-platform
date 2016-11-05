@@ -1,32 +1,18 @@
 server:
-  port: ${vcap.application.port:9000}
+  port: 9000
+
+security:
+  sessions: NEVER
+
 
 ---
+
 
 spring:
   profiles: cloud
-platform:
-  core:
-    jdbc:
-      driverClassName: org.postgresql.Driver
-      dialect: org.hibernate.dialect.PostgreSQLDialect
-      databaseUrl: jdbc:postgresql://localhost:5432/abixen_platform
-      username: postgres
-      password: postgres
-eureka:
-  instance:
-    hostname: ${APPLICATION_DOMAIN:localhost}
-    nonSecurePort: 9000
-    metadataMap:
-      cluster: AbixenPlatform
-  client:
-    serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
-
----
-
-spring:
-  profiles: dev
+  redis:
+    host: redis
+    port: 6379
 platform:
   core:
     jdbc:
@@ -51,43 +37,36 @@ platform:
             enable: true
         debug: true
     resource:
-      imageLibraryDirectory: /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library/
+      imageLibraryDirectory: /data/db
+
 eureka:
   instance:
-    hostname: ${APPLICATION_DOMAIN:localhost}
-    nonSecurePort: 9000
+    preferIpAddress: true
     metadataMap:
       cluster: AbixenPlatform
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+      defaultZone: http://${abixen.services.eureka.uri}:8761/eureka/
+
 
 ---
 
+
 spring:
-  profiles: test
-eureka:
-  instance:
-    hostname: ${APPLICATION_DOMAIN:localhost}
-    nonSecurePort: 9000
-    metadataMap:
-      cluster: AbixenPlatform
-  client:
-    serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+  profiles: dev
+  redis:
+    host: localhost
+    port: 6379
 platform:
   core:
     jdbc:
-      #driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      #dialect: org.hibernate.dialect.H2Dialect
-      #databaseUrl: jdbc:log4jdbc:h2:file:~/h2-db
-      #username: sa
-      #password: postgres
-      driverClassName: org.postgresql.Driver
-      dialect: org.hibernate.dialect.PostgreSQLDialect
-      databaseUrl: jdbc:postgresql://localhost:5432/abixen_platform
-      username: postgres
-      password: postgres
+      driverClassName: org.h2.Driver
+      dialect: org.hibernate.dialect.H2Dialect
+      databaseUrl: jdbc:h2:file:~/abixen-platform-h2-db
+      username: sa
+      password:
     mail:
       outgoing:
         host: abixen.home.pl
@@ -104,4 +83,15 @@ platform:
             enable: true
         debug: true
     resource:
-      imageLibraryDirectory: F:/abixen-platform/data/image-library/
+      imageLibraryDirectory: /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library
+
+eureka:
+  instance:
+    hostname: localhost
+    metadataMap:
+      cluster: AbixenPlatform
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

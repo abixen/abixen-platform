@@ -1,0 +1,59 @@
+version: '2'
+
+services:
+  redis:
+    image: redis:3.0
+    hostname: redis
+
+  discovery:
+    image: abixen-platform/abixen-platform-eureka
+    ports:
+      - "8761:8761"
+
+  configuration:
+    image: abixen-platform/abixen-platform-configuration
+    links:
+      - discovery
+
+  gateway:
+    image: abixen-platform/abixen-platform-gateway
+    links:
+      - discovery
+      - configuration
+      - redis
+      - core
+      - modules
+
+  modules:
+    image: abixen-platform/abixen-platform-modules
+    links:
+      - discovery
+      - configuration
+
+  core:
+    image: abixen-platform/abixen-platform-core
+    links:
+      - discovery
+      - configuration
+      - redis
+    volumes:
+      - /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library:/data/db
+
+  web-client:
+    image: abixen-platform/abixen-platform-web-client
+    ports:
+      - "8080:8080"
+    links:
+     - discovery
+     - configuration
+     - gateway
+     - core
+
+  hystrix-dashboard:
+    image: abixen-platform/abixen-platform-hystrix-dashboard
+    ports:
+      - "8989:8989"
+    links:
+     - gateway
+     - core
+     - modules

@@ -1,9 +1,45 @@
 spring:
-  application:
-    name: abixen-platform-web-client
-  cloud:
-    config:
-      uri: http://localhost:8888
   view:
     prefix: /WEB-INF/jsp/
     suffix: .jsp
+
+
+logging:
+  level:
+    org:
+      springframework:
+        retry: DEBUG
+    redis: DEBUG
+
+
+---
+
+spring:
+  profiles: cloud
+  cloud:
+    config:
+      enabled: true
+      uri: http://configuration:8888
+      failFast: true
+      retry:
+        initialInterval: 2000
+        multiplier: 1.2
+        maxInterval: 5000
+        maxAttempts: 10
+
+
+---
+
+
+spring:
+  profiles: dev
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8888
+      failFast: true
+      retry:
+        initialInterval: 2000
+        multiplier: 1.2
+        maxInterval: 5000
+        maxAttempts: 10

@@ -92,11 +92,4 @@ public class PlatformConfiguration extends WebMvcConfigurerAdapter {
         return messageSource;
     }
 
-    @Bean(name = "settings")
-    public PropertiesFactoryBean settings() {
-        PropertiesFactoryBean settings = new PropertiesFactoryBean();
-        settings.setLocation(new ClassPathResource("config/settings_" + environment.getActiveProfiles()[0] + ".properties"));
-        return settings;
-    }
-
 }
