@@ -9,9 +9,6 @@ spring:
   profiles:
     active: native
 
-
----
-
 eureka:
   instance:
     preferIpAddress: true
