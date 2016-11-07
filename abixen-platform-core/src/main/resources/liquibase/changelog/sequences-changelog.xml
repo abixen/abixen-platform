@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/sequences.xml">
+
+    <changeSet id="sequences-v1" author="mariuszkumor">
+        <createSequence sequenceName="acl_class_seq" startValue="6"/>
+        <createSequence sequenceName="acl_entry_seq" startValue="4"/>
+        <createSequence sequenceName="acl_object_identity_seq" startValue="4"/>
+        <createSequence sequenceName="acl_sid_seq" startValue="5"/>
+        <createSequence sequenceName="layout_seq" startValue="16"/>
+        <createSequence sequenceName="module_seq" startValue="3"/>
+        <createSequence sequenceName="module_type_seq" startValue="4"/>
+        <createSequence sequenceName="page_seq" startValue="8"/>
+        <createSequence sequenceName="permission_acl_class_category_seq" startValue="6"/>
+        <createSequence sequenceName="permission_general_category_seq" startValue="2"/>
+        <createSequence sequenceName="permission_seq" startValue="18"/>
+        <createSequence sequenceName="resource_seq" startValue="9"/>
+        <createSequence sequenceName="role_seq" startValue="4"/>
+        <createSequence sequenceName="user_seq" startValue="4"/>
+    </changeSet>
+
+</databaseChangeLog>

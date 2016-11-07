@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/changelog.xml">
+
+    <include file="liquibase/changelog/user-changelog.xml"/>
+    <include file="liquibase/changelog/role-changelog.xml"/>
+    <include file="liquibase/changelog/acl-class-changelog.xml"/>
+    <include file="liquibase/changelog/permission-acl-class-category-changelog.xml"/>
+    <include file="liquibase/changelog/permission-general-category-changelog.xml"/>
+    <include file="liquibase/changelog/permission-changelog.xml"/>
+    <include file="liquibase/changelog/sequences-changelog.xml"/>
+    <include file="liquibase/changelog/acl-object-identity-changelog.xml"/>
+    <include file="liquibase/changelog/acl-sid-changelog.xml"/>
+    <include file="liquibase/changelog/acl-entry-changelog.xml"/>
+    <include file="liquibase/changelog/layout-changelog.xml"/>
+    <include file="liquibase/changelog/page-changelog.xml"/>
+    <include file="liquibase/changelog/module-type-changelog.xml"/>
+    <include file="liquibase/changelog/module-changelog.xml"/>
+    <include file="liquibase/changelog/resource-changelog.xml"/>
+    <include file="liquibase/changelog/role-permission-changelog.xml"/>
+    <include file="liquibase/changelog/user-role-changelog.xml"/>
+</databaseChangeLog>

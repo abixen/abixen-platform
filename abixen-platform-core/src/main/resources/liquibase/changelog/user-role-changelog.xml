@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/user-role-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="user-role-v1">
+        <createTable tableName="user_role">
+            <column name="user_id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="user_id, role_id" constraintName="pk__user_role__user_id__role_id"
+                       tableName="user_role"/>
+
+        <createIndex indexName="idx__user_role__user_id" tableName="user_role">
+            <column name="user_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__user_role__role_id" tableName="user_role">
+            <column name="role_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role"
+                                 constraintName="fk__user_id__user_role__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role"
+                                 constraintName="fk__role_id__user_role__role" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="role_"/>
+
+    </changeSet>
+
+</databaseChangeLog>

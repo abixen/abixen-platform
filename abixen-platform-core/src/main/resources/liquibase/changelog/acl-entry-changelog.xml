@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/acl-entry-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="acl-entry-v1">
+        <createTable tableName="acl_entry">
+            <column name="id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="created_by_id" type="bigint(19)"/>
+            <column name="last_modified_by_id" type="bigint(19)"/>
+            <column name="acl_object_identity_id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="acl_sid_id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__acl_entry__id" tableName="acl_entry"/>
+
+        <createIndex indexName="idx__acl_entry__acl_object_identity_id" tableName="acl_entry">
+            <column name="acl_object_identity_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__acl_entry__acl_sid_id" tableName="acl_entry">
+            <column name="acl_sid_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__acl_entry__created_by_id" tableName="acl_entry">
+            <column name="created_by_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__acl_entry__permission_id" tableName="acl_entry">
+            <column name="permission_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__acl_entry__last_modified_by_id" tableName="acl_entry">
+            <column name="last_modified_by_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="acl_object_identity_id" baseTableName="acl_entry"
+                                 constraintName="fk__acl_object_identity_id__acl_entry__acl_object_identity"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="acl_object_identity"/>
+
+        <addForeignKeyConstraint baseColumnNames="acl_sid_id" baseTableName="acl_entry"
+                                 constraintName="fk__acl_sid_id__acl_entry__acl_sid" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="acl_sid"/>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="acl_entry"
+                                 constraintName="fk__created_by_id__acl_entry__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+        <addForeignKeyConstraint baseColumnNames="permission_id" baseTableName="acl_entry"
+                                 constraintName="fk__permission_id__acl_entry__permission" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="permission"/>
+
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_id" baseTableName="acl_entry"
+                                 constraintName="fk__last_modified_by_id__acl_entry__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,9 @@
+id;module_type_id;relative_url;resource_location;resource_type;created_date;last_modified_date;created_by_id;last_modified_by_id
+1;1;/application/modules/abixen/modules.js;BODY;JAVASCRIPT;NULL;NULL;NULL;NULL
+2;1;/application/modules/abixen/lib/d3.min.js;BODY;JAVASCRIPT;NULL;NULL;NULL;NULL
+3;1;/application/modules/abixen/lib/nvd3/nv.d3.min.js;BODY;JAVASCRIPT;NULL;NULL;NULL;NULL
+4;1;/application/modules/abixen/lib/nvd3/nv.d3.min.css;HEADER;CSS;NULL;NULL;NULL;NULL
+5;1;/application/modules/abixen/lib/angular-nvd3.min.js;BODY;JAVASCRIPT;NULL;NULL;NULL;NULL
+6;2;/application/modules/abixen/modules.js;BODY;JAVASCRIPT;NULL;NULL;NULL;NULL
+7;3;/application/modules/abixen/modules.js;BODY;JAVASCRIPT;NULL;NULL;NULL;NULL
+8;3;/application/modules/abixen/lib/round-progress.min.js;BODY;JAVASCRIPT;NULL;NULL;NULL;NULL

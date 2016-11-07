@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/permission-general-category-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="permission-general-category-v1">
+        <createTable tableName="permission_general_category">
+            <column name="id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="title" type="varchar(255)"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__permission_general_category__id"
+                       tableName="permission_general_category"/>
+
+        <addUniqueConstraint columnNames="name" constraintName="u__permission_general_category__name"
+                             tableName="permission_general_category"/>
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,16 @@
+role_id;permission_id
+1;1
+1;2
+#The Role Page Editor gets following permissions:
+#Allows to view a module
+3;7
+#Allows to add a module
+3;8
+#Allows to edit a module
+3;9
+#Allows to delete a module
+3;10
+#Allows to configure a module
+3;11
+#Allows to change permissions to a module
+3;12

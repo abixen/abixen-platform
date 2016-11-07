@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/module-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="module-v1">
+        <createTable tableName="module">
+            <column name="id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="column_index" type="int(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(100)"/>
+            <column name="order_index" type="int(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="row_index" type="int(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint(19)"/>
+            <column name="last_modified_by_id" type="bigint(19)"/>
+            <column name="module_type_id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="page_id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__module__id" tableName="module"/>
+
+        <createIndex indexName="idx__module__page_id" tableName="module">
+            <column name="page_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__module__last_modified_by_id" tableName="module">
+            <column name="last_modified_by_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__module__created_by_id" tableName="module">
+            <column name="created_by_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__module__module_type_id" tableName="module">
+            <column name="module_type_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="page_id" baseTableName="module"
+                                 constraintName="fk__page_id__module__page" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="page"/>
+
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_id" baseTableName="module"
+                                 constraintName="fk__last_modified_by_id__module__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="module"
+                                 constraintName="fk__created_by_id__module__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+        <addForeignKeyConstraint baseColumnNames="module_type_id" baseTableName="module"
+                                 constraintName="fk__module_type_id__module__module_type" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="module_type"/>
+
+    </changeSet>
+
+</databaseChangeLog>

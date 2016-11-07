@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/user-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="user-v1">
+        <createTable tableName="user_">
+            <column name="id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="birthday" type="timestamp"/>
+            <column name="first_name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gender" type="int(10)"/>
+            <column name="hash_key" type="varchar(60)"/>
+            <column name="job_title" type="varchar(255)"/>
+            <column name="last_name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middle_name" type="varchar(255)"/>
+            <column name="password" type="varchar(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="registration_ip" type="varchar(45)"/>
+            <column name="screen_name" type="varchar(255)"/>
+            <column name="state" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint(19)"/>
+            <column name="last_modified_by_id" type="bigint(19)"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__user__id" tableName="user_"/>
+
+        <addUniqueConstraint columnNames="username" constraintName="u__user__username" tableName="user_"/>
+
+        <createIndex indexName="idx__user__created_by_id" tableName="user_">
+            <column name="created_by_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__user__last_modified_by_id" tableName="user_">
+            <column name="last_modified_by_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="user_"
+                                 constraintName="fk__created_by_id__user__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_id" baseTableName="user_"
+                                 constraintName="fk__last_modified_by_id__user__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+    </changeSet>
+
+</databaseChangeLog>

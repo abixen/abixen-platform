@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/role-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="role-v1">
+        <createTable tableName="role_">
+            <column name="id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="name" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint(19)"/>
+            <column name="last_modified_by_id" type="bigint(19)"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__role__id" tableName="role_"/>
+
+        <addUniqueConstraint columnNames="name" constraintName="u__role__name" tableName="role_"/>
+
+        <createIndex indexName="idx__role__last_modified_by_id" tableName="role_">
+            <column name="last_modified_by_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__role__created_by_id" tableName="role_">
+            <column name="created_by_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_id" baseTableName="role_"
+                                 constraintName="fk__last_modified_by_id__role__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="role_"
+                                 constraintName="fk__created_by_id__role__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+    </changeSet>
+
+</databaseChangeLog>

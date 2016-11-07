@@ -1,0 +1,7 @@
+id;permission_id;acl_object_identity_id;acl_sid_id
+#Allows to view a module with id equal 1 for users with role Admin.
+1;7;1;2
+#Allows to add a module with id equal 1 for users with role Admin.
+2;8;1;2
+#Allows to edit a module with id equal 1 for user who is an owner.
+3;9;1;1
