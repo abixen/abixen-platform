@@ -35,6 +35,7 @@ public class User extends Model implements SimpleUserBase<Role> {
     private String jobTitle;
     private Date birthday;
     private UserGender gender;
+    private String avatarFileName;
     private String registrationIp;
     private UserState state;
     private Set<Role> roles;
@@ -138,6 +139,16 @@ public class User extends Model implements SimpleUserBase<Role> {
     @Override
     public void setGender(UserGender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public String getAvatarFileName() {
+        return avatarFileName;
+    }
+
+    @Override
+    public void setAvatarFileName(String avatarFileName) {
+        this.avatarFileName = avatarFileName;
     }
 
     @Override

@@ -33,6 +33,8 @@ module.exports = function (grunt) {
                     'angular-ui-grid/ui-grid.woff': 'angular-ui-grid/ui-grid.woff',
                     'angular-aside.min.js': 'angular-aside/dist/js/angular-aside.min.js',
                     'angular-translate.min.js': 'angular-translate/angular-translate.min.js',
+                    'angular-file-upload.min.js' :'angular-file-upload/dist/angular-file-upload.min.js',
+                    'angular-cookies.js' : 'angular-cookies/angular-cookies.min.js',
                     'ui-bootstrap-tpls.min.js': 'angular-bootstrap/ui-bootstrap-tpls.min.js',
                     'sortable.min.js': 'Sortable/Sortable.min.js',
                     'pdfmake/pdfmake.min.js': 'pdfmake/build/pdfmake.min.js',

@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.configuration.properties.PlatformResourceConfigurationProperties;
 import com.abixen.platform.core.dto.UserRoleDto;
 import com.abixen.platform.core.exception.UserActivationException;
 import com.abixen.platform.core.form.UserChangePasswordForm;
@@ -27,6 +28,8 @@ import com.abixen.platform.core.service.PasswordGeneratorService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.UserBuilder;
+import org.apache.commons.io.FileExistsException;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,8 +38,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.*;
 import java.util.Date;
 
 
@@ -57,6 +62,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     @Override
     public String generateUserPassword() {
@@ -181,4 +189,23 @@ public class UserServiceImpl implements UserService {
         return userChangePasswordForm;
     }
 
+    @Override
+    public User changeUserAvatar(Long userId, MultipartFile avatarFile) throws IOException {
+        User user = findUser(userId);
+        File currentAvatarFile = new File(platformResourceConfigurationProperties.getAvatarLibraryDirectory() + user.getAvatarFileName());
+        if (currentAvatarFile.exists()){
+            if(!currentAvatarFile.delete()){
+                throw new FileExistsException();
+            }
+        }
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        String newAvatarFileName = encoder.encode(avatarFile.getName()+ new Date().getTime()).replaceAll("\"","s").replaceAll("/","a").replace(".","sde");
+        File newAvatarFile = new File(platformResourceConfigurationProperties.getAvatarLibraryDirectory() + newAvatarFileName);
+        FileOutputStream out = new FileOutputStream(newAvatarFile);
+        out.write(avatarFile.getBytes());
+        out.close();
+        user.setAvatarFileName(newAvatarFileName);
+        updateUser(user);
+        return findUser(userId);
+    }
 }

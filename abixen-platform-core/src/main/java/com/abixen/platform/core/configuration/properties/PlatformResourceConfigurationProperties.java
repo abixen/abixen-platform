@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.configuration.properties;
 
+import org.bouncycastle.util.io.StreamOverflowException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,9 @@ public class PlatformResourceConfigurationProperties {
     @NotNull
     private String imageLibraryDirectory;
 
+    @NotNull
+    private String avatarLibraryDirectory;
+
     public String getImageLibraryDirectory() {
         return imageLibraryDirectory;
     }
@@ -39,5 +43,25 @@ public class PlatformResourceConfigurationProperties {
         this.imageLibraryDirectory = imageLibraryDirectory;
     }
 
+    public String getAvatarLibraryDirectory() {
+        return resolvePath(avatarLibraryDirectory);
+    }
 
+    public void setAvatarLibraryDirectory(String avatarLibraryDirectory) {
+        this.avatarLibraryDirectory = avatarLibraryDirectory;
+    }
+
+
+
+    private String resolvePath(String path){
+        String resolvedPath = path;
+        if (path.contains("${baseDir}")){
+            resolvedPath = resolveBaseDirPath(resolvedPath);
+        }
+        return resolvedPath;
+    }
+
+    private String resolveBaseDirPath(String path){
+            return path.replace("${baseDir}",System.getProperty("user.dir"));
+    }
 }

@@ -38,7 +38,6 @@ platform:
         debug: true
     resource:
       imageLibraryDirectory: /data/db
-
 eureka:
   instance:
     preferIpAddress: true
@@ -83,7 +82,8 @@ platform:
             enable: true
         debug: true
     resource:
-      imageLibraryDirectory: /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library
+      imageLibraryDirectory: ${baseDir}/../data/image-library/
+      avatarLibraryDirectory: ${baseDir}/../data/user-avatar/
 
 eureka:
   instance:

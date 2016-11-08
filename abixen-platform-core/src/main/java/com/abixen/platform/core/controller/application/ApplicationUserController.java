@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.controller.application;
 
+import com.abixen.platform.core.configuration.properties.PlatformResourceConfigurationProperties;
 import com.abixen.platform.core.controller.common.AbstractUserController;
 import com.abixen.platform.core.service.MailService;
 import com.abixen.platform.core.service.RoleService;
@@ -36,11 +37,14 @@ public class ApplicationUserController extends AbstractUserController {
 
     private final RoleService roleService;
 
+    private final PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+
     @Autowired
-    public ApplicationUserController(UserService userService, MailService mailService, RoleService roleService) {
-        super(userService, mailService, roleService);
+    public ApplicationUserController(UserService userService, MailService mailService, RoleService roleService,PlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
+        super(userService, mailService, roleService, platformResourceConfigurationProperties);
         this.userService = userService;
         this.mailService = mailService;
         this.roleService = roleService;
+        this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
     }
 }

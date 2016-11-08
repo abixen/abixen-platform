@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.controller.admin;
 
+import com.abixen.platform.core.configuration.properties.PlatformResourceConfigurationProperties;
 import com.abixen.platform.core.controller.common.AbstractUserController;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
@@ -47,12 +48,15 @@ public class AdminUserController extends AbstractUserController {
 
     private final RoleService roleService;
 
+    private final PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+
     @Autowired
-    public AdminUserController(UserService userService, MailService mailService, RoleService roleService) {
-        super(userService, mailService, roleService);
+    public AdminUserController(UserService userService, MailService mailService, RoleService roleService, PlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
+        super(userService, mailService, roleService, platformResourceConfigurationProperties);
         this.userService = userService;
         this.mailService = mailService;
         this.roleService = roleService;
+        this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
