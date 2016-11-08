@@ -74,7 +74,6 @@ public class UserBuilderImpl extends EntityBuilder<User> implements UserBuilder 
     public UserBuilder roles(Role... roles) {
         Set<Role> rolesSet = new HashSet<>();
         for (Role role : roles) {
-            System.out.println("ROLE: " + role);
             rolesSet.add(role);
         }
         this.product.setRoles(rolesSet);
