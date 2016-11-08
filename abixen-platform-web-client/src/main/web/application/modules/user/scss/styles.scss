@@ -16,19 +16,33 @@
 
 .user-details {
   .avatar {
-    img {
-      height: 150px;
-      border: 1px solid black;
-      padding: 10px;
-      @include border-radius(5px);
-    }
-    a {
-      float: right;
-      margin-top: 10px;
-    }
+    display: block;
+    height: 218px;
+    margin: auto;
+    padding: 20px 0 0;
   }
-  .user-id {
-    margin-top: 108px;
+  .uploader {
+    .avatar {
+      display: block;
+      margin: auto;
+
+      & > * {
+        margin: auto;
+        height: 150px;
+        border: 1px solid black;
+        padding: 10px;
+        @include border-radius(5px);
+      }
+    }
+    .file-drop-zone {
+      border: dotted 3px lightgray;
+    }
+    .nv-file-over {
+      border: dotted 3px red;
+    }
+    .another-file-over-class {
+      border: dotted 3px green;
+    }
   }
 }
 

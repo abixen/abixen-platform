@@ -63,6 +63,10 @@ public interface SimpleUserBase<Role extends SimpleRoleBase> {
 
     void setGender(UserGender gender);
 
+    String getAvatarFileName();
+
+    void setAvatarFileName(String avatarFileName);
+
     String getRegistrationIp();
 
     void setRegistrationIp(String registrationIp);

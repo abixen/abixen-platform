@@ -12,6 +12,8 @@ var platformApplication = angular.module('platformApplication', [
     'ui.bootstrap.showErrors',
     'toaster',
     'xeditable',
+    'angularFileUpload',
+    'ngCookies',
     'platformChartModule',
     'platformMagicNumberModule',
     'platformKpiChartModule',

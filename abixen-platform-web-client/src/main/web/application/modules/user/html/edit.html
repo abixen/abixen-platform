@@ -1,13 +1,13 @@
 <div class="modal-header aside-panel-header" id="editUserPanelHeader">
     <h3 class="modal-title">My Account</h3>
 </div>
-<div class="modal-body" id="editUserPanelBody">
+<div class="modal-body" id="editUserPanelBody" nv-file-drop="" uploader="uploader">
     <div class="form-container" id="form-container"
          window-resize header="editUserPanelHeader" body="editUserPanelBody" footer="editUserPanelFooter">
         <div class="row user-details">
             <uib-tabset justified="true">
                 <uib-tab heading="Details" ng-click="selectForm(this.userForm)" >
-                    <form class="form form-instance" role="form" name="userForm" ng-init="setFormScope(this)" novalidate>
+                    <form class="form form-instance" role="form" name="userForm" ng-init="setFormScope(this)" ng-show ="!isUploadAvatar" novalidate>
                         <div class="col-xs-6">
                             <div class="form-group" show-errors>
                                 <label for="screenNameInput" class="control-label">Screen Name (Required)</label>
@@ -54,11 +54,11 @@
                             </div>
                         </div>
                         <div class="col-xs-6">
-                            <div class="form-group avatar">
+                            <div class="form-group">
                                 <div>
-                                    <img src="../../../../common/navigation/image/avatar.svg"></div>
+                                    <img class="avatar" ng-src="{{avatarUrl}}" >
                                 <div>
-                                    <a href="#"><i class="fa fa-pencil-square-o"></i>Change</a>
+                                    <a href="#" ng-click="showUploadContent()"><i class="fa fa-pencil-square-o"></i>Change</a>
                                 </div>
                             </div>
                             <div class="form-group user-id">
@@ -71,7 +71,7 @@
                                 <label for="birthday">Birthday</label>
                                 <div class="input-group birthday">
                                     <input id="birthday" name="birthday" type="date" class="form-control" uib-datepicker-popup ng-model="user.birthday" is-open="status.opened" close-text="Close" />
-                                <span class="input-group-btn">
+                                    <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
                                 </span>
                                 </div>
@@ -87,6 +87,25 @@
                             </div>
                         </div>
                     </form>
+                    <div class="col-xs-12 uploader" ng-show="isUploadAvatar">
+                        <h2>Avatar uploader</h2>
+                        <div ng-show="uploader.isHTML5">
+                            <div class="" ng-if="uploader.queue[0] != undefined" ng-thumb="{ file: uploader.queue[0]._file, height: 150 }"></div>
+                        </div>
+                        <div class="well my-drop-zone">
+
+                        </div>
+
+                        <div>
+                           <input type="file" nv-file-select="" uploader="uploader" /><br/>
+                            <div>
+                                Upload progress:
+                                <div class="progress" style="">
+                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
                 </uib-tab>
                 <uib-tab heading="Password" ng-click="selectForm(this.userChangePasswordForm)">
                     <form class="form form-instance" role="form" name="userChangePasswordForm" novalidate>
@@ -129,9 +148,13 @@
 </div>
 <div class="modal-footer aside-panel-footer" id="editUserPanelFooter">
     <div class="row bottom-navigation">
-        <div class="col-sx-12 bottom-navigation-content">
+        <div class="col-sx-12 bottom-navigation-content" ng-show="!isUploadAvatar">
             <a class="btn save-button" ng-click="saveForm()" ng-disabled="selectedForm.$invalid"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
             <a class="btn cancel-button" ng-click="cancel()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
+        </div>
+        <div class="col-sx-12 bottom-navigation-content" ng-show="isUploadAvatar">
+            <a class="btn save-button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length"><i class="fa fa-floppy-o"></i><span>&nbsp;Upload</span></a>
+            <a class="btn cancel-button" ng-click="uploader.cancelAll();hideUploadContent()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
         </div>
     </div>
 </div>
