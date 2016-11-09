@@ -7,8 +7,9 @@
                     <span class="menu-icon" ng-class="toggle ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"></span>
                 </a>
             </li>
-            <li class="sidebar-list" ng-repeat="sidebarItem in sidebarItems | orderBy: 'orderIndex'" >
-                <a ng-click="changeState(sidebarItem)" ng-class="{'selected': sidebarItem.id == selectedItem}">{{sidebarItem.title}}<span class="menu-icon" ng-class="sidebarItem.iconClass"></span></a>
+            <li class="sidebar-list" ng-repeat="sidebarItem in sidebarItems | orderBy: 'orderIndex'">
+                <a ng-click="changeState(sidebarItem)" ng-class="{'selected': sidebarItem.id == selectedItem}">{{sidebarItem.title}}<span
+                        class="menu-icon" ng-class="sidebarItem.iconClass"></span></a>
             </li>
         </ul>
         <div class="sidebar-footer">
@@ -25,7 +26,7 @@
                     <div class="user pull-right">
                         <div class="item dropdown" uib-dropdown>
                             <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
-                                <img src="common/navigation/image/avatar.svg">
+                                <img ng-src="{{avatarUrl}}">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
                                 <li class="dropdown-header">
@@ -55,14 +56,17 @@
                     <div class="action-buttons">
                         <a ng-repeat="topbarItem in topbarItems | orderBy: 'id'" class="{{topbarItem.styleClass}}"
                            ng-click="topbarItem.onClick()" ng-if="topbarItem.visible" ng-disabled="topbarItem.disabled">
-                            <i class="{{topbarItem.faIcon}}"></i><span class="hidden-xs">&nbsp;{{topbarItem.title}}</span>
+                            <i class="{{topbarItem.faIcon}}"></i><span
+                                class="hidden-xs">&nbsp;{{topbarItem.title}}</span>
                         </a>
                         <div class="{{dropdownStyleClass}}" uib-dropdown ng-if="showDropdown">
                             <button type="button" class="btn btn-primary main-button" uib-dropdown-toggle>
-                                <i class="fa fa-tasks"></i><span class="hidden-xs">&nbsp;Select Action&nbsp;</span><span class="caret hidden-xs"></span></button>
+                                <i class="fa fa-tasks"></i><span class="hidden-xs">&nbsp;Select Action&nbsp;</span><span
+                                    class="caret hidden-xs"></span></button>
                             <ul class="dropdown-menu dropdown-menu-right main-menu" uib-dropdown-menu>
                                 <li class="dropdown-header"></li>
-                                <li ng-repeat="dropdownItem in topbarDropdownItems | orderBy: 'id'" role="menuitem" ng-class="{'divider': dropdownItem.isSeparator == true}">
+                                <li ng-repeat="dropdownItem in topbarDropdownItems | orderBy: 'id'" role="menuitem"
+                                    ng-class="{'divider': dropdownItem.isSeparator == true}">
                                     <a ng-click="dropdownItem.onClick()">{{dropdownItem.title}}</a></li>
                             </ul>
                         </div>
