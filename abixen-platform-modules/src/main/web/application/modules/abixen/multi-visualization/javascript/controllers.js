@@ -7,11 +7,11 @@ platformChartModuleControllers.controller('ChartModuleInitController', ['$scope'
 
     $scope.showConfigurationWizard = function () {
         $scope.subview = 'configuration';
-    }
+    };
 
     $scope.showChart = function () {
         $scope.subview = 'chart';
-    }
+    };
 
     $scope.$on(platformParameters.events.RELOAD_MODULE, function (event, id, viewMode) {
         $log.log('RELOAD MODULE EVENT', event, id, viewMode);
@@ -274,10 +274,12 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
         if ($scope.chartConfiguration.id) {
             ChartModuleConfiguration.update({id: $scope.chartConfiguration.id}, $scope.chartConfiguration, function () {
                 $log.log('ChartModuleConfiguration has been updated: ', $scope.chartConfiguration);
+                $scope.$emit('VIEW_MODE');
             });
         } else {
             ChartModuleConfiguration.save($scope.chartConfiguration, function () {
                 $log.log('ChartModuleConfiguration has been saved: ', $scope.chartConfiguration);
+                $scope.$emit('VIEW_MODE');
             });
         }
     };
@@ -601,7 +603,7 @@ platformChartModuleControllers.controller('ChartModulePreviewController', ['$sco
     $log.log('$scope.initWizardStep.idSelected: ' + $scope.initWizardStep.idSelected);
 
 
-    var chartParams = mockupData.getChartData($scope.initWizardStep.selected.type);
+    var chartParams = mockupData.getChartData($scope.chartConfiguration.chartType);
 
     if (chartParams != null) {
         $scope.options = chartParams.options;

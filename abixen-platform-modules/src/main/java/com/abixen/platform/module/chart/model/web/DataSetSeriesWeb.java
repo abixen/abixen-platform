@@ -39,7 +39,6 @@ public interface DataSetSeriesWeb {
     @JsonView(WebModelJsonSerialize.class)
     String getFilter();
 
-    @JsonView(WebModelJsonSerialize.class)
     DataSet getDataSet();
 
 }
