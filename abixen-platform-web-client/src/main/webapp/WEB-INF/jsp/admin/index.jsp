@@ -6,13 +6,11 @@
     <meta charset="UTF-8">
     <title>Admin Panel</title>
 
-    <link href="<c:url value="/stylesheets/bootstrap.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/stylesheets/font-awesome.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/stylesheets/common/fonts/roboto.css" />" rel="stylesheet">
-    <link href="<c:url value="/stylesheets/admin/application.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/admin/modules/abixen/modules.css" />" rel="stylesheet">
+    <link href="<c:url value="/lib/lib.min.css" />" rel="stylesheet">
     <link href="<c:url value="/lib/angular-ui-grid/angular-ui-grid.min.css" />" rel="stylesheet">
     <link href="<c:url value="/lib/toaster/toaster.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/admin/application.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/admin/modules/abixen/modules.css" />" rel="stylesheet">
 </head>
 <body>
 <ui-view></ui-view>
@@ -34,9 +32,8 @@
 <script src="<c:url value='/lib/toaster/toaster.min.js' />"></script>
 
 
-<script src="<c:url value='/common/modules.js' />"></script>
-<script src="<c:url value='/admin/application.js' />"></script>
-<script src="<c:url value='/admin/modules.js' />"></script>
+<script src="<c:url value='/common/modules.min.js' />"></script>
+<script src="<c:url value='/admin/application.min.js' />"></script>
 <script src="<c:url value='/admin/modules/abixen/modules.js' />"></script>
 
 </body>

@@ -5,10 +5,9 @@
 <head>
     <title>Abixen Platform</title>
 
-    <link href="<c:url value="/stylesheets/bootstrap.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/stylesheets/font-awesome.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/stylesheets/login.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/lib/lib.min.css" />" rel="stylesheet">
     <link href="<c:url value="/lib/toaster/toaster.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/login/application.min.css" />" rel="stylesheet">
 </head>
 <body ng-app="platformLoginApp">
 <ui-view></ui-view>

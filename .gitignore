@@ -26,3 +26,4 @@
 /abixen-platform-web-client/src/main/resources/static/
 /abixen-platform-modules/src/main/resources/static/
 /docker/dump.rdb
+/abixen-platform-web-client/npm-debug.log
