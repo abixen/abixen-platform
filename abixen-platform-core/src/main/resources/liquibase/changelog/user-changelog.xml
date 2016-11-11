@@ -27,7 +27,7 @@
             <column name="password" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>
-            <column name="avatar_file_name" type="varchar(60)">
+            <column name="avatar_file_name" type="varchar(140)">
                 <constraints nullable="true"/>
             </column>
             <column name="registration_ip" type="varchar(45)"/>

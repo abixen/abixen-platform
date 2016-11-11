@@ -57,7 +57,7 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     @Override
     public ChartConfigurationForm createChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
         ChartConfiguration chartConfiguration = buildChartConfiguration(chartConfigurationForm);
-        return new ChartConfigurationForm(updateChartConfiguration(createChartConfiguration(chartConfiguration)));
+        return new ChartConfigurationForm(createChartConfiguration(chartConfiguration));
     }
 
     @Override
@@ -78,6 +78,11 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     @Override
     public ChartConfiguration createChartConfiguration(ChartConfiguration chartConfiguration) {
         log.debug("createChartConfiguration() - chartConfiguration: " + chartConfiguration);
+        chartConfiguration.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
+            dataSetSeries.getSeriesColumns().forEach(dataSetSeriesColumn -> {
+            });
+            dataSetSeries.setDataSet(chartConfiguration.getDataSetChart());
+        });
         ChartConfiguration createdChartConfiguration = chartConfigurationRepository.save(chartConfiguration);
         return createdChartConfiguration;
     }

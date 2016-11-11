@@ -533,7 +533,7 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
     }
 
     $scope.next = function () {
-        if ($scope.stepCurrent < $scope.stepMax) {
+        if ($scope.stepCurrent < $scope.stepMax-1) {
             $scope.stepCurrent++;
             changeWizardView();
         } else {
