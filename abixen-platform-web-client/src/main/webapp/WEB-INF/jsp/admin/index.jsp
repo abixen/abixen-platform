@@ -10,7 +10,7 @@
     <link href="<c:url value="/lib/ui-grid.min.css" />" rel="stylesheet">
     <link href="<c:url value="/lib/toaster.min.css" />" rel="stylesheet">
     <link href="<c:url value="/admin/application.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/admin/modules/abixen/modules.css" />" rel="stylesheet">
+    <link href="<c:url value="/admin/modules/abixen/modules.min.css" />" rel="stylesheet">
 </head>
 <body>
 <ui-view></ui-view>
@@ -34,7 +34,7 @@
 
 <script src="<c:url value='/common/modules.min.js' />"></script>
 <script src="<c:url value='/admin/application.min.js' />"></script>
-<script src="<c:url value='/admin/modules/abixen/modules.js' />"></script>
+<script src="<c:url value='/admin/modules/abixen/modules.min.js' />"></script>
 
 </body>
 </html>
