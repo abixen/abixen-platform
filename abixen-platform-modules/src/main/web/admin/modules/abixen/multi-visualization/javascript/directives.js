@@ -13,25 +13,25 @@ multiVisualizationDirectives.directive('queryBuilder', ['$compile', function ($c
             content = element.contents().remove();
             return function (scope, element, attrs) {
                 scope.operators = [
-                    { name: 'AND' },
-                    { name: 'OR' }
+                    {name: 'AND'},
+                    {name: 'OR'}
                 ];
 
                 /*scope.fields = [
-                    { name: 'Firstname' },
-                    { name: 'Lastname' },
-                    { name: 'Birthdate' },
-                    { name: 'City' },
-                    { name: 'Country' }
-                ];*/
+                 { name: 'Firstname' },
+                 { name: 'Lastname' },
+                 { name: 'Birthdate' },
+                 { name: 'City' },
+                 { name: 'Country' }
+                 ];*/
 
                 scope.conditions = [
-                    { name: '=' },
-                    { name: '<>' },
-                    { name: '<' },
-                    { name: '<=' },
-                    { name: '>' },
-                    { name: '>=' }
+                    {name: '='},
+                    {name: '<>'},
+                    {name: '<'},
+                    {name: '<='},
+                    {name: '>'},
+                    {name: '>='}
                 ];
 
                 scope.addCondition = function () {
@@ -56,7 +56,7 @@ multiVisualizationDirectives.directive('queryBuilder', ['$compile', function ($c
                 };
 
                 scope.removeGroup = function () {
-                    "group" in scope.$parent && scope.$parent.group.rules.splice(scope.$parent.$index, 1);
+                    'group' in scope.$parent && scope.$parent.group.rules.splice(scope.$parent.$index, 1);
                 };
 
                 directive || (directive = $compile(content));

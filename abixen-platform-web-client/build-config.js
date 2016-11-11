@@ -12,9 +12,13 @@ module.exports = {
         loginStyles: 'login/application.min.css',
         applicationStyles: 'application/application.min.css',
         adminStyles: 'admin/application.min.css',
+        loginImages: 'src/main/resources/static/login/image',
         libStyles: 'lib/lib.min.css',
-        fontawesome: 'src/main/resources/static/fonts/fontawesome',
-        roboto: 'src/main/resources/static/fonts/roboto'
+        fontawesome: 'src/main/resources/static/lib/fonts/fontawesome',
+        roboto: 'src/main/resources/static/lib/fonts/roboto'
+    },
+    images: {
+        login: 'src/main/web/login/image/*'
     },
     libs: {
         files: [

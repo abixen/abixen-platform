@@ -20,15 +20,10 @@ var gulp = require('gulp'),
 
 gulp.task('clean', cleanTask);
 gulp.task('templates', templatesTask);
-gulp.task('loginScripts', loginScriptsTask);
 gulp.task('adminScripts', adminScriptsTask);
 gulp.task('applicationScripts', applicationScriptsTask);
-gulp.task('commonScripts', commonScriptsTask);
-gulp.task('loginStyles', loginStylesTask);
 gulp.task('adminStyles', adminStylesTask);
 gulp.task('applicationStyles', applicationStylesTask);
-gulp.task('libStyles', libStylesTask);
-gulp.task('loginImages', loginImagesTask);
 gulp.task('build', buildTask);
 gulp.task('libs', libsTask);
 gulp.task('dev', ['build'], devTask);
@@ -47,19 +42,9 @@ function templatesTask() {
         .pipe(gulp.dest(config.dest.dir));
 }
 
-function loginScriptsTask() {
-
-    return genericScriptsTask(config.scripts.loginFiles, config.dest.loginScripts);
-}
-
 function adminScriptsTask() {
 
     return genericScriptsTask(config.scripts.adminFiles, config.dest.adminScripts);
-}
-
-function commonScriptsTask() {
-
-    return genericScriptsTask(config.scripts.commonFiles, config.dest.commonScripts);
 }
 
 function applicationScriptsTask() {
@@ -83,11 +68,6 @@ function genericScriptsTask(sourceScriptsPath, destinationScriptsPath) {
         .pipe(gulp.dest(config.dest.dir));
 }
 
-function loginStylesTask() {
-
-    return genericStylesTask(config.styles.loginSass, config.dest.loginStyles);
-}
-
 function adminStylesTask() {
 
     return genericStylesTask(config.styles.adminSass, config.dest.adminStyles);
@@ -96,11 +76,6 @@ function adminStylesTask() {
 function applicationStylesTask() {
 
     return genericStylesTask(config.styles.applicationSass, config.dest.applicationStyles);
-}
-
-function libStylesTask() {
-
-    return genericStylesTask(config.styles.libSass, config.dest.libStyles);
 }
 
 function genericStylesTask(sourceSassPath, destinationStylesPath) {
@@ -117,49 +92,28 @@ function buildTask(callback) {
     runSequence('clean',
         'libs',
         [
-            'loginScripts',
             'adminScripts',
             'applicationScripts',
-            'commonScripts',
             'templates',
-            'loginStyles',
             'adminStyles',
-            'applicationStyles',
-            'libStyles',
-            'loginImages'
+            'applicationStyles'
         ],
         callback);
 }
 
 function libsTask() {
-    var libs = gulp.src(config.libs.files)
+    return gulp.src(config.libs.files)
         .pipe(gulp.dest(config.dest.libs));
-
-    var fontawesome = gulp.src(config.libs.fontawesome)
-        .pipe(gulp.dest(config.dest.fontawesome));
-
-    var roboto = gulp.src(config.libs.roboto)
-        .pipe(gulp.dest(config.dest.roboto));
-
-    return merge(libs, fontawesome, roboto);
-}
-
-function loginImagesTask() {
-    return gulp.src(config.images.login)
-        .pipe(gulp.dest(config.dest.loginImages));
 }
 
 function devTask() {
     devMode = true;
 
-    gulp.watch(config.scripts.loginFiles, ['loginScripts']);
     gulp.watch(config.scripts.adminFiles, ['adminScripts']);
     gulp.watch(config.scripts.applicationFiles, ['applicationScripts']);
-    gulp.watch(config.scripts.commonFiles, ['commonScripts']);
 
     gulp.watch(config.templates.files, ['templates']);
 
-    gulp.watch(config.styles.loginWatch, ['loginStyles']);
     gulp.watch(config.styles.adminWatch, ['adminStyles']);
     gulp.watch(config.styles.applicationWatch, ['applicationStyles']);
 }

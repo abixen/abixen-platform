@@ -13,8 +13,8 @@
     <meta name="description" content="dashboard sample app">
 
     <link href="<c:url value="/lib/lib.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/lib/toaster/toaster.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/lib/angular-xeditable/xeditable.css" />" rel="stylesheet">
+    <link href="<c:url value="/lib/toaster.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/lib/xeditable.css" />" rel="stylesheet">
     <link href="<c:url value="/application/application.min.css" />" rel="stylesheet">
 
     <c:forEach var="resource" items="${resources}">
@@ -34,14 +34,13 @@
 <script src="<c:url value='/lib/angular.min.js' />"></script>
 <script src="<c:url value='/lib/angular-resource.min.js' />"></script>
 <script src="<c:url value='/lib/angular-animate.min.js' />"></script>
-<script src="<c:url value='/lib/angular-ui-grid/angular-ui-grid.min.js' />"></script>
 <script src="<c:url value='/lib/angular-ui-router.min.js' />"></script>
 <script src="<c:url value="/lib/ui-bootstrap-tpls.min.js" />"></script>
 <script src="<c:url value='/lib/angular-aside.min.js' />"></script>
 <script src="<c:url value='/lib/sortable.min.js' />"></script>
 <script src="<c:url value='/lib/show-errors.min.js' />"></script>
-<script src="<c:url value='/lib/toaster/toaster.min.js' />"></script>
-<script src="<c:url value='/lib/angular-xeditable/xeditable.min.js' />"></script>
+<script src="<c:url value='/lib/toaster.min.js' />"></script>
+<script src="<c:url value='/lib/xeditable.min.js' />"></script>
 <script src="<c:url value='/lib/angular-file-upload.min.js' />"></script>
 <script src="<c:url value='/lib/angular-cookies.min.js' />"></script>
 

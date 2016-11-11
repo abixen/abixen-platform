@@ -6,7 +6,7 @@
     <title>Abixen Platform</title>
 
     <link href="<c:url value="/lib/lib.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/lib/toaster/toaster.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/lib/toaster.min.css" />" rel="stylesheet">
     <link href="<c:url value="/login/application.min.css" />" rel="stylesheet">
 </head>
 <body ng-app="platformLoginApp">
@@ -15,7 +15,7 @@
 <script src="<c:url value='/lib/angular.min.js' />"></script>
 <script src="<c:url value='/lib/angular-route.min.js' />"></script>
 <script src="<c:url value='/lib/angular-ui-router.min.js' />"></script>
-<script src="<c:url value='/lib/toaster/toaster.min.js' />"></script>
+<script src="<c:url value='/lib/toaster.min.js' />"></script>
 <script src="<c:url value='/login/application.min.js' />"></script>
 </body>
 </html>

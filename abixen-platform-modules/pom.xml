@@ -181,36 +181,25 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v0.10.30</nodeVersion>
-                            <npmVersion>1.4.21</npmVersion>
+                            <nodeVersion>v6.7.0</nodeVersion>
+                            <npmVersion>3.10.9</npmVersion>
                         </configuration>
                     </execution>
                     <execution>
-                        <phase>process-resources</phase>
+                        <phase>prepare-package</phase>
                         <id>npm install</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
-                        <!-- Optional configuration which provides for running any npm command -->
                         <configuration>
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
                     <execution>
-                        <phase>process-resources</phase>
-                        <id>bower install</id>
+                        <phase>prepare-package</phase>
+                        <id>gulp build</id>
                         <goals>
-                            <goal>bower</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <id>grunt build</id>
-                        <goals>
-                            <goal>grunt</goal>
+                            <goal>gulp</goal>
                         </goals>
                         <configuration>
                             <arguments>--no-color</arguments>
@@ -222,6 +211,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>1.4.1.RELEASE</version>
+                <configuration>
+                    <addResources>true</addResources>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>

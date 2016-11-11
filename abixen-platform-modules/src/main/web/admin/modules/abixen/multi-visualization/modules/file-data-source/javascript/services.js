@@ -7,6 +7,3 @@ fileDataSourceServices.factory('FileDataSource', ['$resource',
             update: {method: 'PUT'}
         });
     }]);
-
-
-
