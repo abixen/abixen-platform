@@ -23,6 +23,7 @@ module.exports = {
             'bower_components/angular-animate/angular-animate.min.js',
             'bower_components/angular-touch/angular-touch.min.js',
             'bower_components/angular-route/angular-route.min.js',
+            'bower_components/angular-cookies/angular-cookies.min.js',
             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
             'bower_components/angular-ui-grid/ui-grid.min.js',
             'bower_components/angular-ui-grid/ui-grid.min.css',
@@ -40,6 +41,7 @@ module.exports = {
             'bower_components/AngularJS-Toaster/toaster.min.css',
             'bower_components/angular-xeditable/dist/js/xeditable.min.js',
             'bower_components/angular-xeditable/dist/css/xeditable.css',
+            'bower_components/angular-file-upload/dist/angular-file-upload.min.js',
             'src/main/web/lib/show-errors.min.js',
             'src/main/web/lib/ng-storage.min.js'
         ],

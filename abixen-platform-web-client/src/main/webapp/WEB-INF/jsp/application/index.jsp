@@ -43,7 +43,7 @@
 <script src="<c:url value='/lib/toaster/toaster.min.js' />"></script>
 <script src="<c:url value='/lib/angular-xeditable/xeditable.min.js' />"></script>
 <script src="<c:url value='/lib/angular-file-upload.min.js' />"></script>
-<script src="<c:url value='/lib/angular-cookies.js' />"></script>
+<script src="<c:url value='/lib/angular-cookies.min.js' />"></script>
 
 <script src="<c:url value='/common/modules.min.js' />"></script>
 <script src="<c:url value='/application/application.min.js' />"></script>
