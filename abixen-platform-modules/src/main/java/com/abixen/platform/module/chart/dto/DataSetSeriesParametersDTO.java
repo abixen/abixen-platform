@@ -33,7 +33,7 @@ public class DataSetSeriesParametersDTO implements Serializable {
     private DataValueType valueTypeAxisX = DataValueType.FLOAT;
 
     @NotNull
-    private DataValueType valueTypeAxisY= DataValueType.FLOAT;
+    private DataValueType valueTypeAxisY = DataValueType.FLOAT;
 
     @NotNull
     private Map<String, Map<Integer, Set<Integer>>> series;

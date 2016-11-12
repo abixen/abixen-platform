@@ -35,7 +35,7 @@ public class MagicNumberModuleController {
     private final Logger log = LoggerFactory.getLogger(MagicNumberModuleController.class.getName());
 
     @Autowired
-    MagicNumberModuleService magicNumberModuleService;
+    private MagicNumberModuleService magicNumberModuleService;
 
     @PreAuthorize("hasPermission(#moduleId, 'Module', 'MODULE_VIEW')")
     @JsonView(WebModelJsonSerialize.class)

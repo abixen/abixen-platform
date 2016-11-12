@@ -13,6 +13,7 @@
  */
 
 package com.abixen.platform.module.chart.model.impl;
+
 import com.abixen.platform.module.chart.util.ModelKeys;
 import org.hibernate.validator.constraints.Length;
 
@@ -22,11 +23,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "data_source_value_string")
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-public class DataSourceValueString extends DataSourceValue<String>{
+public class DataSourceValueString extends DataSourceValue<String> {
 
     private static final long serialVersionUID = 4578637099421599970L;
 
-    @Length(min = 0,max = ModelKeys.DATASOURCE_VALUE_STRING_MAX_LENGTH)
+    @Length(min = 0, max = ModelKeys.DATASOURCE_VALUE_STRING_MAX_LENGTH)
     @Column(name = "value", length = ModelKeys.DATASOURCE_VALUE_STRING_MAX_LENGTH, nullable = true)
     private String value;
 
@@ -36,6 +37,6 @@ public class DataSourceValueString extends DataSourceValue<String>{
 
     @Override
     public void setValue(String value) {
-        this.value=value;
+        this.value = value;
     }
 }

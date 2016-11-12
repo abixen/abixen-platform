@@ -26,7 +26,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 
 @Service
@@ -109,6 +108,8 @@ public class DatabasePostgresServiceImpl implements DatabaseService {
 
     @Override
     public List<String> getTables(Connection connection) {
+        final int objectTypeIndex = 4;
+        final int objectNameIndex = 3;
 
         List<String> tables = new ArrayList<>();
 
@@ -117,8 +118,8 @@ public class DatabasePostgresServiceImpl implements DatabaseService {
             ResultSet rs = md.getTables(null, null, "%", null);
 
             while (rs.next()) {
-                if ("TABLE".equals(rs.getString(4)) || "VIEW".equals(rs.getString(4))) {
-                    tables.add(rs.getString(3));
+                if ("TABLE".equals(rs.getString(objectTypeIndex)) || "VIEW".equals(rs.getString(objectTypeIndex))) {
+                    tables.add(rs.getString(objectNameIndex));
                 }
             }
 

@@ -16,5 +16,5 @@ package com.abixen.platform.module.chart.model.enumtype;
 
 
 public enum ColumnType {
-    X,Y,Z
+    X, Y, Z
 }

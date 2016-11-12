@@ -17,7 +17,6 @@ package com.abixen.platform.module.chart.dto;
 import java.io.Serializable;
 
 //TODO - to remove
-public class DataSourceDTO implements Serializable
-{
-    
+public class DataSourceDTO implements Serializable {
+
 }

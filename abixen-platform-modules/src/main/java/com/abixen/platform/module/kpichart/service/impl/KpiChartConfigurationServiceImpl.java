@@ -36,7 +36,7 @@ public class KpiChartConfigurationServiceImpl implements KpiChartConfigurationSe
     private KpiChartConfigurationRepository kpiChartConfigurationRepository;
 
     @Autowired
-    KpiChartConfigurationDomainBuilderService kpiChartConfigurationDomainBuilderService;
+    private KpiChartConfigurationDomainBuilderService kpiChartConfigurationDomainBuilderService;
 
     @Override
     public KpiChartConfiguration buildKpiChartConfiguration(KpiChartConfigurationForm form) {

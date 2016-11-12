@@ -40,7 +40,7 @@ public class FileDataSourceServiceImpl implements FileDataSourceService {
     private FileDataSourceRepository fileDataSourceRepository;
 
     @Autowired
-    DomainBuilderService domainBuilderService;
+    private DomainBuilderService domainBuilderService;
 
     @Override
     public Set<DataSourceColumn> getDataSourceColumns(Long dataSourceId) {

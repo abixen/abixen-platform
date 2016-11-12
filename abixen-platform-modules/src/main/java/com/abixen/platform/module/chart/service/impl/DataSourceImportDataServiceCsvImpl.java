@@ -18,11 +18,10 @@ import com.abixen.platform.core.exception.DataSourceImportDataException;
 import com.abixen.platform.module.chart.dto.DataSourceCsvParametersDTO;
 import com.abixen.platform.module.chart.model.enumtype.DataOrientation;
 import com.abixen.platform.module.chart.model.enumtype.DataValueType;
-import com.abixen.platform.module.chart.model.impl.FileDataSource;
 import com.abixen.platform.module.chart.model.impl.DataSourceColumn;
 import com.abixen.platform.module.chart.model.impl.DataSourceColumnFile;
 import com.abixen.platform.module.chart.model.impl.DataSourceValue;
-import com.abixen.platform.module.chart.repository.DatabaseDataSourceRepository;
+import com.abixen.platform.module.chart.model.impl.FileDataSource;
 import com.abixen.platform.module.chart.repository.FileDataSourceRepository;
 import com.abixen.platform.module.chart.service.DataSourceImportDataService;
 import com.abixen.platform.module.chart.service.DomainBuilderService;
@@ -45,7 +44,7 @@ import java.util.*;
 public class DataSourceImportDataServiceCsvImpl implements DataSourceImportDataService<DataSourceCsvParametersDTO> {
 
 
-    private final static Logger log = Logger.getLogger(DataSourceImportDataServiceCsvImpl.class.getName());
+    private final Logger log = Logger.getLogger(DataSourceImportDataServiceCsvImpl.class.getName());
 
     @Autowired
     private DomainBuilderService domainBuilderService;
@@ -126,7 +125,7 @@ public class DataSourceImportDataServiceCsvImpl implements DataSourceImportDataS
         log.debug("fileDataSource " + fileDataSource);
 
         Map<String, Integer> columns = parameters.getColumns();
-        log.debug("iterating over Columns, columnValues.size(): " + columnValues.items.size());
+        log.debug("iterating over Columns, columnValues.size(): " + columnValues.getItems().size());
 
         Set<DataSourceColumn> dataSourceColumnFiles = new HashSet<>(1);
 
@@ -174,8 +173,6 @@ public class DataSourceImportDataServiceCsvImpl implements DataSourceImportDataS
         if (parameters.getOrientation() == DataOrientation.Rows) {
             initColumnValues();
             fetchDataByRows();
-        } else {
-            //todo
         }
         log.debug("Finish initialization");
     }
@@ -195,8 +192,12 @@ public class DataSourceImportDataServiceCsvImpl implements DataSourceImportDataS
  */
 final class ColumnValues {
 
-    final Map<Integer, Map<Integer, String>> items = new HashMap<>();
-    List<DataValueType> valueTypes;
+    public Map<Integer, Map<Integer, String>> getItems() {
+        return items;
+    }
+
+    private final Map<Integer, Map<Integer, String>> items = new HashMap<>();
+    private List<DataValueType> valueTypes;
 
 
     ColumnValues() {

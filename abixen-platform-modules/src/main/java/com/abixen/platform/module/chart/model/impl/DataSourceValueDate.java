@@ -21,7 +21,7 @@ import java.util.Date;
 @Entity
 @Table(name = "data_source_value_date")
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-public class DataSourceValueDate  extends DataSourceValue<Date> {
+public class DataSourceValueDate extends DataSourceValue<Date> {
 
     private static final long serialVersionUID = -655187403228089633L;
 

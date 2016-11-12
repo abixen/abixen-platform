@@ -36,7 +36,7 @@ public class MagicNumberModuleServiceImpl implements MagicNumberModuleService {
     private MagicNumberModuleRepository magicNumberModuleRepository;
 
     @Autowired
-    MagicNumberModuleDomainBuilderService magicNumberModuleDomainBuilderService;
+    private MagicNumberModuleDomainBuilderService magicNumberModuleDomainBuilderService;
 
     @Override
     public MagicNumberModule buildMagicNumberModule(MagicNumberModuleConfigurationForm magicNumberModuleConfigurationForm) {

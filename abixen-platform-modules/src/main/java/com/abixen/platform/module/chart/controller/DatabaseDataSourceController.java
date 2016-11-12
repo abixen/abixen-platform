@@ -38,7 +38,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/admin/modules/abixen/multi-visualization/database-data-sources")
-public class DatabaseDataSourceController{
+public class DatabaseDataSourceController {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseDataSourceController.class);
 
@@ -95,7 +95,6 @@ public class DatabaseDataSourceController{
 
         return new FormValidationResultDto(databaseDataSourceFormResult);
     }
-
 
 
 }

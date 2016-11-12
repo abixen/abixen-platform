@@ -30,6 +30,7 @@ public class KpiChartConfiguration extends AuditingModel implements KpiChartConf
 
     private static final long serialVersionUID = -1420930478759410093L;
 
+    private static final int DESCRIPTION_MAX_LENGHT = 200;
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "kpi_chart_configuration_seq", strategy = GenerationType.SEQUENCE)
@@ -68,7 +69,7 @@ public class KpiChartConfiguration extends AuditingModel implements KpiChartConf
     @Column(name = "animation_delay", nullable = false)
     private Integer animationDelay;
 
-    @Column(name = "description", length = 100, nullable = false)
+    @Column(name = "description", length = DESCRIPTION_MAX_LENGHT, nullable = false)
     private String description;
 
     @Enumerated(EnumType.STRING)

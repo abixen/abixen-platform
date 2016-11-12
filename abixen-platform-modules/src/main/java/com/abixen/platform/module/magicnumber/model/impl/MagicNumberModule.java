@@ -29,6 +29,14 @@ public class MagicNumberModule extends AuditingModel implements MagicNumberModul
 
     private static final long serialVersionUID = -1420930478759410093L;
 
+    public static final int MAGIC_NUMBER_DESCRIPTION_MAX_LENGHT = 100;
+    public static final int PREFIX_VALUE_MAX_LENGHT = 10;
+    public static final int SUFIX_VALUE_MAX_LENGHT = 10;
+    public static final int ADDITIONAL_NUMBER_DESCRIPTION_MAX_LENGHT = 100;
+    public static final int ADDITIONAL_NUMBER_PREFIX_VALUE_MAX_LENGHT = 10;
+    public static final int ADDITIONAL_NUMBER_SUFIX_VALUE_MAX_LENGHT = 10;
+    public static final int ICON_CLASS_MAX_LENGHT = 50;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "magic_number_module_seq", strategy = GenerationType.SEQUENCE)
@@ -43,13 +51,13 @@ public class MagicNumberModule extends AuditingModel implements MagicNumberModul
     @Column(name = "magic_number_display_precision", nullable = false)
     private Integer magicNumberDisplayPrecision;
 
-    @Column(name = "magic_number_description", length = 100, nullable = false)
+    @Column(name = "magic_number_description", length = MAGIC_NUMBER_DESCRIPTION_MAX_LENGHT, nullable = false)
     private String magicNumberDescription;
 
-    @Column(name = "prefix_value", length = 10)
+    @Column(name = "prefix_value", length = PREFIX_VALUE_MAX_LENGHT)
     private String prefixValue;
 
-    @Column(name = "sufix_value", length = 10)
+    @Column(name = "sufix_value", length = SUFIX_VALUE_MAX_LENGHT)
     private String sufixValue;
 
     @Column(name = "additional_number_value")
@@ -58,16 +66,16 @@ public class MagicNumberModule extends AuditingModel implements MagicNumberModul
     @Column(name = "additional_number_display_precision")
     private Integer additionalNumberDisplayPrecision;
 
-    @Column(name = "additional_number_description", length = 100)
+    @Column(name = "additional_number_description", length = ADDITIONAL_NUMBER_DESCRIPTION_MAX_LENGHT)
     private String additionalNumberDescription;
 
-    @Column(name = "additional_number_prefix_value", length = 10)
+    @Column(name = "additional_number_prefix_value", length = ADDITIONAL_NUMBER_PREFIX_VALUE_MAX_LENGHT)
     private String additionalNumberPrefixValue;
 
-    @Column(name = "additional_number_sufix_value", length = 10)
+    @Column(name = "additional_number_sufix_value", length = ADDITIONAL_NUMBER_SUFIX_VALUE_MAX_LENGHT)
     private String additionalNumberSufixValue;
 
-    @Column(name = "icon_class", length = 50, nullable = false)
+    @Column(name = "icon_class", length = ICON_CLASS_MAX_LENGHT, nullable = false)
     private String iconClass;
 
     @Enumerated(EnumType.STRING)

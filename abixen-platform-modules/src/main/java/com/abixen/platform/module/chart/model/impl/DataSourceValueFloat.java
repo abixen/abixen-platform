@@ -20,7 +20,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "data_source_value_float")
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-public class DataSourceValueFloat  extends DataSourceValue<Float> {
+public class DataSourceValueFloat extends DataSourceValue<Float> {
 
 
     private static final long serialVersionUID = -1434303122608329824L;

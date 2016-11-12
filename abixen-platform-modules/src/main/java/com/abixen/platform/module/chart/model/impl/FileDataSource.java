@@ -21,7 +21,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 
-
 @Entity
 @Table(name = "file_data_source")
 public class FileDataSource extends DataSource implements FileDataSourceWeb, Serializable {

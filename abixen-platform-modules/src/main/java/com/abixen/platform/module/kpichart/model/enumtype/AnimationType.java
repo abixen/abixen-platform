@@ -55,7 +55,7 @@ public enum AnimationType {
         return name;
     }
 
-    private AnimationType(String name) {
+    AnimationType(String name) {
         this.name = name;
     }
 }

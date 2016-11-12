@@ -44,7 +44,7 @@ public class DatabaseDataSourceServiceImpl implements DatabaseDataSourceService 
     private DatabaseConnectionService databaseConnectionService;
 
     @Autowired
-    DomainBuilderService domainBuilderService;
+    private DomainBuilderService domainBuilderService;
 
     @Override
     public Set<DataSourceColumn> getDataSourceColumns(Long dataSourceId) {

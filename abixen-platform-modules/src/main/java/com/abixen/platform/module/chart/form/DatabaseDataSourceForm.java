@@ -42,16 +42,16 @@ public class DatabaseDataSourceForm extends DataSourceForm implements Form {
     }
 
     public DatabaseDataSourceForm(DatabaseDataSource databaseDataSource) {
-        this.id = databaseDataSource.getId();
-        this.name = databaseDataSource.getName();
-        this.description = databaseDataSource.getDescription();
+        this.setId(databaseDataSource.getId());
+        this.setName(databaseDataSource.getName());
+        this.setDescription(databaseDataSource.getDescription());
         this.databaseConnection = databaseDataSource.getDatabaseConnection();
         this.filter = databaseDataSource.getFilter();
         this.table = databaseDataSource.getTable();
-        this.columns = new HashSet<>();
+        this.setColumns(new HashSet<>());
 
         for (DataSourceColumnWeb dataSourceColumn : databaseDataSource.getColumns()) {
-            this.columns.add(dataSourceColumn);
+            this.getColumns().add(dataSourceColumn);
         }
     }
 

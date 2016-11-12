@@ -20,8 +20,6 @@ import com.abixen.platform.core.util.ValidationUtil;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.module.chart.form.ChartConfigurationForm;
 import com.abixen.platform.module.chart.model.impl.ChartConfiguration;
-import com.abixen.platform.module.chart.model.impl.DataSetSeries;
-import com.abixen.platform.module.chart.model.web.DataSetChartWeb;
 import com.abixen.platform.module.chart.service.ChartConfigurationService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
@@ -33,9 +31,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Transactional
@@ -46,7 +42,7 @@ public class ChartModuleConfigurationController {
     private final Logger log = LoggerFactory.getLogger(ChartModuleConfigurationController.class.getName());
 
     @Autowired
-    ChartConfigurationService chartConfigurationService;
+    private ChartConfigurationService chartConfigurationService;
 
     @PreAuthorize("hasPermission(#moduleId, 'Module', 'MODULE_VIEW')")
     @JsonView(WebModelJsonSerialize.class)

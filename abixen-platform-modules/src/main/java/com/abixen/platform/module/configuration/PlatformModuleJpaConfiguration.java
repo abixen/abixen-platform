@@ -18,7 +18,6 @@ import com.abixen.platform.core.configuration.properties.AbstractPlatformJdbcCon
 import com.abixen.platform.module.security.PlatformAuditorAware;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -45,16 +44,16 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = {"com.abixen.platform.module.chart.repository", "com.abixen.platform.module.magicnumber.repository", "com.abixen.platform.module.kpichart.repository"})
 public class PlatformModuleJpaConfiguration {
 
-    static Logger log = Logger.getLogger(PlatformModuleJpaConfiguration.class.getName());
+    private final Logger log = Logger.getLogger(PlatformModuleJpaConfiguration.class.getName());
 
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Autowired
-    Environment environment;
+    private Environment environment;
 
     @Autowired
-    AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
+    private AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
 
 
     //http://java.dzone.com/articles/springmvc4-spring-data-jpa

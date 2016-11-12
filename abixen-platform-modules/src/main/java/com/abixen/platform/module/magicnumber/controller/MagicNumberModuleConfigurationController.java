@@ -40,7 +40,7 @@ public class MagicNumberModuleConfigurationController {
     private final Logger log = LoggerFactory.getLogger(MagicNumberModuleConfigurationController.class.getName());
 
     @Autowired
-    MagicNumberModuleService magicNumberModuleService;
+    private MagicNumberModuleService magicNumberModuleService;
 
     @PreAuthorize("hasPermission(#moduleId, 'Module', 'MODULE_VIEW')")
     @JsonView(WebModelJsonSerialize.class)
@@ -91,6 +91,4 @@ public class MagicNumberModuleConfigurationController {
 
         return new FormValidationResultDto(magicNumberModuleConfigurationFormResult);
     }
-
-
 }

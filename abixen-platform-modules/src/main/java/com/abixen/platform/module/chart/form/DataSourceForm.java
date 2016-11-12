@@ -26,18 +26,18 @@ import java.util.Set;
 public class DataSourceForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
-    protected Long id;
+    private Long id;
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    protected String name;
+    private String name;
 
     @JsonView(WebModelJsonSerialize.class)
-    protected String description;
+    private String description;
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    protected Set<DataSourceColumnWeb> columns;
+    private Set<DataSourceColumnWeb> columns;
 
     public String getName() {
         return name;

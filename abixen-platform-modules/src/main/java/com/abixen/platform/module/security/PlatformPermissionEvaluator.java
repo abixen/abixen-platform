@@ -15,15 +15,12 @@
 package com.abixen.platform.module.security;
 
 import com.abixen.platform.core.security.PlatformUser;
-import com.abixen.platform.core.security.PlatformWebUser;
 import com.abixen.platform.module.client.SecurityClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -41,7 +38,7 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
     //UserService userService;
 
     @Autowired
-    SecurityClient securityClient;
+    private SecurityClient securityClient;
 
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {

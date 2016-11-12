@@ -51,7 +51,7 @@ public class PlatformMethodSecurityExpressionRoot extends SecurityExpressionRoot
     //this.pageRepository = pageRepository;
     //}
 
-    protected void setTarget(Object target) {
+    protected void setThis(Object target) {
         this.target = target;
     }
 

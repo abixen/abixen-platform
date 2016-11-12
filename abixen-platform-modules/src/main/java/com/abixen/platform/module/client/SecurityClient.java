@@ -14,10 +14,7 @@
 
 package com.abixen.platform.module.client;
 
-import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.module.model.User;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,9 +23,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient("abixen-platform-core")
 public interface SecurityClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/admin/securities/has-permission/{username}/{securableObjectId}/{securableObjectClassName}/{permissionName}")
-    Boolean hasPermission(@PathVariable("username") String username, @PathVariable("securableObjectId") Long securableObjectId, @PathVariable("securableObjectClassName") String securableObjectClassName, @PathVariable("permissionName") String permissionName);
-
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/api/admin/securities/has-permission/{username}/{securableObjectId}/{securableObjectClassName}/{permissionName}")
+    Boolean hasPermission(@PathVariable("username") String username,
+                          @PathVariable("securableObjectId") Long securableObjectId,
+                          @PathVariable("securableObjectClassName") String securableObjectClassName,
+                          @PathVariable("permissionName") String permissionName);
 
 }
 

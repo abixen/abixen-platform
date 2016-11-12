@@ -17,7 +17,7 @@ package com.abixen.platform.module.chart.util;
 
 public final class ModelKeys {
 
-    public static final int DATASOURCE_VALUE_STRING_MAX_LENGTH= 32;
+    public static final int DATASOURCE_VALUE_STRING_MAX_LENGTH = 32;
 
     public static final char COMMA = ',';
     public static final char TAB = '\t';
