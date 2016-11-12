@@ -19,7 +19,6 @@ import com.abixen.platform.core.model.RoleBase;
 import com.abixen.platform.core.model.enumtype.RoleType;
 import com.abixen.platform.core.model.web.RoleWeb;
 import com.abixen.platform.core.util.ModelKeys;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;

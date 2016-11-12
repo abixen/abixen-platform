@@ -19,10 +19,8 @@ import com.abixen.platform.core.repository.PermissionRepository;
 import com.abixen.platform.core.service.PermissionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.acls.model.MutableAclService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,9 +31,6 @@ import java.util.List;
 public class PermissionServiceImpl implements PermissionService {
 
     private final Logger log = LoggerFactory.getLogger(PermissionServiceImpl.class);
-
-    @Autowired
-    MutableAclService mutableAclService;
 
     @Resource
     private PermissionRepository permissionRepository;

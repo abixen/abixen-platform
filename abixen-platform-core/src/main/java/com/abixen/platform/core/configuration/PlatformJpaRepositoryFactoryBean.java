@@ -39,7 +39,7 @@ public class PlatformJpaRepositoryFactoryBean<R extends JpaRepository<T, I>, T,
 
         private final EntityManager em;
 
-        public PlatformJpaRepositoryFactory(EntityManager em) {
+        PlatformJpaRepositoryFactory(EntityManager em) {
 
             super(em);
             this.em = em;
@@ -52,7 +52,7 @@ public class PlatformJpaRepositoryFactoryBean<R extends JpaRepository<T, I>, T,
         @Override
         protected PlatformJpaRepositoryImpl getTargetRepository(RepositoryInformation information) {
             JpaEntityInformation<?, Serializable> entityInformation = getEntityInformation(information.getDomainType());
-            return new PlatformJpaRepositoryImpl(entityInformation , em);
+            return new PlatformJpaRepositoryImpl(entityInformation, em);
         }
 
 

@@ -40,7 +40,7 @@ import java.util.List;
 @RequestMapping(value = "/api/admin/users")
 public class AdminUserController extends AbstractUserController {
 
-    static Logger log = Logger.getLogger(AdminUserController.class.getName());
+    private static Logger log = Logger.getLogger(AdminUserController.class.getName());
 
     private final UserService userService;
 

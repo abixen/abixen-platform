@@ -14,34 +14,18 @@
 
 package com.abixen.platform.core.controller;
 
-import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
-import com.abixen.platform.core.form.UserForm;
-import com.abixen.platform.core.form.UserRolesForm;
-import com.abixen.platform.core.model.SecurableModel;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
-import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.model.impl.User;
-import com.abixen.platform.core.security.PlatformUser;
-import com.abixen.platform.core.service.*;
-import com.abixen.platform.core.util.ValidationUtil;
+import com.abixen.platform.core.service.ModuleService;
+import com.abixen.platform.core.service.SecurityService;
+import com.abixen.platform.core.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 //import com.abixen.platform.core.service.MailService;
 
@@ -50,16 +34,16 @@ import java.util.Map;
 @RequestMapping(value = "/api/admin/securities")
 public class SecurityController {
 
-    static Logger log = Logger.getLogger(SecurityController.class.getName());
+    private static Logger log = Logger.getLogger(SecurityController.class.getName());
 
     @Autowired
-    SecurityService securityService;
+    private SecurityService securityService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    ModuleService moduleService;
+    private ModuleService moduleService;
 
 
     @RequestMapping(value = "/has-permission/{username}/{securableObjectId}/{securableObjectClassName}/{permissionName}", method = RequestMethod.GET)

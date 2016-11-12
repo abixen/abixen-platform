@@ -22,5 +22,5 @@ public interface ModuleTypeService {
 
     ModuleType findModuleType(Long id);
 
-    public List<ModuleType> findAllModuleTypes();
+    List<ModuleType> findAllModuleTypes();
 }

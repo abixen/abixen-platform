@@ -29,7 +29,6 @@ import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.UserBuilder;
 import org.apache.commons.io.FileExistsException;
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,34 +40,40 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    static Logger log = Logger.getLogger(UserServiceImpl.class.getName());
+    private static Logger log = Logger.getLogger(UserServiceImpl.class.getName());
 
+    private static final int GENERATOR_LENGTH = 12;
+    private static final int GENERATOR_NO_OF_CAPS_ALPHA = 2;
+    private static final int GENERATOR_NO_OF_DIGITS = 8;
+    private static final int GENERATOR_NO_OF_SPECIAL_CHARS = 2;
 
     @Resource
     private UserRepository userRepository;
 
     @Autowired
-    DomainBuilderService domainBuilderService;
+    private DomainBuilderService domainBuilderService;
 
     @Autowired
-    PasswordGeneratorService passwordGeneratorService;
+    private PasswordGeneratorService passwordGeneratorService;
 
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     @Autowired
-    PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+    private PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     @Override
     public String generateUserPassword() {
-        return passwordGeneratorService.generate(12, 2, 8, 2);
+        return passwordGeneratorService.generate(GENERATOR_LENGTH, GENERATOR_NO_OF_CAPS_ALPHA, GENERATOR_NO_OF_DIGITS, GENERATOR_NO_OF_SPECIAL_CHARS);
     }
 
     @Override
@@ -193,13 +198,13 @@ public class UserServiceImpl implements UserService {
     public User changeUserAvatar(Long userId, MultipartFile avatarFile) throws IOException {
         User user = findUser(userId);
         File currentAvatarFile = new File(platformResourceConfigurationProperties.getAvatarLibraryDirectory() + user.getAvatarFileName());
-        if (currentAvatarFile.exists()){
-            if(!currentAvatarFile.delete()){
+        if (currentAvatarFile.exists()) {
+            if (!currentAvatarFile.delete()) {
                 throw new FileExistsException();
             }
         }
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String newAvatarFileName = encoder.encode(avatarFile.getName()+ new Date().getTime()).replaceAll("\"","s").replaceAll("/","a").replace(".","sde");
+        String newAvatarFileName = encoder.encode(avatarFile.getName() + new Date().getTime()).replaceAll("\"", "s").replaceAll("/", "a").replace(".", "sde");
         File newAvatarFile = new File(platformResourceConfigurationProperties.getAvatarLibraryDirectory() + newAvatarFileName);
         FileOutputStream out = new FileOutputStream(newAvatarFile);
         out.write(avatarFile.getBytes());

@@ -19,7 +19,7 @@ public class LayoutColumnUtil {
 
     private String styleClass;
 
-    public LayoutColumnUtil(String styleClass){
+    public LayoutColumnUtil(String styleClass) {
         this.styleClass = styleClass;
     }
 }

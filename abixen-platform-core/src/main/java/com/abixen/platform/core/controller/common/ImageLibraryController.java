@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +40,7 @@ public class ImageLibraryController {
     private final Logger log = LoggerFactory.getLogger(ImageLibraryController.class);
 
     @Autowired
-    PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+    private PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     @RequestMapping(value = "/{fileName}/", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImage(@PathVariable String fileName) throws IOException {

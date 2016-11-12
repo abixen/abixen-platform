@@ -29,7 +29,7 @@ public class AclController {
     private final Logger log = LoggerFactory.getLogger(AclController.class);
 
     @Autowired
-    AclService aclService;
+    private AclService aclService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public AclRolesPermissionsDto getAclRolesPermissionsDto(@RequestParam("permissionAclClassCategoryName") String permissionAclClassCategoryName, @RequestParam("objectId") Long objectId) {

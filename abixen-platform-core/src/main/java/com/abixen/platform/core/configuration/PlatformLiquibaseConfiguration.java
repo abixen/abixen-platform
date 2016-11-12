@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 public class PlatformLiquibaseConfiguration {
 
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Value("${liquibase.change-log}")
     private String defaultLiquibaseChangelog;

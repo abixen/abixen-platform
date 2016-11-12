@@ -41,6 +41,8 @@ public abstract class AbstractPageController {
 
     private final Logger log = Logger.getLogger(AbstractPageController.class.getName());
 
+    private static final int PAGEABLE_DEFAULT_PAGE_SIZE = 100;
+
     private final PageService pageService;
 
     public AbstractPageController(PageService pageService) {
@@ -48,7 +50,7 @@ public abstract class AbstractPageController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public org.springframework.data.domain.Page<Page> getPages(@PageableDefault(size = 100, page = 0) Pageable pageable) {
+    public org.springframework.data.domain.Page<Page> getPages(@PageableDefault(size = PAGEABLE_DEFAULT_PAGE_SIZE) Pageable pageable) {
         log.debug("getPages()");
 
         org.springframework.data.domain.Page<Page> pages = pageService.findAllPages(pageable);

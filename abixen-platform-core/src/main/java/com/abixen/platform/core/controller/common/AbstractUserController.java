@@ -30,8 +30,6 @@ import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -131,7 +129,7 @@ public abstract class AbstractUserController {
         InputStream in = null;
         try {
             in = new FileInputStream(platformResourceConfigurationProperties.getAvatarLibraryDirectory() + hash);
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             in = new FileInputStream(platformResourceConfigurationProperties.getAvatarLibraryDirectory() + "avatar.png");
         }
         byte[] b = IOUtils.toByteArray(in);
@@ -147,7 +145,7 @@ public abstract class AbstractUserController {
 
     @RequestMapping(value = "/{id}/avatar", method = RequestMethod.POST)
     public User updateUserAvatar(@PathVariable Long id, @RequestParam("avatarFile") MultipartFile avatarFile) throws IOException {
-        return userService.changeUserAvatar(id,avatarFile);
+        return userService.changeUserAvatar(id, avatarFile);
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.GET)

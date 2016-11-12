@@ -15,15 +15,10 @@
 package com.abixen.platform.core.configuration;
 
 import com.abixen.platform.core.interceptor.RequestProcessingTimeInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.PropertiesFactoryBean;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -39,8 +34,7 @@ import java.util.Locale;
 @ComponentScan("com.abixen.platform.core")
 public class PlatformConfiguration extends WebMvcConfigurerAdapter {
 
-    @Autowired
-    Environment environment;
+    private static final Integer COOKIE_MAX_AGE = 604800;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -68,7 +62,7 @@ public class PlatformConfiguration extends WebMvcConfigurerAdapter {
         CookieLocaleResolver localeResolver = new CookieLocaleResolver();
         localeResolver.setCookieName("platformLocale");
         localeResolver.setDefaultLocale(Locale.US);
-        localeResolver.setCookieMaxAge(604800);
+        localeResolver.setCookieMaxAge(COOKIE_MAX_AGE);
         return localeResolver;
     }
 

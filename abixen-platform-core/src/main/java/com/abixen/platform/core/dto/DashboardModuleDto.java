@@ -147,13 +147,16 @@ public class DashboardModuleDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         DashboardModuleDto that = (DashboardModuleDto) o;
 
         return !(id != null ? !id.equals(that.id) : that.id != null);
-
     }
 
     @Override

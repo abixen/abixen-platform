@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("")
 public class ApplicationController {
 
-    static Logger log = Logger.getLogger(ApplicationController.class.getName());
+    private static Logger log = Logger.getLogger(ApplicationController.class.getName());
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

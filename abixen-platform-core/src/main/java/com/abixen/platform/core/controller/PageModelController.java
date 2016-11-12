@@ -14,22 +14,16 @@
 
 package com.abixen.platform.core.controller;
 
-import com.abixen.platform.core.dto.DashboardModuleDto;
 import com.abixen.platform.core.dto.PageModelDto;
-import com.abixen.platform.core.model.impl.Module;
-import com.abixen.platform.core.model.impl.Page;
-import com.abixen.platform.core.service.*;
-
+import com.abixen.platform.core.service.PageModelService;
+import com.abixen.platform.core.service.SecurityService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.validation.BindingResult;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @RestController
@@ -39,13 +33,13 @@ public class PageModelController {
     private final Logger log = Logger.getLogger(PageModelController.class.getName());
 
     @Autowired
-    SecurityService securityService;
+    private SecurityService securityService;
 
     @Autowired
-    Environment environment;
+    private Environment environment;
 
     @Autowired
-    PageModelService pageModelService;
+    private PageModelService pageModelService;
 
     //@PreAuthorize("hasPermission(#pageName, 'Page', 'DELETE')")
     //@PreAuthorize("canViewPage(#id)")

@@ -36,16 +36,16 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    static Logger log = Logger.getLogger(RoleServiceImpl.class.getName());
+    private static Logger log = Logger.getLogger(RoleServiceImpl.class.getName());
 
     @Resource
     private RoleRepository roleRepository;
 
     @Autowired
-    PermissionService permissionService;
+    private PermissionService permissionService;
 
     @Autowired
-    DomainBuilderService domainBuilderService;
+    private DomainBuilderService domainBuilderService;
 
     @Override
     public Role createRole(Role role) {

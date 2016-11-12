@@ -56,13 +56,15 @@ public class ModuleServiceImpl implements ModuleService {
     public Module createModule(Module module) {
         log.debug("createModule() - module: " + module);
         Module createdModule = moduleRepository.save(module);
-        aclService.insertDefaultAcl(createdModule, new ArrayList<PermissionName>() {{
-            add(PermissionName.MODULE_VIEW);
-            add(PermissionName.MODULE_EDIT);
-            add(PermissionName.MODULE_DELETE);
-            add(PermissionName.MODULE_CONFIGURATION);
-            add(PermissionName.MODULE_PERMISSION);
-        }});
+        aclService.insertDefaultAcl(createdModule, new ArrayList<PermissionName>() {
+            {
+                add(PermissionName.MODULE_VIEW);
+                add(PermissionName.MODULE_EDIT);
+                add(PermissionName.MODULE_DELETE);
+                add(PermissionName.MODULE_CONFIGURATION);
+                add(PermissionName.MODULE_PERMISSION);
+            }
+        });
         return createdModule;
     }
 

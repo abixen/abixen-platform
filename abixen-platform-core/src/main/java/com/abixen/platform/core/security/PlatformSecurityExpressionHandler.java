@@ -31,7 +31,7 @@ public class PlatformSecurityExpressionHandler extends DefaultMethodSecurityExpr
     @Override
     protected MethodSecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication, MethodInvocation invocation) {
         PlatformMethodSecurityExpressionRoot root = new PlatformMethodSecurityExpressionRoot(authentication);
-        root.setThis(invocation.getThis());
+        root.setTarget(invocation.getThis());
         root.setPermissionEvaluator(this.getPermissionEvaluator());
         //root.setPageRepository(pageRepository);
         return root;

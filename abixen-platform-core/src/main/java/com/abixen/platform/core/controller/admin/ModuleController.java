@@ -35,18 +35,17 @@ import javax.validation.Valid;
 import java.util.List;
 
 
-
 @RestController
 @RequestMapping(value = "/api/admin/modules")
 public class ModuleController {
 
-    static Logger log = Logger.getLogger(ModuleController.class.getName());
+    private static Logger log = Logger.getLogger(ModuleController.class.getName());
 
     @Autowired
-    SecurityService securityService;
+    private SecurityService securityService;
 
     @Autowired
-    ModuleService moduleService;
+    private ModuleService moduleService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public org.springframework.data.domain.Page<Module> getModules(@PageableDefault(size = 1, page = 0) Pageable pageable) {

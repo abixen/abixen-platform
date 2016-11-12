@@ -36,7 +36,7 @@ import javax.sql.DataSource;
 public class PlatformAclConfiguration {
 
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Bean
     EhCacheBasedAclCache aclCache() {

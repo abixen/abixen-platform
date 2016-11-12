@@ -35,7 +35,7 @@ import java.util.*;
 public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
         extends SimpleJpaRepository<T, ID> implements PlatformJpaRepository<T, ID> {
 
-    static Logger log = Logger.getLogger(PlatformJpaRepositoryImpl.class.getName());
+    private static Logger log = Logger.getLogger(PlatformJpaRepositoryImpl.class.getName());
 
     private final EntityManager entityManager;
 
@@ -93,7 +93,8 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
             if (key.equals("and") || key.equals("or")) {
                 currentOperator = key.toUpperCase();
             }
-            if (jsonCriteriaMap.get(key) instanceof Map) {//TODO - probably unused condition
+            if (jsonCriteriaMap.get(key) instanceof Map) {
+                //TODO - probably unused condition
                 query += convertJsonStringJPQL((Map<String, Object>) jsonCriteriaMap.get(key), parameters);
             } else if (jsonCriteriaMap.get(key) instanceof List) {
                 for (Object criteriaObject : (List) jsonCriteriaMap.get(key)) {
@@ -113,10 +114,10 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
                     conditionArgumentNumber++;
                 }
             }
-            conditionArgumentNumber++;//TODO - probably unused condition
+            conditionArgumentNumber++;
+            //TODO - probably unused condition
         }
         query += " )";
         return query;
     }
-
 }

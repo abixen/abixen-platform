@@ -24,7 +24,7 @@ import java.util.Random;
 @Service
 public class PasswordGeneratorServiceImpl implements PasswordGeneratorService {
 
-    static Logger log = Logger.getLogger(PasswordGeneratorServiceImpl.class.getName());
+    private static Logger log = Logger.getLogger(PasswordGeneratorServiceImpl.class.getName());
 
     private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
@@ -35,11 +35,12 @@ public class PasswordGeneratorServiceImpl implements PasswordGeneratorService {
     @Override
     public String generate(int length, int noOfCAPSAlpha, int noOfDigits, int noOfSpecialChars) {
         log.debug("generate() - length: " + length + ", noOfCAPSAlpha: " + noOfCAPSAlpha + ", noOfDigits: " + noOfDigits + ", noOfSpecialChars: " + noOfSpecialChars);
-        if (length < 1)
+        if (length < 1) {
             throw new IllegalArgumentException("Length should be greater than 0.");
-        if ((noOfCAPSAlpha + noOfDigits + noOfSpecialChars) != length)
-            throw new IllegalArgumentException
-                    ("Length should be atleast sum of (CAPS, DIGITS, SPECIALS CHARS) Length!");
+        }
+        if ((noOfCAPSAlpha + noOfDigits + noOfSpecialChars) != length) {
+            throw new IllegalArgumentException("Length should be atleast sum of (CAPS, DIGITS, SPECIALS CHARS) Length!");
+        }
         Random random = new Random();
         char[] passwordChars = new char[length];
         int index = 0;
@@ -65,7 +66,9 @@ public class PasswordGeneratorServiceImpl implements PasswordGeneratorService {
 
     private static int getNextIndex(Random random, int length, char[] passwordChars) {
         int index = random.nextInt(length);
-        while (passwordChars[index = random.nextInt(length)] != 0) ;
+        while (passwordChars[index] != 0) {
+            index = random.nextInt(length);
+        }
         return index;
     }
 }

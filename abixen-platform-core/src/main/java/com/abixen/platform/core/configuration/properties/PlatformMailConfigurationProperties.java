@@ -19,15 +19,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
-
 
 @Configuration
 @Component
 @EnableConfigurationProperties(PlatformMailConfigurationProperties.class)
 @ConfigurationProperties(prefix = "platform.core.mail.outgoing", locations = {"bootstrap.yml"})
-public class PlatformMailConfigurationProperties extends AbstractPlatformMailConfigurationProperties{
-
-
+public class PlatformMailConfigurationProperties extends AbstractPlatformMailConfigurationProperties {
 
 }

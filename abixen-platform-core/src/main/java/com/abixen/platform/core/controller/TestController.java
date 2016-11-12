@@ -14,9 +14,7 @@
 
 package com.abixen.platform.core.controller;
 
-import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Page;
-import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.repository.PageRepository;
 import com.abixen.platform.core.service.PageService;
 import com.abixen.platform.core.service.PermissionService;
@@ -24,19 +22,12 @@ import com.abixen.platform.core.service.SecurityService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.acls.domain.GrantedAuthoritySid;
-import org.springframework.security.acls.domain.PrincipalSid;
-import org.springframework.security.acls.model.MutableAcl;
-import org.springframework.security.acls.model.Sid;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -47,22 +38,22 @@ import java.util.List;
 @RequestMapping(value = "/api/admin/tests")
 public class TestController {
 
-    static Logger log = Logger.getLogger(TestController.class.getName());
+    private static Logger log = Logger.getLogger(TestController.class.getName());
 
     @Autowired
-    SecurityService securityService;
+    private SecurityService securityService;
 
     @Autowired
-    PermissionService permissionService;
+    private PermissionService permissionService;
 
     @Autowired
-    Environment environment;
+    private Environment environment;
 
     @Autowired
-    PageService pageService;
+    private PageService pageService;
 
     @Resource
-    PageRepository pageRepository;
+    private PageRepository pageRepository;
 
 
     @PostAuthorize("hasPermission(returnObject, 'PAGE_EDIT')")
@@ -90,7 +81,7 @@ public class TestController {
     public void createPage() {
         log.debug("createPage()");
 
-        Page page = pageService.findPage(2l);
+        Page page = pageService.findPage(2L);
 
        // Sid sid = new PrincipalSid("admin");
         //Sid sid = new PrincipalSid("owner");

@@ -34,7 +34,7 @@ public class ResourceController {
     private final Logger log = LoggerFactory.getLogger(ResourceController.class);
 
     @Autowired
-    ResourceService resourceService;
+    private ResourceService resourceService;
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
