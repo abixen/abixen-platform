@@ -1,7 +1,29 @@
-var userControllers = angular.module('userControllers', []);
+(function () {
 
-userControllers.controller('UserDetailsController', ['$scope', '$http', '$cookies', '$state', '$location', '$stateParams', '$log', 'User', 'UserPassword', '$parse', '$uibModalInstance', 'userId', 'toaster', 'FileUploader',
-    function ($scope, $http, $cookies, $state, $location, $stateParams, $log, User, UserPassword, $parse, $uibModalInstance, userId, toaster, FileUploader) {
+    'use strict';
+
+    angular
+        .module('platformUserModule')
+        .controller('UserDetailsController', UserDetailsController);
+
+    UserDetailsController.$inject = [
+        '$scope',
+        '$http',
+        '$cookies',
+        '$state',
+        '$location',
+        '$stateParams',
+        '$log',
+        'User',
+        'UserPassword',
+        '$parse',
+        '$uibModalInstance',
+        'userId',
+        'toaster',
+        'FileUploader'
+    ];
+
+    function UserDetailsController($scope, $http, $cookies, $state, $location, $stateParams, $log, User, UserPassword, $parse, $uibModalInstance, userId, toaster, FileUploader) {
         $log.log('UserDetailsController');
 
         $scope.userBaseUrl = "/api/application/users/";
@@ -218,5 +240,5 @@ userControllers.controller('UserDetailsController', ['$scope', '$http', '$cookie
         $scope.selectForm = function (form) {
             $scope.selectedForm = form;
         }
-
-    }]);
+    }
+})();

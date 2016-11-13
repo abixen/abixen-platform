@@ -1,22 +1,30 @@
-var userDirectives = angular.module('userDirectives', []);
+(function () {
+    'use strict';
 
-userDirectives.directive("passwordVerify", function() {
-    return {
-        require: "ngModel",
-        scope: {
-            passwordVerify: '='
-        },
-        link: function(scope, element, attrs, ctrl) {
-            scope.$watch(function() {
+    angular
+        .module('platformUserModule')
+        .directive('passwordVerify', passwordVerifyDirective);
+
+    function passwordVerifyDirective() {
+        return {
+            require: "ngModel",
+            scope: {
+                passwordVerify: '='
+            },
+            link: link
+        };
+
+        function link(scope, element, attrs, ctrl) {
+            scope.$watch(function () {
                 var combined;
 
                 if (scope.passwordVerify || ctrl.$viewValue) {
                     combined = scope.passwordVerify + '_' + ctrl.$viewValue;
                 }
                 return combined;
-            }, function(value) {
+            }, function (value) {
                 if (value) {
-                    ctrl.$parsers.unshift(function(viewValue) {
+                    ctrl.$parsers.unshift(function (viewValue) {
                         var origin = scope.passwordVerify;
                         if (origin !== viewValue) {
                             ctrl.$setValidity("passwordVerify", false);
@@ -29,5 +37,5 @@ userDirectives.directive("passwordVerify", function() {
                 }
             });
         }
-    };
-});
+    }
+})();
