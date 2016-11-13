@@ -1,8 +1,17 @@
-var platformPageModule = angular.module('platformPageModule', ['ui.router', 'pageControllers', 'pageServices', 'adf',
-    'platformLayoutModule']);
+(function () {
 
-platformPageModule.config(['$stateProvider',
-    function ($stateProvider) {
+    'use strict';
+
+    angular
+        .module('platformPageModule')
+        .config(platformPageModuleConfig);
+
+    platformPageModuleConfig.$inject = [
+        '$stateProvider'
+    ];
+
+    function platformPageModuleConfig($stateProvider) {
+
         $stateProvider
             .state('application.welcome', {
                 url: '/welcome',
@@ -15,4 +24,4 @@ platformPageModule.config(['$stateProvider',
                 controller: 'PageController'
             });
     }
-]);
+})();
