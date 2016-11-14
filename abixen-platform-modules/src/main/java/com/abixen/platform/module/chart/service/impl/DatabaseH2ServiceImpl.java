@@ -26,11 +26,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 
-@Service("databasePostgresService")
-public class DatabasePostgresServiceImpl extends AbstractDatabaseService implements DatabaseService {
+@Service("databaseH2Service")
+public class DatabaseH2ServiceImpl extends AbstractDatabaseService implements DatabaseService {
 
     private final Logger log = LoggerFactory.getLogger(DatabasePostgresServiceImpl.class);
 
@@ -44,25 +43,24 @@ public class DatabasePostgresServiceImpl extends AbstractDatabaseService impleme
     public Connection getConnection(DatabaseConnectionForm databaseConnectionForm) {
         try {
 
-            Class.forName("org.postgresql.Driver");
+            Class.forName("org.h2.Driver");
 
         } catch (ClassNotFoundException exception) {
 
-            log.error("Where is your PostgreSQL JDBC Driver? "
+            log.error("Where is your H2 JDBC Driver? "
                     + "Include in your library path!");
             throw new DatabaseConnectionException(exception.getMessage());
 
         }
 
-        log.info("PostgreSQL JDBC Driver Registered!");
+        log.info("H2 JDBC Driver Registered!");
 
         Connection connection;
 
         try {
 
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://" + databaseConnectionForm.getDatabaseHost() +
-                            ":" + databaseConnectionForm.getDatabasePort() + "/" +
+                    "jdbc:h2:mem:" +
                             databaseConnectionForm.getDatabaseName(), databaseConnectionForm.getUsername(),
                     databaseConnectionForm.getPassword());
 
@@ -79,5 +77,4 @@ public class DatabasePostgresServiceImpl extends AbstractDatabaseService impleme
 
         return connection;
     }
-
 }
