@@ -14,24 +14,27 @@
 
 package com.abixen.platform.core.configuration;
 
-import com.abixen.platform.core.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
-import org.apache.commons.dbcp.BasicDataSource;
+
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
 
-public abstract class AbstractPlatformDataSourceConfiguration {
-    @Autowired
-    AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
+public abstract class AbstractLiquibaseConfiguration {
 
-    @Bean(destroyMethod = "close")
-    public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(platformJdbcConfiguration.getDriverClassName());
-        dataSource.setUrl(platformJdbcConfiguration.getDatabaseUrl());
-        dataSource.setUsername(platformJdbcConfiguration.getUsername());
-        dataSource.setPassword(platformJdbcConfiguration.getPassword());
-        return dataSource;
+    @Autowired
+    private DataSource dataSource;
+
+    @Value("${liquibase.change-log}")
+    private String defaultLiquibaseChangelog;
+
+    @Bean
+    public SpringLiquibase liquibase() {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setDataSource(dataSource);
+        liquibase.setChangeLog(defaultLiquibaseChangelog);
+        return liquibase;
     }
 }
