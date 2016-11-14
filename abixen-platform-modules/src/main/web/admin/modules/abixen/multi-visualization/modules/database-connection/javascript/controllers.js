@@ -69,7 +69,7 @@ databaseConnectionControllers.controller('DatabaseConnectionDetailController',
 
     angular.extend(this, new AbstractCrudDetailController($scope, $http, $state, $stateParams, $log, DatabaseConnection, $parse, 'application.multiVisualization.modules.databaseConnection'));
 
-    $scope.databaseTypes = ['POSTGRES', 'MYSQL', 'ORACLE'];
+    $scope.databaseTypes = ['POSTGRES', 'MYSQL', 'ORACLE', 'H2'];
 
     $scope.testConnection = function () {
         $log.log('testConnection()');
