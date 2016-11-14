@@ -15,31 +15,31 @@
 package com.abixen.platform.module.chart.util.impl;
 
 import com.abixen.platform.core.util.EntityBuilder;
-import com.abixen.platform.module.chart.model.impl.DataSourceValueFloat;
+import com.abixen.platform.module.chart.model.impl.DataSourceValueDouble;
 import com.abixen.platform.module.chart.util.DataSourceValueBuilder;
 
 
-public class DataSourceValueFloatBuilderImpl extends EntityBuilder<DataSourceValueFloat> implements DataSourceValueBuilder<DataSourceValueFloat, Float> {
+public class DataSourceValueFloatBuilderImpl extends EntityBuilder<DataSourceValueDouble> implements DataSourceValueBuilder<DataSourceValueDouble, Double> {
 
     @Override
     protected void initProduct() {
-        this.product = new DataSourceValueFloat();
+        this.product = new DataSourceValueDouble();
     }
 
     @Override
-    protected DataSourceValueFloat assembleProduct() {
+    protected DataSourceValueDouble assembleProduct() {
         return this.product;
     }
 
     @Override
-    public DataSourceValueBuilder value(Float value) {
+    public DataSourceValueBuilder value(Double value) {
         this.product.setValue(value);
         return this;
     }
 
     @Override
     public DataSourceValueBuilder valueString(String value) {
-        this.product.setValue(Float.valueOf(value));
+        this.product.setValue(Double.valueOf(value));
         return this;
     }
 

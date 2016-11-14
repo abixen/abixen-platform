@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/multi-visualisation/data-source-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="data-source-v1">
+        <createTable tableName="data_source">
+            <column name="id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint(19)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by_id" type="bigint(19)"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="filter" type="clob"/>
+            <column name="name" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__data_source__id" tableName="data_source"/>
+
+    </changeSet>
+
+</databaseChangeLog>

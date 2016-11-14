@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -50,9 +49,6 @@ public class PlatformModuleJpaConfiguration {
     private DataSource dataSource;
 
     @Autowired
-    private Environment environment;
-
-    @Autowired
     private AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
 
 
@@ -67,21 +63,11 @@ public class PlatformModuleJpaConfiguration {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
-        Properties jpaProperties = new Properties();
 
+        Properties jpaProperties = new Properties();
         jpaProperties.put("hibernate.show_sql", "true");
         jpaProperties.put("hibernate.dialect", platformJdbcConfiguration.getDialect());
-
-        String activeProfile = environment.getActiveProfiles().length > 0 ? environment.getActiveProfiles()[0] : "test";
-        String createDbSchema = environment.getProperty("createDbSchema");
-
-        if ((createDbSchema != null && createDbSchema.equalsIgnoreCase("true")) || activeProfile.equals("test")) {
-            log.info("Import database will be executing. Active profile is " + activeProfile);
-            jpaProperties.put("hibernate.hbm2ddl.auto", "create");
-        } else {
-            log.info("Import database won't be executing. Active profile is " + activeProfile);
-            jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
-        }
+        jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
 
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
         entityManagerFactoryBean.afterPropertiesSet();

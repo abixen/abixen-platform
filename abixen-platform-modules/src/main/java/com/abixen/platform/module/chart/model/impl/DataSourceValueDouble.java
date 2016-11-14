@@ -18,21 +18,21 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "data_source_value_float")
+@Table(name = "data_source_value_double")
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-public class DataSourceValueFloat extends DataSourceValue<Float> {
+public class DataSourceValueDouble extends DataSourceValue<Double> {
 
 
     private static final long serialVersionUID = -1434303122608329824L;
 
     @Column(name = "value", nullable = true)
-    private Float value;
+    private Double value;
 
-    public Float getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Float value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

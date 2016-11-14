@@ -1,3 +1,6 @@
 spring:
   application:
     name: abixen-platform-modules
+
+liquibase:
+  change-log: classpath:liquibase/master-changelog.xml

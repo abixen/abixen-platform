@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/multi-visualisation/database-connection-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="database-connection-v1">
+        <createTable tableName="database_connection">
+            <column name="id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint(19)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by_id" type="bigint(19)"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="database_host" type="varchar(255)"/>
+            <column name="database_name" type="varchar(255)"/>
+            <column name="database_port" type="int(10)"/>
+            <column name="database_type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="name" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)"/>
+            <column name="username" type="varchar(255)"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__database_connection__id" tableName="database_connection"/>
+
+    </changeSet>
+
+</databaseChangeLog>
