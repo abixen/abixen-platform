@@ -1,17 +1,3 @@
-/**
- * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- */
-
 package com.abixen.platform.module.chart.service.impl;
 
 import com.abixen.platform.module.chart.exception.DatabaseConnectionException;
@@ -27,10 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-
-@Service("POSTGRES")
-public class DatabasePostgresServiceImpl implements DatabaseService {
-
+/**
+ * Created by Konrad on 2016-11-14.
+ */
+@Service("H2")
+public class DatabaseH2ServiceImpl implements DatabaseService {
     private final Logger log = LoggerFactory.getLogger(DatabasePostgresServiceImpl.class);
 
 
@@ -43,25 +30,24 @@ public class DatabasePostgresServiceImpl implements DatabaseService {
     public Connection getConnection(DatabaseConnectionForm databaseConnectionForm) {
         try {
 
-            Class.forName("org.postgresql.Driver");
+            Class.forName("org.h2.Driver");
 
         } catch (ClassNotFoundException exception) {
 
-            log.error("Where is your PostgreSQL JDBC Driver? "
+            log.error("Where is your H2 JDBC Driver? "
                     + "Include in your library path!");
             throw new DatabaseConnectionException(exception.getMessage());
 
         }
 
-        log.info("PostgreSQL JDBC Driver Registered!");
+        log.info("H2 JDBC Driver Registered!");
 
         Connection connection;
 
         try {
 
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://" + databaseConnectionForm.getDatabaseHost() +
-                            ":" + databaseConnectionForm.getDatabasePort() + "/" +
+                    "jdbc:h2:mem:" +
                             databaseConnectionForm.getDatabaseName(), databaseConnectionForm.getUsername(),
                     databaseConnectionForm.getPassword());
 

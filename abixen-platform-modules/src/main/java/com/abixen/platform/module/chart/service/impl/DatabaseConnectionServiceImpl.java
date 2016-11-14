@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -15,6 +15,7 @@
 package com.abixen.platform.module.chart.service.impl;
 
 import com.abixen.platform.module.chart.form.DatabaseConnectionForm;
+import com.abixen.platform.module.chart.model.enumtype.DatabaseType;
 import com.abixen.platform.module.chart.model.impl.DatabaseConnection;
 import com.abixen.platform.module.chart.repository.DatabaseConnectionRepository;
 import com.abixen.platform.module.chart.service.DatabaseConnectionService;
@@ -22,6 +23,7 @@ import com.abixen.platform.module.chart.service.DatabaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.Connection;
 import java.util.List;
+
+import static com.abixen.platform.module.chart.model.enumtype.DatabaseType.POSTGRES;
 
 
 @Service
@@ -40,7 +44,12 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     private DatabaseConnectionRepository dataSourceConnectionRepository;
 
     @Autowired
-    private DatabaseService databaseService;
+    @Qualifier("POSTGRES")
+    private DatabaseService databasePostgresService;
+
+    @Autowired
+    @Qualifier("H2")
+    private DatabaseService databaseH2Service;
 
     //@Autowired
     //KpiChartConfigurationDomainBuilderService kpiChartConfigurationDomainBuilderService;
@@ -110,12 +119,13 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
 
     @Override
     public void testDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
-        databaseService.getConnection(databaseConnectionForm);
+        chooseDatabaseService(databaseConnectionForm).getConnection(databaseConnectionForm);
     }
 
     @Override
     public List<String> getTables(Long databaseConnectionId) {
         DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionId);
+        DatabaseService databaseService = chooseDatabaseService(databaseConnection);
         Connection connection = databaseService.getConnection(databaseConnection);
         return databaseService.getTables(connection);
     }
@@ -123,7 +133,26 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     @Override
     public List<String> getTableColumns(Long databaseConnectionId, String table) {
         DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionId);
+        DatabaseService databaseService = chooseDatabaseService(databaseConnection);
         Connection connection = databaseService.getConnection(databaseConnection);
         return databaseService.getColumns(connection, table);
+    }
+
+    private DatabaseService chooseDatabaseService(DatabaseConnectionForm databaseConnectionForm) {
+        return chooseDatabaseServiceByType(databaseConnectionForm.getDatabaseType());
+    }
+
+    private DatabaseService chooseDatabaseService(DatabaseConnection databaseConnection) {
+        return chooseDatabaseServiceByType(databaseConnection.getDatabaseType());
+    }
+
+    private DatabaseService chooseDatabaseServiceByType(DatabaseType databaseType) {
+        switch (databaseType) {
+            case POSTGRES:
+                return databasePostgresService;
+            case H2:
+                return databaseH2Service;
+            default: return null;
+        }
     }
 }
