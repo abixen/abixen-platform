@@ -12,12 +12,18 @@
  * details.
  */
 
-package com.abixen.platform.module.chart.model.enumtype;
+package com.abixen.platform.module.chart.exception;
 
 
-public enum DatabaseType {
-    POSTGRES,
-    MYSQL,
-    ORACLE,
-    H2
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+public class DatabaseTypeException extends RuntimeException {
+
+    public DatabaseTypeException(String message) {
+        super(message);
+    }
+
 }
