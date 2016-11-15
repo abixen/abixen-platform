@@ -15,6 +15,9 @@ spring:
     port: 6379
 
 zuul:
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
   routes:
     resource:
       path: /resource/**
@@ -32,6 +35,14 @@ zuul:
       path: /admin/modules/abixen/**
       url: http://modules:9091/admin/modules/abixen
       sensitive-headers:
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
 
 eureka:
   instance:
