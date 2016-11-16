@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/changelog/sequences.xml">
 
-    <changeSet id="sequences-v1" author="mariuszkumor">
+    <changeSet author="MariuszKumor" id="sequences-v1">
         <createSequence sequenceName="acl_class_seq" startValue="6"/>
         <createSequence sequenceName="acl_entry_seq" startValue="4"/>
         <createSequence sequenceName="acl_object_identity_seq" startValue="4"/>
