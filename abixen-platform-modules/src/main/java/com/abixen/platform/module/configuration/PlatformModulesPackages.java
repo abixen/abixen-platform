@@ -31,7 +31,7 @@ public class PlatformModulesPackages {
 
     public static final String KPI_CHART = MAIN + ".kpichart";
 
-    public static final String MAGIC_NUMBER = MAIN + ".magicnumber.model";
+    public static final String MAGIC_NUMBER = MAIN + ".magicnumber";
 
     public static final String CHART_DOMAIN = CHART + ".model";
 
