@@ -11,8 +11,8 @@
             <column name="id" type="bigint(19)">
                 <constraints nullable="false"/>
             </column>
-            <column name="revenue_gross" type="number(22,2)"/>
-            <column name="revenue_net" type="number(22,2)"/>
+            <column name="revenue_gross" type="double(17)"/>
+            <column name="revenue_net" type="double(17)"/>
             <column name="total_sales" type="bigint(19)"/>
             <column name="sales_day" type="date"/>
             <column name="salesman_name" type="varchar(255)"/>

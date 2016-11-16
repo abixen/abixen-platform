@@ -11,8 +11,8 @@
             <column name="id" type="bigint(19)">
                 <constraints nullable="false"/>
             </column>
-            <column name="income" type="number(22,2)"/>
-            <column name="outcome" type="number(22,2)"/>
+            <column name="income" type="double(17)"/>
+            <column name="outcome" type="double(17)"/>
             <column name="date" type="date"/>
 
         </createTable>

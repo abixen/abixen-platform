@@ -11,7 +11,13 @@
         <preConditions onFail="HALT">
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_selling_data</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_cash_flow_data</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM database_connection</sqlCheck>
         </preConditions>
+
+        <loadData file="liquibase/import/data/database-connection.csv"
+                  separator=";"
+                  tableName="database_connection">
+        </loadData>
 
         <loadData file="liquibase/import/data/sample-selling-data.csv"
                   separator=";"
