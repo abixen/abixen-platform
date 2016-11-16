@@ -22,5 +22,7 @@
     <include file="liquibase/changelog/multi-visualisation/database-data-source-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/file-data-source-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/chart-configuration-changelog.xml"/>
+    <include file="liquibase/changelog/multi-visualisation/sample/sample-selling-data-changelog.xml"/>
+    <include file="liquibase/changelog/multi-visualisation/sample/sample-cash-flow-data-changelog.xml"/>
 
 </databaseChangeLog>
