@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/multi-visualisation/sample/sample-cash-flow-data-changelog.xml">
+
+    <changeSet author="KonradWisniewski" id="sample-cash-flow-data-v1">
+        <createTable tableName="sample_cash_flow_data">
+            <column name="id" type="bigint(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="income" type="number(22,2)"/>
+            <column name="outcome" type="number(22,2)"/>
+            <column name="date" type="date"/>
+
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__sample_cash_flow_data__id" tableName="sample_cash_flow_data"/>
+
+    </changeSet>
+
+</databaseChangeLog>
