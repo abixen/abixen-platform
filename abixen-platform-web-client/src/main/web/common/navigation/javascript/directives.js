@@ -23,8 +23,8 @@ platformNavigationDirectives.directive('platformNavigation', ['$log', '$state', 
             scope.redirectAction = applicationNavigationItems.getRedirectAction();
             scope.dropdownStyleClass = applicationNavigationItems.getDropdownStyleClass();
             scope.toggle = true;
-            scope.baseUserUrl = "/api/application/users/";
-            scope.avatarUrl = scope.baseUserUrl + "1/avatar/1";
+            scope.baseUserUrl = '/api/application/users/';
+            scope.avatarUrl = '';
             var mobileView = 992;
 
             scope.getWidth = function () {
