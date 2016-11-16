@@ -22,9 +22,6 @@ public abstract class AbstractPlatformResourceConfigurationProperties {
     @NotNull
     private String imageLibraryDirectory;
 
-    @NotNull
-    private String avatarLibraryDirectory;
-
     public String getImageLibraryDirectory() {
         return resolvePath(imageLibraryDirectory);
     }
@@ -32,15 +29,6 @@ public abstract class AbstractPlatformResourceConfigurationProperties {
     public void setImageLibraryDirectory(String imageLibraryDirectory) {
         this.imageLibraryDirectory = imageLibraryDirectory;
     }
-
-    public String getAvatarLibraryDirectory() {
-        return resolvePath(avatarLibraryDirectory);
-    }
-
-    public void setAvatarLibraryDirectory(String avatarLibraryDirectory) {
-        this.avatarLibraryDirectory = avatarLibraryDirectory;
-    }
-
 
     private String resolvePath(String path) {
         String resolvedPath = path;

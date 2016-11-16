@@ -197,7 +197,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User changeUserAvatar(Long userId, MultipartFile avatarFile) throws IOException {
         User user = findUser(userId);
-        File currentAvatarFile = new File(platformResourceConfigurationProperties.getAvatarLibraryDirectory() + user.getAvatarFileName());
+        File currentAvatarFile = new File(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/user-avatar/" + user.getAvatarFileName());
         if (currentAvatarFile.exists()) {
             if (!currentAvatarFile.delete()) {
                 throw new FileExistsException();
@@ -205,7 +205,7 @@ public class UserServiceImpl implements UserService {
         }
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         String newAvatarFileName = encoder.encode(avatarFile.getName() + new Date().getTime()).replaceAll("\"", "s").replaceAll("/", "a").replace(".", "sde");
-        File newAvatarFile = new File(platformResourceConfigurationProperties.getAvatarLibraryDirectory() + newAvatarFileName);
+        File newAvatarFile = new File(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/user-avatar/" + newAvatarFileName);
         FileOutputStream out = new FileOutputStream(newAvatarFile);
         out.write(avatarFile.getBytes());
         out.close();

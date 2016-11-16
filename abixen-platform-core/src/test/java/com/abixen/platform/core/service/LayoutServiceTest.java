@@ -15,7 +15,6 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +26,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = {PlatformAclConfiguration.class, PlatformJpaConfiguration.class, PlatformTestJdbcConfigurationProperties.class, PlatformTestMailConfigurationProperties.class, PlatformDataSourceConfiguration.class, PlatformServiceConfiguration.class, PlatformSecurityConfiguration.class})
-//@ContextConfiguration(classes = {PlatformJpaConfiguration.class, PlatformDataSourceConfigurationProperties.class, PlatformMailConfigurationProperties.class, PlatformDataSourceConfiguration.class, PlatformServiceConfiguration.class, PlatformSecurityConfiguration.class})
 public class LayoutServiceTest {
-
-    static Logger log = Logger.getLogger(LayoutServiceTest.class.getName());
 
     @Autowired
     LayoutService layoutService;

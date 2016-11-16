@@ -47,7 +47,7 @@ public class ImageLibraryController {
 
         log.debug("fileName: " + fileName);
 
-        InputStream in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/" + fileName);
+        InputStream in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/layout-miniature/" + fileName);
 
         byte[] b = IOUtils.toByteArray(in);
 

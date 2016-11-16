@@ -128,9 +128,9 @@ public abstract class AbstractUserController {
     public ResponseEntity<byte[]> getUserAvatar(@PathVariable Long id, @PathVariable String hash) throws IOException {
         InputStream in = null;
         try {
-            in = new FileInputStream(platformResourceConfigurationProperties.getAvatarLibraryDirectory() + hash);
+            in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/user-avatar/" + hash);
         } catch (FileNotFoundException e) {
-            in = new FileInputStream(platformResourceConfigurationProperties.getAvatarLibraryDirectory() + "avatar.png");
+            in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/user-avatar/avatar.png");
         }
         byte[] b = IOUtils.toByteArray(in);
 
