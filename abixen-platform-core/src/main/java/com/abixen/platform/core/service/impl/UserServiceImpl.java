@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.service.impl;
 
-import com.abixen.platform.core.configuration.properties.PlatformResourceConfigurationProperties;
+import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.dto.UserRoleDto;
 import com.abixen.platform.core.exception.UserActivationException;
 import com.abixen.platform.core.form.UserChangePasswordForm;
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     private RoleService roleService;
 
     @Autowired
-    private PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+    private AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     @Override
     public String generateUserPassword() {

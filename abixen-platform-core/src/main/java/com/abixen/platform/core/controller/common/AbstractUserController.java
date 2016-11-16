@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.controller.common;
 
-import com.abixen.platform.core.configuration.properties.PlatformResourceConfigurationProperties;
+import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.form.UserChangePasswordForm;
@@ -60,9 +60,9 @@ public abstract class AbstractUserController {
 
     private final RoleService roleService;
 
-    private final PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+    private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
-    public AbstractUserController(UserService userService, MailService mailService, RoleService roleService, PlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
+    public AbstractUserController(UserService userService, MailService mailService, RoleService roleService, AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
         this.userService = userService;
         this.mailService = mailService;
         this.roleService = roleService;

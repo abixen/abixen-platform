@@ -18,6 +18,7 @@ package com.abixen.platform.core.configuration.properties;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
+
 @Component
 @Primary
 public class PlatformTestMailConfigurationProperties extends AbstractPlatformMailConfigurationProperties{

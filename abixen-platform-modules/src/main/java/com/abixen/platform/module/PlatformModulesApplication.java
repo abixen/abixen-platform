@@ -23,12 +23,13 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
+import static com.abixen.platform.module.configuration.PlatformModulesPackages.CLIENT;
 
 @EnableRetry
 @SpringBootApplication
 @EnableRedisHttpSession
 @EnableEurekaClient
-@EnableFeignClients(basePackages = {"com.abixen.platform.module.client"})
+@EnableFeignClients(basePackages = {CLIENT})
 public class PlatformModulesApplication extends SpringBootServletInitializer {
 
     @Override

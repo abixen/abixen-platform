@@ -16,10 +16,10 @@ package com.abixen.platform.module.configuration;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import com.abixen.platform.module.security.PlatformAuditorAware;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.domain.AuditorAware;
@@ -27,6 +27,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -35,15 +36,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+import static com.abixen.platform.module.configuration.PlatformModulesPackages.*;
+
 
 @Configuration
-@Import({PlatformModuleDataSourceConfiguration.class})
+@Import(PlatformModuleDataSourceConfiguration.class)
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "platformAuditorAware")
-@EnableJpaRepositories(basePackages = {"com.abixen.platform.module.chart.repository", "com.abixen.platform.module.magicnumber.repository", "com.abixen.platform.module.kpichart.repository"})
+@EnableJpaRepositories(basePackages = {CHART_REPOSITORY, MAGIC_NUMBER_REPOSITORY, KPI_CHART_REPOSITORY})
 public class PlatformModuleJpaConfiguration {
-
-    private final Logger log = Logger.getLogger(PlatformModuleJpaConfiguration.class.getName());
 
     @Autowired
     private DataSource dataSource;
@@ -51,32 +52,9 @@ public class PlatformModuleJpaConfiguration {
     @Autowired
     private AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
 
-
-    //http://java.dzone.com/articles/springmvc4-spring-data-jpa
-
-    @Bean(name = "entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
-        log.debug("entityManagerFactoryBean()");
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setDataSource(dataSource);
-        entityManagerFactoryBean.setPackagesToScan(new String[]{"com.abixen.platform.module.model", "com.abixen.platform.module.chart.model", "com.abixen.platform.module.magicnumber.model", "com.abixen.platform.module.kpichart.model"});
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(true);
-        entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
-
-        Properties jpaProperties = new Properties();
-        jpaProperties.put("hibernate.show_sql", "true");
-        jpaProperties.put("hibernate.dialect", platformJdbcConfiguration.getDialect());
-        jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
-
-        entityManagerFactoryBean.setJpaProperties(jpaProperties);
-        entityManagerFactoryBean.afterPropertiesSet();
-        entityManagerFactoryBean.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
-        return entityManagerFactoryBean;
-    }
-
     @Bean
     public PlatformTransactionManager transactionManager() {
+
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
         return transactionManager;
@@ -84,12 +62,43 @@ public class PlatformModuleJpaConfiguration {
 
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+
         return new PersistenceExceptionTranslationPostProcessor();
+    }
+
+    @DependsOn("liquibase")
+    @Bean(name = "entityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(dataSource);
+        entityManagerFactoryBean.setPackagesToScan(new String[]{CHART_DOMAIN, MAGIC_NUMBER_DOMAIN, KPI_CHART_DOMAIN});
+        entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter());
+        entityManagerFactoryBean.setJpaProperties(jpaProperties());
+        entityManagerFactoryBean.afterPropertiesSet();
+        entityManagerFactoryBean.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
+        return entityManagerFactoryBean;
+    }
+
+    private Properties jpaProperties() {
+
+        Properties jpaProperties = new Properties();
+        jpaProperties.put("hibernate.show_sql", "true");
+        jpaProperties.setProperty("hibernate.dialect", platformJdbcConfiguration.getDialect());
+        jpaProperties.setProperty("hibernate.hbm2ddl.auto", "validate");
+        return jpaProperties;
+    }
+
+    private JpaVendorAdapter jpaVendorAdapter() {
+
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(false);
+        vendorAdapter.setShowSql(false);
+        return vendorAdapter;
     }
 
     @Bean(name = "platformAuditorAware")
     public AuditorAware platformAuditorAware() {
         return new PlatformAuditorAware();
     }
-
 }

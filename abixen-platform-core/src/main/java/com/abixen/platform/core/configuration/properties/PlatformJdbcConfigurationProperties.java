@@ -14,16 +14,17 @@
 
 package com.abixen.platform.core.configuration.properties;
 
-import com.abixen.platform.core.util.PlatformProfiles;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import static com.abixen.platform.core.util.PlatformProfiles.DEV;
+import static com.abixen.platform.core.util.PlatformProfiles.CLOUD;
 
+@Profile({DEV, CLOUD})
 @Component
 @EnableConfigurationProperties
-@Profile({PlatformProfiles.DEV, PlatformProfiles.PROD, PlatformProfiles.CLOUD})
 @ConfigurationProperties(prefix = "platform.core.jdbc")
 public class PlatformJdbcConfigurationProperties extends AbstractPlatformJdbcConfigurationProperties {
 

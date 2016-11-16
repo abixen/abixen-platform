@@ -14,42 +14,27 @@
 
 package com.abixen.platform.module.chart.service.impl;
 
-import com.abixen.platform.core.util.PlatformProfiles;
 import com.abixen.platform.module.chart.form.DatabaseConnectionForm;
 import com.abixen.platform.module.chart.model.enumtype.DatabaseType;
-import com.abixen.platform.module.chart.model.impl.DatabaseConnection;
-import com.abixen.platform.module.chart.model.impl.FileDataSource;
 import com.abixen.platform.module.chart.repository.DatabaseConnectionRepository;
-import com.abixen.platform.module.chart.repository.DatabaseDataSourceRepository;
 import com.abixen.platform.module.chart.service.DatabaseConnectionService;
 import com.abixen.platform.module.chart.service.DatabaseService;
-import com.abixen.platform.module.configuration.PlatformModuleDataSourceConfiguration;
-import com.abixen.platform.module.configuration.PlatformModuleJpaConfiguration;
-import com.abixen.platform.module.configuration.PlatformModuleSecurityConfiguration;
-import com.abixen.platform.module.configuration.PlatformModuleServiceConfiguration;
-import com.abixen.platform.module.configuration.properties.PlatformTestJdbcConfigurationProperties;
+import com.abixen.platform.module.configuration.PlatformModuleConfiguration;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-
-import java.sql.Connection;
-import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {PlatformModuleJpaConfiguration.class, PlatformModuleDataSourceConfiguration.class,
-        PlatformModuleServiceConfiguration.class, PlatformModuleSecurityConfiguration.class, FileDataSource.class,
-        DatabaseDataSourceRepository.class,
-        PlatformTestJdbcConfigurationProperties.class
-})
+@ContextConfiguration(classes = PlatformModuleConfiguration.class)
 public class DatabaseDataSourceTest {
 
     static Logger log = Logger.getLogger(DatabaseDataSourceTest.class.getName());
@@ -58,7 +43,8 @@ public class DatabaseDataSourceTest {
     private DatabaseConnectionService databaseConnectionService;
 
     @Autowired
-    private DatabaseService databaseService;
+    @Qualifier("databasePostgresService")
+    private DatabaseService databasePostgresService;
 
     @Resource
     private DatabaseConnectionRepository databaseConnectionRepository;

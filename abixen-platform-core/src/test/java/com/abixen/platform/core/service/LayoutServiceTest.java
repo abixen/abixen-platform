@@ -14,25 +14,21 @@
 
 package com.abixen.platform.core.service;
 
-import com.abixen.platform.core.configuration.*;
-import com.abixen.platform.core.configuration.properties.PlatformJdbcConfigurationProperties;
-import com.abixen.platform.core.configuration.properties.PlatformMailConfigurationProperties;
-import com.abixen.platform.core.configuration.properties.PlatformTestJdbcConfigurationProperties;
-import com.abixen.platform.core.configuration.properties.PlatformTestMailConfigurationProperties;
-import com.abixen.platform.core.util.PlatformProfiles;
+import com.abixen.platform.core.configuration.PlatformConfiguration;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {PlatformAclConfiguration.class, PlatformJpaConfiguration.class, PlatformTestJdbcConfigurationProperties.class, PlatformTestMailConfigurationProperties.class, PlatformDataSourceConfiguration.class, PlatformServiceConfiguration.class, PlatformSecurityConfiguration.class})
+@ContextConfiguration(classes = PlatformConfiguration.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringApplicationConfiguration(classes = {PlatformAclConfiguration.class, PlatformJpaConfiguration.class, PlatformTestJdbcConfigurationProperties.class, PlatformTestMailConfigurationProperties.class, PlatformDataSourceConfiguration.class, PlatformServiceConfiguration.class, PlatformSecurityConfiguration.class})
 //@ContextConfiguration(classes = {PlatformJpaConfiguration.class, PlatformDataSourceConfigurationProperties.class, PlatformMailConfigurationProperties.class, PlatformDataSourceConfiguration.class, PlatformServiceConfiguration.class, PlatformSecurityConfiguration.class})
 public class LayoutServiceTest {
 

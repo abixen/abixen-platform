@@ -19,7 +19,7 @@ import com.abixen.platform.module.chart.model.impl.DataSourceValueDouble;
 import com.abixen.platform.module.chart.util.DataSourceValueBuilder;
 
 
-public class DataSourceValueFloatBuilderImpl extends EntityBuilder<DataSourceValueDouble> implements DataSourceValueBuilder<DataSourceValueDouble, Double> {
+public class DataSourceValueDoubleBuilderImpl extends EntityBuilder<DataSourceValueDouble> implements DataSourceValueBuilder<DataSourceValueDouble, Double> {
 
     @Override
     protected void initProduct() {

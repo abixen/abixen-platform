@@ -14,76 +14,14 @@
 
 package com.abixen.platform.core.configuration;
 
-import com.abixen.platform.core.interceptor.RequestProcessingTimeInterceptor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
-import java.util.List;
-import java.util.Locale;
+import static com.abixen.platform.core.configuration.PlatformPackages.*;
 
 
-@EnableWebMvc
 @Configuration
-@ComponentScan("com.abixen.platform.core")
-public class PlatformConfiguration extends WebMvcConfigurerAdapter {
-
-    private static final Integer COOKIE_MAX_AGE = 604800;
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-    }
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(requestProcessingTimeInterceptor());
-        registry.addInterceptor(localeChangeInterceptor());
-    }
-
-    @Bean
-    public CookieLocaleResolver localeResolver() {
-        CookieLocaleResolver localeResolver = new CookieLocaleResolver();
-        localeResolver.setCookieName("platformLocale");
-        localeResolver.setDefaultLocale(Locale.US);
-        localeResolver.setCookieMaxAge(COOKIE_MAX_AGE);
-        return localeResolver;
-    }
-
-    @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("language");
-        return localeChangeInterceptor;
-    }
-
-    @Bean
-    public RequestProcessingTimeInterceptor requestProcessingTimeInterceptor() {
-        return new RequestProcessingTimeInterceptor();
-    }
-
-    @Bean
-    public ReloadableResourceBundleMessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:messages/messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
+@ComponentScan(basePackages = {CONFIG, REPOSITORY, SERVICE, CONTROLLER})
+public class PlatformConfiguration {
 
 }

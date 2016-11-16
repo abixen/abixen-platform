@@ -14,45 +14,14 @@
 
 package com.abixen.platform.module.configuration;
 
-import com.abixen.platform.core.interceptor.RequestProcessingTimeInterceptor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.*;
 
-import java.util.List;
+import static com.abixen.platform.module.configuration.PlatformModulesPackages.*;
 
 
-@EnableWebMvc
 @Configuration
-@ComponentScan("com.abixen.platform.module")
-public class PlatformModuleConfiguration extends WebMvcConfigurerAdapter {
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-    }
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(requestProcessingTimeInterceptor());
-    }
-
-    @Bean
-    public RequestProcessingTimeInterceptor requestProcessingTimeInterceptor() {
-        return new RequestProcessingTimeInterceptor();
-    }
+@ComponentScan(basePackages = {CONFIG, CHART, KPI_CHART, MAGIC_NUMBER})
+public class PlatformModuleConfiguration {
 
 }

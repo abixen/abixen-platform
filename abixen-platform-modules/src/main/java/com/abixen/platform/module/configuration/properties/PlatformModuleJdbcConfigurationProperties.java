@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @EnableConfigurationProperties
-@Profile({PlatformProfiles.DEV, PlatformProfiles.PROD, PlatformProfiles.CLOUD})
+@Profile({PlatformProfiles.DEV, PlatformProfiles.CLOUD})
 @ConfigurationProperties(prefix = "platform.module.jdbc")
 public class PlatformModuleJdbcConfigurationProperties extends AbstractPlatformJdbcConfigurationProperties {
 

@@ -50,6 +50,9 @@ public class AbstractDatabaseService {
 
     public List<String> getTables(Connection connection) {
 
+        final int objectTypeIndex = 4;
+        final int objectNameIndex = 3;
+
         List<String> tables = new ArrayList<>();
 
         try {
@@ -57,8 +60,8 @@ public class AbstractDatabaseService {
             ResultSet rs = md.getTables(null, null, "%", null);
 
             while (rs.next()) {
-                if ("TABLE".equals(rs.getString(4)) || "VIEW".equals(rs.getString(4))) {
-                    tables.add(rs.getString(3));
+                if ("TABLE".equals(rs.getString(objectTypeIndex)) || "VIEW".equals(rs.getString(objectTypeIndex))) {
+                    tables.add(rs.getString(objectNameIndex));
                 }
             }
 

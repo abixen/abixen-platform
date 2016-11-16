@@ -14,19 +14,19 @@
 
 package com.abixen.platform.core.configuration.properties;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-import static com.abixen.platform.core.util.PlatformProfiles.DEV;
-import static com.abixen.platform.core.util.PlatformProfiles.CLOUD;
+import javax.annotation.PostConstruct;
 
-
-@Profile({DEV, CLOUD})
 @Component
-@EnableConfigurationProperties(PlatformMailConfigurationProperties.class)
-@ConfigurationProperties(prefix = "platform.core.mail.outgoing", locations = {"bootstrap.yml"})
-public class PlatformMailConfigurationProperties extends AbstractPlatformMailConfigurationProperties {
+@Primary
+public class PlatformTestResourceConfigurationProperties extends AbstractPlatformResourceConfigurationProperties {
+
+    @PostConstruct
+    public void init() {
+        setImageLibraryDirectory("${baseDir}/../data/image-library/");
+        setAvatarLibraryDirectory("${baseDir}/../data/user-avatar/");
+    }
 
 }

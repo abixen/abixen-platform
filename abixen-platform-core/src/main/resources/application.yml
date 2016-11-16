@@ -3,6 +3,3 @@ spring:
     name: abixen-platform-core
   jpa:
     generate-ddl: true
-
-liquibase:
-  change-log: classpath:liquibase/master-changelog.xml

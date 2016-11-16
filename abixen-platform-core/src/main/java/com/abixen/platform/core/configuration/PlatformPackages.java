@@ -12,24 +12,25 @@
  * details.
  */
 
-package com.abixen.platform.module.chart.model.enumtype;
+package com.abixen.platform.core.configuration;
 
 
-public enum DataValueType {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-    STRING("STRING"),
-    INTEGER("INTEGER"),
-    DOUBLE("DOUBLE"),
-    DATE("DATE");
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class PlatformPackages {
 
-    private final String name;
+    static final String MAIN = "com.abixen.platform.core";
 
-    DataValueType(String name) {
-        this.name = name;
-    }
+    static final String CONFIG = MAIN + ".configuration";
 
-    public String getName() {
-        return name;
-    }
+    static final String DOMAIN = MAIN + ".model.impl";
+
+    static final String CONTROLLER = MAIN + ".controller";
+
+    static final String SERVICE = MAIN + ".service.impl";
+
+    static final String REPOSITORY = MAIN + ".repository";
 
 }

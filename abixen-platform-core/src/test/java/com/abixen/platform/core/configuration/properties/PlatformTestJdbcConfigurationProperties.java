@@ -23,6 +23,7 @@ import javax.annotation.PostConstruct;
 @Component
 @Primary
 public class PlatformTestJdbcConfigurationProperties extends AbstractPlatformJdbcConfigurationProperties {
+
     @PostConstruct
     public void init() {
         setDatabaseUrl("jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
@@ -31,4 +32,5 @@ public class PlatformTestJdbcConfigurationProperties extends AbstractPlatformJdb
         setPassword("");
         setDialect("org.hibernate.dialect.H2Dialect");
     }
+
 }

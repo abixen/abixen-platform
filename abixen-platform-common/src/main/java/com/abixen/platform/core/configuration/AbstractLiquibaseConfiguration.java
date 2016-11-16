@@ -17,7 +17,6 @@ package com.abixen.platform.core.configuration;
 
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
@@ -27,14 +26,13 @@ public abstract class AbstractLiquibaseConfiguration {
     @Autowired
     private DataSource dataSource;
 
-    @Value("${liquibase.change-log}")
-    private String defaultLiquibaseChangelog;
+    private final String liquibaseChangelog = "classpath:liquibase/master-changelog.xml";
 
     @Bean
     public SpringLiquibase liquibase() {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog(defaultLiquibaseChangelog);
+        liquibase.setChangeLog(liquibaseChangelog);
         return liquibase;
     }
 }
