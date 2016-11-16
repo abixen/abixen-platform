@@ -6,9 +6,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/changelog/multi-visualisation/multi-visualisation-sequences.xml">
 
-    <changeSet id="multi-visualisation-sequences-v1" author="mariuszkumor">
+    <changeSet id="multi-visualisation-sequences-v1" author="MariuszKumor">
         <createSequence sequenceName="chart_configuration_seq"/>
-        <createSequence sequenceName="database_connection_seq"/>
+        <createSequence sequenceName="database_connection_seq" startValue="2"/>
         <createSequence sequenceName="data_set_seq"/>
         <createSequence sequenceName="data_set_series_column_seq"/>
         <createSequence sequenceName="data_set_series_seq"/>
