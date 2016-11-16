@@ -32,6 +32,7 @@ public class DatabaseH2ServiceImpl extends AbstractDatabaseService implements Da
 
     private final Logger log = LoggerFactory.getLogger(DatabasePostgresServiceImpl.class);
 
+    private static final String LOCALHOST_FOR_INTERNAL_DB = "file";
 
     @Override
     public Connection getConnection(DatabaseConnection databaseConnection) {
@@ -57,11 +58,22 @@ public class DatabaseH2ServiceImpl extends AbstractDatabaseService implements Da
         Connection connection;
 
         try {
-
-            connection = DriverManager.getConnection(
-                    "jdbc:h2:mem:" +
-                            databaseConnectionForm.getDatabaseName(), databaseConnectionForm.getUsername(),
-                    databaseConnectionForm.getPassword());
+            Boolean isInternalDatabase = databaseConnectionForm.getDatabaseHost().equalsIgnoreCase(LOCALHOST_FOR_INTERNAL_DB);
+            if (isInternalDatabase) {
+                connection = DriverManager.getConnection(
+                        "jdbc:h2:mem:~/" +
+                                databaseConnectionForm.getDatabaseName(),
+                        databaseConnectionForm.getUsername(),
+                        databaseConnectionForm.getPassword());
+            } else {
+                connection = DriverManager.getConnection(
+                        "jdbc:h2:tcp:" +
+                                databaseConnectionForm.getDatabaseHost() + ":" +
+                                databaseConnectionForm.getDatabasePort() + "/" +
+                                databaseConnectionForm.getDatabaseName(),
+                        databaseConnectionForm.getUsername(),
+                        databaseConnectionForm.getPassword());
+            }
 
         } catch (SQLException exception) {
             log.error("Connection Failed! Check output console");
