@@ -37,7 +37,7 @@ services:
       - configuration
       - redis
     volumes:
-      - /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library:/data/db
+      - /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library:/data/image-library
 
   web-client:
     image: abixen-platform/abixen-platform-web-client
