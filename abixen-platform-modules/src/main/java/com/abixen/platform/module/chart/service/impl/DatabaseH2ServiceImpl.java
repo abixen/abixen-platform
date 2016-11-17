@@ -18,14 +18,26 @@ import com.abixen.platform.module.chart.exception.DatabaseConnectionException;
 import com.abixen.platform.module.chart.form.DatabaseConnectionForm;
 import com.abixen.platform.module.chart.model.impl.DatabaseConnection;
 import com.abixen.platform.module.chart.service.DatabaseService;
+import org.hibernate.SessionFactory;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.persister.entity.AbstractEntityPersister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManagerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Service("databaseH2Service")
 public class DatabaseH2ServiceImpl extends AbstractDatabaseService implements DatabaseService {
@@ -33,6 +45,26 @@ public class DatabaseH2ServiceImpl extends AbstractDatabaseService implements Da
     private final Logger log = LoggerFactory.getLogger(DatabasePostgresServiceImpl.class);
 
     private static final String LOCALHOST_FOR_INTERNAL_DB = "file";
+
+    private static final List<String> SYSTEM_TABLE_LIST = new ArrayList<>(Arrays.asList(
+            "databasechangelog",
+            "databasechangeloglock"));
+
+    @Autowired
+    public DatabaseH2ServiceImpl(EntityManagerFactory factory) {
+        if (factory.unwrap(SessionFactory.class) == null) {
+            throw new NullPointerException("factory is not a hibernate factory");
+        }
+        loadSystemTableList(factory.unwrap(SessionFactory.class));
+    }
+
+    private void loadSystemTableList(SessionFactory sessionFactory) {
+        Map<String, ClassMetadata> allClassMetadata = sessionFactory.getAllClassMetadata();
+        allClassMetadata.forEach((key, value) -> {
+            AbstractEntityPersister abstractEntityPersister = (AbstractEntityPersister) value;
+            SYSTEM_TABLE_LIST.add(abstractEntityPersister.getTableName());
+        });
+    }
 
     @Override
     public Connection getConnection(DatabaseConnection databaseConnection) {
@@ -61,7 +93,7 @@ public class DatabaseH2ServiceImpl extends AbstractDatabaseService implements Da
             Boolean isInternalDatabase = databaseConnectionForm.getDatabaseHost().equalsIgnoreCase(LOCALHOST_FOR_INTERNAL_DB);
             if (isInternalDatabase) {
                 connection = DriverManager.getConnection(
-                        "jdbc:h2:mem:~/" +
+                        "jdbc:h2:file:~/" +
                                 databaseConnectionForm.getDatabaseName(),
                         databaseConnectionForm.getUsername(),
                         databaseConnectionForm.getPassword());
@@ -87,5 +119,17 @@ public class DatabaseH2ServiceImpl extends AbstractDatabaseService implements Da
         }
 
         return connection;
+    }
+
+    @Override
+    protected ResultSet getTablesAsResultSet(Connection connection) throws SQLException {
+        PreparedStatement st = connection.prepareStatement("SELECT * FROM INFORMATION_SCHEMA.TABLES");
+        st.execute();
+        return st.getResultSet();
+    }
+
+    @Override
+    protected boolean isAllowedTable(String tableName) {
+        return !SYSTEM_TABLE_LIST.contains(tableName.toLowerCase());
     }
 }

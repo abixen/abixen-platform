@@ -56,12 +56,13 @@ public class AbstractDatabaseService {
         List<String> tables = new ArrayList<>();
 
         try {
-            DatabaseMetaData md = connection.getMetaData();
-            ResultSet rs = md.getTables(null, null, "%", null);
+            ResultSet rs = getTablesAsResultSet(connection);
 
             while (rs.next()) {
                 if ("TABLE".equals(rs.getString(objectTypeIndex)) || "VIEW".equals(rs.getString(objectTypeIndex))) {
-                    tables.add(rs.getString(objectNameIndex));
+                    if (isAllowedTable(rs.getString(objectNameIndex))) {
+                        tables.add(rs.getString(objectNameIndex));
+                    }
                 }
             }
 
@@ -69,5 +70,14 @@ public class AbstractDatabaseService {
             e.printStackTrace();
         }
         return tables;
+    }
+
+    protected ResultSet getTablesAsResultSet(Connection connection) throws SQLException {
+        DatabaseMetaData md = connection.getMetaData();
+        return md.getTables(null, null, "%", null);
+    }
+
+    protected boolean isAllowedTable(String tableName) {
+        return true;
     }
 }
