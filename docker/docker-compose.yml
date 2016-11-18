@@ -14,10 +14,18 @@ services:
     image: abixen-platform/abixen-platform-configuration
     links:
       - discovery
+    depends_on:
+      - discovery
 
   gateway:
     image: abixen-platform/abixen-platform-gateway
     links:
+      - discovery
+      - configuration
+      - redis
+      - core
+      - modules
+    depends_on:
       - discovery
       - configuration
       - redis
@@ -29,10 +37,17 @@ services:
     links:
       - discovery
       - configuration
+    depends_on:
+      - discovery
+      - configuration
 
   core:
     image: abixen-platform/abixen-platform-core
     links:
+      - discovery
+      - configuration
+      - redis
+    depends_on:
       - discovery
       - configuration
       - redis
@@ -41,13 +56,20 @@ services:
 
   web-client:
     image: abixen-platform/abixen-platform-web-client
-    ports:
-      - "8080:8080"
     links:
      - discovery
      - configuration
      - gateway
      - core
+    depends_on:
+     - discovery
+     - configuration
+     - gateway
+     - core
+    labels:
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:platform.abixen.devd.io"
+      - "traefik.backend.loadbalancer.sticky=true"
 
   hystrix-dashboard:
     image: abixen-platform/abixen-platform-hystrix-dashboard
@@ -57,3 +79,19 @@ services:
      - gateway
      - core
      - modules
+    depends_on:
+     - gateway
+     - core
+     - modules
+
+  load-balancer:
+      image: traefik:v1.1.0-rc4
+      command: --web --docker --docker.domain=devd.io --logLevel=DEBUG
+      ports:
+        - "80:80"
+        - "8080:8080"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /dev/null:/traefik.toml
+      depends_on:
+        - web-client

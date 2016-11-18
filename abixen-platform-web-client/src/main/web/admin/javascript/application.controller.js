@@ -19,8 +19,8 @@
 
         $log.log('ApplicationController');
 
-        var applicationLoginUrl = 'http://localhost:8080/login';
-        var applicationDashboardUrl = 'http://localhost:8080';
+        var applicationLoginUrl = '/login';
+        var applicationDashboardUrl = '/';
 
         $scope.platformUser = null;
 

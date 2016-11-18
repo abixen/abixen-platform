@@ -18,7 +18,7 @@
 
             console.log('rejection: ', rejection);
 
-            var applicationLoginUrl = 'http://localhost:8080/login';
+            var applicationLoginUrl = '/login';
             var applicationModulesUrlPrefix = '/application/modules';
 
             //TODO

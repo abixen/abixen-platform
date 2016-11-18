@@ -22,7 +22,7 @@ var platformApplication = angular.module('platformApplication', [
 ]);
 
 platformApplication.factory('platformHttpInterceptor', ['$q', '$injector', function ($q, $injector) {
-    var applicationLoginUrl = 'http://localhost:8080/login';
+    var applicationLoginUrl = '/login';
     var applicationModulesUrlPrefix = '/application/modules';
 
     return {

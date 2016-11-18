@@ -7,8 +7,8 @@ platformLoginControllers.controller('PlatformAuthenticateController', [
 
             $scope.credentials = {};
 
-            var applicationUrl = 'http://localhost:8080';
-            var applicationAdminUrl = 'http://localhost:8080/admin';
+            var applicationUrl = '/';
+            var applicationAdminUrl = '/admin';
 
             var authenticate = function (credentials, callback) {
 
