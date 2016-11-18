@@ -12,8 +12,8 @@
         <createSequence sequenceName="data_set_seq"/>
         <createSequence sequenceName="data_set_series_column_seq"/>
         <createSequence sequenceName="data_set_series_seq"/>
-        <createSequence sequenceName="data_source_column_seq"/>
-        <createSequence sequenceName="data_source_seq"/>
+        <createSequence sequenceName="data_source_column_seq" startValue="11"/>
+        <createSequence sequenceName="data_source_seq" startValue="3"/>
         <createSequence sequenceName="data_source_value_seq"/>
     </changeSet>
 
