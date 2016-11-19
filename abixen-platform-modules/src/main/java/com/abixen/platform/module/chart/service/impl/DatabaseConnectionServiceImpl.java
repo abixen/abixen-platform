@@ -14,17 +14,15 @@
 
 package com.abixen.platform.module.chart.service.impl;
 
-import com.abixen.platform.module.chart.exception.DatabaseConnectionException;
 import com.abixen.platform.module.chart.form.DatabaseConnectionForm;
-import com.abixen.platform.module.chart.model.enumtype.DatabaseType;
 import com.abixen.platform.module.chart.model.impl.DatabaseConnection;
 import com.abixen.platform.module.chart.repository.DatabaseConnectionRepository;
 import com.abixen.platform.module.chart.service.DatabaseConnectionService;
+import com.abixen.platform.module.chart.service.DatabaseFactory;
 import com.abixen.platform.module.chart.service.DatabaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,7 +31,6 @@ import javax.annotation.Resource;
 import java.sql.Connection;
 import java.util.List;
 
-import static com.abixen.platform.module.chart.model.enumtype.DatabaseType.POSTGRES;
 
 
 @Service
@@ -45,12 +42,7 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     private DatabaseConnectionRepository dataSourceConnectionRepository;
 
     @Autowired
-    @Qualifier("databasePostgresService")
-    private DatabaseService databasePostgresService;
-
-    @Autowired
-    @Qualifier("databaseH2Service")
-    private DatabaseService databaseH2Service;
+    private DatabaseFactory databaseFactory;
 
     //@Autowired
     //KpiChartConfigurationDomainBuilderService kpiChartConfigurationDomainBuilderService;
@@ -108,8 +100,7 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     @Override
     public DatabaseConnection createDatabaseConnection(DatabaseConnection databaseConnection) {
         log.debug("createDatabaseConnection() - databaseConnection: " + databaseConnection);
-        DatabaseConnection createdDatabaseConnection = dataSourceConnectionRepository.save(databaseConnection);
-        return createdDatabaseConnection;
+        return dataSourceConnectionRepository.save(databaseConnection);
     }
 
     @Override
@@ -120,13 +111,13 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
 
     @Override
     public void testDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
-        chooseDatabaseService(databaseConnectionForm).getConnection(databaseConnectionForm);
+        databaseFactory.getDatabaseService(databaseConnectionForm.getDatabaseType()).getConnection(databaseConnectionForm);
     }
 
     @Override
     public List<String> getTables(Long databaseConnectionId) {
         DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionId);
-        DatabaseService databaseService = chooseDatabaseService(databaseConnection);
+        DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnection);
         return databaseService.getTables(connection);
     }
@@ -134,26 +125,10 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     @Override
     public List<String> getTableColumns(Long databaseConnectionId, String table) {
         DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionId);
-        DatabaseService databaseService = chooseDatabaseService(databaseConnection);
+        DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnection);
         return databaseService.getColumns(connection, table);
     }
 
-    private DatabaseService chooseDatabaseService(DatabaseConnectionForm databaseConnectionForm) {
-        return chooseDatabaseServiceByType(databaseConnectionForm.getDatabaseType());
-    }
 
-    private DatabaseService chooseDatabaseService(DatabaseConnection databaseConnection) {
-        return chooseDatabaseServiceByType(databaseConnection.getDatabaseType());
-    }
-
-    private DatabaseService chooseDatabaseServiceByType(DatabaseType databaseType) {
-        switch (databaseType) {
-            case POSTGRES:
-                return databasePostgresService;
-            case H2:
-                return databaseH2Service;
-            default: throw new DatabaseConnectionException("Invalid database type");
-        }
-    }
 }
