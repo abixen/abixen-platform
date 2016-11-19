@@ -8,30 +8,30 @@
 
     <changeSet author="MariuszKumor" id="module-v1">
         <createTable tableName="module">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_date" type="timestamp"/>
-            <column name="column_index" type="int(10)">
+            <column name="column_index" type="integer">
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="varchar(100)"/>
-            <column name="order_index" type="int(10)">
+            <column name="order_index" type="integer">
                 <constraints nullable="false"/>
             </column>
-            <column name="row_index" type="int(10)">
+            <column name="row_index" type="integer">
                 <constraints nullable="false"/>
             </column>
             <column name="title" type="varchar(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by_id" type="bigint(19)"/>
-            <column name="last_modified_by_id" type="bigint(19)"/>
-            <column name="module_type_id" type="bigint(19)">
+            <column name="created_by_id" type="bigint"/>
+            <column name="last_modified_by_id" type="bigint"/>
+            <column name="module_type_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="page_id" type="bigint(19)">
+            <column name="page_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

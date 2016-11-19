@@ -8,12 +8,12 @@
 
     <changeSet author="KonradWisniewski" id="sample-selling-data-v1">
         <createTable tableName="sample_selling_data">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="revenue_gross" type="double(17)"/>
-            <column name="revenue_net" type="double(17)"/>
-            <column name="total_sales" type="bigint(19)"/>
+            <column name="revenue_gross" type="double"/>
+            <column name="revenue_net" type="double"/>
+            <column name="total_sales" type="bigint"/>
             <column name="sales_day" type="date"/>
             <column name="salesman_name" type="varchar(255)"/>
 

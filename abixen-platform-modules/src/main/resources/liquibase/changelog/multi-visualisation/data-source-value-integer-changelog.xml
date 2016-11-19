@@ -8,8 +8,8 @@
 
     <changeSet author="MariuszKumor" id="data-source-value-integer-v1">
         <createTable tableName="data_source_value_integer">
-            <column name="value" type="int(10)"/>
-            <column name="id" type="bigint(19)">
+            <column name="value" type="integer"/>
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

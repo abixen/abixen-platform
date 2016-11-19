@@ -8,10 +8,10 @@
 
     <changeSet author="MariuszKumor" id="acl-sid-v1">
         <createTable tableName="acl_sid">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="sid_id" type="bigint(19)">
+            <column name="sid_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="sid_type" type="varchar(255)">

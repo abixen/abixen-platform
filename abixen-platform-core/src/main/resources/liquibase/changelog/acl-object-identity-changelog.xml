@@ -8,13 +8,13 @@
 
     <changeSet author="MariuszKumor" id="acl-object-identity-v1">
         <createTable tableName="acl_object_identity">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="object_id" type="bigint(19)">
+            <column name="object_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="acl_class_id" type="bigint(19)">
+            <column name="acl_class_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

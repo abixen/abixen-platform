@@ -8,7 +8,7 @@
 
     <changeSet author="MariuszKumor" id="role-v1">
         <createTable tableName="role_">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp"/>
@@ -19,8 +19,8 @@
             <column name="role_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by_id" type="bigint(19)"/>
-            <column name="last_modified_by_id" type="bigint(19)"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="last_modified_by_id" type="bigint"/>
         </createTable>
 
         <addPrimaryKey columnNames="id" constraintName="pk__role__id" tableName="role_"/>

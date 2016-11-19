@@ -8,10 +8,10 @@
 
     <changeSet author="MariuszKumor" id="user-role-v1">
         <createTable tableName="user_role">
-            <column name="user_id" type="bigint(19)">
+            <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="role_id" type="bigint(19)">
+            <column name="role_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

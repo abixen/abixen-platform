@@ -9,7 +9,7 @@
     <changeSet author="MariuszKumor" id="file-data-source-v1">
         <createTable tableName="file_data_source">
             <column name="file_type" type="varchar(255)"/>
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

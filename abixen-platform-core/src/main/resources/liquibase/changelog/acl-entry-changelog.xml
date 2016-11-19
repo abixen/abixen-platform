@@ -8,20 +8,20 @@
 
     <changeSet author="MariuszKumor" id="acl-entry-v1">
         <createTable tableName="acl_entry">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_date" type="timestamp"/>
-            <column name="created_by_id" type="bigint(19)"/>
-            <column name="last_modified_by_id" type="bigint(19)"/>
-            <column name="acl_object_identity_id" type="bigint(19)">
+            <column name="created_by_id" type="bigint"/>
+            <column name="last_modified_by_id" type="bigint"/>
+            <column name="acl_object_identity_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="acl_sid_id" type="bigint(19)">
+            <column name="acl_sid_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="permission_id" type="bigint(19)">
+            <column name="permission_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

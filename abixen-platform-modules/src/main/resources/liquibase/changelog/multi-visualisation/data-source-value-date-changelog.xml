@@ -9,7 +9,7 @@
     <changeSet author="MariuszKumor" id="data-source-value-date-v1">
         <createTable tableName="data_source_value_date">
             <column name="value" type="timestamp"/>
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

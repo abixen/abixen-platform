@@ -8,14 +8,14 @@
 
     <changeSet author="MariuszKumor" id="data-set-series-v1">
         <createTable tableName="data_set_series">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="filter" type="clob"/>
             <column name="name" type="varchar(300)">
                 <constraints nullable="false"/>
             </column>
-            <column name="data_set_id" type="bigint(19)">
+            <column name="data_set_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

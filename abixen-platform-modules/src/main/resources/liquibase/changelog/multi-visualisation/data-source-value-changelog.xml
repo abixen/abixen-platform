@@ -8,11 +8,11 @@
 
     <changeSet author="MariuszKumor" id="data-source-value-v1">
         <createTable tableName="data_source_value">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="position" type="int(10)"/>
-            <column name="column_id" type="bigint(19)">
+            <column name="position" type="integer"/>
+            <column name="column_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

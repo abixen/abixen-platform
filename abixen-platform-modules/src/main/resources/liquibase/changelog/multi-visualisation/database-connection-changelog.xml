@@ -8,16 +8,16 @@
 
     <changeSet author="MariuszKumor" id="database-connection-v1">
         <createTable tableName="database_connection">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by_id" type="bigint(19)"/>
+            <column name="created_by_id" type="bigint"/>
             <column name="created_date" type="timestamp"/>
-            <column name="last_modified_by_id" type="bigint(19)"/>
+            <column name="last_modified_by_id" type="bigint"/>
             <column name="last_modified_date" type="timestamp"/>
             <column name="database_host" type="varchar(255)"/>
             <column name="database_name" type="varchar(255)"/>
-            <column name="database_port" type="int(10)"/>
+            <column name="database_port" type="integer"/>
             <column name="database_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>

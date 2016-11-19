@@ -37,9 +37,11 @@ services:
     links:
       - discovery
       - configuration
+      - modules-postgres-database
     depends_on:
       - discovery
       - configuration
+      - modules-postgres-database
 
   core:
     image: abixen-platform/abixen-platform-core
@@ -47,10 +49,12 @@ services:
       - discovery
       - configuration
       - redis
+      - core-postgres-database
     depends_on:
       - discovery
       - configuration
       - redis
+      - core-postgres-database
     volumes:
       - /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library:/data/image-library
 
@@ -95,3 +99,21 @@ services:
         - /dev/null:/traefik.toml
       depends_on:
         - web-client
+
+  core-postgres-database:
+      image: postgres:9.4
+      ports:
+        - "5432:5432"
+      environment:
+        POSTGRES_PASSWORD: fy2Lkxw201sV
+        POSTGRES_USER: abixen
+        POSTGRES_DB: abixen_platform_core
+
+  modules-postgres-database:
+      image: postgres:9.4
+      ports:
+        - "5433:5432"
+      environment:
+        POSTGRES_PASSWORD: fy2Lkxw201sV
+        POSTGRES_USER: abixen
+        POSTGRES_DB: abixen_platform_modules

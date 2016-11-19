@@ -11,14 +11,14 @@
             <column name="type" type="varchar(31)">
                 <constraints nullable="false"/>
             </column>
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="varchar(300)">
                 <constraints nullable="false"/>
             </column>
-            <column name="position" type="int(10)"/>
-            <column name="data_source_id" type="bigint(19)">
+            <column name="position" type="integer"/>
+            <column name="data_source_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

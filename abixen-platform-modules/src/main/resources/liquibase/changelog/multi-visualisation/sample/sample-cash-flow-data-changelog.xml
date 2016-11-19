@@ -8,11 +8,11 @@
 
     <changeSet author="KonradWisniewski" id="sample-cash-flow-data-v1">
         <createTable tableName="sample_cash_flow_data">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="income" type="double(17)"/>
-            <column name="outcome" type="double(17)"/>
+            <column name="income" type="double"/>
+            <column name="outcome" type="double"/>
             <column name="date" type="date"/>
 
         </createTable>

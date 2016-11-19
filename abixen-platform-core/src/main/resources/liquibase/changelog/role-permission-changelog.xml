@@ -8,10 +8,10 @@
 
     <changeSet author="MariuszKumor" id="role-permission-v1">
         <createTable tableName="role_permission">
-            <column name="role_id" type="bigint(19)">
+            <column name="role_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="permission_id" type="bigint(19)">
+            <column name="permission_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

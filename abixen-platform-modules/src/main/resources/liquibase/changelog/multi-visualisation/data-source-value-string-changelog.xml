@@ -9,7 +9,7 @@
     <changeSet author="MariuszKumor" id="data-source-value-string-v1">
         <createTable tableName="data_source_value_string">
             <column name="value" type="varchar(32)"/>
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

@@ -8,13 +8,13 @@
 
     <changeSet author="MariuszKumor" id="permission-acl-class-category-v1">
         <createTable tableName="permission_acl_class_category">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="varchar(255)"/>
             <column name="name" type="varchar(255)"/>
             <column name="title" type="varchar(255)"/>
-            <column name="acl_class_id" type="bigint(19)">
+            <column name="acl_class_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

@@ -8,12 +8,12 @@
 
     <changeSet author="MariuszKumor" id="data-source-v1">
         <createTable tableName="data_source">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by_id" type="bigint(19)"/>
+            <column name="created_by_id" type="bigint"/>
             <column name="created_date" type="timestamp"/>
-            <column name="last_modified_by_id" type="bigint(19)"/>
+            <column name="last_modified_by_id" type="bigint"/>
             <column name="last_modified_date" type="timestamp"/>
             <column name="type" type="varchar(255)">
                 <constraints nullable="false"/>

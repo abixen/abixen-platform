@@ -8,7 +8,7 @@
 
     <changeSet author="MariuszKumor" id="user-v1">
         <createTable tableName="user_">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp"/>
@@ -17,7 +17,7 @@
             <column name="first_name" type="varchar(64)">
                 <constraints nullable="false"/>
             </column>
-            <column name="gender" type="int(10)"/>
+            <column name="gender" type="integer"/>
             <column name="hash_key" type="varchar(60)"/>
             <column name="job_title" type="varchar(255)"/>
             <column name="last_name" type="varchar(64)">
@@ -38,8 +38,8 @@
             <column name="username" type="varchar(32)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by_id" type="bigint(19)"/>
-            <column name="last_modified_by_id" type="bigint(19)"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="last_modified_by_id" type="bigint"/>
         </createTable>
 
         <addPrimaryKey columnNames="id" constraintName="pk__user__id" tableName="user_"/>

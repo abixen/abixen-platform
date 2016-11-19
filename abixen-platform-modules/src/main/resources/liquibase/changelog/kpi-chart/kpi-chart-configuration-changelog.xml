@@ -8,23 +8,23 @@
 
     <changeSet author="MariuszKumor" id="kpi-chart-configuration-v1">
         <createTable tableName="kpi_chart_configuration">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by_id" type="bigint(19)"/>
+            <column name="created_by_id" type="bigint"/>
             <column name="created_date" type="timestamp"/>
-            <column name="last_modified_by_id" type="bigint(19)"/>
+            <column name="last_modified_by_id" type="bigint"/>
             <column name="last_modified_date" type="timestamp"/>
-            <column name="animation_delay" type="int(10)">
+            <column name="animation_delay" type="integer">
                 <constraints nullable="false"/>
             </column>
-            <column name="animation_duration" type="int(10)">
+            <column name="animation_duration" type="integer">
                 <constraints nullable="false"/>
             </column>
             <column name="animation_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="clockwise" type="boolean(1)">
+            <column name="clockwise" type="boolean">
                 <constraints nullable="false"/>
             </column>
             <column name="color_code" type="varchar(255)">
@@ -33,28 +33,28 @@
             <column name="description" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="line_width" type="int(10)">
+            <column name="line_width" type="integer">
                 <constraints nullable="false"/>
             </column>
-            <column name="max_value" type="double(17)">
+            <column name="max_value" type="double">
                 <constraints nullable="false"/>
             </column>
-            <column name="module_id" type="bigint(19)">
+            <column name="module_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="radius" type="int(10)">
+            <column name="radius" type="integer">
                 <constraints nullable="false"/>
             </column>
-            <column name="responsive" type="boolean(1)">
+            <column name="responsive" type="boolean">
                 <constraints nullable="false"/>
             </column>
-            <column name="rounded" type="boolean(1)">
+            <column name="rounded" type="boolean">
                 <constraints nullable="false"/>
             </column>
-            <column name="semi" type="boolean(1)">
+            <column name="semi" type="boolean">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="double(17)">
+            <column name="value" type="double">
                 <constraints nullable="false"/>
             </column>
         </createTable>

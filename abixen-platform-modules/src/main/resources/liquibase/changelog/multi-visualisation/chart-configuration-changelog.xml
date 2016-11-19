@@ -8,12 +8,12 @@
 
     <changeSet author="MariuszKumor" id="chart-configuration-v1">
         <createTable tableName="chart_configuration">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by_id" type="bigint(19)"/>
+            <column name="created_by_id" type="bigint"/>
             <column name="created_date" type="timestamp"/>
-            <column name="last_modified_by_id" type="bigint(19)"/>
+            <column name="last_modified_by_id" type="bigint"/>
             <column name="last_modified_date" type="timestamp"/>
             <column name="axis_x_name" type="varchar(255)">
                 <constraints nullable="false"/>
@@ -24,13 +24,13 @@
             <column name="chart_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="module_id" type="bigint(19)">
+            <column name="module_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="data_set_chart_id" type="bigint(19)">
+            <column name="data_set_chart_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="data_source_id" type="bigint(19)">
+            <column name="data_source_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

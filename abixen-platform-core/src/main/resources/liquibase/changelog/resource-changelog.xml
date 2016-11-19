@@ -8,7 +8,7 @@
 
     <changeSet author="MariuszKumor" id="resource-v1">
         <createTable tableName="resource">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp"/>
@@ -22,9 +22,9 @@
             <column name="resource_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by_id" type="bigint(19)"/>
-            <column name="last_modified_by_id" type="bigint(19)"/>
-            <column name="module_type_id" type="bigint(19)">
+            <column name="created_by_id" type="bigint"/>
+            <column name="last_modified_by_id" type="bigint"/>
+            <column name="module_type_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

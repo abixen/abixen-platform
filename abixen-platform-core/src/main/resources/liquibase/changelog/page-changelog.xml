@@ -8,7 +8,7 @@
 
     <changeSet author="MariuszKumor" id="page-v1">
         <createTable tableName="page">
-            <column name="id" type="bigint(19)">
+            <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp"/>
@@ -20,9 +20,9 @@
             <column name="title" type="varchar(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by_id" type="bigint(19)"/>
-            <column name="last_modified_by_id" type="bigint(19)"/>
-            <column name="layout_id" type="bigint(19)">
+            <column name="created_by_id" type="bigint"/>
+            <column name="last_modified_by_id" type="bigint"/>
+            <column name="layout_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
