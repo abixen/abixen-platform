@@ -596,12 +596,16 @@ platformChartModuleControllers.controller('ChartModuleController', ['$scope', '$
 
 }]);
 
-platformChartModuleControllers.controller('ChartModulePreviewController', ['$scope', '$http', '$log', 'mockupData', function ($scope, $http, $log, mockupData) {
+platformChartModuleControllers.controller('ChartModulePreviewController', ['$scope', '$http', '$log', 'mockupData', 'CharData', function ($scope, $http, $log, mockupData,CharData) {
     $log.log('ChartModulePreviewController');
 
     $log.log('$scope.moduleId: ' + $scope.moduleId);
     $log.log('$scope.initWizardStep.idSelected: ' + $scope.initWizardStep.idSelected);
 
+    $log.log('CharData.query started ');
+    CharData.query({}, $scope.chartConfiguration, function (data) {
+        $log.log('CharData.query: ', data);
+    });
 
     var chartParams = mockupData.getChartData($scope.chartConfiguration.chartType);
 
