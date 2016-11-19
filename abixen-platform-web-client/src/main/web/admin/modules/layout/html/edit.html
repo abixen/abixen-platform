@@ -1,25 +1,28 @@
- <div class="row form-row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="alert alert-danger" ng-show="error">
-                Error.
-            </div>
-            <form class="form-horizontal" role="form" ng-submit="login()">
-                <div class="form-group">
+<div class="row form-row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="alert alert-danger" ng-show="error">
+            Error.
+        </div>
+        <form class="form-horizontal" role="form" ng-submit="login()">
+            <div class="form-group">
+                <div class="row form-row">
                     <label for="titleInput" class="col-sm-3 control-label">Title</label>
-
                     <div class="col-sm-9">
                         <input ng-model="entity.title" type="text" name="title" class="form-control"
                                id="titleInput" placeholder="Title" required="">
                     </div>
-
                 </div>
-
-                <div class="form-group last">
+            </div>
+            <div class="row form-row">
+                <div class="row bottom-navigation ng-scope">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-success btn-sm" ng-click="saveForm()">Save</button>
-                        <button type="reset" class="btn btn-default btn-sm">Cancel</button>
+                        <a class="btn save-button ng-click-active" ng-click="saveForm()">
+                            <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
+                        <a class="btn cancel-button">
+                            <i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+</div>
