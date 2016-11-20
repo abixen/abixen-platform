@@ -82,8 +82,7 @@ platform:
             enable: true
         debug: true
     resource:
-      imageLibraryDirectory: ${baseDir}/../data/image-library/
-      avatarLibraryDirectory: ${baseDir}/../data/user-avatar/
+      imageLibraryDirectory: ${baseDir}/../data/image-library
 
 eureka:
   instance:
