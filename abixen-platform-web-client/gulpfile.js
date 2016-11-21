@@ -42,7 +42,7 @@ function cleanTask() {
 function templatesTask() {
 
     return gulp.src(config.templates.files)
-        .pipe(gulpIf(!devMode, htmlMin(config.templates.minifyOpts)))
+        .pipe(htmlMin(config.templates.minifyOpts))
         .on('error', gutil.log)
         .pipe(gulp.dest(config.dest.dir));
 }

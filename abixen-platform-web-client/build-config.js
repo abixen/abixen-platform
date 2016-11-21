@@ -58,13 +58,13 @@ module.exports = {
             removeComments: true,
             removeCommentsFromCDATA: true,
             collapseWhitespace: true,
-            conservativeCollapse: true,
+            conservativeCollapse: false,
             collapseInlineTagWhitespace: true,
-            preserveLineBreaks: true,
+            preserveLineBreaks: false,
             useShortDoctype: true,
             keepClosingSlash: true,
             caseSensitive: true,
-            quoteCharacter: '\''
+            quoteCharacter: '"'
         }
     },
     scripts: {
