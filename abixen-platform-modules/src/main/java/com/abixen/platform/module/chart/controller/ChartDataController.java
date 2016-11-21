@@ -17,7 +17,6 @@ package com.abixen.platform.module.chart.controller;
 import com.abixen.platform.module.chart.form.ChartConfigurationForm;
 import com.abixen.platform.module.chart.model.web.DataSourceValueWeb;
 import com.abixen.platform.module.chart.service.ChartDataService;
-import com.sun.javafx.collections.MappingChange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
