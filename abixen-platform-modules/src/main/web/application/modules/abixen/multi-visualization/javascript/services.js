@@ -20,6 +20,13 @@ platformChartModuleServices.factory('ChartModuleConfiguration', ['$resource',
         });
     }]);
 
+platformChartModuleServices.factory('CharData', ['$resource',
+    function ($resource) {
+        return $resource('/application/modules/abixen/multi-visualization/data', {}, {
+            query: {method: 'POST'}
+        });
+    }]);
+
 platformChartModuleServices.provider("mockupData", function () {
 
     var getLineChart = function () {

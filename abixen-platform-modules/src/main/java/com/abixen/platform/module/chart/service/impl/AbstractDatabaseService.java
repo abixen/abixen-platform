@@ -14,9 +14,17 @@
 
 package com.abixen.platform.module.chart.service.impl;
 
+import com.abixen.platform.module.chart.exception.DataParsingException;
+import com.abixen.platform.module.chart.exception.DataSourceValueException;
+import com.abixen.platform.module.chart.form.ChartConfigurationForm;
+import com.abixen.platform.module.chart.model.enumtype.DataValueType;
+import com.abixen.platform.module.chart.model.impl.DatabaseDataSource;
+import com.abixen.platform.module.chart.model.web.*;
+import org.apache.commons.lang3.NotImplementedException;
+
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.Date;
 import java.util.stream.IntStream;
 
 
@@ -79,5 +87,140 @@ public class AbstractDatabaseService {
 
     protected boolean isAllowedTable(String tableName) {
         return true;
+    }
+
+    public List<Map<String, DataSourceValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm) {
+        List<Map<String, DataSourceValueWeb>> data = new ArrayList<>();
+        ResultSet rs;
+        Set<String> chartColumnsSet = new HashSet<>();
+
+        chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
+            dataSetSeries.getSeriesColumns().forEach(dataSetSeriesColumn -> {
+                chartColumnsSet.add(dataSetSeriesColumn.getName());
+            });
+        });
+
+        if (chartColumnsSet.isEmpty()) {
+            return data;
+        }
+
+        try {
+            Statement statement = connection.createStatement();
+            rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet));
+
+            if (rs != null) {
+                while (rs.next()) {
+                    final ResultSet row = rs;
+                    Map<String, DataSourceValueWeb> rowMap = new HashMap<>();
+                    chartColumnsSet.forEach(chartColumnsSetElement -> {
+                         rowMap.put(chartColumnsSetElement, getDataFromColumn(row, chartColumnsSetElement));
+                    });
+                    data.add(rowMap);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataParsingException("Error when parsing data from db. " + e.getMessage());
+        }
+
+        return data;
+    }
+
+    private String buildQueryForChartData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet) {
+        StringBuilder stringBuilder = new StringBuilder("SELECT ");
+        stringBuilder.append(chartColumnsSet.toString().substring(1, chartColumnsSet.toString().length() - 1));
+        stringBuilder.append(" FROM ");
+        stringBuilder.append(databaseDataSource.getTable());
+        return stringBuilder.toString();
+    }
+
+    private DataSourceValueWeb getDataFromColumn(ResultSet row, String columnName) {
+        try {
+            ResultSetMetaData resultSetMetaData = row.getMetaData();
+            String columnTypeName = resultSetMetaData.getColumnTypeName(row.findColumn(columnName));
+            if ("BIGINT".equals(columnTypeName)) {
+                columnTypeName = "INTEGER";
+            }
+            if ("VARCHAR".equals(columnTypeName)) {
+                columnTypeName = "STRING";
+            }
+            return getValueAsDataSourceValue(row, columnName, DataValueType.valueOf(columnTypeName));
+        } catch (SQLException e) {
+            throw new DataSourceValueException("Error when getting value from column. " + e.getMessage());
+        }
+    }
+
+    private DataSourceValueWeb getValueAsDataSourceValue(ResultSet row, String columnName, DataValueType columnTypeName) throws SQLException {
+        switch (columnTypeName) {
+            case DOUBLE:
+                return getValueAsDataSourceValueDoubleWeb(row, columnName);
+            case DATE:
+                return getValueAsDataSourceValueDateWeb(row, columnName);
+            case INTEGER:
+                return getValueAsDataSourceValueIntegerWeb(row, columnName);
+            case STRING:
+                return getValueAsDataSourceValueStringWeb(row, columnName);
+            default: throw new NotImplementedException("Not recognized column type.");
+        }
+    }
+
+    private DataSourceValueWeb getValueAsDataSourceValueDateWeb(ResultSet row, String columnName) throws SQLException {
+        Date value = row.getDate(row.findColumn(columnName));
+        return new DataSourceValueDateWeb() {
+            @Override
+            public Date getValue() {
+                return value;
+            }
+
+            @Override
+            public void setValue(Date value) {
+                throw new NotImplementedException("Setter not implemented yet");
+            }
+        };
+    }
+
+    private DataSourceValueWeb getValueAsDataSourceValueDoubleWeb(ResultSet row, String columnName) throws SQLException {
+        Double value = row.getDouble(row.findColumn(columnName));
+        return new DataSourceValueDoubleWeb() {
+            @Override
+            public Double getValue() {
+                return value;
+            }
+
+            @Override
+            public void setValue(Double value) {
+                throw new NotImplementedException("Setter not implemented yet");
+            }
+        };
+    }
+
+    private DataSourceValueWeb getValueAsDataSourceValueIntegerWeb(ResultSet row, String columnName) throws SQLException {
+        Integer value = row.getInt(row.findColumn(columnName));
+        return new DataSourceValueIntegerWeb() {
+            @Override
+            public Integer getValue() {
+                return value;
+            }
+
+            @Override
+            public void setValue(Integer value) {
+                throw new NotImplementedException("Setter not implemented yet");
+            }
+        };
+    }
+
+    private DataSourceValueWeb getValueAsDataSourceValueStringWeb(ResultSet row, String columnName) throws SQLException {
+        String value = row.getString(row.findColumn(columnName));
+        return new DataSourceValueStringWeb() {
+            @Override
+            public String getValue() {
+                return value;
+            }
+
+            @Override
+            public void setValue(String value) {
+                throw new NotImplementedException("Setter not implemented yet");
+            }
+        };
     }
 }
