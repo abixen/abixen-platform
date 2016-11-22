@@ -27,14 +27,21 @@ zuul:
       path: /api/**
       url: http://core:9000/api
       sensitive-headers:
-    applicationModules:
+
+    # Begin of custom module microservices - add mapping relevant to your microservice
+
+    # Begin of modules microservice
+    modulesApplication:
       path: /application/modules/abixen/**
       url: http://modules:9091/application/modules/abixen
       sensitive-headers:
-    adminModules:
+    modulesAdmin:
       path: /admin/modules/abixen/**
       url: http://modules:9091/admin/modules/abixen
       sensitive-headers:
+    # End of modules microservice
+
+    # End of custom module microservices
 
 hystrix:
   command:
