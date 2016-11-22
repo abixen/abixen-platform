@@ -16,6 +16,7 @@
     <link href="<c:url value="/lib/toaster.min.css" />" rel="stylesheet">
     <link href="<c:url value="/lib/xeditable.css" />" rel="stylesheet">
     <link href="<c:url value="/application/application.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/application/modules/abixen/modules.min.css" />" rel="stylesheet">
 
     <c:forEach var="resource" items="${resources}">
         <c:if test="${resource.resourceLocation == ResourceLocation.HEADER && resource.resourceType == ResourceType.JAVASCRIPT}">
