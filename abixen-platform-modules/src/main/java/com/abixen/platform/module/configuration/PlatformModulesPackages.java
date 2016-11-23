@@ -25,6 +25,8 @@ public class PlatformModulesPackages {
 
     public static final String CONFIG = MAIN + ".configuration";
 
+    public static final String CONTROLLER = MAIN + ".controller";
+
     public static final String CLIENT = MAIN + ".client";
 
     public static final String CHART = MAIN + ".chart";

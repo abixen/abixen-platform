@@ -11,17 +11,15 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+package com.abixen.platform.module.configuration.properties;
 
-package com.abixen.platform.module.configuration;
+import com.abixen.platform.core.configuration.properties.AbstractModulesConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
-import static com.abixen.platform.module.configuration.PlatformModulesPackages.*;
-
-
-@Configuration
-@ComponentScan(basePackages = {CONFIG, CONTROLLER, CHART, KPI_CHART, MAGIC_NUMBER})
-public class PlatformModuleConfiguration {
-
+@Component
+@EnableConfigurationProperties
+@ConfigurationProperties(prefix = "abixen.platform")
+public class ModulesConfigurationProperties extends AbstractModulesConfigurationProperties {
 }
