@@ -14,18 +14,13 @@
 
 package com.abixen.platform.core.controller.application;
 
-import com.abixen.platform.core.controller.common.AbstractPageController;
-import com.abixen.platform.core.model.impl.User;
-import com.abixen.platform.core.service.PageService;
 import com.abixen.platform.core.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 
 
 @RestController
@@ -42,7 +37,7 @@ public class ApplicationUserActivationController {
     }
 
     @RequestMapping(value = "/activate/{userHashKey}/", method = RequestMethod.GET)
-    public void  activate(@PathVariable String userHashKey) {
+    public void activate(@PathVariable String userHashKey) {
         log.debug("activate() - userHashKey: " + userHashKey);
 
         userService.activate(userHashKey);

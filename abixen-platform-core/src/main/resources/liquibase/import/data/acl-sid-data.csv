@@ -1,0 +1,9 @@
+id;sid_type;sid_id
+#Owner
+1;OWNER;0
+#Admin
+2;ROLE;1
+#User
+3;ROLE;2
+#Page Editor
+4;ROLE;3

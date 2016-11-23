@@ -18,7 +18,6 @@ import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
 @JsonDeserialize(as = Module.class)

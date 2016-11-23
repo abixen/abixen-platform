@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/import/import.xml">
+
+    <changeSet author="KonradWisniewski" id="import-v1" runAlways="false" runOnChange="true">
+
+        <preConditions onFail="HALT">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_selling_data</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_cash_flow_data</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM database_connection</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM database_data_source</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_source</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_source_column</sqlCheck>
+        </preConditions>
+
+        <loadData file="liquibase/import/data/database-connection.csv"
+                  separator=";"
+                  tableName="database_connection">
+        </loadData>
+
+        <loadData file="liquibase/import/data/data-source.csv"
+                  separator=";"
+                  tableName="data_source">
+        </loadData>
+
+        <loadData file="liquibase/import/data/database-data-source.csv"
+                  separator=";"
+                  tableName="database_data_source">
+        </loadData>
+
+        <loadData file="liquibase/import/data/data-source-column.csv"
+                  separator=";"
+                  tableName="data_source_column">
+        </loadData>
+
+        <loadData file="liquibase/import/data/sample-selling-data.csv"
+                  separator=";"
+                  tableName="sample_selling_data">
+        </loadData>
+        <loadData file="liquibase/import/data/sample-cash-flow-data.csv"
+                  separator=";"
+                  tableName="sample_cash_flow_data">
+        </loadData>
+
+    </changeSet>
+</databaseChangeLog>

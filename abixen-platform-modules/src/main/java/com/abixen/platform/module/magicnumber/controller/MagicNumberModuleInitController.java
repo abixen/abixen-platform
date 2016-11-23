@@ -37,11 +37,11 @@ public class MagicNumberModuleInitController {
         log.debug("init() - id:" + id);
 
         //TODO - temporary for testing frontend loaders.
-        try {
+        /*try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return (PlatformWebUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }

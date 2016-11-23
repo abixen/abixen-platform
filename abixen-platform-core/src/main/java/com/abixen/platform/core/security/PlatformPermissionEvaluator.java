@@ -35,10 +35,10 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
     private final Logger log = LoggerFactory.getLogger(PlatformPermissionEvaluator.class.getName());
 
     @Autowired
-    SecurityService securityService;
+    private SecurityService securityService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
@@ -54,7 +54,7 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
                                  String targetType, Object permission) {
         log.debug("hasPermission() - authentication: " + authentication + ", targetId: " + targetId + ", targetType: " + targetType + ", permission: " + permission);
 
-        if(targetId == null){
+        if (targetId == null) {
             User user = userService.findUser(authentication.getName());
             return securityService.hasUserPermissionToClass(user, PermissionName.valueOf((String) permission), targetType);
         }

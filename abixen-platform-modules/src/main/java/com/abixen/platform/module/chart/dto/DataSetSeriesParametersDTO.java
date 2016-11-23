@@ -30,10 +30,10 @@ public class DataSetSeriesParametersDTO implements Serializable {
     private Long dataSourceId;
 
     @NotNull
-    private DataValueType valueTypeAxisX = DataValueType.FLOAT;
+    private DataValueType valueTypeAxisX = DataValueType.DOUBLE;
 
     @NotNull
-    private DataValueType valueTypeAxisY= DataValueType.FLOAT;
+    private DataValueType valueTypeAxisY = DataValueType.DOUBLE;
 
     @NotNull
     private Map<String, Map<Integer, Set<Integer>>> series;

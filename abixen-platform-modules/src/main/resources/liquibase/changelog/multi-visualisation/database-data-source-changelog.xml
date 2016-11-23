@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/multi-visualisation/database-data-source-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="database-data-source-v1">
+        <createTable tableName="database_data_source">
+            <column name="filter" type="clob"/>
+            <column name="selected_table" type="varchar(255)"/>
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="database_connection_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__database_data_source__id" tableName="database_data_source"/>
+
+        <createIndex indexName="idx__database_data_source__database_connection_id" tableName="database_data_source">
+            <column name="database_connection_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="database_connection_id" baseTableName="database_data_source"
+                                 constraintName="fk__database_connection_id__database_data_source__database_connection"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="database_connection"/>
+
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="database_data_source"
+                                 constraintName="fk__id__database_data_source__data_source" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="data_source"/>
+
+    </changeSet>
+
+</databaseChangeLog>

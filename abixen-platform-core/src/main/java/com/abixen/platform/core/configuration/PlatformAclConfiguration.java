@@ -36,7 +36,7 @@ import javax.sql.DataSource;
 public class PlatformAclConfiguration {
 
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Bean
     EhCacheBasedAclCache aclCache() {
@@ -68,7 +68,6 @@ public class PlatformAclConfiguration {
 
     @Bean(name = "mutableAclService")
     JdbcMutableAclService aclService() {
-        System.err.println("JdbcMutableAclService aclService()");
         JdbcMutableAclService service = new     JdbcMutableAclService(dataSource, lookupStrategy(), aclCache());
         service.setClassIdentityQuery("select currval(pg_get_serial_sequence('acl_class', 'id'))");
         service.setSidIdentityQuery("select currval(pg_get_serial_sequence('acl_sid', 'id'))");

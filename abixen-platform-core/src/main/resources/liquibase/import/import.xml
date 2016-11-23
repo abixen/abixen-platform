@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/import/import.xml">
+
+    <changeSet author="MariuszKumor" id="import-v1" runAlways="false" runOnChange="true">
+
+        <preConditions onFail="HALT">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM role_</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM user_</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM user_role</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM acl_class</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM permission_acl_class_category</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM permission_general_category</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM permission</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM role_permission</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM acl_sid</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM acl_object_identity</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM acl_entry</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM module_type</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM resource</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM layout</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM page</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM module</sqlCheck>
+        </preConditions>
+
+        <loadData file="liquibase/import/data/role-data.csv"
+                  separator=";"
+                  tableName="role_">
+        </loadData>
+
+        <loadData file="liquibase/import/data/user-data.csv"
+                  separator=";"
+                  tableName="user_">
+        </loadData>
+
+        <loadData file="liquibase/import/data/user-role-data.csv"
+                  separator=";"
+                  tableName="user_role">
+        </loadData>
+
+        <loadData file="liquibase/import/data/acl-class-data.csv"
+                  separator=";"
+                  tableName="acl_class">
+        </loadData>
+
+        <loadData file="liquibase/import/data/permission-acl-class-category-data.csv"
+                  separator=";"
+                  tableName="permission_acl_class_category">
+        </loadData>
+
+        <loadData file="liquibase/import/data/permission-general-category-data.csv"
+                  separator=";"
+                  tableName="permission_general_category">
+        </loadData>
+
+        <loadData file="liquibase/import/data/permission-data.csv"
+                  separator=";"
+                  tableName="permission">
+        </loadData>
+
+        <loadData file="liquibase/import/data/role-permission-data.csv"
+                  separator=";"
+                  tableName="role_permission">
+        </loadData>
+
+        <loadData file="liquibase/import/data/acl-sid-data.csv"
+                  separator=";"
+                  tableName="acl_sid">
+        </loadData>
+
+        <loadData file="liquibase/import/data/acl-object-identity-data.csv"
+                  separator=";"
+                  tableName="acl_object_identity">
+        </loadData>
+
+        <loadData file="liquibase/import/data/acl-entry-data.csv"
+                  separator=";"
+                  tableName="acl_entry">
+        </loadData>
+
+        <loadData file="liquibase/import/data/module-type-data.csv"
+                  separator=";"
+                  tableName="module_type">
+        </loadData>
+
+        <loadData file="liquibase/import/data/resource-data.csv"
+                  separator=";"
+                  tableName="resource">
+        </loadData>
+
+        <loadData file="liquibase/import/data/layout-data.csv"
+                  separator=";"
+                  tableName="layout">
+        </loadData>
+
+        <loadData file="liquibase/import/data/page-data.csv"
+                  separator=";"
+                  tableName="page">
+        </loadData>
+
+        <loadData file="liquibase/import/data/module-data.csv"
+                  separator=";"
+                  tableName="module">
+        </loadData>
+
+    </changeSet>
+</databaseChangeLog>

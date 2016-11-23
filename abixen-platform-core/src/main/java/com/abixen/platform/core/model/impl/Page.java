@@ -18,7 +18,6 @@ import com.abixen.platform.core.model.PageBase;
 import com.abixen.platform.core.model.SecurableModel;
 import com.abixen.platform.core.model.web.PageWeb;
 import com.abixen.platform.core.util.ModelKeys;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 

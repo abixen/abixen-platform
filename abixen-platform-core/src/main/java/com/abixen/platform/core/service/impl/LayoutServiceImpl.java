@@ -40,14 +40,13 @@ import java.util.List;
 //import org.jsoup.nodes.Document;
 
 
-
 @Service
 public class LayoutServiceImpl implements LayoutService {
 
-    static Logger log = Logger.getLogger(LayoutServiceImpl.class.getName());
+    private static Logger log = Logger.getLogger(LayoutServiceImpl.class.getName());
 
     @Resource
-    LayoutRepository layoutRepository;
+    private LayoutRepository layoutRepository;
 
     @Override
     public Layout createLayout(Layout layout) {

@@ -21,7 +21,7 @@ import com.abixen.platform.core.util.EntityBuilder;
 import com.abixen.platform.core.util.ModuleBuilder;
 
 
-public class ModuleBuilderImpl extends EntityBuilder<Module> implements ModuleBuilder{
+public class ModuleBuilderImpl extends EntityBuilder<Module> implements ModuleBuilder {
 
     @Override
     protected void initProduct() {

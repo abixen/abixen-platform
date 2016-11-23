@@ -38,7 +38,7 @@ import java.util.List;
 @Service
 public class PageServiceImpl implements PageService {
 
-    static Logger log = Logger.getLogger(PageServiceImpl.class.getName());
+    private static Logger log = Logger.getLogger(PageServiceImpl.class.getName());
 
     @Resource
     private PageRepository pageRepository;
@@ -50,13 +50,13 @@ public class PageServiceImpl implements PageService {
     private AclService aclService;
 
     @Autowired
-    DomainBuilderService domainBuilderService;
+    private DomainBuilderService domainBuilderService;
 
     @Autowired
-    LayoutService layoutService;
+    private LayoutService layoutService;
 
     @Autowired
-    ModuleService moduleService;
+    private ModuleService moduleService;
 
     @Override
     public Page buildPage(PageForm pageForm) {
@@ -72,13 +72,15 @@ public class PageServiceImpl implements PageService {
     public Page createPage(Page page) {
         log.debug("createPage() - page: " + page);
         Page createdPage = pageRepository.save(page);
-        aclService.insertDefaultAcl(createdPage, new ArrayList<PermissionName>() {{
-            add(PermissionName.PAGE_VIEW);
-            add(PermissionName.PAGE_EDIT);
-            add(PermissionName.PAGE_DELETE);
-            add(PermissionName.PAGE_CONFIGURATION);
-            add(PermissionName.PAGE_PERMISSION);
-        }});
+        aclService.insertDefaultAcl(createdPage, new ArrayList<PermissionName>() {
+            {
+                add(PermissionName.PAGE_VIEW);
+                add(PermissionName.PAGE_EDIT);
+                add(PermissionName.PAGE_DELETE);
+                add(PermissionName.PAGE_CONFIGURATION);
+                add(PermissionName.PAGE_PERMISSION);
+            }
+        });
         return createdPage;
     }
 
@@ -140,6 +142,4 @@ public class PageServiceImpl implements PageService {
         log.debug("findPage() - id: " + id);
         return pageRepository.findOne(id);
     }
-
-
 }

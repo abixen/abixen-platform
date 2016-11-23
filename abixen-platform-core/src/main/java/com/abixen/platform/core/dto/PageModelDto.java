@@ -39,9 +39,13 @@ public class PageModelDto implements Serializable {
         this.dashboardModuleDtos = dashboardModuleDtos;
     }
 
-    public PageWeb getPage() { return page; }
+    public PageWeb getPage() {
+        return page;
+    }
 
-    public void setPage(PageWeb page) { this.page = page; }
+    public void setPage(PageWeb page) {
+        this.page = page;
+    }
 
     public List<DashboardModuleDto> getDashboardModuleDtos() {
         return dashboardModuleDtos;

@@ -2,7 +2,7 @@ var platformLoginApp = angular.module('platformLoginApp', ['platformLoginControl
 
 platformLoginApp.config(
     ['$httpProvider', '$stateProvider', '$urlRouterProvider', function ($httpProvider, $stateProvider, $urlRouterProvider) {
-        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         $urlRouterProvider.otherwise('/');
 

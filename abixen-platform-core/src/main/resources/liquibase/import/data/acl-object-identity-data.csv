@@ -1,0 +1,7 @@
+id;acl_class_id;object_id
+#Module instance with id equal 1
+1;2;1
+#Page instance with id equal 1
+2;3;1
+#Layout instance with id equal 1
+3;1;1

@@ -40,7 +40,7 @@ public class KpiChartConfigurationController {
     private final Logger log = LoggerFactory.getLogger(KpiChartConfigurationController.class.getName());
 
     @Autowired
-    KpiChartConfigurationService kpiChartConfigurationService;
+    private KpiChartConfigurationService kpiChartConfigurationService;
 
     @PreAuthorize("hasPermission(#moduleId, 'Module', 'MODULE_VIEW')")
     @JsonView(WebModelJsonSerialize.class)

@@ -15,21 +15,18 @@
 package com.abixen.platform.module.chart.service.impl;
 
 import com.abixen.platform.core.util.ModelKeys;
-import com.abixen.platform.core.util.PlatformProfiles;
-import com.abixen.platform.module.chart.model.impl.*;
-import com.abixen.platform.module.chart.repository.FileDataSourceRepository;
-import com.abixen.platform.module.configuration.PlatformModuleDataSourceConfiguration;
-import com.abixen.platform.module.configuration.PlatformModuleJpaConfiguration;
-import com.abixen.platform.module.configuration.PlatformModuleSecurityConfiguration;
-import com.abixen.platform.module.configuration.PlatformModuleServiceConfiguration;
 import com.abixen.platform.module.chart.dto.DataSourceCsvParametersDTO;
-import com.abixen.platform.module.chart.model.enumtype.*;
+import com.abixen.platform.module.chart.model.enumtype.ColumnType;
+import com.abixen.platform.module.chart.model.enumtype.DataOrientation;
+import com.abixen.platform.module.chart.model.enumtype.DataSourceFileType;
+import com.abixen.platform.module.chart.model.enumtype.DataValueType;
+import com.abixen.platform.module.chart.model.impl.*;
 import com.abixen.platform.module.chart.repository.DataSetRepository;
-import com.abixen.platform.module.chart.repository.DatabaseDataSourceRepository;
+import com.abixen.platform.module.chart.repository.FileDataSourceRepository;
 import com.abixen.platform.module.chart.service.DataSourceImportDataService;
 import com.abixen.platform.module.chart.service.DomainBuilderService;
 import com.abixen.platform.module.chart.util.*;
-import com.abixen.platform.module.configuration.properties.PlatformTestJdbcConfigurationProperties;
+import com.abixen.platform.module.configuration.PlatformModuleConfiguration;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -37,7 +34,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,14 +52,8 @@ import java.util.stream.Stream;
 import static org.junit.Assert.*;
 
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {PlatformModuleJpaConfiguration.class, PlatformModuleDataSourceConfiguration.class,
-        PlatformModuleServiceConfiguration.class, PlatformModuleSecurityConfiguration.class, FileDataSource.class,
-        DatabaseDataSourceRepository.class,
-        PlatformTestJdbcConfigurationProperties.class
-})
-
+@ContextConfiguration(classes = PlatformModuleConfiguration.class)
 public class DataSourceImportDataServiceCsvImplTest {
 
     static Logger log = Logger.getLogger(DataSourceImportDataServiceCsvImplTest.class.getName());
@@ -118,13 +108,13 @@ public class DataSourceImportDataServiceCsvImplTest {
 
         List<DataValueType> dataValueTypes = new ArrayList<>(7);
 
-        dataValueTypes.add(0, DataValueType.FLOAT);
-        dataValueTypes.add(1, DataValueType.FLOAT);
-        dataValueTypes.add(2, DataValueType.FLOAT);
-        dataValueTypes.add(3, DataValueType.FLOAT);
-        dataValueTypes.add(4, DataValueType.FLOAT);
-        dataValueTypes.add(5, DataValueType.FLOAT);
-        dataValueTypes.add(6, DataValueType.FLOAT);
+        dataValueTypes.add(0, DataValueType.DOUBLE);
+        dataValueTypes.add(1, DataValueType.DOUBLE);
+        dataValueTypes.add(2, DataValueType.DOUBLE);
+        dataValueTypes.add(3, DataValueType.DOUBLE);
+        dataValueTypes.add(4, DataValueType.DOUBLE);
+        dataValueTypes.add(5, DataValueType.DOUBLE);
+        dataValueTypes.add(6, DataValueType.DOUBLE);
 
         dataSourceCsvParametersDto.setValueTypes(dataValueTypes);
         Map<String, Integer> columns = new HashMap<>(6);
@@ -287,9 +277,9 @@ public class DataSourceImportDataServiceCsvImplTest {
         List<DataSourceValue> dataSourceValues = dataSourceColumn1.getValues();
         assertTrue(dataSourceValues.size() == 2);
         DataSourceValue dataSourceValue = dataSourceValues.get(0);
-        assertEquals(dataSourceValue.getValue(), Float.valueOf(10f));
+        assertEquals(dataSourceValue.getValue(), Double.valueOf(10d));
         dataSourceValue = dataSourceValues.get(1);
-        assertEquals(dataSourceValue.getValue(), Float.valueOf(20f));
+        assertEquals(dataSourceValue.getValue(), Double.valueOf(20d));
     }
 
     private void fillDataSource(String name) {
@@ -299,29 +289,29 @@ public class DataSourceImportDataServiceCsvImplTest {
 
         FileDataSource fileDataSource = fileDataSourceBuilder.base(name, "test", DataSourceFileType.CSV).build();
 
-        DataValueType dataValueType = DataValueType.FLOAT;
+        DataValueType dataValueType = DataValueType.DOUBLE;
 
         //DataSourceValue
         //values1
         List<DataSourceValue> dataSourceValues1 = new ArrayList<>();
         DataSourceValueBuilder dataSourceValueBuilder = domainBuilderService.newDataSourceValueBuilderInstance(dataValueType);
-        DataSourceValue dataSourceValue1 = dataSourceValueBuilder.position(1).value(1f).build();
+        DataSourceValue dataSourceValue1 = dataSourceValueBuilder.position(1).value(1d).build();
         dataSourceValues1.add(dataSourceValue1);
-        dataSourceValue1 = dataSourceValueBuilder.position(2).value(2f).build();
+        dataSourceValue1 = dataSourceValueBuilder.position(2).value(2d).build();
         dataSourceValues1.add(dataSourceValue1);
         //values2
         List<DataSourceValue> dataSourceValues2 = new ArrayList<>();
         DataSourceValueBuilder dataSourceValueBuilder2 = domainBuilderService.newDataSourceValueBuilderInstance(dataValueType);
-        DataSourceValue dataSourceValue2 = dataSourceValueBuilder2.position(1).value(10f).build();
+        DataSourceValue dataSourceValue2 = dataSourceValueBuilder2.position(1).value(10d).build();
         dataSourceValues2.add(dataSourceValue2);
-        dataSourceValue2 = dataSourceValueBuilder.position(2).value(20f).build();
+        dataSourceValue2 = dataSourceValueBuilder.position(2).value(20d).build();
         dataSourceValues2.add(dataSourceValue2);
         //values3
         List<DataSourceValue> dataSourceValues3 = new ArrayList<>();
         DataSourceValueBuilder dataSourceValueBuilder3 = domainBuilderService.newDataSourceValueBuilderInstance(dataValueType);
-        DataSourceValue dataSourceValue3 = dataSourceValueBuilder2.position(1).value(100f).build();
+        DataSourceValue dataSourceValue3 = dataSourceValueBuilder2.position(1).value(100d).build();
         dataSourceValues3.add(dataSourceValue3);
-        dataSourceValue3 = dataSourceValueBuilder3.position(2).value(200f).build();
+        dataSourceValue3 = dataSourceValueBuilder3.position(2).value(200d).build();
         dataSourceValues3.add(dataSourceValue3);
 
         //DataSourceColumn

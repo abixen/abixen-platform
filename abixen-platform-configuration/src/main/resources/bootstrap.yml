@@ -1,13 +1,19 @@
+server:
+  port: 8888
+
 spring:
-  application:
-    name: abixen-platform-configuration
+  cloud:
+    config:
+      discovery:
+        enabled: false
+  profiles:
+    active: native
 
 eureka:
   instance:
-    hostname: ${APPLICATION_DOMAIN:localhost}
-    nonSecurePort: 8888
-    metadataMap:
-      cluster: AbixenPlatform
+    preferIpAddress: true
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+      defaultZone: http://${abixen.services.eureka.uri:localhost}:8761/eureka/

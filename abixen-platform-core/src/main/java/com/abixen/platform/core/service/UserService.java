@@ -20,6 +20,9 @@ import com.abixen.platform.core.form.UserRolesForm;
 import com.abixen.platform.core.model.impl.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 public interface UserService {
@@ -47,5 +50,7 @@ public interface UserService {
     User activate(String userHashKey);
 
     UserChangePasswordForm changeUserPassword(User user, UserChangePasswordForm userChangePasswordForm);
+
+    User changeUserAvatar(Long userId, MultipartFile avatarFile) throws IOException;
 
 }

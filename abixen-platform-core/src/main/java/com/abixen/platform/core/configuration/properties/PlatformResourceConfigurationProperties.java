@@ -16,28 +16,17 @@ package com.abixen.platform.core.configuration.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
 
+import static com.abixen.platform.core.util.PlatformProfiles.CLOUD;
+import static com.abixen.platform.core.util.PlatformProfiles.DEV;
 
-@Configuration
+@Profile({DEV, CLOUD})
 @Component
 @EnableConfigurationProperties(PlatformResourceConfigurationProperties.class)
 @ConfigurationProperties(prefix = "platform.core.resource", locations = {"bootstrap.yml"})
-public class PlatformResourceConfigurationProperties {
-
-    @NotNull
-    private String imageLibraryDirectory;
-
-    public String getImageLibraryDirectory() {
-        return imageLibraryDirectory;
-    }
-
-    public void setImageLibraryDirectory(String imageLibraryDirectory) {
-        this.imageLibraryDirectory = imageLibraryDirectory;
-    }
-
+public class PlatformResourceConfigurationProperties extends AbstractPlatformResourceConfigurationProperties {
 
 }

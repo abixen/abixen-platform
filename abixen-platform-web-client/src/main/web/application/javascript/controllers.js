@@ -4,8 +4,8 @@ platformControllers.controller('PlatformInitController', ['$rootScope', '$scope'
     function ($rootScope, $scope, $http, $location, $log, $state, applicationNavigationItems, $aside, Page, ModuleType, dashboard, toaster, modalWindow) {
         $log.log('PlatformInitController');
 
-        var applicationLoginUrl = 'http://localhost:8080/login';
-        var applicationAdminUrl = 'http://localhost:8080/admin';
+        var applicationLoginUrl = '/login';
+        var applicationAdminUrl = '/admin';
 
         $scope.platformUser = null;
 

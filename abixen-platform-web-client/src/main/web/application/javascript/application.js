@@ -12,6 +12,8 @@ var platformApplication = angular.module('platformApplication', [
     'ui.bootstrap.showErrors',
     'toaster',
     'xeditable',
+    'angularFileUpload',
+    'ngCookies',
     'platformChartModule',
     'platformMagicNumberModule',
     'platformKpiChartModule',
@@ -20,7 +22,7 @@ var platformApplication = angular.module('platformApplication', [
 ]);
 
 platformApplication.factory('platformHttpInterceptor', ['$q', '$injector', function ($q, $injector) {
-    var applicationLoginUrl = 'http://localhost:8080/login';
+    var applicationLoginUrl = '/login';
     var applicationModulesUrlPrefix = '/application/modules';
 
     return {
@@ -50,7 +52,7 @@ platformApplication.config(
 
         $httpProvider.interceptors.push('platformHttpInterceptor');
 
-        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         $urlRouterProvider.otherwise('/');
         $stateProvider

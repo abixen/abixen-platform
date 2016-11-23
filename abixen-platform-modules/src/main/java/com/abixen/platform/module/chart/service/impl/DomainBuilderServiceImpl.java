@@ -69,8 +69,8 @@ public class DomainBuilderServiceImpl implements DomainBuilderService {
             case DATE:
                 dataSourceValueBuilder = new DataSourceValueDateBuilderImpl();
                 break;
-            case FLOAT:
-                dataSourceValueBuilder = new DataSourceValueFloatBuilderImpl();
+            case DOUBLE:
+                dataSourceValueBuilder = new DataSourceValueDoubleBuilderImpl();
                 break;
             case INTEGER:
                 dataSourceValueBuilder = new DataSourceValueIntegerBuilderImpl();

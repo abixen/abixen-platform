@@ -14,7 +14,6 @@
 
 package com.abixen.platform.core.repository;
 
-import com.abixen.platform.core.model.PageBase;
 import com.abixen.platform.core.model.impl.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 

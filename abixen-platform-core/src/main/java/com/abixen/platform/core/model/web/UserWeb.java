@@ -42,4 +42,6 @@ public interface UserWeb {
 
     UserGender getGender();
 
+    String getAvatarFileName();
+
 }

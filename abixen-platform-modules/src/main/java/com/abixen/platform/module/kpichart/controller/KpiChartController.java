@@ -35,7 +35,7 @@ public class KpiChartController {
     private final Logger log = LoggerFactory.getLogger(KpiChartController.class.getName());
 
     @Autowired
-    KpiChartConfigurationService chartConfigurationService;
+    private KpiChartConfigurationService chartConfigurationService;
 
     @PreAuthorize("hasPermission(#moduleId, 'Module', 'MODULE_VIEW')")
     @JsonView(WebModelJsonSerialize.class)
@@ -45,6 +45,5 @@ public class KpiChartController {
 
         return chartConfigurationService.findKpiChartConfigurationByModuleId(moduleId);
     }
-
 
 }

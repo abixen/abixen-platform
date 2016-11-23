@@ -1,0 +1,119 @@
+version: '2'
+
+services:
+  redis:
+    image: redis:3.0
+    hostname: redis
+
+  discovery:
+    image: abixen-platform/abixen-platform-eureka
+    ports:
+      - "8761:8761"
+
+  configuration:
+    image: abixen-platform/abixen-platform-configuration
+    links:
+      - discovery
+    depends_on:
+      - discovery
+
+  gateway:
+    image: abixen-platform/abixen-platform-gateway
+    links:
+      - discovery
+      - configuration
+      - redis
+      - core
+      - modules
+    depends_on:
+      - discovery
+      - configuration
+      - redis
+      - core
+      - modules
+
+  modules:
+    image: abixen-platform/abixen-platform-modules
+    links:
+      - discovery
+      - configuration
+      - modules-postgres-database
+    depends_on:
+      - discovery
+      - configuration
+      - modules-postgres-database
+
+  core:
+    image: abixen-platform/abixen-platform-core
+    links:
+      - discovery
+      - configuration
+      - redis
+      - core-postgres-database
+    depends_on:
+      - discovery
+      - configuration
+      - redis
+      - core-postgres-database
+    volumes:
+      - /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library:/data/image-library
+
+  web-client:
+    image: abixen-platform/abixen-platform-web-client
+    links:
+     - discovery
+     - configuration
+     - gateway
+     - core
+    depends_on:
+     - discovery
+     - configuration
+     - gateway
+     - core
+    labels:
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:platform.abixen.devd.io"
+      - "traefik.backend.loadbalancer.sticky=true"
+
+  hystrix-dashboard:
+    image: abixen-platform/abixen-platform-hystrix-dashboard
+    ports:
+      - "8989:8989"
+    links:
+     - gateway
+     - core
+     - modules
+    depends_on:
+     - gateway
+     - core
+     - modules
+
+  load-balancer:
+      image: traefik:v1.1.0-rc4
+      command: --web --docker --docker.domain=devd.io --logLevel=DEBUG
+      ports:
+        - "80:80"
+        - "8080:8080"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /dev/null:/traefik.toml
+      depends_on:
+        - web-client
+
+  core-postgres-database:
+      image: postgres:9.4
+      ports:
+        - "5432:5432"
+      environment:
+        POSTGRES_PASSWORD: fy2Lkxw201sV
+        POSTGRES_USER: abixen
+        POSTGRES_DB: abixen_platform_core
+
+  modules-postgres-database:
+      image: postgres:9.4
+      ports:
+        - "5433:5432"
+      environment:
+        POSTGRES_PASSWORD: fy2Lkxw201sV
+        POSTGRES_USER: abixen
+        POSTGRES_DB: abixen_platform_modules

@@ -7,6 +7,3 @@ databaseDataSourceServices.factory('DatabaseDataSource', ['$resource',
             update: {method: 'PUT'}
         });
     }]);
-
-
-

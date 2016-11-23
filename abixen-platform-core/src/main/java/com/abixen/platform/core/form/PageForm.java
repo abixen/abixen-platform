@@ -18,7 +18,6 @@ import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.model.web.LayoutWeb;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 

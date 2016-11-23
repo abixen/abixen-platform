@@ -16,17 +16,26 @@ package com.abixen.platform.module;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
+import static com.abixen.platform.module.configuration.PlatformModulesPackages.CLIENT;
 
+@EnableRetry
 @SpringBootApplication
 @EnableRedisHttpSession
 @EnableEurekaClient
-@EnableFeignClients(basePackages = {"com.abixen.platform.module"})
-public class PlatformModulesApplication {
+@EnableFeignClients(basePackages = {CLIENT})
+public class PlatformModulesApplication extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(PlatformModulesApplication.class);
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(PlatformModulesApplication.class, args);

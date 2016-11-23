@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/acl-object-identity-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="acl-object-identity-v1">
+        <createTable tableName="acl_object_identity">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="object_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="acl_class_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__acl_object_identity__id" tableName="acl_object_identity"/>
+
+        <createIndex indexName="idx__acl_object_identity__acl_class_id" tableName="acl_object_identity">
+            <column name="acl_class_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="acl_class_id" baseTableName="acl_object_identity"
+                                 constraintName="fk__acl_class_id__acl_object_identity__acl_class" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="acl_class"/>
+    </changeSet>
+
+</databaseChangeLog>

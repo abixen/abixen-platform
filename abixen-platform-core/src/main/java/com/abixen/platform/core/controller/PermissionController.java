@@ -33,10 +33,10 @@ import java.io.IOException;
 @RequestMapping(value = "/api/admin/permissions")
 public class PermissionController {
 
-    static Logger log = Logger.getLogger(PermissionController.class.getName());
+    private static Logger log = Logger.getLogger(PermissionController.class.getName());
 
     @Autowired
-    PermissionService permissionService;
+    private PermissionService permissionService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<Permission> getPermissions(@PageableDefault(size = 1, page = 0) Pageable pageable, @RequestParam("jsonCriteria") String jsonCriteria) throws IOException, NoSuchFieldException {

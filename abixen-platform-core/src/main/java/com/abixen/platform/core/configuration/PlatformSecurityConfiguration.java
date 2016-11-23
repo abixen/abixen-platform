@@ -27,6 +27,8 @@ public class PlatformSecurityConfiguration extends WebSecurityConfigurerAdapter 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/api/admin/users/custom/username/*/").permitAll()
                 .antMatchers("/api/admin/securities/**").permitAll()

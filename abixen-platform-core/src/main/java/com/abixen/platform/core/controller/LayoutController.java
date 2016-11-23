@@ -30,10 +30,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class LayoutController {
 
-    static Logger log = Logger.getLogger(LayoutController.class.getName());
+    private static Logger log = Logger.getLogger(LayoutController.class.getName());
 
     @Autowired
-    LayoutService layoutService;
+    private LayoutService layoutService;
 
     //FIXME
     @RequestMapping(value = "/api/dashboard", method = RequestMethod.GET)

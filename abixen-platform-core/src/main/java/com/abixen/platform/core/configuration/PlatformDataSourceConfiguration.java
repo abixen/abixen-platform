@@ -18,6 +18,6 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class PlatformDataSourceConfiguration extends AbstractPlatformDataSourceConfiguration{
+public class PlatformDataSourceConfiguration extends AbstractPlatformDataSourceConfiguration {
 
 }

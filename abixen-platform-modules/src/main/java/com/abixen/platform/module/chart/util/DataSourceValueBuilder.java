@@ -17,8 +17,7 @@ package com.abixen.platform.module.chart.util;
 import com.abixen.platform.module.chart.model.impl.DataSourceValue;
 
 
-
-public interface DataSourceValueBuilder <E extends DataSourceValue, T> {
+public interface DataSourceValueBuilder<E extends DataSourceValue, T> {
 
     E build();
 

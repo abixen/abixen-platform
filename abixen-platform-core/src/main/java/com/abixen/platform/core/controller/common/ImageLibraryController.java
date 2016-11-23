@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.controller.common;
 
-import com.abixen.platform.core.configuration.properties.PlatformResourceConfigurationProperties;
+import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,14 +40,14 @@ public class ImageLibraryController {
     private final Logger log = LoggerFactory.getLogger(ImageLibraryController.class);
 
     @Autowired
-    PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+    private AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     @RequestMapping(value = "/{fileName}/", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImage(@PathVariable String fileName) throws IOException {
 
         log.debug("fileName: " + fileName);
 
-        InputStream in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + fileName);
+        InputStream in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/layout-miniature/" + fileName);
 
         byte[] b = IOUtils.toByteArray(in);
 
@@ -58,5 +58,4 @@ public class ImageLibraryController {
 
         return new ResponseEntity<byte[]>(b, headers, HttpStatus.CREATED);
     }
-
 }

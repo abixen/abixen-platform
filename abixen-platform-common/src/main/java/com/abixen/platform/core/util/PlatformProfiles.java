@@ -19,7 +19,5 @@ public final class PlatformProfiles {
 
     public static final String DEV = "dev";
 
-    public static final String PROD = "prod";
-
     public static final String CLOUD = "cloud";
 }

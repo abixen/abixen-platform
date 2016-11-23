@@ -25,7 +25,7 @@ public enum ColorCode {
         return name;
     }
 
-    private ColorCode(String name) {
+    ColorCode(String name) {
         this.name = name;
     }
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/permission-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="permission-v1">
+        <createTable tableName="permission">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="description" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint"/>
+            <column name="last_modified_by_id" type="bigint"/>
+            <column name="permission_acl_class_category_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_general_category_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__permission__id" tableName="permission"/>
+
+        <addUniqueConstraint columnNames="permission_name" constraintName="u__permission__permission_name"
+                             tableName="permission"/>
+
+        <createIndex indexName="idx__permission__permission_acl_class_category_id" tableName="permission">
+            <column name="permission_acl_class_category_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__permission__created_by_id" tableName="permission">
+            <column name="created_by_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__permission__permission_general_category_id" tableName="permission">
+            <column name="permission_general_category_id"/>
+        </createIndex>
+        <createIndex indexName="idx__permission__last_modified_by_id" tableName="permission">
+            <column name="last_modified_by_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="permission_acl_class_category_id" baseTableName="permission"
+                                 constraintName="fk__permission_acl_class_category_id__permission__permission_acl_class_category"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="permission_acl_class_category"/>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="permission"
+                                 constraintName="fk__created_by_id__permission__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+        <addForeignKeyConstraint baseColumnNames="permission_general_category_id" baseTableName="permission"
+                                 constraintName="fk__permission_general_category_id__permission__permission_general_category"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="permission_general_category"/>
+
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_id" baseTableName="permission"
+                                 constraintName="fk__last_modified_by_id__permission__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+    </changeSet>
+
+</databaseChangeLog>

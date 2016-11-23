@@ -18,6 +18,6 @@ package com.abixen.platform.module.chart.model.enumtype;
 public enum DatabaseType {
     POSTGRES,
     MYSQL,
-    ORACLE
-
+    ORACLE,
+    H2
 }

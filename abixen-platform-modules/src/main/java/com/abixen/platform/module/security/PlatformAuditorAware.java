@@ -24,7 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class PlatformAuditorAware implements AuditorAware<Long> {
 
-    private final static Logger log = Logger.getLogger(PlatformAuditorAware.class.getName());
+    private final Logger log = Logger.getLogger(PlatformAuditorAware.class.getName());
 
     @Override
     public Long getCurrentAuditor() {

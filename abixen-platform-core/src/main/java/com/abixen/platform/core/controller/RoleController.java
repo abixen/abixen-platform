@@ -42,13 +42,13 @@ import java.util.List;
 @RequestMapping(value = "/api/admin/roles")
 public class RoleController {
 
-    static Logger log = Logger.getLogger(RoleController.class.getName());
+    private static Logger log = Logger.getLogger(RoleController.class.getName());
 
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     @Autowired
-    PermissionService permissionService;
+    private PermissionService permissionService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<Role> getRoles(@PageableDefault(size = 1, page = 0) Pageable pageable) {

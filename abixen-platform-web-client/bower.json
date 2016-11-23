@@ -16,9 +16,11 @@
     "angular-aside": "1.3.0",
     "angular-ui-grid": "3.0.7",
     "angular-translate": "2.8.1",
+    "angular-cookies" : "1.4.7",
     "Sortable": "1.4.2",
     "pdfmake": "0.1.17",
     "AngularJS-Toaster": "0.4.16",
-    "angular-xeditable": "0.1.9"
+    "angular-xeditable": "0.1.9",
+    "angular-file-upload": "2.3.4"
   }
 }

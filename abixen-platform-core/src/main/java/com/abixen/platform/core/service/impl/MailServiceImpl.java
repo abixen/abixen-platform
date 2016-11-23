@@ -15,14 +15,12 @@
 package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformMailConfigurationProperties;
-import com.abixen.platform.core.configuration.properties.PlatformMailConfigurationProperties;
 import com.abixen.platform.core.service.MailService;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
@@ -41,7 +39,7 @@ import java.util.Map;
 @Service
 public class MailServiceImpl implements MailService, ServletContextAware {
 
-    static Logger log = Logger.getLogger(MailServiceImpl.class.getName());
+    private static Logger log = Logger.getLogger(MailServiceImpl.class.getName());
 
     @Autowired
     private JavaMailSender mailSender;
@@ -64,7 +62,8 @@ public class MailServiceImpl implements MailService, ServletContextAware {
         MimeMessage message = mailSender.createMimeMessage();
         try {
             //String context = servletContext.getRealPath("../resources/templates/freemarker");
-            String stringDir = MailServiceImpl.class.getResource("/templates/freemarker").getPath();;//context.replaceAll("\\\\", "/");
+            String stringDir = MailServiceImpl.class.getResource("/templates/freemarker").getPath();
+            //context.replaceAll("\\\\", "/");
             Configuration cfg = new Configuration(Configuration.VERSION_2_3_22);
             cfg.setDefaultEncoding("UTF-8");
 

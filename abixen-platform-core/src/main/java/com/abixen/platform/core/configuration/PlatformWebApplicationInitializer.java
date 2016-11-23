@@ -24,17 +24,17 @@ public class PlatformWebApplicationInitializer extends AbstractAnnotationConfigD
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] {PlatformJpaConfiguration.class, PlatformDataSourceConfiguration.class, PlatformServiceConfiguration.class, PlatformSecurityConfiguration.class};
+        return new Class<?>[]{PlatformJpaConfiguration.class, PlatformDataSourceConfiguration.class, PlatformServiceConfiguration.class, PlatformSecurityConfiguration.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] { PlatformConfiguration.class };
+        return new Class<?>[]{PlatformConfiguration.class};
     }
 
     @Override
     protected String[] getServletMappings() {
-        return new String[] { "/" };
+        return new String[]{"/"};
     }
 
     @Override
@@ -43,10 +43,10 @@ public class PlatformWebApplicationInitializer extends AbstractAnnotationConfigD
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
 
-        return new Filter[] { characterEncodingFilter};
+        return new Filter[]{characterEncodingFilter};
     }
 
-    }
+}
 
 
 

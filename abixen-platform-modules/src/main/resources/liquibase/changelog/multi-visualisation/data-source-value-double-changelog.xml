@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/multi-visualisation/data-source-value-double-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="data-source-value-double-v1">
+        <createTable tableName="data_source_value_double">
+            <column name="value" type="double"/>
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__data_source_value_double__id"
+                       tableName="data_source_value_double"/>
+
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="data_source_value_double"
+                                 constraintName="fk__id__data_source_value_double__data_source_value" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="data_source_value"/>
+
+    </changeSet>
+
+</databaseChangeLog>

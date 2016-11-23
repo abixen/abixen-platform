@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/permission-acl-class-category-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="permission-acl-class-category-v1">
+        <createTable tableName="permission_acl_class_category">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="title" type="varchar(255)"/>
+            <column name="acl_class_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__permission_acl_class_category__id"
+                       tableName="permission_acl_class_category"/>
+
+        <addUniqueConstraint columnNames="name" constraintName="u__permission_acl_class_category__name"
+                             tableName="permission_acl_class_category"/>
+
+        <createIndex indexName="idx__permission_acl_class_category__acl_class_id"
+                     tableName="permission_acl_class_category">
+            <column name="acl_class_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="acl_class_id" baseTableName="permission_acl_class_category"
+                                 constraintName="fk__acl_class_id__permission_acl_class_category__acl_class"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="acl_class"/>
+
+    </changeSet>
+
+</databaseChangeLog>

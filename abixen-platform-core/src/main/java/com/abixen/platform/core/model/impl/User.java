@@ -65,6 +65,9 @@ public class User extends AuditingModel implements UserBase<Role>, UserWeb {
     @Column(name = "gender")
     private UserGender gender;
 
+    @Column(name = "avatar_file_name")
+    private String avatarFileName;
+
     @Column(name = "registration_ip", length = ModelKeys.REGISTRATION_IP_MAX_LENGTH)
     private String registrationIp;
 
@@ -178,6 +181,16 @@ public class User extends AuditingModel implements UserBase<Role>, UserWeb {
     @Override
     public void setGender(UserGender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public String getAvatarFileName() {
+        return avatarFileName;
+    }
+
+    @Override
+    public void setAvatarFileName(String avatarFileName) {
+        this.avatarFileName = avatarFileName;
     }
 
     @Override

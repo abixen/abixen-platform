@@ -1,0 +1,16 @@
+id;title;content;icon_file_name
+1;1 (100);{"rows":[{"columns":[{"styleClass":"col-md-12"}]}]};layout-icon-1.png
+2;2 (50/50);{"rows":[{"columns":[{"styleClass":"col-md-6"},{"styleClass":"col-md-6"}]}]};layout-icon-2.png
+3;2 (33/67);{"rows":[{"columns":[{"styleClass":"col-md-4"},{"styleClass":"col-md-8"}]}]};layout-icon-3.png
+4;2 (67/33);{"rows":[{"columns":[{"styleClass":"col-md-8"},{"styleClass":"col-md-4"}]}]};layout-icon-4.png
+5;3 (33/34/33);{"rows":[{"columns":[{"styleClass":"col-md-4"},{"styleClass":"col-md-4"},{"styleClass":"col-md-4"}]}]};layout-icon-5.png
+6;4 (25/25/25/25);{"rows":[{"columns":[{"styleClass":"col-md-3"},{"styleClass":"col-md-3"},{"styleClass":"col-md-3"},{"styleClass":"col-md-3"}]}]};layout-icon-6.png
+7;2 (50/50) - 1 (100);{"rows":[{"columns":[{"styleClass":"col-md-6"},{"styleClass":"col-md-6"}]},{"columns":[{"styleClass":"col-md-12"}]}]};layout-icon-7.png
+8;1 (100) - 2 (50/50);{"rows":[{"columns":[{"styleClass":"col-md-12"}]},{"columns":[{"styleClass":"col-md-6"},{"styleClass":"col-md-6"}]}]};layout-icon-8.png
+9;2 (33/67) - 1 (100);{"rows":[{"columns":[{"styleClass":"col-md-4"},{"styleClass":"col-md-8"}]},{"columns":[{"styleClass":"col-md-12"}]}]};layout-icon-9.png
+10;1 (100) - 2 (67/33);{"rows":[{"columns":[{"styleClass":"col-md-12"}]},{"columns":[{"styleClass":"col-md-8"},{"styleClass":"col-md-4"}]}]};layout-icon-10.png
+11;2 (67/33) - 2 (33/67);{"rows":[{"columns":[{"styleClass":"col-md-8"},{"styleClass":"col-md-4"}]},{"columns":[{"styleClass":"col-md-4"},{"styleClass":"col-md-8"}]}]};layout-icon-11.png
+12; 1 (100) - 2 (33/67);{"rows":[{"columns":[{"styleClass":"col-md-12"}]},{"columns":[{"styleClass":"col-md-4"},{"styleClass":"col-md-8"}]}]};layout-icon-12.png
+13;3 (33/34/33) - 1 (100);{"rows":[{"columns":[{"styleClass":"col-md-4"},{"styleClass":"col-md-4"},{"styleClass":"col-md-4"}]},{"columns":[{"styleClass":"col-md-12"}]}]};layout-icon-13.png
+14;1 (100)  - 2 (50/50) - 1 (100);{"rows":[{"columns":[{"styleClass":"col-md-12"}]},{"columns":[{"styleClass":"col-md-6"},{"styleClass":"col-md-6"}]},{"columns":[{"styleClass":"col-md-12"}]}]};layout-icon-14.png
+15;1 (100) - 3 (33/34/33);{"rows":[{"columns":[{"styleClass":"col-md-12"}]},{"columns":[{"styleClass":"col-md-4"},{"styleClass":"col-md-4"},{"styleClass":"col-md-4"}]}]};layout-icon-15.png

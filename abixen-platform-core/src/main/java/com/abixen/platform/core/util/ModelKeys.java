@@ -85,5 +85,7 @@ public final class ModelKeys {
     public static final char COMMA = ',';
     public static final char TAB = '\t';
 
+    public static final int ACL_CLASS_NAME_MAX_LENGTH = 250;
+
 
 }

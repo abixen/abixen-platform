@@ -18,6 +18,7 @@ import com.abixen.platform.module.chart.form.DatabaseConnectionForm;
 import com.abixen.platform.module.chart.model.impl.DatabaseConnection;
 import com.abixen.platform.module.chart.repository.DatabaseConnectionRepository;
 import com.abixen.platform.module.chart.service.DatabaseConnectionService;
+import com.abixen.platform.module.chart.service.DatabaseFactory;
 import com.abixen.platform.module.chart.service.DatabaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ import java.sql.Connection;
 import java.util.List;
 
 
+
 @Service
 public class DatabaseConnectionServiceImpl implements DatabaseConnectionService {
 
@@ -40,7 +42,7 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     private DatabaseConnectionRepository dataSourceConnectionRepository;
 
     @Autowired
-    private DatabaseService databaseService;
+    private DatabaseFactory databaseFactory;
 
     //@Autowired
     //KpiChartConfigurationDomainBuilderService kpiChartConfigurationDomainBuilderService;
@@ -98,8 +100,7 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     @Override
     public DatabaseConnection createDatabaseConnection(DatabaseConnection databaseConnection) {
         log.debug("createDatabaseConnection() - databaseConnection: " + databaseConnection);
-        DatabaseConnection createdDatabaseConnection = dataSourceConnectionRepository.save(databaseConnection);
-        return createdDatabaseConnection;
+        return dataSourceConnectionRepository.save(databaseConnection);
     }
 
     @Override
@@ -110,12 +111,13 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
 
     @Override
     public void testDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
-        databaseService.getConnection(databaseConnectionForm);
+        databaseFactory.getDatabaseService(databaseConnectionForm.getDatabaseType()).getConnection(databaseConnectionForm);
     }
 
     @Override
     public List<String> getTables(Long databaseConnectionId) {
         DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionId);
+        DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnection);
         return databaseService.getTables(connection);
     }
@@ -123,7 +125,10 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     @Override
     public List<String> getTableColumns(Long databaseConnectionId, String table) {
         DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionId);
+        DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnection);
         return databaseService.getColumns(connection, table);
     }
+
+
 }

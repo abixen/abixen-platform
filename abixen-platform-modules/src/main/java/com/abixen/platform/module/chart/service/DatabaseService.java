@@ -14,10 +14,14 @@
 
 package com.abixen.platform.module.chart.service;
 
+import com.abixen.platform.module.chart.form.ChartConfigurationForm;
 import com.abixen.platform.module.chart.form.DatabaseConnectionForm;
+import com.abixen.platform.module.chart.model.web.DataSourceValueWeb;
 import com.abixen.platform.module.chart.model.impl.DatabaseConnection;
+import com.abixen.platform.module.chart.model.impl.DatabaseDataSource;
 
 import java.sql.Connection;
+import java.util.Map;
 import java.util.List;
 
 
@@ -30,5 +34,7 @@ public interface DatabaseService {
     List<String> getColumns(Connection connection, String tableName);
 
     List<String> getTables(Connection connection);
+
+    List<Map<String, DataSourceValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm);
 
 }

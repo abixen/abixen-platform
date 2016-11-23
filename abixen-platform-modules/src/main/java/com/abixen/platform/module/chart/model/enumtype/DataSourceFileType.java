@@ -16,7 +16,7 @@ package com.abixen.platform.module.chart.model.enumtype;
 
 
 public enum DataSourceFileType {
-    CSV("CSV"), XLSX("XLSX"), XLS("XLS"),;
+    CSV("CSV"), XLSX("XLSX"), XLS("XLS");
 
     private final String name;
 

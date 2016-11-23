@@ -23,7 +23,7 @@ import javax.persistence.*;
 @Table(name = "data_source_value")
 @SequenceGenerator(sequenceName = "data_source_value_seq", name = "data_source_value_seq", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
-abstract public class DataSourceValue<E> extends Model {
+public abstract class DataSourceValue<E> extends Model {
 
     private static final long serialVersionUID = 9032457388585082311L;
 
@@ -35,7 +35,7 @@ abstract public class DataSourceValue<E> extends Model {
     @Column(name = "position")
     private Integer position;
 
-    public DataSourceValue() {
+    DataSourceValue() {
     }
 
     public Long getId() {
@@ -54,9 +54,9 @@ abstract public class DataSourceValue<E> extends Model {
         this.position = position;
     }
 
-    abstract public E getValue();
+    public abstract E getValue();
 
-    abstract public void setValue(E value);
+    public abstract void setValue(E value);
 
 }
 

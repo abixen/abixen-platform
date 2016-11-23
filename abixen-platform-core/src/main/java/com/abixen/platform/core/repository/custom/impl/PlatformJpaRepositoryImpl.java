@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import javax.persistence.EntityManager;
@@ -34,12 +35,12 @@ import java.util.*;
 public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
         extends SimpleJpaRepository<T, ID> implements PlatformJpaRepository<T, ID> {
 
-    static Logger log = Logger.getLogger(PlatformJpaRepositoryImpl.class.getName());
+    private static Logger log = Logger.getLogger(PlatformJpaRepositoryImpl.class.getName());
 
     private final EntityManager entityManager;
 
-    public PlatformJpaRepositoryImpl(Class<T> domainClass, EntityManager entityManager) {
-        super(domainClass, entityManager);
+    public PlatformJpaRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
+        super(entityInformation, entityManager);
         this.entityManager = entityManager;
     }
 
@@ -92,7 +93,8 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
             if (key.equals("and") || key.equals("or")) {
                 currentOperator = key.toUpperCase();
             }
-            if (jsonCriteriaMap.get(key) instanceof Map) {//TODO - probably unused condition
+            if (jsonCriteriaMap.get(key) instanceof Map) {
+                //TODO - probably unused condition
                 query += convertJsonStringJPQL((Map<String, Object>) jsonCriteriaMap.get(key), parameters);
             } else if (jsonCriteriaMap.get(key) instanceof List) {
                 for (Object criteriaObject : (List) jsonCriteriaMap.get(key)) {
@@ -112,10 +114,10 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
                     conditionArgumentNumber++;
                 }
             }
-            conditionArgumentNumber++;//TODO - probably unused condition
+            conditionArgumentNumber++;
+            //TODO - probably unused condition
         }
         query += " )";
         return query;
     }
-
 }

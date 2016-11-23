@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/admin")
 public class AdminApplicationController {
 
-    static Logger log = Logger.getLogger(AdminApplicationController.class.getName());
+    private static Logger log = Logger.getLogger(AdminApplicationController.class.getName());
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)

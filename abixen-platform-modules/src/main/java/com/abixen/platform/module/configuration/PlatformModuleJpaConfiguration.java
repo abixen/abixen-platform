@@ -14,97 +14,35 @@
 
 package com.abixen.platform.module.configuration;
 
+import com.abixen.platform.core.configuration.AbstractJapConfiguration;
 import com.abixen.platform.core.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import com.abixen.platform.module.security.PlatformAuditorAware;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.Properties;
+
+import static com.abixen.platform.module.configuration.PlatformModulesPackages.*;
 
 
 @Configuration
-@Import({PlatformModuleDataSourceConfiguration.class})
+@Import(PlatformModuleDataSourceConfiguration.class)
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "platformAuditorAware")
-@EnableJpaRepositories(basePackages = {"com.abixen.platform.module.chart.repository", "com.abixen.platform.module.magicnumber.repository", "com.abixen.platform.module.kpichart.repository"})
-public class PlatformModuleJpaConfiguration {
-
-    static Logger log = Logger.getLogger(PlatformModuleJpaConfiguration.class.getName());
+@EnableJpaRepositories(basePackages = {CHART_REPOSITORY, MAGIC_NUMBER_REPOSITORY, KPI_CHART_REPOSITORY})
+public class PlatformModuleJpaConfiguration extends AbstractJapConfiguration {
 
     @Autowired
-    DataSource dataSource;
-
-    @Autowired
-    Environment environment;
-
-    @Autowired
-    AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
-
-
-    //http://java.dzone.com/articles/springmvc4-spring-data-jpa
-
-    @Bean(name = "entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
-        log.debug("entityManagerFactoryBean()");
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setDataSource(dataSource);
-        entityManagerFactoryBean.setPackagesToScan(new String[]{"com.abixen.platform.module.model", "com.abixen.platform.module.chart.model", "com.abixen.platform.module.magicnumber.model", "com.abixen.platform.module.kpichart.model"});
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(true);
-        entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
-        Properties jpaProperties = new Properties();
-
-        jpaProperties.put("hibernate.show_sql", "true");
-        jpaProperties.put("hibernate.dialect", platformJdbcConfiguration.getDialect());
-
-        String activeProfile = environment.getActiveProfiles().length > 0 ? environment.getActiveProfiles()[0] : "test";
-        String createDbSchema = environment.getProperty("createDbSchema");
-
-        if ((createDbSchema != null && createDbSchema.equalsIgnoreCase("true")) || activeProfile.equals("test")) {
-            log.info("Import database will be executing. Active profile is " + activeProfile);
-            jpaProperties.put("hibernate.hbm2ddl.auto", "create");
-        } else {
-            log.info("Import database won't be executing. Active profile is " + activeProfile);
-            jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
-        }
-
-        entityManagerFactoryBean.setJpaProperties(jpaProperties);
-        entityManagerFactoryBean.afterPropertiesSet();
-        entityManagerFactoryBean.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
-        return entityManagerFactoryBean;
+    public PlatformModuleJpaConfiguration(DataSource dataSource, AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration) {
+        super(dataSource, platformJdbcConfiguration, new String[]{CHART_DOMAIN, MAGIC_NUMBER_DOMAIN, KPI_CHART_DOMAIN});
     }
 
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
-        return transactionManager;
-    }
-
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
-
-    @Bean(name = "platformAuditorAware")
     public AuditorAware platformAuditorAware() {
         return new PlatformAuditorAware();
     }
-
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/layout-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="layout-v1">
+        <createTable tableName="layout">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="content" type="varchar(4000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="icon_file_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint"/>
+            <column name="last_modified_by_id" type="bigint"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__layout__id" tableName="layout"/>
+
+        <createIndex indexName="idx__layout__created_by_id" tableName="layout">
+            <column name="created_by_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__layout__last_modified_by_id" tableName="layout">
+            <column name="last_modified_by_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="layout"
+                                 constraintName="fk__created_by_id__layout__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_id" baseTableName="layout"
+                                 constraintName="fk__last_modified_by_id__layout__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+    </changeSet>
+
+</databaseChangeLog>

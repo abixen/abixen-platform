@@ -18,9 +18,6 @@ import com.abixen.platform.core.security.CsrfHeaderFilter;
 import com.abixen.platform.core.security.PlatformAuthenticationSuccessHandler;
 import com.abixen.platform.core.security.PlatformUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,9 +31,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.session.SessionManagementFilter;
 
 
 @Configuration
@@ -68,6 +65,7 @@ public class PlatformSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .antMatchers("/test").permitAll()
                 .antMatchers("/application/modules/**").permitAll()
                 .antMatchers("/admin/modules/**").permitAll()
+                .antMatchers("/api/user").permitAll()
                 .antMatchers("/api/user-activation/activate/*/").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -75,7 +73,7 @@ public class PlatformSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
                 .and()
-                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+                .addFilterAfter(new CsrfHeaderFilter(), SessionManagementFilter.class)
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository());
     }

@@ -1,3 +1,5 @@
 spring:
+  application:
+    name: abixen-platform-core
   jpa:
     generate-ddl: true

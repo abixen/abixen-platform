@@ -12,13 +12,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="dashboard sample app">
 
-    <link href="<c:url value="/stylesheets/application/application.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/application/modules/abixen/modules.css" />" rel="stylesheet">
-    <link href="<c:url value="/stylesheets/bootstrap.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/stylesheets/font-awesome.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/stylesheets/common/fonts/roboto.css" />" rel="stylesheet">
-    <link href="<c:url value="/lib/toaster/toaster.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/lib/angular-xeditable/xeditable.css" />" rel="stylesheet">
+    <link href="<c:url value="/lib/lib.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/lib/toaster.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/lib/xeditable.css" />" rel="stylesheet">
+    <link href="<c:url value="/application/application.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/application/modules/abixen/modules.min.css" />" rel="stylesheet">
 
     <c:forEach var="resource" items="${resources}">
         <c:if test="${resource.resourceLocation == ResourceLocation.HEADER && resource.resourceType == ResourceType.JAVASCRIPT}">
@@ -37,18 +35,18 @@
 <script src="<c:url value='/lib/angular.min.js' />"></script>
 <script src="<c:url value='/lib/angular-resource.min.js' />"></script>
 <script src="<c:url value='/lib/angular-animate.min.js' />"></script>
-<script src="<c:url value='/lib/angular-ui-grid/angular-ui-grid.min.js' />"></script>
 <script src="<c:url value='/lib/angular-ui-router.min.js' />"></script>
 <script src="<c:url value="/lib/ui-bootstrap-tpls.min.js" />"></script>
 <script src="<c:url value='/lib/angular-aside.min.js' />"></script>
 <script src="<c:url value='/lib/sortable.min.js' />"></script>
 <script src="<c:url value='/lib/show-errors.min.js' />"></script>
-<script src="<c:url value='/lib/toaster/toaster.min.js' />"></script>
-<script src="<c:url value='/lib/angular-xeditable/xeditable.min.js' />"></script>
+<script src="<c:url value='/lib/toaster.min.js' />"></script>
+<script src="<c:url value='/lib/xeditable.min.js' />"></script>
+<script src="<c:url value='/lib/angular-file-upload.min.js' />"></script>
+<script src="<c:url value='/lib/angular-cookies.min.js' />"></script>
 
-<script src="<c:url value='/common/modules.js' />"></script>
-<script src="<c:url value='/application/application.js' />"></script>
-<script src="<c:url value='/application/modules.js' />"></script>
+<script src="<c:url value='/common/modules.min.js' />"></script>
+<script src="<c:url value='/application/application.min.js' />"></script>
 
 <c:forEach var="resource" items="${resources}">
     <c:if test="${resource.resourceLocation == ResourceLocation.BODY && resource.resourceType == ResourceType.JAVASCRIPT}">

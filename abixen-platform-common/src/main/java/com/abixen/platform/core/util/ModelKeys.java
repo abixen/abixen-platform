@@ -18,6 +18,7 @@ package com.abixen.platform.core.util;
 public final class ModelKeys {
 
     //FIXME - what is name?
+    public static final int NAME_MIN_LENGTH = 5;
     public static final int NAME_MAX_LENGTH = 300;
 
 

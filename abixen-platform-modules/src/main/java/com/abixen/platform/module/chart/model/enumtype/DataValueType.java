@@ -17,13 +17,10 @@ package com.abixen.platform.module.chart.model.enumtype;
 
 public enum DataValueType {
 
-
     STRING("STRING"),
     INTEGER("INTEGER"),
-    FLOAT("FLOAT"),
-    //DECIMAL("DECIMAL"),
+    DOUBLE("DOUBLE"),
     DATE("DATE");
-
 
     private final String name;
 

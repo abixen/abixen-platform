@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.controller.common;
 
+import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.form.UserChangePasswordForm;
@@ -27,17 +28,22 @@ import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.ValidationUtil;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,10 +60,13 @@ public abstract class AbstractUserController {
 
     private final RoleService roleService;
 
-    public AbstractUserController(UserService userService, MailService mailService, RoleService roleService) {
+    private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+
+    public AbstractUserController(UserService userService, MailService mailService, RoleService roleService, AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
         this.userService = userService;
         this.mailService = mailService;
         this.roleService = roleService;
+        this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -113,6 +122,30 @@ public abstract class AbstractUserController {
 
         UserForm userFormResult = userService.updateUser(userForm);
         return new FormValidationResultDto(userFormResult);
+    }
+
+    @RequestMapping(value = "/{id}/avatar/{hash}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getUserAvatar(@PathVariable Long id, @PathVariable String hash) throws IOException {
+        InputStream in = null;
+        try {
+            in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/user-avatar/" + hash);
+        } catch (FileNotFoundException e) {
+            in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/user-avatar/avatar.png");
+        }
+        byte[] b = IOUtils.toByteArray(in);
+
+        in.close();
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+
+        return new ResponseEntity<byte[]>(b, headers, HttpStatus.CREATED);
+
+    }
+
+    @RequestMapping(value = "/{id}/avatar", method = RequestMethod.POST)
+    public User updateUserAvatar(@PathVariable Long id, @RequestParam("avatarFile") MultipartFile avatarFile) throws IOException {
+        return userService.changeUserAvatar(id, avatarFile);
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.GET)

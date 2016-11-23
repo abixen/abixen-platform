@@ -21,12 +21,21 @@
                 </div>
             </div>
 
-            <div class="form-group last">
-                <div class="col-sm-offset-3 col-sm-9">
-                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="entityForm.$invalid"
-                            ng-click="saveForm()">Save
-                    </button>
-                    <button type="reset" class="btn btn-default btn-sm">Cancel</button>
+            <div class="row bottom-navigation ng-scope">
+                <div class="col-xs-12">
+                    <div class="form-group last">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn save-button" ng-disabled="entityForm.$invalid"
+                                    ng-click="saveForm()">
+                                <i class="fa fa-floppy-o"></i>
+                                <span>&nbsp;Save</span>
+                            </button>
+                            <button type="reset" class="btn cancel-button">
+                                <i class="fa fa-times"></i>
+                                <span>&nbsp;Cancel</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

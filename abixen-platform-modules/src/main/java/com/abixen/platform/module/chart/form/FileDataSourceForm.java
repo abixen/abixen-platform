@@ -33,9 +33,9 @@ public class FileDataSourceForm extends DataSourceForm implements Form {
     }
 
     public FileDataSourceForm(FileDataSource fileDataSource) {
-        this.id = fileDataSource.getId();
-        this.name = fileDataSource.getName();
-        this.description = fileDataSource.getDescription();
+        this.setId(fileDataSource.getId());
+        this.setName(fileDataSource.getName());
+        this.setDescription(fileDataSource.getDescription());
         this.dataSourceFileType = fileDataSource.getDataSourceFileType();
     }
 

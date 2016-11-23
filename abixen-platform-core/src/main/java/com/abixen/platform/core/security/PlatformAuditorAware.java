@@ -24,10 +24,10 @@ import org.springframework.data.domain.AuditorAware;
 
 public class PlatformAuditorAware implements AuditorAware<User> {
 
-    private final static Logger log = Logger.getLogger(PlatformAuditorAware.class.getName());
+    private static Logger log = Logger.getLogger(PlatformAuditorAware.class.getName());
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
     private SecurityService securityService;

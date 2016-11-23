@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 
-
 //TODO - to remove
 public class DataSourceCsvParametersDTO implements Serializable {
 
@@ -47,15 +46,15 @@ public class DataSourceCsvParametersDTO implements Serializable {
     private File csvFile;
 
     @NotNull
-    @Size(min = 5, max = ModelKeys.NAME_MAX_LENGTH)
+    @Size(min = ModelKeys.NAME_MIN_LENGTH, max = ModelKeys.NAME_MAX_LENGTH)
     private String name;
 
     @NotNull
-    List<DataValueType> valueTypes;
+    private List<DataValueType> valueTypes;
 
 
     @NotNull
-    Map<String, Integer> columns;
+    private Map<String, Integer> columns;
 
     public List<DataValueType> getValueTypes() {
         return valueTypes;

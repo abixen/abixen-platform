@@ -1,45 +1,71 @@
 server:
-  port: ${vcap.application.port:8080}
+  port: 8080
 
 zuul:
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
   routes:
     api:
       path: /api/**
-      url: http://localhost:9090/api
+      url: http://${abixen.services.gateway.uri:localhost}:9090/api
+      sensitive-headers:
     user:
-       path: /user
-       url: http://localhost:9090/
-    applicationModules:
+      path: /user
+      url: http://${abixen.services.gateway.uri:localhost}:9090/
+      sensitive-headers:
+
+    # Begin of custom module microservices - add mapping relevant to your microservice
+
+    # Begin of modules microservice
+    modulesApplication:
       path: /application/modules/abixen/**
-      url: http://localhost:9090/application/modules/abixen
-    adminModules:
+      serviceId: http://${abixen.services.gateway.uri:localhost}:9090/application/modules/abixen
+      sensitive-headers:
+    modulesAdmin:
       path: /admin/modules/abixen/**
-      url: http://localhost:9090/admin/modules/abixen
+      url: http://${abixen.services.gateway.uri:localhost}:9090/admin/modules/abixen
+      sensitive-headers:
+    # End of modules microservice
+
+    # End of custom module microservices
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
 
 ---
+
 
 spring:
   profiles: cloud
+
 eureka:
   instance:
-    hostname: ${APPLICATION_DOMAIN:localhost}
-    nonSecurePort: 9090
-    metadataMap:
-      cluster: AbixenPlatform
+    preferIpAddress: true
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+      defaultZone: http://${abixen.services.eureka.uri}:8761/eureka/
+
 
 ---
 
+
 spring:
   profiles: dev
+
 eureka:
   instance:
-    hostname: ${APPLICATION_DOMAIN:localhost}
-    nonSecurePort: 9090
-    metadataMap:
-      cluster: AbixenPlatform
+    hostname: localhost
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+      defaultZone: http://localhost:8761/eureka/

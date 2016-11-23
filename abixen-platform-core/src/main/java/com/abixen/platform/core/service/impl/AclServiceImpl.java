@@ -18,7 +18,6 @@ import com.abixen.platform.core.dto.AclPermissionDto;
 import com.abixen.platform.core.dto.AclRolePermissionsDto;
 import com.abixen.platform.core.dto.AclRolesPermissionsDto;
 import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.UserBase;
 import com.abixen.platform.core.model.enumtype.AclSidType;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.*;
@@ -50,22 +49,22 @@ public class AclServiceImpl implements AclService {
     private AclEntryRepository aclEntryRepository;
 
     @Resource
-    AclClassRepository aclClassRepository;
+    private AclClassRepository aclClassRepository;
 
     @Resource
-    AclObjectIdentityRepository aclObjectIdentityRepository;
+    private AclObjectIdentityRepository aclObjectIdentityRepository;
 
     @Resource
-    PermissionAclClassCategoryRepository permissionAclClassCategoryRepository;
+    private PermissionAclClassCategoryRepository permissionAclClassCategoryRepository;
 
     @Resource
-    AclSidRepository aclSidRepository;
+    private AclSidRepository aclSidRepository;
 
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     @Autowired
-    PermissionService permissionService;
+    private PermissionService permissionService;
 
     @Override
     public void insertDefaultAcl(SecurableModel securableModel, PermissionName permissionName) {

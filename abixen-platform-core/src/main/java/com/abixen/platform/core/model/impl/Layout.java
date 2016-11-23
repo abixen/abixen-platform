@@ -17,7 +17,6 @@ package com.abixen.platform.core.model.impl;
 import com.abixen.platform.core.model.LayoutBase;
 import com.abixen.platform.core.model.web.LayoutWeb;
 import com.abixen.platform.core.util.ModelKeys;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 
