@@ -46,6 +46,9 @@ module.exports = {
             'bower_components/angular-xeditable/dist/js/xeditable.min.js',
             'bower_components/angular-xeditable/dist/css/xeditable.css',
             'bower_components/angular-file-upload/dist/angular-file-upload.min.js',
+            'bower_components/codemirror/lib/codemirror.css',
+            'bower_components/codemirror/lib/codemirror.js',
+            'bower_components/angular-ui-codemirror/ui-codemirror.js',
             'src/main/web/lib/show-errors.min.js',
             'src/main/web/lib/ng-storage.min.js'
         ],

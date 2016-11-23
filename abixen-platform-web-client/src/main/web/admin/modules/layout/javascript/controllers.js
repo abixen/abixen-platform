@@ -1,4 +1,4 @@
-var layoutControllers = angular.module('layoutControllers', []);
+var layoutControllers = angular.module('layoutControllers', ['ui.codemirror']);
 
 layoutControllers.controller('LayoutListController', ['$scope', '$http', '$log', 'uiGridConstants', 'Layout', 'gridFilter', 'applicationNavigationItems', '$state', function ($scope, $http, $log, uiGridConstants, Layout, gridFilter, applicationNavigationItems, $state) {
     $log.log('LayoutListController');
@@ -58,7 +58,18 @@ layoutControllers.controller('LayoutDetailController', ['$scope', '$http', '$sta
     $log.log('LayoutDetailController');
 
     angular.extend(this, new AbstractCrudDetailController($scope, $http, $state, $stateParams, $log, Layout, 'application.layouts'));
-
+    $scope.editorOptions = {
+        lineWrapping: true,
+        lineNumbers: true,
+        readOnly: 'nocursor',
+        mode: 'xml',
+        theme: 'theme'
+    };
+    $scope.editor = CodeMirror.fromTextArea(document.getElementById("xmlInput"), {
+        lineNumbers: true,
+        mode: "text/html",
+        matchBrackets: true
+    });
     $scope.get($stateParams.id);
 }]);
 
