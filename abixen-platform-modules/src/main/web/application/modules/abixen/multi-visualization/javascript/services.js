@@ -23,7 +23,7 @@ platformChartModuleServices.factory('ChartModuleConfiguration', ['$resource',
 platformChartModuleServices.factory('CharData', ['$resource',
     function ($resource) {
         return $resource('/application/modules/abixen/multi-visualization/data', {}, {
-            query: {method: 'POST'}
+            query: {method: 'POST', isArray: true}
         });
     }]);
 
@@ -906,4 +906,156 @@ platformChartModuleServices.provider("mockupData", function () {
             };
         }
     };
+});
+
+platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,$injector, $windowProvider) {
+    var window = $injector.instantiate($windowProvider.$get);
+    var $log =  $injector.instantiate($logProvider.$get,{$window:window});
+
+    var getDefaultChartConfig = function () {
+        return {
+            chart: {
+                type: 'lineChart',
+                height: 450,
+                margin: {
+                    top: 20,
+                    right: 20,
+                    bottom: 40,
+                    left: 55
+                },
+                x: function (d) {
+                    if (isNaN(Number(d.xLabel))) {
+                        return d.x;
+                    }else{
+                        return d.xLabel;
+                    }
+                },
+                y: function (d) {
+                    if (isNaN(Number(d.yLabel))) {
+                        return d.y;
+                    }else{
+                        return d.yLabel;
+                    }
+                },
+                xAxis: {
+                    axisLabel: 'DefaultAxisLabel',
+                    tickFormat: function (d) {
+                        return d;
+                    }
+                },
+                yAxis: {
+                    axisLabel: 'DefaultAxisLabel',
+                    tickFormat: function (d) {
+                        return d;
+                    }
+                },
+                callback: function (chart) {
+                    console.log("!!! lineChart callback !!!");
+                }
+            }
+        }
+    };
+
+    var lineChartAdapter = function () {
+
+        var buildChartOptions = function (configurationData, preparedChartData) {
+            $log.debug('buildChartOptions for lineChartAdapter started');
+            var chartConfig = getDefaultChartConfig();
+            chartConfig.chart.type = 'lineChart';
+            chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
+            chartConfig.chart.xAxis.tickFormat = function (d) {
+                return preparedChartData[0].values[d].xLabel;
+            };
+            chartConfig.chart.yAxis.tickFormat = function (d) {
+                return d;
+            };
+            chartConfig.chart.yAxis.axisLabel = configurationData.axisYName;
+            $log.debug('buildChartOptions for lineChartAdapter ended');
+            return chartConfig;
+        };
+
+        function getPairData(dataElement, dataSetSeriesElement, index) {
+            var x = null;
+            var xLabel = null;
+            var y = null;
+            var yLabel = null;
+            if (dataElement[dataSetSeriesElement.seriesColumns[0].name] ){
+                x = index;
+                xLabel = dataElement[dataSetSeriesElement.seriesColumns[0].name].value;
+            }
+            if (dataElement[dataSetSeriesElement.seriesColumns[1].name] ){
+                y = index;
+                yLabel = dataElement[dataSetSeriesElement.seriesColumns[1].name].value ;
+            }
+            return{
+                x: x,
+                xLabel: xLabel,
+                y: y,
+                yLabel: yLabel
+            }
+        }
+
+        function getValues(data, dataSetSeriesElement) {
+            var values = [];
+            data.forEach(function (dataElement, iterator) {
+                var valuesElement = getPairData(dataElement, dataSetSeriesElement, iterator);
+                if (valuesElement != null) {
+                    values.push(valuesElement);
+                }
+            });
+            return values;
+        }
+
+        function buildChartData(configurationData, data) {
+            $log.debug('buildChartData for lineChartAdapter started');
+            var series = [];
+            configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
+                $log.debug("dataSetSeriesElement: ", dataSetSeriesElement);
+                series.push({
+                    values: getValues(data, dataSetSeriesElement),
+                    key: dataSetSeriesElement.name
+                });
+            });
+            $log.debug("series: ", series);
+            $log.debug('buildChartData for lineChartAdapter ended');
+            return series;
+        }
+
+        return {
+            buildChartOptions: buildChartOptions,
+            buildChartData: buildChartData
+        }
+    };
+
+
+    var convertToChart = function (configurationData, rawData, adapter) {
+        $log.debug('convertToChart started');
+        var chartData = adapter.buildChartData(configurationData, rawData);
+        var chartOption = adapter.buildChartOptions(configurationData, chartData);
+        var chart = {
+            options: chartOption,
+            data: chartData
+        };
+        $log.debug('convertToChart ended. Chart : ', chart);
+        return chart;
+    };
+
+    var convertTo = function (configurationData, data) {
+        var chartType = configurationData.chartType;
+
+        var chartParams = null;
+
+        if (chartType === 'LINE' || chartType === 'LINE_TABLE') {
+            chartParams = convertToChart(configurationData, data, lineChartAdapter());
+        }
+        return chartParams;
+    };
+    return {
+        $get: function () {
+            return {
+                convertTo: convertTo
+            };
+        }
+    };
+
 });
