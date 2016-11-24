@@ -28,6 +28,7 @@ public class PlatformModuleSecurityConfiguration extends WebSecurityConfigurerAd
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/configuration").permitAll()
                 .antMatchers("/application/modules/abixen/**").permitAll()
                 .antMatchers("/admin/modules/abixen/**").permitAll()
                 .anyRequest().authenticated()

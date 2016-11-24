@@ -34,7 +34,7 @@ public class PlatformSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .antMatchers("/api/admin/securities/**").permitAll()
                 .antMatchers("/api/resources").permitAll()
                 .antMatchers("/api/user-activation/activate/*/").permitAll()
-                .antMatchers("/turbine.stream").permitAll()
+                .antMatchers("/hystrix.stream").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic().disable();
