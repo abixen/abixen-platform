@@ -61,38 +61,6 @@ platformMagicNumberModuleControllers.controller('MagicNumberModuleConfigurationC
         $scope.$emit('VIEW_MODE');
     }
 
-    var $icon = $('#iconClassInput');
-
-    debugger;
-    var icons = ["fa-glass", "fa-music",
-        "fa-search", "fa-envelope-o", "fa-heart", "fa-star", "fa-star-o", "fa-user", "fa-film", "fa-th-large", "fa-th", "fa-th-list", "fa-check", "fa-remove", "fa-close",
-        "fa-times", "fa-search-plus", "fa-search-minus", "fa-power-off", "fa-signal", "fa-gear", "fa-cog", "fa-trash-o", "fa-home", "fa-file-o", "fa-clock-o", "fa-road",
-        "fa-download", "fa-arrow-circle-o-down", "fa-arrow-circle-o-up", "fa-inbox", "fa-play-circle-o", "fa-rotate-right", "fa-repeat", "fa-refresh", "fa-list-alt",
-        "fa-lock", "fa-flag", "fa-headphones", "fa-volume-off", "fa-volume-down", "fa-volume-up", "fa-qrcode", "fa-barcode", "fa-tag", "fa-tags", "fa-book", "fa-bookmark",
-        "fa-print", "fa-camera", "fa-font", "fa-bold", "fa-italic", "fa-text-height", "fa-text-width", "fa-align-left", "fa-align-center", "fa-align-right", "fa-align-justify"];
-
-    $icon.autocomplete({
-        minLength: 0,
-        source: icons,
-        focus: function (event, ui) {
-            $icon.val(ui.item.value);
-            return false;
-        }
-    });
-
-    $icon.data("ui-autocomplete")._renderItem = function (ul, item) {
-
-        var $li = $('<li>'), $span = $('<span>');
-        var display = "fa " + item.value;
-        $span.attr('class', display);
-
-        $li.attr('data-value', display);
-        $li.append('<a href="#">');
-        $li.find('a').append($span);//.append(item.label);
-
-        return $li.appendTo(ul);
-    };
-
 
     $scope.get($scope.moduleId);
 }]);
