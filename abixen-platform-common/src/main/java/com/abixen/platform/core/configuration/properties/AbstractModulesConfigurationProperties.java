@@ -17,6 +17,8 @@ package com.abixen.platform.core.configuration.properties;
 
 import javax.validation.constraints.NotNull;
 
+import com.abixen.platform.core.model.enumtype.ResourceLocation;
+import com.abixen.platform.core.model.enumtype.ResourceType;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -56,10 +58,10 @@ public abstract class AbstractModulesConfigurationProperties {
             private String relativeUrl;
 
             @NotNull
-            private String resourceLocation;
+            private ResourceLocation resourceLocation;
 
             @NotNull
-            private String resourceType;
+            private ResourceType resourceType;
         }
     }
 

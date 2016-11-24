@@ -4,6 +4,14 @@ server:
 security:
   sessions: NEVER
 
+platform:
+  core:
+    modules:
+      # Add here your module serviceId
+      registeredServices:
+        -
+          serviceId: abixen-platform-modules
+
 
 ---
 
