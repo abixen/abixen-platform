@@ -61,7 +61,6 @@ platformMagicNumberModuleControllers.controller('MagicNumberModuleConfigurationC
         $scope.$emit('VIEW_MODE');
     }
 
-
     $scope.get($scope.moduleId);
 }]);
 
