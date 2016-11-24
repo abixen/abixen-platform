@@ -29,12 +29,13 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class ModuleConfigurationIntegrationClient {
 
     private final Logger log = LoggerFactory.getLogger(ModuleConfigurationIntegrationClient.class.getName());
 
-    @Autowired
+    @Autowired(required = false)
     private DiscoveryClient discoveryClient;
 
     @HystrixCommand(fallbackMethod = "getModulesConfigurationPropertiesFallback")

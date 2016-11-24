@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service;
 
+import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.model.impl.Resource;
 
 import java.util.List;
@@ -22,5 +23,7 @@ import java.util.List;
 public interface ResourceService {
 
     List<Resource> findAllUniqueResources();
+
+    void updateResource(ModuleType moduleType, List<Resource> newResources);
 
 }

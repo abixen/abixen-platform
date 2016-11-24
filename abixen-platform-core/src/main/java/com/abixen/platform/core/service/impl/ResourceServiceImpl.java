@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.repository.ResourceRepository;
 import com.abixen.platform.core.service.ResourceService;
 import org.slf4j.Logger;
@@ -41,6 +42,16 @@ public class ResourceServiceImpl implements ResourceService {
     public List<com.abixen.platform.core.model.impl.Resource> findAllUniqueResources() {
         List<com.abixen.platform.core.model.impl.Resource> resources = resourceRepository.findAll();
         return resources.stream().filter(distinctByKey(resource -> resource.getRelativeUrl())).collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateResource(ModuleType moduleType, List<com.abixen.platform.core.model.impl.Resource> newResources) {
+
+        resourceRepository.deleteResources(moduleType);
+
+        newResources.forEach(resource -> {
+            resourceRepository.save(resource);
+        });
     }
 
     private <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {

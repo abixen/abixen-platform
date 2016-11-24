@@ -23,4 +23,6 @@ public interface ModuleTypeService {
     ModuleType findModuleType(Long id);
 
     List<ModuleType> findAllModuleTypes();
+
+    void reload(Long id);
 }
