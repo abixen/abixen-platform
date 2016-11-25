@@ -69,9 +69,7 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
 
         ModuleType moduleType = moduleTypeRepository.findOne(id);
 
-        String serviceId = "abixen-platform-modules";
-
-        ModulesConfigurationProperties modulesConfigurationProperties = moduleConfigurationIntegrationClient.getModulesConfigurationProperties(serviceId);
+        ModulesConfigurationProperties modulesConfigurationProperties = moduleConfigurationIntegrationClient.getModulesConfigurationProperties(moduleType.getServiceId());
 
         ModulesConfigurationProperties.Module module = modulesConfigurationProperties.
                 getModules().

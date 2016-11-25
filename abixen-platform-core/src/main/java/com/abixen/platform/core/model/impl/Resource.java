@@ -51,7 +51,6 @@ public class Resource extends AuditingModel implements ResourceBase<ModuleType> 
     @ManyToOne(fetch = FetchType.EAGER)
     private ModuleType moduleType;
 
-
     @Override
     public Long getId() {
         return id;

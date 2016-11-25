@@ -1,5 +1,4 @@
-id;created_date;last_modified_date;name;description;title;init_url;created_by_id;last_modified_by_id
-1;NULL;NULL;multi-visualization;This is a multi visualization module;Multi Visualization;/application/modules/abixen/multi-visualization/html/index.html;NULL;NULL
-2;NULL;NULL;magic-number;This is a magic number module;Magic Number;/application/modules/abixen/magic-number/html/index.html;NULL;NULL
-3;NULL;NULL;kpi-chart;This is a KPI chart module;KPI Chart;/application/modules/abixen/kpi-chart/html/index.html;NULL;NULL
-
+id;created_date;last_modified_date;name;description;title;init_url;service_id;created_by_id;last_modified_by_id
+1;NULL;NULL;multi-visualization;This is a multi visualization module;Multi Visualization;/application/modules/abixen/multi-visualization/html/index.html;abixen-platform-modules;NULL;NULL
+2;NULL;NULL;magic-number;This is a magic number module;Magic Number;/application/modules/abixen/magic-number/html/index.html;abixen-platform-modules;NULL;NULL
+3;NULL;NULL;kpi-chart;This is a KPI chart module;KPI Chart;/application/modules/abixen/kpi-chart/html/index.html;abixen-platform-modules;NULL;NULL

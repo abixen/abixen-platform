@@ -75,6 +75,9 @@ public final class ModelKeys {
     public static final int RESOURCE_RELATIVE_URL_MIN_LENGTH = 3;
     public static final int RESOURCE_RELATIVE_URL_MAX_LENGTH = 250;
 
+    public static final int RESOURCE_SERVICE_ID_MIN_LENGTH = 1;
+    public static final int RESOURCE_SERVICE_ID_MAX_LENGTH = 255;
+
     public static final int HASH_KEY_MAX_LENGTH = 60;
 
     /**

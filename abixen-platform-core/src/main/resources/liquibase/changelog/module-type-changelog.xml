@@ -23,6 +23,7 @@
             <column name="title" type="varchar(40)">
                 <constraints nullable="false"/>
             </column>
+            <column name="service_id" type="varchar(255)"/>
             <column name="created_by_id" type="bigint"/>
             <column name="last_modified_by_id" type="bigint"/>
         </createTable>

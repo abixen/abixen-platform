@@ -45,6 +45,9 @@ public class ModuleType extends AuditingModel implements ModuleTypeBase, ModuleT
     @Column(name = "init_url")
     private String initUrl;
 
+    @Column(name = "service_id", length = ModelKeys.RESOURCE_SERVICE_ID_MAX_LENGTH, nullable = false)
+    private String serviceId;
+
     @Override
     public Long getId() {
         return id;
@@ -94,4 +97,15 @@ public class ModuleType extends AuditingModel implements ModuleTypeBase, ModuleT
     public void setInitUrl(String initUrl) {
         this.initUrl = initUrl;
     }
+
+    @Override
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    @Override
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
+
 }

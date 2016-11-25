@@ -36,4 +36,8 @@ public interface ModuleTypeBase {
     String getInitUrl();
 
     void setInitUrl(String initUrl);
+
+    String getServiceId();
+
+    void setServiceId(String serviceId);
 }

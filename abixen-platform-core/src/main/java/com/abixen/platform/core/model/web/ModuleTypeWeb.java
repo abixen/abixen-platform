@@ -32,4 +32,7 @@ public interface ModuleTypeWeb {
     String getDescription();
 
     String getInitUrl();
+
+    String getServiceId();
+
 }
