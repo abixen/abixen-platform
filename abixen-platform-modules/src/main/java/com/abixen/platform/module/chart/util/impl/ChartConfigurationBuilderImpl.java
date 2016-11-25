@@ -16,10 +16,7 @@ package com.abixen.platform.module.chart.util.impl;
 
 import com.abixen.platform.core.util.EntityBuilder;
 import com.abixen.platform.module.chart.model.enumtype.ChartType;
-import com.abixen.platform.module.chart.model.impl.ChartConfiguration;
-import com.abixen.platform.module.chart.model.impl.DataSetChart;
-import com.abixen.platform.module.chart.model.impl.DataSetSeries;
-import com.abixen.platform.module.chart.model.impl.DatabaseDataSource;
+import com.abixen.platform.module.chart.model.impl.*;
 import com.abixen.platform.module.chart.model.web.DataSetChartWeb;
 import com.abixen.platform.module.chart.util.ChartConfigurationBuilder;
 
@@ -52,7 +49,7 @@ public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfigurat
 
             //TODO - add columns
 
-            dssCreated.setSeriesColumns(new HashSet<>());
+            dssCreated.setValueSeriesColumn(new DataSetSeriesColumn());
             dataSetSeries.add(dssCreated);
         });
 

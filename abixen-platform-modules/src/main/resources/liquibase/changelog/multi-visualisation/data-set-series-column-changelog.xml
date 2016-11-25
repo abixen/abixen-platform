@@ -46,6 +46,12 @@
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="data_source_column"/>
 
+        <addForeignKeyConstraint baseColumnNames="value_column_id" baseTableName="data_set_series"
+                                 constraintName="fk__value_column_id__data_set_series_column"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="data_set_series_column"/>
+
     </changeSet>
 
 </databaseChangeLog>

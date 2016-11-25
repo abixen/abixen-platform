@@ -21,8 +21,6 @@ import com.abixen.platform.module.chart.model.impl.DataSetSeriesColumn;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.Set;
-
 
 @JsonDeserialize(as = DataSetSeries.class)
 public interface DataSetSeriesWeb {
@@ -34,7 +32,7 @@ public interface DataSetSeriesWeb {
     String getName();
 
     @JsonView(WebModelJsonSerialize.class)
-    Set<DataSetSeriesColumn> getSeriesColumns();
+    DataSetSeriesColumn getValueSeriesColumn();
 
     @JsonView(WebModelJsonSerialize.class)
     String getFilter();

@@ -18,6 +18,9 @@
             <column name="data_set_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="value_column_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <addPrimaryKey columnNames="id" constraintName="pk__data_set_series__id" tableName="data_set_series"/>
