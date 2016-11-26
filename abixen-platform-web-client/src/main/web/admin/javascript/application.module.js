@@ -11,6 +11,7 @@
             'platformUserModule',
             'platformLayoutModule',
             'platformModuleModule',
+            'platformModuleTypeModule',
             'multiVisualizationModule',
             'platformCommonModule',
             'pascalprecht.translate',

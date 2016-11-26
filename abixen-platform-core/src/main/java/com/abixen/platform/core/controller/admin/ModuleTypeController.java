@@ -14,11 +14,15 @@
 
 package com.abixen.platform.core.controller.admin;
 
+import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.service.ModuleTypeService;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,8 +38,15 @@ public class ModuleTypeController {
     @Autowired
     private ModuleTypeService moduleTypeService;
 
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public Page<ModuleType> getModuleTypes(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+        log.debug("getModuleTypes()");
+
+        return moduleTypeService.findAllModuleTypes(pageable);
+    }
+
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}/reload", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/reload", method = RequestMethod.PUT)
     public void reload(@PathVariable Long id) {
         log.debug("reload() - id: " + id);
 

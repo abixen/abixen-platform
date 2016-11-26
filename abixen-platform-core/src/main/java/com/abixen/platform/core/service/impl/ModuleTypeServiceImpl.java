@@ -23,6 +23,8 @@ import com.abixen.platform.core.service.ModuleTypeService;
 import com.abixen.platform.core.service.ResourceService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +63,12 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
     public List<ModuleType> findAllModuleTypes() {
         log.debug("findAllModuleTypes()");
         return moduleTypeRepository.findAll();
+    }
+
+    @Override
+    public Page<ModuleType> findAllModuleTypes(Pageable pageable) {
+        log.debug("findAllModuleTypes()");
+        return moduleTypeRepository.findAll(pageable);
     }
 
     @Override

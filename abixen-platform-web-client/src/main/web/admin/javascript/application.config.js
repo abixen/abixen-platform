@@ -84,17 +84,24 @@
                 iconClass: 'fa fa-list-alt'
             })
             .addSidebarItem({
-                title: 'Layouts',
-                state: 'application.layouts.list',
+                title: 'Types of modules',
+                state: 'application.moduleTypes.list',
                 orderIndex: 6,
                 id: 6,
+                iconClass: 'fa fa-list-alt'
+            })
+            .addSidebarItem({
+                title: 'Layouts',
+                state: 'application.layouts.list',
+                orderIndex: 7,
+                id: 7,
                 iconClass: 'fa fa-columns'
             })
             .addSidebarItem({
                 title: 'Data Sources',
                 state: 'application.multiVisualization.modules.databaseDataSource.list',
-                orderIndex: 7,
-                id: 7,
+                orderIndex: 8,
+                id: 8,
                 iconClass: 'fa fa-database'
             });
     }
