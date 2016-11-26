@@ -77,7 +77,7 @@
                 iconClass: 'fa fa-file-text-o'
             })
             .addSidebarItem({
-                title: 'Modules',
+                title: 'Instances of modules',
                 state: 'application.modules.list',
                 orderIndex: 5,
                 id: 5,
