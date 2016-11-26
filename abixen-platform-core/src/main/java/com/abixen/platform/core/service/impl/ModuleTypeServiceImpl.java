@@ -15,10 +15,12 @@
 package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.client.ModulesConfigurationProperties;
+import com.abixen.platform.core.configuration.properties.RegisteredModuleServicesConfigurationProperties;
 import com.abixen.platform.core.integration.ModuleConfigurationIntegrationClient;
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.model.impl.Resource;
 import com.abixen.platform.core.repository.ModuleTypeRepository;
+import com.abixen.platform.core.service.DomainBuilderService;
 import com.abixen.platform.core.service.ModuleTypeService;
 import com.abixen.platform.core.service.ResourceService;
 import org.apache.log4j.Logger;
@@ -44,13 +46,21 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
 
     private final ResourceService resourceService;
 
+    private final RegisteredModuleServicesConfigurationProperties registeredModuleServicesConfigurationProperties;
+
+    private final DomainBuilderService domainBuilderService;
+
     @Autowired
     public ModuleTypeServiceImpl(ModuleTypeRepository moduleTypeRepository,
                                  ModuleConfigurationIntegrationClient moduleConfigurationIntegrationClient,
-                                 ResourceService resourceService) {
+                                 ResourceService resourceService,
+                                 RegisteredModuleServicesConfigurationProperties registeredModuleServicesConfigurationProperties,
+                                 DomainBuilderService domainBuilderService) {
         this.moduleTypeRepository = moduleTypeRepository;
         this.moduleConfigurationIntegrationClient = moduleConfigurationIntegrationClient;
         this.resourceService = resourceService;
+        this.registeredModuleServicesConfigurationProperties = registeredModuleServicesConfigurationProperties;
+        this.domainBuilderService = domainBuilderService;
     }
 
     @Override
@@ -85,6 +95,45 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
                 filter(m -> moduleType.getName().equals(m.getName())).
                 findAny().get();
 
+        List<Resource> newResources = generateResources(moduleType, module);
+        resourceService.updateResource(moduleType, newResources);
+    }
+
+    @Override
+    public void reloadAll() {
+
+        registeredModuleServicesConfigurationProperties.getRegisteredServices().forEach(service -> {
+            log.info("service: " + service.getServiceId());
+
+            ModulesConfigurationProperties modulesConfigurationProperties = moduleConfigurationIntegrationClient.getModulesConfigurationProperties(service.getServiceId());
+
+            modulesConfigurationProperties.getModules().forEach(module -> {
+                log.info("module: " + module.getName());
+                ModuleType moduleType = moduleTypeRepository.findByName(module.getName());
+
+                //TODO - add removing functionality
+                if (moduleType == null) {
+                    moduleType = domainBuilderService.
+                            newModuleTypeBuilderInstance().
+                            basic(module.getName(), module.getTitle(), module.getDescription()).
+                            initUrl(module.getRelativeInitUrl()).
+                            serviceId(service.getServiceId()).build();
+                    moduleTypeRepository.save(moduleType);
+                } else {
+                    moduleType.setDescription(module.getDescription());
+                    moduleType.setTitle(module.getTitle());
+                    moduleType.setInitUrl(module.getRelativeInitUrl());
+                    moduleTypeRepository.save(moduleType);
+                }
+
+                List<Resource> newResources = generateResources(moduleType, module);
+                resourceService.updateResource(moduleType, newResources);
+            });
+        });
+    }
+
+    private List<Resource> generateResources(ModuleType moduleType, ModulesConfigurationProperties.Module module) {
+        log.info("generateResources() - moduleType.getName(): " + moduleType.getName());
         List<Resource> newResources = new ArrayList<>();
 
         module.getStaticResources().forEach(staticResource -> {
@@ -98,6 +147,6 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
             newResources.add(resource);
         });
 
-        resourceService.updateResource(moduleType, newResources);
+        return newResources;
     }
 }

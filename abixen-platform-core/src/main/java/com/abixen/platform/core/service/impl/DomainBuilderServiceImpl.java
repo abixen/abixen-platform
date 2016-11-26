@@ -15,14 +15,8 @@
 package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.service.DomainBuilderService;
-import com.abixen.platform.core.util.ModuleBuilder;
-import com.abixen.platform.core.util.PageBuilder;
-import com.abixen.platform.core.util.RoleBuilder;
-import com.abixen.platform.core.util.UserBuilder;
-import com.abixen.platform.core.util.impl.ModuleBuilderImpl;
-import com.abixen.platform.core.util.impl.PageBuilderImpl;
-import com.abixen.platform.core.util.impl.RoleBuilderImpl;
-import com.abixen.platform.core.util.impl.UserBuilderImpl;
+import com.abixen.platform.core.util.*;
+import com.abixen.platform.core.util.impl.*;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -52,9 +46,14 @@ public class DomainBuilderServiceImpl implements DomainBuilderService {
     }
 
     @Override
+    public ModuleTypeBuilder newModuleTypeBuilderInstance() {
+        log.debug("newModuleTypeBuilderInstance()");
+        return new ModuleTypeBuilderImpl();
+    }
+
+    @Override
     public PageBuilder newPageBuilderInstance() {
         log.debug("newPageBuilderInstance()");
         return new PageBuilderImpl();
     }
-
 }

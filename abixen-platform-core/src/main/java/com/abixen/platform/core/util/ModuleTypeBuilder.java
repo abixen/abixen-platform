@@ -12,23 +12,19 @@
  * details.
  */
 
-package com.abixen.platform.core.service;
+package com.abixen.platform.core.util;
 
 import com.abixen.platform.core.model.impl.ModuleType;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
-public interface ModuleTypeService {
+public interface ModuleTypeBuilder {
 
-    ModuleType findModuleType(Long id);
+    ModuleType build();
 
-    List<ModuleType> findAllModuleTypes();
+    ModuleTypeBuilder basic(String name, String title, String description);
 
-    Page<ModuleType> findAllModuleTypes(Pageable pageable);
+    ModuleTypeBuilder initUrl(String initUrl);
 
-    void reload(Long id);
+    ModuleTypeBuilder serviceId(String serviceId);
 
-    void reloadAll();
 }

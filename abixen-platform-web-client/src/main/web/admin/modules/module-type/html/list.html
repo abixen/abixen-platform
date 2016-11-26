@@ -1,7 +1,11 @@
 <div class="row module-navigation-row">
     <div class="col-xs-12 module-navigation-col">
+        <button type="button" ng-click="reloadAll()"
+                class="btn btn-warning pull-left">Reload all services configuration
+        </button>
+        <span class="buttons-separator"></span>
         <button type="button" ng-click="reload()" ng-disabled="!editButtonEnabled"
-                class="btn btn-warning pull-left">Reload configuration
+                class="btn btn-warning pull-left">Reload module configuration
         </button>
     </div>
 </div>

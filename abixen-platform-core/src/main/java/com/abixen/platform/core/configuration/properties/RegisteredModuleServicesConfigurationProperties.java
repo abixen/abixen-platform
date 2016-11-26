@@ -18,22 +18,18 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.abixen.platform.core.util.PlatformProfiles.CLOUD;
-import static com.abixen.platform.core.util.PlatformProfiles.DEV;
 
 @Getter
 @Setter
-@Profile({DEV, CLOUD})
 @Component
 @EnableConfigurationProperties(RegisteredModuleServicesConfigurationProperties.class)
-@ConfigurationProperties(prefix = "platform.core.modules.registeredServices", locations = {"bootstrap.yml"})
+@ConfigurationProperties(prefix = "platform.core.modules", locations = {"bootstrap.yml"})
 public class RegisteredModuleServicesConfigurationProperties {
 
     @NotNull

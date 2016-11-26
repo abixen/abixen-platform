@@ -53,4 +53,12 @@ public class ModuleTypeController {
         moduleTypeService.reload(id);
     }
 
+    @JsonView(WebModelJsonSerialize.class)
+    @RequestMapping(value = "/reload-all", method = RequestMethod.PUT)
+    public void reloadAll() {
+        log.debug("reloadAll()");
+
+        moduleTypeService.reloadAll();
+    }
+
 }

@@ -16,6 +16,10 @@
                 method: 'PUT',
                 params: {id: '@id'},
                 url: '/api/admin/module-types/:id/reload'
+            },
+            reloadAll: {
+                method: 'PUT',
+                url: '/api/admin/module-types/reload-all'
             }
         });
     }

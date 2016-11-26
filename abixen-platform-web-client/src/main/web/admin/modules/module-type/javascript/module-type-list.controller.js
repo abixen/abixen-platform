@@ -68,6 +68,12 @@
             });
         };
 
+        $scope.reloadAll = function () {
+            ModuleType.reloadAll({}, function (data) {
+                toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Success', 'All services\' configuration has been reloaded.');
+            });
+        };
+
         applicationNavigationItems.clearTopbarItems();
 
         $scope.read();

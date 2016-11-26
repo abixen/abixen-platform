@@ -14,10 +14,7 @@
 
 package com.abixen.platform.core.service;
 
-import com.abixen.platform.core.util.ModuleBuilder;
-import com.abixen.platform.core.util.PageBuilder;
-import com.abixen.platform.core.util.RoleBuilder;
-import com.abixen.platform.core.util.UserBuilder;
+import com.abixen.platform.core.util.*;
 
 
 public interface DomainBuilderService {
@@ -27,6 +24,8 @@ public interface DomainBuilderService {
     RoleBuilder newRoleBuilderInstance();
 
     ModuleBuilder newModuleBuilderInstance();
+
+    ModuleTypeBuilder newModuleTypeBuilderInstance();
 
     PageBuilder newPageBuilderInstance();
 
