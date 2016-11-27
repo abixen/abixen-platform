@@ -1,5 +1,5 @@
 <h3 class="panel-title">
-    <span editable-text="definition.title" e-form="moduleTitleForm">{{ definition.title || 'empty' }}</span>
+    <span editable-text="definition.title" e-form="moduleTitleForm" onaftersave="onWidgetTitleChanged()">{{ definition.title || 'empty' }}</span>
     <span>
         <a title="Edit module's title" ng-click="moduleTitleForm.$show()" ng-hide="moduleTitleForm.$visible"
            ng-if="editMode">

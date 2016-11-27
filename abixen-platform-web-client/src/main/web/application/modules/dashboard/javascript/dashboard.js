@@ -229,7 +229,11 @@ angular.module('adf')
 
                     $scope.$on(platformParameters.events.ADF_WIDGET_DELETED_EVENT, function (event) {
                         $scope.$emit(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.adfModel);
-                    })
+                    });
+
+                    $scope.$on(platformParameters.events.ADF_WIDGET_TITLE_CHANGED_EVENT, function (event) {
+                        $scope.$emit(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.adfModel);
+                    });
 
                     // Watching for changes on adfModel
                     $scope.$watch('adfModel', function (oldVal, newVal) {

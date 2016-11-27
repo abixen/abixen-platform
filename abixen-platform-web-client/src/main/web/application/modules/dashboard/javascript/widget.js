@@ -168,6 +168,10 @@ angular.module('adf')
                     $scope.widgetState.fullScreenMode = !$scope.widgetState.fullScreenMode;
                     $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.widgetState.fullScreenMode);
                 };
+
+                $scope.onWidgetTitleChanged = function () {
+                    $scope.$emit(platformParameters.events.ADF_WIDGET_TITLE_CHANGED_EVENT);
+                };
             },
 
             compile: function compile() {
