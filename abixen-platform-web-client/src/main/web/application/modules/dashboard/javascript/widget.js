@@ -107,8 +107,12 @@ angular.module('adf')
                     $scope.$broadcast('widgetReload');
                 };
 
-                $scope.edit = function () {
-                    $scope.$broadcast('CONFIGURATION_MODE', $scope.definition.id);
+                $scope.enableConfigureMode = function () {
+                    $scope.$broadcast(platformParameters.events.CONFIGURATION_MODE, $scope.definition.id);
+                };
+
+                $scope.exitConfigurationMode = function () {
+                    $scope.$broadcast(platformParameters.events.VIEW_MODE, $scope.definition.id);
                 };
             } else {
                 $log.debug('widget not found');
@@ -150,6 +154,14 @@ angular.module('adf')
                 $scope.$on(platformParameters.events.SHOW_PERMISSION_DENIED_TO_MODULE, function () {
                     $log.log('SHOW_PERMISSION_DENIED_TO_MODULE');
                     $scope.widgetState.permissionDenied = true;
+                });
+                $scope.$on(platformParameters.events.SHOW_EXIT_CONFIGURATION_MODE_ICON, function () {
+                    $log.log('SHOW_EXIT_CONFIGURATION_MODE_ICON');
+                    $scope.widgetState.configurationMode = true;
+                });
+                $scope.$on(platformParameters.events.SHOW_CONFIGURATION_MODE_ICON, function () {
+                    $log.log('SHOW_CONFIGURATION_MODE_ICON');
+                    $scope.widgetState.configurationMode = false;
                 });
 
                 $scope.toggleFullScreenMode = function () {

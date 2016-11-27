@@ -175,9 +175,20 @@ angular.module('adf')
                         $log.log('Will show loader: ' + $scope.model.id);
                         $scope.$emit(platformParameters.events.SHOW_LOADER);
                     });
+
                     $scope.$on(platformParameters.events.STOP_REQUEST, function () {
                         $log.log('Will hide loader: ' + $scope.model.id);
                         $scope.$emit(platformParameters.events.HIDE_LOADER);
+                    });
+
+                    $scope.$on(platformParameters.events.CONFIGURATION_MODE_READY, function () {
+                        $log.log('Will show exit configuration mode icon: ' + $scope.model.id);
+                        $scope.$emit(platformParameters.events.SHOW_EXIT_CONFIGURATION_MODE_ICON);
+                    });
+
+                    $scope.$on(platformParameters.events.VIEW_MODE_READY, function () {
+                        $log.log('Will show configuration mode icon: ' + $scope.model.id);
+                        $scope.$emit(platformParameters.events.SHOW_CONFIGURATION_MODE_ICON);
                     });
 
                     $scope.$watch('model.id', function (newId, oldId) {
