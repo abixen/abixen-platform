@@ -152,11 +152,9 @@ angular.module('adf')
                     $scope.widgetState.permissionDenied = true;
                 });
 
-                $scope.fullScreenMode = false;
-
                 $scope.toggleFullScreenMode = function () {
-                    $scope.fullScreenMode = !$scope.fullScreenMode;
-                    $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.fullScreenMode);
+                    $scope.widgetState.fullScreenMode = !$scope.widgetState.fullScreenMode;
+                    $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.widgetState.fullScreenMode);
                 };
             },
 
