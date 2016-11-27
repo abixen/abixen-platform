@@ -139,6 +139,15 @@ pre.edit {
         border: 1px solid $complementary-color-lighter !important;
       }
     }
+
+    .panel-title {
+      .panel-icon-bar {
+        a {
+          margin-left: 5px;
+          cursor: pointer;
+        }
+      }
+    }
   }
 
   .module-body {
