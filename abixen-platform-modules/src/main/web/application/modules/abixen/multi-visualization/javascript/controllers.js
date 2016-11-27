@@ -70,7 +70,8 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
                     $scope.chartConfiguration = {
                         moduleId: $scope.moduleId,
                         dataSetChart: {
-                            dataSetSeries: []
+                            dataSetSeries: [],
+                            domainSeriesColumns: []
                         }
                     }
                 }
@@ -307,14 +308,11 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
                 id: null,
                 name: ('Series ' + $scope.seriesNumber),
                 isValid: true,
-                seriesColumns: [
+                valueSeriesColumn: [
                     {
-                        type: 'X',
-                        name: null
-                    },
-                    {
-                        type: 'Y',
-                        name: null
+                        id: null,
+                        name: null,
+                        position:null
                     }
                 ]
             });

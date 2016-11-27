@@ -974,18 +974,18 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             return chartConfig;
         };
 
-        function getPairData(dataElement, dataSetSeriesElement, index) {
+        function getPointData(dataElement, dataSetSeriesElement, index, dataSetChart) {
             var x = null;
             var xLabel = null;
             var y = null;
             var yLabel = null;
-            if (dataElement[dataSetSeriesElement.seriesColumns[0].name] ){
+            if (dataElement[dataSetChart.domainSeriesColumns[0].name] ){
                 x = index;
-                xLabel = dataElement[dataSetSeriesElement.seriesColumns[0].name].value;
+                xLabel = dataElement[dataSetChart.domainSeriesColumns[0].name].value;
             }
-            if (dataElement[dataSetSeriesElement.seriesColumns[1].name] ){
+            if (dataElement[dataSetSeriesElement.valueSeriesColumn.name] ){
                 y = index;
-                yLabel = dataElement[dataSetSeriesElement.seriesColumns[1].name].value ;
+                yLabel = dataElement[dataSetSeriesElement.valueSeriesColumn.name].value ;
             }
             return{
                 x: x,
@@ -995,10 +995,10 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             }
         }
 
-        function getValues(data, dataSetSeriesElement) {
+        function getValues(data, dataSetSeriesElement, dataSetChart) {
             var values = [];
             data.forEach(function (dataElement, iterator) {
-                var valuesElement = getPairData(dataElement, dataSetSeriesElement, iterator);
+                var valuesElement = getPointData(dataElement, dataSetSeriesElement, iterator, dataSetChart);
                 if (valuesElement != null) {
                     values.push(valuesElement);
                 }
@@ -1012,7 +1012,7 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
                 $log.debug("dataSetSeriesElement: ", dataSetSeriesElement);
                 series.push({
-                    values: getValues(data, dataSetSeriesElement),
+                    values: getValues(data, dataSetSeriesElement, configurationData.dataSetChart),
                     key: dataSetSeriesElement.name
                 });
             });

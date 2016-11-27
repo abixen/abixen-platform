@@ -38,7 +38,7 @@ public class DataSet extends Model implements DataSetWeb {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "series_id", nullable = false)
-    private Set<DataSetSeriesColumn> domainSeriesColumns;
+    private Set<DataSetSeriesColumn> domainSeriesColumns = new HashSet<>();
 
     @OneToMany(mappedBy = "dataSet", cascade = CascadeType.ALL)
     private Set<DataSetSeries> dataSetSeries = new HashSet<>();

@@ -44,8 +44,9 @@ public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfigurat
         dataSetChart.getDataSetSeries().stream().forEach(dss -> {
             DataSetSeries dssCreated = new DataSetSeries();
             dssCreated.setFilter(dss.getFilter());
+            dssCreated.setName(dss.getName());
             //TODO
-            dssCreated.setName("TBD");
+            dssCreated.setValueSeriesColumn(dss.getValueSeriesColumn());
 
             //TODO - add columns
 

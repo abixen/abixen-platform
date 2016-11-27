@@ -17,7 +17,6 @@ package com.abixen.platform.module.chart.model.web;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.module.chart.model.impl.DataSet;
 import com.abixen.platform.module.chart.model.impl.DataSetSeries;
-import com.abixen.platform.module.chart.model.impl.DataSetSeriesColumn;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -32,7 +31,7 @@ public interface DataSetSeriesWeb {
     String getName();
 
     @JsonView(WebModelJsonSerialize.class)
-    DataSetSeriesColumn getValueSeriesColumn();
+    DataSetSeriesColumnWeb getValueSeriesColumn();
 
     @JsonView(WebModelJsonSerialize.class)
     String getFilter();
