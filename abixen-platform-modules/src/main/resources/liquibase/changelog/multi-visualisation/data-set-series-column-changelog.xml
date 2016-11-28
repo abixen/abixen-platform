@@ -12,13 +12,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="varchar(300)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="type" type="integer"/>
             <column name="data_source_column_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="series_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -26,19 +23,9 @@
         <addPrimaryKey columnNames="id" constraintName="pk__data_set_series_column__id"
                        tableName="data_set_series_column"/>
 
-        <createIndex indexName="idx__data_set_series_column__series_id" tableName="data_set_series_column">
-            <column name="series_id"/>
-        </createIndex>
-
         <createIndex indexName="idx__data_set_series_column__data_source_column_id" tableName="data_set_series_column">
             <column name="data_source_column_id"/>
         </createIndex>
-
-        <addForeignKeyConstraint baseColumnNames="series_id" baseTableName="data_set_series_column"
-                                 constraintName="fk__series_id__data_set_series_column__data_set_series"
-                                 deferrable="false"
-                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
-                                 referencedColumnNames="id" referencedTableName="data_set_series"/>
 
         <addForeignKeyConstraint baseColumnNames="data_source_column_id" baseTableName="data_set_series_column"
                                  constraintName="fk__data_source_column_id__data_set_series_column__data_source_column"
@@ -48,6 +35,18 @@
 
         <addForeignKeyConstraint baseColumnNames="value_column_id" baseTableName="data_set_series"
                                  constraintName="fk__value_column_id__data_set_series_column"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="data_set_series_column"/>
+
+        <addForeignKeyConstraint baseColumnNames="data_set_series_column_x_id" baseTableName="data_set"
+                                 constraintName="fk__data_set_series_column_x_id__data_set_series_column"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="data_set_series_column"/>
+
+        <addForeignKeyConstraint baseColumnNames="data_set_series_column_z_id" baseTableName="data_set"
+                                 constraintName="fk__data_set_series_column_z_id__data_set_series_column"
                                  deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="data_set_series_column"/>

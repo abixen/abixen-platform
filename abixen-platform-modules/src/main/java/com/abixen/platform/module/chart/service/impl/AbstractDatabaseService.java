@@ -94,12 +94,20 @@ public class AbstractDatabaseService {
         ResultSet rs;
         Set<String> chartColumnsSet = new HashSet<>();
 
-        chartConfigurationForm.getDataSetChart().getDomainSeriesColumns().forEach(dataSetSeriesColumn -> {
-                chartColumnsSet.add(dataSetSeriesColumn.getName());
-        });
+        if (chartConfigurationForm.getDataSetChart().getDomainXSeriesColumn() != null) {
+            chartColumnsSet.add(chartConfigurationForm.getDataSetChart().getDomainXSeriesColumn().getDataSourceColumn().getName());
+
+        }
+
+        if (chartConfigurationForm.getDataSetChart().getDomainZSeriesColumn() != null) {
+            chartColumnsSet.add(chartConfigurationForm.getDataSetChart().getDomainZSeriesColumn().getDataSourceColumn().getName());
+
+        }
 
         chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
-                chartColumnsSet.add(dataSetSeries.getValueSeriesColumn().getName());
+            if (dataSetSeries.getValueSeriesColumn().getDataSourceColumn() != null) {
+                chartColumnsSet.add(dataSetSeries.getValueSeriesColumn().getDataSourceColumn().getName());
+            }
         });
 
         if (chartColumnsSet.isEmpty()) {

@@ -31,7 +31,11 @@ public interface DataSetWeb {
     Long getId();
 
     @JsonView(WebModelJsonSerialize.class)
-    Set<DataSetSeriesColumn> getDomainSeriesColumns();
+    DataSetSeriesColumn getDomainXSeriesColumn();
+
+    @JsonView(WebModelJsonSerialize.class)
+    DataSetSeriesColumn getDomainZSeriesColumn();
+
 
     @JsonView(WebModelJsonSerialize.class)
     Set<DataSetSeries> getDataSetSeries();

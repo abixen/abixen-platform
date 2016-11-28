@@ -36,7 +36,7 @@ public class DataSetSeries implements DataSetSeriesWeb, Serializable {
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "value_column_id", nullable = false)
     private DataSetSeriesColumn valueSeriesColumn;
 

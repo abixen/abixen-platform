@@ -230,11 +230,8 @@ public class DataSourceImportDataServiceCsvImplTest {
         dataSetSeries.add(dataSetSeries1);
         dataSetSeries.add(dataSetSeries2);
 
-        Set<DataSetSeriesColumn> domainSeriesColumnsTest2 = new HashSet<>();
-        domainSeriesColumnsTest2.add(dataColumnX);
-        domainSeriesColumnsTest2.add(dataColumnZ);
-
-        dataSet.setDomainSeriesColumns(domainSeriesColumnsTest2);
+        dataSet.setDomainXSeriesColumn(dataColumnX);
+        dataSet.setDomainZSeriesColumn(dataColumnZ);
         dataSet.setDataSetSeries(dataSetSeries);
 
         dataSet = dataSetRepository.saveAndFlush(dataSet);
@@ -242,16 +239,8 @@ public class DataSourceImportDataServiceCsvImplTest {
         assertNotNull(dataSet);
         assertEquals(dataSet.getDataSetSeries().size(), 2);
 
-        for (DataSetSeriesColumn column : dataSet.getDomainSeriesColumns()) {
-            if (column.getType().equals(ColumnType.X)) {
-                DataSetSeriesColumn columnX = column;
-                assertNotNull(columnX);
-            }
-            if (column.getType().equals(ColumnType.Z)){
-                DataSetSeriesColumn columnZ = column;
-                assertNotNull(columnZ);
-            }
-        }
+        assertNotNull(dataSet.getDomainXSeriesColumn());
+        assertNotNull(dataSet.getDomainXSeriesColumn());
 
         for (DataSetSeries series : dataSet.getDataSetSeries()) {
             if (series.getName().equals("series1")) {

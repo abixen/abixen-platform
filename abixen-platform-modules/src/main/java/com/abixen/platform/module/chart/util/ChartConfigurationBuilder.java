@@ -19,6 +19,7 @@ import com.abixen.platform.module.chart.model.enumtype.ChartType;
 import com.abixen.platform.module.chart.model.impl.ChartConfiguration;
 import com.abixen.platform.module.chart.model.impl.DatabaseDataSource;
 import com.abixen.platform.module.chart.model.web.DataSetChartWeb;
+import com.abixen.platform.module.chart.repository.DataSourceColumnRepository;
 
 
 public interface ChartConfigurationBuilder {
@@ -27,7 +28,7 @@ public interface ChartConfigurationBuilder {
 
     ChartConfigurationBuilder basic(Long moduleId, ChartType chartType);
 
-    ChartConfigurationBuilder data(DataSetChartWeb dataSetChart, DatabaseDataSource databaseDataSource);
+    ChartConfigurationBuilder data(DataSetChartWeb dataSetChart, DatabaseDataSource databaseDataSource, DataSourceColumnRepository dataSourceColumnRepository);
 
     ChartConfigurationBuilder axis(String axisXName, String axisYName);
 

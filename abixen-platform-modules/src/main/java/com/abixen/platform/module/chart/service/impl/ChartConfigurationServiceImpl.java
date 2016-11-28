@@ -17,6 +17,7 @@ package com.abixen.platform.module.chart.service.impl;
 import com.abixen.platform.module.chart.form.ChartConfigurationForm;
 import com.abixen.platform.module.chart.model.impl.ChartConfiguration;
 import com.abixen.platform.module.chart.repository.ChartConfigurationRepository;
+import com.abixen.platform.module.chart.repository.DataSourceColumnRepository;
 import com.abixen.platform.module.chart.service.ChartConfigurationDomainBuilderService;
 import com.abixen.platform.module.chart.service.ChartConfigurationService;
 import com.abixen.platform.module.chart.service.DatabaseDataSourceService;
@@ -44,12 +45,15 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     @Autowired
     private DatabaseDataSourceService databaseDataSourceService;
 
+    @Autowired
+    private DataSourceColumnRepository dataSourceColumnRepository;
+
     @Override
     public ChartConfiguration buildChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
         log.debug("buildChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
         return chartConfigurationDomainBuilderService.newChartConfigurationBuilderInstance()
                 .basic(chartConfigurationForm.getModuleId(), chartConfigurationForm.getChartType())
-                .data(chartConfigurationForm.getDataSetChart(), databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()))
+                .data(chartConfigurationForm.getDataSetChart(), databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
                 .axis(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
                 .build();
     }
