@@ -979,13 +979,14 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             var xLabel = null;
             var y = null;
             var yLabel = null;
-            if (dataElement[dataSetChart.domainSeriesColumns[0].name] ){
+            $log.debug(dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name]);
+            if (dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name] ){
                 x = index;
-                xLabel = dataElement[dataSetChart.domainSeriesColumns[0].name].value;
+                xLabel = dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value;
             }
-            if (dataElement[dataSetSeriesElement.valueSeriesColumn.name] ){
+            if (dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name] ){
                 y = index;
-                yLabel = dataElement[dataSetSeriesElement.valueSeriesColumn.name].value ;
+                yLabel = dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name].value ;
             }
             return{
                 x: x,
