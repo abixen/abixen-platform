@@ -27,25 +27,30 @@ angular.module('adf')
     .directive('adfDashboardColumn', ['$log', '$compile', 'adfTemplatePath', 'rowTemplate', 'dashboard', function ($log, $compile, adfTemplatePath, rowTemplate, dashboard) {
         'use strict';
 
+        var moveCounter = 0;
+        var addWidgetToColumnFunction;
+        var removeWidgetFromColumnFunction;
+
         /**
          * moves a widget in between a column
          */
-        function moveWidgetInColumn($scope, column, evt){
+        function moveWidgetInColumn($scope, column, evt) {
             var widgets = column.widgets;
             // move widget and apply to scope
-            $scope.$apply(function(){
+            $scope.$apply(function () {
                 widgets.splice(evt.newIndex, 0, widgets.splice(evt.oldIndex, 1)[0]);
+                $scope.$emit(platformParameters.events.ADF_WIDGET_MOVED_EVENT);
             });
         }
 
         /**
          * finds a widget by its id in the column
          */
-        function findWidget(column, index){
+        function findWidget(column, index) {
             var widget = null;
-            for (var i=0; i<column.widgets.length; i++){
+            for (var i = 0; i < column.widgets.length; i++) {
                 var w = column.widgets[i];
-                if (w.wid === index){
+                if (w.wid === index) {
                     widget = w;
                     break;
                 }
@@ -56,21 +61,21 @@ angular.module('adf')
         /**
          * finds a column by its id in the model
          */
-        function findColumn(model, index){
+        function findColumn(model, index) {
             var column = null;
 
-            for (var i=0; i<model.rows.length; i++){
+            for (var i = 0; i < model.rows.length; i++) {
                 var r = model.rows[i];
-                for (var j=0; j<r.columns.length; j++){
+                for (var j = 0; j < r.columns.length; j++) {
                     var c = r.columns[j];
-                    if ( c.cid === index ){
+                    if (c.cid === index) {
                         column = c;
                         break;
-                    } else if (c.rows){
+                    } else if (c.rows) {
                         column = findColumn(c, index);
                     }
                 }
-                if (column){
+                if (column) {
                     break;
                 }
             }
@@ -80,7 +85,7 @@ angular.module('adf')
         /**
          * get the adf id from an html element
          */
-        function getId(el){
+        function getId(el) {
             var id = el.getAttribute('adf-id');
             return id ? parseInt(id) : -1;
         }
@@ -88,25 +93,24 @@ angular.module('adf')
         /**
          * adds a widget to a column
          */
-        function addWidgetToColumn($scope, model, targetColumn, evt){
+        function addWidgetToColumn($scope, model, targetColumn, evt) {
             // find source column
             var cid = getId(evt.from);
             var sourceColumn = findColumn(model, cid);
 
-            if (sourceColumn){
+            if (sourceColumn) {
                 // find moved widget
                 var wid = getId(evt.item);
                 var widget = findWidget(sourceColumn, wid);
 
-                if (widget){
+                if (widget) {
                     // add new item and apply to scope
-                    $scope.$apply(function(){
-                        if (!targetColumn.widgets) {
-                            targetColumn.widgets = [];
-                        }
+                    addWidgetToColumnFunction = {
+                        func: addWidgetToColumnHandler,
+                        params: [targetColumn.widgets, evt.newIndex, widget]
+                    };
+                    widgetMovedNotify($scope);
 
-                        targetColumn.widgets.splice(evt.newIndex, 0, widget);
-                    });
                 } else {
                     $log.warn('could not find widget with id ' + wid);
                 }
@@ -115,20 +119,54 @@ angular.module('adf')
             }
         }
 
+        function addWidgetToColumnHandler(widgets, newIndex, widget) {
+            if (!widgets) {
+                widgets = [];
+            }
+
+            widgets.splice(newIndex, 0, widget);
+        }
+
         /**
          * removes a widget from a column
          */
-        function removeWidgetFromColumn($scope, column, evt){
+        function removeWidgetFromColumn($scope, column, evt) {
             // remove old item and apply to scope
-            $scope.$apply(function(){
-                column.widgets.splice(evt.oldIndex, 1);
-            });
+
+            removeWidgetFromColumnFunction = {
+                func: removeWidgetFromColumnHandler,
+                params: [column.widgets, evt.oldIndex]
+            };
+            widgetMovedNotify($scope);
+        }
+
+        function widgetMovedNotify($scope){
+            if (++moveCounter === 2) {
+                moveCounter = 0;
+                var saveCounter = 0;
+                $scope.$apply(function () {
+                    removeWidgetFromColumnFunction.func.apply(null, removeWidgetFromColumnFunction.params);
+                    if (++saveCounter === 2) {
+                        $scope.$emit(platformParameters.events.ADF_WIDGET_MOVED_EVENT);
+                    }
+                });
+                $scope.$apply(function () {
+                    addWidgetToColumnFunction.func.apply(null, addWidgetToColumnFunction.params);
+                    if (++saveCounter === 2) {
+                        $scope.$emit(platformParameters.events.ADF_WIDGET_MOVED_EVENT);
+                    }
+                });
+            }
+        }
+
+        function removeWidgetFromColumnHandler(widgets, oldIndex) {
+            widgets.splice(oldIndex, 1);
         }
 
         /**
          * enable sortable
          */
-        function applySortable($scope, $element, model, column){
+        function applySortable($scope, $element, model, column) {
             // enable drag and drop
             var el = $element[0].childNodes[0];
             var sortable = Sortable.create(el, {
@@ -136,13 +174,13 @@ angular.module('adf')
                 handle: '.adf-move',
                 ghostClass: 'placeholder',
                 animation: 150,
-                onAdd: function(evt){
+                onAdd: function (evt) {
                     addWidgetToColumn($scope, model, column, evt);
                 },
-                onRemove: function(evt){
+                onRemove: function (evt) {
                     removeWidgetFromColumn($scope, column, evt);
                 },
-                onUpdate: function(evt){
+                onUpdate: function (evt) {
                     moveWidgetInColumn($scope, column, evt);
                 }
             });
@@ -166,13 +204,13 @@ angular.module('adf')
             link: function ($scope, $element) {
                 // set id
                 var col = $scope.column;
-                if (!col.cid){
+                if (!col.cid) {
                     col.cid = dashboard.id();
                 }
 
                 if (angular.isDefined(col.rows) && angular.isArray(col.rows)) {
                     // be sure to tell Angular about the injected directive and push the new row directive to the column
-                    $compile(rowTemplate)($scope, function(cloned) {
+                    $compile(rowTemplate)($scope, function (cloned) {
                         $element.append(cloned);
                     });
                 } else {
