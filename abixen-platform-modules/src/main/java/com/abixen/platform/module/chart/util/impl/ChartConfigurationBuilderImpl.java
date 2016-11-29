@@ -28,6 +28,15 @@ import java.util.Set;
 
 public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfiguration> implements ChartConfigurationBuilder {
 
+    public ChartConfigurationBuilderImpl() {
+        super();
+    }
+
+    public ChartConfigurationBuilderImpl(ChartConfiguration chartConfiguration) {
+        super();
+        this.product = chartConfiguration;
+    }
+
     @Override
     public ChartConfigurationBuilder basic(Long moduleId, ChartType chartType) {
         this.product.setModuleId(moduleId);

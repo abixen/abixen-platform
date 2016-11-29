@@ -14,11 +14,14 @@
 
 package com.abixen.platform.module.chart.service;
 
+import com.abixen.platform.module.chart.model.impl.ChartConfiguration;
 import com.abixen.platform.module.chart.util.ChartConfigurationBuilder;
 
 
 public interface ChartConfigurationDomainBuilderService {
 
     ChartConfigurationBuilder newChartConfigurationBuilderInstance();
+
+    ChartConfigurationBuilder newChartConfigurationBuilderForUpdateInstance(ChartConfiguration chartConfiguration);
 
 }

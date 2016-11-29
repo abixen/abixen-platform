@@ -69,9 +69,13 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
         log.debug("updateChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
 
         ChartConfiguration chartConfiguration = findChartConfigurationByModuleId(chartConfigurationForm.getModuleId());
-        chartConfiguration.setChartType(chartConfigurationForm.getChartType());
+        ChartConfiguration chartConfigurationUpdated = chartConfigurationDomainBuilderService.newChartConfigurationBuilderForUpdateInstance(chartConfiguration)
+                .basic(chartConfigurationForm.getModuleId(), chartConfigurationForm.getChartType())
+                .data(chartConfigurationForm.getDataSetChart(), databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
+                .axis(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
+                .build();
 
-        return new ChartConfigurationForm(updateChartConfiguration(chartConfiguration));
+        return new ChartConfigurationForm(updateChartConfiguration(chartConfigurationUpdated));
     }
 
     @Override
@@ -91,6 +95,9 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     @Override
     public ChartConfiguration updateChartConfiguration(ChartConfiguration chartConfiguration) {
         log.debug("updateChartConfiguration() - chartConfiguration: " + chartConfiguration);
+        chartConfiguration.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
+            dataSetSeries.setDataSet(chartConfiguration.getDataSetChart());
+        });
         return chartConfigurationRepository.save(chartConfiguration);
     }
 }
