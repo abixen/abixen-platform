@@ -70,7 +70,13 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
                     $scope.chartConfiguration = {
                         moduleId: $scope.moduleId,
                         dataSetChart: {
-                            dataSetSeries: []
+                            dataSetSeries: [],
+                            domainXSeriesColumn: {
+                                id: null,
+                                name: '',
+                                type: 'X',
+                                dataSourceColumn: null
+                            }
                         }
                     }
                 }
@@ -307,16 +313,14 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
                 id: null,
                 name: ('Series ' + $scope.seriesNumber),
                 isValid: true,
-                seriesColumns: [
+                valueSeriesColumn:
                     {
-                        type: 'X',
-                        name: null
-                    },
-                    {
+                        id: null,
+                        name: '',
                         type: 'Y',
-                        name: null
+                        dataSourceColumn:null
                     }
-                ]
+
             });
             $scope.seriesNumber++;
 
@@ -573,24 +577,29 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
 ;
 
 
-platformChartModuleControllers.controller('ChartModuleController', ['$scope', '$http', '$log', 'ChartModuleConfiguration', 'mockupData', function ($scope, $http, $log, ChartModuleConfiguration, mockupData) {
+platformChartModuleControllers.controller('ChartModuleController', ['$scope', '$http', '$log', 'ChartModuleConfiguration', 'mockupData', 'CharData', 'dataChartAdapter', function ($scope, $http, $log, ChartModuleConfiguration, mockupData, CharData, dataChartAdapter) {
     $log.log('ChartModuleController');
 
     $log.log('$scope.moduleId: ' + $scope.moduleId);
 
     $scope.moduleConfiguration = {};
 
+    var chartParams = null;
+
     if ($scope.moduleId) {
         ChartModuleConfiguration.get({id: $scope.moduleId}, function (data) {
             $scope.moduleConfiguration = data;
             $log.log('ChartModuleConfiguration has been got: ', $scope.moduleConfiguration);
 
-            var chartParams = mockupData.getChartData($scope.moduleConfiguration.chartType);
+            CharData.query({}, $scope.moduleConfiguration, function (data) {
+                $log.log('CharData.query: ', data);
+                chartParams = dataChartAdapter.convertTo($scope.moduleConfiguration, data);
 
-            if (chartParams != null) {
-                $scope.options = chartParams.options;
-                $scope.data = chartParams.data;
-            }
+                if (chartParams != null) {
+                    $scope.options = chartParams.options;
+                    $scope.data = chartParams.data;
+                }
+            });
         });
     }
 

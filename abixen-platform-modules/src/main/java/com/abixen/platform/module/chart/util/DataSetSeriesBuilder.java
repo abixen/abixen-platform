@@ -18,8 +18,6 @@ import com.abixen.platform.module.chart.model.impl.DataSet;
 import com.abixen.platform.module.chart.model.impl.DataSetSeries;
 import com.abixen.platform.module.chart.model.impl.DataSetSeriesColumn;
 
-import java.util.Set;
-
 
 public interface DataSetSeriesBuilder {
 
@@ -31,7 +29,7 @@ public interface DataSetSeriesBuilder {
 
     DataSetSeriesBuilder name(String name);
 
-    DataSetSeriesBuilder seriesColumns(Set<DataSetSeriesColumn> seriesColumns);
+    DataSetSeriesBuilder valueSeriesColumn(DataSetSeriesColumn seriesColumns);
 
 
 }

@@ -50,6 +50,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -195,8 +196,14 @@ public class DataSourceImportDataServiceCsvImplTest {
         DataSetSeriesColumnBuilder dataSetSeriesColumnBuilder = domainBuilderService.newDataSetSeriesColumnBuilderInstance();
         dataSetSeriesColumnBuilder.columnType(ColumnType.X);
         dataSetSeriesColumnBuilder.dataSourceColumn(dataSourceColumnX);
-        dataSetSeriesColumnBuilder.name("series1ColumnX");
-        DataSetSeriesColumn dataSetSeries1ColumnX = dataSetSeriesColumnBuilder.build();
+        dataSetSeriesColumnBuilder.name("ColumnX");
+        DataSetSeriesColumn dataColumnX = dataSetSeriesColumnBuilder.build();
+
+        dataSetSeriesColumnBuilder = domainBuilderService.newDataSetSeriesColumnBuilderInstance();
+        dataSetSeriesColumnBuilder.columnType(ColumnType.Z);
+        dataSetSeriesColumnBuilder.dataSourceColumn(dataSourceColumnX);
+        dataSetSeriesColumnBuilder.name("ColumnZ");
+        DataSetSeriesColumn dataColumnZ = dataSetSeriesColumnBuilder.build();
 
         dataSetSeriesColumnBuilder = domainBuilderService.newDataSetSeriesColumnBuilderInstance();
         dataSetSeriesColumnBuilder.columnType(ColumnType.Y);
@@ -211,24 +218,20 @@ public class DataSourceImportDataServiceCsvImplTest {
         dataSetSeriesColumnBuilder.dataSourceColumn(dataSourceColumnsY.get(1));
         DataSetSeriesColumn dataSetSeries1ColumnY2 = dataSetSeriesColumnBuilder.build();
 
-        Set<DataSetSeriesColumn> dataSetSeriesColumnsSeriesTest1 = new HashSet<>();
-        dataSetSeriesColumnsSeriesTest1.add(dataSetSeries1ColumnX);
-        dataSetSeriesColumnsSeriesTest1.add(dataSetSeries1ColumnY1);
-
         //Attach series columns to data set series1
-        dataSetSeries1.setSeriesColumns(dataSetSeriesColumnsSeriesTest1);
+        dataSetSeries1.setValueSeriesColumn(dataSetSeries1ColumnY1);
 
         //Attach series columns to data set series2
-        Set<DataSetSeriesColumn> dataSetSeriesColumnsSeriesTest2 = new HashSet<>();
-        dataSetSeriesColumnsSeriesTest1.add(dataSetSeries1ColumnX);
-        dataSetSeriesColumnsSeriesTest1.add(dataSetSeries1ColumnY2);
-        dataSetSeries2.setSeriesColumns(dataSetSeriesColumnsSeriesTest2);
+        dataSetSeries2.setValueSeriesColumn(dataSetSeries1ColumnY2);
 
         //Attach data set series to data set
         Set<DataSetSeries> dataSetSeries = new HashSet<>();
 
         dataSetSeries.add(dataSetSeries1);
         dataSetSeries.add(dataSetSeries2);
+
+        dataSet.setDomainXSeriesColumn(dataColumnX);
+        dataSet.setDomainZSeriesColumn(dataColumnZ);
         dataSet.setDataSetSeries(dataSetSeries);
 
         dataSet = dataSetRepository.saveAndFlush(dataSet);
@@ -236,23 +239,16 @@ public class DataSourceImportDataServiceCsvImplTest {
         assertNotNull(dataSet);
         assertEquals(dataSet.getDataSetSeries().size(), 2);
 
+        assertNotNull(dataSet.getDomainXSeriesColumn());
+        assertNotNull(dataSet.getDomainXSeriesColumn());
+
         for (DataSetSeries series : dataSet.getDataSetSeries()) {
             if (series.getName().equals("series1")) {
-                Stream<DataSetSeriesColumn> dataSourceColumnStream = series.getSeriesColumns().stream().filter(i -> i.getType().equals(ColumnType.X));
-                Optional<DataSetSeriesColumn> dataSetSeriesColumnX = dataSourceColumnStream.findFirst();
-                assertNotNull(dataSetSeriesColumnX);
-
-                dataSourceColumnStream = series.getSeriesColumns().stream().filter(i -> i.getType().equals(ColumnType.Y));
-                Optional<DataSetSeriesColumn> dataSetSeriesColumnY = dataSourceColumnStream.findFirst();
+                DataSetSeriesColumn dataSetSeriesColumnY = series.getValueSeriesColumn();
                 assertNotNull(dataSetSeriesColumnY);
             }
             if (series.getName().equals("series2")) {
-                Stream<DataSetSeriesColumn> dataSourceColumnStream = series.getSeriesColumns().stream().filter(i -> i.getType().equals(ColumnType.X));
-                Optional<DataSetSeriesColumn> dataSetSeriesColumnX = dataSourceColumnStream.findFirst();
-                assertNotNull(dataSetSeriesColumnX);
-
-                dataSourceColumnStream = series.getSeriesColumns().stream().filter(i -> i.getType().equals(ColumnType.Y));
-                Optional<DataSetSeriesColumn> dataSetSeriesColumnY = dataSourceColumnStream.findFirst();
+                DataSetSeriesColumn dataSetSeriesColumnY = series.getValueSeriesColumn();
                 assertNotNull(dataSetSeriesColumnY);
             }
         }
@@ -400,6 +396,6 @@ public class DataSourceImportDataServiceCsvImplTest {
         List<DataSourceColumn> dataSourceColumnFilesY = new ArrayList<>();
 //        dataSourceColumnFilesY.add(dataSourceColumnFile2);
 
-        DataSetSeries dataSetSeries1 = dataSetSeriesBuilder.create().name("series1").seriesColumns(null).build();
+        DataSetSeries dataSetSeries1 = dataSetSeriesBuilder.create().name("series1").valueSeriesColumn(null).build();
     }
 }

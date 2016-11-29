@@ -21,8 +21,6 @@ import com.abixen.platform.module.chart.model.impl.DataSetSeriesColumn;
 import com.abixen.platform.module.chart.util.DataSetSeriesBuilder;
 
 import java.util.Date;
-import java.util.Set;
-
 
 public class DataSetSeriesBuilderImpl extends EntityBuilder<DataSetSeries> implements DataSetSeriesBuilder {
 
@@ -52,9 +50,9 @@ public class DataSetSeriesBuilderImpl extends EntityBuilder<DataSetSeries> imple
         return this;
     }
 
-     @Override
-    public DataSetSeriesBuilder seriesColumns(Set<DataSetSeriesColumn> seriesColumns) {
-        this.product.setSeriesColumns(seriesColumns);
+    @Override
+    public DataSetSeriesBuilder valueSeriesColumn(DataSetSeriesColumn seriesColumns) {
+        this.product.setValueSeriesColumn(seriesColumns);
         return this;
     }
 

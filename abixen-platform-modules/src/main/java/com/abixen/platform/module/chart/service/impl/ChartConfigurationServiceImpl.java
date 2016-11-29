@@ -17,6 +17,7 @@ package com.abixen.platform.module.chart.service.impl;
 import com.abixen.platform.module.chart.form.ChartConfigurationForm;
 import com.abixen.platform.module.chart.model.impl.ChartConfiguration;
 import com.abixen.platform.module.chart.repository.ChartConfigurationRepository;
+import com.abixen.platform.module.chart.repository.DataSourceColumnRepository;
 import com.abixen.platform.module.chart.service.ChartConfigurationDomainBuilderService;
 import com.abixen.platform.module.chart.service.ChartConfigurationService;
 import com.abixen.platform.module.chart.service.DatabaseDataSourceService;
@@ -44,12 +45,15 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     @Autowired
     private DatabaseDataSourceService databaseDataSourceService;
 
+    @Autowired
+    private DataSourceColumnRepository dataSourceColumnRepository;
+
     @Override
     public ChartConfiguration buildChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
         log.debug("buildChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
         return chartConfigurationDomainBuilderService.newChartConfigurationBuilderInstance()
                 .basic(chartConfigurationForm.getModuleId(), chartConfigurationForm.getChartType())
-                .data(chartConfigurationForm.getDataSetChart(), databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()))
+                .data(chartConfigurationForm.getDataSetChart(), databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
                 .axis(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
                 .build();
     }
@@ -65,9 +69,13 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
         log.debug("updateChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
 
         ChartConfiguration chartConfiguration = findChartConfigurationByModuleId(chartConfigurationForm.getModuleId());
-        chartConfiguration.setChartType(chartConfigurationForm.getChartType());
+        ChartConfiguration chartConfigurationUpdated = chartConfigurationDomainBuilderService.newChartConfigurationBuilderForUpdateInstance(chartConfiguration)
+                .basic(chartConfigurationForm.getModuleId(), chartConfigurationForm.getChartType())
+                .data(chartConfigurationForm.getDataSetChart(), databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
+                .axis(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
+                .build();
 
-        return new ChartConfigurationForm(updateChartConfiguration(chartConfiguration));
+        return new ChartConfigurationForm(updateChartConfiguration(chartConfigurationUpdated));
     }
 
     @Override
@@ -87,6 +95,9 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     @Override
     public ChartConfiguration updateChartConfiguration(ChartConfiguration chartConfiguration) {
         log.debug("updateChartConfiguration() - chartConfiguration: " + chartConfiguration);
+        chartConfiguration.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
+            dataSetSeries.setDataSet(chartConfiguration.getDataSetChart());
+        });
         return chartConfigurationRepository.save(chartConfiguration);
     }
 }

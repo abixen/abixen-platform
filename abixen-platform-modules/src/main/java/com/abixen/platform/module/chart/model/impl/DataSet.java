@@ -36,6 +36,14 @@ public class DataSet extends Model implements DataSetWeb {
     @GeneratedValue(generator = "data_set_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "domain_x_series_column")
+    private DataSetSeriesColumn domainXSeriesColumn;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "domain_z_series_column")
+    private DataSetSeriesColumn domainZSeriesColumn;
+
     @OneToMany(mappedBy = "dataSet", cascade = CascadeType.ALL)
     private Set<DataSetSeries> dataSetSeries = new HashSet<>();
 
@@ -48,6 +56,23 @@ public class DataSet extends Model implements DataSetWeb {
         this.id = id;
     }
 
+    @Override
+    public DataSetSeriesColumn getDomainXSeriesColumn() {
+        return domainXSeriesColumn;
+    }
+
+    public void setDomainXSeriesColumn(DataSetSeriesColumn domainXSeriesColumn) {
+        this.domainXSeriesColumn = domainXSeriesColumn;
+    }
+
+    @Override
+    public DataSetSeriesColumn getDomainZSeriesColumn() {
+        return domainZSeriesColumn;
+    }
+
+    public void setDomainZSeriesColumn(DataSetSeriesColumn domainZSeriesColumn) {
+        this.domainZSeriesColumn = domainZSeriesColumn;
+    }
 
     public Set<DataSetSeries> getDataSetSeries() {
         return dataSetSeries;

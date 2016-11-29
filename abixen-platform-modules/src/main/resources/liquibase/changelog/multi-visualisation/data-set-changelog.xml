@@ -14,6 +14,8 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="domain_x_series_column" type="bigint" />
+            <column name="domain_z_series_column" type="bigint" />
         </createTable>
 
         <addPrimaryKey columnNames="id" constraintName="pk__data_set__id" tableName="data_set"/>

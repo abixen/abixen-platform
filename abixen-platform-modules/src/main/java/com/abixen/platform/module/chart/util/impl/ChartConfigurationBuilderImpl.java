@@ -16,11 +16,9 @@ package com.abixen.platform.module.chart.util.impl;
 
 import com.abixen.platform.core.util.EntityBuilder;
 import com.abixen.platform.module.chart.model.enumtype.ChartType;
-import com.abixen.platform.module.chart.model.impl.ChartConfiguration;
-import com.abixen.platform.module.chart.model.impl.DataSetChart;
-import com.abixen.platform.module.chart.model.impl.DataSetSeries;
-import com.abixen.platform.module.chart.model.impl.DatabaseDataSource;
+import com.abixen.platform.module.chart.model.impl.*;
 import com.abixen.platform.module.chart.model.web.DataSetChartWeb;
+import com.abixen.platform.module.chart.repository.DataSourceColumnRepository;
 import com.abixen.platform.module.chart.util.ChartConfigurationBuilder;
 
 import java.util.HashSet;
@@ -30,6 +28,15 @@ import java.util.Set;
 
 public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfiguration> implements ChartConfigurationBuilder {
 
+    public ChartConfigurationBuilderImpl() {
+        super();
+    }
+
+    public ChartConfigurationBuilderImpl(ChartConfiguration chartConfiguration) {
+        super();
+        this.product = chartConfiguration;
+    }
+
     @Override
     public ChartConfigurationBuilder basic(Long moduleId, ChartType chartType) {
         this.product.setModuleId(moduleId);
@@ -38,21 +45,43 @@ public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfigurat
     }
 
     @Override
-    public ChartConfigurationBuilder data(DataSetChartWeb dataSetChart, DatabaseDataSource databaseDataSource) {
+    public ChartConfigurationBuilder data(DataSetChartWeb dataSetChart, DatabaseDataSource databaseDataSource, DataSourceColumnRepository dataSourceColumnRepository) {
 
         DataSetChart dataSetChartCreated = new DataSetChart();
+
+        if (dataSetChart.getDomainXSeriesColumn() != null) {
+            DataSetSeriesColumn dataSetSeriesColumn = dataSetChart.getDomainXSeriesColumn();
+            DataSetSeriesColumn dataSetSeriesColumnCreated = new DataSetSeriesColumn();
+
+            dataSetSeriesColumnCreated.setName(dataSetSeriesColumn.getName());
+            dataSetSeriesColumnCreated.setType(dataSetSeriesColumn.getType());
+            dataSetSeriesColumnCreated.setDataSourceColumn(dataSourceColumnRepository.findOne(dataSetSeriesColumn.getDataSourceColumn().getId()));
+
+            dataSetChartCreated.setDomainXSeriesColumn(dataSetSeriesColumnCreated);
+        }
+
+        if (dataSetChart.getDomainZSeriesColumn() != null) {
+            DataSetSeriesColumn dataSetSeriesColumn = dataSetChart.getDomainZSeriesColumn();
+            DataSetSeriesColumn dataSetSeriesColumnCreated = new DataSetSeriesColumn();
+
+            dataSetSeriesColumnCreated.setName(dataSetSeriesColumn.getName());
+            dataSetSeriesColumnCreated.setType(dataSetSeriesColumn.getType());
+            dataSetSeriesColumnCreated.setDataSourceColumn(dataSourceColumnRepository.findOne(dataSetSeriesColumn.getDataSourceColumn().getId()));
+
+            dataSetChartCreated.setDomainXSeriesColumn(dataSetSeriesColumnCreated);
+        }
 
         Set<DataSetSeries> dataSetSeries = new HashSet<>();
 
         dataSetChart.getDataSetSeries().stream().forEach(dss -> {
             DataSetSeries dssCreated = new DataSetSeries();
             dssCreated.setFilter(dss.getFilter());
+            dssCreated.setName(dss.getName());
             //TODO
-            dssCreated.setName("TBD");
-
+            dssCreated.setValueSeriesColumn(dss.getValueSeriesColumn());
+            dssCreated.getValueSeriesColumn().setDataSourceColumn(dataSourceColumnRepository.findOne(dssCreated.getValueSeriesColumn().getDataSourceColumn().getId()));
             //TODO - add columns
 
-            dssCreated.setSeriesColumns(new HashSet<>());
             dataSetSeries.add(dssCreated);
         });
 

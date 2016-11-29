@@ -19,7 +19,6 @@ import com.abixen.platform.module.chart.model.web.DataSetSeriesWeb;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 
 @Entity
@@ -37,9 +36,9 @@ public class DataSetSeries implements DataSetSeriesWeb, Serializable {
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "series_id", nullable = false)
-    private Set<DataSetSeriesColumn> seriesColumns;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "value_column_id", nullable = false)
+    private DataSetSeriesColumn valueSeriesColumn;
 
     @Lob
     @Column(name = "filter", nullable = true)
@@ -71,12 +70,12 @@ public class DataSetSeries implements DataSetSeriesWeb, Serializable {
     }
 
     @Override
-    public Set<DataSetSeriesColumn> getSeriesColumns() {
-        return seriesColumns;
+    public DataSetSeriesColumn getValueSeriesColumn() {
+        return valueSeriesColumn;
     }
 
-    public void setSeriesColumns(Set<DataSetSeriesColumn> seriesColumns) {
-        this.seriesColumns = seriesColumns;
+    public void setValueSeriesColumn(DataSetSeriesColumn valueSeriesColumn) {
+        this.valueSeriesColumn = valueSeriesColumn;
     }
 
     @Override

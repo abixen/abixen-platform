@@ -14,6 +14,7 @@
 
 package com.abixen.platform.module.chart.service.impl;
 
+import com.abixen.platform.module.chart.model.impl.ChartConfiguration;
 import com.abixen.platform.module.chart.service.ChartConfigurationDomainBuilderService;
 import com.abixen.platform.module.chart.util.ChartConfigurationBuilder;
 import com.abixen.platform.module.chart.util.impl.ChartConfigurationBuilderImpl;
@@ -26,6 +27,11 @@ public class ChartConfigurationDomainBuilderServiceImpl implements ChartConfigur
     @Override
     public ChartConfigurationBuilder newChartConfigurationBuilderInstance() {
         return new ChartConfigurationBuilderImpl();
+    }
+
+    @Override
+    public ChartConfigurationBuilder newChartConfigurationBuilderForUpdateInstance(ChartConfiguration chartConfiguration) {
+        return new ChartConfigurationBuilderImpl(chartConfiguration);
     }
 
 }
