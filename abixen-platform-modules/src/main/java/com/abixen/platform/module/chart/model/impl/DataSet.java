@@ -37,11 +37,11 @@ public class DataSet extends Model implements DataSetWeb {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "data_set_series_column_x_id")
+    @JoinColumn(name = "domain_x_series_column")
     private DataSetSeriesColumn domainXSeriesColumn;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "data_set_series_column_z_id")
+    @JoinColumn(name = "domain_z_series_column")
     private DataSetSeriesColumn domainZSeriesColumn;
 
     @OneToMany(mappedBy = "dataSet", cascade = CascadeType.ALL)

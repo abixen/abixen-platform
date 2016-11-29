@@ -34,19 +34,19 @@
                                  referencedColumnNames="id" referencedTableName="data_source_column"/>
 
         <addForeignKeyConstraint baseColumnNames="value_column_id" baseTableName="data_set_series"
-                                 constraintName="fk__value_column_id__data_set_series_column"
+                                 constraintName="fk__value_column_id__data_set_series__data_set_series_column"
                                  deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="data_set_series_column"/>
 
-        <addForeignKeyConstraint baseColumnNames="data_set_series_column_x_id" baseTableName="data_set"
-                                 constraintName="fk__data_set_series_column_x_id__data_set_series_column"
+        <addForeignKeyConstraint baseColumnNames="domain_x_series_column" baseTableName="data_set"
+                                 constraintName="fk__domain_x_series_column__data_set__data_set_series_column"
                                  deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="data_set_series_column"/>
 
-        <addForeignKeyConstraint baseColumnNames="data_set_series_column_z_id" baseTableName="data_set"
-                                 constraintName="fk__data_set_series_column_z_id__data_set_series_column"
+        <addForeignKeyConstraint baseColumnNames="domain_z_series_column" baseTableName="data_set"
+                                 constraintName="fk__domain_z_series_column__data_set__data_set_series_column"
                                  deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="data_set_series_column"/>

@@ -73,8 +73,8 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
                             dataSetSeries: [],
                             domainXSeriesColumn: {
                                 id: null,
-                                name: "",
-                                type: "X",
+                                name: '',
+                                type: 'X',
                                 dataSourceColumn: null
                             }
                         }
@@ -316,8 +316,8 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
                 valueSeriesColumn:
                     {
                         id: null,
-                        name: "",
-                        type: "Y",
+                        name: '',
+                        type: 'Y',
                         dataSourceColumn:null
                     }
 

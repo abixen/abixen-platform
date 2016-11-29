@@ -96,12 +96,10 @@ public class AbstractDatabaseService {
 
         if (chartConfigurationForm.getDataSetChart().getDomainXSeriesColumn() != null) {
             chartColumnsSet.add(chartConfigurationForm.getDataSetChart().getDomainXSeriesColumn().getDataSourceColumn().getName());
-
         }
 
         if (chartConfigurationForm.getDataSetChart().getDomainZSeriesColumn() != null) {
             chartColumnsSet.add(chartConfigurationForm.getDataSetChart().getDomainZSeriesColumn().getDataSourceColumn().getName());
-
         }
 
         chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {

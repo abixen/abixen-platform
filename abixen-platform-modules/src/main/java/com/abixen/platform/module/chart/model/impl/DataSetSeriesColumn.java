@@ -39,7 +39,7 @@ public class DataSetSeriesColumn implements DataSetSeriesColumnWeb, Serializable
     @Column(name = "type")
     private ColumnType type;
 
-    //ToDO check if needed
+    //TODO check if needed
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = true)
     private String name;
 
