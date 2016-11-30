@@ -192,7 +192,7 @@ angular.module('adf')
                     });
 
                     $scope.$watch('model.id', function (newId, oldId) {
-                        if(oldId == null && newId != null){
+                        if (oldId == null && newId != null) {
                             $scope.$broadcast(platformParameters.events.RELOAD_MODULE, newId, $stateParams.mode);
                         }
                     }, true);

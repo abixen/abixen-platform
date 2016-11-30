@@ -32,7 +32,7 @@
  * The dashboardProvider can be used to register structures and widgets.
  */
 angular.module('adf.provider', [])
-    .provider('dashboard', function(){
+    .provider('dashboard', function () {
 
         var widgets = {};
         var widgetsPath = '';
@@ -93,9 +93,9 @@ angular.module('adf.provider', [])
          *
          * @returns {Object} self
          */
-        this.widget = function(name, widget){
+        this.widget = function (name, widget) {
             var w = angular.extend({reload: false}, widget);
-            if ( w.edit ){
+            if (w.edit) {
                 var edit = {reload: true};
                 angular.extend(edit, w.edit);
                 w.edit = edit;
@@ -122,7 +122,7 @@ angular.module('adf.provider', [])
          *
          * @returns {Object} self
          */
-        this.widgetsPath = function(path){
+        this.widgetsPath = function (path) {
             widgetsPath = path;
             return this;
         };
@@ -147,7 +147,7 @@ angular.module('adf.provider', [])
          *
          * @returns {Object} self
          */
-        this.structure = function(name, structure){
+        this.structure = function (name, structure) {
             structures[name] = structure;
             return this;
         };
@@ -164,7 +164,7 @@ angular.module('adf.provider', [])
          *
          * @returns {Object} self
          */
-        this.messageTemplate = function(template){
+        this.messageTemplate = function (template) {
             messageTemplate = template;
             return this;
         };
@@ -182,7 +182,7 @@ angular.module('adf.provider', [])
          *
          * @returns {Object} self
          */
-        this.loadingTemplate = function(template){
+        this.loadingTemplate = function (template) {
             loadingTemplate = template;
             return this;
         };
@@ -202,7 +202,7 @@ angular.module('adf.provider', [])
          *
          * @returns {Object} self
          */
-        this.$get = function(){
+        this.$get = function () {
             var cid = 0;
 
             return {
@@ -223,7 +223,7 @@ angular.module('adf.provider', [])
                  * Creates an ongoing numeric id. The method is used to create ids for
                  * columns and widgets in the dashboard.
                  */
-                id: function(){
+                id: function () {
                     return ++cid;
                 }
             };

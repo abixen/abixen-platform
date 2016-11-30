@@ -39,7 +39,7 @@ angular.module('adf')
             templateUrl: adfTemplatePath + 'dashboard-row.html',
             link: function ($scope, $element) {
                 if (angular.isDefined($scope.row.columns) && angular.isArray($scope.row.columns)) {
-                    $compile(columnTemplate)($scope, function(cloned) {
+                    $compile(columnTemplate)($scope, function (cloned) {
                         $element.append(cloned);
                     });
                 }

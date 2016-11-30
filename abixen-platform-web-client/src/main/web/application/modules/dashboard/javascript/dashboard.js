@@ -50,8 +50,6 @@ angular.module('adf')
         function ($rootScope, $log, dashboard, adfTemplatePath, $aside, applicationNavigationItems, $stateParams) {
             'use strict';
 
-            $log.log('DASHBOARD');
-
             function stringToBoolean(string) {
                 switch (angular.isDefined(string) ? string.toLowerCase() : null) {
                     case 'true':
@@ -242,8 +240,6 @@ angular.module('adf')
                     // Watching for changes on adfModel
                     $scope.$watch('adfModel', function (oldVal, newVal) {
 
-                        $log.log('CHANGED!!!!!!!!!!!!!!!!!!!!!');
-
                         // has model changed or is the model attribute not set
                         if (newVal !== null || (oldVal === null && newVal === null)) {
                             model = $scope.adfModel;
@@ -296,12 +292,6 @@ angular.module('adf')
                     $scope.collapseAll = function (collapseExpandStatus) {
                         $rootScope.$broadcast('adfDashboardCollapseExapand', {collapseExpandStatus: collapseExpandStatus});
                     };
-
-                    /*$scope.cancelEditMode = function(){
-                     $scope.editMode = false;
-                     $scope.modelCopy = angular.copy($scope.modelCopy, $scope.adfModel);
-                     $rootScope.$broadcast('adfDashboardEditsCancelled');
-                     };*/
 
                     // edit dashboard settings
                     $scope.editDashboardDialog = function () {

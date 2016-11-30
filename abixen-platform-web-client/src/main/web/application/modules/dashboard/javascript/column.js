@@ -140,7 +140,7 @@ angular.module('adf')
             widgetMovedNotify($scope);
         }
 
-        function widgetMovedNotify($scope){
+        function widgetMovedNotify($scope) {
             if (++moveCounter === 2) {
                 moveCounter = 0;
                 var saveCounter = 0;
