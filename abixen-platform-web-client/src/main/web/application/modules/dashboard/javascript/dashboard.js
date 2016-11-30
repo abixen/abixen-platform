@@ -281,19 +281,15 @@ angular.module('adf')
                     $scope.editMode = false;
                     $scope.editClass = '';
 
-                    $scope.toggleEditMode = function (preventSave) {
+                    $scope.toggleEditMode = function () {
                         $scope.editMode = !$scope.editMode;
                         if ($scope.editMode) {
                             $scope.modelCopy = angular.copy($scope.adfModel, {});
                         }
-
-                        if (!$scope.editMode && !preventSave) {
-                            $scope.$emit(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, name, model);
-                        }
                     };
 
-                    $scope.$on(platformParameters.events.ADF_TOGGLE_EDIT_MODE_EVENT, function (event, preventSave) {
-                        $scope.toggleEditMode(preventSave);
+                    $scope.$on(platformParameters.events.ADF_TOGGLE_EDIT_MODE_EVENT, function (event) {
+                        $scope.toggleEditMode();
                         $scope.$emit(platformParameters.events.ADF_TOGGLE_EDIT_MODE_RESPONSE_EVENT, $scope.editMode);
                     });
 
