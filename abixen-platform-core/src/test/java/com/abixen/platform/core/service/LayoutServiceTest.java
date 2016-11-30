@@ -15,6 +15,8 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
+import com.abixen.platform.core.model.impl.Layout;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,20 +33,67 @@ public class LayoutServiceTest {
     @Autowired
     LayoutService layoutService;
 
+    private Layout layout;
+
+    private  final Layout sampleLayout = new Layout();;
+
+    private static final String HTML = "<div class=\"row\">\n" +
+            "\t<div class=\"column col-md-12\"></div>\n" +
+            "</div>\n" +
+            "<div class=\"row\">\n" +
+            "\t<div class=\"column col-md-4\"></div>\n" +
+            "\t<div class=\"column col-md-4\"></div>\n" +
+            "\t<div class=\"column col-md-4\"></div>\n" +
+            "</div>";
+
+    private static final String UPDATE_HTML= "<div class=\"row\">\n" +
+            "<div class=\"column col-md-12\"></div>\n" +
+            "</div>\n" +
+            "<div class=\"row\">\n" +
+            " <div class=\"column col-md-4\"></div>\n" +
+            "</div>";
+
+
     @Test
     public void htmlLayoutToJson() {
-        String htmlString = "<div class=\"row\">\n" +
-                "\t<div class=\"column col-md-12\"></div>\n" +
-                "</div>\n" +
-                "<div class=\"row\">\n" +
-                "\t<div class=\"column col-md-4\"></div>\n" +
-                "\t<div class=\"column col-md-4\"></div>\n" +
-                "\t<div class=\"column col-md-4\"></div>\n" +
-                "</div>";
 
-        String result = layoutService.htmlLayoutToJson(htmlString);
+        String result = layoutService.htmlLayoutToJson(HTML);
 
         assertEquals(result, "{\"rows\":[{\"columns\":[{\"styleClass\":\"col-md-12\"}]},{\"columns\":[{\"styleClass\":\"col-md-4\"},{\"styleClass\":\"col-md-4\"},{\"styleClass\":\"col-md-4\"}]}]}");
 
     }
+
+    @Test
+    @Before
+    public void createLayout() {
+
+        sampleLayout.setTitle("Test Layout");
+        sampleLayout.setIconFileName("Test Icon File Name");
+        sampleLayout.setContent(HTML);
+
+        layout = layoutService.createLayout(sampleLayout);
+
+        assertEquals(layout.getContent(), "{\"rows\":[{\"columns\":[{\"styleClass\":\"col-md-12\"}]},{\"columns\":[{\"styleClass\":\"col-md-4\"},{\"styleClass\":\"col-md-4\"},{\"styleClass\":\"col-md-4\"}]}]}");
+
+        assertEquals(layout.getIconFileName(), sampleLayout.getIconFileName());
+
+        assertEquals(layout.getTitle(), sampleLayout.getTitle());
+    }
+
+    @Test
+    public void updateLayout() {
+
+        layout.setContent(UPDATE_HTML);
+
+        Layout updatedLayout = layoutService.updateLayout(layout);
+
+        assertEquals(updatedLayout.getContent(), "{\"rows\":[{\"columns\":[{\"styleClass\":\"col-md-12\"}]},{\"columns\":[{\"styleClass\":\"col-md-4\"}]}]}");
+
+        assertEquals(layout.getId(), updatedLayout.getId());
+
+        assertEquals(layout.getTitle(), updatedLayout.getTitle());
+
+        assertEquals(layout.getIconFileName(), updatedLayout.getIconFileName());
+    }
+
 }
