@@ -72,12 +72,10 @@ public class LayoutController {
         return layout;
     }
 
-    //FIXME
+
     @RequestMapping(value = "/api/admin/layouts", method = RequestMethod.POST)
     public Layout createLayout(@RequestBody Layout layout) {
         log.debug("save() - layout: " + layout);
-        //TODO
-        layout.setContent("111111111111111");
         return layoutService.createLayout(layout);
     }
 

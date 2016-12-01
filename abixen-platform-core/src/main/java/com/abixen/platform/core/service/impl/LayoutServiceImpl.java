@@ -51,13 +51,20 @@ public class LayoutServiceImpl implements LayoutService {
     @Override
     public Layout createLayout(Layout layout) {
         log.debug("createLayout() - layout: " + layout);
-        return layoutRepository.save((Layout) layout);
+        convertLayoutContent(layout);
+        return layoutRepository.save(layout);
+    }
+
+    private void convertLayoutContent(Layout layout) {
+        String jsonContent = htmlLayoutToJson(layout.getContent());
+        layout.setContent(jsonContent);
     }
 
     @Override
     public Layout updateLayout(Layout layout) {
         log.debug("updateLayout() - layout: " + layout);
-        return layoutRepository.save((Layout) layout);
+        convertLayoutContent(layout);
+        return layoutRepository.save(layout);
     }
 
     @Override
