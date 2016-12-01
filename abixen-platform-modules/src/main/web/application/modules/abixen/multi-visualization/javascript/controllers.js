@@ -586,6 +586,7 @@ platformChartModuleControllers.controller('ChartModuleController', ['$scope', '$
 
     var chartParams = null;
 
+    $scope.$emit(platformParameters.events.START_REQUEST);
     if ($scope.moduleId) {
         ChartModuleConfiguration.get({id: $scope.moduleId}, function (data) {
             $scope.moduleConfiguration = data;
@@ -599,7 +600,22 @@ platformChartModuleControllers.controller('ChartModuleController', ['$scope', '$
                     $scope.options = chartParams.options;
                     $scope.data = chartParams.data;
                 }
+                $scope.$emit(platformParameters.events.STOP_REQUEST);
+            },function (error) {
+                $scope.$emit(platformParameters.events.STOP_REQUEST);
+                if (error.status == 401) {
+                    $scope.$emit(platformParameters.events.MODULE_UNAUTHENTICATED);
+                } else if (error.status == 403) {
+                    $scope.$emit(platformParameters.events.MODULE_FORBIDDEN);
+                }
             });
+        },function (error) {
+            $scope.$emit(platformParameters.events.STOP_REQUEST);
+            if (error.status == 401) {
+                $scope.$emit(platformParameters.events.MODULE_UNAUTHENTICATED);
+            } else if (error.status == 403) {
+                $scope.$emit(platformParameters.events.MODULE_FORBIDDEN);
+            }
         });
     }
 
@@ -614,6 +630,7 @@ platformChartModuleControllers.controller('ChartModulePreviewController', ['$sco
     var chartParams = null;
 
     $log.log('CharData.query started ');
+    $scope.$emit(platformParameters.events.START_REQUEST);
     CharData.query({}, $scope.chartConfiguration, function (data) {
         $log.log('CharData.query: ', data);
         chartParams = dataChartAdapter.convertTo($scope.chartConfiguration, data);
@@ -621,6 +638,14 @@ platformChartModuleControllers.controller('ChartModulePreviewController', ['$sco
         if (chartParams != null) {
             $scope.options = chartParams.options;
             $scope.data = chartParams.data;
+        }
+        $scope.$emit(platformParameters.events.STOP_REQUEST);
+    },function (error) {
+        $scope.$emit(platformParameters.events.STOP_REQUEST);
+        if (error.status == 401) {
+            $scope.$emit(platformParameters.events.MODULE_UNAUTHENTICATED);
+        } else if (error.status == 403) {
+            $scope.$emit(platformParameters.events.MODULE_FORBIDDEN);
         }
     });
 

@@ -919,9 +919,9 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
                 height: 450,
                 margin: {
                     top: 20,
-                    right: 20,
+                    right: 45,
                     bottom: 40,
-                    left: 55
+                    left: 80
                 },
                 x: function (d) {
                     if (isNaN(Number(d.xLabel))) {
