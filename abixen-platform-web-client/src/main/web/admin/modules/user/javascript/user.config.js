@@ -1,7 +1,17 @@
-var platformUserModule = angular.module('platformUserModule', ['userControllers', 'userServices', 'ui.router']);
+(function () {
 
-platformUserModule.config(['$stateProvider',
-    function ($stateProvider) {
+    'use strict';
+
+    angular
+        .module('platformUserModule')
+        .config(platformUserModuleConfig);
+
+    platformUserModuleConfig.$inject = [
+        '$stateProvider'
+    ];
+
+    function platformUserModuleConfig($stateProvider) {
+
         $stateProvider
             .state('application.users', {
                 url: '/users',
@@ -28,4 +38,4 @@ platformUserModule.config(['$stateProvider',
                 controller: 'UserAssignRolesController'
             });
     }
-]);
+})();
