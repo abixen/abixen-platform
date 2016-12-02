@@ -2,8 +2,7 @@ var platformChartModuleServices = angular.module('platformChartModuleServices', 
 
 platformChartModuleServices.factory('ChartModuleInit', ['$resource',
     function ($resource) {
-        return $resource('/application/modules/abixen/multi-visualization/:id', {}, {
-        });
+        return $resource('/application/modules/abixen/multi-visualization/:id', {}, {});
     }]);
 
 platformChartModuleServices.factory('ApplicationDatabaseDataSource', ['$resource',
@@ -11,7 +10,7 @@ platformChartModuleServices.factory('ApplicationDatabaseDataSource', ['$resource
         return $resource('/admin/modules/abixen/multi-visualization/database-data-sources', {}, {
             query: {method: 'GET', isArray: false}
         });
-}]);
+    }]);
 
 platformChartModuleServices.factory('ChartModuleConfiguration', ['$resource',
     function ($resource) {
@@ -908,9 +907,9 @@ platformChartModuleServices.provider("mockupData", function () {
     };
 });
 
-platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,$injector, $windowProvider) {
+platformChartModuleServices.provider('dataChartAdapter', function ($logProvider, $injector, $windowProvider) {
     var window = $injector.instantiate($windowProvider.$get);
-    var $log =  $injector.instantiate($logProvider.$get,{$window:window});
+    var $log = $injector.instantiate($logProvider.$get, {$window: window});
 
     var getDefaultChartConfig = function () {
         return {
@@ -924,18 +923,11 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
                     left: 80
                 },
                 x: function (d) {
-                    if (isNaN(Number(d.xLabel))) {
-                        return d.x;
-                    }else{
-                        return d.xLabel;
-                    }
+                    return d.x;
+
                 },
                 y: function (d) {
-                    if (isNaN(Number(d.yLabel))) {
-                        return d.y;
-                    }else{
-                        return d.yLabel;
-                    }
+                    return d.y;
                 },
                 xAxis: {
                     axisLabel: 'DefaultAxisLabel',
@@ -958,13 +950,21 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
 
     var lineChartAdapter = function () {
 
+        function findXLabel(values, x) {
+            for (var i = 0; i < values.length; i++) {
+                if (values[i].x === x) {
+                    return values[i].xLabel;
+                }
+            }
+        }
+
         var buildChartOptions = function (configurationData, preparedChartData) {
             $log.debug('buildChartOptions for lineChartAdapter started');
             var chartConfig = getDefaultChartConfig();
             chartConfig.chart.type = 'lineChart';
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
-                return preparedChartData[0].values[d].xLabel;
+                return findXLabel(preparedChartData[0].values,d);
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
                 return d;
@@ -980,15 +980,16 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             var y = null;
             var yLabel = null;
             $log.debug(dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name]);
-            if (dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name] ){
+            $log.debug(index);
+            if (dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name]) {
                 x = index;
                 xLabel = dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value;
             }
-            if (dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name] ){
+            if (dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name]) {
                 y = index;
-                yLabel = dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name].value ;
+                yLabel = dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name].value;
             }
-            return{
+            return {
                 x: x,
                 xLabel: xLabel,
                 y: y,
@@ -996,11 +997,27 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             }
         }
 
+        function getDomainXDuplication(values, valuesElement) {
+            $log.debug('findByDomainX');
+            for (var i = 0; i < values.length; i++) {
+                if (values[i].xLabel === valuesElement.xLabel) {
+                    return valuesElement;
+                }
+            }
+            return null;
+        }
+
+        function domainIsNotDuplicated(values, valuesElement) {
+            $log.debug('findByDomainX(values, valuesElement): ' + getDomainXDuplication(values, valuesElement));
+            $log.debug('domainIsNotDuplicated');
+            return (getDomainXDuplication(values, valuesElement) === null);
+        }
+
         function getValues(data, dataSetSeriesElement, dataSetChart) {
             var values = [];
             data.forEach(function (dataElement, iterator) {
                 var valuesElement = getPointData(dataElement, dataSetSeriesElement, iterator, dataSetChart);
-                if (valuesElement != null) {
+                if (valuesElement != null && domainIsNotDuplicated(values, valuesElement)) {
                     values.push(valuesElement);
                 }
             });
