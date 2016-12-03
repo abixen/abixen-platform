@@ -1,17 +1,17 @@
 <div class="row module-navigation-row">
     <div class="col-xs-12 module-navigation-col">
-        <button type="button" ui-sref="application.pages.edit({id:selectedEntityId})"
-                ng-disabled="!editButtonEnabled" class="btn btn-default pull-left"><i
+        <button type="button" ui-sref="application.pages.edit({id:pageList.listGridConfig.selectedEntity.id})"
+                ng-disabled="!pageList.listGridConfig.selectedEntity" class="btn btn-default pull-left"><i
                 class="fa fa-pencil-square-o"></i>
             Edit Page
         </button>
         <span class="buttons-separator"></span>
-        <button type="button" ui-sref="application.pages.permissions({id:selectedEntityId})"
-                ng-disabled="!editButtonEnabled" class="btn btn-default pull-left"><i class="fa fa-key"></i>
+        <button type="button" ui-sref="application.pages.permissions({id:pageList.listGridConfig.selectedEntity.id})"
+                ng-disabled="!pageList.listGridConfig.selectedEntity" class="btn btn-default pull-left"><i class="fa fa-key"></i>
             Permissions
         </button>
         <span class="buttons-separator"></span>
-        <button type="button" ng-click="delete()" ng-disabled="!deleteButtonEnabled"
+        <button type="button" ng-click="pageList.deleteEntity(pageList.listGridConfig.selectedEntity)" ng-disabled="!pageList.listGridConfig.selectedEntity"
                 class="btn btn-warning pull-left">
             <i class="fa fa-trash-o"></i> Delete Page
         </button>
@@ -19,8 +19,6 @@
 </div>
 <div class="row grid-row">
     <div class="col-xs-12">
-        <!--ui-sref="editMovie({id:movie._id})"-->
-        <div id="pageListGridId" ui-grid="entityListGrid" ui-grid-exporter ui-grid-selection ui-grid-pinning
-             ui-grid-resize-columns ui-grid-move-columns ui-grid-auto-resize class="grid"></div>
+        <platform-list-grid class="default-platform-list-grid" list-grid-config="pageList.listGridConfig"></platform-list-grid>
     </div>
 </div>

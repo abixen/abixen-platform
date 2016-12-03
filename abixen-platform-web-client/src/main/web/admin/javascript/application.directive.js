@@ -5,7 +5,11 @@
         .module('platformAdminApplication')
         .directive('dynamicName', dynamicNameDirective);
 
-    function dynamicNameDirective() {
+    dynamicNameDirective.$inject = [
+        '$compile'
+    ];
+
+    function dynamicNameDirective($compile) {
 
         return {
             restrict: 'A',
