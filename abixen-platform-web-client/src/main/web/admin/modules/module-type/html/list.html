@@ -1,17 +1,16 @@
 <div class="row module-navigation-row">
     <div class="col-xs-12 module-navigation-col">
-        <button type="button" ng-click="reloadAll()"
+        <button type="button" ng-click="moduleTypeList.reloadAll()"
                 class="btn btn-warning pull-left">Reload all services configuration
         </button>
         <span class="buttons-separator"></span>
-        <button type="button" ng-click="reload()" ng-disabled="!editButtonEnabled"
+        <button type="button" ng-click="moduleTypeList.reload()" ng-disabled="!moduleTypeList.listGridConfig.selectedEntity"
                 class="btn btn-warning pull-left">Reload module configuration
         </button>
     </div>
 </div>
 <div class="row grid-row">
     <div class="col-xs-12">
-        <div id="pageListGridId" ui-grid="entityListGrid" ui-grid-exporter ui-grid-selection ui-grid-pinning
-             ui-grid-resize-columns ui-grid-move-columns ui-grid-auto-resize class="grid"></div>
+        <platform-list-grid class="default-platform-list-grid" list-grid-config="moduleTypeList.listGridConfig"></platform-list-grid>
     </div>
 </div>
