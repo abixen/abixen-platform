@@ -3,9 +3,10 @@
         <div class="col-md-4">
             <div class="bs-example" data-example-id="simple-nav-stacked">
                 <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
-                    <li ng-repeat="permissionCategory in uniquePermissionCategories"
-                        ng-class="{active: permissionCategory==selectedPermissionCategory}"
-                        ng-click="setSelectedPermissionCategory(permissionCategory)" role="presentation">
+                    <li ng-repeat="permissionCategory in roleDefinePermissions.uniquePermissionCategories"
+                        ng-class="{active: permissionCategory===roleDefinePermissions.selectedPermissionCategory}"
+                        ng-click="roleDefinePermissions.setSelectedPermissionCategory(permissionCategory)"
+                        role="presentation">
                         <a href="">{{permissionCategory}}</a>
                     </li>
                 </ul>
@@ -24,8 +25,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="rp in rolePermission.rolePermissions"
-                            ng-show="selectedPermissionCategory==rp.permission.permissionAclClassCategory.title || selectedPermissionCategory=='ALL'">
+                        <tr ng-repeat="rp in roleDefinePermissions.rolePermission.rolePermissions"
+                            ng-show="roleDefinePermissions.selectedPermissionCategory===rp.permission.permissionAclClassCategory.title || roleDefinePermissions.selectedPermissionCategory==='ALL'">
                             <td><input type="checkbox" ng-model="rp.selected"/></td>
                             <td>{{rp.permission.title}}</td>
                             <td>{{rp.permission.description}}</td>
@@ -34,11 +35,10 @@
                     </table>
                 </div>
 
-
                 <div class="form-group last bottom-navigation">
                     <div class="col-sm-offset-3 col-sm-9">
                         <a type="submit" class="btn save-button" ng-disabled="entityForm.$invalid"
-                                ng-click="saveForm()">
+                           ng-click="roleDefinePermissions.saveForm()">
                             <i class="fa fa-floppy-o"></i>
                             <span> Save</span>
                         </a>

@@ -1,21 +1,20 @@
 <div class="row module-navigation-row">
     <div class="col-xs-12 module-navigation-col">
-        <button type="button" ui-sref="application.roles.edit({id:selectedEntityId})"
-                ng-disabled="!editButtonEnabled" class="btn btn-default pull-left">Edit Role
+        <button type="button" ui-sref="application.roles.edit({id:roleList.listGridConfig.selectedEntity.id})"
+                ng-disabled="!roleList.listGridConfig.selectedEntity" class="btn btn-default pull-left">Edit Role
         </button>
         <span class="buttons-separator"></span>
-        <button type="button" ng-click="delete()" ng-disabled="!deleteButtonEnabled"
+        <button type="button" ng-click="roleList.deleteEntity(roleList.listGridConfig.selectedEntity)" ng-disabled="!roleList.listGridConfig.selectedEntity"
                 class="btn btn-warning pull-left">Delete Role
         </button>
         <span class="buttons-separator"></span>
-        <button type="button" ui-sref="application.roles.permissions({id:selectedEntityId})"
-                ng-disabled="!deleteButtonEnabled" class="btn btn-default pull-left">Define Permissions
+        <button type="button" ui-sref="application.roles.permissions({id:roleList.listGridConfig.selectedEntity.id})"
+                ng-disabled="!roleList.listGridConfig.selectedEntity" class="btn btn-default pull-left">Define Permissions
         </button>
     </div>
 </div>
 <div class="row grid-row">
     <div class="col-xs-12">
-        <div id="roleListGridId" ui-grid="entityListGrid" ui-grid-exporter ui-grid-selection ui-grid-pinning
-             ui-grid-resize-columns ui-grid-move-columns ui-grid-auto-resize class="grid"></div>
+        <platform-list-grid class="default-platform-list-grid" list-grid-config="roleList.listGridConfig"></platform-list-grid>
     </div>
 </div>
