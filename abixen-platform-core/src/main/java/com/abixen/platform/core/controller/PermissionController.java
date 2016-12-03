@@ -23,7 +23,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -39,10 +38,10 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<Permission> getPermissions(@PageableDefault(size = 1, page = 0) Pageable pageable, @RequestParam("jsonCriteria") String jsonCriteria) throws IOException, NoSuchFieldException {
+    public Page<Permission> getPermissions(@PageableDefault(size = 1, page = 0) Pageable pageable) throws IOException, NoSuchFieldException {
         log.debug("getPermissions()");
 
-        Page<Permission> permissions = permissionService.findAllPermissions(pageable, jsonCriteria);
+        Page<Permission> permissions = permissionService.findAllPermissions(pageable, null);
         for (Permission permission : permissions) {
             log.debug("permission: " + permission);
         }

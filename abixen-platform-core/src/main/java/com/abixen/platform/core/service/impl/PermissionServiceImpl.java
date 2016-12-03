@@ -39,7 +39,9 @@ public class PermissionServiceImpl implements PermissionService {
     public Page<Permission> findAllPermissions(Pageable pageable, String jsonCriteria) throws NoSuchFieldException {
         log.debug("findAllPermissions() - pageable: " + pageable + ", jsonCriteria: " + jsonCriteria);
 
-        return permissionRepository.findAllByJsonCriteria(jsonCriteria, pageable);
+        //TODO
+        //return permissionRepository.findAllByJsonCriteria(jsonCriteria, pageable);
+        return permissionRepository.findAll(pageable);
     }
 
     @Override
