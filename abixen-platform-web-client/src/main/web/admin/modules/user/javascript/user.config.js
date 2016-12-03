@@ -20,7 +20,8 @@
             .state('application.users.list', {
                 url: '/list',
                 templateUrl: '/admin/modules/user/html/list.html',
-                controller: 'UserListController'
+                controller: 'UserListController',
+                controllerAs: 'userList'
             })
             .state('application.users.add', {
                 url: '/add',

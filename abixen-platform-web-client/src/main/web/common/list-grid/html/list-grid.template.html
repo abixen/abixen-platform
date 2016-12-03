@@ -1,0 +1,30 @@
+<div class="row"
+     id="{{listGrid.name}}Id">
+    <div class="col-xs-12">
+        <span ng-if="listGrid.existsAndNotEmpty(listGrid.title)">{{listGrid.title | translate}}</span>
+        <div class="list-grid"
+             ui-grid="listGrid.listGrid"
+             ui-grid-selection
+             ui-grid-pinning
+             ui-grid-resize-columns
+             ui-grid-auto-resize
+             ui-grid-move-columns
+             ui-grid-exporter>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <span>Total records: {{listGrid.listGridConfig.totalElements}}</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <a class="btn load-more-button"
+           ng-if="!listGrid.loadAllRecords"
+           ng-click="listGrid.loadMore(false)"
+           ng-disabled="listGrid.listGridConfig.lastPage">
+            <i class="fa fa-angle-double-right"></i><span>&nbsp;Load more</span>
+        </a>
+    </div>
+</div>

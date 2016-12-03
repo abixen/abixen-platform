@@ -14,6 +14,7 @@
             'platformModuleTypeModule',
             'multiVisualizationModule',
             'platformCommonModule',
+            'platformListGridModule',
             'pascalprecht.translate',
             'ui.bootstrap',
             'ui.router',
