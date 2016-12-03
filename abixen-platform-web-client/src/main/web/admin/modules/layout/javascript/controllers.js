@@ -71,6 +71,20 @@ layoutControllers.controller('LayoutDetailController', ['$scope', '$http', '$sta
         matchBrackets: true
     });
     $scope.get($stateParams.id);
+
+    $scope.$watch('entity', function () {
+
+        if ($scope.entity != null) {
+            $scope.editor.getDoc().setValue($scope.entity.content);
+            if ($scope.entity.iconFileName === null) {
+                entity.iconFileName = 'default-layout-icon.png';
+            }
+        }
+    });
+
+    $scope.isUploadLayoutIcon = function () {
+        return $state.current.name === 'application.layouts.edit'
+    };
 }]);
 
 layoutControllers.controller('LayoutPermissionsController', ['$scope', '$stateParams', '$log', '$state', 'AclRolesPermissions', function ($scope, $stateParams, $log, $state, AclRolesPermissions) {
