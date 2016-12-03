@@ -24,7 +24,7 @@
 
     function AclRolesPermissions($resource) {
 
-        return $resource('/api/admin/pages/:id', {}, {
+        return $resource('api/admin/acls', {}, {
             query: {method: 'GET', isArray: false},
             update: {method: 'PUT'}
         });
