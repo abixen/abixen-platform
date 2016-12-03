@@ -1,6 +1,6 @@
 var platformChartModuleControllers = angular.module('platformChartModuleControllers', []);
 
-platformChartModuleControllers.controller('ChartModuleInitController', ['$scope', '$http', '$log', 'ChartModuleInit', function ($scope, $http, $log, ChartModuleInit) {
+platformChartModuleControllers.controller('ChartModuleInitController', ['$scope', '$http', '$log', 'ChartModuleInit', 'CharDataPreview', function ($scope, $http, $log, ChartModuleInit, CharDataPreview) {
     $log.log('ChartModuleInitController');
 
     $scope.moduleId = null;
@@ -55,12 +55,15 @@ platformChartModuleControllers.controller('ChartModuleInitController', ['$scope'
     $scope.$emit(platformParameters.events.MODULE_READY);
 }]);
 
-platformChartModuleControllers.controller('ChartModuleConfigurationWizardController', ['$scope', '$http', '$log', 'ApplicationDatabaseDataSource', 'ChartModuleConfiguration', function ($scope, $http, $log, ApplicationDatabaseDataSource, ChartModuleConfiguration) {
+platformChartModuleControllers.controller('ChartModuleConfigurationWizardController', ['$scope', '$http', '$log', 'ApplicationDatabaseDataSource', 'ChartModuleConfiguration', 'CharDataPreview', function ($scope, $http, $log, ApplicationDatabaseDataSource, ChartModuleConfiguration, CharDataPreview) {
     $log.log('ChartModuleConfigurationWizardController');
     $scope.stepCurrent = 0;
     $scope.stepMax = 3;
 
-    $scope.chartConfiguration = {};
+    $scope.chartConfiguration = {
+        axisXName: null,
+        axisYName: null
+    };
 
     var getChartConfiguration = function (moduleId) {
         if (moduleId) {
@@ -376,16 +379,27 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
              }*/
         };
 
+        $scope.reloadPreviewData = function () {
+            $scope.moduleConfigurationWizardStep.getSeriesData();
+        };
+
         $scope.moduleConfigurationWizardStep.getSeriesData = function () {
             $scope.moduleConfigurationWizardStep.chart.seriesPreviewData = [];
-            $scope.moduleConfigurationWizardStep.chart.seriesPreviewData.push({x: 1, y: 2});
-            $scope.moduleConfigurationWizardStep.chart.seriesPreviewData.push({x: 2, y: 7});
-            $scope.moduleConfigurationWizardStep.chart.seriesPreviewData.push({x: 4, y: 2});
-            $scope.moduleConfigurationWizardStep.chart.seriesPreviewData.push({x: 5, y: 4});
-            $scope.moduleConfigurationWizardStep.chart.seriesPreviewData.push({x: 6, y: 2});
-            $scope.moduleConfigurationWizardStep.chart.seriesPreviewData.push({x: 7, y: 22});
-            //todo more
-        }
+            if ($scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name != undefined && $scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== '') {
+                CharDataPreview.query({seriesName: $scope.dataSetSeriesSelected.name}, $scope.chartConfiguration, function (data) {
+                    $log.log('CharDataPreview.query: ', data);
+                    data.forEach(function (el) {
+                        $scope.moduleConfigurationWizardStep.chart.seriesPreviewData.push({
+                            x: el[$scope.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value,
+                            y: el[$scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name].value
+                        });
+                    })
+
+                }, function (error) {
+
+                });
+            }
+        };
 
         //table
 
