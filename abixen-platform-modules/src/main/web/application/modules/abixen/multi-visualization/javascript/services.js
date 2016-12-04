@@ -1123,6 +1123,44 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
 
     };
 
+    var multiColumnChartAdapter = function () {
+        var buildChartOptions = function (configurationData, preparedChartData) {
+            $log.debug('buildChartOptions for multiColumnChartAdapter started');
+            var chartConfig = getDefaultChartConfig();
+            chartConfig.chart.type = 'multiBarChart';
+            chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
+            chartConfig.chart.xAxis.tickFormat = function (d) {
+                return findXLabel(preparedChartData[0].values,d);
+            };
+            chartConfig.chart.yAxis.tickFormat = function (d) {
+                return d;
+            };
+            chartConfig.chart.yAxis.axisLabel = configurationData.axisYName;
+            $log.debug('buildChartOptions for multiColumnChartAdapter ended');
+            return chartConfig;
+        };
+
+        function buildChartData(configurationData, data) {
+            $log.debug('buildChartData for multiColumnChartAdapter started');
+            var series = [];
+            configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
+                $log.debug("dataSetSeriesElement: ", dataSetSeriesElement);
+                series.push({
+                    values: getValues(data, dataSetSeriesElement, configurationData.dataSetChart),
+                    key: dataSetSeriesElement.name
+                });
+            });
+            $log.debug("series: ", series);
+            $log.debug('buildChartData for multiColumnChartAdapter ended');
+            return series;
+        }
+
+        return {
+            buildChartOptions: buildChartOptions,
+            buildChartData: buildChartData
+        }
+    };
+
 
     var convertToChart = function (configurationData, rawData, adapter) {
         $log.debug('convertToChart started');
@@ -1149,6 +1187,9 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
         if (chartType === 'MULTI_BAR' || chartType === 'MULTI_BAR_TABLE') {
             chartParams = convertToChart(configurationData, data, multiBarChartAdapter());
+        }
+        if (chartType === 'MULTI_COLUMN' || chartType === 'MULTI_COLUMN_TABLE') {
+            chartParams = convertToChart(configurationData, data, multiColumnChartAdapter());
         }
 
         return chartParams;
