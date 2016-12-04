@@ -955,15 +955,65 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
     };
 
-    var lineChartAdapter = function () {
+    function getPointData(dataElement, dataSetSeriesElement, index, dataSetChart) {
+        var x = null;
+        var xLabel = null;
+        var y = null;
+        var yLabel = null;
+        $log.debug(dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name]);
+        $log.debug(index);
+        if (dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name]) {
+            x = index;
+            xLabel = dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value;
+        }
+        if (dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name]) {
+            y = index;
+            yLabel = dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name].value;
+        }
+        return {
+            x: x,
+            xLabel: xLabel,
+            y: y,
+            yLabel: yLabel
+        }
+    }
 
-        function findXLabel(values, x) {
-            for (var i = 0; i < values.length; i++) {
-                if (values[i].x === x) {
-                    return values[i].xLabel;
-                }
+    function findXLabel(values, x) {
+        for (var i = 0; i < values.length; i++) {
+            if (values[i].x === x) {
+                return values[i].xLabel;
             }
         }
+    }
+
+    function getDomainXDuplication(values, valuesElement) {
+        $log.debug('findByDomainX');
+        for (var i = 0; i < values.length; i++) {
+            if (values[i].xLabel === valuesElement.xLabel) {
+                return valuesElement;
+            }
+        }
+        return null;
+    }
+
+    function domainIsNotDuplicated(values, valuesElement) {
+        $log.debug('findByDomainX(values, valuesElement): ' + getDomainXDuplication(values, valuesElement));
+        $log.debug('domainIsNotDuplicated');
+        return (getDomainXDuplication(values, valuesElement) === null);
+    }
+
+    function getValues(data, dataSetSeriesElement, dataSetChart) {
+        var values = [];
+        data.forEach(function (dataElement, iterator) {
+            var valuesElement = getPointData(dataElement, dataSetSeriesElement, iterator, dataSetChart);
+            if (valuesElement != null && domainIsNotDuplicated(values, valuesElement)) {
+                values.push(valuesElement);
+            }
+        });
+        return values;
+    }
+
+    var lineChartAdapter = function () {
 
         var buildChartOptions = function (configurationData, preparedChartData) {
             $log.debug('buildChartOptions for lineChartAdapter started');
@@ -980,56 +1030,6 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             $log.debug('buildChartOptions for lineChartAdapter ended');
             return chartConfig;
         };
-
-        function getPointData(dataElement, dataSetSeriesElement, index, dataSetChart) {
-            var x = null;
-            var xLabel = null;
-            var y = null;
-            var yLabel = null;
-            $log.debug(dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name]);
-            $log.debug(index);
-            if (dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name]) {
-                x = index;
-                xLabel = dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value;
-            }
-            if (dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name]) {
-                y = index;
-                yLabel = dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name].value;
-            }
-            return {
-                x: x,
-                xLabel: xLabel,
-                y: y,
-                yLabel: yLabel
-            }
-        }
-
-        function getDomainXDuplication(values, valuesElement) {
-            $log.debug('findByDomainX');
-            for (var i = 0; i < values.length; i++) {
-                if (values[i].xLabel === valuesElement.xLabel) {
-                    return valuesElement;
-                }
-            }
-            return null;
-        }
-
-        function domainIsNotDuplicated(values, valuesElement) {
-            $log.debug('findByDomainX(values, valuesElement): ' + getDomainXDuplication(values, valuesElement));
-            $log.debug('domainIsNotDuplicated');
-            return (getDomainXDuplication(values, valuesElement) === null);
-        }
-
-        function getValues(data, dataSetSeriesElement, dataSetChart) {
-            var values = [];
-            data.forEach(function (dataElement, iterator) {
-                var valuesElement = getPointData(dataElement, dataSetSeriesElement, iterator, dataSetChart);
-                if (valuesElement != null && domainIsNotDuplicated(values, valuesElement)) {
-                    values.push(valuesElement);
-                }
-            });
-            return values;
-        }
 
         function buildChartData(configurationData, data) {
             $log.debug('buildChartData for lineChartAdapter started');
@@ -1052,6 +1052,36 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
     };
 
+    var pieChartAdapter = function () {
+
+        var buildChartOptions = function (configurationData, preparedChartData) {
+            $log.debug('buildChartOptions for pieChartAdapter started');
+            var chartConfig = getDefaultChartConfig();
+            chartConfig.chart.type = 'pieChart';
+            chartConfig.chart.x = function (d) {
+                return d.xLabel
+            };
+            $log.debug('buildChartOptions for pieChartAdapter ended');
+            return chartConfig;
+        };
+
+        function buildChartData(configurationData, data) {
+            $log.debug('buildChartData for pieChartAdapter started');
+            var preparedData = [];
+            configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
+                $log.debug("dataSetSeriesElement: ", dataSetSeriesElement);
+                preparedData = getValues(data, dataSetSeriesElement, configurationData.dataSetChart);
+            });
+            $log.debug("preparedData: ", preparedData);
+            $log.debug('buildChartData for pieChartAdapter ended');
+            return preparedData;
+        }
+
+        return {
+            buildChartOptions: buildChartOptions,
+            buildChartData: buildChartData
+        }
+    };
 
     var convertToChart = function (configurationData, rawData, adapter) {
         $log.debug('convertToChart started');
@@ -1072,6 +1102,9 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
 
         if (chartType === 'LINE' || chartType === 'LINE_TABLE') {
             chartParams = convertToChart(configurationData, data, lineChartAdapter());
+        }
+        if (chartType === 'PIE' || chartType === 'PIE_TABLE') {
+            chartParams = convertToChart(configurationData, data, pieChartAdapter());
         }
         return chartParams;
     };
