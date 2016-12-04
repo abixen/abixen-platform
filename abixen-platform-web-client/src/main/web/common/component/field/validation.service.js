@@ -13,11 +13,25 @@
  */
 
 (function () {
-
     'use strict';
 
     angular
-        .module('platformComponent', [
-            'platformField'
-        ]);
+        .module('field')
+        .service('validation', validation);
+
+    validation.$inject = ['$parse'];
+    function validation($parse) {
+        this.setValid = setValid;
+        this.setInvalid = setInvalid;
+
+        function setValid(field, errorName) {
+            field.$setValidity(errorName, true);
+        }
+
+        function setInvalid(scope, form, fieldName, errorName, errorMessage) {
+            var message = $parse(form.$name + '.' + fieldName + '.$error.' + errorName);
+            form[fieldName].$setValidity(errorName, false);
+            message.assign(scope, errorMessage);
+        }
+    }
 })();

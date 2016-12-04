@@ -1,0 +1,39 @@
+<div class="form-group"
+     show-errors>
+    <label for="{{inputText.name}}Input"
+           class="control-label">{{inputText.label}}</label>
+    <input ng-model="inputText.model"
+           type="{{inputText.type}}"
+           name="{{inputText.name}}"
+           class="form-control"
+           id="{{inputText.name}}Input"
+           placeholder="{{inputText.placeholder}}"
+           ng-required="inputText.fieldValidators.notNull"
+           ng-minlength="inputText.fieldValidators.size.min"
+           ng-maxlength="inputText.fieldValidators.size.max"
+           confirm-field="{{inputText.fieldValidators.confirmField.fieldToCheck}}">
+
+    <p class="help-block"
+       ng-if="form[inputText.name].$error.minlength && !form[inputText.name].$pristine">
+        {{ 'application.validator.invalid.minlength' | translate:{min: inputText.fieldValidators.size.min, label: inputText.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputText.name].$error.maxlength && !form[inputText.name].$pristine">
+        {{ 'application.validator.invalid.maxlength' | translate:{max: inputText.fieldValidators.size.max, label: inputText.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputText.name].$error.email && !form[inputText.name].$pristine">
+        {{ 'application.validator.invalid.email' | translate:{label: inputText.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputText.name].$error.required && !form[inputText.name].$pristine">
+        {{ 'application.validator.invalid.required' | translate:{label: inputText.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputText.name].$error.fieldMatch && !form[inputText.name].$pristine">
+        {{ inputText.fieldValidators.confirmField.errorMessageKey | translate }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputText.name].$error.serverMessage">
+        {{form[inputText.name].$error.serverMessage | translate}}</p>
+</div>
