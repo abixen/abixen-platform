@@ -30,6 +30,8 @@ import java.util.stream.IntStream;
 
 public class AbstractDatabaseService {
 
+    public static final int LIMIT = 10;
+
     public List<String> getColumns(Connection connection, String tableName) {
 
         List<String> columns = new ArrayList<>();
@@ -90,17 +92,7 @@ public class AbstractDatabaseService {
     }
 
     public List<Map<String, DataSourceValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm) {
-        List<Map<String, DataSourceValueWeb>> data = new ArrayList<>();
-        ResultSet rs;
-        Set<String> chartColumnsSet = new HashSet<>();
-
-        if (chartConfigurationForm.getDataSetChart().getDomainXSeriesColumn() != null) {
-            chartColumnsSet.add(chartConfigurationForm.getDataSetChart().getDomainXSeriesColumn().getDataSourceColumn().getName());
-        }
-
-        if (chartConfigurationForm.getDataSetChart().getDomainZSeriesColumn() != null) {
-            chartColumnsSet.add(chartConfigurationForm.getDataSetChart().getDomainZSeriesColumn().getDataSourceColumn().getName());
-        }
+        Set<String> chartColumnsSet = getDomainColumn(chartConfigurationForm);
 
         chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
             if (dataSetSeries.getValueSeriesColumn().getDataSourceColumn() != null) {
@@ -109,9 +101,41 @@ public class AbstractDatabaseService {
         });
 
         if (chartColumnsSet.isEmpty()) {
-            return data;
+            return new ArrayList<>();
+        }
+        return getData(connection, databaseDataSource, chartColumnsSet);
+    }
+
+    private Set<String> getDomainColumn(ChartConfigurationForm chartConfigurationForm) {
+        Set<String> chartColumnsSet = new HashSet<>();
+        if (chartConfigurationForm.getDataSetChart().getDomainXSeriesColumn() != null) {
+            chartColumnsSet.add(chartConfigurationForm.getDataSetChart().getDomainXSeriesColumn().getDataSourceColumn().getName());
         }
 
+        if (chartConfigurationForm.getDataSetChart().getDomainZSeriesColumn() != null) {
+            chartColumnsSet.add(chartConfigurationForm.getDataSetChart().getDomainZSeriesColumn().getDataSourceColumn().getName());
+        }
+        return chartColumnsSet;
+    }
+
+    public List<Map<String, DataSourceValueWeb>> getChartDataPreview(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+        Set<String> chartColumnsSet = getDomainColumn(chartConfigurationForm);
+
+        chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
+            if (dataSetSeries.getName().equals(seriesName)) {
+                chartColumnsSet.add(dataSetSeries.getValueSeriesColumn().getDataSourceColumn().getName());
+            }
+        });
+
+        if (chartColumnsSet.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return getData(connection, databaseDataSource, chartColumnsSet).subList(0, LIMIT);
+    }
+
+    private List<Map<String, DataSourceValueWeb>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet) {
+        ResultSet rs;
+        List<Map<String, DataSourceValueWeb>> data = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
             rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet));
@@ -130,7 +154,6 @@ public class AbstractDatabaseService {
             e.printStackTrace();
             throw new DataParsingException("Error when parsing data from db. " + e.getMessage());
         }
-
         return data;
     }
 

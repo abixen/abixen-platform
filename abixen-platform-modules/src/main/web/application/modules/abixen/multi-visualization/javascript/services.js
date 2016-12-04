@@ -26,6 +26,13 @@ platformChartModuleServices.factory('CharData', ['$resource',
         });
     }]);
 
+platformChartModuleServices.factory('CharDataPreview', ['$resource',
+    function ($resource) {
+        return $resource('/application/modules/abixen/multi-visualization/data-preview/:seriesName', {}, {
+            query: {method: 'POST', params: {seriesName: '@seriesName'}, isArray: true}
+        });
+    }]);
+
 platformChartModuleServices.provider("mockupData", function () {
 
     var getLineChart = function () {
@@ -927,7 +934,7 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
 
                 },
                 y: function (d) {
-                    return d.y;
+                    return d.yLabel;
                 },
                 xAxis: {
                     axisLabel: 'DefaultAxisLabel',

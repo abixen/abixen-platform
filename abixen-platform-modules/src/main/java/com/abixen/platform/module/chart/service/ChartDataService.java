@@ -25,4 +25,6 @@ public interface ChartDataService {
 
     List<Map<String, DataSourceValueWeb>> getChartData(ChartConfigurationForm chartConfigurationForm);
 
+    List<Map<String, DataSourceValueWeb>> getChartDataPreview(ChartConfigurationForm chartConfigurationForm, String seriesName);
+
 }
