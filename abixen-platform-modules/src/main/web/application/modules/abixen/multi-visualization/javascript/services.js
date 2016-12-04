@@ -949,7 +949,7 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
                     }
                 },
                 callback: function (chart) {
-                    console.log("!!! lineChart callback !!!");
+                    console.log('!!! lineChart callback !!!');
                 }
             }
         }
@@ -1035,13 +1035,13 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             $log.debug('buildChartData for lineChartAdapter started');
             var series = [];
             configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
-                $log.debug("dataSetSeriesElement: ", dataSetSeriesElement);
+                $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
                 series.push({
                     values: getValues(data, dataSetSeriesElement, configurationData.dataSetChart),
                     key: dataSetSeriesElement.name
                 });
             });
-            $log.debug("series: ", series);
+            $log.debug('series: ', series);
             $log.debug('buildChartData for lineChartAdapter ended');
             return series;
         }
@@ -1069,10 +1069,10 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             $log.debug('buildChartData for pieChartAdapter started');
             var preparedData = [];
             configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
-                $log.debug("dataSetSeriesElement: ", dataSetSeriesElement);
+                $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
                 preparedData = getValues(data, dataSetSeriesElement, configurationData.dataSetChart);
             });
-            $log.debug("preparedData: ", preparedData);
+            $log.debug('preparedData: ', preparedData);
             $log.debug('buildChartData for pieChartAdapter ended');
             return preparedData;
         }
@@ -1104,13 +1104,13 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             $log.debug('buildChartData for multiBarChartAdapter started');
             var series = [];
             configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
-                $log.debug("dataSetSeriesElement: ", dataSetSeriesElement);
+                $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
                 series.push({
                     values: getValues(data, dataSetSeriesElement, configurationData.dataSetChart),
                     key: dataSetSeriesElement.name
                 });
             });
-            $log.debug("series: ", series);
+            $log.debug('series: ', series);
             $log.debug('buildChartData for multiBarChartAdapter ended');
             return series;
         }
@@ -1144,13 +1144,13 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             $log.debug('buildChartData for multiColumnChartAdapter started');
             var series = [];
             configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
-                $log.debug("dataSetSeriesElement: ", dataSetSeriesElement);
+                $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
                 series.push({
                     values: getValues(data, dataSetSeriesElement, configurationData.dataSetChart),
                     key: dataSetSeriesElement.name
                 });
             });
-            $log.debug("series: ", series);
+            $log.debug('series: ', series);
             $log.debug('buildChartData for multiColumnChartAdapter ended');
             return series;
         }
@@ -1161,6 +1161,43 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
     };
 
+    var stackedAreaChartAdapter = function () {
+        var buildChartOptions = function (configurationData, preparedChartData) {
+            $log.debug('buildChartOptions for stackedAreaChartAdapter started');
+            var chartConfig = getDefaultChartConfig();
+            chartConfig.chart.type = 'stackedAreaChart';
+            chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
+            chartConfig.chart.xAxis.tickFormat = function (d) {
+                return findXLabel(preparedChartData[0].values,d);
+            };
+            chartConfig.chart.yAxis.tickFormat = function (d) {
+                return d;
+            };
+            chartConfig.chart.yAxis.axisLabel = configurationData.axisYName;
+            $log.debug('buildChartOptions for stackedAreaChartAdapter ended');
+            return chartConfig;
+        };
+
+        function buildChartData(configurationData, data) {
+            $log.debug('buildChartData for stackedAreaChartAdapter started');
+            var series = [];
+            configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
+                $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
+                series.push({
+                    values: getValues(data, dataSetSeriesElement, configurationData.dataSetChart),
+                    key: dataSetSeriesElement.name
+                });
+            });
+            $log.debug('series: ', series);
+            $log.debug('buildChartData for stackedAreaChartAdapter ended');
+            return series;
+        }
+
+        return {
+            buildChartOptions: buildChartOptions,
+            buildChartData: buildChartData
+        }
+    };
 
     var convertToChart = function (configurationData, rawData, adapter) {
         $log.debug('convertToChart started');
@@ -1190,6 +1227,9 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
         if (chartType === 'MULTI_COLUMN' || chartType === 'MULTI_COLUMN_TABLE') {
             chartParams = convertToChart(configurationData, data, multiColumnChartAdapter());
+        }
+        if (chartType === 'STACKED_AREA' || chartType === 'STACKED_AREA_TABLE') {
+            chartParams = convertToChart(configurationData, data, stackedAreaChartAdapter());
         }
 
         return chartParams;
