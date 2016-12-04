@@ -28,9 +28,9 @@ import java.util.Date;
 import java.util.stream.IntStream;
 
 
-public class AbstractDatabaseService {
+public abstract class AbstractDatabaseService {
 
-    public static final int LIMIT = 10;
+    private static final int LIMIT = 6;
 
     public List<String> getColumns(Connection connection, String tableName) {
 
