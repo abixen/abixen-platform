@@ -108,21 +108,13 @@
 
 .wizard-chart-configuration, .wizard-table-configuration {
   height: 450px;
-  .wizard-chart-configuration-header {
-    background-color: $complementary-background-color;
-    padding-bottom: 5px;
-    border-bottom: 1px solid $wizard-border-color-lighter;
-    .row > div {
-      margin-bottom: 0px;
-    }
 
-    label {
-      > span {
-        margin-left: 3px;
-      }
-      margin-top: 6px;
-      margin-left: 3px;
-    }
+  .no-padding{
+    padding: 0;
+  }
+
+  .no-margin{
+    margin: 0;
   }
 
   .form-control {
@@ -137,10 +129,19 @@
   }
 
   .wizard-chart-configuration-content, .wizard-table-configuration-content {
-    .wizard-datasource-label-col {
-      padding-left: 15px;
-      padding-right: 1px;
+    label{
+      display: block;
     }
+
+    .axis-x-filter > div {
+      padding-left: 2px;
+      padding-bottom: 5px;
+    }
+
+    .axis-x-filter > div:first-child {
+      margin-bottom: 20px;
+    }
+
     .wizard-datasource-label {
       margin-top: 7px;
       margin-left: 0px;
@@ -149,13 +150,14 @@
 
     }
     padding-top: 15px;
-    background: $background-color;
+    background: $complementary-background-color;
   }
   .wizard-chart-configuration-content-series, .wizard-table-configuration-content-columns {
 
     overflow-y: auto;
-    margin-top: 0px;
-    margin-right: 15px;
+    margin-top: 10px;
+    margin-right: 0;
+    margin-left: 3px;
     .list-group-item {
       padding: 7px 10px;
     }
@@ -166,7 +168,6 @@
     }
   }
   .wizard-chart-configuration-content-series {
-    height: 335px;
     i {
       margin-top: 3px;
       color: $error-color;
