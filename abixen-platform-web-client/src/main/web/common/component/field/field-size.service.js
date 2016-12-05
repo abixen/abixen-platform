@@ -16,7 +16,7 @@
     'use strict';
 
     angular
-        .module('field')
+        .module('platformField')
         .service('fieldSize', fieldSize);
 
     function fieldSize() {

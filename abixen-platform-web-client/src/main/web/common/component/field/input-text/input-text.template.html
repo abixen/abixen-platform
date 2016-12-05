@@ -11,7 +11,7 @@
            ng-required="inputText.fieldValidators.notNull"
            ng-minlength="inputText.fieldValidators.size.min"
            ng-maxlength="inputText.fieldValidators.size.max"
-           confirm-field="{{inputText.fieldValidators.confirmField.fieldToCheck}}">
+           confirm-field="{{inputText.fieldValidators.confirmField.fieldToCheck}}"/>
 
     <p class="help-block"
        ng-if="form[inputText.name].$error.minlength && !form[inputText.name].$pristine">

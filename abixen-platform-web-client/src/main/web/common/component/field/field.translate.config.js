@@ -16,7 +16,7 @@
     'use strict';
 
     angular
-        .module('field')
+        .module('platformField')
         .config(fieldTranslateConfig);
 
     fieldTranslateConfig.$inject = ['$translateProvider'];

@@ -16,7 +16,7 @@
     'use strict';
 
     angular
-        .module('field')
+        .module('platformField')
         .service('validation', validation);
 
     validation.$inject = ['$parse'];
