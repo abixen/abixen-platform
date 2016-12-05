@@ -1199,6 +1199,38 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
     };
 
+    var donutChartAdapter = function () {
+
+        var buildChartOptions = function (configurationData, preparedChartData) {
+            $log.debug('buildChartOptions for donutChartAdapter started');
+            var chartConfig = getDefaultChartConfig();
+            chartConfig.chart.type = 'pieChart';
+            chartConfig.chart.x = function (d) {
+                return d.xLabel
+            };
+            chartConfig.chart.donut = true;
+            $log.debug('buildChartOptions for donutChartAdapter ended');
+            return chartConfig;
+        };
+
+        function buildChartData(configurationData, data) {
+            $log.debug('buildChartData for donutChartAdapter started');
+            var preparedData = [];
+            configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
+                $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
+                preparedData = getValues(data, dataSetSeriesElement, configurationData.dataSetChart);
+            });
+            $log.debug('preparedData: ', preparedData);
+            $log.debug('buildChartData for donutChartAdapter ended');
+            return preparedData;
+        }
+
+        return {
+            buildChartOptions: buildChartOptions,
+            buildChartData: buildChartData
+        }
+    };
+
     var convertToChart = function (configurationData, rawData, adapter) {
         $log.debug('convertToChart started');
         var chartData = adapter.buildChartData(configurationData, rawData);
@@ -1230,6 +1262,9 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
         if (chartType === 'STACKED_AREA' || chartType === 'STACKED_AREA_TABLE') {
             chartParams = convertToChart(configurationData, data, stackedAreaChartAdapter());
+        }
+        if (chartType === 'DONUT' || chartType === 'DONUT_TABLE') {
+            chartParams = convertToChart(configurationData, data, donutChartAdapter());
         }
 
         return chartParams;
