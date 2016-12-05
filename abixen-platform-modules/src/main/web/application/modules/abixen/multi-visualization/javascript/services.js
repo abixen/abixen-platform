@@ -1231,6 +1231,46 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
     };
 
+    var discreteColumnChartAdapter = function () {
+        var buildChartOptions = function (configurationData, preparedChartData) {
+            $log.debug('buildChartOptions for multiBarChartAdapter started');
+            var chartConfig = getDefaultChartConfig();
+            chartConfig.chart.type = 'discreteBarChart';
+            chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
+            chartConfig.chart.xAxis.tickFormat = function (d) {
+                return findXLabel(preparedChartData[0].values,d);
+            };
+            chartConfig.chart.yAxis.tickFormat = function (d) {
+                return d;
+            };
+            chartConfig.chart.yAxis.axisLabel = configurationData.axisYName;
+            $log.debug('buildChartOptions for multiBarChartAdapter ended');
+            return chartConfig;
+        };
+
+        function buildChartData(configurationData, data) {
+            $log.debug('buildChartData for multiBarChartAdapter started');
+            var series = [];
+            configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
+                $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
+                series.push({
+                    values: getValues(data, dataSetSeriesElement, configurationData.dataSetChart),
+                    key: dataSetSeriesElement.name
+                });
+            });
+            $log.debug('series: ', series);
+            $log.debug('buildChartData for multiBarChartAdapter ended');
+            return series;
+        }
+
+        return {
+            buildChartOptions: buildChartOptions,
+            buildChartData: buildChartData
+        }
+
+
+    };
+
     var convertToChart = function (configurationData, rawData, adapter) {
         $log.debug('convertToChart started');
         var chartData = adapter.buildChartData(configurationData, rawData);
@@ -1265,6 +1305,9 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
         if (chartType === 'DONUT' || chartType === 'DONUT_TABLE') {
             chartParams = convertToChart(configurationData, data, donutChartAdapter());
+        }
+        if (chartType === 'DISCRETE_COLUMN' || chartType === 'DISCRETE_COLUMN_TABLE') {
+            chartParams = convertToChart(configurationData, data, discreteColumnChartAdapter());
         }
 
         return chartParams;
