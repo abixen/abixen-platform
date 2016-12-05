@@ -955,6 +955,16 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
     };
 
+    function calcualteMean(data) {
+        var sum = 0;
+        for (var i = 0; i < data.length; i++) {
+            if (!isNaN(data.xLabel)) {
+                sum += data.xLabel;
+            }
+        }
+        return sum / data.length;
+    }
+
     function getPointData(dataElement, dataSetSeriesElement, index, dataSetChart) {
         var x = null;
         var xLabel = null;
@@ -1021,7 +1031,7 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             chartConfig.chart.type = 'lineChart';
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
-                return findXLabel(preparedChartData[0].values,d);
+                return findXLabel(preparedChartData[0].values, d);
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
                 return d;
@@ -1090,7 +1100,7 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             chartConfig.chart.type = 'multiBarHorizontalChart';
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
-                return findXLabel(preparedChartData[0].values,d);
+                return findXLabel(preparedChartData[0].values, d);
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
                 return d;
@@ -1130,7 +1140,7 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             chartConfig.chart.type = 'multiBarChart';
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
-                return findXLabel(preparedChartData[0].values,d);
+                return findXLabel(preparedChartData[0].values, d);
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
                 return d;
@@ -1168,7 +1178,7 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             chartConfig.chart.type = 'stackedAreaChart';
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
-                return findXLabel(preparedChartData[0].values,d);
+                return findXLabel(preparedChartData[0].values, d);
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
                 return d;
@@ -1238,7 +1248,7 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             chartConfig.chart.type = 'discreteBarChart';
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
-                return findXLabel(preparedChartData[0].values,d);
+                return findXLabel(preparedChartData[0].values, d);
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
                 return d;
@@ -1278,7 +1288,7 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             chartConfig.chart.type = 'historicalBarChart';
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
-                return findXLabel(preparedChartData[0].values,d);
+                return findXLabel(preparedChartData[0].values, d);
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
                 return d;
@@ -1308,6 +1318,51 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
             buildChartData: buildChartData
         }
     };
+
+    var cumulativeLineChartAdapter = function () {
+
+        var buildChartOptions = function (configurationData, preparedChartData) {
+            $log.debug('buildChartOptions for cumulativeLineChartAdapter started');
+            var chartConfig = getDefaultChartConfig();
+            chartConfig.chart.type = 'cumulativeLineChart';
+            chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
+            chartConfig.chart.average = function (d) {
+                return d.mean / 100;
+            };
+            chartConfig.chart.xAxis.tickFormat = function (d) {
+                return findXLabel(preparedChartData[0].values, d);
+            };
+            chartConfig.chart.yAxis.tickFormat = function (d) {
+                return d;
+            };
+            chartConfig.chart.yAxis.axisLabel = configurationData.axisYName;
+            $log.debug('buildChartOptions for cumulativeLineChartAdapter ended');
+            return chartConfig;
+        };
+
+        function buildChartData(configurationData, data) {
+            $log.debug('buildChartData for cumulativeLineChartAdapter started');
+            var series = [];
+            configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
+                $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
+                var values = getValues(data, dataSetSeriesElement, configurationData.dataSetChart);
+                series.push({
+                    values: values,
+                    mean: calcualteMean(values),
+                    key: dataSetSeriesElement.name
+                });
+            });
+            $log.debug('series: ', series);
+            $log.debug('buildChartData for cumulativeLineChartAdapter ended');
+            return series;
+        }
+
+        return {
+            buildChartOptions: buildChartOptions,
+            buildChartData: buildChartData
+        }
+    };
+
 
     var convertToChart = function (configurationData, rawData, adapter) {
         $log.debug('convertToChart started');
@@ -1349,6 +1404,9 @@ platformChartModuleServices.provider('dataChartAdapter', function ($logProvider,
         }
         if (chartType === 'HISTORICAL_COLUMN' || chartType === 'HISTORICAL_COLUMN_TABLE') {
             chartParams = convertToChart(configurationData, data, historicalColumnChartAdapter());
+        }
+        if (chartType === 'CUMULATIVE_LINE' || chartType === 'CUMULATIVE_LINE_TABLE') {
+            chartParams = convertToChart(configurationData, data, cumulativeLineChartAdapter());
         }
 
         return chartParams;
