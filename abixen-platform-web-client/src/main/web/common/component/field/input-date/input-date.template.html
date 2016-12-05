@@ -1,0 +1,50 @@
+<div class="form-group"
+     show-errors>
+    <label for="{{inputDate.name}}Input"
+           class="control-label">{{inputDate.label}}</label>
+    <div class="input-group">
+        <input ng-model="inputDate.model"
+               type="date"
+               name="{{inputDate.name}}"
+               class="form-control"
+               id="{{inputDate.name}}Input"
+               ng-required="inputDate.fieldValidators.notNull"
+               ng-minlength="inputDate.fieldValidators.size.min"
+               ng-maxlength="inputDate.fieldValidators.size.max"
+               confirm-field="{{inputDate.fieldValidators.confirmField.fieldToCheck}}"
+               uib-datepicker-popup
+               is-open="inputDate.calendarStatus.opened"
+               close-text="Close"/>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="inputDate.openCalendar($event)">
+                <i class="fa fa-calendar"></i>
+            </button>
+        </span>
+    </div>
+
+    <p class="help-block"
+       ng-if="form[inputDate.name].$error.minlength && !form[inputDate.name].$pristine">
+        {{ 'application.validator.invalid.minlength' | translate:{min: inputDate.fieldValidators.size.min, label:
+        inputDate.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputDate.name].$error.maxlength && !form[inputDate.name].$pristine">
+        {{ 'application.validator.invalid.maxlength' | translate:{max: inputDate.fieldValidators.size.max, label:
+        inputDate.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputDate.name].$error.email && !form[inputDate.name].$pristine">
+        {{ 'application.validator.invalid.email' | translate:{label: inputDate.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputDate.name].$error.required && !form[inputDate.name].$pristine">
+        {{ 'application.validator.invalid.required' | translate:{label: inputDate.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputDate.name].$error.fieldMatch && !form[inputDate.name].$pristine">
+        {{ inputDate.fieldValidators.confirmField.errorMessageKey | translate }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputDate.name].$error.serverMessage">
+        {{form[inputDate.name].$error.serverMessage | translate}}</p>
+</div>
