@@ -1,0 +1,23 @@
+<div class="form-group" show-errors>
+    <label for="{{inputDropDown.name}}Input"
+           class="control-label">{{inputDropDown.label}}</label>
+    <select ng-model="inputDropDown.model"
+           name="{{inputDropDown.name}}"
+           options="inputDropDown.options"
+           show-empty-value="inputDropDown.showEmptyValue"
+           empty-value-label="inputDropDown.emptyValueLabel"
+           key-as-value="inputDropDown.keyAsValue"
+           class="form-control"
+           id="{{inputDropDown.name}}Input"
+           ng-required="inputDropDown.fieldValidators.notNull"
+           input-drop-down-filler/>
+    </select>
+
+    <p class="help-block"
+       ng-if="form[inputDropDown.name].$error.required && !form[inputDropDown.name].$pristine">
+        {{ 'application.validator.invalid.required' | translate:{label: inputDropDown.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputDropDown.name].$error.serverMessage">
+        {{form[inputDropDown.name].$error.serverMessage | translate}}</p>
+</div>

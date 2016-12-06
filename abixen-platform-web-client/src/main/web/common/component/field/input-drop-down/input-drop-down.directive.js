@@ -17,27 +17,29 @@
 
     angular
         .module('platformField')
-        .directive('inputText', inputText);
+        .directive('inputDropDown', inputDropDown);
 
-    inputText.$inject = ['$parse', 'validation'];
-    function inputText($parse, validation) {
+    inputDropDown.$inject = ['$parse', 'validation'];
+    function inputDropDown($parse, validation) {
 
         return {
             restrict: 'E',
             require: '^form',
-            templateUrl: '/common/component/field/input-text/input-text.template.html',
+            templateUrl: '/common/component/field/input-drop-down/input-drop-down.template.html',
             scope: {
                 model: '=',
                 validators: '=',
-                type: '@',
                 label: '@',
-                placeholder: '@',
                 name: '@',
-                size: '@'
+                size: '@',
+                options: '=',
+                showEmptyValue: '=',
+                emptyValueLabel: '@',
+                keyAsValue: '='
             },
             link: link,
-            controller: InputTextController,
-            controllerAs: 'inputText',
+            controller: InputDropDownController,
+            controllerAs: 'inputDropDown',
             bindToController: true
         };
 
@@ -54,35 +56,27 @@
         }
     }
 
-    InputTextController.$inject = ['fieldSize'];
+    InputDropDownController.$inject = ['fieldSize'];
 
-    function InputTextController(fieldSize) {
-        var DEFAULT_TYPE = 'text';
-        var inputText = this;
+    function InputDropDownController(fieldSize) {
+        var inputDropDown = this;
 
         initValidators();
-        initType();
         initResponsiveClasses();
 
         function initValidators() {
-            if (!inputText.validators) {
+            if (!inputDropDown.validators) {
                 return;
             }
 
-            inputText.fieldValidators = {};
-            angular.forEach(inputText.validators[inputText.name], function (validator) {
-                angular.extend(inputText.fieldValidators, validator);
+            inputDropDown.fieldValidators = {};
+            angular.forEach(inputDropDown.validators[inputDropDown.name], function (validator) {
+                angular.extend(inputDropDown.fieldValidators, validator);
             });
         }
 
-        function initType() {
-            if (inputText.type === undefined) {
-                inputText.type = DEFAULT_TYPE;
-            }
-        }
-
         function initResponsiveClasses() {
-            inputText.responsiveClasses = fieldSize.getClasses(inputText.size);
+            inputDropDown.responsiveClasses = fieldSize.getClasses(inputDropDown.size);
         }
     }
 })();
