@@ -591,7 +591,7 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
 ;
 
 
-platformChartModuleControllers.controller('ChartModuleController', ['$scope', '$http', '$log', 'ChartModuleConfiguration', 'mockupData', 'CharData', 'dataChartAdapter', function ($scope, $http, $log, ChartModuleConfiguration, mockupData, CharData, dataChartAdapter) {
+platformChartModuleControllers.controller('ChartModuleController', ['$scope', '$http', '$log', 'ChartModuleConfiguration', 'CharData', 'dataChartAdapter', function ($scope, $http, $log, ChartModuleConfiguration, CharData, dataChartAdapter) {
     $log.log('ChartModuleController');
 
     $log.log('$scope.moduleId: ' + $scope.moduleId);
