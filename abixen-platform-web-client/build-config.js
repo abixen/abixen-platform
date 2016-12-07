@@ -49,6 +49,8 @@ module.exports = {
             'bower_components/codemirror/lib/codemirror.css',
             'bower_components/codemirror/lib/codemirror.js',
             'bower_components/angular-ui-codemirror/ui-codemirror.js',
+            'bower_components/angular-loading-bar/src/loading-bar.js',
+            'bower_components/angular-loading-bar/src/loading-bar.css',
             'src/main/web/lib/show-errors.min.js',
             'src/main/web/lib/ng-storage.min.js'
         ],
