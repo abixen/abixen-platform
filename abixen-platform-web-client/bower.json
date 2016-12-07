@@ -22,6 +22,7 @@
     "AngularJS-Toaster": "0.4.16",
     "angular-xeditable": "0.1.9",
     "angular-file-upload": "2.3.4",
-    "angular-ui-codemirror": "0.3.0"
+    "angular-ui-codemirror": "0.3.0",
+    "angular-loading-bar":"0.9.0"
   }
 }

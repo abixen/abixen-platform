@@ -1,8 +1,11 @@
-var platformLoginControllers = angular.module('platformLoginControllers', []);
+var platformLoginControllers = angular.module('platformLoginControllers', ['chieffancypants.loadingBar','ngAnimate'])
+    .config(function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.includeSpinner = true;
+    });
 
 platformLoginControllers.controller('PlatformAuthenticateController', [
-        '$rootScope', '$scope', '$http', '$location', '$log', '$stateParams', 'toaster',
-        function ($rootScope, $scope, $http, $location, $log, $stateParams, toaster) {
+        '$rootScope', '$scope', '$http', '$location', '$log', '$stateParams', 'toaster','cfpLoadingBar','$timeout',
+        function ($rootScope, $scope, $http, $location, $log, $stateParams, toaster,cfpLoadingBar,$timeout) {
             $log.log('PlatformAuthenticateController');
 
             $scope.credentials = {};
@@ -33,6 +36,18 @@ platformLoginControllers.controller('PlatformAuthenticateController', [
 
             };
 
+            $scope.start = function() {
+                cfpLoadingBar.start();
+            };
+            $scope.start();
+            $scope.fakeIntro = true;
+            $timeout(function() {
+                $scope.complete();
+                $scope.fakeIntro = false;
+            }, 1250);
+            $scope.complete = function () {
+                cfpLoadingBar.complete();
+            };
             $scope.login = function () {
                 authenticate($scope.credentials, function () {
                     if ($rootScope.authenticated) {
@@ -46,7 +61,6 @@ platformLoginControllers.controller('PlatformAuthenticateController', [
                     }
                 });
             };
-
             if ($stateParams['activation-key']) {
                 $http.get('/api/user-activation/activate/' + $stateParams['activation-key'] + '/', {})
                     .success(function () {
