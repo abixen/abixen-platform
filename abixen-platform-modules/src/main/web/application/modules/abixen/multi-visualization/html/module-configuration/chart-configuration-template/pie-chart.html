@@ -1,28 +1,9 @@
 <!-- content -->
 <div class="row wizard-chart-configuration-content">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <a class="btn add-new-button pull-left"
-           ng-click="addDataSetSeries()">
-            <i class="fa fa-plus"></i><span class="hidden-xs">&nbsp;Add Series</span>
-        </a>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <label><span>Axis X label</span>
-            <input type="text" name="input" ng-model="chartConfiguration.axisXName"
-                   required ng-trim="true" class="form-control" placeholder="Put Axis OX display name">
-        </label>
-
-        <div class="row">
-            <label><span>Axis Y label</span>
-                <input type="text" name="input" ng-model="chartConfiguration.axisYName"
-                       required ng-trim="true" class="form-control" placeholder="Put Axis OY display name">
-            </label>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <!--domain - axisX -->
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-init="initDataSetSeries()">
+        <!--keys -->
         <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-            <label class="no-padding no-margin"><span class="">Axis X</span></label>
+            <label class="no-padding no-margin"><span class="">Keys</span></label>
         </div>
         <div class="axis-x-filter">
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
@@ -46,39 +27,13 @@
                        ng-trim="true" class="form-control">
             </div>
         </div>
-        <!-- series -->
-        <div class="col-lg-12 col-md-12 col-sm-12 no-padding wizard-chart-configuration-content-series">
-            <div class="list-group">
-                <a ng-repeat='dataSetSeries in chartConfiguration.dataSetChart.dataSetSeries'
-                   ng-click="setDataSetSeriesSelected(dataSetSeries)"
-                   ng-class="{'active': dataSetSeries == dataSetSeriesSelected}"
-                   class="list-group-item ">
-                    <h5 class="list-group-item-heading">{{dataSetSeries.name}}</h5>
-                    <span ng-click="removeDataSetSeries(dataSetSeries)">
-                            <i class="fa fa-times pull-right"></i><span class="hidden-xs">&nbsp;</span>
-                        </span>
-                </a>
-            </div>
-        </div>
     </div>
-    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
         <div ng-show="dataSetSeriesSelected != null">
-            <!-- series details -->
-            <div>
-                <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                    <span>Series name</span>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                    <input type="text" name="seriesSelectedName"
-                           ng-model="dataSetSeriesSelected.name"
-                           ng-trim="false" class="form-control pull-left">
-                </div>
-            </div>
-
-            <!--axisY -->
+            <!--values -->
 
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                <span class="pull-left no-padding">Axis Y</span>
+                <label class="no-padding no-margin"><span class="">Values</span></label>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
                 <select name="singleSelect" id="axisYColumn"
@@ -91,15 +46,15 @@
 
         </div>
     </div>
-    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" ng-show="dataSetSeriesSelected != null">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" ng-show="dataSetSeriesSelected != null">
         <!-- preview data-->
         <div class="">
-            <span class="wizard-datasource-label">Preview data</span>
+            <label class="no-padding no-margin"><span class="">Preview data</span></label>
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>axis x</th>
-                    <th>axis y</th>
+                    <th>Key</th>
+                    <th>Value</th>
                 </tr>
                 </thead>
                 <tbody>

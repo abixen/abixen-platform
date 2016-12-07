@@ -61,8 +61,8 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
     $scope.stepMax = 3;
 
     $scope.chartConfiguration = {
-        axisXName: null,
-        axisYName: null
+        axisXName: '',
+        axisYName: ''
     };
 
     var getChartConfiguration = function (moduleId) {
@@ -72,6 +72,8 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
                 if ($scope.chartConfiguration.id == null) {
                     $scope.chartConfiguration = {
                         moduleId: $scope.moduleId,
+                        axisXName: '',
+                        axisYName: '',
                         dataSetChart: {
                             dataSetSeries: [],
                             domainXSeriesColumn: {
@@ -304,6 +306,16 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
         $scope.moduleConfigurationWizardStep.chart.series = null;
         $scope.moduleConfigurationWizardStep.chart.seriesSelected = null;
         $scope.seriesNumber = 1; //todo remove in the future
+
+        $scope.initDataSetSeries = function () {
+            if ($scope.chartConfiguration.dataSetChart.dataSetSeries.length === 0) {
+                $scope.addDataSetSeries();
+            }else {
+                if ($scope.dataSetSeriesSelected === null) {
+                    $scope.setDataSetSeriesSelected($scope.chartConfiguration.dataSetChart.dataSetSeries[0]);
+                }
+            }
+        };
 
         $scope.addDataSetSeries = function () {
             $log.log('moduleConfigurationWizardStep series', $scope.chartConfiguration.dataSetChart.dataSetSeries);
