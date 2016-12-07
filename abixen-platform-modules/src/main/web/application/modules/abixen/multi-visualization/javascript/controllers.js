@@ -311,7 +311,8 @@ platformChartModuleControllers.controller('ChartModuleConfigurationWizardControl
             if ($scope.chartConfiguration.dataSetChart.dataSetSeries.length === 0) {
                 $scope.addDataSetSeries();
             }else {
-                if ($scope.dataSetSeriesSelected === null) {
+                $log.debug('$scope.dataSetSeriesSelected ', $scope.dataSetSeriesSelected);
+                if ($scope.dataSetSeriesSelected === undefined || $scope.dataSetSeriesSelected === null) {
                     $scope.setDataSetSeriesSelected($scope.chartConfiguration.dataSetChart.dataSetSeries[0]);
                 }
             }
