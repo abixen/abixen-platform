@@ -1,0 +1,115 @@
+<!-- content -->
+<div class="row wizard-chart-configuration-content">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <a class="btn add-new-button pull-left"
+           ng-click="addDataSetSeries()">
+            <i class="fa fa-plus"></i><span class="hidden-xs">&nbsp;Add Series</span>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <label><span>Axis X label</span>
+            <input type="text" name="input" ng-model="chartConfiguration.axisXName"
+                   required ng-trim="true" class="form-control" placeholder="Put Axis OX display name">
+        </label>
+
+        <div class="row">
+            <label><span>Axis Y label</span>
+                <input type="text" name="input" ng-model="chartConfiguration.axisYName"
+                       required ng-trim="true" class="form-control" placeholder="Put Axis OY display name">
+            </label>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <!--domain - axisX -->
+        <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+            <label class="no-padding no-margin"><span class="">Axis X</span></label>
+        </div>
+        <div class="axis-x-filter">
+            <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+                <select class="form-control" name="singleSelect" id="axisxColumn"
+                        ng-model="chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn"
+                        ng-options="seriesColumn as seriesColumn.name for seriesColumn in chartConfiguration.dataSource.columns track by seriesColumn.id">
+                </select>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
+                <select class="form-control" name="singleSelect" id="axisxOperator"
+                        ng-model="dataSetSeriesSelected.axisX.operator">
+                    <option value="">Operator</option>
+                    <option value="min">min</option>
+                    <option value="max">max</option>
+                </select>
+
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-7 no-padding">
+                <input placeholder="value" type="text" name="input"
+                       ng-model="dataSetSeriesSelected.axisX.value"
+                       ng-trim="true" class="form-control">
+            </div>
+        </div>
+        <!-- series -->
+        <div class="col-lg-12 col-md-12 col-sm-12 no-padding wizard-chart-configuration-content-series">
+            <div class="list-group">
+                <a ng-repeat='dataSetSeries in chartConfiguration.dataSetChart.dataSetSeries'
+                   ng-click="setDataSetSeriesSelected(dataSetSeries)"
+                   ng-class="{'active': dataSetSeries == dataSetSeriesSelected}"
+                   class="list-group-item ">
+                    <h5 class="list-group-item-heading">{{dataSetSeries.name}}</h5>
+                    <span ng-click="removeDataSetSeries(dataSetSeries)">
+                            <i class="fa fa-times pull-right"></i><span class="hidden-xs">&nbsp;</span>
+                        </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+        <div ng-show="dataSetSeriesSelected != null">
+            <!-- series details -->
+            <div>
+                <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+                    <span>Series name</span>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+                    <input type="text" name="seriesSelectedName"
+                           ng-model="dataSetSeriesSelected.name"
+                           ng-trim="false" class="form-control pull-left">
+                </div>
+            </div>
+
+            <!--axisY -->
+
+            <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+                <span class="pull-left no-padding">Axis Y</span>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+                <select name="singleSelect" id="axisYColumn"
+                        class="form-control"
+                        ng-model="dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn"
+                        ng-options="seriesColumn as seriesColumn.name for seriesColumn in chartConfiguration.dataSource.columns track by seriesColumn.id"
+                        ng-change="reloadPreviewData()">
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" ng-show="dataSetSeriesSelected != null">
+        <!-- preview data-->
+        <div class="">
+            <span class="wizard-datasource-label">Preview data</span>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>axis x</th>
+                    <th>axis y</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-repeat="data in moduleConfigurationWizardStep.chart.seriesPreviewData">
+                    <td>{{data.x}}</td>
+                    <td>{{data.y}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
