@@ -14,7 +14,8 @@
                confirm-field="{{inputDate.fieldValidators.confirmField.fieldToCheck}}"
                uib-datepicker-popup
                is-open="inputDate.calendarStatus.opened"
-               close-text="Close"/>
+               close-text="Close"
+               convert-string-to-date/>
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="inputDate.openCalendar($event)">
                 <i class="fa fa-calendar"></i>
