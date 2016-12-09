@@ -7,22 +7,26 @@
         </a>
     </div>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <label><span>Axis X label</span>
-            <input type="text" name="input" ng-model="chartConfiguration.axisXName"
-                   required ng-trim="true" class="form-control" placeholder="Put Axis OX display name">
-        </label>
-
-        <div class="row">
-            <label><span>Axis Y label</span>
-                <input type="text" name="input" ng-model="chartConfiguration.axisYName"
-                       required ng-trim="true" class="form-control" placeholder="Put Axis OY display name">
-            </label>
+        <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+            <label class="header"><span>Domain axis label</span></label>
         </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+            <input type="text" name="input" ng-model="chartConfiguration.axisXName"
+                   required ng-trim="true" class="form-control" placeholder="Put keys Axis display name">
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+            <label class="header"><span>Values axis label</span></label>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+            <input type="text" name="input" ng-model="chartConfiguration.axisYName"
+                   required ng-trim="true" class="form-control" placeholder="Put values Axis display name">
+        </div>
+
     </div>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <!--domain - axisX -->
         <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-            <label class="no-padding no-margin"><span class="">Axis X</span></label>
+            <label class="header"><span class="">Domain</span></label>
         </div>
         <div class="axis-x-filter">
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
@@ -66,7 +70,7 @@
             <!-- series details -->
             <div>
                 <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                    <span>Series name</span>
+                    <label class="header"><span>Series name</span></label>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
                     <input type="text" name="seriesSelectedName"
@@ -78,7 +82,7 @@
             <!--axisY -->
 
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                <span class="pull-left no-padding">Axis Y</span>
+                <label class="header"><span>Values</span></label>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
                 <select name="singleSelect" id="axisYColumn"
@@ -94,12 +98,12 @@
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" ng-show="dataSetSeriesSelected != null">
         <!-- preview data-->
         <div class="">
-            <span class="wizard-datasource-label">Preview data</span>
+            <label class="header"><span>Preview data</span></label>
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>axis x</th>
-                    <th>axis y</th>
+                    <th>Domain</th>
+                    <th>Value</th>
                 </tr>
                 </thead>
                 <tbody>

@@ -109,10 +109,13 @@
 .wizard-chart-configuration, .wizard-table-configuration {
   height: 450px;
 
+  .header{
+    padding-left: 3px;
+    margin: 0;
+  }
   .no-padding{
     padding: 0;
   }
-
   .no-margin{
     margin: 0;
   }
@@ -133,20 +136,23 @@
       display: block;
     }
 
-    .axis-x-filter > div {
-      padding-left: 2px;
-      padding-bottom: 5px;
-    }
+    .axis-x-filter {
+      div {
+        padding-left: 0;
+        padding-bottom: 5px;
+      }
 
-    .axis-x-filter > div:first-child {
-      margin-bottom: 20px;
+      div:first-child {
+        margin-bottom: 20px;
+      }
+      div:last-child {
+        padding-left: 20px;
+      }
     }
 
     .wizard-datasource-label {
       margin-top: 7px;
-      margin-left: 0px;
-      /*    font-weight: 200;
-          color: $wizard-label-font-color;*/
+      margin-left: 0;
 
     }
     padding-top: 15px;
