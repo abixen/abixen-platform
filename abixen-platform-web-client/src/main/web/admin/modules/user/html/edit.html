@@ -1,50 +1,43 @@
 <div class="row form-row user-details">
     <div class="col-md-6 col-md-offset-3">
-        <form class="form form-instance" role="form" name="entityForm" novalidate>
+        <form class="form form-instance" role="form" name="userDetails.entityForm" novalidate>
             <div class="col-xs-6">
-                <div class="form-group" show-errors>
-                    <label for="screenNameInput" class="control-label">Screen Name (Required)</label>
-                    <input ng-model="entity.screenName" name="screenName" class="form-control" id="screenNameInput" placeholder="Screen Name" ng-minlength="3" ng-maxlength="32" required>
-                    <p class="help-block" ng-if="entityForm.screenName.$error.minlength">Min length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.screenName.$error.maxlength">Max length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.screenName.$error.serverMessage">{{entityForm.screenName.$error.serverMessage}}</p>
-                </div>
-                <div class="form-group" show-errors>
-                    <label for="usernameInput" class="control-label">Email Address (Required)</label>
-                    <input ng-model="entity.username" type="email" name="username" class="form-control" id="usernameInput" placeholder="Username" ng-minlength="3" ng-maxlength="32" required>
-                    <p class="help-block" ng-if="entityForm.username.$error.minlength">Min length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.username.$error.maxlength">Max length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.username.$error.email">The email address is invalid</p>
-                    <p class="help-block" ng-if="entityForm.username.$error.serverMessage">{{entityForm.username.$error.serverMessage}}</p>
-                </div>
-                <div class="form-group" show-errors>
-                    <label for="firstNameInput" class="control-label">First Name (Required)</label>
-                    <input ng-model="entity.firstName" type="text" name="firstName" class="form-control" id="firstNameInput" placeholder="First Name" required>
-                    <p class="help-block" ng-if="entityForm.firstName.$error.minlength">Min length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.firstName.$error.maxlength">Max length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.firstName.$error.serverMessage">{{entityForm.firstName.$error.serverMessage}}</p>
-                </div>
-                <div class="form-group" show-errors>
-                    <label for="middleNameInput" class="control-label">Middle Name</label>
-                    <input ng-model="entity.middleName" type="text" name="middleName" class="form-control" id="middleNameInput" placeholder="Middle Name">
-                    <p class="help-block" ng-if="entityForm.middleName.$error.minlength">Min length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.middleName.$error.maxlength">Max length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.middleName.$error.serverMessage">{{entityForm.middleName.$error.serverMessage}}</p>
-                </div>
-                <div class="form-group" show-errors>
-                    <label for="lastNameInput" class="control-label">Last Name</label>
-                    <input ng-model="entity.lastName" type="text" name="lastName" class="form-control" id="lastNameInput" placeholder="Last Name">
-                    <p class="help-block" ng-if="entityForm.lastName.$error.minlength">Min length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.lastName.$error.maxlength">Max length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.lastName.$error.serverMessage">{{entityForm.lastName.$error.serverMessage}}</p>
-                </div>
-                <div class="form-group" show-errors>
-                    <label for="jobTitleInput" class="control-label">Job Title</label>
-                    <input ng-model="entity.jobTitle" type="text" name="jobTitle" class="form-control" id="jobTitleInput" placeholder="Job Title">
-                    <p class="help-block" ng-if="entityForm.jobTitle.$error.minlength">Min length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.jobTitle.$error.maxlength">Max length is invalid</p>
-                    <p class="help-block" ng-if="entityForm.jobTitle.$error.serverMessage">{{entityForm.jobTitle.$error.serverMessage}}</p>
-                </div>
+                <input-text model="userDetails.entity.screenName"
+                            name="screenName"
+                            label="{{'module.user.screenName.label' | translate}}"
+                            placeholder="{{'module.user.screenName.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+                <input-text model="userDetails.entity.username"
+                            name="username"
+                            label="{{'module.user.username.label' | translate}}"
+                            placeholder="{{'module.user.username.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+                <input-text model="userDetails.entity.firstName"
+                            name="firstName"
+                            label="{{'module.user.firstName.label' | translate}}"
+                            placeholder="{{'module.user.firstName.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+                <input-text model="userDetails.entity.middleName"
+                            name="middleName"
+                            label="{{'module.user.middleName.label' | translate}}"
+                            placeholder="{{'module.user.middleName.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+                <input-text model="userDetails.entity.lastName"
+                            name="lastName"
+                            label="{{'module.user.lastName.label' | translate}}"
+                            placeholder="{{'module.user.lastName.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+                <input-text model="userDetails.entity.jobTitle"
+                            name="jobTitle"
+                            label="{{'module.user.jobTitle.label' | translate}}"
+                            placeholder="{{'module.user.jobTitle.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
             </div>
             <div class="col-xs-6">
                 <div class="form-group avatar">
@@ -57,34 +50,36 @@
                 <div class="form-group user-id">
                     <label for="userId">User ID</label>
                     <div id="userId">
-                        <span>{{entity.id}}</span>
+                        <span>{{userDetails.entity.id}}</span>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="birthday">Birthday</label>
-                    <div class="input-group birthday">
-                        <input id="birthday" name="birthday" type="date" class="form-control" uib-datepicker-popup ng-model="entity.birthday" is-open="status.opened" close-text="Close" />
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
-                                </span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <div>
-                        <select class="form-control" id="gender" name="gender" ng-model="entity.gender">
-                            <option ng-value="{{userGender[0]}}">{{userGender[0]}}</option>
-                            <option ng-value="{{userGender[1]}}">{{userGender[1]}}</option>
-                        </select>
-                    </div>
-                </div>
+                <input-date model="userDetails.entity.birthday"
+                            name="birthday"
+                            label="{{'module.user.birthday.label' | translate}}"
+                            validators="userDetails.validators">
+                </input-date>
+
+                <input-drop-down model="userDetails.entity.gender"
+                                 name="gender"
+                                 label="{{'module.user.gender.label' | translate}}"
+                                 validators="userDetails.validators"
+                                 options="userDetails.genderTypes"
+                                 show-empty-value="true"
+                                 empty-value-label="Select gender"
+                                 key-as-value="true">
+                </input-drop-down>
             </div>
         </form>
     </div>
 </div>
 <div class="row bottom-navigation">
     <div class="col-sx-12 bottom-navigation-content">
-        <a class="btn save-button" ng-click="saveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
-        <a class="btn cancel-button"><i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
+        <button class="btn save-button" ng-click="userDetails.saveForm()"
+           ng-disabled="userDetails.entityForm.$invalid">
+            <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
+        </button>
+        <button class="btn cancel-button">
+            <i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+        </button>
     </div>
 </div>

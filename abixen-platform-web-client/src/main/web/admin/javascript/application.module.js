@@ -4,6 +4,8 @@
 
     angular
         .module('platformAdminApplication', [
+            'pascalprecht.translate',
+            'platformComponent',
             'platformNavigationModule',
             'platformPermissionModule',
             'platformRoleModule',
@@ -15,7 +17,6 @@
             'multiVisualizationModule',
             'platformCommonModule',
             'platformListGridModule',
-            'pascalprecht.translate',
             'ui.bootstrap',
             'ui.router',
             'ngAnimate',

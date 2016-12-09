@@ -23,6 +23,8 @@
         showErrorsConfigProvider.showSuccess(true);
         $urlRouterProvider.otherwise('/');
 
+        $translateProvider.preferredLanguage('en');
+
         $stateProvider
             .state('application', {
                 abstract: true,
