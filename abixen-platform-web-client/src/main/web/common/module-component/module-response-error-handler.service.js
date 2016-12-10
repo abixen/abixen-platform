@@ -27,9 +27,9 @@
             $log.log('moduleResponseErrorHandler.handle()');
 
             scope.$emit(platformParameters.events.STOP_REQUEST);
-            if (error.status == 401) {
+            if (error.status === 401) {
                 scope.$emit(platformParameters.events.MODULE_UNAUTHENTICATED);
-            } else if (error.status == 403) {
+            } else if (error.status === 403) {
                 scope.$emit(platformParameters.events.MODULE_FORBIDDEN);
             }
         }

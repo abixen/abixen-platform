@@ -22,38 +22,40 @@
 
     ChartModulePreviewController.$inject = [
         '$scope',
-        '$http',
         '$log',
         'dataChartAdapter',
-        'CharData'
+        'CharData',
+        'moduleResponseErrorHandler'
     ];
 
-    function ChartModulePreviewController($scope, $http, $log, dataChartAdapter, CharData) {
+    function ChartModulePreviewController($scope, $log, dataChartAdapter, CharData, moduleResponseErrorHandler) {
         $log.log('ChartModulePreviewController');
 
         $log.log('$scope.moduleId: ' + $scope.moduleId);
         $log.log('$scope.initWizardStep.idSelected: ' + $scope.initWizardStep.idSelected);
 
-        var chartParams = null;
+        var chartModulePreview = this;
+        chartModulePreview.options = undefined;
+        chartModulePreview.data = undefined;
 
-        $log.log('CharData.query started ');
         $scope.$emit(platformParameters.events.START_REQUEST);
-        CharData.query({}, $scope.chartConfiguration, function (data) {
+        CharData.query({}, $scope.chartConfiguration)
+            .$promise
+            .then(onQueryResult, onQueryError);
+
+        function onQueryResult(data) {
             $log.log('CharData.query: ', data);
-            chartParams = dataChartAdapter.convertTo($scope.chartConfiguration, data);
+            var chartParams = dataChartAdapter.convertTo($scope.chartConfiguration, data);
 
             if (chartParams != null) {
-                $scope.options = chartParams.options;
-                $scope.data = chartParams.data;
+                chartModulePreview.options = chartParams.options;
+                chartModulePreview.data = chartParams.data;
             }
             $scope.$emit(platformParameters.events.STOP_REQUEST);
-        }, function (error) {
-            $scope.$emit(platformParameters.events.STOP_REQUEST);
-            if (error.status == 401) {
-                $scope.$emit(platformParameters.events.MODULE_UNAUTHENTICATED);
-            } else if (error.status == 403) {
-                $scope.$emit(platformParameters.events.MODULE_FORBIDDEN);
-            }
-        });
+        }
+
+        function onQueryError(error) {
+            moduleResponseErrorHandler.handle(error, $scope);
+        }
     }
 })();

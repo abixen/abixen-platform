@@ -38,7 +38,6 @@
 
         $scope.moduleId = null;
 
-
         $scope.$on(platformParameters.events.RELOAD_MODULE, function (event, id, viewMode) {
             $log.log('RELOAD MODULE EVENT', event, id, viewMode);
 
@@ -49,7 +48,7 @@
                 .$promise
                 .then(onGetResult, onGetError);
 
-            function onGetResult(data){
+            function onGetResult(data) {
                 $log.log('ChartModuleInit has been got: ', data);
                 if (viewMode === 'view') {
                     multivisualisationModuleInit.subview = SUBVIEW_CHART;
@@ -62,7 +61,7 @@
                 $scope.$emit(platformParameters.events.STOP_REQUEST);
             }
 
-            function onGetError(error){
+            function onGetError(error) {
                 moduleResponseErrorHandler.handle(error, $scope);
             }
         });
