@@ -22,14 +22,14 @@
 
     MultivisualisationModuleController.$inject = [
         '$scope',
-        '$http',
         '$log',
         'ChartModuleConfiguration',
         'CharData',
-        'dataChartAdapter'
+        'dataChartAdapter',
+        'moduleResponseErrorHandler'
     ];
 
-    function MultivisualisationModuleController($scope, $http, $log, ChartModuleConfiguration, CharData, dataChartAdapter) {
+    function MultivisualisationModuleController($scope, $log, ChartModuleConfiguration, CharData, dataChartAdapter, moduleResponseErrorHandler) {
         $log.log('MultivisualisationModuleController');
 
         $log.log('$scope.moduleId: ' + $scope.moduleId);
@@ -38,42 +38,39 @@
         multivisualisationModule.options = undefined;
         multivisualisationModule.data = undefined;
 
-        var moduleConfiguration = {};
-
-        var chartParams = null;
-
         $scope.$emit(platformParameters.events.START_REQUEST);
+
         if ($scope.moduleId) {
-            ChartModuleConfiguration.get({id: $scope.moduleId}, function (data) {
-                moduleConfiguration = data;
-                $log.log('ChartModuleConfiguration has got: ', moduleConfiguration);
-
-                CharData.query({}, moduleConfiguration, function (data) {
-                    $log.log('CharData.query: ', data);
-                    chartParams = dataChartAdapter.convertTo(moduleConfiguration, data);
-
-                    if (chartParams != null) {
-                        multivisualisationModule.options = chartParams.options;
-                        multivisualisationModule.data = chartParams.data;
-                    }
-                    $scope.$emit(platformParameters.events.STOP_REQUEST);
-                }, function (error) {
-                    $scope.$emit(platformParameters.events.STOP_REQUEST);
-                    if (error.status == 401) {
-                        $scope.$emit(platformParameters.events.MODULE_UNAUTHENTICATED);
-                    } else if (error.status == 403) {
-                        $scope.$emit(platformParameters.events.MODULE_FORBIDDEN);
-                    }
-                });
-            }, function (error) {
-                $scope.$emit(platformParameters.events.STOP_REQUEST);
-                if (error.status == 401) {
-                    $scope.$emit(platformParameters.events.MODULE_UNAUTHENTICATED);
-                } else if (error.status == 403) {
-                    $scope.$emit(platformParameters.events.MODULE_FORBIDDEN);
-                }
-            });
+            ChartModuleConfiguration.get({id: $scope.moduleId})
+                .$promise
+                .then(onGetResult, onGetError);
         }
 
+        function onGetResult(moduleConfiguration) {
+            $log.log('ChartModuleConfiguration has got: ', moduleConfiguration);
+
+            CharData.query({}, moduleConfiguration)
+                .$promise
+                .then(onQueryResult, onQueryError);
+
+            function onQueryResult(data) {
+                $log.log('CharData.query: ', data);
+                var chartParams = dataChartAdapter.convertTo(moduleConfiguration, data);
+
+                if (chartParams != null) {
+                    multivisualisationModule.options = chartParams.options;
+                    multivisualisationModule.data = chartParams.data;
+                }
+                $scope.$emit(platformParameters.events.STOP_REQUEST);
+            }
+
+            function onQueryError(error) {
+                moduleResponseErrorHandler.handle(error, $scope);
+            }
+        }
+
+        function onGetError(error) {
+            moduleResponseErrorHandler.handle(error, $scope);
+        }
     }
 })();

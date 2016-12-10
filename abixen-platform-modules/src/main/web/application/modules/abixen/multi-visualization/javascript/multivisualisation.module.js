@@ -3,5 +3,8 @@
     'use strict';
 
     angular
-        .module('platformChartModule', ['nvd3']);
+        .module('platformChartModule', [
+            'nvd3',
+            'platformModuleComponent'
+        ]);
 })();

@@ -23,10 +23,11 @@
     MultivisualisationModuleInitController.$inject = [
         '$scope',
         '$log',
-        'ChartModuleInit'
+        'ChartModuleInit',
+        'moduleResponseErrorHandler'
     ];
 
-    function MultivisualisationModuleInitController($scope, $log, ChartModuleInit) {
+    function MultivisualisationModuleInitController($scope, $log, ChartModuleInit, moduleResponseErrorHandler) {
         $log.log('MultivisualisationModuleInitController');
 
         var multivisualisationModuleInit = this;
@@ -44,7 +45,11 @@
             $scope.moduleId = id;
 
             $scope.$emit(platformParameters.events.START_REQUEST);
-            ChartModuleInit.get({id: id}, function (data) {
+            ChartModuleInit.get({id: id})
+                .$promise
+                .then(onGetResult, onGetError);
+
+            function onGetResult(data){
                 $log.log('ChartModuleInit has been got: ', data);
                 if (viewMode === 'view') {
                     multivisualisationModuleInit.subview = SUBVIEW_CHART;
@@ -55,14 +60,11 @@
                 }
 
                 $scope.$emit(platformParameters.events.STOP_REQUEST);
-            }, function (error) {
-                $scope.$emit(platformParameters.events.STOP_REQUEST);
-                if (error.status == 401) {
-                    $scope.$emit(platformParameters.events.MODULE_UNAUTHENTICATED);
-                } else if (error.status == 403) {
-                    $scope.$emit(platformParameters.events.MODULE_FORBIDDEN);
-                }
-            });
+            }
+
+            function onGetError(error){
+                moduleResponseErrorHandler.handle(error, $scope);
+            }
         });
 
         $scope.$on('CONFIGURATION_MODE', function (event, id) {
