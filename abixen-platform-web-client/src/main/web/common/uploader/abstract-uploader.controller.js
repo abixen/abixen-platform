@@ -12,7 +12,6 @@
  * details.
  */
 
-
 'use strict';
 
 function AbstractUploaderController(extendedController, FileUploader, X_XSRF_TOKEN, config) {
