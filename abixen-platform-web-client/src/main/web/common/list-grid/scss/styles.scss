@@ -1,0 +1,23 @@
+.default-platform-list-grid {
+  .list-grid {
+    .ui-grid-pager-panel {
+      margin-top: 10px;
+      position: relative;
+    }
+  }
+
+  .load-more-button {
+    margin-top: 10px;
+    color: $font-color !important;
+    background-color: $base-color !important;
+    border: 1px solid $base-color-darkest !important;
+    font-size: 20px !important;
+    padding: 2px 12px !important;
+
+    &:hover {
+      color: $font-color !important;
+      background-color: $base-color-lighter !important;
+      border: 1px solid $base-color-darker !important;
+    }
+  }
+}
