@@ -3,6 +3,7 @@ var platformApplication = angular.module('platformApplication', [
     'platformApplicationControllers',
     'platformApplicationServices',
     'platformApplicationDirectives',
+    'platformThumbModule',
     'platformPageModule',
     'ngAnimate',
     'ui.router',

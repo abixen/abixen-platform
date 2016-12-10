@@ -1,0 +1,35 @@
+<div class="row form-row user-avatar-change">
+    <div class="col-md-6 col-md-offset-3">
+        <h2>Avatar uploader</h2>
+        <div ng-show="userAvatarChange.uploader.isHTML5">
+            <div class="" ng-if="userAvatarChange.uploader.queue[0] != undefined"
+                 platform-thumb="{ file: userAvatarChange.uploader.queue[0]._file, height: 150 }"></div>
+        </div>
+        <div class="well my-drop-zone">
+
+        </div>
+
+        <div>
+            <input type="file" nv-file-select="" uploader="userAvatarChange.uploader"/><br/>
+            <div>
+                Upload progress:
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar"
+                         ng-style="{ 'width': userAvatarChange.uploader.progress + '%' }"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row bottom-navigation">
+    <div class="col-sx-12 bottom-navigation-content">
+        <button class="btn save-button" ng-click="userAvatarChange.uploader.uploadAll()"
+                ng-disabled="!userAvatarChange.uploader.getNotUploadedItems().length">
+            <i class="fa fa-floppy-o"></i><span>&nbsp;Upload</span>
+        </button>
+        <button class="btn cancel-button"
+                ng-click="userAvatarChange.cancelAll()">
+            <i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+        </button>
+    </div>
+</div>

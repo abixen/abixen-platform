@@ -17,6 +17,7 @@
             'multiVisualizationModule',
             'platformCommonModule',
             'platformListGridModule',
+            'platformThumbModule',
             'ui.bootstrap',
             'ui.router',
             'ngAnimate',

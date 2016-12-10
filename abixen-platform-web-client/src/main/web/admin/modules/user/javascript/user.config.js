@@ -45,9 +45,20 @@
             })
             .state('application.users.edit', {
                 url: '/edit/:id',
-                templateUrl: '/admin/modules/user/html/edit.html',
+                abstract: true,
+                templateUrl: '/admin/modules/user/html/edit.html'
+            })
+            .state('application.users.edit.details', {
+                url: '',
+                templateUrl: '/admin/modules/user/html/edit/details.html',
                 controller: 'UserDetailsController',
                 controllerAs: 'userDetails'
+            })
+            .state('application.users.edit.avatar', {
+                url: '/avatar',
+                templateUrl: '/admin/modules/user/html/edit/avatar.html',
+                controller: 'UserAvatarChangeController',
+                controllerAs: 'userAvatarChange'
             })
             .state('application.users.roles', {
                 url: '/roles/:id',
