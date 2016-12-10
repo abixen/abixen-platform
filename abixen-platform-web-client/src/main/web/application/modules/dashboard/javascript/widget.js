@@ -114,6 +114,10 @@ angular.module('adf')
                 $scope.exitConfigurationMode = function () {
                     $scope.$broadcast(platformParameters.events.VIEW_MODE, $scope.definition.id);
                 };
+
+                $scope.sendModuleEvent = function (event) {
+                    $scope.$broadcast(event);
+                };
             } else {
                 $log.debug('widget not found');
             }
@@ -162,6 +166,10 @@ angular.module('adf')
                 $scope.$on(platformParameters.events.SHOW_CONFIGURATION_MODE_ICON, function () {
                     $log.log('SHOW_CONFIGURATION_MODE_ICON');
                     $scope.widgetState.configurationMode = false;
+                });
+                $scope.$on(platformParameters.events.UPDATE_MODULE_CONTROL_ICONS, function (event, icons) {
+                    $log.log('UPDATE_MODULE_CONTROL_ICONS', icons);
+                    $scope.widgetState.moduleIcons = icons;
                 });
 
                 $scope.toggleFullScreenMode = function () {

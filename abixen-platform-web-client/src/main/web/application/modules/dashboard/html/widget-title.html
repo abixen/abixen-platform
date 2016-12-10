@@ -8,10 +8,12 @@
     </span>
 
     <span ng-show="widgetState.isLoading"><i class="fa fa-spinner fa-spin"></i></span>
-
     <span class="pull-right panel-icon-bar">
         <a title="Reload module's content" ng-if="widget.reload" ng-click="reload()">
             <i class="fa fa-refresh"></i>
+        </a>
+        <a title="{{moduleIcon.title}}" ng-repeat="moduleIcon in widgetState.moduleIcons" ng-if="!widgetState.configurationMode" ng-click="sendModuleEvent(moduleIcon.event)">
+            <i class="{{moduleIcon.iconClass}}"></i>
         </a>
         <a title="Change module's location" class="adf-move" ng-if="editMode && !widgetState.fullScreenMode">
             <i class="fa fa-fw fa-arrows"></i>

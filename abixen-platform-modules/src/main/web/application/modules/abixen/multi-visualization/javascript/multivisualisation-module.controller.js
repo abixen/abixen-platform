@@ -18,9 +18,9 @@
 
     angular
         .module('platformChartModule')
-        .controller('MultivisualisationModuleController', MultivisualisationModuleController);
+        .controller('MultivisualisationModuleChartController', MultivisualisationModuleChartController);
 
-    MultivisualisationModuleController.$inject = [
+    MultivisualisationModuleChartController.$inject = [
         '$scope',
         '$log',
         'ChartModuleConfiguration',
@@ -29,37 +29,34 @@
         'moduleResponseErrorHandler'
     ];
 
-    function MultivisualisationModuleController($scope, $log, ChartModuleConfiguration, CharData, dataChartAdapter, moduleResponseErrorHandler) {
+    function MultivisualisationModuleChartController($scope, $log, ChartModuleConfiguration, CharData, dataChartAdapter, moduleResponseErrorHandler) {
         $log.log('MultivisualisationModuleController');
 
         $log.log('$scope.moduleId: ' + $scope.moduleId);
 
-        var multivisualisationModule = this;
-        multivisualisationModule.options = undefined;
-        multivisualisationModule.data = undefined;
-
-        $scope.$emit(platformParameters.events.START_REQUEST);
+        var multivisualisationModuleChart = this;
+        multivisualisationModuleChart.options = undefined;
+        multivisualisationModuleChart.data = undefined;
 
         if ($scope.moduleId) {
+            $scope.$emit(platformParameters.events.START_REQUEST);
+
             ChartModuleConfiguration.get({id: $scope.moduleId})
                 .$promise
                 .then(onGetResult, onGetError);
         }
 
         function onGetResult(moduleConfiguration) {
-            $log.log('ChartModuleConfiguration has got: ', moduleConfiguration);
-
             CharData.query({}, moduleConfiguration)
                 .$promise
                 .then(onQueryResult, onQueryError);
 
             function onQueryResult(data) {
-                $log.log('CharData.query: ', data);
                 var chartParams = dataChartAdapter.convertTo(moduleConfiguration, data);
 
                 if (chartParams != null) {
-                    multivisualisationModule.options = chartParams.options;
-                    multivisualisationModule.data = chartParams.data;
+                    multivisualisationModuleChart.options = chartParams.options;
+                    multivisualisationModuleChart.data = chartParams.data;
                 }
                 $scope.$emit(platformParameters.events.STOP_REQUEST);
             }

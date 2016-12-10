@@ -191,6 +191,11 @@ angular.module('adf')
                         $scope.$emit(platformParameters.events.SHOW_CONFIGURATION_MODE_ICON);
                     });
 
+                    $scope.$on(platformParameters.events.REGISTER_MODULE_CONTROL_ICONS, function (event, icons) {
+                        $log.log('Will update module\'s control icons: ', $scope.model.id, icons);
+                        $scope.$emit(platformParameters.events.UPDATE_MODULE_CONTROL_ICONS, icons);
+                    });
+
                     $scope.$watch('model.id', function (newId, oldId) {
                         if (oldId == null && newId != null) {
                             $scope.$broadcast(platformParameters.events.RELOAD_MODULE, newId, $stateParams.mode);
