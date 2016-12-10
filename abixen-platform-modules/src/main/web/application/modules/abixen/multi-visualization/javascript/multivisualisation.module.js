@@ -5,6 +5,7 @@
     angular
         .module('platformChartModule', [
             'nvd3',
-            'platformModuleComponent'
+            'platformModuleComponent',
+            'platformListGridModule'
         ]);
 })();

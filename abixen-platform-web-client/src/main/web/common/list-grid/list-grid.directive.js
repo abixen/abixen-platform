@@ -28,9 +28,9 @@
         }
     }
 
-    ListGridController.$inject = ['$scope', '$translate'];
+    ListGridController.$inject = ['$scope'];
 
-    function ListGridController(scope, $translate) {
+    function ListGridController(scope) {
 
         var listGrid = this;
         var MAX_INT = 2147483647;
@@ -52,6 +52,7 @@
             excessColumns: 50,
 
             onRegisterApi: function (gridApi) {
+                console.log('__onRegisterApi__');
                 scope.gridApi = gridApi;
 
                 scope.gridApi.grid.options.multiSelect = listGrid.listGridConfig.selectType === 'multi';
@@ -120,6 +121,8 @@
                     }
                 });
                 listGrid.listGrid.columnDefs = listGrid.listGridConfig.getTableColumns();
+
+                console.log('############', listGrid.listGridConfig.loadOnStart);
 
                 if (listGrid.listGridConfig.loadOnStart) {
                     listGrid.loadMore(true);

@@ -1,1 +1,9 @@
-<h3>Table View is selected</h3>
+<div class="magic-number-chart"
+     ng-controller="MultivisualisationModuleTableController as multivisualisationModuleTable">
+    <div ng-if="multivisualisationModuleTable.renderTable">
+        <platform-list-grid class="default-platform-list-grid"
+                            list-grid-config="multivisualisationModuleTable.listGridConfig"
+                            load-all-records="true">
+        </platform-list-grid>
+    </div>
+</div>

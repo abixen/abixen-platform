@@ -13,6 +13,7 @@
     <meta name="description" content="dashboard sample app">
 
     <link href="<c:url value="/lib/lib.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/lib/ui-grid.min.css" />" rel="stylesheet">
     <link href="<c:url value="/lib/toaster.min.css" />" rel="stylesheet">
     <link href="<c:url value="/lib/xeditable.css" />" rel="stylesheet">
     <link href="<c:url value="/application/application.min.css" />" rel="stylesheet">
@@ -31,10 +32,12 @@
 <body ng-app="platformApplication">
 
 <div ui-view></div>
-
+<script src="<c:url value="/lib/pdfmake.min.js" />"></script>
+<script src="<c:url value="/lib/vfs_fonts.js" />"></script>
 <script src="<c:url value='/lib/angular.min.js' />"></script>
 <script src="<c:url value='/lib/angular-resource.min.js' />"></script>
 <script src="<c:url value='/lib/angular-animate.min.js' />"></script>
+<script src="<c:url value='/lib/angular-translate.min.js' />"></script>
 <script src="<c:url value='/lib/angular-ui-router.min.js' />"></script>
 <script src="<c:url value="/lib/ui-bootstrap-tpls.min.js" />"></script>
 <script src="<c:url value='/lib/angular-aside.min.js' />"></script>
@@ -44,6 +47,7 @@
 <script src="<c:url value='/lib/xeditable.min.js' />"></script>
 <script src="<c:url value='/lib/angular-file-upload.min.js' />"></script>
 <script src="<c:url value='/lib/angular-cookies.min.js' />"></script>
+<script src="<c:url value='/lib/ui-grid.min.js' />"></script>
 
 <script src="<c:url value='/common/modules.min.js' />"></script>
 <script src="<c:url value='/application/application.min.js' />"></script>

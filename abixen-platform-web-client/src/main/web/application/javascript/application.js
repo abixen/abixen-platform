@@ -1,9 +1,11 @@
 var platformApplication = angular.module('platformApplication', [
+    'pascalprecht.translate',
     'platformNavigationModule',
     'platformApplicationControllers',
     'platformApplicationServices',
     'platformApplicationDirectives',
     'platformPageModule',
+    'platformListGridModule',
     'ngAnimate',
     'ui.router',
     'ui.bootstrap',
@@ -18,7 +20,15 @@ var platformApplication = angular.module('platformApplication', [
     'platformMagicNumberModule',
     'platformKpiChartModule',
     'platformUserModule',
-    'platformModalModule'
+    'platformModalModule',
+    'ui.grid',
+    'ui.grid.exporter',
+    'ui.grid.selection',
+    'ui.grid.pinning',
+    'ui.grid.resizeColumns',
+    'ui.grid.moveColumns',
+    'ui.grid.autoResize',
+    'ui.bootstrap.showErrors'
 ]);
 
 platformApplication.factory('platformHttpInterceptor', ['$q', '$injector', function ($q, $injector) {

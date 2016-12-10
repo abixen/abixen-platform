@@ -24,6 +24,7 @@ function AbstractListGridController(Resource, config) {
         sort: angular.isDefined(config) ? (angular.isDefined(config.sort) ? config.sort : DEFAULT_SORT) : DEFAULT_SORT,
         pageSize: angular.isDefined(config) ? (angular.isDefined(config.pageSize) ? config.pageSize : DEFAULT_PAGE_SIZE) : DEFAULT_PAGE_SIZE,
         filter: angular.isDefined(config) ? (angular.isDefined(config.filter) ? config.filter : {}) : {},
+        payloadFilter: angular.isDefined(config) ? (angular.isDefined(config.payloadFilter) ? config.payloadFilter : {}) : {},
         selectType: angular.isDefined(config) ? (angular.isDefined(config.selectType) ? config.selectType : DEFAULT_SELECT_TYPE) : DEFAULT_SELECT_TYPE,
         loadOnStart: angular.isDefined(config) ? (angular.isDefined(config.loadOnStart) ? config.loadOnStart : true) : true,
         dataProviderType: angular.isDefined(config) ? (angular.isDefined(config.dataProviderType) ? config.dataProviderType : DEFAULT_DATA_PROVIDER_TYPE) : DEFAULT_DATA_PROVIDER_TYPE
@@ -76,10 +77,9 @@ function AbstractListGridController(Resource, config) {
     }
 
     function query(params, reset) {
-        console.log('params: ', params);
         angular.extend(params, abstractListGridController.listGridConfig.additionalQueryParams);
 
-        Resource.query(params)
+        Resource.query(params, abstractListGridController.listGridConfig.payloadFilter)
             .$promise
             .then(onQueryResult);
 
