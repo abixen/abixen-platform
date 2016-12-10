@@ -17,5 +17,17 @@
     'use strict';
 
     angular
-        .module('platformListGridModule', []);
+        .module('platformChartModule')
+        .factory('CharDataPreview', CharDataPreview);
+
+    CharDataPreview.$inject = ['$resource'];
+
+    function CharDataPreview($resource) {
+
+        return $resource('/application/modules/abixen/multi-visualization/data-preview/:seriesName', {}, {
+            query: {method: 'POST', params: {seriesName: '@seriesName'}, isArray: true}
+        });
+
+    }
+
 })();

@@ -17,5 +17,17 @@
     'use strict';
 
     angular
-        .module('platformListGridModule', []);
+        .module('platformChartModule')
+        .factory('ChartModuleConfiguration', ChartModuleConfiguration);
+
+    ChartModuleConfiguration.$inject = ['$resource'];
+
+    function ChartModuleConfiguration($resource) {
+
+        return $resource('/application/modules/abixen/multi-visualization/configuration/:id', {}, {
+            update: {method: 'PUT'}
+        });
+
+    }
+
 })();

@@ -17,5 +17,17 @@
     'use strict';
 
     angular
-        .module('platformListGridModule', []);
+        .module('platformChartModule')
+        .factory('ApplicationDatabaseDataSource', ApplicationDatabaseDataSource);
+
+    ApplicationDatabaseDataSource.$inject = ['$resource'];
+
+    function ApplicationDatabaseDataSource($resource) {
+
+        return $resource('/admin/modules/abixen/multi-visualization/database-data-sources', {}, {
+            query: {method: 'GET', isArray: false}
+        });
+
+    }
+
 })();
