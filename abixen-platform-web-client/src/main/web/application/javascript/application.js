@@ -4,6 +4,7 @@ var platformApplication = angular.module('platformApplication', [
     'platformApplicationControllers',
     'platformApplicationServices',
     'platformApplicationDirectives',
+    'platformThumbModule',
     'platformPageModule',
     'platformListGridModule',
     'ngAnimate',

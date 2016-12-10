@@ -45,9 +45,13 @@
         );
 
         userDetails.genderTypes = [{key: 'MALE'}, {key: 'FEMALE'}];
+        userDetails.userBaseUrl = "/api/application/users/";
+        userDetails.avatarUrl = '';
 
         userDetails.today = today;
         userDetails.clear = clear;
+
+        getUserAvatarUrl($stateParams.id);
 
         function clear() {
             $scope.entity.birthday = null;
@@ -59,6 +63,18 @@
 
         function onSuccessSaveForm() {
             $state.go('application.users.list');
+        }
+
+        function getUserAvatarUrl(id) {
+            if (userDetails.avatarUrl === '') {
+                if (id) {
+                    User.get({id: id}, function (data) {
+                        userDetails.avatarUrl = userDetails.userBaseUrl + id + '/avatar/' + data.avatarFileName;
+                    });
+                } else {
+                    userDetails.avatarUrl = '';
+                }
+            }
         }
 
         function getValidators() {

@@ -1,0 +1,85 @@
+<div class="row form-row user-details">
+    <div class="col-md-6 col-md-offset-3">
+        <form class="form form-instance" role="form" name="userDetails.entityForm" novalidate>
+            <div class="col-xs-6">
+                <input-text model="userDetails.entity.screenName"
+                            name="screenName"
+                            label="{{'module.user.screenName.label' | translate}}"
+                            placeholder="{{'module.user.screenName.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+                <input-text model="userDetails.entity.username"
+                            name="username"
+                            label="{{'module.user.username.label' | translate}}"
+                            placeholder="{{'module.user.username.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+                <input-text model="userDetails.entity.firstName"
+                            name="firstName"
+                            label="{{'module.user.firstName.label' | translate}}"
+                            placeholder="{{'module.user.firstName.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+                <input-text model="userDetails.entity.middleName"
+                            name="middleName"
+                            label="{{'module.user.middleName.label' | translate}}"
+                            placeholder="{{'module.user.middleName.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+                <input-text model="userDetails.entity.lastName"
+                            name="lastName"
+                            label="{{'module.user.lastName.label' | translate}}"
+                            placeholder="{{'module.user.lastName.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+                <input-text model="userDetails.entity.jobTitle"
+                            name="jobTitle"
+                            label="{{'module.user.jobTitle.label' | translate}}"
+                            placeholder="{{'module.user.jobTitle.placeholder' | translate}}"
+                            validators="userDetails.validators">
+                </input-text>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group avatar">
+                    <div>
+                        <img ng-src="{{userDetails.avatarUrl}}" ></div>
+                    <div>
+                        <button ui-sref="application.users.edit.avatar"><i class="fa fa-pencil-square-o"></i>Change</button>
+                    </div>
+                </div>
+                <div class="form-group user-id">
+                    <label for="userId">User ID</label>
+                    <div id="userId">
+                        <span>{{userDetails.entity.id}}</span>
+                    </div>
+                </div>
+                <input-date model="userDetails.entity.birthday"
+                            name="birthday"
+                            label="{{'module.user.birthday.label' | translate}}"
+                            validators="userDetails.validators">
+                </input-date>
+
+                <input-drop-down model="userDetails.entity.gender"
+                                 name="gender"
+                                 label="{{'module.user.gender.label' | translate}}"
+                                 validators="userDetails.validators"
+                                 options="userDetails.genderTypes"
+                                 show-empty-value="true"
+                                 empty-value-label="Select gender"
+                                 key-as-value="true">
+                </input-drop-down>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row bottom-navigation">
+    <div class="col-sx-12 bottom-navigation-content">
+        <button class="btn save-button" ng-click="userDetails.saveForm()"
+                ng-disabled="userDetails.entityForm.$invalid">
+            <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
+        </button>
+        <button ui-sref="application.users.list" class="btn cancel-button">
+            <i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+        </button>
+    </div>
+</div>
