@@ -18,28 +18,25 @@
 
     angular
         .module('platformChartModule')
-        .controller('ChartModuleInitController', ChartModuleInitController);
+        .controller('MultivisualisationModuleInitController', MultivisualisationModuleInitController);
 
-    ChartModuleInitController.$inject = [
+    MultivisualisationModuleInitController.$inject = [
         '$scope',
-        '$http',
         '$log',
-        'ChartModuleInit',
-        'CharDataPreview'
+        'ChartModuleInit'
     ];
 
-    function ChartModuleInitController($scope, $http, $log, ChartModuleInit, CharDataPreview) {
-        $log.log('ChartModuleInitController');
+    function MultivisualisationModuleInitController($scope, $log, ChartModuleInit) {
+        $log.log('MultivisualisationModuleInitController');
+
+        var multivisualisationModuleInit = this;
+        multivisualisationModuleInit.subview = null;
+
+        var SUBVIEW_CONFIGURATION = 'configuration';
+        var SUBVIEW_CHART = 'chart';
 
         $scope.moduleId = null;
 
-        $scope.showConfigurationWizard = function () {
-            $scope.subview = 'configuration';
-        };
-
-        $scope.showChart = function () {
-            $scope.subview = 'chart';
-        };
 
         $scope.$on(platformParameters.events.RELOAD_MODULE, function (event, id, viewMode) {
             $log.log('RELOAD MODULE EVENT', event, id, viewMode);
@@ -49,12 +46,12 @@
             $scope.$emit(platformParameters.events.START_REQUEST);
             ChartModuleInit.get({id: id}, function (data) {
                 $log.log('ChartModuleInit has been got: ', data);
-                if (viewMode == 'view') {
-                    $scope.subview = 'chart';
-                } else if (viewMode == 'edit') {
-                    $scope.subview = 'configuration';
+                if (viewMode === 'view') {
+                    multivisualisationModuleInit.subview = SUBVIEW_CHART;
+                } else if (viewMode === 'edit') {
+                    multivisualisationModuleInit.subview = SUBVIEW_CONFIGURATION;
                 } else {
-                    $scope.subview = 'chart';
+                    multivisualisationModuleInit.subview = SUBVIEW_CHART;
                 }
 
                 $scope.$emit(platformParameters.events.STOP_REQUEST);
@@ -69,14 +66,14 @@
         });
 
         $scope.$on('CONFIGURATION_MODE', function (event, id) {
-            $log.log('CONFIGURATION_MODE EVENT', event, id)
-            $scope.subview = 'configuration';
+            $log.log('CONFIGURATION_MODE EVENT', event, id);
+            multivisualisationModuleInit.subview = SUBVIEW_CONFIGURATION;
             $scope.$emit(platformParameters.events.CONFIGURATION_MODE_READY);
         });
 
         $scope.$on('VIEW_MODE', function (event, id) {
-            $log.log('VIEW_MODE EVENT', event, id)
-            $scope.subview = 'chart';
+            $log.log('VIEW_MODE EVENT', event, id);
+            multivisualisationModuleInit.subview = SUBVIEW_CHART;
             $scope.$emit(platformParameters.events.VIEW_MODE_READY);
         });
 

@@ -1,5 +1,5 @@
-<div ng-controller="ChartModuleInitController">
-    <div ng-switch="subview">
+<div ng-controller="MultivisualisationModuleInitController as multivisualisationModuleInit">
+    <div ng-switch="multivisualisationModuleInit.subview">
         <div ng-switch-when="chart">
             <div ng-include="'/application/modules/abixen/multi-visualization/html/chart-view.html'"></div>
         </div>
