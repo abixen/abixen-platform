@@ -27,6 +27,16 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import org.apache.commons.io.FileExistsException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -47,6 +57,9 @@ public class LayoutServiceImpl implements LayoutService {
 
     @Resource
     private LayoutRepository layoutRepository;
+
+    @Autowired
+    private AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     @Override
     public Layout createLayout(Layout layout) {
@@ -109,5 +122,25 @@ public class LayoutServiceImpl implements LayoutService {
     public Layout findLayout(Long id) {
         log.debug("findLayout() - id: " + id);
         return layoutRepository.findOne(id);
+    }
+
+    @Override
+    public Layout changeIcon(Long id, MultipartFile iconFile) throws IOException {
+        Layout layout = findLayout(id);
+        File currentAvatarFile = new File(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/layout-miniature/" + layout.getIconFileName());
+        if (currentAvatarFile.exists()) {
+            if (!currentAvatarFile.delete()) {
+                throw new FileExistsException();
+            }
+        }
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        String newIconFileName = encoder.encode(iconFile.getName() + new Date().getTime()).replaceAll("\"", "s").replaceAll("/", "a").replace(".", "sde");
+        File newIconFile = new File(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/layout-miniature/" + newIconFileName);
+        FileOutputStream out = new FileOutputStream(newIconFile);
+        out.write(iconFile.getBytes());
+        out.close();
+        layout.setIconFileName(newIconFileName);
+        updateLayout(layout);
+        return findLayout(id);
     }
 }

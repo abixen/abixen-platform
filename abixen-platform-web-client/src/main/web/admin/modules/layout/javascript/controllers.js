@@ -86,45 +86,32 @@ layoutControllers.controller('LayoutDetailController', ['$scope', '$http', '$sta
         return $state.current.name === 'application.layouts.edit'
     };
 
-    $scope.userBaseUrl = "/api/application/users/";  //FIXME
-    var uploader = $scope.uploader = new FileUploader({
-        url: $scope.userBaseUrl ,  //FIXME
-        method: "POST",
-        alias: 'layoutIconFile',
-        queueLimit: 1,
-        headers: {
-            "X-XSRF-TOKEN": $cookies.get($http.defaults.xsrfCookieName)
-        }
-    });
-    uploader.onAfterAddingAll = function () {
-            if (uploader.getNotUploadedItems().length > 1) {
-                uploader.removeFromQueue(0);
+    var layoutIconChange = $scope.layoutIconChange = this;
+    layoutIconChange.userBaseUrl = '/api/admin/layouts/';
+    layoutIconChange.xsrfToken = $cookies.get($http.defaults.xsrfCookieName);
+
+    new AbstractUploaderController(layoutIconChange, FileUploader, layoutIconChange.xsrfToken,
+        {
+            uploaderUrl: layoutIconChange.userBaseUrl + $stateParams.id + '/icon',
+            uploaderAlias: 'iconFile',
+            uploaderMethod: 'POST',
+            uploaderFunctionConfig: function (controller) {
+                controller.onCompleteAll = onCompleteAll;
             }
-    };
-
-    uploader.filters.push({
-        name: 'imageFilter',
-        fn: function (item /*{File|FileLikeObject}*/, options) {
-            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
         }
-    });
+    );
+    layoutIconChange.cancelAll = cancelAll;
 
-    uploader.onAfterAddingFile = function (fileItem) {
-    };
-
-    uploader.onCompleteItem = function (fileItem, response, status, headers) {
-    };
-
-    uploader.onCompleteAll = function () {
+    function onCompleteAll() {
         if ($scope.isUploadIcon) {
             $scope.isUploadIcon = false;
-            uploader.clearQueue()
+            layoutIconChange.uploader.clearQueue();
+            $scope.get($stateParams.id);
         }
     };
 
-    $scope.hideUploadLayoutIcon = function () {
-        uploader.clearQueue();
+    function cancelAll() {
+        layoutIconChange.uploader.cancelAll();
         $scope.isUploadIcon = false;
     };
 

@@ -24,6 +24,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 
 
 //FIXME
@@ -92,5 +94,10 @@ public class LayoutController {
         log.debug("delete() - id: " + id);
         layoutService.deleteLayout(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/admin/layouts/{id}/icon", method = RequestMethod.POST)
+    public Layout updateLayoutIcon(@PathVariable Long id, @RequestParam("iconFile") MultipartFile iconFile) throws IOException {
+        return layoutService.changeIcon(id, iconFile);
     }
 }

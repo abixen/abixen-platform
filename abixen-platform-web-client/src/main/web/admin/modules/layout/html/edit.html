@@ -1,4 +1,4 @@
-<div class="row form-row" nv-file-drop="" uploader="uploader">
+<div class="row form-row" nv-file-drop="" uploader="layoutIconChange.uploader">
     <div class="col-md-6 col-md-offset-3">
         <div class="alert alert-danger" ng-show="error">
             Error.
@@ -37,19 +37,19 @@
         </form>
         <div class="row form-row" ng-show="isUploadIcon">
             <h2>Layout Icon uploader</h2>
-            <div ng-show="uploader.isHTML5">
-                <div class="" ng-if="uploader.queue[0] != undefined"
-                     ng-thumb="{ file: uploader.queue[0]._file, height: 150 }"></div>
+            <div ng-show="layoutIconChange.uploader.isHTML5">
+                <div class="" ng-if="layoutIconChange.uploader.queue[0] != undefined"
+                     platform-thumb="{ file: layoutIconChange.uploader.queue[0]._file, height: 150 }"></div>
             </div>
             <div class="well my-drop-zone">
             </div>
             <div>
-                <input type="file" nv-file-select="" uploader="uploader"/><br/>
+                <input type="file" nv-file-select="" uploader="layoutIconChange.uploader"/><br/>
                 <div>
                     Upload progress:
                     <div class="progress" style="">
                         <div class="progress-bar" role="progressbar"
-                             ng-style="{ 'width': uploader.progress + '%' }"></div>
+                             ng-style="{ 'width': layoutIconChange.uploader.progress + '%' }"></div>
                     </div>
                 </div>
             </div>
@@ -63,9 +63,9 @@
                         <i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
                 </div>
                 <div class="col-sm-offset-3 col-sm-9" ng-show="isUploadIcon">
-                    <a class="btn save-button" ng-click="uploader.uploadAll()"
-                       ng-disabled="!uploader.getNotUploadedItems().length"><i class="fa fa-floppy-o"></i><span>&nbsp;Upload</span></a>
-                    <a class="btn cancel-button" ng-click="uploader.cancelAll();hideUploadLayoutIcon()"><i
+                    <a class="btn save-button" ng-click="layoutIconChange.uploader.uploadAll()"
+                       ng-disabled="!layoutIconChange.uploader.getNotUploadedItems().length"><i class="fa fa-floppy-o"></i><span>&nbsp;Upload</span></a>
+                    <a class="btn cancel-button" ng-click="layoutIconChange.cancelAll();hideUploadLayoutIcon()"><i
                             class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
                 </div>
             </div>
