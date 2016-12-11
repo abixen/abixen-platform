@@ -16,7 +16,7 @@
             <column name="content" type="varchar(4000)">
                 <constraints nullable="false"/>
             </column>
-            <column name="icon_file_name" type="varchar(50)">
+            <column name="icon_file_name" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="title" type="varchar(40)">

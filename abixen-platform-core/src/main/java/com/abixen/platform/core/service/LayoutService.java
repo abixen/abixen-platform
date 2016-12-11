@@ -17,6 +17,8 @@ package com.abixen.platform.core.service;
 import com.abixen.platform.core.model.impl.Layout;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 
 
 public interface LayoutService {
@@ -32,5 +34,7 @@ public interface LayoutService {
     Page<Layout> findAllLayouts(Pageable pageable);
 
     Layout findLayout(Long id);
+
+    Layout changeIcon(Long id, MultipartFile iconFile) throws IOException;
 
 }

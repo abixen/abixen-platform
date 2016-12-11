@@ -47,7 +47,7 @@ public final class ModelKeys {
     public static final int LAYOUT_CONTENT_MIN_LENGTH = 10;
     public static final int LAYOUT_CONTENT_MAX_LENGTH = 4000; //?
 
-    public static final int LAYOUT_ICON_FILE_NAME_MAX_LENGTH = 50;
+    public static final int LAYOUT_ICON_FILE_NAME_MAX_LENGTH = 100;
 
     public static final int MODULE_TITLE_MIN_LENGTH = 6;
     public static final int MODULE_TITLE_MAX_LENGTH = 40;
