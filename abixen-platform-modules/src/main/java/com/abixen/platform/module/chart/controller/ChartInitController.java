@@ -36,15 +36,7 @@ public class ChartInitController {
     public PlatformWebUser init(@PathVariable Long id) {
         log.debug("init() - id:" + id);
 
-        //TODO - temporary for testing frontend loaders.
-        /*try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
         return (PlatformWebUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
-
 
 }

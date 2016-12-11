@@ -40,21 +40,9 @@
         var SHOW_SUBVIEW_CHART_EVENT = 'SHOW_SUBVIEW_CHART_EVENT';
         var SHOW_SUBVIEW_TABLE_EVENT = 'SHOW_SUBVIEW_TABLE_EVENT';
 
-        var SUBVIEW_TABLE_ICONS = [
-            {
-                iconClass: 'fa fa-line-chart',
-                event: SHOW_SUBVIEW_CHART_EVENT,
-                title: 'Show chart view'
-            }
-        ];
 
-        var SUBVIEW_CHART_ICONS = [
-            {
-                iconClass: 'fa fa-table',
-                event: SHOW_SUBVIEW_TABLE_EVENT,
-                title: 'Show table view'
-            }
-        ];
+
+
 
         var SUBVIEW_CONFIGURATION_ICONS = [];
 
@@ -74,13 +62,11 @@
                 $log.log('ChartModuleInit has been got: ', data);
                 if (viewMode === 'view') {
                     multivisualisationModuleInit.subview = SUBVIEW_CHART;
-                    registerSubviewChartIcons();
                 } else if (viewMode === 'edit') {
                     multivisualisationModuleInit.subview = SUBVIEW_CONFIGURATION;
                     registerSubviewConfigurationIcons();
                 } else {
                     multivisualisationModuleInit.subview = SUBVIEW_CHART;
-                    registerSubviewChartIcons();
                 }
 
                 $scope.$emit(platformParameters.events.STOP_REQUEST);
@@ -101,31 +87,17 @@
             $log.log('VIEW_MODE EVENT', event, id);
             multivisualisationModuleInit.subview = SUBVIEW_CHART;
             $scope.$emit(platformParameters.events.VIEW_MODE_READY);
-
-            registerSubviewChartIcons();
         });
 
         $scope.$on(SHOW_SUBVIEW_CHART_EVENT, function () {
             $log.log('SHOW_SUBVIEW_CHART_EVENT');
             multivisualisationModuleInit.subview = SUBVIEW_CHART;
-
-            registerSubviewChartIcons();
         });
 
         $scope.$on(SHOW_SUBVIEW_TABLE_EVENT, function () {
             $log.log('SHOW_SUBVIEW_TABLE_EVENT');
             multivisualisationModuleInit.subview = SUBVIEW_TABLE;
-
-            registerSubviewTableIcons();
         });
-
-        function registerSubviewTableIcons() {
-            $scope.$emit(platformParameters.events.REGISTER_MODULE_CONTROL_ICONS, SUBVIEW_TABLE_ICONS);
-        }
-
-        function registerSubviewChartIcons() {
-            $scope.$emit(platformParameters.events.REGISTER_MODULE_CONTROL_ICONS, SUBVIEW_CHART_ICONS);
-        }
 
         function registerSubviewConfigurationIcons() {
             $scope.$emit(platformParameters.events.REGISTER_MODULE_CONTROL_ICONS, SUBVIEW_CONFIGURATION_ICONS);

@@ -38,6 +38,8 @@
         multivisualisationModuleChart.options = undefined;
         multivisualisationModuleChart.data = undefined;
 
+        var SHOW_SUBVIEW_TABLE_EVENT = 'SHOW_SUBVIEW_TABLE_EVENT';
+
         if ($scope.moduleId) {
             $scope.$emit(platformParameters.events.START_REQUEST);
 
@@ -50,6 +52,8 @@
             CharData.query({}, moduleConfiguration)
                 .$promise
                 .then(onQueryResult, onQueryError);
+
+            registerSubviewChartIcons(moduleConfiguration.chartType);
 
             function onQueryResult(data) {
                 var chartParams = dataChartAdapter.convertTo(moduleConfiguration, data);
@@ -68,6 +72,50 @@
 
         function onGetError(error) {
             moduleResponseErrorHandler.handle(error, $scope);
+        }
+
+        function registerSubviewChartIcons(chartType) {
+            if (isTableViewAvailable(chartType)) {
+                var icons = [
+                    {
+                        iconClass: 'fa fa-table',
+                        event: SHOW_SUBVIEW_TABLE_EVENT,
+                        title: 'Show table view'
+                    }
+                ];
+                registerSubviewChartIconsHelper(icons);
+            } else {
+                registerSubviewChartIconsHelper([]);
+            }
+        }
+
+        function registerSubviewChartIconsHelper(icons) {
+            $scope.$emit(platformParameters.events.REGISTER_MODULE_CONTROL_ICONS, icons);
+        }
+
+        function isTableViewAvailable(chartType) {
+            switch (chartType) {
+                case 'LINE':
+                    return true;
+                case 'PIE':
+                    return true;
+                case 'MULTI_BAR':
+                    return true;
+                case 'MULTI_COLUMN':
+                    return true;
+                case 'STACKED_AREA':
+                    return true;
+                case 'DONUT':
+                    return true;
+                case 'DISCRETE_COLUMN':
+                    return true;
+                case 'HISTORICAL_COLUMN':
+                    return true;
+                case 'CUMULATIVE_LINE':
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
 })();

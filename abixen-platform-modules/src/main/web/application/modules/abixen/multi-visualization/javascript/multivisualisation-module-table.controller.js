@@ -39,6 +39,8 @@
         multivisualisationModuleTable.data = undefined;
         multivisualisationModuleTable.renderTable = false;
 
+        var SHOW_SUBVIEW_CHART_EVENT = 'SHOW_SUBVIEW_CHART_EVENT';
+
         if ($scope.moduleId) {
             $scope.$emit(platformParameters.events.START_REQUEST);
 
@@ -49,6 +51,7 @@
 
         function onGetResult(moduleConfiguration) {
             multivisualisationModuleTable.renderTable = true;
+
             angular.extend(multivisualisationModuleTable, new AbstractListGridController(CharData,
                 {
                     getTableColumns: getTableColumns,
@@ -59,13 +62,15 @@
                 }
             ));
 
+            registerSubviewTableIcons(moduleConfiguration.chartType);
+
             function getTableColumns() {
                 var columns = [
                     {
                         field: moduleConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name + '.value',
                         name: 'Domain',
-                        pinnedLeft: false,
-                        width: 200
+                        cellClass: 'cell-align-right',
+                        enableSorting: false
                     }
                 ];
 
@@ -73,8 +78,8 @@
                     var column = {
                         field: moduleConfiguration.dataSetChart.dataSetSeries[i].valueSeriesColumn.dataSourceColumn.name + '.value',
                         name: moduleConfiguration.dataSetChart.dataSetSeries[i].name,
-                        pinnedLeft: false,
-                        width: 200
+                        cellClass: 'cell-align-right',
+                        enableSorting: false
                     };
                     columns.push(column);
                 }
@@ -92,6 +97,50 @@
 
         function onGetError(error) {
             moduleResponseErrorHandler.handle(error, $scope);
+        }
+
+        function registerSubviewTableIcons(chartType) {
+            if (isChartViewAvailable(chartType)) {
+                var icons = [
+                    {
+                        iconClass: 'fa fa-line-chart',
+                        event: SHOW_SUBVIEW_CHART_EVENT,
+                        title: 'Show chart view'
+                    }
+                ];
+                registerSubviewTableIconsHelper(icons);
+            } else {
+                registerSubviewTableIconsHelper([]);
+            }
+        }
+
+        function registerSubviewTableIconsHelper(icons) {
+            $scope.$emit(platformParameters.events.REGISTER_MODULE_CONTROL_ICONS, icons);
+        }
+
+        function isChartViewAvailable(chartType) {
+            switch (chartType) {
+                case 'LINE_TABLE':
+                    return true;
+                case 'PIE_TABLE':
+                    return true;
+                case 'MULTI_BAR_TABLE':
+                    return true;
+                case 'MULTI_COLUMN_TABLE':
+                    return true;
+                case 'STACKED_AREA_TABLE':
+                    return true;
+                case 'DONUT_TABLE':
+                    return true;
+                case 'DISCRETE_COLUMN_TABLE':
+                    return true;
+                case 'HISTORICAL_COLUMN_TABLE':
+                    return true;
+                case 'CUMULATIVE_LINE_TABLE':
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
 })();
