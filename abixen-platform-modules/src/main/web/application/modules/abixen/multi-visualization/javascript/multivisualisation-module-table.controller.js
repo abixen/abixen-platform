@@ -53,7 +53,9 @@
                 {
                     getTableColumns: getTableColumns,
                     dataProviderType: 'list',
-                    payloadFilter: moduleConfiguration
+                    payloadFilter: moduleConfiguration,
+                    onGetDataResult: onGetDataResult,
+                    onGetDataError: onGetDataError
                 }
             ));
 
@@ -77,6 +79,14 @@
                     columns.push(column);
                 }
                 return columns;
+            }
+
+            function onGetDataResult(data) {
+                $scope.$emit(platformParameters.events.STOP_REQUEST);
+            }
+
+            function onGetDataError(error) {
+                moduleResponseErrorHandler.handle(error, $scope);
             }
         }
 

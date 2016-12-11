@@ -52,7 +52,6 @@
             excessColumns: 50,
 
             onRegisterApi: function (gridApi) {
-                console.log('__onRegisterApi__');
                 scope.gridApi = gridApi;
 
                 scope.gridApi.grid.options.multiSelect = listGrid.listGridConfig.selectType === 'multi';
@@ -121,8 +120,6 @@
                     }
                 });
                 listGrid.listGrid.columnDefs = listGrid.listGridConfig.getTableColumns();
-
-                console.log('############', listGrid.listGridConfig.loadOnStart);
 
                 if (listGrid.listGridConfig.loadOnStart) {
                     listGrid.loadMore(true);

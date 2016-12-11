@@ -20,7 +20,8 @@ function AbstractListGridController(Resource, config) {
         getTableColumns: angular.isDefined(config) ? config.getTableColumns : undefined,
         onRowSelected: angular.isDefined(config) ? config.onRowSelected : undefined,
         onRowUnselected: angular.isDefined(config) ? config.onRowUnselected : undefined,
-        onGetData: angular.isDefined(config) ? config.onGetData : undefined,
+        onGetDataResult: angular.isDefined(config) ? config.onGetDataResult : undefined,
+        onGetDataError: angular.isDefined(config) ? config.onGetDataError : undefined,
         sort: angular.isDefined(config) ? (angular.isDefined(config.sort) ? config.sort : DEFAULT_SORT) : DEFAULT_SORT,
         pageSize: angular.isDefined(config) ? (angular.isDefined(config.pageSize) ? config.pageSize : DEFAULT_PAGE_SIZE) : DEFAULT_PAGE_SIZE,
         filter: angular.isDefined(config) ? (angular.isDefined(config.filter) ? config.filter : {}) : {},
@@ -81,7 +82,7 @@ function AbstractListGridController(Resource, config) {
 
         Resource.query(params, abstractListGridController.listGridConfig.payloadFilter)
             .$promise
-            .then(onQueryResult);
+            .then(onQueryResult, onQueryError);
 
         function onQueryResult(data) {
             if (abstractListGridController.listGridConfig.dataProviderType === 'page') {
@@ -100,8 +101,14 @@ function AbstractListGridController(Resource, config) {
             } else {
                 throw new Error('Wrong data provider type: ' + abstractListGridController.listGridConfig.dataProviderType);
             }
-            if (abstractListGridController.listGridConfig.onGetData) {
-                abstractListGridController.listGridConfig.onGetData(data);
+            if (abstractListGridController.listGridConfig.onGetDataResult) {
+                abstractListGridController.listGridConfig.onGetDataResult(data);
+            }
+        }
+
+        function onQueryError(error) {
+            if (abstractListGridController.listGridConfig.onGetDataError) {
+                abstractListGridController.listGridConfig.onGetDataError(error);
             }
         }
     }
