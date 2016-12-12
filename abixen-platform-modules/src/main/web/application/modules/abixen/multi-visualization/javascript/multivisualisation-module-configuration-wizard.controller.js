@@ -26,10 +26,11 @@
         '$log',
         'ApplicationDatabaseDataSource',
         'ChartModuleConfiguration',
-        'CharDataPreview'
+        'CharDataPreview',
+        'multivisualisationWizardStep'
     ];
 
-    function ChartModuleConfigurationWizardController($scope, $http, $log, ApplicationDatabaseDataSource, ChartModuleConfiguration, CharDataPreview) {
+    function ChartModuleConfigurationWizardController($scope, $http, $log, ApplicationDatabaseDataSource, ChartModuleConfiguration, CharDataPreview, multivisualisationWizardStep) {
         $log.log('ChartModuleConfigurationWizardController');
         $scope.stepCurrent = 0;
         $scope.stepMax = 3;
@@ -80,156 +81,7 @@
         var initInitWizardStep = function () {
 
             $scope.initWizardStep = {};
-            $scope.chartTypes = [];
-
-            var chartTypesTmp = [];
-
-            chartTypesTmp.push({
-                id: 0,
-                type: 'TABLE',
-                name: 'Table view',
-                description: 'Table view only. Use this module to presents table data without chart visualization'
-            });
-
-            chartTypesTmp.push({
-                id: 1,
-                type: 'LINE',
-                name: 'Line chart view',
-                description: 'Use this module to represents data as a chart'
-            });
-            chartTypesTmp.push({
-                id: 2,
-                type: 'LINE_TABLE',
-                name: 'Line chart with table view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 3,
-                type: 'CUMULATIVE_LINE',
-                name: 'Cumulative line chart view',
-                description: 'Use this module to represents data as a chart'
-            });
-            chartTypesTmp.push({
-                id: 4,
-                type: 'CUMULATIVE_LINE_TABLE',
-                name: 'Cumulative line chart with table view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 5,
-                type: 'STACKED_AREA',
-                name: 'Stacked area chart view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 6,
-                type: 'STACKED_AREA_TABLE',
-                name: 'Stacked area chart with table view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 7,
-                type: 'MULTI_COLUMN',
-                name: 'Multi column chart view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 8,
-                type: 'MULTI_COLUMN_TABLE',
-                name: 'Multi column chart with table view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 9,
-                type: 'DISCRETE_COLUMN',
-                name: 'Discrete column chart view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 10,
-                type: 'DISCRETE_COLUMN_TABLE',
-                name: 'Discrete column chart with table view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 11,
-                type: 'HISTORICAL_COLUMN',
-                name: 'Historical column chart view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 12,
-                type: 'HISTORICAL_COLUMN_TABLE',
-                name: 'Historical column chart with table view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 13,
-                type: 'MULTI_BAR',
-                name: 'Multi bar chart view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 14,
-                type: 'MULTI_BAR_TABLE',
-                name: 'Multi bar chart with table view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 15,
-                type: 'PIE',
-                name: 'Pie chart view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 16,
-                type: 'PIE_TABLE',
-                name: 'Pie chart with table view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 17,
-                type: 'SCATTER',
-                name: 'Scatter chart view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 18,
-                type: 'SCATTER_TABLE',
-                name: 'Scatter chart with table view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 19,
-                type: 'DONUT',
-                name: 'Donut chart view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            chartTypesTmp.push({
-                id: 20,
-                type: 'DONUT_TABLE',
-                name: 'Donut chart with table view',
-                description: 'Use this module to represents data as a chart'
-            });
-
-            $scope.chartTypes = chartTypesTmp;
+            $scope.chartTypes = multivisualisationWizardStep.getChartTypes();
 
             //$scope.initWizardStep.selected = null;
             $scope.setChartTypeSelected = function (chartType) {
