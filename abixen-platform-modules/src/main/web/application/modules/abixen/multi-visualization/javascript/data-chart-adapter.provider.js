@@ -321,6 +321,9 @@
             if (chartType === 'CUMULATIVE_LINE' || chartType === 'CUMULATIVE_LINE_TABLE') {
                 return convertToChart(configurationData, data, cumulativeLineChartAdapter());
             }
+            if (chartType === 'SCATTER' || chartType === 'SCATTER_TABLE') {
+                return convertToChart(configurationData, data, genericChartAdapter('scatterChart'));
+            }
             throw new Error('Wrong chart type');
         }
     }
