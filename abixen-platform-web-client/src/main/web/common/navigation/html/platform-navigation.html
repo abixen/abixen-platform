@@ -1,17 +1,19 @@
 <div ng-if="platformUser" class="platform-navigation" ng-class="{'open': toggle}" ng-cloak>
     <div class="sidebar-wrapper">
-        <ul class="sidebar">
-            <li class="sidebar-main">
-                <a ng-click="toggleSidebar()">
-                    Abixen Platform
-                    <span class="menu-icon" ng-class="toggle ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"></span>
-                </a>
-            </li>
-            <li class="sidebar-list" ng-repeat="sidebarItem in sidebarItems | orderBy: 'orderIndex'">
-                <a ng-click="changeState(sidebarItem)" ng-class="{'selected': sidebarItem.id == selectedItem}">{{sidebarItem.title}}<span
-                        class="menu-icon" ng-class="sidebarItem.iconClass"></span></a>
-            </li>
-        </ul>
+        <div class="sidebar-header">
+            <a ng-click="toggleSidebar()">
+                Abixen Platform
+                <span class="menu-icon" ng-class="toggle ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"></span>
+            </a>
+        </div>
+        <div class="sidebar-content" ng-scrollbar rebuild-on-resize rebuild-on="sidebar-scroll:rebuild">
+            <ul class="sidebar">
+                <li class="sidebar-list" on-ng-repeat-render-finish="sidebar-scroll:rebuild" ng-repeat="sidebarItem in sidebarItems | orderBy: 'orderIndex'">
+                    <a ng-click="changeState(sidebarItem)" ng-class="{'selected': sidebarItem.id == selectedItem}">{{sidebarItem.title}}<span
+                            class="menu-icon" ng-class="sidebarItem.iconClass"></span></a>
+                </li>
+            </ul>
+        </div>
         <div class="sidebar-footer">
             <div class="col-xs-12">
                 <a>Copyright &copy; Abixen Systems</a>

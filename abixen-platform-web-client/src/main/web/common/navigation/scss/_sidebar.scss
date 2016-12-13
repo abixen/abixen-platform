@@ -1,3 +1,6 @@
+$sidebar-header-height: 65px;
+$sidebar-footer-height: 40px;
+
 @mixin sidebar($font-color, $base-color-darkest, $base-color-darker, $complementary-color) {
   background: $base-color-darkest;
   margin-left: -150px;
@@ -9,7 +12,7 @@
   transition: all .4s ease 0s;
 
   ul.sidebar {
-    position: absolute;
+    position: relative;
     top: 0;
     bottom: 0;
     padding: 0;
@@ -25,22 +28,6 @@
         float: left;
         text-decoration: none;
         width: 250px;
-      }
-    }
-    .sidebar-main {
-      height: 65px;
-      a {
-        font-size: 18px;
-        line-height: 60px;
-      }
-      a:hover {
-        cursor: pointer;
-      }
-      .menu-icon {
-        float: right;
-        font-size: 18px;
-        padding-right: 28px;
-        line-height: 60px;
       }
     }
     .sidebar-title {
@@ -76,7 +63,7 @@
   }
 }
 
-ul.sidebar .sidebar-main a, .sidebar-footer, ul.sidebar .sidebar-list a:hover, ul.sidebar .sidebar-list a.selected,
+.sidebar-header, .sidebar-footer, ul.sidebar .sidebar-list a:hover, ul.sidebar .sidebar-list a.selected,
 .platform-navigation:not(.open) ul.sidebar .sidebar-title.separator {
   background: $base-color-darker;
 }
@@ -109,8 +96,8 @@ ul.sidebar .sidebar-main a, .sidebar-footer, ul.sidebar .sidebar-list a:hover, u
 }
 
 .sidebar-footer {
-  position: absolute;
-  height: 40px;
+  position: relative;
+  height: $sidebar-footer-height;
   bottom: 0;
   width: 100%;
   padding: 0;
@@ -128,4 +115,28 @@ ul.sidebar .sidebar-main a, .sidebar-footer, ul.sidebar .sidebar-list a:hover, u
       text-decoration: none;
     }
   }
+}
+
+.sidebar-header {
+  height: $sidebar-header-height;
+  list-style: none;
+  text-indent: 20px;
+  a {
+    color: $font-color;
+    font-size: 18px;
+    line-height: 60px;
+  }
+  a:hover {
+    cursor: pointer;
+  }
+  .menu-icon {
+    float: right;
+    font-size: 18px;
+    padding-right: 28px;
+    line-height: 60px;
+  }
+}
+
+.sidebar-content{
+  height: calc(100% - #{$sidebar-header-height} - #{$sidebar-footer-height});
 }
