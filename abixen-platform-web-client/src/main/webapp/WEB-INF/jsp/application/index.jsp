@@ -16,6 +16,7 @@
     <link href="<c:url value="/lib/ui-grid.min.css" />" rel="stylesheet">
     <link href="<c:url value="/lib/toaster.min.css" />" rel="stylesheet">
     <link href="<c:url value="/lib/xeditable.css" />" rel="stylesheet">
+    <link href="<c:url value="/lib/ng-scrollbar.min.css" />" rel="stylesheet">
     <link href="<c:url value="/application/application.min.css" />" rel="stylesheet">
     <link href="<c:url value="/application/modules/abixen/modules.min.css" />" rel="stylesheet">
 
@@ -48,6 +49,7 @@
 <script src="<c:url value='/lib/angular-file-upload.min.js' />"></script>
 <script src="<c:url value='/lib/angular-cookies.min.js' />"></script>
 <script src="<c:url value='/lib/ui-grid.min.js' />"></script>
+<script src="<c:url value='/lib/ng-scrollbar.min.js' />"></script>
 
 <script src="<c:url value='/common/modules.min.js' />"></script>
 <script src="<c:url value='/application/application.min.js' />"></script>

@@ -18,6 +18,7 @@
             'platformCommonModule',
             'platformListGridModule',
             'platformThumbModule',
+            'platformUtilsModule',
             'ui.bootstrap',
             'ui.router',
             'ngAnimate',
@@ -31,6 +32,7 @@
             'ui.grid.resizeColumns',
             'ui.grid.moveColumns',
             'ui.grid.autoResize',
-            'ui.bootstrap.showErrors'
+            'ui.bootstrap.showErrors',
+            'ngScrollbar'
         ]);
 })();

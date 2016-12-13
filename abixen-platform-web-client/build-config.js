@@ -51,6 +51,8 @@ module.exports = {
             'bower_components/angular-ui-codemirror/ui-codemirror.js',
             'bower_components/angular-loading-bar/src/loading-bar.js',
             'bower_components/angular-loading-bar/src/loading-bar.css',
+            'bower_components/ng-scrollbar/dist/ng-scrollbar.min.js',
+            'bower_components/ng-scrollbar/dist/ng-scrollbar.min.css',
             'src/main/web/lib/show-errors.min.js',
             'src/main/web/lib/ng-storage.min.js'
         ],

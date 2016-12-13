@@ -4,6 +4,7 @@ var platformApplication = angular.module('platformApplication', [
     'platformApplicationControllers',
     'platformApplicationServices',
     'platformApplicationDirectives',
+    'platformUtilsModule',
     'platformThumbModule',
     'platformPageModule',
     'platformListGridModule',
@@ -29,7 +30,8 @@ var platformApplication = angular.module('platformApplication', [
     'ui.grid.resizeColumns',
     'ui.grid.moveColumns',
     'ui.grid.autoResize',
-    'ui.bootstrap.showErrors'
+    'ui.bootstrap.showErrors',
+    'ngScrollbar'
 ]);
 
 platformApplication.factory('platformHttpInterceptor', ['$q', '$injector', function ($q, $injector) {
