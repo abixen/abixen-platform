@@ -16,7 +16,7 @@
     'use strict';
 
     angular
-        .module('platformComponent')
+        .module('platformChartModule')
         .service('multivisualisationWizardStep', multivisualisationWizardStep);
 
     function multivisualisationWizardStep() {
