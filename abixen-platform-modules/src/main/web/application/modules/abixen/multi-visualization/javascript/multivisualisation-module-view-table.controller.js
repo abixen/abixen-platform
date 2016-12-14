@@ -18,9 +18,9 @@
 
     angular
         .module('platformChartModule')
-        .controller('MultivisualisationModuleTableController', MultivisualisationModuleTableController);
+        .controller('MultivisualisationModuleViewTableController', MultivisualisationModuleViewTableController);
 
-    MultivisualisationModuleTableController.$inject = [
+    MultivisualisationModuleViewTableController.$inject = [
         '$scope',
         '$log',
         'ChartModuleConfiguration',
@@ -29,15 +29,15 @@
         'moduleResponseErrorHandler'
     ];
 
-    function MultivisualisationModuleTableController($scope, $log, ChartModuleConfiguration, CharData, dataChartAdapter, moduleResponseErrorHandler) {
+    function MultivisualisationModuleViewTableController($scope, $log, ChartModuleConfiguration, CharData, dataChartAdapter, moduleResponseErrorHandler) {
         $log.log('MultivisualisationModuleController');
 
         $log.log('$scope.moduleId: ' + $scope.moduleId);
 
-        var multivisualisationModuleTable = this;
-        multivisualisationModuleTable.options = undefined;
-        multivisualisationModuleTable.data = undefined;
-        multivisualisationModuleTable.renderTable = false;
+        var multivisualisationModuleViewTable = this;
+        multivisualisationModuleViewTable.options = undefined;
+        multivisualisationModuleViewTable.data = undefined;
+        multivisualisationModuleViewTable.renderTable = false;
 
         var SHOW_SUBVIEW_CHART_EVENT = 'SHOW_SUBVIEW_CHART_EVENT';
 
@@ -50,49 +50,17 @@
         }
 
         function onGetResult(moduleConfiguration) {
-            multivisualisationModuleTable.renderTable = true;
-
-            angular.extend(multivisualisationModuleTable, new AbstractListGridController(CharData,
+            $log.debug('onGetResult ', moduleConfiguration);
+            multivisualisationModuleViewTable.renderTable = true;
+            $log.debug('multivisualisationModuleViewTable.renderTable ', multivisualisationModuleViewTable.renderTable);
+            angular.extend(multivisualisationModuleViewTable, new MultivisualisationModuleAbstractTableController(multivisualisationModuleViewTable, $log, CharData, $scope, moduleResponseErrorHandler,
                 {
-                    getTableColumns: getTableColumns,
-                    dataProviderType: 'list',
-                    payloadFilter: moduleConfiguration,
-                    onGetDataResult: onGetDataResult,
-                    onGetDataError: onGetDataError
+                    chartConfiguration: moduleConfiguration
                 }
             ));
 
             registerSubviewTableIcons(moduleConfiguration.chartType);
 
-            function getTableColumns() {
-                var columns = [
-                    {
-                        field: moduleConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name + '.value',
-                        name: 'Domain',
-                        cellClass: 'cell-align-right',
-                        enableSorting: false
-                    }
-                ];
-
-                for (var i = 0; i < moduleConfiguration.dataSetChart.dataSetSeries.length; i++) {
-                    var column = {
-                        field: moduleConfiguration.dataSetChart.dataSetSeries[i].valueSeriesColumn.dataSourceColumn.name + '.value',
-                        name: moduleConfiguration.dataSetChart.dataSetSeries[i].name,
-                        cellClass: 'cell-align-right',
-                        enableSorting: false
-                    };
-                    columns.push(column);
-                }
-                return columns;
-            }
-
-            function onGetDataResult(data) {
-                $scope.$emit(platformParameters.events.STOP_REQUEST);
-            }
-
-            function onGetDataError(error) {
-                moduleResponseErrorHandler.handle(error, $scope);
-            }
         }
 
         function onGetError(error) {
