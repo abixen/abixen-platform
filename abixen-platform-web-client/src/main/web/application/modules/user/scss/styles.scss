@@ -19,8 +19,8 @@
     display: block;
     height: 218px;
     margin: auto;
-    padding: 20px 0 0;
     @include border-radius(50%);
+    border: solid $base-color-darker 1px;
   }
   .uploader {
     .avatar {

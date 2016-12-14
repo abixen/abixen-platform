@@ -34,7 +34,7 @@ html {
   }
 
   .top-bar {
-    @include top-bar();
+    @include top-bar($base-color-darker);
   }
 }
 

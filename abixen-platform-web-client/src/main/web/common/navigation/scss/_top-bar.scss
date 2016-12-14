@@ -1,4 +1,6 @@
-@mixin top-bar() {
+@import "../../utils/scss/styles.scss";
+
+@mixin top-bar($base-color-darker) {
   height: 60px;
   background: #fff;
 
@@ -32,7 +34,8 @@
         width: 40px;
         height: 40px;
         margin-top: 10px;
-        border-radius: 2px;
+        @include border-radius(50%);
+        border: solid $base-color-darker 1px;
       }
       ul.dropdown-menu {
         border-radius: 2px;
