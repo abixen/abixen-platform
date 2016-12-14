@@ -1,4 +1,4 @@
-$sidebar-header-height: 65px;
+$sidebar-header-height: 60px;
 $sidebar-footer-height: 40px;
 
 @mixin sidebar($font-color, $base-color-darkest, $base-color-darker, $complementary-color) {
@@ -109,25 +109,28 @@ $sidebar-footer-height: 40px;
       color: #b2bfdc;
       font-size: 12px;
       line-height: 43px;
+      cursor: default;
     }
     a:hover {
-      color: $font-color;
+      color: #b2bfdc;
       text-decoration: none;
+      cursor: default;
     }
   }
 }
 
 .sidebar-header {
   height: $sidebar-header-height;
-  list-style: none;
   text-indent: 20px;
   a {
     color: $font-color;
     font-size: 18px;
     line-height: 60px;
+    text-decoration: none;
   }
   a:hover {
     cursor: pointer;
+    text-decoration: none;
   }
   .menu-icon {
     float: right;
