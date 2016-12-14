@@ -1,48 +1,34 @@
 <div class="row form-row">
-    <form class="form-horizontal" role="form" name="entityForm" novalidate>
-        <div class="col-md-6">
+    <form class="form-horizontal" role="form" name="moduleDetails.entityForm" novalidate>
+        <div class="col-md-6 col-md-offset-3">
 
-            <div class="form-group" show-errors>
-                <label for="titleInput" class="col-sm-3 control-label">Title</label>
+            <input-text model="moduleDetails.entity.title"
+                        name="title"
+                        label="{{'module.module.title.label' | translate}}"
+                        placeholder="{{'module.module.title.placeholder' | translate}}"
+                        validators="moduleDetails.validators">
+            </input-text>
 
-                <div class="col-sm-9">
-                    <input ng-model="entity.title" type="text" name="title" class="form-control" id="titleInput"
-                           placeholder="Title" ng-required="true" ng-minlength="6" ng-maxlength="40">
+            <input-text-area model="moduleDetails.entity.description"
+                             name="description"
+                             label="{{'module.module.description.label' | translate}}"
+                             placeholder="{{'module.module.description.placeholder' | translate}}"
+                             validators="moduleDetails.validators"
+                             rows="10">
+            </input-text-area>
 
-                    <p class="help-block" ng-if="entityForm.title.$error.required">Required</p>
-
-                    <p class="help-block" ng-if="entityForm.title.$error.minlength">Min length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.title.$error.maxlength">Max length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.title.$error.serverMessage">
-                        {{entityForm.title.$error.serverMessage}}</p>
-                </div>
-            </div>
-
-            <div class="form-group" show-errors>
-                <label for="descriptionInput" class="col-sm-3 control-label">Description</label>
-
-                <div class="col-sm-9">
-                        <textarea ng-model="entity.description" type="text" name="description" class="form-control"
-                                  id="descriptionInput" placeholder="Description" rows="10" ng-maxlength="100">
-                        </textarea>
-
-                    <p class="help-block" ng-if="entityForm.description.$error.maxlength">Max length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.description.$error.serverMessage">
-                        {{entityForm.description.$error.serverMessage}}</p>
-                </div>
-            </div>
         </div>
     </form>
 </div>
+
 <div class="row bottom-navigation">
     <div class="col-sx-12 bottom-navigation-content">
-        <button type="submit" class="btn btn-success btn-sm"
-                ng-click="saveForm()">Save
+        <button class="btn save-button" ng-click="moduleDetails.saveForm()"
+                ng-disabled="moduleDetails.entityForm.$invalid">
+            <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
         </button>
-        <button type="reset" class="btn btn-default btn-sm">Cancel</button>
+        <button ui-sref="application.modules.list" class="btn cancel-button">
+            <i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+        </button>
     </div>
 </div>
-
