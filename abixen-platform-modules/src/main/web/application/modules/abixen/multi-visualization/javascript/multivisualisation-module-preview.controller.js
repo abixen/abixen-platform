@@ -37,6 +37,8 @@
         var chartModulePreview = this;
         chartModulePreview.options = undefined;
         chartModulePreview.data = undefined;
+        chartModulePreview.previewType = "CHART";
+        chartModulePreview.setPreviewType = setPreviewType;
 
         $scope.$emit(platformParameters.events.START_REQUEST);
         CharData.query({}, $scope.chartConfiguration)
@@ -56,6 +58,11 @@
 
         function onQueryError(error) {
             moduleResponseErrorHandler.handle(error, $scope);
+        }
+
+        function setPreviewType(type) {
+            $log.log('setPreviewType', type);
+           chartModulePreview.previewType = type;
         }
     }
 })();
