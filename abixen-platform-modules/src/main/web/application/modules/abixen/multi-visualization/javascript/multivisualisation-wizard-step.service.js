@@ -162,6 +162,17 @@
                     type: 'LINE_WITH_FOCUS_CHART_TABLE',
                     name: 'Line Chart with focus mode with table view',
                     description: 'Use this module to represents data as a chart'
+                },
+                {
+                    id: 23,
+                    type: 'LINE_AND_BAR_WITH_FOCUS_CHART',
+                    name: 'Line and bar Chart with focus mode',
+                    description: 'Use this module to represents data as a chart'
+                },                {
+                    id: 24,
+                    type: 'LINE_AND_BAR_WITH_FOCUS_CHART_Table',
+                    name: 'Line and bar Chart with focus mode with table view',
+                    description: 'Use this module to represents data as a chart'
                 }
             ]
         }
