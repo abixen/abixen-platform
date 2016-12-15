@@ -150,6 +150,18 @@
                     type: 'DONUT_TABLE',
                     name: 'Donut chart with table view',
                     description: 'Use this module to represents data as a chart'
+                },
+                {
+                    id: 21,
+                    type: 'LINE_WITH_FOCUS_CHART',
+                    name: 'Line Chart with focus mode',
+                    description: 'Use this module to represents data as a chart'
+                },
+                {
+                    id: 22,
+                    type: 'LINE_WITH_FOCUS_CHART_TABLE',
+                    name: 'Line Chart with focus mode with table view',
+                    description: 'Use this module to represents data as a chart'
                 }
             ]
         }

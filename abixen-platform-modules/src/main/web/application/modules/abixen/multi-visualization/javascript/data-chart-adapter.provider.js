@@ -272,6 +272,26 @@
             return chartBuilder.build();
         }
 
+        function lineWithFocusChartAdapter() {
+            var chartBuilder = new ChartBuilder();
+            chartBuilder.setBuildChartOptions(function (configurationData, preparedChartData) {
+                var chartConfig = buildDefaultChartOption('lineWithFocusChart', configurationData, preparedChartData);
+                $log.debug('Adding additional setting for lineWithFocusChart');
+                chartConfig.chart.x2Axis = {};
+                chartConfig.chart.x2Axis.tickFormat = function (d) {
+                    return findXLabel(preparedChartData[0].values, d);
+                };
+                $log.debug('Added additional setting for lineWithFocusChart');
+                return chartConfig;
+            });
+
+            chartBuilder.setBuildChartData(
+                function (configurationData, data) {
+                    return buildMultiSeriesChartData('lineWithFocusChart', configurationData, data)
+                });
+            return chartBuilder.build();
+        }
+
         function genericChartAdapter(chartType) {
             var chartBuilder = new ChartBuilder();
             chartBuilder.setDefaultChartBuilderFunction(chartType);
@@ -323,6 +343,9 @@
             }
             if (chartType === 'SCATTER' || chartType === 'SCATTER_TABLE') {
                 return convertToChart(configurationData, data, genericChartAdapter('scatterChart'));
+            }
+            if (chartType === 'LINE_WITH_FOCUS_CHART' || chartType === 'LINE_WITH_FOCUS_CHART_TABLE') {
+                return convertToChart(configurationData, data, lineWithFocusChartAdapter());
             }
             throw new Error('Wrong chart type');
         }

@@ -36,6 +36,7 @@ public enum ChartType {
     SCATTER,
     SCATTER_TABLE,
     DONUT,
-    DONUT_TABLE
-
+    DONUT_TABLE,
+    LINE_WITH_FOCUS_CHART,
+    LINE_WITH_FOCUS_CHART_TABLE
 }
