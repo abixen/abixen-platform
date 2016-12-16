@@ -1,0 +1,3 @@
+id;module_id;axis_x_name;axis_y_name;chart_type;data_set_chart_id;data_source_id;created_by_id;last_modified_by_id;created_date;last_modified_date
+1;3;Axis X; Axis Y;LINE;1;1;1;2;Null;Null
+2;4;Axis X; Axis Y;PIE;2;1;1;2;Null;Null

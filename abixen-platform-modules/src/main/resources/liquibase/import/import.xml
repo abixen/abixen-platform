@@ -15,6 +15,11 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM database_data_source</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_source</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_source_column</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM chart_configuration</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_set</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_set_chart</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_set_series</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_set_series_column</sqlCheck>
         </preConditions>
 
         <loadData file="liquibase/import/data/database-connection.csv"
@@ -44,6 +49,26 @@
         <loadData file="liquibase/import/data/sample-cash-flow-data.csv"
                   separator=";"
                   tableName="sample_cash_flow_data">
+        </loadData>
+        <loadData file="liquibase/import/data/data-set-series-column-data.csv"
+                  separator=";"
+                  tableName="data_set_series_column">
+        </loadData>
+        <loadData file="liquibase/import/data/data-set-data.csv"
+                  separator=";"
+                  tableName="data_set">
+        </loadData>
+        <loadData file="liquibase/import/data/data-set-chart-data.csv"
+                  separator=";"
+                  tableName="data_set_chart">
+        </loadData>
+        <loadData file="liquibase/import/data/chart-configuration-data.csv"
+                  separator=";"
+                  tableName="chart_configuration">
+        </loadData>
+        <loadData file="liquibase/import/data/data-set-series-data.csv"
+                  separator=";"
+                  tableName="data_set_series">
         </loadData>
 
     </changeSet>
