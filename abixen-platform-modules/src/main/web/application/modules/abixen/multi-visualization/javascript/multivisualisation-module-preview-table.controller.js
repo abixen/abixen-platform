@@ -37,7 +37,7 @@
         multivisualisationModuleTable.data = undefined;
 
         if ($scope.chartConfiguration) {
-            angular.extend(multivisualisationModuleTable, new MultivisualisationModuleAbstractTableController(multivisualisationModuleTable, $log, CharData, $scope, moduleResponseErrorHandler,
+            angular.extend(multivisualisationModuleTable, new MultivisualisationModuleAbstractTableController(multivisualisationModuleTable, $log, CharData, moduleResponseErrorHandler, $scope,
                 {
                     chartConfiguration: $scope.chartConfiguration
                 }

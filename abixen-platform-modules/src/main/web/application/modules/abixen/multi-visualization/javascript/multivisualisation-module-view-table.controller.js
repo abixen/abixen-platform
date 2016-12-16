@@ -53,7 +53,7 @@
             $log.debug('onGetResult ', moduleConfiguration);
             multivisualisationModuleViewTable.renderTable = true;
             $log.debug('multivisualisationModuleViewTable.renderTable ', multivisualisationModuleViewTable.renderTable);
-            angular.extend(multivisualisationModuleViewTable, new MultivisualisationModuleAbstractTableController(multivisualisationModuleViewTable, $log, CharData, $scope, moduleResponseErrorHandler,
+            angular.extend(multivisualisationModuleViewTable, new MultivisualisationModuleAbstractTableController(multivisualisationModuleViewTable, $log, CharData, moduleResponseErrorHandler, $scope,
                 {
                     chartConfiguration: moduleConfiguration
                 }
