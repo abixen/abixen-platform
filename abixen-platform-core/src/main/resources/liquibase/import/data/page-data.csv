@@ -1,8 +1,6 @@
 id;created_date;last_modified_date;description;name;title;layout_id;created_by_id;last_modified_by_id
-1;NULL;NULL;This is sample dashboard page #1;dashboard1;Consumer behaviour;3;2;2
-2;NULL;NULL;This is sample dashboard page #2;dashboard2;Social media activity;15;2;2
-3;NULL;NULL;This is sample dashboard page #3;dashboard2;Sample page;1;2;2
-4;NULL;NULL;This is sample dashboard page #3;dashboard2;Sales in stores;1;2;2
-5;NULL;NULL;This is sample dashboard page #3;dashboard2;Customers;1;2;2
-6;NULL;NULL;This is sample dashboard page #3;dashboard2;Europe market;1;2;2
-7;NULL;NULL;This is sample dashboard page #3;dashboard2;Test page;1;2;2
+1;NULL;NULL;This is sample dashboard page #2;dashboard2;Social media activity;15;2;2
+2;NULL;NULL;This is sample dashboard page with chart;dashboard2;Social media activity;4;2;2
+3;NULL;NULL;This is sample dashboard page with chart;dashboard2;Sales in stores;6;2;2
+4;NULL;NULL;This is sample dashboard page with chart;dashboard2;Customers;7;2;2
+5;NULL;NULL;This is sample dashboard page with chart;dashboard2;Europe market;13;2;2
