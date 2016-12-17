@@ -8,8 +8,8 @@
 
     <changeSet author="MariuszKumor" id="sequences-v1">
         <createSequence sequenceName="acl_class_seq" startValue="6"/>
-        <createSequence sequenceName="acl_entry_seq" startValue="4"/>
-        <createSequence sequenceName="acl_object_identity_seq" startValue="4"/>
+        <createSequence sequenceName="acl_entry_seq" startValue="16"/>
+        <createSequence sequenceName="acl_object_identity_seq" startValue="16"/>
         <createSequence sequenceName="acl_sid_seq" startValue="5"/>
         <createSequence sequenceName="layout_seq" startValue="16"/>
         <createSequence sequenceName="module_seq" startValue="3"/>
