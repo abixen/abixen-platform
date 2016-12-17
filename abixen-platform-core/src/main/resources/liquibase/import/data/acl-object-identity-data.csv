@@ -1,7 +1,32 @@
 id;acl_class_id;object_id
-#Module instance with id equal 1
+#Module instance with id equals 1
 1;2;1
-#Page instance with id equal 1
+#Page instance with id equals 1
 2;3;1
-#Layout instance with id equal 1
+#Layout instance with id equals 1
 3;1;1
+
+#Module instance with id equals 2
+4;2;2
+#Module instance with id equals 3
+5;2;3
+#Module instance with id equals 4
+6;2;4
+#Module instance with id equals 5
+7;2;5
+#Module instance with id equals 6
+8;2;6
+#Module instance with id equals 7
+9;2;7
+#Module instance with id equals 8
+10;2;8
+#Module instance with id equals 9
+11;2;9
+#Module instance with id equals 10
+12;2;10
+#Module instance with id equals 11
+13;2;11
+#Module instance with id equals 12
+14;2;12
+#Module instance with id equals 13
+15;2;13
