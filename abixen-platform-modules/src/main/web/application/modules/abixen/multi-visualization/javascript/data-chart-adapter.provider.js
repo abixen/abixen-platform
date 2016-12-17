@@ -346,7 +346,7 @@
                 return convertToChart(configurationData, data, genericChartAdapter('multiBarHorizontalChart'));
             }
             if (chartType === 'MULTI_COLUMN' || chartType === 'MULTI_COLUMN_TABLE') {
-                return convertToChart(configurationData, data, genericChartAdapter('genericChartAdapter'));
+                return convertToChart(configurationData, data, genericChartAdapter('multiBarChart'));
             }
             if (chartType === 'STACKED_AREA' || chartType === 'STACKED_AREA_TABLE') {
                 return convertToChart(configurationData, data, genericChartAdapter('stackedAreaChart'));
