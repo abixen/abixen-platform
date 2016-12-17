@@ -62,6 +62,17 @@ The next known plans take into account inter alia:
 #Get it started
 The documentation is available under https://github.com/abixen/abixen-platform/wiki page.
 
+#How to contribute to the repository
+Contributors wanted to join Abixen Platform project have to comply with a few rules: 
+
+* An preferred IDE is IntelliJ IDEA with default formatting styles
+* Committed source code must be high quality
+* Committed source code must be formatted
+* A commit has to solve an issue from the product backlog (if missing the issue there, please add previously)
+* In order to start contribution, a contributor has to fork the project
+* Once an issue is fixed, a contributor has to create a commit to his forked repository
+* In order to merge changes to the project repository, contributor has to create a pull request with the only one commit.  
+
 #License
 
 Copyright (c) 2010-present Abixen Systems. All rights reserved.
