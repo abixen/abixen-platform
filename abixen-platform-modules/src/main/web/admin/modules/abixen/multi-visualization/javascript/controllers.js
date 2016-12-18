@@ -12,9 +12,9 @@ multiVisualizationControllers.controller('MultiVisualizationController', ['$scop
         $state.$current.name === 'application.multiVisualization.modules.databaseConnection.edit' ||
         $state.$current.name === 'application.multiVisualization.modules.databaseConnection.add') {
         $scope.selectedModule = 'databaseConnection';
-    } else if ($state.$current.name === 'application.multiVisualization.modules.fileConnection.list' ||
-        $state.$current.name === 'application.multiVisualization.modules.fileConnection.edit' ||
-        $state.$current.name === 'application.multiVisualization.modules.fileConnection.add') {
+    } else if ($state.$current.name === 'application.multiVisualization.modules.fileDataSource.list' ||
+        $state.$current.name === 'application.multiVisualization.modules.fileDataSource.edit' ||
+        $state.$current.name === 'application.multiVisualization.modules.fileDataSource.add') {
         $scope.selectedModule = 'fileDataSource';
     }
     $scope.selectDatabaseDataSources = function () {
