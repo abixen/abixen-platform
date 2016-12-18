@@ -38,5 +38,12 @@
             'application.validator.invalid.required': '{{label}} is required',
             'application.validator.invalid.email': '{{label}} has invalid format'
         });
+
+        $translateProvider.translations('ru', {
+            'application.validator.invalid.minlength': 'Длина поля "{{label}}" не менее {{min}}',
+            'application.validator.invalid.maxlength': 'Длина поля "{{label}}" не более {{max}}',
+            'application.validator.invalid.required': '{{label}} обазательное поле',
+            'application.validator.invalid.email': '{{label}} имеет не верный формат'
+        });
     }
 })();
