@@ -80,9 +80,9 @@ public class SecurityServiceTest {
     public void userAdminHasPermissionToViewModule() {
         log.debug("userAdminHasPermissionToViewModule()");
         User admin = userRepository.findOne(1L);
-        Module module = moduleRepository.findOne(1L);
+        Module module = moduleRepository.findOne(2L);
         Boolean hasPermission = securityService.hasUserPermissionToObject(admin, PermissionName.MODULE_VIEW, module);
-        assertTrue(hasPermission);
+        assertFalse(hasPermission);
     }
 
     /**
@@ -92,7 +92,7 @@ public class SecurityServiceTest {
     public void userAdminHasPermissionToAddModule() {
         log.debug("userAdminHasPermissionToAddModule()");
         User admin = userRepository.findOne(1L);
-        Module module = moduleRepository.findOne(1L);
+        Module module = moduleRepository.findOne(2L);
         Boolean hasPermission = securityService.hasUserPermissionToObject(admin, PermissionName.MODULE_ADD, module);
         assertTrue(hasPermission);
     }
@@ -104,12 +104,10 @@ public class SecurityServiceTest {
     public void userAdminHasPermissionToEditModule() {
         log.debug("userAdminHasPermissionToEditModule()");
         User admin = userRepository.findOne(1L);
-        Module module = moduleRepository.findOne(1L);
+        Module module = moduleRepository.findOne(2L);
         Boolean hasPermission = securityService.hasUserPermissionToObject(admin, PermissionName.MODULE_EDIT, module);
 
-        //FIXME
-        assertFalse(hasPermission);
-        //assertTrue(hasPermission);
+        assertTrue(hasPermission);
     }
 
     /**
@@ -120,7 +118,7 @@ public class SecurityServiceTest {
     public void userAdminHasNotPermissionToDeleteModule() {
         log.debug("userAdminHasNotPermissionToDeleteModule()");
         User admin = userRepository.findOne(1L);
-        Module module = moduleRepository.findOne(1L);
+        Module module = moduleRepository.findOne(2L);
         Boolean hasPermission = securityService.hasUserPermissionToObject(admin, PermissionName.MODULE_DELETE, module);
         assertFalse(hasPermission);
     }
@@ -133,7 +131,7 @@ public class SecurityServiceTest {
     public void userEditorHasPermissionToViewModule() {
         log.debug("userEditorHasPermissionToViewModule()");
         User editor = userRepository.findOne(3L);
-        Module module = moduleRepository.findOne(1L);
+        Module module = moduleRepository.findOne(2L);
         Boolean hasPermission = securityService.hasUserPermissionToObject(editor, PermissionName.MODULE_VIEW, module);
         assertTrue(hasPermission);
     }
