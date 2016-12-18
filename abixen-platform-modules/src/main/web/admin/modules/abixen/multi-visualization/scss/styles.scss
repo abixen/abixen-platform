@@ -69,6 +69,20 @@
     }
   }
 
+  .upload{
+    width: 200px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    .upload-btn{
+      background-color: $base-color-lighter;
+      font-size: 22px !important;
+      padding: 2px 12px !important;
+      .upload-btn-text{
+        color: $font-color;
+      }
+    }
 
+  }
 
 }

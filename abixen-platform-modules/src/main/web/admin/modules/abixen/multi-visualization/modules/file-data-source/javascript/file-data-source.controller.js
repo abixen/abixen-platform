@@ -1,8 +1,38 @@
-var fileDataSourceControllers = angular.module('fileDataSourceControllers', []);
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
 
-fileDataSourceControllers.controller('FileDataSourceListController',
-    ['$scope', '$http', '$log', 'uiGridConstants', 'FileDataSource', 'gridFilter', 'applicationNavigationItems', '$state',
-        function ($scope, $http, $log, uiGridConstants, FileDataSource, gridFilter, applicationNavigationItems, $state) {
+(function () {
+
+    'use strict';
+
+    angular
+        .module('platformFileDataSourceModule')
+        .controller('FileDataSourceController', FileDataSourceController);
+
+    FileDataSourceController.$inject = [
+        '$scope',
+        '$http',
+        '$log',
+        'uiGridConstants',
+        'FileDataSource',
+        'gridFilter',
+        'applicationNavigationItems',
+        '$state'
+    ];
+
+
+       function FileDataSourceController($scope, $http, $log, uiGridConstants, FileDataSource, gridFilter, applicationNavigationItems, $state) {
             $log.log('FileDataSourceListController');
 
             angular.extend(this, new AbstractCrudListController($scope, $http, $log, uiGridConstants, FileDataSource, gridFilter));
@@ -56,12 +86,5 @@ fileDataSourceControllers.controller('FileDataSourceListController',
             applicationNavigationItems.setTopbarItem(newDataSourceButton);
 
             $scope.read();
-        }]);
-
-fileDataSourceControllers.controller('FileDataSourceDetailController', ['$scope', '$http', '$state', '$stateParams', '$log', 'FileDataSource', '$parse', function ($scope, $http, $state, $stateParams, $log, FileDataSource, $parse) {
-    $log.log('FileDataSourceDetailController');
-
-    angular.extend(this, new AbstractCrudDetailController($scope, $http, $state, $stateParams, $log, FileDataSource, $parse, 'application.multiVisualization.modules.fileDataSource'));
-
-    $scope.get($stateParams.id);
-}]);
+        }
+})();
