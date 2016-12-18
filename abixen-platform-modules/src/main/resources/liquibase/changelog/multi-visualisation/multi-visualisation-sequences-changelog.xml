@@ -7,11 +7,11 @@
         logicalFilePath="liquibase/changelog/multi-visualisation/multi-visualisation-sequences.xml">
 
     <changeSet id="multi-visualisation-sequences-v1" author="MariuszKumor">
-        <createSequence sequenceName="chart_configuration_seq"/>
+        <createSequence sequenceName="chart_configuration_seq" startValue="13"/>
         <createSequence sequenceName="database_connection_seq" startValue="2"/>
-        <createSequence sequenceName="data_set_seq"/>
-        <createSequence sequenceName="data_set_series_column_seq"/>
-        <createSequence sequenceName="data_set_series_seq"/>
+        <createSequence sequenceName="data_set_seq" startValue="13"/>
+        <createSequence sequenceName="data_set_series_column_seq" startValue="36"/>
+        <createSequence sequenceName="data_set_series_seq" startValue="24"/>
         <createSequence sequenceName="data_source_column_seq" startValue="11"/>
         <createSequence sequenceName="data_source_seq" startValue="3"/>
         <createSequence sequenceName="data_source_value_seq"/>
