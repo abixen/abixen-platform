@@ -42,8 +42,16 @@
         $translateProvider.translations('ru', {
             'application.validator.invalid.minlength': 'Длина поля "{{label}}" не менее {{min}}',
             'application.validator.invalid.maxlength': 'Длина поля "{{label}}" не более {{max}}',
-            'application.validator.invalid.required': '{{label}} обазательное поле',
-            'application.validator.invalid.email': '{{label}} имеет не верный формат'
+            'application.validator.invalid.required': '{{label}} обязательное поле',
+            'application.validator.invalid.email': '{{label}} имеет неверный формат'
         });
+
+        $translateProvider.translations('ua', {
+            'application.validator.invalid.minlength': 'Довжина поля "{{label}}" не менше {{min}}',
+            'application.validator.invalid.maxlength': 'Довжина поля "{{label}}" не більше {{max}}',
+            'application.validator.invalid.required': '{{label}} обов\'язкове поле',
+            'application.validator.invalid.email': '{{label}} має невірний формат'
+        });
+
     }
 })();
