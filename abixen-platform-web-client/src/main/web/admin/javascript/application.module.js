@@ -34,6 +34,7 @@
             'ui.grid.autoResize',
             'ui.bootstrap.showErrors',
             'ngScrollbar',
-            'platformUploadFileModule'
+            'platformUploadFileModule',
+            'platformSheetReaderModule'
         ]);
 })();
