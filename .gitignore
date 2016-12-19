@@ -1,29 +1,24 @@
 
-/.idea/**
-/abixen-platform-common/target/
-/abixen-platform-common/abixen-platform-common.iml
-/abixen-platform-configuration/target/
-/abixen-platform-configuration/abixen-platform-configuration.iml
-/abixen-platform-core/target/
-/abixen-platform-core/abixen-platform-core.iml
-/abixen-platform-eureka/target/
-/abixen-platform-eureka/abixen-platform-eureka.iml
-/abixen-platform-gateway/target/
-/abixen-platform-gateway/abixen-platform-gateway.iml
-/abixen-platform-hystrix-dashboard/target/
-/abixen-platform-hystrix-dashboard/abixen-platform-hystrix-dashboard.iml
-/abixen-platform-modules/bower_components/
-/abixen-platform-modules/node/
-/abixen-platform-modules/node_modules/
-/abixen-platform-modules/target/
-/abixen-platform-modules/abixen-platform-modules.iml
-/abixen-platform-web-client/bower_components/
-/abixen-platform-web-client/node/
-/abixen-platform-web-client/node_modules/
-/abixen-platform-web-client/target/
-/abixen-platform-web-client/abixen-platform-web-client.iml
-/abixen-platform.iml
-/abixen-platform-web-client/src/main/resources/static/
-/abixen-platform-modules/src/main/resources/static/
+# JetBrains
+*.iml
+/**/.idea/
+/**/target/
+
+# Node
+/**/node/
+/**/node_modules/
+
+# Bower
+/**/bower_components/
+
+# Logs
+*.log
+
+# Docker
 /docker/dump.rdb
-/abixen-platform-web-client/npm-debug.log
+
+# Other
+/**/src/main/resources/static/
+
+
+
