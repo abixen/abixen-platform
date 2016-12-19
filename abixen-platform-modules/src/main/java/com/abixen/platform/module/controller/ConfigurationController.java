@@ -14,20 +14,18 @@
 
 package com.abixen.platform.module.controller;
 
-import com.abixen.platform.module.chart.controller.ChartInitController;
 import com.abixen.platform.module.configuration.properties.ModulesConfigurationProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
+@Slf4j
 @RestController
 @RequestMapping(value = "/configuration")
 public class ConfigurationController {
-
-    private final Logger log = LoggerFactory.getLogger(ChartInitController.class.getName());
 
     private final ModulesConfigurationProperties modulesConfigurationProperties;
 

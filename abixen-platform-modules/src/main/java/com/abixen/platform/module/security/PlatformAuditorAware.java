@@ -15,16 +15,15 @@
 package com.abixen.platform.module.security;
 
 import com.abixen.platform.core.security.PlatformUser;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 
+@Slf4j
 public class PlatformAuditorAware implements AuditorAware<Long> {
-
-    private final Logger log = Logger.getLogger(PlatformAuditorAware.class.getName());
 
     @Override
     public Long getCurrentAuditor() {

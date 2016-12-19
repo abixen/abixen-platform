@@ -21,8 +21,7 @@ import com.abixen.platform.module.chart.repository.DatabaseDataSourceRepository;
 import com.abixen.platform.module.chart.service.DatabaseConnectionService;
 import com.abixen.platform.module.chart.service.DatabaseDataSourceService;
 import com.abixen.platform.module.chart.service.DomainBuilderService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,10 +31,9 @@ import javax.annotation.Resource;
 import java.util.*;
 
 
+@Slf4j
 @Service
 public class DatabaseDataSourceServiceImpl implements DatabaseDataSourceService {
-
-    private final Logger log = LoggerFactory.getLogger(DatabaseDataSourceServiceImpl.class);
 
     @Resource
     private DatabaseDataSourceRepository databaseDataSourceRepository;

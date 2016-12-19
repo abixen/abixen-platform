@@ -27,7 +27,7 @@ import com.abixen.platform.module.chart.service.DataSourceImportDataService;
 import com.abixen.platform.module.chart.service.DomainBuilderService;
 import com.abixen.platform.module.chart.util.*;
 import com.abixen.platform.module.configuration.PlatformModuleConfiguration;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -53,11 +53,10 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 
 
+@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformModuleConfiguration.class)
 public class DataSourceImportDataServiceCsvImplTest {
-
-    static Logger log = Logger.getLogger(DataSourceImportDataServiceCsvImplTest.class.getName());
 
 
     public DomainBuilderService domainBuilderService = new DomainBuilderServiceImpl();

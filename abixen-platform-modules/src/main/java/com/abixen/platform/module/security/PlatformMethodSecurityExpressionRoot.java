@@ -14,16 +14,14 @@
 
 package com.abixen.platform.module.security;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
 
 
+@Slf4j
 public class PlatformMethodSecurityExpressionRoot extends SecurityExpressionRoot implements MethodSecurityExpressionOperations {
-
-    private final Logger log = LoggerFactory.getLogger(PlatformMethodSecurityExpressionRoot.class.getName());
 
     // private PageRepository pageRepository;
 

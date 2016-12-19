@@ -15,8 +15,7 @@
 package com.abixen.platform.module.kpichart.controller;
 
 import com.abixen.platform.core.security.PlatformWebUser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,11 +24,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/application/modules/abixen/kpi-chart/init")
 public class KpiChartInitController {
-
-    private final Logger log = LoggerFactory.getLogger(KpiChartInitController.class.getName());
 
     @PreAuthorize("hasPermission(#id, 'Module', 'MODULE_VIEW')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -23,8 +23,7 @@ import com.abixen.platform.module.chart.model.impl.DatabaseDataSource;
 import com.abixen.platform.module.chart.model.web.DatabaseDataSourceWeb;
 import com.abixen.platform.module.chart.service.DatabaseDataSourceService;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,11 +35,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/admin/modules/abixen/multi-visualization/database-data-sources")
 public class DatabaseDataSourceController {
-
-    private final Logger log = LoggerFactory.getLogger(DatabaseDataSourceController.class);
 
     private final DatabaseDataSourceService databaseDataSourceService;
 

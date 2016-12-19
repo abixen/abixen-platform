@@ -20,8 +20,7 @@ import com.abixen.platform.module.chart.repository.DatabaseConnectionRepository;
 import com.abixen.platform.module.chart.service.DatabaseConnectionService;
 import com.abixen.platform.module.chart.service.DatabaseFactory;
 import com.abixen.platform.module.chart.service.DatabaseService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,11 +31,9 @@ import java.sql.Connection;
 import java.util.List;
 
 
-
+@Slf4j
 @Service
 public class DatabaseConnectionServiceImpl implements DatabaseConnectionService {
-
-    private final Logger log = LoggerFactory.getLogger(DatabaseConnectionServiceImpl.class);
 
     @Resource
     private DatabaseConnectionRepository dataSourceConnectionRepository;

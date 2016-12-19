@@ -17,8 +17,7 @@ package com.abixen.platform.module.chart.controller;
 import com.abixen.platform.module.chart.form.ChartConfigurationForm;
 import com.abixen.platform.module.chart.model.web.DataSourceValueWeb;
 import com.abixen.platform.module.chart.service.ChartDataService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +25,10 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/application/modules/abixen/multi-visualization/data-preview")
 public class ChartDataPreviewController {
-
-    private final Logger log = LoggerFactory.getLogger(ChartInitController.class.getName());
 
     @Autowired
     private ChartDataService chartDataService;

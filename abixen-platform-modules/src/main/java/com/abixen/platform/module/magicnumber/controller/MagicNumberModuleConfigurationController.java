@@ -22,8 +22,7 @@ import com.abixen.platform.module.magicnumber.form.MagicNumberModuleConfiguratio
 import com.abixen.platform.module.magicnumber.model.impl.MagicNumberModule;
 import com.abixen.platform.module.magicnumber.service.MagicNumberModuleService;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -33,11 +32,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/application/modules/abixen/magic-number/configuration")
 public class MagicNumberModuleConfigurationController {
-
-    private final Logger log = LoggerFactory.getLogger(MagicNumberModuleConfigurationController.class.getName());
 
     @Autowired
     private MagicNumberModuleService magicNumberModuleService;

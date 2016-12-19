@@ -22,8 +22,7 @@ import com.abixen.platform.module.chart.form.ChartConfigurationForm;
 import com.abixen.platform.module.chart.model.impl.ChartConfiguration;
 import com.abixen.platform.module.chart.service.ChartConfigurationService;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,12 +33,11 @@ import javax.validation.Valid;
 import java.util.List;
 
 
+@Slf4j
 @Transactional
 @RestController
 @RequestMapping(value = "/application/modules/abixen/multi-visualization/configuration")
 public class ChartModuleConfigurationController {
-
-    private final Logger log = LoggerFactory.getLogger(ChartModuleConfigurationController.class.getName());
 
     @Autowired
     private ChartConfigurationService chartConfigurationService;

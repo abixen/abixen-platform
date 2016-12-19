@@ -19,18 +19,16 @@ import com.abixen.platform.module.kpichart.model.impl.KpiChartConfiguration;
 import com.abixen.platform.module.kpichart.repository.KpiChartConfigurationRepository;
 import com.abixen.platform.module.kpichart.service.KpiChartConfigurationDomainBuilderService;
 import com.abixen.platform.module.kpichart.service.KpiChartConfigurationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
 
+@Slf4j
 @Service
 public class KpiChartConfigurationServiceImpl implements KpiChartConfigurationService {
-
-    private final Logger log = LoggerFactory.getLogger(KpiChartConfigurationServiceImpl.class);
 
     @Resource
     private KpiChartConfigurationRepository kpiChartConfigurationRepository;

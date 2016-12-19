@@ -22,6 +22,7 @@
         <abixen-platform-common.version>1.0-SNAPSHOT</abixen-platform-common.version>
         <postgresql.version>9.3-1102-jdbc4</postgresql.version>
         <spring-session.version>1.2.2.RELEASE</spring-session.version>
+        <log4j2.version>2.5</log4j2.version>
         <start-class>com.abixen.platform.module.PlatformModulesApplication</start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen-platform</docker.image.prefix>
@@ -95,11 +96,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j</artifactId>
-            <version>1.3.8.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
@@ -152,7 +148,7 @@
             <version>3.3</version>
         </dependency>
 
-        <!-- JSP pages render-->
+        <!-- JSP pages render -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -171,6 +167,24 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.6</version>
+        </dependency>
+
+        <!-- Logger -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.0.1</version>
         </dependency>
 
     </dependencies>

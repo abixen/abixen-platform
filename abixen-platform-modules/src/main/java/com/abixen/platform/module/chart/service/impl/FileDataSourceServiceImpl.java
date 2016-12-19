@@ -20,8 +20,7 @@ import com.abixen.platform.module.chart.model.impl.FileDataSource;
 import com.abixen.platform.module.chart.repository.FileDataSourceRepository;
 import com.abixen.platform.module.chart.service.DomainBuilderService;
 import com.abixen.platform.module.chart.service.FileDataSourceService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,10 +30,9 @@ import javax.annotation.Resource;
 import java.util.*;
 
 
+@Slf4j
 @Service
 public class FileDataSourceServiceImpl implements FileDataSourceService {
-
-    private final Logger log = LoggerFactory.getLogger(FileDataSourceServiceImpl.class);
 
     @Resource
     private FileDataSourceRepository fileDataSourceRepository;

@@ -18,8 +18,7 @@ import com.abixen.platform.module.chart.exception.DatabaseConnectionException;
 import com.abixen.platform.module.chart.form.DatabaseConnectionForm;
 import com.abixen.platform.module.chart.model.impl.DatabaseConnection;
 import com.abixen.platform.module.chart.service.DatabaseService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
@@ -27,10 +26,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
+@Slf4j
 @Service("databasePostgresService")
 public class DatabasePostgresServiceImpl extends AbstractDatabaseService implements DatabaseService {
-
-    private final Logger log = LoggerFactory.getLogger(DatabasePostgresServiceImpl.class);
 
 
     @Override

@@ -18,11 +18,10 @@ import com.abixen.platform.module.chart.exception.DatabaseConnectionException;
 import com.abixen.platform.module.chart.form.DatabaseConnectionForm;
 import com.abixen.platform.module.chart.model.impl.DatabaseConnection;
 import com.abixen.platform.module.chart.service.DatabaseService;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.persister.entity.AbstractEntityPersister;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +38,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service("databaseH2Service")
 public class DatabaseH2ServiceImpl extends AbstractDatabaseService implements DatabaseService {
-
-    private final Logger log = LoggerFactory.getLogger(DatabasePostgresServiceImpl.class);
 
     private static final String LOCALHOST_FOR_INTERNAL_DB = "file";
 

@@ -28,7 +28,7 @@ import com.abixen.platform.module.chart.service.DomainBuilderService;
 import com.abixen.platform.module.chart.util.DataSourceColumnFileBuilder;
 import com.abixen.platform.module.chart.util.DataSourceValueBuilder;
 import com.opencsv.CSVReader;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,12 +39,11 @@ import java.io.IOException;
 import java.util.*;
 
 
+@Slf4j
 @Service
 @Transactional
 public class DataSourceImportDataServiceCsvImpl implements DataSourceImportDataService<DataSourceCsvParametersDTO> {
 
-
-    private final Logger log = Logger.getLogger(DataSourceImportDataServiceCsvImpl.class.getName());
 
     @Autowired
     private DomainBuilderService domainBuilderService;

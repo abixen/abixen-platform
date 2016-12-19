@@ -20,7 +20,7 @@ import com.abixen.platform.module.chart.repository.DatabaseConnectionRepository;
 import com.abixen.platform.module.chart.service.DatabaseConnectionService;
 import com.abixen.platform.module.chart.service.DatabaseService;
 import com.abixen.platform.module.configuration.PlatformModuleConfiguration;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +33,10 @@ import javax.annotation.Resource;
 import static org.junit.Assert.assertNotNull;
 
 
+@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformModuleConfiguration.class)
 public class DatabaseDataSourceTest {
-
-    static Logger log = Logger.getLogger(DatabaseDataSourceTest.class.getName());
 
     @Autowired
     private DatabaseConnectionService databaseConnectionService;

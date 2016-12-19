@@ -21,8 +21,7 @@ import com.abixen.platform.module.chart.repository.DataSourceColumnRepository;
 import com.abixen.platform.module.chart.service.ChartConfigurationDomainBuilderService;
 import com.abixen.platform.module.chart.service.ChartConfigurationService;
 import com.abixen.platform.module.chart.service.DatabaseDataSourceService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +29,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 
+@Slf4j
 @Transactional
 @Service
 public class ChartConfigurationServiceImpl implements ChartConfigurationService {
-
-    private final Logger log = LoggerFactory.getLogger(ChartConfigurationServiceImpl.class);
 
     @Resource
     private ChartConfigurationRepository chartConfigurationRepository;

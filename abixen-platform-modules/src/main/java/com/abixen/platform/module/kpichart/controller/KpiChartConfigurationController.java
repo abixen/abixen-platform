@@ -22,8 +22,7 @@ import com.abixen.platform.module.kpichart.form.KpiChartConfigurationForm;
 import com.abixen.platform.module.kpichart.model.impl.KpiChartConfiguration;
 import com.abixen.platform.module.kpichart.service.KpiChartConfigurationService;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -33,11 +32,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/application/modules/abixen/kpi-chart/configuration")
 public class KpiChartConfigurationController {
-
-    private final Logger log = LoggerFactory.getLogger(KpiChartConfigurationController.class.getName());
 
     @Autowired
     private KpiChartConfigurationService kpiChartConfigurationService;

@@ -18,8 +18,7 @@ import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.module.kpichart.model.web.KpiChartConfigurationWeb;
 import com.abixen.platform.module.kpichart.service.KpiChartConfigurationService;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,11 +27,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/application/modules/abixen/kpi-chart")
 public class KpiChartController {
-
-    private final Logger log = LoggerFactory.getLogger(KpiChartController.class.getName());
 
     @Autowired
     private KpiChartConfigurationService chartConfigurationService;
