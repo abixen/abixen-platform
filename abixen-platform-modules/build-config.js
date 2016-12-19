@@ -16,7 +16,8 @@ module.exports = {
             'bower_components/d3/d3.min.js',
             'bower_components/nvd3/build/nv.d3.min.js',
             'bower_components/nvd3/build/nv.d3.min.css',
-            'bower_components/angular-nvd3/dist/angular-nvd3.min.js'
+            'bower_components/angular-nvd3/dist/angular-nvd3.min.js',
+            'bower_components/js-xlsx/dist/xlsx.full.min.js'
         ]
     },
     templates: {
