@@ -15,8 +15,7 @@
 package com.abixen.platform.core.controller;
 
 import com.abixen.platform.core.security.PlatformWebUser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 
-
+@Slf4j
 @Controller
 public class SecurityController {
 
-    private final Logger log = LoggerFactory.getLogger(SecurityController.class.getName());
+
 
     @ResponseBody
     @RequestMapping(value = "/user", method = RequestMethod.GET)
