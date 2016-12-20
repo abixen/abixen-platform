@@ -21,6 +21,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <abixen-platform-common.version>1.0-SNAPSHOT</abixen-platform-common.version>
         <spring-session.version>1.2.2.RELEASE</spring-session.version>
+        <log4j2.version>2.5</log4j2.version>
         <start-class>com.abixen.platform.core.PlatformGatewayApplication</start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen-platform</docker.image.prefix>
@@ -101,11 +102,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j</artifactId>
-            <version>1.3.8.RELEASE</version>
-        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.retry</groupId>
@@ -117,6 +114,29 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session</artifactId>
             <version>${spring-session.version}</version>
+        </dependency>
+
+        <!-- Logger -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.6</version>
         </dependency>
 
     </dependencies>
