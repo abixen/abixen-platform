@@ -15,6 +15,7 @@ function AbstractListGridController(Resource, config) {
             return [];
         },
         getData: getData,
+        setData: setData,
         selectedEntity: null,
         selectedEntities: [],
         getTableColumns: angular.isDefined(config) ? config.getTableColumns : undefined,
@@ -77,6 +78,14 @@ function AbstractListGridController(Resource, config) {
         query(params, reset);
     }
 
+    function setData(data) {
+        abstractListGridController.listGridConfig.totalPages = 0;
+        abstractListGridController.listGridConfig.lastPage = 0;
+        abstractListGridController.listGridConfig.totalElements = data.length;
+
+        abstractListGridController.listGridConfig.onDataChanged(data, true);
+    }
+
     function query(params, reset) {
         angular.extend(params, abstractListGridController.listGridConfig.additionalQueryParams);
 
@@ -112,4 +121,5 @@ function AbstractListGridController(Resource, config) {
             }
         }
     }
+
 }
