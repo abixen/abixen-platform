@@ -15,11 +15,15 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
+import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import com.abixen.platform.core.configuration.properties.PlatformTestResourceConfigurationProperties;
 import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.model.enumtype.UserGender;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.util.UserBuilder;
+import org.apache.commons.io.FileExistsException;
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +33,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Date;
+import java.util.Random;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -47,6 +58,11 @@ public class UserServiceTest {
 
     @Autowired
     private DomainBuilderService domainBuilderService;
+
+    @Autowired
+    private PlatformTestResourceConfigurationProperties platformResourceConfigurationProperties;
+
+    private File avatarFile;
 
     @Test
     public void createUser() {
@@ -109,6 +125,51 @@ public class UserServiceTest {
         passwordForm.setNewPassword(newpassword);
 
         UserChangePasswordForm newPasswordForm = userService.changeUserPassword(user, passwordForm);
+    }
+
+    @Test
+    public void changeUserAvatar() throws IOException {
+        log.debug("changeUserAvatar() positive case");
+
+        UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
+        userBuilder.credentials("usernameC", "password");
+        userBuilder.screenName("screenNameC");
+        userBuilder.personalData("firstName", "middleName", "lastName");
+        userBuilder.additionalData(new Date(), "jobTitle", UserGender.MALE);
+        userBuilder.registrationIp("127.0.0.1");
+        User user = userBuilder.build();
+        user.setAvatarFileName("oldAvatarName");
+        userService.createUser(user);
+
+
+        MultipartFile newAvatarFile = mock(MultipartFile.class);
+        when(newAvatarFile.getName()).thenReturn("newAvatarFile");
+        byte[] bytes = new byte[32];
+        new Random().nextBytes(bytes);
+        when(newAvatarFile.getBytes()).thenReturn(bytes);
+
+        User updatedUser = null;
+        try {
+            updatedUser = userService.changeUserAvatar(user.getId(), newAvatarFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        avatarFile = new File(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/user-avatar/" + updatedUser.getAvatarFileName());
+
+        assertNotNull(updatedUser);
+        assertNotEquals(updatedUser.getAvatarFileName(), user.getAvatarFileName());
+        assertTrue(avatarFile.exists());
+    }
+
+    @After
+    public final void after() {
+        //clear avatar directory
+        try {
+            Files.deleteIfExists(avatarFile.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
