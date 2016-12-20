@@ -25,7 +25,7 @@ public class PlatformTestResourceConfigurationProperties extends AbstractPlatfor
 
     @PostConstruct
     public void init() {
-        setImageLibraryDirectory("${baseDir}/data/image-library/");
+        setImageLibraryDirectory("${baseDir}/../data/image-library/");
     }
 
 }
