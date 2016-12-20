@@ -21,7 +21,7 @@
 
         angular.extend(this, new AbstractCrudDetailController($scope, $http, $state, $stateParams, $log, FileDataSource, $parse, 'application.multiVisualization.modules.fileDataSource'));
 
-        $scope.gridData = {};
+        $scope.gridData = [];
 
         $scope.get($stateParams.id);
     }

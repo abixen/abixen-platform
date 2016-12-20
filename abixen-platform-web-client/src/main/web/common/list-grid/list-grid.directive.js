@@ -60,7 +60,15 @@
                     !angular.isUndefined(
                         listGrid.listGridConfig.enableFiltering) ? listGrid.listGridConfig.enableFiltering : false;
 
+                scope.gridApi.core.on.renderingComplete(scope, function (grid) {
+                    listGrid.listGridConfig.tableReady = true;
+                    if (listGrid.listGridConfig.onTableReady !== undefined) {
+                        listGrid.listGridConfig.onTableReady();
+                    }
+                });
+
                 scope.gridApi.core.on.sortChanged(scope, function (grid, sortColumns) {
+
 
                     if (listGrid.listGrid.data.length === 0) {
                         return;
@@ -136,6 +144,7 @@
         listGrid.listGridConfig.onDataChanged = function (data, reset) {
 
             if (reset) {
+                listGrid.listGrid.columnDefs = listGrid.listGridConfig.getTableColumns();
                 listGrid.listGrid.data = data;
             } else {
                 listGrid.listGrid.data = listGrid.listGrid.data.concat(data);

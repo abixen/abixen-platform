@@ -30,5 +30,48 @@
 
         $log.log('$scope.moduleId: ' + $scope.moduleId);
 
+        var fileDataSoruceTable = this;
+        fileDataSoruceTable.options = undefined;
+        fileDataSoruceTable.data = undefined;
+        fileDataSoruceTable.renderTable = false;
+
+        $scope.$watch('gridData', function () {
+            if ($scope.gridData !== undefined && $scope.gridData !== [] && $scope.gridData.length > 0) {
+                if (fileDataSoruceTable.renderTable === false) {
+                    fileDataSoruceTable.renderTable = true;
+                }else {
+                    fileDataSoruceTable.listGridConfig.setData($scope.gridData);
+                }
+            }
+        });
+
+        angular.extend(fileDataSoruceTable, new AbstractListGridController(null,
+            {
+                getTableColumns: getTableColumns,
+                dataProviderType: 'list',
+                loadOnStart: false,
+                selectType: 'multi',
+                onTableReady: onTableReady
+
+            }
+        ));
+
+        function getTableColumns() {
+            var columns = [];
+            Object.keys($scope.gridData[0]).forEach(function (column) {
+                $log.debug("column:", column);
+                columns.push({
+                    field: column,
+                    name: column,
+                    cellClass: 'cell-align-right',
+                    enableSorting: false
+                });
+            });
+            return columns;
+        }
+
+        function onTableReady() {
+            fileDataSoruceTable.listGridConfig.setData($scope.gridData);
+        }
     }
 })();

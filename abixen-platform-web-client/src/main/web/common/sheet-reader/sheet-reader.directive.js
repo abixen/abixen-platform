@@ -49,11 +49,8 @@
                             var data = evt.target.result;
                             var workbook = XLSX.read(data, {type: 'binary'});
                             var data = XLSX.utils.sheet_to_csv(workbook.Sheets[workbook.SheetNames[0]]);
-
-                            scope.parsedData.data = [];
-                            fillGridData(scope, data.split('\n'));
-
-                            $log.debug('scope.parsedData: ', scope.parsedData);
+                            scope.parsedData = getParsedGridData(data.split('\n'));
+                            $log.debug('scope.parsedData.length: ', scope.parsedData.length);
                             input.val(null);
                         });
                     };
@@ -62,29 +59,27 @@
                     reader.onload = function (evt) {
                         scope.$apply(function () {
                             var data = evt.target.result;
-
-                            scope.parsedData.data = [];
-                            fillGridData(scope, data.split('\r\n'));
-
-                            $log.debug('scope.parsedData: ', scope.parsedData);
+                            scope.parsedData = getParsedGridData(data.split('\r\n'));
+                            $log.debug('scope.parsedData.length: ', scope.parsedData.length);
                             input.val(null);
                         });
                     };
 
                 }
-
                 reader.readAsBinaryString(changeEvent.target.files[0]);
             });
 
-            function fillGridData(scope, data) {
+            function getParsedGridData(data) {
+                var parsedData = [];
                 data.forEach(function (dataRow) {
                     var row = [];
                     dataRow.split(',').forEach(function (h, index) {
-                            row.push({index: index, value: h});
+                            row['col' + index] = h;
                         }
                     );
-                    scope.parsedData.data.push(row);
+                    parsedData.push(row);
                 });
+                return parsedData;
             }
         }
     }

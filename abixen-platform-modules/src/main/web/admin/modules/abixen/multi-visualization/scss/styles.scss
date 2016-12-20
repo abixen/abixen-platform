@@ -82,7 +82,13 @@
         color: $font-color;
       }
     }
+  }
 
+  .file-preview-table{
+    .ui-grid {
+      height: 500px;
+      position: relative;
+    }
   }
 
 }
