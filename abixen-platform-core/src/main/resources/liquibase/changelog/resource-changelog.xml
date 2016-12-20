@@ -16,7 +16,10 @@
             <column name="relative_url" type="varchar(250)">
                 <constraints nullable="false"/>
             </column>
-            <column name="resource_location" type="varchar(255)">
+            <column name="resource_page_location" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resource_page" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="resource_type" type="varchar(255)">

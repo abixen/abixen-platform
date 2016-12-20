@@ -25,7 +25,8 @@ gulp.task('applicationScripts', applicationScriptsTask);
 gulp.task('adminStyles', adminStylesTask);
 gulp.task('applicationStyles', applicationStylesTask);
 gulp.task('build', buildTask);
-gulp.task('libs', libsTask);
+gulp.task('applicationLibs', applicationLibsTask);
+gulp.task('adminLibs', adminLibsTask);
 gulp.task('dev', ['build'], devTask);
 gulp.task('default', ['build']);
 
@@ -90,7 +91,8 @@ function genericStylesTask(sourceSassPath, destinationStylesPath) {
 function buildTask(callback) {
 
     runSequence('clean',
-        'libs',
+        'applicationLibs',
+        'adminLibs',
         [
             'adminScripts',
             'applicationScripts',
@@ -101,9 +103,14 @@ function buildTask(callback) {
         callback);
 }
 
-function libsTask() {
-    return gulp.src(config.libs.files)
-        .pipe(gulp.dest(config.dest.libs));
+function applicationLibsTask() {
+    return gulp.src(config.applicationLibs.files)
+        .pipe(gulp.dest(config.dest.applicationLibs));
+}
+
+function adminLibsTask() {
+    return gulp.src(config.adminLibs.files)
+        .pipe(gulp.dest(config.dest.adminLibs));
 }
 
 function devTask() {

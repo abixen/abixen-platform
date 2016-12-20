@@ -15,7 +15,8 @@
 package com.abixen.platform.core.model.impl;
 
 import com.abixen.platform.core.model.ResourceBase;
-import com.abixen.platform.core.model.enumtype.ResourceLocation;
+import com.abixen.platform.core.model.enumtype.ResourcePageLocation;
+import com.abixen.platform.core.model.enumtype.ResourcePage;
 import com.abixen.platform.core.model.enumtype.ResourceType;
 import com.abixen.platform.core.util.ModelKeys;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -40,8 +41,12 @@ public class Resource extends AuditingModel implements ResourceBase<ModuleType> 
     private String relativeUrl;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "resource_location", nullable = false)
-    private ResourceLocation resourceLocation;
+    @Column(name = "resource_page_location", nullable = false)
+    private ResourcePageLocation resourcePageLocation;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "resource_page", nullable = false)
+    private ResourcePage resourcePage;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "resource_type", nullable = false)
@@ -72,13 +77,23 @@ public class Resource extends AuditingModel implements ResourceBase<ModuleType> 
     }
 
     @Override
-    public ResourceLocation getResourceLocation() {
-        return resourceLocation;
+    public ResourcePageLocation getResourcePageLocation() {
+        return resourcePageLocation;
     }
 
     @Override
-    public void setResourceLocation(ResourceLocation resourceLocation) {
-        this.resourceLocation = resourceLocation;
+    public void setResourcePageLocation(ResourcePageLocation resourcePageLocation) {
+        this.resourcePageLocation = resourcePageLocation;
+    }
+
+    @Override
+    public ResourcePage getResourcePage() {
+        return resourcePage;
+    }
+
+    @Override
+    public void setResourcePage(ResourcePage resourcePage) {
+        this.resourcePage = resourcePage;
     }
 
     @Override

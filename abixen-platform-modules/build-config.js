@@ -4,19 +4,24 @@ module.exports = {
     dest: {
         dir: 'src/main/resources/static',
         files: 'src/main/resources/static/**',
-        libs: 'src/main/resources/static/application/modules/abixen/lib',
+        applicationLibs: 'src/main/resources/static/application/modules/abixen/lib',
+        adminLibs: 'src/main/resources/static/admin/modules/abixen/lib',
         adminScripts: 'admin/modules/abixen/modules.min.js',
         applicationScripts: 'application/modules/abixen/modules.min.js',
         applicationStyles: 'application/modules/abixen/modules.min.css',
         adminStyles: 'admin/modules/abixen/modules.min.css'
     },
-    libs: {
+    applicationLibs: {
         files: [
             'bower_components/angular-svg-round-progressbar/build/roundProgress.min.js',
             'bower_components/d3/d3.min.js',
             'bower_components/nvd3/build/nv.d3.min.js',
             'bower_components/nvd3/build/nv.d3.min.css',
-            'bower_components/angular-nvd3/dist/angular-nvd3.min.js',
+            'bower_components/angular-nvd3/dist/angular-nvd3.min.js'
+        ]
+    },
+    adminLibs: {
+        files: [
             'bower_components/js-xlsx/dist/xlsx.full.min.js'
         ]
     },
