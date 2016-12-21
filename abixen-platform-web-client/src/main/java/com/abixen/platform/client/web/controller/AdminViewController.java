@@ -16,8 +16,7 @@ package com.abixen.platform.client.web.controller;
 
 import com.abixen.platform.client.web.client.ResourceClient;
 import com.abixen.platform.client.web.model.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class AdminViewController {
-
-    private final Logger log = LoggerFactory.getLogger(AdminViewController.class);
 
     @Autowired
     ResourceClient resourceClient;
