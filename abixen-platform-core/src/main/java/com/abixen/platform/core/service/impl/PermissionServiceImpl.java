@@ -17,20 +17,16 @@ package com.abixen.platform.core.service.impl;
 import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.repository.PermissionRepository;
 import com.abixen.platform.core.service.PermissionService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.util.List;
 
-
+@Slf4j
 @Service
 public class PermissionServiceImpl implements PermissionService {
-
-    private final Logger log = LoggerFactory.getLogger(PermissionServiceImpl.class);
 
     @Resource
     private PermissionRepository permissionRepository;

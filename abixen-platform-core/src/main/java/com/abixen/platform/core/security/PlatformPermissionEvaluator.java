@@ -19,8 +19,7 @@ import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
@@ -28,11 +27,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
-
+@Slf4j
 @Component
 public class PlatformPermissionEvaluator implements PermissionEvaluator {
-
-    private final Logger log = LoggerFactory.getLogger(PlatformPermissionEvaluator.class.getName());
 
     @Autowired
     private SecurityService securityService;

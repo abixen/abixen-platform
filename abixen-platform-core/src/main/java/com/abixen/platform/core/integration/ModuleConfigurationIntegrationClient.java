@@ -22,18 +22,15 @@ import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.jaxrs.JAXRSContract;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Component;
 
-
+@Slf4j
 @Component
 public class ModuleConfigurationIntegrationClient {
-
-    private final Logger log = LoggerFactory.getLogger(ModuleConfigurationIntegrationClient.class.getName());
 
     @Autowired(required = false)
     private DiscoveryClient discoveryClient;
