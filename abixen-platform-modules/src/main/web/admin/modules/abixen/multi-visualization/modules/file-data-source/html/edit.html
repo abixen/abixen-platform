@@ -1,7 +1,7 @@
 <form role="form" name="entityForm" novalidate>
     <div class="row form-row">
 
-        <div class="col-md-6">
+        <div class="col-md-12">
 
             <div class="form-group" show-errors>
                 <label for="nameInput" class="control-label">Name</label>
@@ -45,23 +45,6 @@
                 </div>
             </div>
 
-        </div>
-        <div class="col-md-6">
-            <input type="hidden" ng-model="entity.columns" name="columns">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Column name</th>
-                    <th>Available</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="fileColumn in fileColumns">
-                    <td>{{fileColumn.name}}</td>
-                    <td><input type="checkbox" ng-model="databaseTableColumn.selected"/></td>
-                </tr>
-                </tbody>
-            </table>
         </div>
     </div>
     <div class="row form-row file-preview-table">
