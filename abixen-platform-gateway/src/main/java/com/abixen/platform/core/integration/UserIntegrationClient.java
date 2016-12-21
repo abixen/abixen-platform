@@ -17,16 +17,15 @@ package com.abixen.platform.core.integration;
 import com.abixen.platform.core.client.UserClient;
 import com.abixen.platform.core.model.User;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
+@Slf4j
 @Component
 public class UserIntegrationClient {
 
-    private final Logger log = LoggerFactory.getLogger(UserIntegrationClient.class.getName());
+
 
     @Autowired
     private UserClient userClient;

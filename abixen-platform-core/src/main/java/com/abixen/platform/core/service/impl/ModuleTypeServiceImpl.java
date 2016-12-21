@@ -141,7 +141,8 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
 
             resource.setModuleType(moduleType);
             resource.setRelativeUrl(staticResource.getRelativeUrl());
-            resource.setResourceLocation(staticResource.getResourceLocation());
+            resource.setResourcePageLocation(staticResource.getResourcePageLocation());
+            resource.setResourcePage(staticResource.getResourcePage());
             resource.setResourceType(staticResource.getResourceType());
 
             newResources.add(resource);

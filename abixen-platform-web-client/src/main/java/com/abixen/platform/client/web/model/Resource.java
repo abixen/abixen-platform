@@ -16,7 +16,9 @@ package com.abixen.platform.client.web.model;
 
 import com.abixen.platform.core.model.Model;
 import com.abixen.platform.core.model.ResourceBase;
-import com.abixen.platform.core.model.enumtype.ResourceLocation;
+import com.abixen.platform.core.model.enumtype.ResourcePage;
+import com.abixen.platform.core.model.enumtype.ResourcePageLocation;
+import com.abixen.platform.core.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.core.model.enumtype.ResourceType;
 
 
@@ -24,7 +26,8 @@ public class Resource extends Model implements ResourceBase<ModuleType> {
 
     private Long id;
     private String relativeUrl;
-    private ResourceLocation resourceLocation;
+    private ResourcePageLocation resourcePageLocation;
+    private ResourcePage resourcePage;
     private ResourceType resourceType;
     private ModuleType moduleType;
 
@@ -49,13 +52,23 @@ public class Resource extends Model implements ResourceBase<ModuleType> {
     }
 
     @Override
-    public ResourceLocation getResourceLocation() {
-        return resourceLocation;
+    public ResourcePageLocation getResourcePageLocation() {
+        return resourcePageLocation;
     }
 
     @Override
-    public void setResourceLocation(ResourceLocation resourceLocation) {
-        this.resourceLocation = resourceLocation;
+    public void setResourcePageLocation(ResourcePageLocation resourcePageLocation) {
+        this.resourcePageLocation = resourcePageLocation;
+    }
+
+    @Override
+    public ResourcePage getResourcePage() {
+        return resourcePage;
+    }
+
+    @Override
+    public void setResourcePage(ResourcePage resourcePage) {
+        this.resourcePage = resourcePage;
     }
 
     @Override

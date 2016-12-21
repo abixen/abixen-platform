@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
-<%@ page import="com.abixen.platform.core.model.enumtype.ResourceLocation" %>
+<%@ page import="com.abixen.platform.core.model.enumtype.ResourcePageLocation" %>
+<%@ page import="com.abixen.platform.core.model.enumtype.ResourcePage" %>
 <%@ page import="com.abixen.platform.core.model.enumtype.ResourceType" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -21,14 +22,13 @@
     <link href="<c:url value="/application/modules/abixen/modules.min.css" />" rel="stylesheet">
 
     <c:forEach var="resource" items="${resources}">
-        <c:if test="${resource.resourceLocation == ResourceLocation.HEADER && resource.resourceType == ResourceType.JAVASCRIPT}">
+        <c:if test="${resource.resourcePage == ResourcePage.APPLICATION && resource.resourcePageLocation == ResourcePageLocation.HEADER && resource.resourceType == ResourceType.JAVASCRIPT}">
             <script src="<c:url value='${resource.relativeUrl}' />"></script>
         </c:if>
-        <c:if test="${resource.resourceLocation == ResourceLocation.HEADER && resource.resourceType == ResourceType.CSS}">
+        <c:if test="${resource.resourcePage == ResourcePage.APPLICATION && resource.resourcePageLocation == ResourcePageLocation.HEADER && resource.resourceType == ResourceType.CSS}">
             <link href="<c:url value='${resource.relativeUrl}' />" rel="stylesheet" type="text/css">
         </c:if>
     </c:forEach>
-
 </head>
 <body ng-app="platformApplication">
 
@@ -55,7 +55,7 @@
 <script src="<c:url value='/application/application.min.js' />"></script>
 
 <c:forEach var="resource" items="${resources}">
-    <c:if test="${resource.resourceLocation == ResourceLocation.BODY && resource.resourceType == ResourceType.JAVASCRIPT}">
+    <c:if test="${resource.resourcePage == ResourcePage.APPLICATION && resource.resourcePageLocation == ResourcePageLocation.BODY && resource.resourceType == ResourceType.JAVASCRIPT}">
         <script src="<c:url value='${resource.relativeUrl}' />"></script>
     </c:if>
 </c:forEach>

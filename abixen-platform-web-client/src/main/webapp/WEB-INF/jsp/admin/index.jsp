@@ -1,4 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
+<%@ page import="com.abixen.platform.core.model.enumtype.ResourcePageLocation" %>
+<%@ page import="com.abixen.platform.core.model.enumtype.ResourcePage" %>
+<%@ page import="com.abixen.platform.core.model.enumtype.ResourceType" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html ng-app="platformAdminApplication">
@@ -13,6 +16,15 @@
     <link href="<c:url value="/lib/ng-scrollbar.min.css" />" rel="stylesheet">
     <link href="<c:url value="/admin/application.min.css" />" rel="stylesheet">
     <link href="<c:url value="/admin/modules/abixen/modules.min.css" />" rel="stylesheet">
+
+    <c:forEach var="resource" items="${resources}">
+        <c:if test="${resource.resourcePage == ResourcePage.ADMIN && resource.resourcePageLocation == ResourcePageLocation.HEADER && resource.resourceType == ResourceType.JAVASCRIPT}">
+            <script src="<c:url value='${resource.relativeUrl}' />"></script>
+        </c:if>
+        <c:if test="${resource.resourcePage == ResourcePage.ADMIN && resource.resourcePageLocation == ResourcePageLocation.HEADER && resource.resourceType == ResourceType.CSS}">
+            <link href="<c:url value='${resource.relativeUrl}' />" rel="stylesheet" type="text/css">
+        </c:if>
+    </c:forEach>
 </head>
 <body>
 <ui-view></ui-view>
@@ -37,10 +49,15 @@
 <script src="<c:url value='/lib/angular-file-upload.min.js' />"></script>
 <script src="<c:url value='/lib/angular-cookies.min.js' />"></script>
 <script src="<c:url value='/lib/ng-scrollbar.min.js' />"></script>
-<script src="<c:url value='/application/modules/abixen/lib/xlsx.full.min.js' />"></script>
 <script src="<c:url value='/common/modules.min.js' />"></script>
 <script src="<c:url value='/admin/application.min.js' />"></script>
 <script src="<c:url value='/admin/modules/abixen/modules.min.js' />"></script>
+
+<c:forEach var="resource" items="${resources}">
+    <c:if test="${resource.resourcePage == ResourcePage.ADMIN && resource.resourcePageLocation == ResourcePageLocation.BODY && resource.resourceType == ResourceType.JAVASCRIPT}">
+        <script src="<c:url value='${resource.relativeUrl}' />"></script>
+    </c:if>
+</c:forEach>
 
 </body>
 </html>

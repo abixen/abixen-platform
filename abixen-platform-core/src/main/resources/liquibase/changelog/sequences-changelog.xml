@@ -18,7 +18,7 @@
         <createSequence sequenceName="permission_acl_class_category_seq" startValue="6"/>
         <createSequence sequenceName="permission_general_category_seq" startValue="2"/>
         <createSequence sequenceName="permission_seq" startValue="18"/>
-        <createSequence sequenceName="resource_seq" startValue="9"/>
+        <createSequence sequenceName="resource_seq" startValue="10"/>
         <createSequence sequenceName="role_seq" startValue="4"/>
         <createSequence sequenceName="user_seq" startValue="4"/>
     </changeSet>

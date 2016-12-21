@@ -15,7 +15,7 @@
 package com.abixen.platform.core.model.enumtype;
 
 
-public enum ResourceLocation {
+public enum ResourcePageLocation {
 
     HEADER("HEADER"), BODY("BODY");
 
@@ -25,7 +25,7 @@ public enum ResourceLocation {
         return name;
     }
 
-    private ResourceLocation(String name) {
+    private ResourcePageLocation(String name) {
         this.name = name;
     }
 }
