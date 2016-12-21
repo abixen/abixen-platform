@@ -14,11 +14,13 @@ function AbstractListGridController(Resource, config) {
         getListGridData: function () {
             return [];
         },
+        tableReady: false,
         getData: getData,
         setData: setData,
         selectedEntity: null,
         selectedEntities: [],
         getTableColumns: angular.isDefined(config) ? config.getTableColumns : undefined,
+        onTableReady: angular.isDefined(config) ? config.onTableReady : undefined,
         onRowSelected: angular.isDefined(config) ? config.onRowSelected : undefined,
         onRowUnselected: angular.isDefined(config) ? config.onRowUnselected : undefined,
         onGetDataResult: angular.isDefined(config) ? config.onGetDataResult : undefined,
@@ -36,6 +38,8 @@ function AbstractListGridController(Resource, config) {
 
     abstractListGridController.search = search;
     abstractListGridController.deleteEntity = deleteEntity;
+
+
 
     function deleteEntity(entity) {
         Resource.delete({id: entity.id}, null, function () {
