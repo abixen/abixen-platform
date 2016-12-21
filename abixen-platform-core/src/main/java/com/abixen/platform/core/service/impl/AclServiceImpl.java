@@ -26,8 +26,7 @@ import com.abixen.platform.core.repository.custom.AclSidRepository;
 import com.abixen.platform.core.service.AclService;
 import com.abixen.platform.core.service.PermissionService;
 import com.abixen.platform.core.service.RoleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,11 +35,9 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 @Service
 public class AclServiceImpl implements AclService {
-
-    private final Logger log = LoggerFactory.getLogger(AclServiceImpl.class);
 
     @Resource
     private PermissionRepository permissionRepository;

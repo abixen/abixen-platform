@@ -17,8 +17,7 @@ package com.abixen.platform.core.service.impl;
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.repository.ResourceRepository;
 import com.abixen.platform.core.service.ResourceService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,11 +28,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 @Service
 public class ResourceServiceImpl implements ResourceService {
-
-    private final Logger log = LoggerFactory.getLogger(ResourceServiceImpl.class);
 
     @Resource
     private ResourceRepository resourceRepository;
