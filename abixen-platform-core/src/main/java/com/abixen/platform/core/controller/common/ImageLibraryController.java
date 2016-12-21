@@ -15,9 +15,8 @@
 package com.abixen.platform.core.controller.common;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,17 +26,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/images")
 public class ImageLibraryController {
-
-    private final Logger log = LoggerFactory.getLogger(ImageLibraryController.class);
 
     @Autowired
     private AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;

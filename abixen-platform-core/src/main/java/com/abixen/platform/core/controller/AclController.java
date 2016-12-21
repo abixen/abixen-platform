@@ -16,17 +16,14 @@ package com.abixen.platform.core.controller;
 
 import com.abixen.platform.core.dto.AclRolesPermissionsDto;
 import com.abixen.platform.core.service.AclService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/admin/acls")
 public class AclController {
-
-    private final Logger log = LoggerFactory.getLogger(AclController.class);
 
     @Autowired
     private AclService aclService;
