@@ -24,6 +24,8 @@
         <start-class>com.abixen.platform.client.web.PlatformWebClientApplication</start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen-platform</docker.image.prefix>
+        <log4j2.version>2.5</log4j2.version>
+        <log4j-slf4j-version>2.0.1</log4j-slf4j-version>
     </properties>
 
 
@@ -127,6 +129,24 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Logger -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j-slf4j-version}</version>
         </dependency>
 
     </dependencies>
