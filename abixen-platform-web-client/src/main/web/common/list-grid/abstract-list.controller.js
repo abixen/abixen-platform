@@ -15,6 +15,12 @@ function AbstractListGridController(Resource, config) {
             return [];
         },
         tableReady: false,
+        getListGridColumns: function () {
+            return [];
+        },
+        getListGridSelectedRows: function () {
+            return [];
+        },
         getData: getData,
         setData: setData,
         selectedEntity: null,

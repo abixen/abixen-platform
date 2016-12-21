@@ -136,6 +136,9 @@
         };
 
         listGrid.listGridConfig.getListGridData = getListGridData;
+        listGrid.listGridConfig.getListGridColumns = getListGridColumns;
+        listGrid.listGridConfig.getListGridSelectedRows = getListGridSelectedRows;
+        listGrid.listGridConfig.clearSelectedRows = clearSelectedRows;
 
         listGrid.listGridConfig.selectRow = function (rowEntity) {
             scope.gridApi.selection.selectRow(rowEntity);
@@ -144,6 +147,7 @@
         listGrid.listGridConfig.onDataChanged = function (data, reset) {
 
             if (reset) {
+                listGrid.listGridConfig.clearSelectedRows();
                 listGrid.listGrid.columnDefs = listGrid.listGridConfig.getTableColumns();
                 listGrid.listGrid.data = data;
             } else {
@@ -162,6 +166,26 @@
 
         function getListGridData() {
             return listGrid.listGrid.data;
+        }
+
+        function getListGridColumns() {
+            return listGrid.listGrid.columnDefs;
+        }
+
+        function getListGridSelectedRows() {
+            if (scope.gridApi.grid.options.multiSelect) {
+                return listGrid.listGridConfig.selectedEntities;
+            }else {
+                return listGrid.listGridConfig.selectedEntity;
+            }
+        }
+
+        function clearSelectedRows() {
+            if (scope.gridApi.grid.options.multiSelect) {
+                return listGrid.listGridConfig.selectedEntities = [];
+            }else {
+                return listGrid.listGridConfig.selectedEntity = null;
+            }
         }
 
         function existsAndNotEmpty(value) {

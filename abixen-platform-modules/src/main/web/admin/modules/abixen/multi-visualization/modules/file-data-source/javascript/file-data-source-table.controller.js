@@ -34,12 +34,16 @@
         fileDataSoruceTable.options = undefined;
         fileDataSoruceTable.data = undefined;
         fileDataSoruceTable.renderTable = false;
+        fileDataSoruceTable.getSelectedColumns = getSelectedColumns;
+        fileDataSoruceTable.getSelectedRows = getSelectedRows;
 
         $scope.$watch('gridData', function () {
             if ($scope.gridData !== undefined && $scope.gridData !== [] && $scope.gridData.length > 0) {
                 if (fileDataSoruceTable.renderTable === false) {
                     fileDataSoruceTable.renderTable = true;
                 }else {
+                    $log.log('getSelectedColumns: ', fileDataSoruceTable.getSelectedColumns());
+                    $log.log('getSelectedRows: ', fileDataSoruceTable.getSelectedRows().length);
                     fileDataSoruceTable.listGridConfig.setData($scope.gridData);
                 }
             }
@@ -72,6 +76,19 @@
 
         function onTableReady() {
             fileDataSoruceTable.listGridConfig.setData($scope.gridData);
+        }
+
+        function getSelectedColumns() {
+            var selectedColumn = [];
+            fileDataSoruceTable.listGridConfig.getListGridColumns().forEach(function (column) {
+                if (column.visible === undefined || column.visible === true)
+                    selectedColumn.push(column);
+            });
+            return selectedColumn
+        }
+
+        function getSelectedRows() {
+            return fileDataSoruceTable.listGridConfig.getListGridSelectedRows()
         }
     }
 })();
