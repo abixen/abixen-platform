@@ -18,7 +18,6 @@ package com.abixen.platform.core.model.impl;
 import com.abixen.platform.core.model.RoleBase;
 import com.abixen.platform.core.model.enumtype.RoleType;
 import com.abixen.platform.core.model.web.RoleWeb;
-import com.abixen.platform.core.util.ModelKeys;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -46,7 +45,7 @@ public class Role extends AuditingModel implements RoleBase<Permission>, RoleWeb
     @Column(name = "role_type", nullable = false)
     private RoleType roleType;
 
-    @Column(name = "name", unique = true, length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
+    @Column(name = "name", unique = true, length = NAME_MAX_LENGTH, nullable = false)
     private String name;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

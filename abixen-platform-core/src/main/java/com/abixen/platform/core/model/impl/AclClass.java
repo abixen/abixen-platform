@@ -16,7 +16,6 @@ package com.abixen.platform.core.model.impl;
 
 import com.abixen.platform.core.model.AclClassBase;
 import com.abixen.platform.core.model.Model;
-import com.abixen.platform.core.util.ModelKeys;
 
 import javax.persistence.*;
 
@@ -41,7 +40,7 @@ public class AclClass extends Model implements AclClassBase {
      * Represents a canonical name of domain class.
      * E.g. com.abixen.platform.core.model.impl.User
      */
-    @Column(name = "name", length = ModelKeys.ACL_CLASS_NAME_MAX_LENGTH, nullable = false)
+    @Column(name = "name", length = ACL_CLASS_NAME_MAX_LENGTH, nullable = false)
     private String name;
 
     @Override

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.util.ModelKeys;
+import com.abixen.platform.core.model.UserBase;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -25,17 +25,17 @@ public class UserChangePasswordForm implements Form {
 
     @NotNull
     @NotEmpty
-    @Length(max = ModelKeys.PASSWORD_MAX_LENGTH)
+    @Length(max = UserBase.PASSWORD_MAX_LENGTH)
     private String currentPassword;
 
     @NotNull
     @NotEmpty
-    @Length(max = ModelKeys.PASSWORD_MAX_LENGTH)
+    @Length(max = UserBase.PASSWORD_MAX_LENGTH)
     private String newPassword;
 
     @NotNull
     @NotEmpty
-    @Length(max = ModelKeys.PASSWORD_MAX_LENGTH)
+    @Length(max = UserBase.PASSWORD_MAX_LENGTH)
     private String retypeNewPassword;
 
     public String getCurrentPassword() {

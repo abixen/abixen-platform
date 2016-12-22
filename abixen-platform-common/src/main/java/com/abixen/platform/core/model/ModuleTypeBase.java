@@ -17,6 +17,20 @@ package com.abixen.platform.core.model;
 
 public interface ModuleTypeBase {
 
+    int MODULETYPE_NAME_MIN_LENGTH = 5;
+    int MODULETYPE_NAME_MAX_LENGTH = 20;
+
+    int MODULETYPE_TITLE_MIN_LENGTH = 6;
+    int MODULETYPE_TITLE_MAX_LENGTH = 40;
+
+    int MODULETYPE_DESCRIPTION_MIN_LENGTH = 40;
+    int MODULETYPE_DESCRIPTION_MAX_LENGTH = 40;
+
+
+    int RESOURCE_SERVICE_ID_MIN_LENGTH = 1;
+    int RESOURCE_SERVICE_ID_MAX_LENGTH = 255;
+
+
     Long getId();
 
     void setId(Long id);

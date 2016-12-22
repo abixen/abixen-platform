@@ -18,7 +18,6 @@ import com.abixen.platform.core.model.UserBase;
 import com.abixen.platform.core.model.enumtype.UserGender;
 import com.abixen.platform.core.model.enumtype.UserState;
 import com.abixen.platform.core.model.web.UserWeb;
-import com.abixen.platform.core.util.ModelKeys;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -38,22 +37,22 @@ public class User extends AuditingModel implements UserBase<Role>, UserWeb {
     @GeneratedValue(generator = "user_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "username", unique = true, length = ModelKeys.USERNAME_MAX_LENGTH, nullable = false)
+    @Column(name = "username", unique = true, length = USERNAME_MAX_LENGTH, nullable = false)
     private String username;
 
-    @Column(name = "password", length = ModelKeys.PASSWORD_MAX_LENGTH, nullable = false)
+    @Column(name = "password", length = PASSWORD_MAX_LENGTH, nullable = false)
     private String password;
 
     @Column(name = "screen_name")
     private String screenName;
 
-    @Column(name = "first_name", length = ModelKeys.FIRST_NAME_MAX_LENGTH, nullable = false)
+    @Column(name = "first_name", length = FIRST_NAME_MAX_LENGTH, nullable = false)
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "last_name", length = ModelKeys.LAST_NAME_MAX_LENGTH, nullable = false)
+    @Column(name = "last_name", length = LAST_NAME_MAX_LENGTH, nullable = false)
     private String lastName;
 
     @Column(name = "job_title")
@@ -68,14 +67,14 @@ public class User extends AuditingModel implements UserBase<Role>, UserWeb {
     @Column(name = "avatar_file_name")
     private String avatarFileName;
 
-    @Column(name = "registration_ip", length = ModelKeys.REGISTRATION_IP_MAX_LENGTH)
+    @Column(name = "registration_ip", length = REGISTRATION_IP_MAX_LENGTH)
     private String registrationIp;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
     private UserState state;
 
-    @Column(name = "hash_key", length = ModelKeys.HASH_KEY_MAX_LENGTH)
+    @Column(name = "hash_key", length = HASH_KEY_MAX_LENGTH)
     private String hashKey;
 
     //@JsonIgnore

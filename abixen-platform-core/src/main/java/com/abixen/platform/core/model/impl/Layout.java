@@ -16,7 +16,6 @@ package com.abixen.platform.core.model.impl;
 
 import com.abixen.platform.core.model.LayoutBase;
 import com.abixen.platform.core.model.web.LayoutWeb;
-import com.abixen.platform.core.util.ModelKeys;
 
 import javax.persistence.*;
 
@@ -31,13 +30,13 @@ public class Layout extends AuditingModel implements LayoutBase, LayoutWeb {
     @GeneratedValue(generator = "layout_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "title", length = ModelKeys.LAYOUT_TITLE_MAX_LENGTH, nullable = false)
+    @Column(name = "title", length = LAYOUT_TITLE_MAX_LENGTH, nullable = false)
     private String title;
 
-    @Column(name = "content", length = ModelKeys.LAYOUT_CONTENT_MAX_LENGTH, nullable = false)
+    @Column(name = "content", length = LAYOUT_CONTENT_MAX_LENGTH, nullable = false)
     private String content;
 
-    @Column(name = "icon_file_name", length = ModelKeys.LAYOUT_ICON_FILE_NAME_MAX_LENGTH, nullable = false)
+    @Column(name = "icon_file_name", length = LAYOUT_ICON_FILE_NAME_MAX_LENGTH, nullable = false)
     private String iconFileName;
 
     @Override

@@ -17,6 +17,8 @@ package com.abixen.platform.core.model;
 
 public interface AclClassBase {
 
+    int ACL_CLASS_NAME_MAX_LENGTH = 250;
+
     Long getId();
 
     void setId(Long id);
