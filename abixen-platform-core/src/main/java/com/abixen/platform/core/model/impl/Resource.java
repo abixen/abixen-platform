@@ -15,10 +15,9 @@
 package com.abixen.platform.core.model.impl;
 
 import com.abixen.platform.core.model.ResourceBase;
-import com.abixen.platform.core.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.core.model.enumtype.ResourcePage;
+import com.abixen.platform.core.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.core.model.enumtype.ResourceType;
-import com.abixen.platform.core.util.ModelKeys;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -37,7 +36,7 @@ public class Resource extends AuditingModel implements ResourceBase<ModuleType> 
     @GeneratedValue(generator = "resource_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "relative_url", length = ModelKeys.RESOURCE_RELATIVE_URL_MAX_LENGTH, nullable = false)
+    @Column(name = "relative_url", length = RESOURCE_RELATIVE_URL_MAX_LENGTH, nullable = false)
     private String relativeUrl;
 
     @Enumerated(EnumType.STRING)

@@ -17,7 +17,6 @@ package com.abixen.platform.core.model.impl;
 import com.abixen.platform.core.model.ModuleBase;
 import com.abixen.platform.core.model.SecurableModel;
 import com.abixen.platform.core.model.web.ModuleWeb;
-import com.abixen.platform.core.util.ModelKeys;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -34,10 +33,10 @@ public class Module extends AuditingModel implements ModuleBase<ModuleType, Page
     @GeneratedValue(generator = "module_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "title", length = ModelKeys.MODULE_TITLE_MAX_LENGTH, nullable = false)
+    @Column(name = "title", length = MODULE_TITLE_MAX_LENGTH, nullable = false)
     private String title;
 
-    @Column(name = "description", length = ModelKeys.MODULE_DESCRIPTION_MAX_LENGTH)
+    @Column(name = "description", length = MODULE_DESCRIPTION_MAX_LENGTH)
     private String description;
 
     @JoinColumn(name = "module_type_id", nullable = false)

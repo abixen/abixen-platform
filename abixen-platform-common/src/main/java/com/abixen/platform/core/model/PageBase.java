@@ -17,6 +17,16 @@ package com.abixen.platform.core.model;
 
 public interface PageBase<Layout extends LayoutBase> {
 
+    int PAGE_NAME_MIN_LENGTH = 5;
+    int PAGE_NAME_MAX_LENGTH = 20;
+
+    int PAGE_TITLE_MIN_LENGTH = 6;
+    int PAGE_TITLE_MAX_LENGTH = 40;
+
+    int PAGE_DESCRIPTION_MIN_LENGTH = 40;
+    int PAGE_DESCRIPTION_MAX_LENGTH = 40;
+
+
     Long getId();
 
     void setId(Long id);

@@ -16,8 +16,8 @@ package com.abixen.platform.core.form;
 
 import com.abixen.platform.core.model.enumtype.UserGender;
 import com.abixen.platform.core.model.impl.User;
-import com.abixen.platform.core.util.ModelKeys;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.abixen.platform.core.model.UserBase;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -33,26 +33,26 @@ public class UserForm implements Form {
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Email
-    @Length(min = ModelKeys.USERNAME_MIN_LENGTH, max = ModelKeys.USERNAME_MAX_LENGTH)
+    @Length(min = UserBase.USERNAME_MIN_LENGTH, max = UserBase.USERNAME_MAX_LENGTH)
     private String username;
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    @Length(min = ModelKeys.SCREEN_NAME_MIN_LENGTH, max = ModelKeys.SCREEN_NAME_MAX_LENGTH)
+    @Length(min = UserBase.SCREEN_NAME_MIN_LENGTH, max = UserBase.SCREEN_NAME_MAX_LENGTH)
     private String screenName;
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    @Length(min = ModelKeys.FIRST_NAME_MIN_LENGTH, max = ModelKeys.FIRST_NAME_MAX_LENGTH)
+    @Length(min = UserBase.FIRST_NAME_MIN_LENGTH, max = UserBase.FIRST_NAME_MAX_LENGTH)
     private String firstName;
 
     @JsonView(WebModelJsonSerialize.class)
-    @Length(min = ModelKeys.MIDDLE_NAME_MIN_LENGTH, max = ModelKeys.MIDDLE_NAME_MAX_LENGTH)
+    @Length(min = UserBase.MIDDLE_NAME_MIN_LENGTH, max = UserBase.MIDDLE_NAME_MAX_LENGTH)
     private String middleName;
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    @Length(min = ModelKeys.LAST_NAME_MIN_LENGTH, max = ModelKeys.LAST_NAME_MAX_LENGTH)
+    @Length(min = UserBase.LAST_NAME_MIN_LENGTH, max = UserBase.LAST_NAME_MAX_LENGTH)
     private String lastName;
 
     @JsonView(WebModelJsonSerialize.class)

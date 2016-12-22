@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.form;
 
+import com.abixen.platform.core.model.RoleBase;
 import com.abixen.platform.core.model.impl.Role;
-import com.abixen.platform.core.util.ModelKeys;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 public class RoleForm implements Form {
 
     @NotNull
-    @Length(min = ModelKeys.ROLE_NAME_MIN_LENGTH, max = ModelKeys.ROLE_NAME_MAX_LENGTH)
+    @Length(min = RoleBase.ROLE_NAME_MIN_LENGTH, max = RoleBase.ROLE_NAME_MAX_LENGTH)
     private String name;
 
     public RoleForm() {

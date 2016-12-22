@@ -22,6 +22,9 @@ import com.abixen.platform.core.model.enumtype.ResourceType;
 
 public interface ResourceBase<ModuleType extends ModuleTypeBase> {
 
+    int RESOURCE_RELATIVE_URL_MIN_LENGTH = 3;
+    int RESOURCE_RELATIVE_URL_MAX_LENGTH = 250;
+
     Long getId();
 
     void setId(Long id);

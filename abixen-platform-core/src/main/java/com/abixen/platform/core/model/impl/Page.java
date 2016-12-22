@@ -17,7 +17,6 @@ package com.abixen.platform.core.model.impl;
 import com.abixen.platform.core.model.PageBase;
 import com.abixen.platform.core.model.SecurableModel;
 import com.abixen.platform.core.model.web.PageWeb;
-import com.abixen.platform.core.util.ModelKeys;
 
 import javax.persistence.*;
 
@@ -32,13 +31,13 @@ public class Page extends AuditingModel implements PageBase<Layout>, PageWeb, Se
     @GeneratedValue(generator = "page_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "name", length = ModelKeys.PAGE_NAME_MAX_LENGTH, nullable = false)
+    @Column(name = "name", length = PAGE_NAME_MAX_LENGTH, nullable = false)
     private String name;
 
-    @Column(name = "title", length = ModelKeys.PAGE_TITLE_MAX_LENGTH, nullable = false)
+    @Column(name = "title", length = PAGE_TITLE_MAX_LENGTH, nullable = false)
     private String title;
 
-    @Column(name = "description", length = ModelKeys.PAGE_DESCRIPTION_MAX_LENGTH)
+    @Column(name = "description", length = PAGE_DESCRIPTION_MAX_LENGTH)
     private String description;
 
     @JoinColumn(name = "layout_id", nullable = false)

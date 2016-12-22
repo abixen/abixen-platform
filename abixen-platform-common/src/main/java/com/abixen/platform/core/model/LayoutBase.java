@@ -17,6 +17,14 @@ package com.abixen.platform.core.model;
 
 public interface LayoutBase {
 
+   int LAYOUT_TITLE_MIN_LENGTH = 6; //?
+   int LAYOUT_TITLE_MAX_LENGTH = 40;
+
+   int LAYOUT_CONTENT_MIN_LENGTH = 10;
+   int LAYOUT_CONTENT_MAX_LENGTH = 4000; //?
+
+   int LAYOUT_ICON_FILE_NAME_MAX_LENGTH = 100;
+
     Long getId();
 
     void setId(Long id);

@@ -16,7 +16,6 @@ package com.abixen.platform.core.model.impl;
 
 import com.abixen.platform.core.model.ModuleTypeBase;
 import com.abixen.platform.core.model.web.ModuleTypeWeb;
-import com.abixen.platform.core.util.ModelKeys;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -33,19 +32,19 @@ public class ModuleType extends AuditingModel implements ModuleTypeBase, ModuleT
     @GeneratedValue(generator = "module_type_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "name", length = ModelKeys.MODULETYPE_NAME_MAX_LENGTH, nullable = false)
+    @Column(name = "name", length = MODULETYPE_NAME_MAX_LENGTH, nullable = false)
     private String name;
 
-    @Column(name = "title", length = ModelKeys.MODULETYPE_TITLE_MAX_LENGTH, nullable = false)
+    @Column(name = "title", length = MODULETYPE_TITLE_MAX_LENGTH, nullable = false)
     private String title;
 
-    @Column(name = "description", length = ModelKeys.MODULETYPE_DESCRIPTION_MAX_LENGTH, nullable = false)
+    @Column(name = "description", length = MODULETYPE_DESCRIPTION_MAX_LENGTH, nullable = false)
     private String description;
 
     @Column(name = "init_url")
     private String initUrl;
 
-    @Column(name = "service_id", length = ModelKeys.RESOURCE_SERVICE_ID_MAX_LENGTH, nullable = false)
+    @Column(name = "service_id", length = RESOURCE_SERVICE_ID_MAX_LENGTH, nullable = false)
     private String serviceId;
 
     @Override
