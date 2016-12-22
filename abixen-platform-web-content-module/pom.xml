@@ -171,10 +171,10 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!--<plugin>
+            <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                &lt;!&ndash; NB! Set <version> to the latest released version of frontend-maven-plugin, like in README.md &ndash;&gt;
+                <!-- NB! Set <version> to the latest released version of frontend-maven-plugin, like in README.md -->
                 <version>1.2</version>
                 <executions>
                     <execution>
@@ -205,11 +205,11 @@
                             <goal>gulp</goal>
                         </goals>
                         <configuration>
-                            <arguments>&#45;&#45;no-color</arguments>
+                            <arguments>--no-color</arguments>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
