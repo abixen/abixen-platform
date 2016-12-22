@@ -56,7 +56,7 @@ public class DatabasePostgresServiceImplTest {
     }
 
     @Test
-    public void testGetConnection() {
+    public void testGetConnection(){
         Connection connection = null;
         Throwable thrownExceptionInGetConnection = null;
         try {
