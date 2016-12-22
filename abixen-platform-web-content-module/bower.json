@@ -1,0 +1,11 @@
+{
+  "name": "abixen-platform-web-content-module",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "angular-svg-round-progressbar": "0.3.8",
+    "nvd3": "1.8.1",
+    "angular-nvd3": "1.0.5",
+    "js-xlsx": "0.8.0"
+  }
+}
