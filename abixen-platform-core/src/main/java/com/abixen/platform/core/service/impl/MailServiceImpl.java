@@ -76,7 +76,6 @@ public class MailServiceImpl implements MailService, ServletContextAware {
             content.append(FreeMarkerTemplateUtils.processTemplateIntoString(temp, parameters));
 
             MimeBodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart = new MimeBodyPart();
             messageBodyPart.setContent(content.toString(), "text/html;charset=\"UTF-8\"");
 
             MimeMultipart multipart = new MimeMultipart("related");

@@ -20,7 +20,7 @@ import com.abixen.platform.module.chart.form.DatabaseConnectionForm;
 import com.abixen.platform.module.chart.model.enumtype.DatabaseType;
 import com.abixen.platform.module.chart.service.DatabaseService;
 import com.abixen.platform.module.configuration.PlatformModuleConfiguration;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,10 +31,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.sql.Connection;
 import static org.junit.Assert.assertTrue;
 
+
+@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformModuleConfiguration.class)
 public class DatabasePostgresServiceImplTest {
-    private static Logger log = Logger.getLogger(DatabasePostgresServiceImplTest.class.getName());
 
     @Autowired
     @Qualifier("databasePostgresService")

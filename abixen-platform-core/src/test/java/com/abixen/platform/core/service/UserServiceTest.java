@@ -118,7 +118,7 @@ public class UserServiceTest {
         passwordForm.setCurrentPassword("someNotCorrectpassword");
         passwordForm.setNewPassword(newpassword);
 
-        UserChangePasswordForm newPasswordForm = userService.changeUserPassword(user, passwordForm);
+        userService.changeUserPassword(user, passwordForm);
     }
 
     @Test
