@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
+ *
+ *  This library is free software; you can redistribute it and/or modify it under
+ *  the terms of the GNU Lesser General Public License as published by the Free
+ *  Software Foundation; either version 2.1 of the License, or (at your option)
+ *  any later version.
+ *
+ *  This library is distributed in the hope that it will be useful, but WITHOUT
+ *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *  details.
+ *
+ */
+
 package com.abixen.platform.module.chart.service.impl;
 
 import com.abixen.platform.module.chart.exception.DatabaseConnectionException;
@@ -16,7 +31,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Connection;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -54,9 +68,6 @@ public class DatabasePostgresServiceImplTest {
             log.debug(ex.getMessage());
         }
 
-        if (connection == null)
-            assertTrue(thrownExceptionInGetConnection instanceof DatabaseConnectionException);
-        else
-            assertNotNull(connection);
+        assertTrue(thrownExceptionInGetConnection instanceof DatabaseConnectionException);
     }
 }
