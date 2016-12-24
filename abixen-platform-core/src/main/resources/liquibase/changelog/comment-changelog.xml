@@ -11,18 +11,28 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="message" type="varchar(50)">
+            <column name="message" type="varchar(5000)">
                 <constraints nullable="false"/>
             </column>
             <column name="parent_id" type="bigint">
                 <constraints nullable="true"/>
             </column>
-
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_date" type="timestamp"/>
             <column name="created_by_id" type="bigint"/>
             <column name="last_modified_by_id" type="bigint"/>
         </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__comment__id" tableName="comment"/>
+
+        <createIndex indexName="idx__comment__created_by_id" tableName="comment">
+            <column name="created_by_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__comment__last_modified_by_id" tableName="comment">
+            <column name="last_modified_by_id"/>
+        </createIndex>
+
         <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="comment"
                                  constraintName="fk__parent_id__comment__comment" deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
