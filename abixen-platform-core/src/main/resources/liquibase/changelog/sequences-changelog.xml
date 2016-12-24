@@ -21,6 +21,7 @@
         <createSequence sequenceName="resource_seq" startValue="10"/>
         <createSequence sequenceName="role_seq" startValue="4"/>
         <createSequence sequenceName="user_seq" startValue="4"/>
+        <createSequence sequenceName="comment_seq" startValue="1"/>
     </changeSet>
 
 </databaseChangeLog>
