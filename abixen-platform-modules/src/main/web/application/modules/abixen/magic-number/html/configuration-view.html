@@ -177,9 +177,8 @@
                 </div>
 
             </div>
-
             <div class="col-sm-4">
-
+				
                 <div class="form-group" show-errors>
                     <label for="colorCodeInput" class="control-label">Color Code</label>
 
@@ -202,7 +201,7 @@
                     <div>
                         <input ng-model="entity.iconClass" type="text" name="iconClass"
                                class="form-control" id="iconClassInput"
-                               placeholder="Icon Class" ng-required="true" ng-maxlength="50">
+                               placeholder="Icon Class" ng-required="true" ng-maxlength="50" ng-click="iconClassModal()">
 
                         <p class="help-block" ng-if="entityForm.iconClass.$error.maxlength">Max length is
                             invalid</p>

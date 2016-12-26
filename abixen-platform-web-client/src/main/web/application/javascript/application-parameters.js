@@ -33,5 +33,9 @@ var platformParameters = {
         WARNING: 'warning',
         NOTE: 'note',
         WAIT: 'wait'
+    },
+    modalSelectionType: {
+        SINGLE: 'SINGLE',
+        MULTIPLE: 'MULTIPLE'
     }
 };
