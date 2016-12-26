@@ -1,0 +1,24 @@
+@import "../../utils/scss/styles";
+
+@mixin modal-selection-dialog($color) {
+  .modal-header {
+    background: #033e68;
+    color: #FFFFFF;
+    border: 1px solid $color;
+    @include border-radius-custom(4px, 4px, 0px, 0px);
+  }
+
+  .modal-body{
+    background: #FFFFFF;
+  }
+
+  .btn-no-border{
+    border:0px solid transparent; /* this was 1px earlier */
+   }
+
+  .modal-footer{
+    background: #FFFFFF;
+    @include border-radius-custom( 0px, 0px, 5px, 5px);
+  }
+}
+

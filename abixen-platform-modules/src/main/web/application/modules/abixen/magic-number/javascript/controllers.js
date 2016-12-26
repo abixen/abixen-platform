@@ -48,20 +48,31 @@ platformMagicNumberModuleControllers.controller('MagicNumberModuleInitController
     $scope.$emit(platformParameters.events.MODULE_READY);
 }]);
 
-platformMagicNumberModuleControllers.controller('MagicNumberModuleConfigurationController', ['$scope', '$log', 'MagicNumberModuleConfiguration', function ($scope, $log, MagicNumberModuleConfiguration) {
+platformMagicNumberModuleControllers.controller('MagicNumberModuleConfigurationController', ['$scope', '$log','$uibModal','faModalSelectionWindow','MagicNumberModuleConfiguration', function ($scope, $log, $uibModal, faModalSelectionWindow,MagicNumberModuleConfiguration) {
     $log.log('MagicNumberModuleConfigurationController');
-
+    
     $log.log('$scope.moduleId: ' + $scope.moduleId);
 
     angular.extend(this, new AbstractModuleApplicationCrudDetailController($scope, $log, MagicNumberModuleConfiguration));
 
     $scope.colorCodes = ['DEFAULT', 'DANGER', 'WARNING', 'SUCCESS'];
-
+    
     $scope.goToViewMode = function () {
         $scope.$emit('VIEW_MODE');
-    }
-
+    }	
     $scope.get($scope.moduleId);
+    
+    //  We create a selectedIcon object so that we can pass it to the modal.
+    //  This will then be modified on the modal and we can assign the selected value
+    //  to the entity.iconClass.
+    $scope.selectedIcon;
+    $scope.iconClassModal = function() {
+        $scope.selectedIcon = new Array();  // object
+    	var modalInstance = faModalSelectionWindow.openSelectionDialog('Select Icon',$scope.selectedIcon,platformParameters.modalSelectionType.SINGLE,'app-modal-window',
+            function() {
+                $scope.entity.iconClass = $scope.selectedIcon[0];
+            });
+    }
 }]);
 
 platformMagicNumberModuleControllers.controller('MagicNumberModuleController', ['$scope', '$log', 'MagicNumberModule', function ($scope, $log, MagicNumberModule) {
