@@ -23,6 +23,7 @@ var platformApplication = angular.module('platformApplication', [
     'platformKpiChartModule',
     'platformUserModule',
     'platformModalModule',
+    'platformModalSelectionModule',
     'ui.grid',
     'ui.grid.exporter',
     'ui.grid.selection',
@@ -31,6 +32,7 @@ var platformApplication = angular.module('platformApplication', [
     'ui.grid.moveColumns',
     'ui.grid.autoResize',
     'ui.bootstrap.showErrors',
+    'platformFAModalSelection',
     'ngScrollbar'
 ]);
 
