@@ -40,7 +40,7 @@
     }
   }
 
-  .query-builder{
+  .query-builder {
     padding: 15px;
     background: #e5fad6;
     border-radius: 5px;
@@ -69,25 +69,47 @@
     }
   }
 
-  .upload{
+  .upload {
     width: 200px;
     height: 80px;
     margin-left: auto;
     margin-right: auto;
-    .upload-btn{
+    .upload-btn {
       background-color: $base-color-lighter;
       font-size: 22px !important;
       padding: 2px 12px !important;
-      .upload-btn-text{
+      .upload-btn-text {
         color: $font-color;
       }
     }
   }
 
-  .file-preview-table{
+  .file-preview-table {
     .ui-grid {
       height: 500px;
       position: relative;
+    }
+  }
+
+  .columns-section {
+    margin-left: 15px;
+    .columns-section-header {
+      border-bottom: 2px solid #ddd;
+      padding-left: 8px;
+    }
+
+    .columns-section-content {
+      height: 200px;
+      .columns-section-content-row {
+        border-top: 1px solid #ddd;
+        line-height: 1.42857;
+        padding: 8px;
+        vertical-align: top;
+      }
+    }
+
+    .no-padding-left {
+      padding-left: 0 !important;
     }
   }
 

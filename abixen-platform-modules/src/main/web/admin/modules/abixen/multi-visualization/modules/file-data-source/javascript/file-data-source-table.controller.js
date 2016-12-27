@@ -39,15 +39,26 @@
 
         $scope.$watch('gridData', function () {
             if ($scope.gridData !== undefined && $scope.gridData !== [] && $scope.gridData.length > 0) {
-                if (fileDataSoruceTable.renderTable === false) {
-                    fileDataSoruceTable.renderTable = true;
-                }else {
-                    $log.log('getSelectedColumns: ', fileDataSoruceTable.getSelectedColumns());
-                    $log.log('getSelectedRows: ', fileDataSoruceTable.getSelectedRows().length);
+                if (fileDataSoruceTable.renderTable !== false) {
                     fileDataSoruceTable.listGridConfig.setData($scope.gridData);
                 }
             }
         });
+
+        $scope.$watch('fileColumns', function () {
+            $log.debug('$scope.fileColumns.map(function(column) {return column.selected;}): ', $scope.fileColumns.map(function(column) {return column.selected;}) );
+            if ($scope.fileColumns.map(function(column) {return column.selected;}).indexOf(true) !== -1) {
+                if ($scope.fileColumns !== undefined && $scope.fileColumns !== [] && $scope.fileColumns.length > 0) {
+                    if (fileDataSoruceTable.renderTable === false) {
+                        fileDataSoruceTable.renderTable = true;
+                    } else {
+                        fileDataSoruceTable.listGridConfig.refreshGrid();
+                    }
+                }
+            }else{
+                fileDataSoruceTable.renderTable = false;
+            }
+        }, true);
 
         angular.extend(fileDataSoruceTable, new AbstractListGridController(null,
             {
@@ -62,13 +73,13 @@
 
         function getTableColumns() {
             var columns = [];
-            Object.keys($scope.gridData[0]).forEach(function (column) {
-                $log.debug("column:", column);
+            $scope.fileColumns.forEach(function (column) {
                 columns.push({
-                    field: column,
-                    name: column,
+                    field: column.name,
+                    name: column.name,
                     cellClass: 'cell-align-right',
-                    enableSorting: false
+                    enableSorting: false,
+                    visible: column.selected
                 });
             });
             return columns;
