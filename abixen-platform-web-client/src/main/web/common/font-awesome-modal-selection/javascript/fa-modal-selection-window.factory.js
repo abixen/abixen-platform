@@ -11,10 +11,19 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-var faSelectionModalWindowServices = angular.module('faSelectionModalWindowServices', ['modalSelectionWindowService']);
-faSelectionModalWindowServices.provider('faModalSelectionWindow',
-    function FAModalSelectionWindow() {
-        var okButtonClass = '';
+
+(function () {
+
+    'use strict';
+
+    angular
+        .module('platformFAModalSelection')
+        .factory('FaSelectionModalWindowServices', FaSelectionModalWindowServices);
+
+    FaSelectionModalWindowServices.$inject = ['ModalSelectionWindowService'];
+	
+  	function FaSelectionModalWindowServices(ModalSelectionWindowService) {
+  		var okButtonClass = '';
         var cancelButtonClass = '';
         var windowClass = '';
 
@@ -614,14 +623,13 @@ faSelectionModalWindowServices.provider('faModalSelectionWindow',
             {"id":"fa fa-subway","text":"fa fa-subway","selected":"N"},
             {"id":"fa fa-medium'","text":"fa fa-medium","selected":"N"}
             ];
-
+        
         return ({
             getOkButtonClass: getOkButtonClass,
             setOkButtonClass: setOkButtonClass,
             getCancelButtonClass: getCancelButtonClass,
             setCancelButtonClass: setCancelButtonClass,
-
-            $get: ['$uibModal','modalSelectionWindow', instantiateModalWindow]
+            openSelectionDialog: openSelectionDialog
         });
 
         function getOkButtonClass() {
@@ -644,16 +652,12 @@ faSelectionModalWindowServices.provider('faModalSelectionWindow',
             windowClass = newWindowClass;
         }
 
-        function instantiateModalWindow($uibModal,modalSelectionWindow) {
-
-            return ({
-                openSelectionDialog: openSelectionDialog
-            });
-
-            function openSelectionDialog(title, variable, selectionType, windowClass, callback) {
-                return modalSelectionWindow.openSelectionDialog(title, variable, data, selectionType, windowClass, callback);
-            }
-
+        function openSelectionDialog(title, variable, selectionType, windowClass, callback) {
+            return ModalSelectionWindowService.openSelectionDialog(title, variable, data, selectionType, windowClass, callback);
         }
-    }
-);
+	}
+
+    
+    
+
+})();
