@@ -139,6 +139,7 @@
         listGrid.listGridConfig.getListGridColumns = getListGridColumns;
         listGrid.listGridConfig.getListGridSelectedRows = getListGridSelectedRows;
         listGrid.listGridConfig.clearSelectedRows = clearSelectedRows;
+        listGrid.listGridConfig.refreshGrid = refreshGrid;
 
         listGrid.listGridConfig.selectRow = function (rowEntity) {
             scope.gridApi.selection.selectRow(rowEntity);
@@ -186,6 +187,11 @@
             }else {
                 return listGrid.listGridConfig.selectedEntity = null;
             }
+        }
+
+        function refreshGrid() {
+            listGrid.listGrid.columnDefs = listGrid.listGridConfig.getTableColumns();
+            scope.gridApi.grid.refresh();
         }
 
         function existsAndNotEmpty(value) {
