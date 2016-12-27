@@ -12,10 +12,29 @@
  * details.
  */
 
-var commonSelectionModalWindowControllers = angular.module('modalSelectionWindowController', []);
+(function () {
 
-commonSelectionModalWindowControllers.controller('ModalSelectionWindowController', ['$scope', '$uibModalInstance', 'data','selectionType','variable','acceptFunction', 'okButtonClass', 'cancelButtonClass', 'title', 
-    function ($scope, $uibModalInstance,data,selectionType,variable,acceptFunction,okButtonClass,cancelButtonClass, title) {
+    'use strict';
+
+    angular
+        .module('platformModalSelectionModule')
+        .controller('ModalSelectionWindowController', ModalSelectionWindowController);
+
+    ModalSelectionWindowController.$inject = [
+            '$log',
+            '$scope', 
+            '$uibModalInstance',
+            'data',
+            'selectionType',
+            'variable',
+            'acceptFunction',
+            'okButtonClass',
+            'cancelButtonClass',
+            'title'
+    ];
+
+    function ModalSelectionWindowController($log, $scope, $uibModalInstance,data,selectionType,variable,acceptFunction,okButtonClass,cancelButtonClass, title) {
+        $log.log('ModalSelectionWindowController');
 
         $scope.data = data; // the data we need to display
         $scope.selectionType = selectionType;// either it's SINGLE OR MULTIPLE
@@ -34,11 +53,11 @@ commonSelectionModalWindowControllers.controller('ModalSelectionWindowController
             rec.selected = 'Y';
             $scope.selectedId = rec.id;
             // deselect everything except selected.
-              for (var i=0;i<$scope.data.length;i++) {
+            for (var i=0;i<$scope.data.length;i++) {
                 if ($scope.data[i].id != rec.id) {
                     $scope.data[i].selected = 'N';
                 }
-              }
+            }
         }
 
         //  get the selected item - this will be called if the selectionType is MULTIPLE
@@ -69,4 +88,5 @@ commonSelectionModalWindowControllers.controller('ModalSelectionWindowController
             //  Just set the selected values to $scope.variable
             $uibModalInstance.dismiss();
         };
-}]);
+    }
+})();

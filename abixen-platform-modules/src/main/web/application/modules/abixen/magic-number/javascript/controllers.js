@@ -48,7 +48,7 @@ platformMagicNumberModuleControllers.controller('MagicNumberModuleInitController
     $scope.$emit(platformParameters.events.MODULE_READY);
 }]);
 
-platformMagicNumberModuleControllers.controller('MagicNumberModuleConfigurationController', ['$scope', '$log','$uibModal','faModalSelectionWindow','MagicNumberModuleConfiguration', function ($scope, $log, $uibModal, faModalSelectionWindow,MagicNumberModuleConfiguration) {
+platformMagicNumberModuleControllers.controller('MagicNumberModuleConfigurationController', ['$scope', '$log','$uibModal','FaSelectionModalWindowServices','MagicNumberModuleConfiguration', function ($scope, $log, $uibModal,FaSelectionModalWindowServices,MagicNumberModuleConfiguration) {
     $log.log('MagicNumberModuleConfigurationController');
     
     $log.log('$scope.moduleId: ' + $scope.moduleId);
@@ -68,10 +68,10 @@ platformMagicNumberModuleControllers.controller('MagicNumberModuleConfigurationC
     $scope.selectedIcon;
     $scope.iconClassModal = function() {
         $scope.selectedIcon = new Array();  // object
-    	var modalInstance = faModalSelectionWindow.openSelectionDialog('Select Icon',$scope.selectedIcon,platformParameters.modalSelectionType.SINGLE,'app-modal-window',
-            function() {
-                $scope.entity.iconClass = $scope.selectedIcon[0];
-            });
+    	FaSelectionModalWindowServices.openSelectionDialog('Select Icon',$scope.selectedIcon,platformParameters.modalSelectionType.SINGLE,'app-modal-window',
+        function() {
+            $scope.entity.iconClass = $scope.selectedIcon[0];
+        });
     }
 }]);
 
