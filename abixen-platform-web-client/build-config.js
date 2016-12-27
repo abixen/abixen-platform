@@ -15,7 +15,8 @@ module.exports = {
         loginImages: 'src/main/resources/static/login/image',
         libStyles: 'lib/lib.min.css',
         fontawesome: 'src/main/resources/static/lib/fonts/fontawesome',
-        roboto: 'src/main/resources/static/fonts/roboto'
+        roboto: 'src/main/resources/static/fonts/roboto',
+        glyphicons: 'src/main/resources/static/fonts/bootstrap'
     },
     images: {
         login: 'src/main/web/login/image/*'
@@ -57,7 +58,8 @@ module.exports = {
             'src/main/web/lib/ng-storage.min.js'
         ],
         fontawesome: 'bower_components/fontawesome/fonts/*',
-        roboto: 'bower_components/roboto-fontface/fonts/*'
+        roboto: 'bower_components/roboto-fontface/fonts/*',
+        glyphicons: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*'
     },
     templates: {
         files: 'src/main/web/**/*.html',

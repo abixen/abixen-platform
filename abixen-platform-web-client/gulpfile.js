@@ -141,7 +141,10 @@ function libsTask() {
     var roboto = gulp.src(config.libs.roboto)
         .pipe(gulp.dest(config.dest.roboto));
 
-    return merge(libs, fontawesome, roboto);
+    var glyphicons = gulp.src(config.libs.glyphicons)
+        .pipe(gulp.dest(config.dest.glyphicons));
+
+    return merge(libs, fontawesome, roboto, glyphicons);
 }
 
 function loginImagesTask() {
