@@ -11,15 +11,17 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.abixen.platform.module.webcontent.configuration.properties;
 
-import com.abixen.platform.core.configuration.properties.AbstractModulesConfigurationProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.stereotype.Component;
+package com.abixen.platform.module.webcontent.configuration;
 
-@Component
-@EnableConfigurationProperties
-@ConfigurationProperties(prefix = "platform.webcontent")
-public class WebContentModuleConfigurationProperties extends AbstractModulesConfigurationProperties {
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+import static com.abixen.platform.module.webcontent.configuration.PlatformWebContentModulePackages.*;
+
+
+@Configuration
+@ComponentScan(basePackages = {CONFIG, CONTROLLER})
+public class PlatformWebContentModuleConfiguration {
+
 }
