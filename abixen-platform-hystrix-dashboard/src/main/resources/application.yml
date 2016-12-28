@@ -5,5 +5,5 @@ spring:
 turbine:
   aggregator:
     clusterConfig: AbixenPlatform
-  appConfig: abixen-platform-core,abixen-platform-modules,abixen-platform-gateway
+  appConfig: abixen-platform-core,abixen-platform-business-intelligence-service,abixen-platform-gateway
   clusterNameExpression: new String("default")

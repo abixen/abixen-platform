@@ -10,7 +10,7 @@ platform:
       # Add here your module serviceId
       registeredServices:
         -
-          serviceId: abixen-platform-modules
+          serviceId: abixen-platform-business-intelligence-service
         -
           serviceId: abixen-platform-web-content-module
 

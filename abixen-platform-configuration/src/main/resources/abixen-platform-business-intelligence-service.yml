@@ -1,0 +1,73 @@
+server:
+  port: 9091
+
+security:
+  sessions: NEVER
+
+
+---
+
+
+spring:
+  profiles: cloud
+  redis:
+    host: redis
+    port: 6379
+  rabbitmq:
+    host: rabbit-mq
+    port: 5672
+    username: guest
+    password: guest
+platform:
+  businessintelligence:
+    jdbc:
+      driverClassName: org.postgresql.Driver
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      databaseUrl: jdbc:postgresql://business-intelligence-service-postgres-database:5432/abixen_platform_businessintelligence_service
+      username: abixen
+      password: fy2Lkxw201sV
+
+eureka:
+  instance:
+    preferIpAddress: true
+    metadataMap:
+      cluster: AbixenPlatform
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${abixen.services.eureka.uri}:8761/eureka/
+
+
+---
+
+
+spring:
+  profiles: dev
+  redis:
+    host: localhost
+    port: 6379
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+platform:
+  businessintelligence:
+    jdbc:
+      driverClassName: org.h2.Driver
+      dialect: org.hibernate.dialect.H2Dialect
+      databaseUrl: jdbc:h2:file:~/abixen-platform-business-intelligence-service-h2-db
+      username: sa
+      password:
+
+eureka:
+  instance:
+    hostname: localhost
+    metadataMap:
+      cluster: AbixenPlatform
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

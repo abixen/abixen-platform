@@ -12,7 +12,7 @@
 		<module>abixen-platform-common</module>
 		<module>abixen-platform-core</module>
 		<module>abixen-platform-gateway</module>
-		<module>abixen-platform-modules</module>
+		<module>abixen-platform-business-intelligence-service</module>
 		<module>abixen-platform-web-client</module>
 		<module>abixen-platform-eureka</module>
 		<module>abixen-platform-configuration</module>
