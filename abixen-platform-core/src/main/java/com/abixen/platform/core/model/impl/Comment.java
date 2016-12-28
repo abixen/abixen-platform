@@ -23,7 +23,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "comment")
 @SequenceGenerator(sequenceName = "comment_seq", name = "comment_seq", allocationSize = 1)
-public class Comment extends AuditingModel implements CommentBase<Comment>, CommentWeb {
+public class Comment extends AuditingModel implements CommentBase<Comment, Module>, CommentWeb {
 
     @Id
     @Column(name = "id")
@@ -36,6 +36,10 @@ public class Comment extends AuditingModel implements CommentBase<Comment>, Comm
     @JoinColumn(name = "parent_id", nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Comment parent;
+
+    @JoinColumn(name = "module_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Module module;
 
     @Override
     public Long getId() {
@@ -64,5 +68,15 @@ public class Comment extends AuditingModel implements CommentBase<Comment>, Comm
     @Override
     public void setParent(Comment parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public Module getModule() {
+        return module;
+    }
+
+    @Override
+    public void setModule(Module module) {
+        this.module = module;
     }
 }

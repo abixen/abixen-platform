@@ -13,7 +13,7 @@
  */
 package com.abixen.platform.core.model;
 
-public interface CommentBase<Comment extends CommentBase>  {
+public interface CommentBase<Comment extends CommentBase, Module extends ModuleBase>  {
 
     int COMMENT_MESSAGE_MIN_LENGTH = 1;
     int COMMENT_MESSAGE_MAX_LENGTH = 5000;
@@ -26,4 +26,7 @@ public interface CommentBase<Comment extends CommentBase>  {
 
     Comment getParent();
     void setParent(Comment parent);
+
+    Module getModule();
+    void setModule(Module module);
 }
