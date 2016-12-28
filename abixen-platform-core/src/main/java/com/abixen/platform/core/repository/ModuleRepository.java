@@ -28,6 +28,9 @@ public interface ModuleRepository extends JpaRepository<Module, Long> {
 
     List<Module> findByPage(Page page);
 
+    @Query("FROM Module m WHERE m.page = :page AND m.id NOT IN (:ids)")
+    List<Module> findAllExcept(@Param("page") Page page, @Param("ids") List<Long> ids);
+
     @Query("DELETE FROM Module m WHERE m.page = :page AND m.id NOT IN (:ids)")
     @Modifying(clearAutomatically = true)
     void removeAllExcept(@Param("page") Page page, @Param("ids") List<Long> ids);

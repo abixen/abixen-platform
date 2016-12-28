@@ -31,4 +31,6 @@ public interface ChartConfigurationService {
     ChartConfiguration createChartConfiguration(ChartConfiguration chartConfiguration);
 
     ChartConfiguration updateChartConfiguration(ChartConfiguration chartConfiguration);
+
+    void removeChartConfiguration(Long moduleId);
 }

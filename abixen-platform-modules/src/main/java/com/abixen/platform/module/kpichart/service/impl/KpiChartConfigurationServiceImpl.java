@@ -20,6 +20,7 @@ import com.abixen.platform.module.kpichart.repository.KpiChartConfigurationRepos
 import com.abixen.platform.module.kpichart.service.KpiChartConfigurationDomainBuilderService;
 import com.abixen.platform.module.kpichart.service.KpiChartConfigurationService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -92,5 +93,10 @@ public class KpiChartConfigurationServiceImpl implements KpiChartConfigurationSe
     public KpiChartConfiguration updateKpiChartConfiguration(KpiChartConfiguration kpiChartConfiguration) {
         log.debug("updateKpiChartConfiguration() - kpiChartConfiguration: " + kpiChartConfiguration);
         return kpiChartConfigurationRepository.save(kpiChartConfiguration);
+    }
+
+    @Override
+    public void removeKpiChartConfiguration(Long moduleId) {
+        throw new NotImplementedException("Method removeKpiChartConfiguration(Long moduleId) is not implemented yet!");
     }
 }

@@ -13,6 +13,11 @@ spring:
   redis:
     host: redis
     port: 6379
+  rabbitmq:
+    host: rabbit-mq
+    port: 5672
+    username: guest
+    password: guest
 platform:
   module:
     jdbc:
@@ -34,7 +39,6 @@ eureka:
       defaultZone: http://${abixen.services.eureka.uri}:8761/eureka/
 
 
-
 ---
 
 
@@ -43,6 +47,11 @@ spring:
   redis:
     host: localhost
     port: 6379
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 platform:
   module:
     jdbc:

@@ -20,6 +20,7 @@ import com.abixen.platform.module.magicnumber.repository.MagicNumberModuleReposi
 import com.abixen.platform.module.magicnumber.service.MagicNumberModuleDomainBuilderService;
 import com.abixen.platform.module.magicnumber.service.MagicNumberModuleService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,5 +94,10 @@ public class MagicNumberModuleServiceImpl implements MagicNumberModuleService {
     public MagicNumberModule updateMagicNumberModule(MagicNumberModule magicNumberModule) {
         log.debug("updateMagicNumberModule() - magicNumberModule: " + magicNumberModule);
         return magicNumberModuleRepository.save(magicNumberModule);
+    }
+
+    @Override
+    public void removeMagicNumberModule(Long moduleId) {
+        throw new NotImplementedException("Method removeMagicNumberModule(Long moduleId) is not implemented yet!");
     }
 }

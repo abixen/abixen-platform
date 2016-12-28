@@ -31,4 +31,6 @@ public interface MagicNumberModuleService {
     MagicNumberModule createMagicNumberModule(MagicNumberModule magicNumberModule);
 
     MagicNumberModule updateMagicNumberModule(MagicNumberModule magicNumberModule);
+
+    void removeMagicNumberModule(Long moduleId);
 }

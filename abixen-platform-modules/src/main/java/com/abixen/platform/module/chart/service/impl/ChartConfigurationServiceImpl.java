@@ -22,6 +22,7 @@ import com.abixen.platform.module.chart.service.ChartConfigurationDomainBuilderS
 import com.abixen.platform.module.chart.service.ChartConfigurationService;
 import com.abixen.platform.module.chart.service.DatabaseDataSourceService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -97,5 +98,10 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
             dataSetSeries.setDataSet(chartConfiguration.getDataSetChart());
         });
         return chartConfigurationRepository.save(chartConfiguration);
+    }
+
+    @Override
+    public void removeChartConfiguration(Long moduleId) {
+        throw new NotImplementedException("Method removeChartConfiguration(Long moduleId) is not implemented yet!");
     }
 }

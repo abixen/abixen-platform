@@ -31,4 +31,6 @@ public interface KpiChartConfigurationService {
     KpiChartConfiguration createKpiChartConfiguration(KpiChartConfiguration kpiChartConfiguration);
 
     KpiChartConfiguration updateKpiChartConfiguration(KpiChartConfiguration kpiChartConfiguration);
+
+    void removeKpiChartConfiguration(Long moduleId);
 }

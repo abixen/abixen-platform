@@ -19,18 +19,16 @@ import com.abixen.platform.core.form.ModuleForm;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.Page;
+import com.abixen.platform.core.rabbitmq.message.RabbitMQMessage;
+import com.abixen.platform.core.rabbitmq.message.RabbitMQRemoveModuleMessage;
 import com.abixen.platform.core.repository.ModuleRepository;
-import com.abixen.platform.core.repository.ModuleTypeRepository;
-import com.abixen.platform.core.service.AclService;
-import com.abixen.platform.core.service.DomainBuilderService;
-import com.abixen.platform.core.service.ModuleService;
+import com.abixen.platform.core.service.*;
 import com.abixen.platform.core.util.ModuleBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,17 +38,28 @@ public class ModuleServiceImpl implements ModuleService {
 
     private final Logger log = Logger.getLogger(ModuleServiceImpl.class.getName());
 
-    @Resource
-    private ModuleRepository moduleRepository;
+    private final ModuleRepository moduleRepository;
 
-    @Resource
-    private ModuleTypeRepository moduleTypeRepository;
+    private final ModuleTypeService moduleTypeService;
+
+    private final DomainBuilderService domainBuilderService;
+
+    private final AclService aclService;
+
+    private final RabbitMQOperations rabbitMQOperations;
 
     @Autowired
-    private DomainBuilderService domainBuilderService;
-
-    @Autowired
-    private AclService aclService;
+    public ModuleServiceImpl(ModuleRepository moduleRepository,
+                             ModuleTypeService moduleTypeService,
+                             DomainBuilderService domainBuilderService,
+                             AclService aclService,
+                             RabbitMQOperations rabbitMQOperations) {
+        this.moduleRepository = moduleRepository;
+        this.moduleTypeService = moduleTypeService;
+        this.domainBuilderService = domainBuilderService;
+        this.aclService = aclService;
+        this.rabbitMQOperations = rabbitMQOperations;
+    }
 
     @Override
     public Module createModule(Module module) {
@@ -100,12 +109,30 @@ public class ModuleServiceImpl implements ModuleService {
     @Override
     public void removeAllExcept(Page page, List<Long> ids) {
         log.debug("removeAllExcept() - page: " + page + ", ids: " + ids);
+
+        List<Module> modules = moduleRepository.findAllExcept(page, ids);
+
+        modules.forEach(module -> {
+            RabbitMQMessage removeMessage = new RabbitMQRemoveModuleMessage(module.getId(), module.getModuleType().getName());
+            rabbitMQOperations.convertAndSend(module.getModuleType().getServiceId(), removeMessage);
+
+        });
+
         moduleRepository.removeAllExcept(page, ids);
     }
 
     @Override
     public void removeAll(Page page) {
         log.debug("removeAll() - page: " + page);
+
+        List<Module> modules = moduleRepository.findByPage(page);
+
+        modules.forEach(module -> {
+            RabbitMQMessage removeMessage = new RabbitMQRemoveModuleMessage(module.getId(), module.getModuleType().getName());
+            rabbitMQOperations.convertAndSend(module.getModuleType().getServiceId(), removeMessage);
+
+        });
+
         moduleRepository.removeAll(page);
     }
 
@@ -115,7 +142,7 @@ public class ModuleServiceImpl implements ModuleService {
 
         ModuleBuilder moduleBuilder = domainBuilderService.newModuleBuilderInstance();
         moduleBuilder.positionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex());
-        moduleBuilder.moduleData(dashboardModuleDto.getTitle(), moduleTypeRepository.findOne(dashboardModuleDto.getModuleType().getId()), page);
+        moduleBuilder.moduleData(dashboardModuleDto.getTitle(), moduleTypeService.findModuleType(dashboardModuleDto.getModuleType().getId()), page);
         moduleBuilder.description((dashboardModuleDto.getDescription()));
 
         return moduleBuilder.build();

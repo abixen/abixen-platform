@@ -11,6 +11,8 @@ platform:
       registeredServices:
         -
           serviceId: abixen-platform-modules
+        -
+          serviceId: abixen-platform-web-content-module
 
 
 ---
@@ -21,6 +23,11 @@ spring:
   redis:
     host: redis
     port: 6379
+  rabbitmq:
+    host: rabbit-mq
+    port: 5672
+    username: guest
+    password: guest
 platform:
   core:
     jdbc:
@@ -66,6 +73,11 @@ spring:
   redis:
     host: localhost
     port: 6379
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 platform:
   core:
     jdbc:
