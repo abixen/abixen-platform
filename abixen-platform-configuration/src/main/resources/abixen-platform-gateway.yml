@@ -30,16 +30,16 @@ zuul:
 
     # Begin of custom module microservices - add mapping relevant to your microservice
 
-    # Begin of modules microservice
-    modulesApplication:
-      path: /application/modules/abixen/**
-      url: http://modules:9091/application/modules/abixen
+    # Begin of businessintelligence microservice
+    businessintelligenceApplication:
+      path: /application/businessintelligence/abixen/**
+      url: http://localhost:9091/application/businessintelligence/abixen
       sensitive-headers:
-    modulesAdmin:
-      path: /admin/modules/abixen/**
-      url: http://modules:9091/admin/modules/abixen
+    businessintelligenceAdmin:
+      path: /admin/businessintelligence/abixen/**
+      url: http://localhost:9091/admin/businessintelligence/abixen
       sensitive-headers:
-    # End of modules microservice
+    # End of businessintelligence microservice
 
     # End of custom module microservices
 
@@ -82,13 +82,13 @@ zuul:
       path: /api/**
       url: http://localhost:9000/api
       sensitive-headers:
-    applicationModules:
-      path: /application/modules/abixen/**
-      url: http://localhost:9091/application/modules/abixen
+    businessintelligenceApplication:
+      path: /application/businessintelligence/abixen/**
+      url: http://localhost:9091/application/businessintelligence/abixen
       sensitive-headers:
-    adminModules:
-      path: /admin/modules/abixen/**
-      url: http://localhost:9091/admin/modules/abixen
+    businessintelligenceAdmin:
+      path: /admin/businessintelligence/abixen/**
+      url: http://localhost:9091/admin/businessintelligence/abixen
       sensitive-headers:
 
 eureka:

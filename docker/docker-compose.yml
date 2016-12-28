@@ -31,24 +31,24 @@ services:
       - configuration
       - redis
       - core
-      - modules
+      - business-intelligence-service
     depends_on:
       - discovery
       - configuration
       - redis
       - core
-      - modules
+      - business-intelligence-service
 
-  modules:
-    image: abixen-platform/abixen-platform-modules
+  business-intelligence-service:
+    image: abixen-platform/abixen-platform-business-intelligence-service
     links:
       - discovery
       - configuration
-      - modules-postgres-database
+      - business-intelligence-service-postgres-database
     depends_on:
       - discovery
       - configuration
-      - modules-postgres-database
+      - business-intelligence-service-postgres-database
 
   core:
     image: abixen-platform/abixen-platform-core
@@ -89,11 +89,11 @@ services:
     links:
      - gateway
      - core
-     - modules
+     - business-intelligence-service
     depends_on:
      - gateway
      - core
-     - modules
+     - business-intelligence-service
 
   load-balancer:
       image: traefik:v1.1.0-rc4
@@ -116,11 +116,11 @@ services:
         POSTGRES_USER: abixen
         POSTGRES_DB: abixen_platform_core
 
-  modules-postgres-database:
+  business-intelligence-service-postgres-database:
       image: postgres:9.4
       ports:
         - "5433:5432"
       environment:
         POSTGRES_PASSWORD: fy2Lkxw201sV
         POSTGRES_USER: abixen
-        POSTGRES_DB: abixen_platform_modules
+        POSTGRES_DB: abixen_platform_businessintelligence_service
