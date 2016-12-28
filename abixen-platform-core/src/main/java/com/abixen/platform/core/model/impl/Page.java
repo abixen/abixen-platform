@@ -93,4 +93,15 @@ public class Page extends AuditingModel implements PageBase<Layout>, PageWeb, Se
     public void setLayout(Layout layout) {
         this.layout = layout;
     }
+
+    @Override
+    public String toString() {
+        return "Page{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", layout=" + layout +
+                '}';
+    }
 }

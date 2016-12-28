@@ -79,4 +79,13 @@ public class Layout extends AuditingModel implements LayoutBase, LayoutWeb {
         this.iconFileName = iconFileName;
     }
 
+    @Override
+    public String toString() {
+        return "Layout{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", iconFileName='" + iconFileName + '\'' +
+                '}';
+    }
 }

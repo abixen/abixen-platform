@@ -54,4 +54,12 @@ public class PageModelDto implements Serializable {
     public void setDashboardModuleDtos(List<DashboardModuleDto> dashboardModuleDtos) {
         this.dashboardModuleDtos = dashboardModuleDtos;
     }
+
+    @Override
+    public String toString() {
+        return "PageModelDto{" +
+                "page=" + page +
+                ", dashboardModuleDtos=" + dashboardModuleDtos +
+                '}';
+    }
 }
