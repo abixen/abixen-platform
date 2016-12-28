@@ -14,21 +14,11 @@
 
 package com.abixen.platform.module.webcontent.configuration;
 
+import com.abixen.platform.core.configuration.AbstractPlatformDataSourceConfiguration;
+import org.springframework.context.annotation.Configuration;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class PlatformWebContentModulePackages {
-
-    public static final String MAIN = "com.abixen.platform.module.webcontent";
-
-    public static final String CONFIG = MAIN + ".configuration";
-
-    public static final String CONTROLLER = MAIN + ".controller";
-
-    public static final String REPOSITORY = MAIN + ".repository";
-
-    public static final String CLIENT = MAIN + ".client";
+@Configuration
+public class PlatformWebContentModuleDataSourceConfiguration extends AbstractPlatformDataSourceConfiguration {
 
 }
