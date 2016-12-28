@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -37,6 +38,14 @@ public class CommentServiceImpl implements CommentService {
 
         Comment savedComment = commentRepository.save(comment);
         return savedComment;
+    }
+
+    @Override
+    public List<Comment> getAllCommentsByModuleId(Long moduleId) {
+        log.debug("getAllCommentsByModuleId() - moduleId: " + moduleId);
+
+        List<Comment> allCommentsForTheModuleId = commentRepository.findAllComment(moduleId);
+        return allCommentsForTheModuleId;
     }
 
     @Override

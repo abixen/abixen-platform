@@ -17,10 +17,14 @@ package com.abixen.platform.core.service;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
 
+import java.util.List;
+
 public interface CommentService {
 
     Comment buildComment(CommentForm commentForm);
 
     Comment saveComment(Comment comment);
+
+    List<Comment> getAllCommentsByModuleId(Long moduleId);
 }
 

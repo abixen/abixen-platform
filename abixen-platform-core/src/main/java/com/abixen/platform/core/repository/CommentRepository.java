@@ -17,5 +17,9 @@ package com.abixen.platform.core.repository;
 import com.abixen.platform.core.model.impl.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface CommentRepository extends JpaRepository<Comment, Long> {
+
+    List<Comment> findAllComment(Long moduleId);
 }
