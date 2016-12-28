@@ -5,6 +5,13 @@ services:
     image: redis:3.0
     hostname: redis
 
+  rabbitmq:
+    image: rabbitmq:3.6.6-management
+    hostname: rabbit-mq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
   discovery:
     image: abixen-platform/abixen-platform-eureka
     ports:
