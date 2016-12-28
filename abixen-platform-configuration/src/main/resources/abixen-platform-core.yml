@@ -46,6 +46,7 @@ platform:
         debug: true
     resource:
       imageLibraryDirectory: /data/image-library
+      themesDirectory: /data/themes
 eureka:
   instance:
     preferIpAddress: true
@@ -91,6 +92,7 @@ platform:
         debug: true
     resource:
       imageLibraryDirectory: ${baseDir}/../data/image-library
+      themesDirectory: ${baseDir}/../data/themes
 
 eureka:
   instance:
