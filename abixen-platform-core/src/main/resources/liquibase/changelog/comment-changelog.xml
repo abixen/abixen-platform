@@ -17,6 +17,9 @@
             <column name="parent_id" type="bigint">
                 <constraints nullable="true"/>
             </column>
+            <column name="module_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_date" type="timestamp"/>
             <column name="created_by_id" type="bigint"/>
@@ -37,5 +40,10 @@
                                  constraintName="fk__parent_id__comment__comment" deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="comment"/>
+
+        <addForeignKeyConstraint baseColumnNames="module_id" baseTableName="comment"
+                                 constraintName="fk__module_id__comment__module" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="module"/>
     </changeSet>
 </databaseChangeLog>

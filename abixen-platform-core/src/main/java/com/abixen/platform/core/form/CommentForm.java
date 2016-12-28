@@ -15,6 +15,7 @@
 package com.abixen.platform.core.form;
 
 import com.abixen.platform.core.model.web.CommentWeb;
+import com.abixen.platform.core.model.web.ModuleWeb;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
@@ -37,6 +38,10 @@ public class CommentForm implements Form {
     @JsonView(WebModelJsonSerialize.class)
     private CommentWeb parent;
 
+    @JsonView(WebModelJsonSerialize.class)
+    private ModuleWeb module;
+
+
     public CommentForm() {
     }
 
@@ -45,6 +50,6 @@ public class CommentForm implements Form {
         this.id = commentWeb.getId();
         this.message = commentWeb.getMessage();
         this.parent = commentWeb.getParent();
-
+        this.module = commentWeb.getModuleWeb();
     }
 }
