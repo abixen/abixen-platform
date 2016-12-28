@@ -32,5 +32,5 @@ public interface CommentWeb {
     CommentWeb getParent();
 
     @JsonView(WebModelJsonSerialize.class)
-    ModuleWeb getModuleWeb();
+    ModuleWeb getModule();
 }
