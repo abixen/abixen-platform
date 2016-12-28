@@ -62,7 +62,7 @@
                 templateUrl: '/common/modal-selection/html/modal-selection.html',
                 controller: 'ModalSelectionWindowController',
                 windowClass: 'modal-selection-dialog',
-                size: 'lg', // large by default
+                size: 'md', // medium by default
                 resolve: {
                     title: function () {return title;},
                     variable: function() {return variable;},
