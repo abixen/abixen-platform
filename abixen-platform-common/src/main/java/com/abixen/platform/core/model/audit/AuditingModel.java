@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.businessintelligence.model.impl;
+package com.abixen.platform.core.model.audit;
 
 import com.abixen.platform.core.model.Model;
 import org.springframework.data.annotation.CreatedBy;

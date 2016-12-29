@@ -16,7 +16,7 @@ package com.abixen.platform.businessintelligence.chart.model.impl;
 
 import com.abixen.platform.businessintelligence.chart.model.enumtype.ChartType;
 import com.abixen.platform.businessintelligence.chart.model.web.ChartConfigurationWeb;
-import com.abixen.platform.businessintelligence.model.impl.AuditingModel;
+import com.abixen.platform.core.model.audit.AuditingModel;
 
 import javax.persistence.*;
 import java.io.Serializable;

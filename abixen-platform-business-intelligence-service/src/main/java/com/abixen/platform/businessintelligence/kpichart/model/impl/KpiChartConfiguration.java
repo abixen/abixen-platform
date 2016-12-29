@@ -14,7 +14,7 @@
 
 package com.abixen.platform.businessintelligence.kpichart.model.impl;
 
-import com.abixen.platform.businessintelligence.model.impl.AuditingModel;
+import com.abixen.platform.core.model.audit.AuditingModel;
 import com.abixen.platform.businessintelligence.kpichart.model.enumtype.AnimationType;
 import com.abixen.platform.businessintelligence.kpichart.model.enumtype.ColorCode;
 import com.abixen.platform.businessintelligence.kpichart.model.web.KpiChartConfigurationWeb;
