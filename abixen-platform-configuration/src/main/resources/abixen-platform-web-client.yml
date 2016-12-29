@@ -17,16 +17,16 @@ zuul:
 
     # Begin of custom module microservices - add mapping relevant to your microservice
 
-    # Begin of modules microservice
-    modulesApplication:
-      path: /application/modules/abixen/**
-      serviceId: http://${abixen.services.gateway.uri:localhost}:9090/application/modules/abixen
+    # Begin of businessintelligence microservice
+    businessintelligenceApplication:
+      path: /application/businessintelligence/abixen/**
+      serviceId: http://${abixen.services.gateway.uri:localhost}:9090/application/businessintelligence/abixen
       sensitive-headers:
-    modulesAdmin:
-      path: /admin/modules/abixen/**
-      url: http://${abixen.services.gateway.uri:localhost}:9090/admin/modules/abixen
+    businessintelligenceAdmin:
+      path: /admin/businessintelligence/abixen/**
+      url: http://${abixen.services.gateway.uri:localhost}:9090/admin/businessintelligence/abixen
       sensitive-headers:
-    # End of modules microservice
+    # End of businessintelligence microservice
 
     # End of custom module microservices
 

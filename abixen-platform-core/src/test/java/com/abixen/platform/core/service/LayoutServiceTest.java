@@ -73,7 +73,7 @@ public class LayoutServiceTest {
 
         layout = layoutService.createLayout(sampleLayout);
 
-        assertEquals(layout.getContent(), "{\"rows\":[{\"columns\":[{\"styleClass\":\"col-md-12\"}]},{\"columns\":[{\"styleClass\":\"col-md-4\"},{\"styleClass\":\"col-md-4\"},{\"styleClass\":\"col-md-4\"}]}]}");
+        assertEquals(layout.getContent(),HTML);
 
         assertEquals(layout.getIconFileName(), sampleLayout.getIconFileName());
 
@@ -87,7 +87,7 @@ public class LayoutServiceTest {
 
         Layout updatedLayout = layoutService.updateLayout(layout);
 
-        assertEquals(updatedLayout.getContent(), "{\"rows\":[{\"columns\":[{\"styleClass\":\"col-md-12\"}]},{\"columns\":[{\"styleClass\":\"col-md-4\"}]}]}");
+        assertEquals(updatedLayout.getContent(),UPDATE_HTML);
 
         assertEquals(layout.getId(), updatedLayout.getId());
 

@@ -50,6 +50,6 @@ public class CommentForm implements Form {
         this.id = commentWeb.getId();
         this.message = commentWeb.getMessage();
         this.parent = commentWeb.getParent();
-        this.module = commentWeb.getModuleWeb();
+        this.module = commentWeb.getModule();
     }
 }

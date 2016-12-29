@@ -20,6 +20,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @EnableConfigurationProperties
-@ConfigurationProperties(prefix = "abixen.platform.module.webcontent")
+@ConfigurationProperties(prefix = "platform.webcontent")
 public class WebContentModuleConfigurationProperties extends AbstractModulesConfigurationProperties {
 }

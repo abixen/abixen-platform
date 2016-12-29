@@ -16,6 +16,7 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
+import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.web.CommentWeb;
 import com.abixen.platform.core.repository.CommentRepository;
 import com.abixen.platform.core.service.CommentService;
@@ -41,10 +42,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getAllCommentsByModuleId(Long moduleId) {
-        log.debug("getAllCommentsByModuleId() - moduleId: " + moduleId);
+    public List<Comment> getAllCommentsByModuleId(Module module) {
+        log.debug("getAllCommentsByModuleId() - module: " + module);
 
-        List<Comment> allCommentsForTheModuleId = commentRepository.findAllComment(moduleId);
+        List<Comment> allCommentsForTheModuleId = commentRepository.findAllComment(module);
         return allCommentsForTheModuleId;
     }
 

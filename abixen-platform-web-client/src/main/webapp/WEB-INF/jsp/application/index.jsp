@@ -19,7 +19,7 @@
     <link href="<c:url value="/lib/xeditable.css" />" rel="stylesheet">
     <link href="<c:url value="/lib/ng-scrollbar.min.css" />" rel="stylesheet">
     <link href="<c:url value="/application/application.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/application/modules/abixen/modules.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/application/businessintelligence/abixen/businessintelligence.min.css" />" rel="stylesheet">
 
     <c:forEach var="resource" items="${resources}">
         <c:if test="${resource.resourcePage == ResourcePage.APPLICATION && resource.resourcePageLocation == ResourcePageLocation.HEADER && resource.resourceType == ResourceType.JAVASCRIPT}">

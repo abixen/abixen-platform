@@ -16,6 +16,7 @@ package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
+import com.abixen.platform.core.model.impl.Module;
 
 import java.util.List;
 
@@ -25,6 +26,6 @@ public interface CommentService {
 
     Comment saveComment(Comment comment);
 
-    List<Comment> getAllCommentsByModuleId(Long moduleId);
+    List<Comment> getAllCommentsByModuleId(Module module);
 }
 
