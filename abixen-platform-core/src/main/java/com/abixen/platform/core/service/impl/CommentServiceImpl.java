@@ -16,6 +16,7 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
+import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.web.CommentWeb;
 import com.abixen.platform.core.repository.CommentRepository;
 import com.abixen.platform.core.service.CommentService;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -37,6 +39,14 @@ public class CommentServiceImpl implements CommentService {
 
         Comment savedComment = commentRepository.save(comment);
         return savedComment;
+    }
+
+    @Override
+    public List<Comment> getAllCommentsByModuleId(Module module) {
+        log.debug("getAllCommentsByModuleId() - module: " + module);
+
+        List<Comment> allCommentsForTheModuleId = commentRepository.findAllComment(module);
+        return allCommentsForTheModuleId;
     }
 
     @Override
