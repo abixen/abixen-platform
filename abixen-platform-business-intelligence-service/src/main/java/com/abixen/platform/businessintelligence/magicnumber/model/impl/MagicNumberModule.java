@@ -16,7 +16,7 @@ package com.abixen.platform.businessintelligence.magicnumber.model.impl;
 
 import com.abixen.platform.businessintelligence.magicnumber.model.enumtype.ColorCode;
 import com.abixen.platform.businessintelligence.magicnumber.model.web.MagicNumberModuleWeb;
-import com.abixen.platform.businessintelligence.model.impl.AuditingModel;
+import com.abixen.platform.core.model.audit.AuditingModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
