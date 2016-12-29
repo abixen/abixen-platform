@@ -12,7 +12,7 @@ platform:
         -
           serviceId: abixen-platform-business-intelligence-service
         -
-          serviceId: abixen-platform-web-content-module
+          serviceId: abixen-platform-web-content-service
 
 
 ---
