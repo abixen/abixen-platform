@@ -25,6 +25,7 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM layout</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM page</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM module</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM theme</sqlCheck>
         </preConditions>
 
         <loadData file="liquibase/import/data/role-data.csv"
@@ -105,6 +106,11 @@
         <loadData file="liquibase/import/data/module-data.csv"
                   separator=";"
                   tableName="module">
+        </loadData>
+        
+        <loadData file="liquibase/import/data/theme-data.csv"
+                  separator=";"
+                  tableName="theme">
         </loadData>
 
     </changeSet>
