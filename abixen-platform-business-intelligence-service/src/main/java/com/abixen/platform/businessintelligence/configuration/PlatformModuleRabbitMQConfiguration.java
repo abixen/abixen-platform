@@ -12,10 +12,10 @@
  * details.
  */
 
-package com.abixen.platform.module.configuration;
+package com.abixen.platform.businessintelligence.configuration;
 
 import com.abixen.platform.core.rabbitmq.AbstractRabbitMQConfiguration;
-import com.abixen.platform.module.rabbitmq.MessageReceiver;
+import com.abixen.platform.businessintelligence.rabbitmq.MessageReceiver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.context.annotation.Bean;

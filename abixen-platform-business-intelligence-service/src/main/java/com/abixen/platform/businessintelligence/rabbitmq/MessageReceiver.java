@@ -12,12 +12,12 @@
  * details.
  */
 
-package com.abixen.platform.module.rabbitmq;
+package com.abixen.platform.businessintelligence.rabbitmq;
 
 import com.abixen.platform.core.rabbitmq.message.RabbitMQRemoveModuleMessage;
-import com.abixen.platform.module.chart.service.ChartConfigurationService;
-import com.abixen.platform.module.kpichart.service.KpiChartConfigurationService;
-import com.abixen.platform.module.magicnumber.service.MagicNumberModuleService;
+import com.abixen.platform.businessintelligence.chart.service.ChartConfigurationService;
+import com.abixen.platform.businessintelligence.kpichart.service.KpiChartConfigurationService;
+import com.abixen.platform.businessintelligence.magicnumber.service.MagicNumberModuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
