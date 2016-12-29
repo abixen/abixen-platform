@@ -46,8 +46,10 @@ public class LayoutController {
 
         for (Layout layout : layouts) {
             log.debug("layout: " + layout);
-        }
 
+            String html = layout.getContent();
+            layout.setContent(layoutService.htmlLayoutToJson(html));
+        }
         return layouts;
     }
 
