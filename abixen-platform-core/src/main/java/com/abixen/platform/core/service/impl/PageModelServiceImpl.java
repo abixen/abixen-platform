@@ -50,6 +50,7 @@ public class PageModelServiceImpl implements PageModelService {
     public PageModelDto getPageModel(Long pageId) {
 
         Page page = pageService.findPage(pageId);
+        convertPageLayoutToJson(page);
         List<Module> modules = moduleService.findAllByPage(page);
         List<DashboardModuleDto> dashboardModuleDtos = new ArrayList<>();
 
@@ -127,6 +128,13 @@ public class PageModelServiceImpl implements PageModelService {
                             modulesIds.add(dashboardModuleDto.getId());
                         }
                 );
+    }
+
+    private void convertPageLayoutToJson(Page page) {
+
+        String html = page.getLayout().getContent();
+        page.getLayout().setContent(layoutService.htmlLayoutToJson(html));
+
     }
 
 }
