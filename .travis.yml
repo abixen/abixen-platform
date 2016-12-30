@@ -1,0 +1,19 @@
+language: java
+sudo: false
+jdk:
+  - oraclejdk8
+dist: trusty
+install: true
+
+env:
+  global:
+    - SONAR_RUNNER_OPTS="-Xmx2048m -XX:MaxPermSize=1024m -XX:ReservedCodeCacheSize=512m"  
+    - secure: "a1AQoU0tIPG38+spHFq9C3t65h+EUnj0fEfrzfxsU8zChmZr40bNxEdtbJ4RI8eZZvOi3OOdu9gZCA/EIDDUJT3doFtetvZHbLZX+oPLTHup433r3zL2hxNvYvvPrZv1LBJIdyVEDdOyiZqQsqOAofxKuvbAI9UtN1Zme1qvGHCEBtGmdokm3lRG4yeJ0qUmcV93Zm7WMPXS5ps2xIBXgW9VhG7pego1UpdOMSQk4ykQQxuwpVq7pSZXPgbskxbdpCSmkAUtecrozxnUoNUvBSRKkAsJtkN4BSbyShDnZv4KhTrdoaLdJlbLeXpljF9XpdQ7G00KlxzqIHD/1dZC2Pey5w55ePgy/cO8m/0nSqnm7EnU9m5QEWZYpnPBh2Sx15SxfzNYsK6j4Dlb8hcoXsK2JgJVBga+p02Gf52Gm2+lq8YsCowz9H3JWUu87OQ14w+8CUjMtdUO2mkb9gVr78W+RVE2qF+XKgAn1RSP8naaee+HoW+OSfldLQg7fbvVswDQdg+zlJrCbj6jK2F0x3Pd2HErNuYRKsdkaQngcwF36PHx775cyV3MpVCqkbZ7rYooxzvRYSiK4QHUZImYqdy8l3cO+AHRySu5yPr2GbibQVdodap9VJxRAsPQbGrhHAJpfYRbkm1XqCSmMtkjQubCySf2vTnDMhd1rPBAKaU="
+
+branches:
+  only:
+  - master
+  
+script:
+  - mvn clean install sonar:sonar -DskipDocker -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR_TOKEN
+  
