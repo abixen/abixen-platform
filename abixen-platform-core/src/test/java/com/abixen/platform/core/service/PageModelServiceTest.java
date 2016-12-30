@@ -1,9 +1,23 @@
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.dto.PageModelDto;
+import com.abixen.platform.core.form.PageForm;
+import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.model.impl.Page;
-import org.apache.commons.lang.math.RandomUtils;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,18 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.List;
-import java.util.Random;
+import static org.junit.Assert.*;
 
-import static org.junit.Assert.assertNotNull;
-
-/**
- * Código generado por Gerado Pucheta Figueroa (CypraxPuch)
- * Twitter: @ledzedev
- * http://ledze.mx
- * https://github.com/CypraxPuch
- * 22/Dec/2016.
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
 public class PageModelServiceTest {
@@ -36,24 +40,44 @@ public class PageModelServiceTest {
     @Autowired
     private PageService pageService;
 
-    @Test()
-    public void getPageModel(){
-        log.debug("getPageModel()");
+    private PageForm samplePageForm;
+    private Page samplePage;
+    private PageModelDto dto;
 
-        Long pageId = 1L;
+    @Before
+    public void generatePageForm(){
+        samplePageForm = new PageForm();
+        samplePageForm.setTitle("Sample page");
+        samplePageForm.setDescription("Sample page to validate PageModel");
+        Layout layoutWeb = new Layout();
+        layoutWeb.setId(7L);
+        samplePageForm.setLayout(layoutWeb);
 
-        //as long that getPageModel is a search util, we don't need to create a new page, we just select one of the existent to test the service.
-        List<Page> lstPage = pageService.findAllPages();
-        if( lstPage.size() > 0 ){
-            Random r = new Random();
-            pageId = lstPage.get( r.ints( 1, (lstPage.size()-1) ).findFirst().getAsInt() ).getId();
-        }
+        samplePage = pageService.buildPage(samplePageForm);
+        samplePage = pageService.createPage(samplePage);
 
-        PageModelDto dto = pageModelService.getPageModel(pageId);
-        log.debug(dto);
-        assertNotNull(dto);
+        dto = new PageModelDto();
+        dto.setPage(samplePage);
 
     }
 
+    @Test
+    public void getPageModel(){
+        log.debug("getPageModel() id:"+samplePage.getId());
+
+        dto = pageModelService.getPageModel( samplePage.getId() );
+
+        assertNotNull(dto);
+
+        assertNotNull(dto.getPage().getId());
+        assertTrue( dto.getPage().getId()>0L );
+
+        assertEquals(samplePageForm.getTitle(), dto.getPage().getTitle());
+
+        assertEquals(samplePageForm.getDescription(), dto.getPage().getDescription());
+
+        assertEquals(samplePageForm.getLayout().getId(), dto.getPage().getLayout().getId());
+
+    }
 
 }
