@@ -134,7 +134,9 @@
         <!-- See http://checkstyle.sf.net/config_design.html -->
         <module name="FinalClass"/>
         <module name="InterfaceIsType"/>
-        <module name="VisibilityModifier"/>
+        <module name="VisibilityModifier">
+            <property name="protectedAllowed" value="true" />
+        </module>
 
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
