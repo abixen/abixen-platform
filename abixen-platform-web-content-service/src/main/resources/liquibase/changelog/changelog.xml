@@ -7,5 +7,7 @@
         logicalFilePath="liquibase/changelog/changelog.xml">
 
     <include file="liquibase/changelog/template/changelog.xml"/>
+    <include file="liquibase/changelog/structure/changelog.xml"/>
+    <include file="liquibase/changelog/web-content-changelog.xml"/>
 
 </databaseChangeLog>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/web-content-changelog.xml">
+
+    <changeSet id="web-content-sequence-v1" author="AdamTurski">
+        <createSequence sequenceName="web_content_seq"/>
+    </changeSet>
+
+    <changeSet id="web-content-v1" author="AdamTurski">
+        <createTable tableName="web_content">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by_id" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__web_content__id" tableName="web_content"/>
+    </changeSet>
+
+    <changeSet id="simple-web-content-v1" author="AdamTurski">
+        <createTable tableName="simple_web_content">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__simple_web_content__id" tableName="simple_web_content"/>
+
+    </changeSet>
+
+    <changeSet id="advanced-web-content-v1" author="AdamTurski">
+        <createTable tableName="advanced_web_content">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="structure_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="template_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__advanced_web_content__id" tableName="advanced_web_content"/>
+
+        <addForeignKeyConstraint baseColumnNames="structure_id" baseTableName="advanced_web_content"
+                                 constraintName="fk__structure_id__advanced_web_content__structure"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 referencedColumnNames="id" referencedTableName="structure"/>
+
+        <addForeignKeyConstraint baseColumnNames="template_id" baseTableName="advanced_web_content"
+                                 constraintName="fk__template_id__advanced_web_content__template"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 referencedColumnNames="id" referencedTableName="template"/>
+    </changeSet>
+
+</databaseChangeLog>
