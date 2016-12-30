@@ -16,9 +16,6 @@ package com.abixen.platform.core.controller.admin;
 
 import com.abixen.platform.core.model.impl.Theme;
 import com.abixen.platform.core.service.ThemeService;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +37,6 @@ public class AdminThemeController {
         this.themeService = themeService;
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.GET)
     public org.springframework.data.domain.Page<Theme> getThemes(@PageableDefault(size = PAGEABLE_DEFAULT_PAGE_SIZE) Pageable pageable) {
         log.debug("getThemes()");

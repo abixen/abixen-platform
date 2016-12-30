@@ -78,7 +78,7 @@
                 id: 4,
                 iconClass: 'fa fa-file-text-o'
             })
-            .addSidebarItem({
+           .addSidebarItem({
                 title: 'Instances of modules',
                 state: 'application.modules.list',
                 orderIndex: 5,
@@ -100,11 +100,18 @@
                 iconClass: 'fa fa-columns'
             })
             .addSidebarItem({
-                title: 'Data Sources',
-                state: 'application.multiVisualization.modules.databaseDataSource.list',
+                title: 'Themes',
+                state: 'application.themes.list',
                 orderIndex: 8,
                 id: 8,
+                iconClass: 'fa fa-clone'
+            })
+            .addSidebarItem({
+                title: 'Data Sources',
+                state: 'application.multiVisualization.modules.databaseDataSource.list',
+                orderIndex: 9,
+                id: 9,
                 iconClass: 'fa fa-database'
-            });
+            }) ;
     }
 })();

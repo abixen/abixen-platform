@@ -35,6 +35,7 @@
             'ui.bootstrap.showErrors',
             'ngScrollbar',
             'platformUploadFileModule',
-            'platformSheetReaderModule'
+            'platformSheetReaderModule',
+            'platformThemeModule'
         ]);
 })();
