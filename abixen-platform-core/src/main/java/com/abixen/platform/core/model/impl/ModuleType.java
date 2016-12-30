@@ -107,4 +107,15 @@ public class ModuleType extends AuditingModel implements ModuleTypeBase, ModuleT
         this.serviceId = serviceId;
     }
 
+    @Override
+    public String toString() {
+        return "ModuleType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", initUrl='" + initUrl + '\'' +
+                ", serviceId='" + serviceId + '\'' +
+                '}';
+    }
 }

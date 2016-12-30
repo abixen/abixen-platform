@@ -136,12 +136,14 @@ public class DashboardModuleDto {
     public String toString() {
         return "DashboardModuleDto{" +
                 "id=" + id +
+                ", description='" + description + '\'' +
                 ", type='" + type + '\'' +
                 ", moduleType=" + moduleType +
                 ", title='" + title + '\'' +
                 ", rowIndex=" + rowIndex +
                 ", columnIndex=" + columnIndex +
                 ", orderIndex=" + orderIndex +
+                ", frontendId=" + frontendId +
                 '}';
     }
 
