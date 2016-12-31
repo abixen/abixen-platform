@@ -15,4 +15,4 @@ branches:
   - master
 
 script:
-  - mvn clean install sonar:sonar -DskipDocker -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR_TOKEN
+  - mvn clean install -DskipDocker
