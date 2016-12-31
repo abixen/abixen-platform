@@ -1,20 +1,18 @@
-  .travis.yml
+language: java
+sudo: false
+jdk:
+  - oraclejdk8
+dist: trusty
+install: true
 
-  language: java
-  sudo: false
-  jdk:
-    - oraclejdk8
-  dist: trusty
-  install: true
+env:
+  global:
+    - SONAR_RUNNER_OPTS="-Xmx2048m -XX:MaxPermSize=1024m -XX:ReservedCodeCacheSize=512m"
+    - secure: "H2W2hFBLx7ZJBqj2ny6eCr96GGOhcpJQ1BKTTqpMLLqux7M6BnMl00nr0YMPVwYLBSoowrwZET7tiPR18xDObgKOY2mPUoI/BQlLwzY1iopHGVjXtsStD4WaF0rjp4z5unFwyG3Yu1iYbO0NMP/5anTSLCaLJ3bCmxCU+VzO8I/zD8a6FE0VlTnewRDrj+L02cCZ7xW81XoaY4NRV/a6pxJUKsiEm2+WGUPj7IrjLslhBAOOFx3CjEfuyzUkrC0m5yppmmuB1Opac50ZbGKMT6oYAmJqY1jXKdEspU5/Szu7zAPxUi2AgmT6g86OrP/pGf7+1YWuLwS+su+t4F921YkOrGGg1WrxXHNn0Yma4UYnpA8kIOVcg0K+9ac8mP+0dnKA1XUg3TSYZVl7poeSY0Iv7pueLUMCY1gMe2iHPF7WDHa5RrbOfA/zKJQJxrGU6cYV15PeytnHRkiJwOsLlvgA4VjrGR5mRrpY4Wqy7m1GzOfdaFCSAIIR/LxodOMdTgIJnBKR/UrUkCnAvMlCMUx3tP0z2tuFpl4AwMz5xKfFB4ki6hqMUI90EUuIYNWKstSdCu6QFNBKTTLJiTi3mopBrTl9UrhAB2mWrxUeDvZ9DWB8hk4Rfr2I+ib6/AuO9KT1PGTavLeuyXtWbI/IvQeX0UPc5pLfVi4vDYHvaJM="
 
-  env:
-    global:
-      - SONAR_RUNNER_OPTS="-Xmx2048m -XX:MaxPermSize=1024m -XX:ReservedCodeCacheSize=512m"
-      - secure: "H2W2hFBLx7ZJBqj2ny6eCr96GGOhcpJQ1BKTTqpMLLqux7M6BnMl00nr0YMPVwYLBSoowrwZET7tiPR18xDObgKOY2mPUoI/BQlLwzY1iopHGVjXtsStD4WaF0rjp4z5unFwyG3Yu1iYbO0NMP/5anTSLCaLJ3bCmxCU+VzO8I/zD8a6FE0VlTnewRDrj+L02cCZ7xW81XoaY4NRV/a6pxJUKsiEm2+WGUPj7IrjLslhBAOOFx3CjEfuyzUkrC0m5yppmmuB1Opac50ZbGKMT6oYAmJqY1jXKdEspU5/Szu7zAPxUi2AgmT6g86OrP/pGf7+1YWuLwS+su+t4F921YkOrGGg1WrxXHNn0Yma4UYnpA8kIOVcg0K+9ac8mP+0dnKA1XUg3TSYZVl7poeSY0Iv7pueLUMCY1gMe2iHPF7WDHa5RrbOfA/zKJQJxrGU6cYV15PeytnHRkiJwOsLlvgA4VjrGR5mRrpY4Wqy7m1GzOfdaFCSAIIR/LxodOMdTgIJnBKR/UrUkCnAvMlCMUx3tP0z2tuFpl4AwMz5xKfFB4ki6hqMUI90EUuIYNWKstSdCu6QFNBKTTLJiTi3mopBrTl9UrhAB2mWrxUeDvZ9DWB8hk4Rfr2I+ib6/AuO9KT1PGTavLeuyXtWbI/IvQeX0UPc5pLfVi4vDYHvaJM="
+branches:
+  only:
+  - master
 
-  branches:
-    only:
-    - master
-
-  script:
-    - mvn clean install sonar:sonar -DskipDocker -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR_TOKEN
+script:
+  - mvn clean install sonar:sonar -DskipDocker -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR_TOKEN
