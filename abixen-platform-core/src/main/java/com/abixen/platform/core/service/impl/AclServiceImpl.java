@@ -31,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,29 +38,33 @@ import java.util.List;
 @Service
 public class AclServiceImpl implements AclService {
 
-    @Resource
-    private PermissionRepository permissionRepository;
-
-    @Resource
-    private AclEntryRepository aclEntryRepository;
-
-    @Resource
-    private AclClassRepository aclClassRepository;
-
-    @Resource
-    private AclObjectIdentityRepository aclObjectIdentityRepository;
-
-    @Resource
-    private PermissionAclClassCategoryRepository permissionAclClassCategoryRepository;
-
-    @Resource
-    private AclSidRepository aclSidRepository;
+    private final RoleService roleService;
+    private final PermissionService permissionService;
+    private final PermissionRepository permissionRepository;
+    private final AclEntryRepository aclEntryRepository;
+    private final AclClassRepository aclClassRepository;
+    private final AclObjectIdentityRepository aclObjectIdentityRepository;
+    private final PermissionAclClassCategoryRepository permissionAclClassCategoryRepository;
+    private final AclSidRepository aclSidRepository;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private PermissionService permissionService;
+    public AclServiceImpl(RoleService roleService,
+                          PermissionService permissionService,
+                          PermissionRepository permissionRepository,
+                          AclEntryRepository aclEntryRepository,
+                          AclClassRepository aclClassRepository,
+                          AclObjectIdentityRepository aclObjectIdentityRepository,
+                          PermissionAclClassCategoryRepository permissionAclClassCategoryRepository,
+                          AclSidRepository aclSidRepository) {
+        this.roleService = roleService;
+        this.permissionService = permissionService;
+        this.permissionRepository = permissionRepository;
+        this.aclEntryRepository = aclEntryRepository;
+        this.aclClassRepository = aclClassRepository;
+        this.aclObjectIdentityRepository = aclObjectIdentityRepository;
+        this.permissionAclClassCategoryRepository = permissionAclClassCategoryRepository;
+        this.aclSidRepository = aclSidRepository;
+    }
 
     @Override
     public void insertDefaultAcl(SecurableModel securableModel, PermissionName permissionName) {

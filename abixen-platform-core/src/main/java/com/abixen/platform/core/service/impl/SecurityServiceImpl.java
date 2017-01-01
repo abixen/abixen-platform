@@ -22,7 +22,6 @@ import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.AclEntryRepository;
-import com.abixen.platform.core.repository.RoleRepository;
 import com.abixen.platform.core.security.PlatformUser;
 import com.abixen.platform.core.service.SecurityService;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +30,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +42,6 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Resource
     private AclEntryRepository aclEntryRepository;
-
-    @Resource
-    private RoleRepository roleRepository;
 
     @Override
     public Boolean hasUserPermissionToObject(User user, PermissionName permissionName, SecurableModel securableModel) {
@@ -130,10 +127,8 @@ public class SecurityServiceImpl implements SecurityService {
     public PlatformUser getAuthorizedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            log.debug("----------------------nie null--->" + authentication + "," + authentication.getPrincipal());
             return (PlatformUser) authentication.getPrincipal();
         }
-        log.debug("---------------------null");
         return null;
     }
 }

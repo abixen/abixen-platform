@@ -28,12 +28,12 @@ import static com.abixen.platform.core.util.PlatformProfiles.DEV;
 
 @Profile({DEV, CLOUD})
 @Service
-public class RabbitMQMQOperationsImpl implements RabbitMQOperations {
+public class RabbitMQOperationsImpl implements RabbitMQOperations {
 
     private final RabbitTemplate rabbitTemplate;
 
     @Autowired
-    public RabbitMQMQOperationsImpl(RabbitTemplate rabbitTemplate) {
+    public RabbitMQOperationsImpl(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
