@@ -38,4 +38,6 @@ public interface SecurityService {
     List<String> getForbiddenPageNames();
 
     PlatformUser getAuthorizedUser();
+
+    boolean hasPermission(String username, Long securableObjectId, String securableObjectClassName, String permissionName);
 }

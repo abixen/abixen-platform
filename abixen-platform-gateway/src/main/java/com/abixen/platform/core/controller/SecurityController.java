@@ -28,8 +28,6 @@ import java.security.Principal;
 @Controller
 public class SecurityController {
 
-
-
     @ResponseBody
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public PlatformWebUser user(Principal principal) {
@@ -37,6 +35,5 @@ public class SecurityController {
         PlatformWebUser platformWebUser = (PlatformWebUser) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         return platformWebUser;
     }
-
 
 }

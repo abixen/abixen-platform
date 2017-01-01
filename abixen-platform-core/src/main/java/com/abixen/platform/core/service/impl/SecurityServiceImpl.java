@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -14,24 +14,24 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.exception.PlatformCoreException;
 import com.abixen.platform.core.model.SecurableModel;
 import com.abixen.platform.core.model.enumtype.AclSidType;
 import com.abixen.platform.core.model.enumtype.PermissionName;
-import com.abixen.platform.core.model.impl.AclEntry;
-import com.abixen.platform.core.model.impl.Permission;
-import com.abixen.platform.core.model.impl.Role;
-import com.abixen.platform.core.model.impl.User;
+import com.abixen.platform.core.model.impl.*;
 import com.abixen.platform.core.repository.AclEntryRepository;
 import com.abixen.platform.core.security.PlatformUser;
+import com.abixen.platform.core.service.ModuleService;
 import com.abixen.platform.core.service.SecurityService;
+import com.abixen.platform.core.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +40,19 @@ import java.util.List;
 @Transactional
 public class SecurityServiceImpl implements SecurityService {
 
-    @Resource
-    private AclEntryRepository aclEntryRepository;
+    private final UserService userService;
+    private final ModuleService moduleService;
+    private final AclEntryRepository aclEntryRepository;
+
+    @Autowired
+    public SecurityServiceImpl(UserService userService,
+                               ModuleService moduleService,
+                               AclEntryRepository aclEntryRepository) {
+        this.userService = userService;
+        this.moduleService = moduleService;
+        this.aclEntryRepository = aclEntryRepository;
+
+    }
 
     @Override
     public Boolean hasUserPermissionToObject(User user, PermissionName permissionName, SecurableModel securableModel) {
@@ -130,5 +141,25 @@ public class SecurityServiceImpl implements SecurityService {
             return (PlatformUser) authentication.getPrincipal();
         }
         return null;
+    }
+
+    @Override
+    public boolean hasPermission(String username, Long securableObjectId, String securableObjectClassName, String permissionName) {
+        SecurableModel securableObject;
+
+        switch (securableObjectClassName) {
+            case "Module":
+                securableObject = moduleService.findModule(securableObjectId);
+                break;
+            default:
+                throw new PlatformCoreException("Wrong securableObjectClassName value: " + securableObjectClassName);
+        }
+
+        User user = userService.findUser(username);
+
+        boolean hasPermission = hasUserPermissionToObject(user, PermissionName.valueOf(permissionName), securableObject);
+        log.debug("hasPermission: " + hasPermission);
+
+        return hasPermission;
     }
 }

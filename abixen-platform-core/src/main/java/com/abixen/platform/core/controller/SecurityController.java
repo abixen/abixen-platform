@@ -14,54 +14,31 @@
 
 package com.abixen.platform.core.controller;
 
-import com.abixen.platform.core.model.enumtype.PermissionName;
-import com.abixen.platform.core.model.impl.Module;
-import com.abixen.platform.core.model.impl.User;
-import com.abixen.platform.core.service.ModuleService;
+
 import com.abixen.platform.core.service.SecurityService;
-import com.abixen.platform.core.service.UserService;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-//import com.abixen.platform.core.service.MailService;
-
 
 @RestController
 @RequestMapping(value = "/api/admin/securities")
 public class SecurityController {
 
-    private static Logger log = Logger.getLogger(SecurityController.class.getName());
+    private final SecurityService securityService;
 
     @Autowired
-    private SecurityService securityService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ModuleService moduleService;
+    public SecurityController(SecurityService securityService) {
+        this.securityService = securityService;
+    }
 
 
     @RequestMapping(value = "/has-permission/{username}/{securableObjectId}/{securableObjectClassName}/{permissionName}", method = RequestMethod.GET)
     public boolean hasPermission(@PathVariable String username, @PathVariable Long securableObjectId, @PathVariable String securableObjectClassName, @PathVariable String permissionName) {
-        log.debug("hasPermission() - username: " + username + ", securableObjectId: " + securableObjectId + ", securableObjectClassName: " + securableObjectClassName + ", permissionName: " + permissionName);
 
-        User user = userService.findUser(username);
-
-        Module module = moduleService.findModule(securableObjectId);
-
-        boolean hasPermission = securityService.hasUserPermissionToObject(user, PermissionName.valueOf(permissionName), module);
-        log.debug("hasPermission: " + hasPermission);
-        // HttpHeaders responseHeaders = new HttpHeaders();
-        //responseHeaders.setLocation(location);
-        //responseHeaders.set("MyResponseHeader", "MyValue");
-        //return new ResponseEntity<Boolean>();
-        return hasPermission;
+        return securityService.hasPermission(username, securableObjectId, securableObjectClassName, permissionName);
     }
-
 
 }
