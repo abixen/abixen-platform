@@ -39,8 +39,12 @@ import java.util.List;
 @RequestMapping(value = "/application/businessintelligence/abixen/multi-visualization/configuration")
 public class ChartModuleConfigurationController {
 
+    private final ChartConfigurationService chartConfigurationService;
+
     @Autowired
-    private ChartConfigurationService chartConfigurationService;
+    public ChartModuleConfigurationController(ChartConfigurationService chartConfigurationService) {
+        this.chartConfigurationService = chartConfigurationService;
+    }
 
     @PreAuthorize("hasPermission(#moduleId, 'Module', 'MODULE_VIEW')")
     @JsonView(WebModelJsonSerialize.class)
@@ -61,6 +65,7 @@ public class ChartModuleConfigurationController {
         return chartConfigurationForm;
     }
 
+    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, 'Module', 'MODULE_CONFIGURATION')")
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
@@ -76,6 +81,7 @@ public class ChartModuleConfigurationController {
         return new FormValidationResultDto(chartConfigurationFormResult);
     }
 
+    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, 'Module', 'MODULE_CONFIGURATION')")
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
@@ -90,6 +96,5 @@ public class ChartModuleConfigurationController {
 
         return new FormValidationResultDto(chartConfigurationFormResult);
     }
-
 
 }

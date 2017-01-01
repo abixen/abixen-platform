@@ -19,6 +19,7 @@ import com.abixen.platform.service.businessintelligence.chart.model.web.DataSour
 import com.abixen.platform.service.businessintelligence.chart.service.ChartDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,9 +31,14 @@ import java.util.Map;
 @RequestMapping(value = "/application/businessintelligence/abixen/multi-visualization/data-preview")
 public class ChartDataPreviewController {
 
-    @Autowired
-    private ChartDataService chartDataService;
+    private final ChartDataService chartDataService;
 
+    @Autowired
+    public ChartDataPreviewController(ChartDataService chartDataService) {
+        this.chartDataService = chartDataService;
+    }
+
+    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, 'Module', 'MODULE_VIEW')")
     @RequestMapping(value = "/{seriesName}", method = RequestMethod.POST)
     public List<Map<String, DataSourceValueWeb>> getPreviewDataForChart(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, @PathVariable("seriesName") String seriesName) {
         log.debug("getPreviewDataForChart - chartConfigurationForm: " + chartConfigurationForm);

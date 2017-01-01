@@ -17,8 +17,8 @@ package com.abixen.platform.service.businessintelligence.chart.controller;
 import com.abixen.platform.service.businessintelligence.chart.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.chart.model.web.DataSourceValueWeb;
 import com.abixen.platform.service.businessintelligence.chart.service.ChartDataService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,17 +28,20 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/application/businessintelligence/abixen/multi-visualization/data")
 public class ChartDataController {
 
-    @Autowired
-    private ChartDataService chartDataService;
+    private final ChartDataService chartDataService;
 
+    @Autowired
+    public ChartDataController(ChartDataService chartDataService) {
+        this.chartDataService = chartDataService;
+    }
+
+    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, 'Module', 'MODULE_VIEW')")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public List<Map<String, DataSourceValueWeb>> getDataForChart(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
-        log.debug("getDataForChart - chartConfigurationForm: " + chartConfigurationForm);
         return chartDataService.getChartData(chartConfigurationForm);
     }
 
