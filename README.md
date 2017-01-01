@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/abixen/abixen-platform.svg?branch=master)](https://travis-ci.org/abixen/abixen-platform)
+
 #What is Abixen Platform
 
 ##Short introduce
