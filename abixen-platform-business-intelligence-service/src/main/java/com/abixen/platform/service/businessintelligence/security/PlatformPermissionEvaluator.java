@@ -15,8 +15,9 @@
 package com.abixen.platform.service.businessintelligence.security;
 
 import com.abixen.platform.core.security.PlatformUser;
-import com.abixen.platform.service.businessintelligence.client.SecurityClient;
+import com.abixen.platform.service.businessintelligence.integration.SecurityIntegrationClient;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
@@ -29,27 +30,18 @@ import java.io.Serializable;
 @Component
 public class PlatformPermissionEvaluator implements PermissionEvaluator {
 
-    //@Autowired
-    //SecurityService securityService;
-
-    //@Autowired
-    //UserService userService;
+    private final SecurityIntegrationClient securityIntegrationClient;
 
     @Autowired
-    private SecurityClient securityClient;
+    public PlatformPermissionEvaluator(SecurityIntegrationClient securityIntegrationClient) {
+        this.securityIntegrationClient = securityIntegrationClient;
+    }
 
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
         log.debug("hasPermission() - authentication: " + authentication + ", targetDomainObject: " + targetDomainObject + ", permission: " + permission);
-        log.debug("targetDomainObject class: " + targetDomainObject.getClass());
-        //TODO
-        /*User user = userService.findUser(authentication.getName());
 
-        if (targetDomainObject instanceof Page) {
-            return securityService.hasUserPermissionToPage(user, (PermissionName) permission, (Page) targetDomainObject);
-        }*/
-
-        return true;
+        throw new NotImplementedException("Method hasPermission not implemented yet!");
     }
 
     @Override
@@ -60,9 +52,7 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
         PlatformUser platformUser = (PlatformUser) authentication.getPrincipal();
         log.debug("platformWebUser" + platformUser.getId());
 
-        boolean hasPermission = securityClient.hasPermission(platformUser.getUsername(), (Long) targetId, targetType, (String) permission);
-        //TODO
-        return hasPermission;
+        return securityIntegrationClient.hasPermission(platformUser.getUsername(), (Long) targetId, targetType, (String) permission);
     }
 
 }

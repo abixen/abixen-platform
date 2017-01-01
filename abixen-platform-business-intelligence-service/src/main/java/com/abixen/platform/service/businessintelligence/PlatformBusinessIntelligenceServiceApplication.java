@@ -19,6 +19,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.retry.annotation.EnableRetry;
@@ -28,16 +29,17 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @SpringBootApplication
 @EnableRedisHttpSession
 @EnableEurekaClient
+@EnableCircuitBreaker
 @EnableFeignClients(basePackages = {PlatformModulesPackages.CLIENT})
-public class PlatformModulesApplication extends SpringBootServletInitializer {
+public class PlatformBusinessIntelligenceServiceApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(PlatformModulesApplication.class);
+        return application.sources(PlatformBusinessIntelligenceServiceApplication.class);
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(PlatformModulesApplication.class, args);
+        SpringApplication.run(PlatformBusinessIntelligenceServiceApplication.class, args);
     }
 
 }
