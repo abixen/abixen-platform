@@ -17,6 +17,7 @@
 		<module>abixen-platform-eureka</module>
 		<module>abixen-platform-configuration</module>
 		<module>abixen-platform-hystrix-dashboard</module>
+		<module>abixen-platform-zipkin</module>
 		<module>abixen-platform-web-content-service</module>
 	</modules>
 	

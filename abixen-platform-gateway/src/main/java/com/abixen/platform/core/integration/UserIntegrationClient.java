@@ -25,8 +25,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserIntegrationClient {
 
-
-
     @Autowired
     private UserClient userClient;
 
