@@ -13,13 +13,15 @@ module.exports = {
         applicationStyles: 'application/application.min.css',
         adminStyles: 'admin/application.min.css',
         loginImages: 'src/main/resources/static/login/image',
+        commonNavigationImages: 'src/main/resources/static/common/navigation/image',
         libStyles: 'lib/lib.min.css',
         fontawesome: 'src/main/resources/static/lib/fonts/fontawesome',
         roboto: 'src/main/resources/static/fonts/roboto',
         glyphicons: 'src/main/resources/static/fonts/bootstrap'
     },
     images: {
-        login: 'src/main/web/login/image/*'
+        login: 'src/main/web/login/image/*',
+        commonNavigation: 'src/main/web/common/navigation/image/*'
     },
     libs: {
         files: [
