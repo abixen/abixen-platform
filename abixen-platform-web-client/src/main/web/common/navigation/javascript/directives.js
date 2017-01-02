@@ -25,6 +25,18 @@ platformNavigationDirectives.directive('platformNavigation', ['$log', '$state', 
             scope.toggle = true;
             scope.baseUserUrl = '/api/application/users/';
             scope.avatarUrl = '';
+
+            scope.flags = [
+                        {'name':'English','img':'/common/navigation/image/united-states_flat.png','locale':'en'},
+                        {'name':'Polish','img':'/common/navigation/image/poland_flat.png','locale':'pl'},
+                        {'name':'Russian','img':'/common/navigation/image/russia_flat.png','locale':'ru'},
+                        {'name':'Spanish','img':'/common/navigation/image/spain_flat.png','locale':'es'},
+                        {'name':'Ukrainian','img':'/common/navigation/image/ukraine_flat.png','locale':'ua'}
+                        ];
+
+            //  default locale is en
+            scope.selectedLocale = {'name':'English','img':'/common/navigation/image/united-states_flat.png','locale':'en'};
+
             var mobileView = 992;
 
             scope.getWidth = function () {
@@ -61,6 +73,11 @@ platformNavigationDirectives.directive('platformNavigation', ['$log', '$state', 
 
             scope.toggleSidebar = function () {
                 scope.toggle = !scope.toggle;
+            };
+
+            //  placeholder function to switch language
+            scope.switchLocale = function(locale) {
+                scope.selectedLocale = locale;
             };
 
             window.onresize = function () {

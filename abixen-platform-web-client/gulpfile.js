@@ -29,6 +29,7 @@ gulp.task('adminStyles', adminStylesTask);
 gulp.task('applicationStyles', applicationStylesTask);
 gulp.task('libStyles', libStylesTask);
 gulp.task('loginImages', loginImagesTask);
+gulp.task('commonNavigationImages', commonNavigationImagesTask);
 gulp.task('build', buildTask);
 gulp.task('libs', libsTask);
 gulp.task('dev', ['build'], devTask);
@@ -126,7 +127,8 @@ function buildTask(callback) {
             'adminStyles',
             'applicationStyles',
             'libStyles',
-            'loginImages'
+            'loginImages',
+            'commonNavigationImages'
         ],
         callback);
 }
@@ -150,6 +152,11 @@ function libsTask() {
 function loginImagesTask() {
     return gulp.src(config.images.login)
         .pipe(gulp.dest(config.dest.loginImages));
+}
+
+function commonNavigationImagesTask() {
+    return gulp.src(config.images.commonNavigation)
+        .pipe(gulp.dest(config.dest.commonNavigationImages));
 }
 
 function devTask() {

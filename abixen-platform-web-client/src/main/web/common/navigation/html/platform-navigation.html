@@ -1,4 +1,4 @@
-<div ng-if="platformUser" class="platform-navigation" ng-class="{'open': toggle}" ng-cloak>
+    <div ng-if="platformUser" class="platform-navigation" ng-class="{'open': toggle}" ng-cloak>
     <div class="sidebar-wrapper">
         <div class="sidebar-header">
             <a ng-click="toggleSidebar()">
@@ -24,6 +24,30 @@
         <div class="page-content">
             <div class="row top-bar">
                 <div class="col-xs-12">
+                    <div class="language pull-right">
+                        <div class="item dropdown" uib-dropdown>
+                            <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                                <img ng-src="{{selectedLocale.img}}">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                                 <li class="link" ng-repeat="flag in flags">
+                                  
+                                    <div class="row">
+                                        <div class="col-xs-3">  
+                                            <img ng-src="{{flag.img}}">
+                                        </div> 
+                                        <div class="col-xs-15">
+                                            <p>
+                                            <a ng-click="switchLocale(flag)">
+                                                {{flag.name}}
+                                            </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="login pull-right">{{platformUser.firstname}} {{platformUser.lastname}}</div>
                     <div class="user pull-right">
                         <div class="item dropdown" uib-dropdown>
