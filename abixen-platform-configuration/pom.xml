@@ -19,7 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <start-class>com.abixen.platform.zipkin.PlatformConfigurationApplication</start-class>
+        <start-class>com.abixen.platform.configuration.PlatformConfigurationApplication</start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen-platform</docker.image.prefix>
     </properties>
