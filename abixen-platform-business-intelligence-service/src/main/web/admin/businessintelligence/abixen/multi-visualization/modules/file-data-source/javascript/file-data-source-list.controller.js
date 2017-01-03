@@ -18,26 +18,31 @@
 
     angular
         .module('platformFileDataSourceModule')
-        .controller('FileDataSourceController', FileDataSourceController);
+        .controller('FileDataSourceListController', FileDataSourceListController);
 
-    FileDataSourceController.$inject = [
-        '$scope',
-        '$http',
+    FileDataSourceListController.$inject = [
         '$log',
-        'uiGridConstants',
         'FileDataSource',
-        'gridFilter',
         'applicationNavigationItems',
         '$state'
     ];
 
+    function FileDataSourceListController($log, FileDataSource, applicationNavigationItems, $state) {
+        $log.log('FileDataSourceListController');
 
-       function FileDataSourceController($scope, $http, $log, uiGridConstants, FileDataSource, gridFilter, applicationNavigationItems, $state) {
-            $log.log('FileDataSourceListController');
+        var fileDataSourceList = this;
 
-            angular.extend(this, new AbstractCrudListController($scope, $http, $log, uiGridConstants, FileDataSource, gridFilter));
+        angular.extend(fileDataSourceList, new AbstractListGridController(FileDataSource,
+            {
+                getTableColumns: getTableColumns
+            }
+        ));
 
-            $scope.entityListGrid.columnDefs = [
+        updateNavigation();
+
+
+        function getTableColumns() {
+            return [
                 {field: 'id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
                 {field: 'name', pinnedLeft: true, width: 200},
                 {field: 'createdBy.username', name: 'Created By', width: 200},
@@ -53,25 +58,10 @@
                     cellFilter: 'date:\'' + platformParameters.formats.DATE_TIME_FORMAT + '\''
                 }
             ];
+        }
 
-            $scope.query = {
-                and: [
-                    {
-                        name: 'title',
-                        operation: '=',
-                        value: 'Page View'
-                    }
-                ]
-            };
-
-            $scope.filterCriteria = {
-                page: 0,
-                size: 20,
-                sort: 'id,asc',
-                gridFilterParameters: []
-            };
-
-            var newDataSourceButton = {
+        function updateNavigation() {
+            var newUserButton = {
                 id: 1,
                 styleClass: 'btn add-new-button',
                 faIcon: 'fa fa-plus',
@@ -83,8 +73,7 @@
                 disabled: false
             };
 
-            applicationNavigationItems.setTopbarItem(newDataSourceButton);
-
-            $scope.read();
+            applicationNavigationItems.setTopbarItem(newUserButton);
         }
+    }
 })();

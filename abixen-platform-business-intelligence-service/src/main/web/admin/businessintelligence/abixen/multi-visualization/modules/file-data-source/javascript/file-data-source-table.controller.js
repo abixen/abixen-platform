@@ -28,39 +28,40 @@
     function FileDataSourceTableController($scope, $log) {
         $log.log('FileDataSourceTableController');
 
-        $log.log('$scope.moduleId: ' + $scope.moduleId);
+        var fileDataSourceTable = this;
+        fileDataSourceTable.options = undefined;
+        fileDataSourceTable.data = undefined;
+        fileDataSourceTable.renderTable = false;
+        fileDataSourceTable.getSelectedColumns = getSelectedColumns;
+        fileDataSourceTable.getSelectedRows = getSelectedRows;
+        fileDataSourceTable.fileColumns = [];
+        fileDataSourceTable.gridData = [];
 
-        var fileDataSoruceTable = this;
-        fileDataSoruceTable.options = undefined;
-        fileDataSoruceTable.data = undefined;
-        fileDataSoruceTable.renderTable = false;
-        fileDataSoruceTable.getSelectedColumns = getSelectedColumns;
-        fileDataSoruceTable.getSelectedRows = getSelectedRows;
-
-        $scope.$watch('gridData', function () {
-            if ($scope.gridData !== undefined && $scope.gridData !== [] && $scope.gridData.length > 0) {
-                if (fileDataSoruceTable.renderTable !== false) {
-                    fileDataSoruceTable.listGridConfig.setData($scope.gridData);
+        $scope.$on('GridDataUpdated', function (event, data) {
+            if (data !== undefined && data !== [] && data.length > 0) {
+                fileDataSourceTable.gridData = data;
+                if (fileDataSourceTable.renderTable !== false) {
+                    fileDataSourceTable.listGridConfig.setData(data);
                 }
             }
         });
 
-        $scope.$watch('fileColumns', function () {
-            $log.debug('$scope.fileColumns.map(function(column) {return column.selected;}): ', $scope.fileColumns.map(function(column) {return column.selected;}) );
-            if ($scope.fileColumns.map(function(column) {return column.selected;}).indexOf(true) !== -1) {
-                if ($scope.fileColumns !== undefined && $scope.fileColumns !== [] && $scope.fileColumns.length > 0) {
-                    if (fileDataSoruceTable.renderTable === false) {
-                        fileDataSoruceTable.renderTable = true;
+        $scope.$on('FileColumnUpdated', function (event, columns) {
+           fileDataSourceTable.fileColumns = columns;
+           if (columns.map(function(column) {return column.selected;}).indexOf(true) !== -1) {
+                if (columns !== undefined && columns !== [] && columns.length > 0) {
+                    if (fileDataSourceTable.renderTable === false) {
+                        fileDataSourceTable.renderTable = true;
                     } else {
-                        fileDataSoruceTable.listGridConfig.refreshGrid();
+                        fileDataSourceTable.listGridConfig.refreshGrid();
                     }
                 }
             }else{
-                fileDataSoruceTable.renderTable = false;
+                fileDataSourceTable.renderTable = false;
             }
-        }, true);
+        });
 
-        angular.extend(fileDataSoruceTable, new AbstractListGridController(null,
+        angular.extend(fileDataSourceTable, new AbstractListGridController(null,
             {
                 getTableColumns: getTableColumns,
                 dataProviderType: 'list',
@@ -73,7 +74,7 @@
 
         function getTableColumns() {
             var columns = [];
-            $scope.fileColumns.forEach(function (column) {
+            fileDataSourceTable.fileColumns.forEach(function (column) {
                 columns.push({
                     field: column.name,
                     name: column.name,
@@ -86,12 +87,12 @@
         }
 
         function onTableReady() {
-            fileDataSoruceTable.listGridConfig.setData($scope.gridData);
+            fileDataSourceTable.listGridConfig.setData(fileDataSourceTable.gridData);
         }
 
         function getSelectedColumns() {
             var selectedColumn = [];
-            fileDataSoruceTable.listGridConfig.getListGridColumns().forEach(function (column) {
+            fileDataSourceTable.listGridConfig.getListGridColumns().forEach(function (column) {
                 if (column.visible === undefined || column.visible === true)
                     selectedColumn.push(column);
             });
@@ -99,7 +100,7 @@
         }
 
         function getSelectedRows() {
-            return fileDataSoruceTable.listGridConfig.getListGridSelectedRows()
+            return fileDataSourceTable.listGridConfig.getListGridSelectedRows()
         }
     }
 })();

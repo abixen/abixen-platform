@@ -1,49 +1,30 @@
-<form role="form" name="entityForm" novalidate>
-<div class="row form-row">
+<form role="form" name="databaseDataSourceDetails.entityForm" novalidate>
+    <div class="row form-row">
 
         <div class="col-md-6">
 
             <div class="form-group" show-errors>
-                <label for="nameInput" class="control-label">Name</label>
+                <input-text model="databaseDataSourceDetails.entity.name"
+                            name="name"
+                            label="{{'service.businessintelligence.databaseDataSourceDetails.name.label' | translate}}"
+                            placeholder="{{'service.businessintelligence.databaseDataSourceDetails.name.placeholder' | translate}}"
+                            validators="databaseDataSourceDetails.validators">
+                </input-text>
 
-                <div>
-                    <input ng-model="entity.name" type="text" name="name" class="form-control" id="nameInput"
-                           placeholder="Name" ng-required="true" ng-minlength="6" ng-maxlength="40">
+                <input-text model="databaseDataSourceDetails.entity.description"
+                            name="description"
+                            label="{{'service.businessintelligence.databaseDataSourceDetails.description.label' | translate}}"
+                            placeholder="{{'service.businessintelligence.databaseDataSourceDetails.description.placeholder' | translate}}"
+                            validators="databaseDataSourceDetails.validators">
+                </input-text>
 
-                    <p class="help-block" ng-if="entityForm.name.$error.required && entityForm.name.$touched">
-                        Required</p>
 
-                    <p class="help-block" ng-if="entityForm.name.$error.minlength">Min length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.name.$error.maxlength">Max length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.name.$error.serverMessage">
-                        {{entityForm.name.$error.serverMessage}}</p>
-                </div>
-            </div>
-
-            <div class="form-group" show-errors>
-                <label for="descriptionInput" class="control-label">Description</label>
-
-                <div>
-                    <input ng-model="entity.description" type="text" name="description" class="form-control"
-                           id="descriptionInput"
-                           placeholder="Description" ng-maxlength="40">
-
-                    <p class="help-block" ng-if="entityForm.description.$error.maxlength">Max length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.description.$error.serverMessage">
-                        {{entityForm.description.$error.serverMessage}}</p>
-                </div>
-            </div>
-
-            <div class="form-group" show-errors>
                 <label for="databaseConnectionInput" class="control-label">Database connection</label>
 
                 <select name="databaseConnection" class="form-control" id="databaseConnectionInput"
-                        ng-model="entity.databaseConnection" ng-required="true"
-                        ng-change="getDatabaseTables(entity.databaseConnection)"
-                        ng-options="databaseConnection as databaseConnection.name for databaseConnection in databaseConnections track by databaseConnection.id">
+                        ng-model="databaseDataSourceDetails.entity.databaseConnection" ng-required="true"
+                        ng-change="databaseDataSourceDetails.getDatabaseTables(databaseDataSourceDetails.entity.databaseConnection)"
+                        ng-options="databaseConnection as databaseConnection.name for databaseConnection in databaseDataSourceDetails.databaseConnections track by databaseConnection.id">
                 </select>
 
                 <p class="help-block"
@@ -52,15 +33,14 @@
 
                 <p class="help-block" ng-if="entityForm.databaseConnection.$error.serverMessage">
                     {{entityForm.databaseConnection.$error.serverMessage}}</p>
-            </div>
 
-            <div class="form-group" show-errors>
+
                 <label for="databaseTableInput" class="control-label">Database table</label>
 
                 <select name="table" class="form-control" id="databaseTableInput"
-                        ng-model="entity.table" ng-required="true"
-                        ng-change="getDatabaseTableColumns(entity.databaseConnection, entity.table)"
-                        ng-options="databaseTable for databaseTable in databaseTables">
+                        ng-model="databaseDataSourceDetails.entity.table" ng-required="true"
+                        ng-change="databaseDataSourceDetails.getDatabaseTableColumns(databaseDataSourceDetails.entity.databaseConnection, databaseDataSourceDetails.entity.table)"
+                        ng-options="databaseTable for databaseTable in databaseDataSourceDetails.databaseTables">
                 </select>
 
                 <p class="help-block"
@@ -73,7 +53,7 @@
 
         </div>
         <div class="col-md-6">
-            <input type="hidden" ng-model="entity.columns" name="columns">
+            <input type="hidden" ng-model="databaseDataSourceDetails.entity.columns" name="columns">
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -82,35 +62,35 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="databaseTableColumn in databaseTableColumns">
+                <tr ng-repeat="databaseTableColumn in databaseDataSourceDetails.databaseTableColumns">
                     <td>{{databaseTableColumn.name}}</td>
                     <td><input type="checkbox" ng-model="databaseTableColumn.selected"/></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-</div>
+    </div>
     <div class="row form-row">
         <div class="col-xs-12">
-            <input type="hidden" ng-model="entity.filter" name="filter">
-            <query-builder fields="fields" group="filter.group"></query-builder>
+            <input type="hidden" ng-model="databaseDataSourceDetails.entity.filter" name="filter">
+            <query-builder fields="databaseDataSourceDetails.fields" group="databaseDataSourceDetails.filter.group"></query-builder>
         </div>
-        </div>
-
-
+    </div>
 
 
 </form>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
         <a class="btn save-button"
-           ng-click="testConnection()"><i class="fa fa-table"></i><span>&nbsp;Get Sample Data</span>
+           ng-click="databaseDataSourceDetails.testConnection()"><i
+                class="fa fa-table"></i><span>&nbsp;Get Sample Data</span>
         </a>
         <a class="btn save-button"
-           ng-click="saveForm(beforeSaveForm)"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
+           ng-click="databaseDataSourceDetails.saveForm(databaseDataSourceDetails.beforeSaveForm)"><i
+                class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
         </a>
         <a class="btn cancel-button"
-           ng-click="goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+           ng-click="databaseDataSourceDetails.goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
         </a>
     </div>
 </div>

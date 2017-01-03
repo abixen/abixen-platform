@@ -13,28 +13,58 @@
         '$stateParams',
         '$log',
         'FileDataSource',
-        '$parse'
+        'responseHandler'
     ];
 
-    function FileDataSourceDetailController($scope, $http, $state, $stateParams, $log, FileDataSource, $parse) {
+    function FileDataSourceDetailController($scope, $http, $state, $stateParams, $log, FileDataSource, responseHandler) {
         $log.log('FileDataSourceDetailController');
+        var fileDataSourceDetails = this;
 
-        angular.extend(this, new AbstractCrudDetailController($scope, $http, $state, $stateParams, $log, FileDataSource, $parse, 'application.multiVisualization.modules.fileDataSource'));
+        new AbstractDetailsController(fileDataSourceDetails, FileDataSource, responseHandler, $scope,
+            {
+                entityId: $stateParams.id,
+                getValidators: getValidators,
+                onSuccessSaveForm: onSuccessSaveForm
+            }
+        );
 
-        $scope.gridData = [];
-        $scope.fileColumns = [];
+        fileDataSourceDetails.gridData = [];
+        fileDataSourceDetails.fileColumns = [];
 
-        $scope.$watch('gridData', function () {
-            $log.debug('$scope.gridData.length in FileDataSourceDetailController: ', $scope.gridData.length);
-            if ($scope.gridData !== undefined && $scope.gridData !== [] && $scope.gridData.length > 0) {
-                $scope.fileColumns = [];
-                Object.keys($scope.gridData[0]).forEach(function (column) {
+        $scope.$watch('fileDataSourceDetails.fileColumns', function () {
+            $scope.$broadcast('FileColumnUpdated', fileDataSourceDetails.fileColumns);
+        }, true);
+
+        $scope.$watch('fileDataSourceDetails.gridData', function () {
+            if (fileDataSourceDetails.gridData !== undefined && fileDataSourceDetails.gridData !== [] && fileDataSourceDetails.gridData.length > 0) {
+                $scope.$broadcast('GridDataUpdated', fileDataSourceDetails.gridData);
+                fileDataSourceDetails.fileColumns = [];
+                Object.keys(fileDataSourceDetails.gridData[0]).forEach(function (column) {
                     if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
-                        $scope.fileColumns.push({name: column, selected: false});
+                        fileDataSourceDetails.fileColumns.push({name: column, selected: false});
                     }
                 });
             }
-        });
-        $scope.get($stateParams.id);
+        }, true);
+
+        function onSuccessSaveForm() {
+            $state.go('application.multiVisualization.modules.fileDataSource.list');
+        }
+
+        function getValidators() {
+            var validators = [];
+
+            validators['name'] =
+                [
+                    new NotNull(),
+                    new Length(6, 40)
+                ];
+
+            validators['description'] =
+                [
+                    new Length(0, 40)
+                ];
+            return validators;
+        }
     }
 })();
