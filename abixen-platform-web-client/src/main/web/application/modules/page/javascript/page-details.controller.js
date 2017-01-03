@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 (function () {
 
     'use strict';
@@ -9,25 +23,62 @@
     PageDetailsController.$inject = [
         '$scope',
         '$rootScope',
-        '$http',
         '$state',
         '$parse',
-        '$stateParams',
         '$log',
         '$uibModalInstance',
-        'Page',
+        'PageModel',
         'Layout',
         'applicationNavigationItems',
-        'toaster'
+        'toaster',
+        'responseHandler'
     ];
 
-    function PageDetailsController($scope, $rootScope, $http, $state, $parse, $stateParams, $log, $uibModalInstance, Page, Layout, applicationNavigationItems, toaster) {
+    function PageDetailsController($scope, $rootScope, $state, $parse, $log, $uibModalInstance, PageModel, Layout, applicationNavigationItems, toaster, responseHandler) {
         $log.log('PageDetailsController');
 
-        $scope.formErrors = [];
-        $scope.layouts = [];
+        var pageDetails = this;
 
-        var readLayouts = function () {
+        new AbstractDetailsController(pageDetails, PageModel, responseHandler, $scope,
+            {
+                entityId: null,
+                initEntity: {
+                    page: {},
+                    dashboardModuleDtos: []
+                },
+                entitySubObject: 'page',
+                getValidators: getValidators,
+                onSuccessSaveForm: onSuccessSaveForm
+            }
+        );
+
+        pageDetails.layouts = [];
+        pageDetails.cancel = cancel;
+
+        readLayouts();
+
+        function onSuccessSaveForm(){
+            $uibModalInstance.dismiss();
+            var newSidebarItem = {
+                id: pageDetails.entity.page.id,
+                title: pageDetails.entity.page.title,
+                state: 'application.page',
+                orderIndex: applicationNavigationItems.sidebarItems.length + 1,
+                isPage: true,
+                iconClass: 'fa fa-file-text-o'
+            };
+            applicationNavigationItems.addSidebarItem(newSidebarItem);
+            toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Created', 'The page has been created successfully.');
+            $state.go('application.page', {id: newSidebarItem.id});
+            $rootScope.$broadcast(platformParameters.events.SIDEBAR_ELEMENT_SELECTED, newSidebarItem.id);
+        }
+
+        function cancel() {
+            $uibModalInstance.dismiss();
+        }
+
+        function readLayouts() {
+            //FIXME
             var queryParameters = {
                 page: 0,
                 size: 20,
@@ -35,76 +86,25 @@
             };
 
             Layout.query(queryParameters, function (data) {
-                $scope.layouts = data.content;
+                pageDetails.layouts = data.content;
             });
-        };
+        }
 
-        readLayouts();
+        function getValidators() {
+            var validators = [];
 
-        $scope.entity = {};
-        $scope.save = function () {
-            $log.log('$scope.entityForm.$invalid: ' + $scope.entityForm.$invalid);
-            $log.log('$scope.entityForm.$invalid: ', $scope.entityForm);
+            validators['title'] =
+                [
+                    new NotNull(),
+                    new Length(6, 40)
+                ];
 
-            if ($scope.entityForm.$invalid) {
-                $log.log('Form is invalid and could not be saved.');
-                $scope.$broadcast('show-errors-check-validity');
-                return;
-            }
+            validators['description'] =
+                [
+                    new Length(0, 1000)
+                ];
 
-            $log.log('save() - entity: ', $scope.entity);
-
-            Page.save($scope.entity, function (data) {
-                $scope.entityForm.$setPristine();
-
-                $log.log('data.form: ', data);
-                angular.forEach(data.form, function (rejectedValue, fieldName) {
-                    $log.log('fieldName: ' + fieldName + ', ' + rejectedValue);
-                    if (fieldName !== 'id') {
-                        $scope.entityForm[fieldName].$setValidity('serverMessage', true);
-                    }
-                });
-
-                if (data.formErrors.length == 0) {
-                    $log.log('Entity has been saved: ', $scope.entity);
-                    $uibModalInstance.dismiss();
-                    var newSidebarItem = {
-                        id: data.form.id,
-                        title: data.form.title,
-                        state: 'application.page',
-                        orderIndex: applicationNavigationItems.sidebarItems.length + 1,
-                        isPage: true,
-                        iconClass: 'fa fa-file-text-o'
-                    };
-                    applicationNavigationItems.addSidebarItem(newSidebarItem);
-                    toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Created', 'The page has been created successfully.');
-                    $state.go('application.page', {id: newSidebarItem.id});
-                    $rootScope.$broadcast(platformParameters.events.SIDEBAR_ELEMENT_SELECTED, newSidebarItem.id);
-                    return;
-                }
-
-                for (var i = 0; i < data.formErrors.length; i++) {
-                    var fieldName = data.formErrors[i].field;
-                    $log.log('fieldName: ' + fieldName);
-                    var message = data.formErrors[i].message;
-                    var serverMessage = $parse('entityForm.' + fieldName + '.$error.serverMessage');
-                    $scope.entityForm[fieldName].$setValidity('serverMessage', false);
-                    serverMessage.assign($scope, message);
-                }
-
-                $scope.$broadcast('show-errors-check-validity');
-            });
-
-
-        };
-
-        $scope.saveForm = function () {
-            $log.log('saveForm()');
-            $scope.save();
-        };
-
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss();
-        };
+            return validators;
+        }
     }
 })();

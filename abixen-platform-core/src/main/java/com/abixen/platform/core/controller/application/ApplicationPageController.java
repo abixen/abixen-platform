@@ -14,24 +14,39 @@
 
 package com.abixen.platform.core.controller.application;
 
-import com.abixen.platform.core.controller.common.AbstractPageController;
+import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.service.PageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/application/pages")
-public class ApplicationPageController extends AbstractPageController {
+public class ApplicationPageController {
 
     private final PageService pageService;
 
     @Autowired
     public ApplicationPageController(PageService pageService) {
-        super(pageService);
         this.pageService = pageService;
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<Page> getPages() {
+        log.debug("getPages()");
+
+        List<Page> pages = pageService.findAllPages();
+
+        pages.forEach(page -> {
+            log.debug("Page id={}, name={}", page.getId(), page.getName());
+        });
+
+        return pages;
     }
 
 }

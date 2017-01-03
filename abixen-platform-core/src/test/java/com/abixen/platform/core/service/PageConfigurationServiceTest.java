@@ -33,12 +33,12 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
-public class PageModelServiceTest {
+public class PageConfigurationServiceTest {
 
-    static Logger log = Logger.getLogger(PageModelServiceTest.class);
+    static Logger log = Logger.getLogger(PageConfigurationServiceTest.class);
 
     @Autowired
-    private PageModelService pageModelService;
+    private PageConfigurationService pageConfigurationService;
 
     @Autowired
     private PageService pageService;
@@ -68,7 +68,7 @@ public class PageModelServiceTest {
     public void getPageModel() {
         log.debug("getPageModel() id:" + samplePage.getId());
 
-        dto = pageModelService.getPageModel(samplePage.getId());
+        dto = pageConfigurationService.getPageConfiguration(samplePage.getId());
 
         assertNotNull(dto);
 

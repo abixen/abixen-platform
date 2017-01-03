@@ -25,11 +25,9 @@ import java.util.List;
 
 public interface SecurityService {
 
-    //Boolean hasUserPermissionToPage(User user, PermissionName permissionName, Page page);
-
-    // Boolean hasUserPermissionToModule(User user, PermissionName permissionName, Module module);
-
     Boolean hasUserPermissionToObject(User user, PermissionName permissionName, SecurableModel securableModel);
+
+    Boolean hasUserPermissionToObject(User user, PermissionName permissionName, Long securableObjectId, String domainCanonicalClassName);
 
     Boolean hasUserPermissionToClass(User user, PermissionName permissionName, String domainClassName);
 

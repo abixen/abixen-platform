@@ -10,9 +10,14 @@
 
     function PageModel($resource) {
 
-        return $resource('api/pages/:id/model', {}, {
+        return $resource('/api/page-configurations/:id', {}, {
             query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'}
+            update: {method: 'PUT'},
+            configure: {
+                method: 'PUT',
+                params: {id: '@id'},
+                url: '/api/page-configurations/:id/configure'
+            }
         });
     }
 

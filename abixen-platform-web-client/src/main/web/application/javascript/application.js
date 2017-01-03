@@ -1,5 +1,6 @@
 var platformApplication = angular.module('platformApplication', [
     'pascalprecht.translate',
+    'platformComponent',
     'platformNavigationModule',
     'platformApplicationControllers',
     'platformApplicationServices',

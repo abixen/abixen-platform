@@ -18,6 +18,7 @@ import com.abixen.platform.core.controller.common.AbstractPageController;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.form.PageForm;
+import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.model.web.PageWeb;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.core.service.PageService;
@@ -25,6 +26,9 @@ import com.abixen.platform.core.util.ValidationUtil;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +42,8 @@ import java.util.List;
 public class AdminPageController extends AbstractPageController {
 
     private final Logger log = Logger.getLogger(AdminPageController.class.getName());
+
+    private static final int PAGEABLE_DEFAULT_PAGE_SIZE = 100;
 
     private final PageService pageService;
 
@@ -69,5 +75,35 @@ public class AdminPageController extends AbstractPageController {
 
         return new FormValidationResultDto(pageFormResult);
     }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public org.springframework.data.domain.Page<Page> getPages(@PageableDefault(size = PAGEABLE_DEFAULT_PAGE_SIZE) Pageable pageable) {
+        log.debug("getPages()");
+
+        org.springframework.data.domain.Page<Page> pages = pageService.findAllPages(pageable);
+        for (Page page : pages) {
+            log.debug("page: " + page);
+        }
+
+        return pages;
+    }
+
+
+    @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.model.impl.Page', 'PAGE_ADD')")
+    @JsonView(WebModelJsonSerialize.class)
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public FormValidationResultDto createPage(@RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
+        log.debug("createPage() - pageForm: " + pageForm);
+
+        if (bindingResult.hasErrors()) {
+            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultDto(pageForm, formErrors);
+        }
+
+        PageForm pageFormResult = pageService.createPage(pageForm);
+
+        return new FormValidationResultDto(pageFormResult);
+    }
+
 
 }

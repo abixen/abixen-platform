@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.form.PageConfigurationForm;
 import com.abixen.platform.core.form.PageForm;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
@@ -21,7 +22,7 @@ import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.repository.PageRepository;
 import com.abixen.platform.core.service.*;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -34,11 +35,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@Slf4j
 @Transactional
 @Service
 public class PageServiceImpl implements PageService {
-
-    private static Logger log = Logger.getLogger(PageServiceImpl.class.getName());
 
     @Resource
     private PageRepository pageRepository;
@@ -67,7 +67,17 @@ public class PageServiceImpl implements PageService {
                 .build();
     }
 
-    @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.model.impl.Page', 'PAGE_ADD')")
+    public Page buildPage(PageConfigurationForm pageConfigurationForm) {
+        log.debug("buildPage() - pageConfigurationForm: {}", pageConfigurationForm);
+        return domainBuilderService.newPageBuilderInstance()
+                .init(
+                        pageConfigurationForm.getPage().getTitle(),
+                        layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId())
+                )
+                .description(pageConfigurationForm.getPage().getDescription())
+                .build();
+    }
+
     @Override
     public Page createPage(Page page) {
         log.debug("createPage() - page: " + page);
@@ -84,7 +94,6 @@ public class PageServiceImpl implements PageService {
         return createdPage;
     }
 
-    @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.model.impl.Page', 'PAGE_ADD')")
     @Override
     public PageForm createPage(PageForm pageForm) {
         log.debug("updatePage() - pageForm: " + pageForm);
@@ -92,6 +101,13 @@ public class PageServiceImpl implements PageService {
         Page page = buildPage(pageForm);
 
         return new PageForm(createPage(page));
+    }
+
+    @Override
+    public PageConfigurationForm createPage(PageConfigurationForm pageConfigurationForm) {
+        Page page = buildPage(pageConfigurationForm);
+
+        return new PageConfigurationForm(createPage(page));
     }
 
     @Override
@@ -113,8 +129,6 @@ public class PageServiceImpl implements PageService {
         return pageRepository.saveAndFlush(page);
     }
 
-    //TODO
-    //@PreAuthorize("hasPermission(#page, 'PAGE_DELETE')")
     @Override
     @Transactional
     public void deletePage(Long id) {

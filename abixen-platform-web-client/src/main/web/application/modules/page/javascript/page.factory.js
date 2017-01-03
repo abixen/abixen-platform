@@ -11,8 +11,7 @@
     function Page($resource) {
 
         return $resource('api/application/pages/:id', {}, {
-            query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'},
+            query: {method: 'GET', isArray: true},
             delete: {method: 'DELETE'}
         });
     }

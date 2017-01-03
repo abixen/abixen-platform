@@ -31,11 +31,15 @@ import java.io.Serializable;
 @Component
 public class PlatformPermissionEvaluator implements PermissionEvaluator {
 
-    @Autowired
-    private SecurityService securityService;
+    private final SecurityService securityService;
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public PlatformPermissionEvaluator(SecurityService securityService,
+                                       UserService userService) {
+        this.securityService = securityService;
+        this.userService = userService;
+    }
 
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
@@ -51,12 +55,12 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
                                  String targetType, Object permission) {
         log.debug("hasPermission() - authentication: " + authentication + ", targetId: " + targetId + ", targetType: " + targetType + ", permission: " + permission);
 
+        User user = userService.findUser(authentication.getName());
+
         if (targetId == null) {
-            User user = userService.findUser(authentication.getName());
             return securityService.hasUserPermissionToClass(user, PermissionName.valueOf((String) permission), targetType);
         }
-
-        return false;
+        return securityService.hasUserPermissionToObject(user, PermissionName.valueOf((String) permission), (Long) targetId, targetType);
     }
 
 }

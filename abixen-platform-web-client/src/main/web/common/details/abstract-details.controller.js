@@ -19,8 +19,9 @@ function AbstractDetailsController(extendedController, Resource, responseHandler
 
     var onSuccessSaveForm = angular.isDefined(config) ? angular.isDefined(config.onSuccessSaveForm) ? config.onSuccessSaveForm : undefined : undefined;
     var onSuccessGetEntity = angular.isDefined(config) ? angular.isDefined(config.onSuccessGetEntity) ? config.onSuccessGetEntity : undefined : undefined;
+    var entitySubObject = angular.isDefined(config) ? angular.isDefined(config.entitySubObject) ? config.entitySubObject : undefined : undefined;
 
-    abstractDetailsController.entity = {};
+    abstractDetailsController.entity = angular.isDefined(config) ? angular.isDefined(config.initEntity) ? config.initEntity : {} : {};
     abstractDetailsController.validators = angular.isDefined(config) ? angular.isDefined(config.getValidators) ? config.getValidators() : [] : [];
 
     abstractDetailsController.saveForm = saveForm;
@@ -32,8 +33,6 @@ function AbstractDetailsController(extendedController, Resource, responseHandler
             Resource.get({id: id})
                 .$promise
                 .then(onGetResult);
-        } else {
-            abstractDetailsController.entity = {};
         }
 
         function onGetResult(entity) {
@@ -61,7 +60,7 @@ function AbstractDetailsController(extendedController, Resource, responseHandler
             .then(onSaveResult);
 
         function onSaveResult(formValidationResult) {
-            responseHandler.handle(abstractDetailsController.entityForm, formValidationResult, $scope);
+            responseHandler.handle(abstractDetailsController.entityForm, formValidationResult, $scope, entitySubObject);
 
             if (callback && formValidationResult.formErrors.length === 0) {
                 callback();
@@ -77,7 +76,7 @@ function AbstractDetailsController(extendedController, Resource, responseHandler
             .then(onUpdateResult);
 
         function onUpdateResult(formValidationResult) {
-            responseHandler.handle(abstractDetailsController.entityForm, formValidationResult, $scope);
+            responseHandler.handle(abstractDetailsController.entityForm, formValidationResult, $scope, entitySubObject);
 
             if (callback && formValidationResult.formErrors.length === 0) {
                 callback();

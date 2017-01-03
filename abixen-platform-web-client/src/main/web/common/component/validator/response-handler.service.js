@@ -24,12 +24,16 @@
         var SERVER_ERROR_CODE = 'serverMessage';
         this.handle = handle;
 
-        function handle(form, formValidationResult, scope) {
+        function handle(form, formValidationResult, scope, formValidationResultSubObject) {
             $log.log('responseHandler.handle()', form, formValidationResult);
 
             form.$setPristine();
-            angular.forEach(formValidationResult.form, function (rejectedValue, fieldName) {
-                if (fieldName !== 'id') {
+            var result = formValidationResult.form;
+            if(formValidationResultSubObject){
+                result = formValidationResult.form[formValidationResultSubObject];
+            }
+            angular.forEach(result, function (rejectedValue, fieldName) {
+                if (form[fieldName]) {
                     validation.setValid(form[fieldName], SERVER_ERROR_CODE);
                 }
             });

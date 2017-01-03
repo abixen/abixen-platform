@@ -1,48 +1,28 @@
-<div class="modal-header aside-panel-header"  id="editDashboardPanelHeader">
+<div class="modal-header aside-panel-header" id="editDashboardPanelHeader">
     <h3 class="modal-title">Edit page</h3>
 </div>
 <div class="modal-body" id="editDashboardPanelBody">
     <div class="form-container" id="form-container"
-         window-resize header="editDashboardPanelHeader" body="editDashboardPanelBody" footer="editDashboardPanelFooter">
+         window-resize header="editDashboardPanelHeader" body="editDashboardPanelBody"
+         footer="editDashboardPanelFooter">
         <form class="form-horizontal" role="form" name="entityForm" novalidate>
             <div class="row">
                 <div class="col-md-12">
 
-                    <div class="form-group" show-errors>
-                        <label for="dashboardTitle" class="col-sm-3 control-label">Title</label>
+                    <input-text model="copy.title"
+                                name="title"
+                                label="{{'module.page.title.label' | translate}}"
+                                placeholder="{{'module.page.title.placeholder' | translate}}"
+                                validators="pageDetails.validators">
+                    </input-text>
 
-                        <div class="col-sm-9">
-                            <input ng-model="copy.title" type="text" name="title" class="form-control"
-                                   id="dashboardTitle"
-                                   placeholder="Title" ng-required="true" ng-minlength="6" ng-maxlength="40">
-
-                            <p class="help-block" ng-if="entityForm.title.$error.required">Required</p>
-
-                            <p class="help-block" ng-if="entityForm.title.$error.minlength">Min length is invalid</p>
-
-                            <p class="help-block" ng-if="entityForm.title.$error.maxlength">Max length is invalid</p>
-
-                        </div>
-                    </div>
-
-                    <div class="form-group" show-errors>
-                        <label for="descriptionInput" class="col-sm-3 control-label">Description</label>
-
-                        <div class="col-sm-9">
-                        <textarea ng-model="copy.description" type="text" name="description" class="form-control"
-                                  id="descriptionInput" placeholder="Description" rows="10" ng-maxlength="40">
-                        </textarea>
-
-                            <p class="help-block" ng-if="entityForm.description.$error.maxlength">Max length is
-                                invalid</p>
-                        </div>
-                    </div>
-                    <div class="form-group" show-errors>
-                         <label class="col-sm-3 control-label">Icon</label>
-                         <div class="col-lg-9">
-                              <a href="#" ><i class="fa fa-area-chart fa-3x"></i> &nbsp;&nbsp;Change</a>
-                         </div>
-                     </div>
+                    <input-text-area model="copy.description"
+                                     name="description"
+                                     label="{{'module.page.description.label' | translate}}"
+                                     placeholder="{{'module.page.description.placeholder' | translate}}"
+                                     validators="pageDetails.validators"
+                                     rows="5">
+                    </input-text-area>
                 </div>
             </div>
             <div class="row">
@@ -78,7 +58,8 @@
 <div class="modal-footer aside-panel-footer" id="editDashboardPanelFooter">
     <div class="row bottom-navigation">
         <div class="col-sx-12 bottom-navigation-content">
-            <a class="btn save-button" ng-click="closeDialog()"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
+            <a class="btn save-button" ng-click="closeDialog()"><i
+                    class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
             <a class="btn cancel-button" ng-click="cancelDialog()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
         </div>
     </div>

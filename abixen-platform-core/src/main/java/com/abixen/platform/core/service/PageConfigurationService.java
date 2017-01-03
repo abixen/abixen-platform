@@ -15,11 +15,16 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.dto.PageModelDto;
+import com.abixen.platform.core.form.PageConfigurationForm;
 
 
-public interface PageModelService {
+public interface PageConfigurationService {
 
-    PageModelDto getPageModel(Long pageId);
+    PageModelDto getPageConfiguration(Long pageId);
 
-    PageModelDto updatePageModel(PageModelDto pageModelDto);
+    PageConfigurationForm createPageConfiguration(PageConfigurationForm pageConfigurationForm);
+
+    PageConfigurationForm updatePageConfiguration(PageConfigurationForm pageConfigurationForm);
+
+    PageConfigurationForm configurePageConfiguration(PageConfigurationForm pageConfigurationForm);
 }

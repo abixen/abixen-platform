@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service;
 
+import com.abixen.platform.core.form.PageConfigurationForm;
 import com.abixen.platform.core.form.PageForm;
 import com.abixen.platform.core.model.impl.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +30,8 @@ public interface PageService {
 
     PageForm createPage(PageForm pageForm);
 
+    PageConfigurationForm createPage(PageConfigurationForm pageConfigurationForm);
+
     Page updatePage(Page page);
 
     PageForm updatePage(PageForm pageForm);
@@ -39,7 +42,5 @@ public interface PageService {
 
     List<Page> findAllPages();
 
-    //@PreAuthorize("hasPermission(#id, 'Page', 'VIEW')")
     Page findPage(Long id);
-
 }

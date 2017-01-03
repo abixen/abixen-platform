@@ -9,6 +9,10 @@
 
         this.createModel = function (pageModelDto) {
             var model = JSON.parse(pageModelDto.page.layout.content);
+
+            console.log('pageModelDto', pageModelDto);
+            console.log('model', model);
+
             model.description = pageModelDto.page.description;
             model.title = pageModelDto.page.title;
             model.structure = pageModelDto.page.layout.title;

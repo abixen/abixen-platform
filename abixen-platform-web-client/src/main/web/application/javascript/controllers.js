@@ -44,7 +44,7 @@ platformControllers.controller('PlatformInitController', ['$rootScope', '$scope'
                     templateUrl: '/application/modules/page/html/add.html',
                     size: 'md',
                     backdrop: false,
-                    controller: 'PageDetailsController'
+                    controller: 'PageDetailsController as pageDetails'
                 });
             },
             visible: true,
@@ -130,12 +130,11 @@ platformControllers.controller('PlatformInitController', ['$rootScope', '$scope'
         applicationNavigationItems.setDropdownStyleClass('btn-group action-dropdown');
 
         var getPages = function () {
-            Page.query(function (data) {
-                var pageList = data.content;
-                for (var i = 0; i < pageList.length; i++) {
+            Page.query(function (pages) {
+                for (var i = 0; i < pages.length; i++) {
                     applicationNavigationItems.addSidebarItem({
-                        id: pageList[i].id,
-                        title: pageList[i].title,
+                        id: pages[i].id,
+                        title: pages[i].title,
                         state: 'application.page',
                         orderIndex: i,
                         isPage: true,
@@ -143,12 +142,12 @@ platformControllers.controller('PlatformInitController', ['$rootScope', '$scope'
                     });
                 }
 
-                if (pageList.length > 0) {
+                if (pages.length > 0) {
                     var idToChoose;
                     if ($state.params.id) {
                         idToChoose = $state.params.id;
                     } else {
-                        idToChoose = pageList[0].id;
+                        idToChoose = pages[0].id;
                     }
 
                     if ($state.current.name == 'application.page') {

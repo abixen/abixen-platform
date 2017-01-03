@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -22,6 +22,7 @@ import com.abixen.platform.core.model.impl.*;
 import com.abixen.platform.core.repository.AclEntryRepository;
 import com.abixen.platform.core.security.PlatformUser;
 import com.abixen.platform.core.service.ModuleService;
+import com.abixen.platform.core.service.PageService;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,14 +43,17 @@ public class SecurityServiceImpl implements SecurityService {
 
     private final UserService userService;
     private final ModuleService moduleService;
+    private final PageService pageService;
     private final AclEntryRepository aclEntryRepository;
 
     @Autowired
     public SecurityServiceImpl(UserService userService,
                                ModuleService moduleService,
+                               PageService pageService,
                                AclEntryRepository aclEntryRepository) {
         this.userService = userService;
         this.moduleService = moduleService;
+        this.pageService = pageService;
         this.aclEntryRepository = aclEntryRepository;
 
     }
@@ -61,6 +65,9 @@ public class SecurityServiceImpl implements SecurityService {
         }
         if (permissionName == null) {
             throw new IllegalArgumentException("Permission Name can not be null.");
+        }
+        if (securableModel == null) {
+            throw new IllegalArgumentException("SecurableModel can not be null.");
         }
 
         if (hasUserPermissionToClass(user, permissionName, securableModel.getClass().getCanonicalName())) {
@@ -98,6 +105,26 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
+    public Boolean hasUserPermissionToObject(User user, PermissionName permissionName, Long securableObjectId, String domainCanonicalClassName) {
+        SecurableModel securableObject;
+
+        log.debug("hasUserPermissionToObject() userId={}, permissionName={}, securableObjectId={}, domainCanonicalClassName={}", user.getId(), permissionName, securableObjectId, domainCanonicalClassName);
+
+        switch (domainCanonicalClassName) {
+            case "com.abixen.platform.core.model.impl.Page":
+                securableObject = pageService.findPage(securableObjectId);
+                break;
+            case "com.abixen.platform.core.model.impl.Module":
+                securableObject = moduleService.findModule(securableObjectId);
+                break;
+            default:
+                throw new PlatformCoreException("Wrong domainCanonicalClassName value: " + domainCanonicalClassName);
+        }
+
+        return hasUserPermissionToObject(user, permissionName, securableObject);
+    }
+
+    @Override
     public Boolean hasUserPermissionToClass(User user, PermissionName permissionName, String domainCanonicalClassName) {
         if (user == null) {
             throw new IllegalArgumentException("User can not be null.");
@@ -125,6 +152,7 @@ public class SecurityServiceImpl implements SecurityService {
         return user.getRoles().contains(role);
     }
 
+    //FIXME - to remove?
     @Override
     public List<String> getForbiddenPageNames() {
         log.debug("getForbiddenPageNames()");
