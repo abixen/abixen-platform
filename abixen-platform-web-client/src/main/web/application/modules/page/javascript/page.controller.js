@@ -59,12 +59,28 @@
 
         $scope.$on(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, function (event, name, model) {
             var pageModelDto = PageModelParser.createPageModelDto($scope.pageModelDto.page, model);
+            configurePage(pageModelDto);
+        });
+
+        $scope.$on(platformParameters.events.PAGE_CHANGED_EVENT, function (event, name, model) {
+            var pageModelDto = PageModelParser.createPageModelDto($scope.pageModelDto.page, model);
             savePage(pageModelDto);
         });
 
         $scope.$on(platformParameters.events.ADF_STRUCTURE_CHANGED_EVENT, function (event, structure) {
             $scope.pageModelDto.page.layout = structure;
         });
+
+        var configurePage = function (pageModelDto) {
+            $log.log('save page-model...');
+
+            PageModel.configure({id: pageModelDto.page.id}, pageModelDto, function (data) {
+                $log.log('page updated');
+                $scope.pageModelDto = {page: data.page, dashboardModuleDtos: data.dashboardModuleDtos};
+                $scope.model = PageModelParser.updateModelModulesNullIds($scope.model, data.dashboardModuleDtos);
+                toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Updated', 'The page has been updated successfully.');
+            })
+        };
 
         var savePage = function (pageModelDto) {
             $log.log('save page-model...');

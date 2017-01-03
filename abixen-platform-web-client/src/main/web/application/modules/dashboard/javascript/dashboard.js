@@ -328,7 +328,7 @@ angular.module('adf')
                             instance.dismiss();
                             editDashboardScope.$destroy();
                             applicationNavigationItems.editSidebarItem($stateParams.id, model.title);
-                            $scope.$emit(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, name, model);
+                            $scope.$emit(platformParameters.events.PAGE_CHANGED_EVENT, name, model);
                         };
                         editDashboardScope.cancelDialog = function () {
                             // close modal and destroy the scope

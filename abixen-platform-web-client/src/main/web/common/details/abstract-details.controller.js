@@ -60,6 +60,7 @@ function AbstractDetailsController(extendedController, Resource, responseHandler
             .then(onSaveResult);
 
         function onSaveResult(formValidationResult) {
+            abstractDetailsController.entity = formValidationResult.form;
             responseHandler.handle(abstractDetailsController.entityForm, formValidationResult, $scope, entitySubObject);
 
             if (callback && formValidationResult.formErrors.length === 0) {
@@ -76,6 +77,7 @@ function AbstractDetailsController(extendedController, Resource, responseHandler
             .then(onUpdateResult);
 
         function onUpdateResult(formValidationResult) {
+            abstractDetailsController.entity = formValidationResult.form;
             responseHandler.handle(abstractDetailsController.entityForm, formValidationResult, $scope, entitySubObject);
 
             if (callback && formValidationResult.formErrors.length === 0) {
