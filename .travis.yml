@@ -2,8 +2,10 @@ language: java
 sudo: false
 jdk:
   - oraclejdk8
-dist: trusty
 install: true
+
+before_install:
+ - chmod +x ./travis/script/build.sh
 
 env:
   global:
@@ -15,4 +17,4 @@ branches:
   - master
 
 script:
-  - mvn clean install -DskipDocker
+  - ./travis/script/build.sh
