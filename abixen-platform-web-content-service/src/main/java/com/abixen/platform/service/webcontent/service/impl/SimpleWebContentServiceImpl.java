@@ -19,7 +19,7 @@ import com.abixen.platform.service.webcontent.form.SimpleWebContentForm;
 import com.abixen.platform.service.webcontent.model.impl.SimpleWebContent;
 import com.abixen.platform.service.webcontent.repository.SimpleWebContentRepository;
 import com.abixen.platform.service.webcontent.service.SimpleWebContentService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,18 +27,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+@Slf4j
 @Transactional
 @Service
 public class SimpleWebContentServiceImpl implements SimpleWebContentService {
-
-    private static Logger log = Logger.getLogger(SimpleWebContentServiceImpl.class.getName());
 
     @Resource
     private SimpleWebContentRepository simpleWebContentRepository;
 
     @Override
     public SimpleWebContent createSimpleWebContent(SimpleWebContentForm simpleWebContentForm) {
-        log.debug("createSimpleWebContent() - simpleWebContentForm: " + simpleWebContentForm);
+        log.debug("createSimpleWebContent() - simpleWebContentForm: {}", simpleWebContentForm);
         SimpleWebContent simpleWebContent = new SimpleWebContent();
         simpleWebContent.setContent(simpleWebContentForm.getContent());
         return simpleWebContentRepository.save(simpleWebContent);
@@ -46,7 +45,7 @@ public class SimpleWebContentServiceImpl implements SimpleWebContentService {
 
     @Override
     public SimpleWebContent updateSimpleWebContent(SimpleWebContentForm simpleWebContentForm) {
-        log.debug("updateSimpleWebContent() - simpleWebContentForm: " + simpleWebContentForm);
+        log.debug("updateSimpleWebContent() - simpleWebContentForm: {}", simpleWebContentForm);
         SimpleWebContent simpleWebContent = findSimpleWebContentById(simpleWebContentForm.getId());
         simpleWebContent.setContent(simpleWebContentForm.getContent());
         return simpleWebContentRepository.save(simpleWebContent);
@@ -54,13 +53,13 @@ public class SimpleWebContentServiceImpl implements SimpleWebContentService {
 
     @Override
     public void removeSimpleWebContent(Long simpleWebContentId) {
-        log.debug("removeSimpleWebContent() - simpleWebContentId: " + simpleWebContentId);
+        log.debug("removeSimpleWebContent() - simpleWebContentId: {}", simpleWebContentId);
         simpleWebContentRepository.delete(simpleWebContentId);
     }
 
     @Override
     public SimpleWebContent findSimpleWebContentById(Long simpleWebContentId) {
-        log.debug("findSimpleWebContentById() - simpleWebContentId: " + simpleWebContentId);
+        log.debug("findSimpleWebContentById() - simpleWebContentId: {}", simpleWebContentId);
         SimpleWebContent simpleWebContent = simpleWebContentRepository.findOne(simpleWebContentId);
         if (simpleWebContent == null) {
             throw new PlatformServiceRuntimeException(String.format("SimpleWebContent with id=%d not found", simpleWebContentId));
@@ -70,7 +69,7 @@ public class SimpleWebContentServiceImpl implements SimpleWebContentService {
 
     @Override
     public Page<SimpleWebContent> findAllSimpleWebContents(Pageable pageable) {
-        log.debug("findAllSimpleWebContents() - pageable: " + pageable);
+        log.debug("findAllSimpleWebContents() - pageable: {}", pageable);
         return simpleWebContentRepository.findAll(pageable);
     }
 }
