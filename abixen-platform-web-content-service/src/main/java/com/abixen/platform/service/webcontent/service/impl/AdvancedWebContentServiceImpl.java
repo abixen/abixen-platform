@@ -19,7 +19,7 @@ import com.abixen.platform.service.webcontent.form.AdvancedWebContentForm;
 import com.abixen.platform.service.webcontent.model.impl.AdvancedWebContent;
 import com.abixen.platform.service.webcontent.repository.AdvancedWebContentRepository;
 import com.abixen.platform.service.webcontent.service.AdvancedWebContentService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,18 +27,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+@Slf4j
 @Transactional
 @Service
 public class AdvancedWebContentServiceImpl implements AdvancedWebContentService {
-
-    private static Logger log = Logger.getLogger(AdvancedWebContentServiceImpl.class.getName());
 
     @Resource
     private AdvancedWebContentRepository advancedWebContentRepository;
 
     @Override
     public AdvancedWebContent createAdvancedWebContent(AdvancedWebContentForm advancedWebContentForm) {
-        log.debug("createAdvancedWebContent() - advancedWebContentForm: " + advancedWebContentForm);
+        log.debug("createAdvancedWebContent() - advancedWebContentForm: {}", advancedWebContentForm);
         AdvancedWebContent advancedWebContent = new AdvancedWebContent();
         advancedWebContent.setContent(advancedWebContentForm.getContent());
         return advancedWebContentRepository.save(advancedWebContent);
@@ -46,7 +45,7 @@ public class AdvancedWebContentServiceImpl implements AdvancedWebContentService 
 
     @Override
     public AdvancedWebContent updateAdvancedWebContent(AdvancedWebContentForm advancedWebContentForm) {
-        log.debug("updateAdvancedWebContent() - advancedWebContentForm: " + advancedWebContentForm);
+        log.debug("updateAdvancedWebContent() - advancedWebContentForm: {}", advancedWebContentForm);
         AdvancedWebContent advancedWebContent = findAdvancedWebContentById(advancedWebContentForm.getId());
         advancedWebContent.setContent(advancedWebContentForm.getContent());
         return advancedWebContentRepository.save(advancedWebContent);
@@ -54,13 +53,13 @@ public class AdvancedWebContentServiceImpl implements AdvancedWebContentService 
 
     @Override
     public void removeAdvancedWebContent(Long advancedWebContentId) {
-        log.debug("removeAdvancedWebContent() - advancedWebContentId: " + advancedWebContentId);
+        log.debug("removeAdvancedWebContent() - advancedWebContentId: {}", advancedWebContentId);
         advancedWebContentRepository.delete(advancedWebContentId);
     }
 
     @Override
     public AdvancedWebContent findAdvancedWebContentById(Long advancedWebContentId) {
-        log.debug("findAdvancedWebContentById() - advancedWebContentId: " + advancedWebContentId);
+        log.debug("findAdvancedWebContentById() - advancedWebContentId: {}", advancedWebContentId);
         AdvancedWebContent advancedWebContent = advancedWebContentRepository.findOne(advancedWebContentId);
         if (advancedWebContent == null) {
             throw new PlatformServiceRuntimeException(String.format("AdvancedWebContent with id=%d not found", advancedWebContentId));
@@ -70,7 +69,7 @@ public class AdvancedWebContentServiceImpl implements AdvancedWebContentService 
 
     @Override
     public Page<AdvancedWebContent> findAllAdvancedWebContents(Pageable pageable) {
-        log.debug("findAllAdvancedWebContents() - pageable: " + pageable);
+        log.debug("findAllAdvancedWebContents() - pageable: {}", pageable);
         return advancedWebContentRepository.findAll(pageable);
     }
 }

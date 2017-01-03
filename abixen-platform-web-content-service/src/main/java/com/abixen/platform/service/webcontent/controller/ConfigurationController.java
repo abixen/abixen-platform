@@ -15,18 +15,16 @@
 package com.abixen.platform.service.webcontent.controller;
 
 import com.abixen.platform.service.webcontent.configuration.properties.WebContentServiceConfigurationProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/configuration")
 public class ConfigurationController {
-
-    private final Logger log = LoggerFactory.getLogger(ConfigurationController.class.getName());
 
     private final WebContentServiceConfigurationProperties webContentServiceConfigurationProperties;
 
@@ -37,7 +35,7 @@ public class ConfigurationController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public WebContentServiceConfigurationProperties getWebContentServiceConfigurationProperties() {
-        log.debug("getWebContentServiceConfigurationProperties - webContentServiceConfigurationProperties: " + webContentServiceConfigurationProperties);
+        log.debug("getWebContentServiceConfigurationProperties - webContentServiceConfigurationProperties: {}", webContentServiceConfigurationProperties);
         return webContentServiceConfigurationProperties;
     }
 

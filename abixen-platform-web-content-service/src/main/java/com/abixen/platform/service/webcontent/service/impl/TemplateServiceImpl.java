@@ -19,7 +19,7 @@ import com.abixen.platform.service.webcontent.form.TemplateForm;
 import com.abixen.platform.service.webcontent.model.impl.Template;
 import com.abixen.platform.service.webcontent.repository.TemplateRepository;
 import com.abixen.platform.service.webcontent.service.TemplateService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,18 +27,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+@Slf4j
 @Transactional
 @Service
 public class TemplateServiceImpl implements TemplateService {
-
-    private static Logger log = Logger.getLogger(TemplateServiceImpl.class.getName());
 
     @Resource
     private TemplateRepository templateRepository;
 
     @Override
     public Template createTemplate(TemplateForm templateForm) {
-        log.debug("createTemplate() - templateForm: " + templateForm);
+        log.debug("createTemplate() - templateForm: {}", templateForm);
         Template template = new Template();
         template.setContent(templateForm.getContent());
         return templateRepository.save(template);
@@ -46,7 +45,7 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public Template updateTemplate(TemplateForm templateForm) {
-        log.debug("updateTemplate() - templateForm: " + templateForm);
+        log.debug("updateTemplate() - templateForm: {}", templateForm);
         Template template = findTemplateById(templateForm.getId());
         template.setContent(templateForm.getContent());
         return templateRepository.save(template);
@@ -54,13 +53,13 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public void removeTemplate(Long templateId) {
-        log.debug("removeTemplate() - templateId: " + templateId);
+        log.debug("removeTemplate() - templateId: {}", templateId);
         templateRepository.delete(templateId);
     }
 
     @Override
     public Template findTemplateById(Long templateId) {
-        log.debug("findTemplateById() - templateId: " + templateId);
+        log.debug("findTemplateById() - templateId: {}", templateId);
         Template template = templateRepository.findOne(templateId);
         if (template == null) {
             throw new PlatformServiceRuntimeException(String.format("Template with id=%d not found", templateId));
@@ -70,7 +69,7 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public Page<Template> findAllTemplates(Pageable pageable) {
-        log.debug("findAllTemplates() - pageable: " + pageable);
+        log.debug("findAllTemplates() - pageable: {}", pageable);
         return templateRepository.findAll(pageable);
     }
 }
