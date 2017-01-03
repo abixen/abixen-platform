@@ -1,45 +1,29 @@
-<form role="form" name="entityForm" novalidate>
+<form role="form" name="fileDataSourceDetails.entityForm" novalidate>
     <div class="row form-row">
 
         <div class="col-md-6">
 
             <div class="form-group" show-errors>
-                <label for="nameInput" class="control-label">Name</label>
-
-                <div>
-                    <input ng-model="entity.name" type="text" name="name" class="form-control" id="nameInput"
-                           placeholder="Name" ng-required="true" ng-minlength="6" ng-maxlength="40">
-
-                    <p class="help-block" ng-if="entityForm.name.$error.required && entityForm.name.$touched">
-                        Required</p>
-
-                    <p class="help-block" ng-if="entityForm.name.$error.minlength">Min length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.name.$error.maxlength">Max length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.name.$error.serverMessage">
-                        {{entityForm.name.$error.serverMessage}}</p>
-                </div>
+                <input-text model="fileDataSourceDetails.entity.name"
+                            name="name"
+                            label="{{'service.businessintelligence.fileDataSoruce.name.label' | translate}}"
+                            placeholder="{{'service.businessintelligence.fileDataSoruce.name.placeholder' | translate}}"
+                            validators="fileDataSourceDetails.validators">
+                </input-text>
             </div>
 
             <div class="form-group" show-errors>
-                <label for="descriptionInput" class="control-label">Description</label>
-
-                <div>
-                    <input ng-model="entity.description" type="text" name="description" class="form-control"
-                           id="descriptionInput"
-                           placeholder="Description" ng-maxlength="40">
-
-                    <p class="help-block" ng-if="entityForm.description.$error.maxlength">Max length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.description.$error.serverMessage">
-                        {{entityForm.description.$error.serverMessage}}</p>
-                </div>
+                <input-text model="fileDataSourceDetails.entity.description"
+                            name="description"
+                            label="{{'service.businessintelligence.fileDataSoruce.description.label' | translate}}"
+                            placeholder="{{'service.businessintelligence.fileDataSoruce.description.placeholder' | translate}}"
+                            validators="fileDataSourceDetails.validators">
+                </input-text>
             </div>
 
             <div class="form-group">
                 <div class="upload">
-                    <div class="btn upload-btn" platform-upload-file platform-sheet-reader parsed-data="gridData">
+                    <div class="btn upload-btn" platform-upload-file platform-sheet-reader parsed-data="fileDataSourceDetails.gridData">
                         <span class="upload-btn-text"> Upload File </span>
                     </div>
                 </div>
@@ -47,7 +31,7 @@
 
         </div>
         <div class="col-md-6">
-            <input type="hidden" ng-model="entity.columns" name="columns">
+            <input type="hidden" ng-model="fileDataSourceDetails.entity.columns" name="columns">
             <div class="columns-section">
                 <div class="columns-section-header row">
                     <span class="col-xs-8 col-sm-8 col-md-8 col-lg-8 no-padding-left">
@@ -64,7 +48,7 @@
                 <div class="row">
                     <ul class="columns-section-content" ng-scrollbar rebuild-on-resize
                         rebuild-on="content-scroll:rebuild">
-                            <li class="columns-section-content-row" on-ng-repeat-render-finish="content-scroll:rebuild" ng-repeat="fileColumn in fileColumns">
+                            <li class="columns-section-content-row" on-ng-repeat-render-finish="content-scroll:rebuild" ng-repeat="fileColumn in fileDataSourceDetails.fileColumns">
                                 <span class="col-xs-8 col-sm-8 col-md-8 col-lg-8 no-padding-left">
                                     {{fileColumn.name}}
                                 </span>
