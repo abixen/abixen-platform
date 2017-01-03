@@ -148,14 +148,15 @@
 
             var columnPosition = 1;
 
-            for (var i = 0; i < databaseDataSourceDetails.fields.length; i++) {
-                if (databaseDataSourceDetails.fields[i].selected) {
+            for (var i = 0; i < databaseDataSourceDetails.databaseTableColumns.length; i++) {
+                if (databaseDataSourceDetails.databaseTableColumns[i].selected) {
                     databaseDataSourceDetails.entity.columns.push({
-                        name: databaseDataSourceDetails.fields[i].name,
+                        name: databaseDataSourceDetails.databaseTableColumns[i].name,
                         position: columnPosition++
                     });
                 }
             }
+            databaseDataSourceDetails.saveForm();
         }
 
 
