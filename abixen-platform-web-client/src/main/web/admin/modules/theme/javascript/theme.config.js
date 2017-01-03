@@ -31,6 +31,12 @@
                 url: '/themes',
                 templateUrl: '/admin/modules/theme/html/index.html'
             })
+            .state('application.themes.add', {
+                url: '/add',
+                templateUrl: '/admin/modules/theme/html/add/theme.html',
+                controller: 'ThemeAddController',
+                controllerAs: 'themeAdd'
+            })
             .state('application.themes.list', {
                 url: '/list',
                 templateUrl: '/admin/modules/theme/html/list.html',

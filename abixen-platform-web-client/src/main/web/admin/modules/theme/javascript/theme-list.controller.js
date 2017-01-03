@@ -38,6 +38,8 @@
             }
         ));
 
+        updateNavigation();
+
         function getTableColumns() {
             return [
                 {field: 'id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
@@ -55,6 +57,22 @@
                     cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
                 }
             ];
+        }
+
+        function updateNavigation() {
+            var newThemeButton = {
+                id: 1,
+                styleClass: 'btn add-new-object-button',
+                faIcon: 'fa fa-plus',
+                title: 'New Theme',
+                onClick: function () {
+                    $state.go('application.themes.add');
+                },
+                visible: true,
+                disabled: false
+            };
+
+            applicationNavigationItems.setTopbarItem(newThemeButton);
         }
     }
 })();
