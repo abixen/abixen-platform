@@ -1,17 +1,16 @@
 <div class="row module-navigation-row">
     <div class="col-xs-12 module-navigation-col">
-        <button type="button" ui-sref="application.multiVisualization.modules.databaseConnection.edit({id:selectedEntityId})"
-                ng-disabled="!editButtonEnabled" class="btn btn-default pull-left">Edit Database Connection
+        <button type="button" ui-sref="application.multiVisualization.modules.databaseConnection.edit({id:databaseConnectionList.listGridConfig.selectedEntity.id})" ng-disabled="!databaseConnectionList.listGridConfig.selectedEntity"
+                class="btn btn-default pull-left">Edit Database Connection
         </button>
         <span class="buttons-separator"></span>
-        <button type="button" ng-click="delete()" ng-disabled="!deleteButtonEnabled"
-                class="btn btn-warning pull-left">Delete Database Connection
+        <button type="button" ng-click="databaseConnectionList.deleteEntity(databaseConnectionList.listGridConfig.selectedEntity)" ng-disabled="!databaseConnectionList.listGridConfig.selectedEntity" class="btn btn-warning pull-left">
+            Delete Database Connection
         </button>
     </div>
 </div>
 <div class="row grid-row">
     <div class="col-xs-12">
-        <div id="pageListGridId" ui-grid="entityListGrid" ui-grid-exporter ui-grid-selection ui-grid-pinning
-             ui-grid-resize-columns ui-grid-move-columns ui-grid-auto-resize class="grid"></div>
+        <platform-list-grid class="default-platform-list-grid" list-grid-config="databaseConnectionList.listGridConfig"></platform-list-grid>
     </div>
 </div>
