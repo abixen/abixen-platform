@@ -51,6 +51,7 @@
         databaseDataSourceDetails.getDatabaseTables = getDatabaseTables;
         databaseDataSourceDetails.getDatabaseTableColumns = getDatabaseTableColumns;
         databaseDataSourceDetails.beforeSaveForm = beforeSaveForm;
+        databaseDataSourceDetails.goToViewMode = goToViewMode;
 
         databaseDataSourceDetails.json = null;
         databaseDataSourceDetails.filter = JSON.parse(data);
@@ -134,6 +135,10 @@
              databaseDataSourceDetails.getDatabaseTables(databaseDataSourceDetails.entity.databaseConnection);
              databaseDataSourceDetails.getDatabaseTableColumns(databaseDataSourceDetails.entity.databaseConnection, databaseDataSourceDetails.entity.table);
 
+        }
+
+        function goToViewMode() {
+            $state.go('application.multiVisualization.modules.databaseDataSource.list');
         }
 
         function beforeSaveForm() {

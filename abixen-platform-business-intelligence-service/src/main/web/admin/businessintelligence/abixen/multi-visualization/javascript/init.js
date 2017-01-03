@@ -1,4 +1,4 @@
-var multiVisualizationModule = angular.module('multiVisualizationModule', ['multiVisualizationControllers', 'multiVisualizationDirectives', 'platformDatabaseDataSourceModule', 'databaseConnectionModule', 'platformDataSourceModule']);
+var multiVisualizationModule = angular.module('multiVisualizationModule', ['multiVisualizationControllers', 'multiVisualizationDirectives', 'platformDataSourceModule']);
 
 multiVisualizationModule.config(['$stateProvider',
     function ($stateProvider) {
