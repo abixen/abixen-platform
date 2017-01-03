@@ -1,3 +1,3 @@
 id;created_by_id;created_date;last_modified_by_id;last_modified_date;type;description;filter;name
-1;NULL;NULL;NULL;NULL;DB;For the presentation of sample sales data;NULL;Selling data DS sample
-2;NULL;NULL;NULL;NULL;DB;For the presentation of sample cash flow data;NULL;Cash flow DS sample
+1;NULL;NULL;NULL;NULL;DB;For the presentation of sample sales data;{"group": {"operator": "AND","rules": []}};Selling data DS sample
+2;NULL;NULL;NULL;NULL;DB;For the presentation of sample cash flow data;{"group": {"operator": "AND","rules": []}};Cash flow DS sample
