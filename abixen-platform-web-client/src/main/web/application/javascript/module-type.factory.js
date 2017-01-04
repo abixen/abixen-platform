@@ -17,17 +17,16 @@
     'use strict';
 
     angular
-        .module('platformAdminApplication')
-        .controller('SearchController', SearchController);
+        .module('platformApplication')
+        .factory('ModuleType', ModuleType);
 
-    SearchController.$inject = [
-        '$scope', '$stateParams', '$log'
-    ];
+    ModuleType.$inject = ['$resource'];
 
-    function SearchController($scope, $stateParams, $log) {
+    function ModuleType($resource) {
 
-        $log.log('SearchController');
-
-        $scope.searchTerm = $stateParams.query;
+        return $resource('/api/user/pages/module-types', {}, {
+            query: {method: 'GET', isArray: true}
+        });
     }
+
 })();

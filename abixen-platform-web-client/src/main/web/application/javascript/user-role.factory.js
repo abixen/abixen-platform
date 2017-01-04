@@ -17,17 +17,17 @@
     'use strict';
 
     angular
-        .module('platformAdminApplication')
-        .controller('SearchController', SearchController);
+        .module('platformApplication')
+        .factory('UserRole', UserRole);
 
-    SearchController.$inject = [
-        '$scope', '$stateParams', '$log'
-    ];
+    UserRole.$inject = ['$resource'];
 
-    function SearchController($scope, $stateParams, $log) {
+    function UserRole($resource) {
 
-        $log.log('SearchController');
-
-        $scope.searchTerm = $stateParams.query;
+        return $resource('/api/application/users/:id/roles', {}, {
+            query: {method: 'GET', isArray: false},
+            update: {method: 'PUT'}
+        });
     }
+
 })();

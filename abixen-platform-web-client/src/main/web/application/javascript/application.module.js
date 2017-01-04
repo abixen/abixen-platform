@@ -17,28 +17,30 @@
     'use strict';
 
     angular
-        .module('platformAdminApplication', [
+        .module('platformApplication', [
             'pascalprecht.translate',
             'platformComponent',
             'platformNavigationModule',
-            'platformPermissionModule',
-            'platformRoleModule',
-            'platformPageModule',
-            'platformUserModule',
-            'platformLayoutModule',
-            'platformModuleModule',
-            'platformModuleTypeModule',
-            'multiVisualizationModule',
-            'platformCommonModule',
-            'platformListGridModule',
-            'platformThumbModule',
             'platformUtilsModule',
-            'ui.bootstrap',
-            'ui.router',
+            'platformThumbModule',
+            'platformPageModule',
+            'platformListGridModule',
             'ngAnimate',
-            'ngTouch',
-            'ngRoute',
+            'ui.router',
+            'ui.bootstrap',
+            'ngAside',
+            'adf.provider',
+            'ui.bootstrap.showErrors',
             'toaster',
+            'xeditable',
+            'angularFileUpload',
+            'ngCookies',
+            'platformChartModule',
+            'platformMagicNumberModule',
+            'platformKpiChartModule',
+            'platformUserModule',
+            'platformModalModule',
+            'platformModalSelectionModule',
             'ui.grid',
             'ui.grid.exporter',
             'ui.grid.selection',
@@ -47,9 +49,7 @@
             'ui.grid.moveColumns',
             'ui.grid.autoResize',
             'ui.bootstrap.showErrors',
-            'ngScrollbar',
-            'platformUploadFileModule',
-            'platformSheetReaderModule',
-            'platformThemeModule'
+            'platformFAModalSelection',
+            'ngScrollbar'
         ]);
 })();

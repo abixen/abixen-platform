@@ -17,17 +17,16 @@
     'use strict';
 
     angular
-        .module('platformAdminApplication')
-        .controller('SearchController', SearchController);
+        .module('platformApplication')
+        .factory('UserPassword', UserPassword);
 
-    SearchController.$inject = [
-        '$scope', '$stateParams', '$log'
-    ];
+    UserPassword.$inject = ['$resource'];
 
-    function SearchController($scope, $stateParams, $log) {
+    function UserPassword($resource) {
 
-        $log.log('SearchController');
-
-        $scope.searchTerm = $stateParams.query;
+        return $resource('/api/application/users/:id/password', {}, {
+            update: {method: 'POST'}
+        });
     }
+
 })();

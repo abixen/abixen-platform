@@ -17,12 +17,12 @@
     'use strict';
 
     angular
-        .module('platformAdminApplication')
-        .factory('platformHttpInterceptor', platformAdminApplicationHttpInterceptor);
+        .module('platformApplication')
+        .factory('platformHttpInterceptor', platformApplicationHttpInterceptor);
 
-    platformAdminApplicationHttpInterceptor.$inject = ['$q', '$injector'];
+    platformApplicationHttpInterceptor.$inject = ['$q', '$injector'];
 
-    function platformAdminApplicationHttpInterceptor($q, $injector) {
+    function platformApplicationHttpInterceptor($q, $injector) {
 
         return {
             responseError: onResponseError
@@ -30,12 +30,8 @@
 
         function onResponseError(rejection) {
 
-            console.log('rejection: ', rejection);
-
             var applicationLoginUrl = '/login';
             var applicationModulesUrlPrefix = '/application/modules';
-
-            //TODO
 
             if (rejection.data && rejection.data.path && rejection.data.path.indexOf(applicationModulesUrlPrefix) == 0 && rejection.status != 401 && rejection.status != 403 && rejection.status != 500) {
                 return $q.reject(rejection);
@@ -50,8 +46,8 @@
                 var toaster = $injector.get('toaster');
                 toaster.pop(platformParameters.statusAlertTypes.ERROR, rejection.data.error, rejection.data.message);
             }
-
             return $q.reject(rejection);
+
         }
     }
 })();

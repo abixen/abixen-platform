@@ -13,21 +13,31 @@
  */
 
 (function () {
-
     'use strict';
 
     angular
-        .module('platformAdminApplication')
-        .controller('SearchController', SearchController);
+        .module('platformUtilsModule')
+        .directive('dynamicName', dynamicNameDirective);
 
-    SearchController.$inject = [
-        '$scope', '$stateParams', '$log'
+    dynamicNameDirective.$inject = [
+        '$compile'
     ];
 
-    function SearchController($scope, $stateParams, $log) {
+    function dynamicNameDirective($compile) {
 
-        $log.log('SearchController');
+        return {
+            restrict: 'A',
+            terminal: true,
+            priority: 100000,
+            link: link
+        };
 
-        $scope.searchTerm = $stateParams.query;
+        function link(scope, element) {
+            var name = element.attr('dynamic-name');
+            element.removeAttr('dynamic-name');
+            element.attr('name', name);
+            $compile(element)(scope);
+        }
     }
+
 })();

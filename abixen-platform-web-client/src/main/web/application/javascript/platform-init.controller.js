@@ -1,7 +1,55 @@
-var platformControllers = angular.module('platformApplicationControllers', []);
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
 
-platformControllers.controller('PlatformInitController', ['$rootScope', '$scope', '$http', '$location', '$log', '$state', 'applicationNavigationItems', '$aside', 'Page', 'ModuleType', 'dashboard', 'toaster', 'modalWindow',
-    function ($rootScope, $scope, $http, $location, $log, $state, applicationNavigationItems, $aside, Page, ModuleType, dashboard, toaster, modalWindow) {
+(function () {
+
+    'use strict';
+
+    angular
+        .module('platformApplication')
+        .controller('PlatformInitController', PlatformInitController);
+
+    PlatformInitController.$inject = [
+        '$rootScope',
+        '$scope',
+        '$http',
+        '$location',
+        '$log',
+        '$state',
+        'applicationNavigationItems',
+        '$aside',
+        'Page',
+        'ModuleType',
+        'dashboard',
+        'toaster',
+        'modalWindow'
+    ];
+
+    function PlatformInitController($rootScope,
+                                    $scope,
+                                    $http,
+                                    $location,
+                                    $log,
+                                    $state,
+                                    applicationNavigationItems,
+                                    $aside,
+                                    Page,
+                                    ModuleType,
+                                    dashboard,
+                                    toaster,
+                                    modalWindow) {
+
         $log.log('PlatformInitController');
 
         var applicationLoginUrl = '/login';
@@ -235,8 +283,5 @@ platformControllers.controller('PlatformInitController', ['$rootScope', '$scope'
             $scope.editMode = editMode;
             editModeButton.title = $scope.editMode ? 'View Mode' : 'Edit Mode';
         });
-
-
-    }]);
-
-
+    }
+})();
