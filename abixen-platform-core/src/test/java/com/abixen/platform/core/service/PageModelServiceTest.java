@@ -14,9 +14,11 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
+import com.abixen.platform.core.dto.DashboardModuleDto;
 import com.abixen.platform.core.dto.PageModelDto;
 import com.abixen.platform.core.form.PageForm;
 import com.abixen.platform.core.model.impl.Layout;
+import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.model.impl.Page;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -26,10 +28,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.assertNotEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
@@ -43,9 +48,16 @@ public class PageModelServiceTest {
     @Autowired
     private PageService pageService;
 
+    @Autowired
+    private ModuleService moduleService;
+
+    @Autowired
+    private ModuleTypeService moduleTypeService;
+
     private PageForm samplePageForm;
     private Page samplePage;
     private PageModelDto dto;
+    DashboardModuleDto dashboardModuleDto;
 
     @Before
     public void generatePageForm() {
@@ -62,6 +74,17 @@ public class PageModelServiceTest {
         dto = new PageModelDto();
         dto.setPage(samplePage);
 
+        ModuleType moduleType = moduleTypeService.findModuleType(1L);
+
+        dashboardModuleDto = new DashboardModuleDto();
+        dashboardModuleDto.setDescription("Module description original");
+        dashboardModuleDto.setTitle("Title original");
+        dashboardModuleDto.setColumnIndex(0);
+        dashboardModuleDto.setFrontendId(1L);
+        dashboardModuleDto.setOrderIndex(0);
+        dashboardModuleDto.setRowIndex(0);
+        dashboardModuleDto.setType("DashboardModuleDto Type");
+        dashboardModuleDto.setModuleType(moduleType);
     }
 
     @Test
@@ -84,4 +107,35 @@ public class PageModelServiceTest {
 
     }
 
+    @Test()
+    public void updatePageModel() {
+        log.debug("updatePageModel()");
+        PageModelDto dtoUpdated;
+        PageModelDto dtoRes;
+
+        dtoUpdated = pageModelService.getPageModel(samplePage.getId());
+
+        Page updatedPage = (Page) dtoUpdated.getPage();
+
+        updatedPage.setDescription("This is an updated description");
+        updatedPage.setTitle("Updated Title");
+        updatedPage.setName("Updated Name");
+
+        List<DashboardModuleDto> dashboardModuleDtos = new ArrayList<>();
+        dashboardModuleDtos.add(dashboardModuleDto);
+
+        dtoRes = new PageModelDto(updatedPage, dashboardModuleDtos);
+
+        dtoUpdated = pageModelService.updatePageModel(dtoRes);
+
+        assertNotNull(dtoUpdated);
+
+        assertEquals(dto.getPage().getId(), dtoUpdated.getPage().getId());
+
+        assertNotEquals(dto.getPage().getDescription(), dtoUpdated.getPage().getDescription());
+
+        assertNotEquals(dto.getPage().getTitle(), dtoUpdated.getPage().getTitle());
+
+        assertNotEquals(dto.getPage().getName(), dtoUpdated.getPage().getName());
+    }
 }
