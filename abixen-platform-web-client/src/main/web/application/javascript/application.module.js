@@ -20,6 +20,7 @@
         .module('platformApplication', [
             'pascalprecht.translate',
             'platformComponent',
+            'platformApplicationDirectives',
             'platformNavigationModule',
             'platformUtilsModule',
             'platformThumbModule',
