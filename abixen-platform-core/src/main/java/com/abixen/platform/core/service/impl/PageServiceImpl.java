@@ -104,10 +104,9 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public PageConfigurationForm createPage(PageConfigurationForm pageConfigurationForm) {
+    public Page createPage(PageConfigurationForm pageConfigurationForm) {
         Page page = buildPage(pageConfigurationForm);
-
-        return new PageConfigurationForm(createPage(page));
+        return createPage(page);
     }
 
     @Override
@@ -155,5 +154,11 @@ public class PageServiceImpl implements PageService {
     public Page findPage(Long id) {
         log.debug("findPage() - id: " + id);
         return pageRepository.findOne(id);
+    }
+
+    @Override
+    public void convertPageLayoutToJson(Page page) {
+        String html = page.getLayout().getContent();
+        page.getLayout().setContentAsJson(layoutService.htmlLayoutToJson(html));
     }
 }

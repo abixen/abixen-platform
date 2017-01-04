@@ -30,7 +30,7 @@ public interface PageService {
 
     PageForm createPage(PageForm pageForm);
 
-    PageConfigurationForm createPage(PageConfigurationForm pageConfigurationForm);
+    Page createPage(PageConfigurationForm pageConfigurationForm);
 
     Page updatePage(Page page);
 
@@ -43,4 +43,6 @@ public interface PageService {
     List<Page> findAllPages();
 
     Page findPage(Long id);
+
+    void convertPageLayoutToJson(Page page);
 }

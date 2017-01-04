@@ -40,4 +40,8 @@ public interface LayoutBase {
     String getIconFileName();
 
     void setIconFileName(String iconFileName);
+
+    String getContentAsJson();
+
+    void setContentAsJson(String contentAsJson);
 }

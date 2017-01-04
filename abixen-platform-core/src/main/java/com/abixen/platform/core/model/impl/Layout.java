@@ -39,6 +39,9 @@ public class Layout extends AuditingModel implements LayoutBase, LayoutWeb {
     @Column(name = "icon_file_name", length = LAYOUT_ICON_FILE_NAME_MAX_LENGTH, nullable = false)
     private String iconFileName;
 
+    @Transient
+    private String contentAsJson;
+
     @Override
     public Long getId() {
         return id;
@@ -77,6 +80,16 @@ public class Layout extends AuditingModel implements LayoutBase, LayoutWeb {
     @Override
     public void setIconFileName(String iconFileName) {
         this.iconFileName = iconFileName;
+    }
+
+    @Override
+    public String getContentAsJson() {
+        return contentAsJson;
+    }
+
+    @Override
+    public void setContentAsJson(String contentAsJson) {
+        this.contentAsJson = contentAsJson;
     }
 
 }

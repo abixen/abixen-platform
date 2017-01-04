@@ -35,4 +35,6 @@ public interface LayoutWeb {
     @JsonView(WebModelJsonSerialize.class)
     String getIconFileName();
 
+    @JsonView(WebModelJsonSerialize.class)
+    String getContentAsJson();
 }

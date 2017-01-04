@@ -57,7 +57,8 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
         log.debug("getPageConfiguration() - pageId: {}", pageId);
 
         Page page = pageService.findPage(pageId);
-        convertPageLayoutToJson(page);
+        log.debug("page.getLayout().getContent(): {}", page.getLayout().getContent());
+
         List<Module> modules = moduleService.findAllByPage(page);
         List<DashboardModuleDto> dashboardModuleDtos = new ArrayList<>();
 
@@ -76,13 +77,15 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                         ))
                 );
 
+        pageService.convertPageLayoutToJson(page);
         return new PageModelDto(page, dashboardModuleDtos);
     }
 
     @Override
     public PageConfigurationForm createPageConfiguration(PageConfigurationForm pageConfigurationForm) {
-
-        return pageService.createPage(pageConfigurationForm);
+        Page page = pageService.createPage(pageConfigurationForm);
+        pageService.convertPageLayoutToJson(page);
+        return new PageConfigurationForm(page);
     }
 
     @Override
@@ -162,17 +165,14 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                 );
     }
 
-    private void convertPageLayoutToJson(Page page) {
-
-        String html = page.getLayout().getContent();
-        page.getLayout().setContent(layoutService.htmlLayoutToJson(html));
-
-    }
-
     private void validateConfiguration(PageConfigurationForm pageConfigurationForm, Page page) {
         boolean validationFailed = false;
 
-        if (!page.getDescription().equals(pageConfigurationForm.getPage().getDescription())) {
+        log.debug("pageConfigurationForm.getPage()={}, page={}", pageConfigurationForm.getPage(), page);
+
+        if (page.getDescription() == null && pageConfigurationForm.getPage().getDescription() != null) {
+            validationFailed = true;
+        } else if (page.getDescription() != null && !page.getDescription().equals(pageConfigurationForm.getPage().getDescription())) {
             validationFailed = true;
         } else if (!page.getName().equals(pageConfigurationForm.getPage().getName())) {
             validationFailed = true;

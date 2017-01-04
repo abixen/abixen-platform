@@ -8,7 +8,7 @@
     function PageModelParser() {
 
         this.createModel = function (pageModelDto) {
-            var model = JSON.parse(pageModelDto.page.layout.content);
+            var model = JSON.parse(pageModelDto.page.layout.contentAsJson);
 
             console.log('pageModelDto', pageModelDto);
             console.log('model', model);

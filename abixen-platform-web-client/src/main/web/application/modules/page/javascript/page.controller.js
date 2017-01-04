@@ -76,8 +76,8 @@
 
             PageModel.configure({id: pageModelDto.page.id}, pageModelDto, function (data) {
                 $log.log('page updated');
-                $scope.pageModelDto = {page: data.page, dashboardModuleDtos: data.dashboardModuleDtos};
-                $scope.model = PageModelParser.updateModelModulesNullIds($scope.model, data.dashboardModuleDtos);
+                $scope.pageModelDto = {page: data.form.page, dashboardModuleDtos: data.form.dashboardModuleDtos};
+                $scope.model = PageModelParser.updateModelModulesNullIds($scope.model, data.form.dashboardModuleDtos);
                 toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Updated', 'The page has been updated successfully.');
             })
         };
@@ -87,8 +87,8 @@
 
             PageModel.update({id: pageModelDto.page.id}, pageModelDto, function (data) {
                 $log.log('page updated');
-                $scope.pageModelDto = {page: data.page, dashboardModuleDtos: data.dashboardModuleDtos};
-                $scope.model = PageModelParser.updateModelModulesNullIds($scope.model, data.dashboardModuleDtos);
+                $scope.pageModelDto = {page: data.form.page, dashboardModuleDtos: data.form.dashboardModuleDtos};
+                $scope.model = PageModelParser.updateModelModulesNullIds($scope.model, data.form.dashboardModuleDtos);
                 toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Updated', 'The page has been updated successfully.');
             })
         };

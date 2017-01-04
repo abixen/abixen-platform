@@ -44,6 +44,7 @@ public class ApplicationPageController {
 
         pages.forEach(page -> {
             log.debug("Page id={}, name={}", page.getId(), page.getName());
+            pageService.convertPageLayoutToJson(page);
         });
 
         return pages;
