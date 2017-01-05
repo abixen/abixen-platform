@@ -16,49 +16,50 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
-import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.web.CommentWeb;
 import com.abixen.platform.core.repository.CommentRepository;
 import com.abixen.platform.core.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Slf4j
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    @Resource
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
-    @Override
-    public Comment saveComment(Comment comment) {
-        log.debug("saveComment() - comment: " + comment);
-
-        Comment savedComment = commentRepository.save(comment);
-        return savedComment;
+    @Autowired
+    public CommentServiceImpl(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
     }
 
     @Override
-    public Comment buildComment(CommentForm commentForm) {
-        log.debug("buildComment() - commentForm: " + commentForm);
+    public CommentForm saveComment(CommentForm commentForm) {
+        log.debug("saveComment() - commentForm={}", commentForm);
 
+        Comment comment = buildComment(commentForm);
+        Comment savedComment = commentRepository.save(comment);
+        return commentForm;
+    }
+
+    @Override
+    public List<Comment> getAllComments(Long moduleId) {
+        log.debug("getAllComments() - moduleId={}", moduleId);
+
+        return commentRepository.getAllComments(moduleId);
+    }
+
+    private Comment buildComment(CommentForm commentForm) {
         Comment comment = new Comment();
         comment.setId(commentForm.getId());
         comment.setMessage(commentForm.getMessage());
-        CommentWeb parentComment  = commentForm.getParent();
-        Long parentCommentId =  parentComment != null ? parentComment.getId() : null;
+        CommentWeb parentComment = commentForm.getParent();
+        Long parentCommentId = parentComment != null ? parentComment.getId() : null;
         comment.setParent(parentCommentId != null ? commentRepository.findOne(parentCommentId) : null);
 
         return comment;
-    }
-
-    @Override
-    public List<Comment> getAllComments(Module module) {
-        log.debug("getAllCommentsByModuleId() - module: " + module);
-
-        return commentRepository.getAllComments(module);
     }
 }

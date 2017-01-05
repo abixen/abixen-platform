@@ -15,13 +15,12 @@
 package com.abixen.platform.core.repository;
 
 import com.abixen.platform.core.model.impl.Comment;
-import com.abixen.platform.core.model.impl.Module;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    @Query("FROM Comment c WHERE c.module = :module")
-    List<Comment> getAllComments(@Param("module") Module module);
+    @Query("FROM Comment c WHERE c.module.id = :moduleId")
+    List<Comment> getAllComments(@Param("moduleId") Long moduleId);
 }

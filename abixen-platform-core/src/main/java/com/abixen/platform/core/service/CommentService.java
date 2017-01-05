@@ -16,16 +16,12 @@ package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
-import com.abixen.platform.core.model.impl.Module;
 
 import java.util.List;
 
 public interface CommentService {
 
-    Comment buildComment(CommentForm commentForm);
+    CommentForm saveComment(CommentForm commentForm);
 
-    Comment saveComment(Comment comment);
-
-    List<Comment> getAllComments(Module module);
+    List<Comment> getAllComments(Long moduleId);
 }
-
