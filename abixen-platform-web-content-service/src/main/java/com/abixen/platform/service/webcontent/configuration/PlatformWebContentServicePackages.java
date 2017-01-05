@@ -29,6 +29,8 @@ public class PlatformWebContentServicePackages {
 
     public static final String REPOSITORY = MAIN + ".repository";
 
+    public static final String DOMAIN = MAIN + ".model";
+
     public static final String CLIENT = MAIN + ".client";
 
 }

@@ -47,6 +47,7 @@ public class WebContent extends AuditingModel implements WebContentWeb, Serializ
     protected String title;
 
     @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGHT, columnDefinition = "text")
+    @Lob
     protected String content;
 
     @Override

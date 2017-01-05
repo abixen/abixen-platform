@@ -29,8 +29,8 @@ public class PlatformWebContentServiceSecurityConfiguration extends WebSecurityC
         http
                 .authorizeRequests()
                 .antMatchers("/configuration").permitAll()
-                .antMatchers("/application/web-content-service/abixen/**").permitAll()
-                .antMatchers("/admin/web-content-service/abixen/**").permitAll()
+                .antMatchers("/application/web-content-service/**").permitAll()
+                .antMatchers("/admin/web-content-service/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic().disable();
