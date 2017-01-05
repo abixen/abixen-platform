@@ -14,7 +14,6 @@
 
 package com.abixen.platform.core.form;
 
-
 public interface Form {
 
 }
