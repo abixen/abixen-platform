@@ -4,3 +4,5 @@ id;acl_class_id;name;title;description
 3;3;page;Page;Page
 4;4;role;Role;Role
 5;5;user;User;User
+6;6;moduleType;Module Types;Module Types
+7;7;theme;Theme;Theme

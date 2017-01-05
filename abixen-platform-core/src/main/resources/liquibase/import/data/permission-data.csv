@@ -19,4 +19,6 @@ id;created_date;last_modified_date;description;permission_acl_class_category_id;
 16;NULL;NULL;Allows to delete a layout.;1;1;LAYOUT_DELETE;Layout Delete;NULL;NULL
 17;NULL;NULL;Allows to change permissions to a page.;1;1;LAYOUT_PERMISSION;Layout Permission;NULL;NULL
 
-
+18;NULL;NULL;Allows to view a module type on the available modules list.;6;1;MODULE_TYPE_VIEW;Module Type View;NULL;NULL
+19;NULL;NULL;Allows to add an instance of the module type.;6;1;MODULE_TYPE_ADD;Module Type Add;NULL;NULL
+20;NULL;NULL;Allows to change permissions to a module tyle.;6;1;MODULE_TYPE_PERMISSION;Module Type Permission;NULL;NULL

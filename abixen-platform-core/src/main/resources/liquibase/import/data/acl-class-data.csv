@@ -4,3 +4,5 @@ id;name
 3;com.abixen.platform.core.model.impl.Page
 4;com.abixen.platform.core.model.impl.Role
 5;com.abixen.platform.core.model.impl.User
+6;com.abixen.platform.core.model.impl.ModuleType
+7;com.abixen.platform.core.model.impl.Theme
