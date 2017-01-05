@@ -38,42 +38,6 @@ public class CommentServiceTest {
     private CommentService commentService;
 
     @Test
-    public void runAllCommentServiceTests() {
-        //Need to keep the order
-        buildComment();
-        saveComment();
-    }
-
-    public void  buildComment() {
-
-        log.debug("Test - buildComment()");
-
-        CommentForm commentForm = new CommentForm();
-        commentForm.setId(1L);
-        commentForm.setMessage("Test Comment Parent");
-        commentForm.setParent(null);
-        Comment commentFromBuild = commentService.buildComment(commentForm);
-        Comment commentFromDB  = commentService.saveComment(commentService.buildComment(commentForm));
-
-        assertNotNull(commentFromBuild);
-        assertEquals(commentForm.getId(), commentFromBuild.getId());
-        assertEquals(commentForm.getMessage(), commentFromBuild.getMessage());
-        assertEquals(commentForm.getParent(), commentFromBuild.getParent());
-
-        CommentForm commentChild = new CommentForm();
-        commentChild.setId(2L);
-        commentChild.setMessage("Test Comment child");
-        Comment parentComment = new Comment();
-        parentComment.setId(commentFromDB.getId());
-
-        commentChild.setParent(parentComment);
-        Comment childCommentFromBuild  = commentService.saveComment(commentService.buildComment(commentChild));
-
-        assertNotNull(childCommentFromBuild);
-        assertEquals(childCommentFromBuild.getParent().getId(), commentChild.getParent().getId());
-
-    }
-
     public void saveComment() {
 
         log.debug("Test - saveFirstComment()");
@@ -82,7 +46,7 @@ public class CommentServiceTest {
         commentForm.setMessage("Test Comment parent");
         commentForm.setParent(null);
 
-        Comment commentFromDB  = commentService.saveComment(commentService.buildComment(commentForm));
+        CommentForm commentFromDB = commentService.saveComment(commentForm);
 
         assertNotNull(commentFromDB);
         assertEquals(commentForm.getId(), commentFromDB.getId());
@@ -96,11 +60,10 @@ public class CommentServiceTest {
         parentComment.setId(commentFromDB.getId());
 
         commentChild.setParent(parentComment);
-        Comment childCommentFromDB  = commentService.saveComment(commentService.buildComment(commentChild));
+        CommentForm childCommentFromDB = commentService.saveComment(commentChild);
 
         assertNotNull(childCommentFromDB);
         assertEquals(childCommentFromDB.getParent().getId(), commentChild.getParent().getId());
 
     }
 }
-
