@@ -49,6 +49,7 @@
 <script src="<c:url value='/lib/angular-file-upload.min.js' />"></script>
 <script src="<c:url value='/lib/angular-cookies.min.js' />"></script>
 <script src="<c:url value='/lib/ng-scrollbar.min.js' />"></script>
+<script src="<c:url value='/application/modules/abixen/lib/xlsx.full.min.js' />"></script>
 <script src="<c:url value='/common/modules.min.js' />"></script>
 <script src="<c:url value='/admin/application.min.js' />"></script>
 <script src="<c:url value='/admin/businessintelligence/abixen/businessintelligence.min.js' />"></script>
