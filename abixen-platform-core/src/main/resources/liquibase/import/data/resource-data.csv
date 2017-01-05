@@ -8,3 +8,5 @@ id;module_type_id;relative_url;resource_page_location;resource_page;resource_typ
 7;2;/application/businessintelligence/abixen/businessintelligence.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL
 8;3;/application/businessintelligence/abixen/businessintelligence.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL
 9;3;/application/businessintelligence/abixen/lib/roundProgress.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL
+10;4;/admin /web-content-service/web-content.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL
+11;4;/admin/web-content-service/web-content.min.css;HEADER;APPLICATION;CSS;NULL;NULL;NULL;NULL

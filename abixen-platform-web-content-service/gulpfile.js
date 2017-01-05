@@ -21,11 +21,8 @@ var gulp = require('gulp'),
 gulp.task('clean', cleanTask);
 gulp.task('templates', templatesTask);
 gulp.task('adminScripts', adminScriptsTask);
-gulp.task('applicationScripts', applicationScriptsTask);
 gulp.task('adminStyles', adminStylesTask);
-gulp.task('applicationStyles', applicationStylesTask);
 gulp.task('build', buildTask);
-gulp.task('applicationLibs', applicationLibsTask);
 gulp.task('adminLibs', adminLibsTask);
 gulp.task('dev', ['build'], devTask);
 gulp.task('default', ['build']);
@@ -46,11 +43,6 @@ function templatesTask() {
 function adminScriptsTask() {
 
     return genericScriptsTask(config.scripts.adminFiles, config.dest.adminScripts);
-}
-
-function applicationScriptsTask() {
-
-    return genericScriptsTask(config.scripts.applicationFiles, config.dest.applicationScripts);
 }
 
 function genericScriptsTask(sourceScriptsPath, destinationScriptsPath) {
@@ -74,11 +66,6 @@ function adminStylesTask() {
     return genericStylesTask(config.styles.adminSass, config.dest.adminStyles);
 }
 
-function applicationStylesTask() {
-
-    return genericStylesTask(config.styles.applicationSass, config.dest.applicationStyles);
-}
-
 function genericStylesTask(sourceSassPath, destinationStylesPath) {
 
     return gulp.src(sourceSassPath)
@@ -91,21 +78,13 @@ function genericStylesTask(sourceSassPath, destinationStylesPath) {
 function buildTask(callback) {
 
     runSequence('clean',
-        'applicationLibs',
         'adminLibs',
         [
             'adminScripts',
-            'applicationScripts',
             'templates',
             'adminStyles',
-            'applicationStyles'
         ],
         callback);
-}
-
-function applicationLibsTask() {
-    return gulp.src(config.applicationLibs.files)
-        .pipe(gulp.dest(config.dest.applicationLibs));
 }
 
 function adminLibsTask() {
@@ -117,10 +96,8 @@ function devTask() {
     devMode = true;
 
     gulp.watch(config.scripts.adminFiles, ['adminScripts']);
-    gulp.watch(config.scripts.applicationFiles, ['applicationScripts']);
 
     gulp.watch(config.templates.files, ['templates']);
 
     gulp.watch(config.styles.adminWatch, ['adminStyles']);
-    gulp.watch(config.styles.applicationWatch, ['applicationStyles']);
 }
