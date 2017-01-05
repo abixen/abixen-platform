@@ -15,6 +15,7 @@
 package com.abixen.platform.core.controller.application;
 
 import com.abixen.platform.core.model.impl.Page;
+import com.abixen.platform.core.service.LayoutService;
 import com.abixen.platform.core.service.PageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,13 @@ import java.util.List;
 public class ApplicationPageController {
 
     private final PageService pageService;
+    private final LayoutService layoutService;
 
     @Autowired
-    public ApplicationPageController(PageService pageService) {
+    public ApplicationPageController(PageService pageService,
+                                     LayoutService layoutService) {
         this.pageService = pageService;
+        this.layoutService = layoutService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -44,7 +48,7 @@ public class ApplicationPageController {
 
         pages.forEach(page -> {
             log.debug("Page id={}, name={}", page.getId(), page.getName());
-            pageService.convertPageLayoutToJson(page);
+            layoutService.convertPageLayoutToJson(page);
         });
 
         return pages;

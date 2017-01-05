@@ -77,14 +77,14 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                         ))
                 );
 
-        pageService.convertPageLayoutToJson(page);
+        layoutService.convertPageLayoutToJson(page);
         return new PageModelDto(page, dashboardModuleDtos);
     }
 
     @Override
     public PageConfigurationForm createPageConfiguration(PageConfigurationForm pageConfigurationForm) {
         Page page = pageService.createPage(pageConfigurationForm);
-        pageService.convertPageLayoutToJson(page);
+        layoutService.convertPageLayoutToJson(page);
         return new PageConfigurationForm(page);
     }
 

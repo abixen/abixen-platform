@@ -37,4 +37,5 @@ public interface LayoutService {
 
     Layout changeIcon(Long id, MultipartFile iconFile) throws IOException;
 
+    void convertPageLayoutToJson(com.abixen.platform.core.model.impl.Page page);
 }

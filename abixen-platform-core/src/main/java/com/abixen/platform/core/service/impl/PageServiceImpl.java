@@ -30,7 +30,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,27 +39,31 @@ import java.util.List;
 @Service
 public class PageServiceImpl implements PageService {
 
-    @Resource
-    private PageRepository pageRepository;
-
-    @Resource
-    private ModuleRepository moduleRepository;
-
-    @Autowired
-    private AclService aclService;
+    private final AclService aclService;
+    private final DomainBuilderService domainBuilderService;
+    private final LayoutService layoutService;
+    private final ModuleService moduleService;
+    private final PageRepository pageRepository;
+    private final ModuleRepository moduleRepository;
 
     @Autowired
-    private DomainBuilderService domainBuilderService;
-
-    @Autowired
-    private LayoutService layoutService;
-
-    @Autowired
-    private ModuleService moduleService;
+    public PageServiceImpl(AclService aclService,
+                           DomainBuilderService domainBuilderService,
+                           LayoutService layoutService,
+                           ModuleService moduleService,
+                           PageRepository pageRepository,
+                           ModuleRepository moduleRepository) {
+        this.aclService = aclService;
+        this.domainBuilderService = domainBuilderService;
+        this.layoutService = layoutService;
+        this.moduleService = moduleService;
+        this.pageRepository = pageRepository;
+        this.moduleRepository = moduleRepository;
+    }
 
     @Override
     public Page buildPage(PageForm pageForm) {
-        log.debug("buildPage() - pageForm: " + pageForm);
+        log.debug("buildPage() - pageForm={}", pageForm);
         return domainBuilderService.newPageBuilderInstance()
                 .init(pageForm.getTitle(), layoutService.findLayout(pageForm.getLayout().getId()))
                 .description(pageForm.getDescription())
@@ -68,7 +71,7 @@ public class PageServiceImpl implements PageService {
     }
 
     public Page buildPage(PageConfigurationForm pageConfigurationForm) {
-        log.debug("buildPage() - pageConfigurationForm: {}", pageConfigurationForm);
+        log.debug("buildPage() - pageConfigurationForm={}", pageConfigurationForm);
         return domainBuilderService.newPageBuilderInstance()
                 .init(
                         pageConfigurationForm.getPage().getTitle(),
@@ -80,7 +83,7 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public Page createPage(Page page) {
-        log.debug("createPage() - page: " + page);
+        log.debug("createPage() - page={} ", page);
         Page createdPage = pageRepository.save(page);
         aclService.insertDefaultAcl(createdPage, new ArrayList<PermissionName>() {
             {
@@ -96,7 +99,7 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public PageForm createPage(PageForm pageForm) {
-        log.debug("updatePage() - pageForm: " + pageForm);
+        log.debug("updatePage() - pageForm={}", pageForm);
 
         Page page = buildPage(pageForm);
 
@@ -111,7 +114,7 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public PageForm updatePage(PageForm pageForm) {
-        log.debug("updatePage() - pageForm: " + pageForm);
+        log.debug("updatePage() - pageForm={}", pageForm);
 
         Page page = findPage(pageForm.getId());
         page.setTitle(pageForm.getTitle());
@@ -131,7 +134,7 @@ public class PageServiceImpl implements PageService {
     @Override
     @Transactional
     public void deletePage(Long id) {
-        log.debug("deletePage() - id: " + id);
+        log.debug("deletePage() - id={}", id);
         List<Module> pageModules = moduleService.findAllByPage(pageRepository.findOne(id));
         moduleRepository.deleteInBatch(pageModules);
         pageRepository.delete(id);
@@ -139,7 +142,7 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public org.springframework.data.domain.Page<Page> findAllPages(Pageable pageable) {
-        log.debug("findAllPages() - pageable: " + pageable);
+        log.debug("findAllPages() - pageable={}", pageable);
         return pageRepository.findAll(pageable);
     }
 
@@ -154,11 +157,5 @@ public class PageServiceImpl implements PageService {
     public Page findPage(Long id) {
         log.debug("findPage() - id: " + id);
         return pageRepository.findOne(id);
-    }
-
-    @Override
-    public void convertPageLayoutToJson(Page page) {
-        String html = page.getLayout().getContent();
-        page.getLayout().setContentAsJson(layoutService.htmlLayoutToJson(html));
     }
 }

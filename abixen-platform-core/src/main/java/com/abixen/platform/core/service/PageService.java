@@ -43,6 +43,4 @@ public interface PageService {
     List<Page> findAllPages();
 
     Page findPage(Long id);
-
-    void convertPageLayoutToJson(Page page);
 }
