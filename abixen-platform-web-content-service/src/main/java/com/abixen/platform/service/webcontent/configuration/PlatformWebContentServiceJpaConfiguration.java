@@ -37,7 +37,7 @@ public class PlatformWebContentServiceJpaConfiguration extends AbstractJapConfig
 
     @Autowired
     public PlatformWebContentServiceJpaConfiguration(DataSource dataSource, AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration) {
-        super(dataSource, platformJdbcConfiguration, PlatformWebContentServicePackages.REPOSITORY);
+        super(dataSource, platformJdbcConfiguration, PlatformWebContentServicePackages.DOMAIN);
     }
 
     public AuditorAware platformAuditorAware() {

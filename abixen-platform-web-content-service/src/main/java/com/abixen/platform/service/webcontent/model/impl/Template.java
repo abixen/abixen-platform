@@ -36,6 +36,7 @@ public class Template extends AuditingModel implements TemplateWeb, Serializable
     private Long id;
 
     @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGHT, columnDefinition = "text")
+    @Lob
     private String content;
 
     @Override

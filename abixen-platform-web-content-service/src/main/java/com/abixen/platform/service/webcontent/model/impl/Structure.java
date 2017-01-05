@@ -36,6 +36,7 @@ public class Structure extends AuditingModel implements StructureWeb, Serializab
     private Long id;
 
     @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGHT, columnDefinition = "text")
+    @Lob
     private String content;
 
     @Override
