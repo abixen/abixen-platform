@@ -41,6 +41,17 @@ zuul:
       sensitive-headers:
     # End of businessintelligence microservice
 
+    # Begin of web-content microservice
+    webContentApplication:
+      path: /application/web-content-service/**
+      url: http://localhost:9092/application/web-content-service
+      sensitive-headers:
+    webContentAdmin:
+      path: /admin/web-content-service/**
+      url: http://localhost:9092/admin/web-content-service
+      sensitive-headers:
+    # End of web-content microservice
+
     # End of custom module microservices
 
 hystrix:
@@ -89,6 +100,14 @@ zuul:
     businessintelligenceAdmin:
       path: /admin/businessintelligence/abixen/**
       url: http://localhost:9091/admin/businessintelligence/abixen
+      sensitive-headers:
+    webContentApplication:
+      path: /application/web-content-service/**
+      url: http://localhost:9092/application/web-content-service
+      sensitive-headers:
+    webContentAdmin:
+      path: /admin/web-content-service/**
+      url: http://localhost:9092/admin/web-content-service
       sensitive-headers:
 
 eureka:

@@ -28,6 +28,17 @@ zuul:
       sensitive-headers:
     # End of businessintelligence microservice
 
+    # Begin of web-content microservice
+    webContentApplication:
+      path: /application/web-content-service/**
+      url: http://${abixen.services.gateway.uri:localhost}:9092/application/web-content-service
+      sensitive-headers:
+    webContentAdmin:
+      path: /admin/web-content-service/**
+      url: http://${abixen.services.gateway.uri:localhost}:9092/admin/web-content-service
+      sensitive-headers:
+    # End of web-content microservice
+
     # End of custom module microservices
 
 hystrix:
