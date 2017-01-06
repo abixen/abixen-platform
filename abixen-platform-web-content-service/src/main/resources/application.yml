@@ -1,3 +1,23 @@
 spring:
   application:
     name: abixen-platform-web-content-service
+
+abixen:
+  platform:
+    modules:
+      -
+        name: web-content
+        title: Web content
+        description: Web content service
+        relativeInitUrl: /admin/web-content-service/html/index.html
+        staticResources:
+          -
+            relativeUrl: /admin/web-content-service/web-content.min.js
+            resourcePageLocation: BODY
+            resourcePage: APPLICATION
+            resourceType: JAVASCRIPT
+          -
+            relativeUrl: /admin/web-content-service/web-content.min.css
+            resourcePageLocation: HEADER
+            resourcePage: APPLICATION
+            resourceType: CSS
