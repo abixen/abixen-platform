@@ -16,11 +16,14 @@ package com.abixen.platform.core.service;
 
 
 import com.abixen.platform.core.model.impl.Theme;
+import java.io.IOException;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ThemeService {
 
     org.springframework.data.domain.Page<Theme> findAllThemes(Pageable pageable);
 
+    Theme uploadTheme(MultipartFile themeFile) throws IOException;
 
 }

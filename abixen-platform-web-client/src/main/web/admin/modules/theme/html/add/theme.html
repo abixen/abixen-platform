@@ -10,7 +10,7 @@
         </div>
 
         <div>
-            <input type="file" nv-file-select="" accept=".zip" uploader="themeAdd.uploader"/><br/>
+            <input type="file" nv-file-select="" name="file" accept=".zip" uploader="themeAdd.uploader"/><br/>
             <div>
                 Upload progress:
                 <div class="progress" style="">
@@ -24,7 +24,7 @@
 <div class="row bottom-navigation">
     <div class="col-sx-12 bottom-navigation-content">
         <button class="btn save-button" ng-click="themeAdd.uploader.uploadAll()"
-                ng-disabled="!themeAdd.uploader.getNotUploadedItems().length">
+                ng-disabled="!themeAdd.uploader.queue[0] != undefined">
             <i class="fa fa-floppy-o"></i><span>&nbsp;Upload</span>
         </button>
         <button class="btn cancel-button"
