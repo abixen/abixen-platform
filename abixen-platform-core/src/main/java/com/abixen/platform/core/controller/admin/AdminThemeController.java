@@ -16,11 +16,13 @@ package com.abixen.platform.core.controller.admin;
 
 import com.abixen.platform.core.model.impl.Theme;
 import com.abixen.platform.core.service.ThemeService;
+import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/api/admin/themes")
@@ -40,13 +42,15 @@ public class AdminThemeController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public org.springframework.data.domain.Page<Theme> getThemes(@PageableDefault(size = PAGEABLE_DEFAULT_PAGE_SIZE) Pageable pageable) {
         log.debug("getThemes()");
-
         org.springframework.data.domain.Page<Theme> themes = themeService.findAllThemes(pageable);
         for (Theme theme : themes) {
             log.debug("theme: " + theme);
         }
-
         return themes;
     }
 
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public Theme uploadTheme(@RequestParam("file") MultipartFile file) throws IOException {
+        return themeService.uploadTheme(file);
+    }
 }

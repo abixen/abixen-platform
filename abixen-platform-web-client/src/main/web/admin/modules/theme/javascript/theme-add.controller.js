@@ -35,12 +35,12 @@
 
         var themeAdd = this;
 
-        themeAdd.userBaseUrl = '/api/admin/themes/';
+        themeAdd.themeBaseUrl = '/api/admin/themes/';
         themeAdd.xsrfToken = $cookies.get($http.defaults.xsrfCookieName);
 
         new AbstractUploaderController(themeAdd, FileUploader, themeAdd.xsrfToken,
             {
-                uploaderUrl: themeAdd.userBaseUrl + $stateParams.id + '/theme',
+                uploaderUrl: themeAdd.themeBaseUrl + '/upload',
                 uploaderAlias: 'themeFile',
                 uploaderMethod: 'POST',
                 uploaderFunctionConfig: function (controller) {
