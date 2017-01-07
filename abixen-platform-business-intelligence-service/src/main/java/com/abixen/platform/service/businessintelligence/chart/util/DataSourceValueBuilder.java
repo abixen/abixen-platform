@@ -14,10 +14,10 @@
 
 package com.abixen.platform.service.businessintelligence.chart.util;
 
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceValue;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.data.DataValue;
 
 
-public interface DataSourceValueBuilder<E extends DataSourceValue, T> {
+public interface DataSourceValueBuilder<E extends DataValue, T> {
 
     E build();
 

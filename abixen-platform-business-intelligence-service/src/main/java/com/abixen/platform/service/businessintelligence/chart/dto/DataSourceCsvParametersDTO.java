@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.chart.dto;
 
 import com.abixen.platform.service.businessintelligence.chart.model.enumtype.DataOrientation;
 import com.abixen.platform.service.businessintelligence.chart.model.enumtype.DataValueType;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.FileDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.core.util.ModelKeys;
 
 import javax.validation.constraints.NotNull;

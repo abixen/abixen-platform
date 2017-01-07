@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.chart.repository;
 
-import com.abixen.platform.service.businessintelligence.chart.model.impl.FileDataSource;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.file.FileDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.DataSourceColumn;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

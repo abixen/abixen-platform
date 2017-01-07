@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.chart.form;
 
 import com.abixen.platform.core.form.Form;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.chart.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.chart.model.web.DatabaseConnectionWeb;
 import com.fasterxml.jackson.annotation.JsonView;

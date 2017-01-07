@@ -17,7 +17,7 @@ package com.abixen.platform.service.businessintelligence.chart.util.impl;
 import com.abixen.platform.core.util.EntityBuilder;
 import com.abixen.platform.service.businessintelligence.chart.model.enumtype.ColumnType;
 import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSetSeriesColumn;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.chart.util.DataSetSeriesColumnBuilder;
 
 

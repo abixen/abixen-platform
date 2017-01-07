@@ -15,8 +15,8 @@
 package com.abixen.platform.service.businessintelligence.chart.util;
 
 
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseConnection;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.database.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.chart.model.web.DataSourceColumnWeb;
 
 import java.util.Set;

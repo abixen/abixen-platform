@@ -12,12 +12,29 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.chart.repository;
+package com.abixen.platform.service.businessintelligence.chart.model.impl.data;
 
-import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.database.DatabaseDataSource;
-import org.springframework.data.jpa.repository.JpaRepository;
+import javax.persistence.*;
+import java.util.Date;
 
 
-public interface DatabaseDataSourceRepository extends JpaRepository<DatabaseDataSource, Long> {
+@Entity
+@Table(name = "data_value_date")
+@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
+public class DataValueDate extends DataValue<Date> {
+
+    private static final long serialVersionUID = -655187403228089633L;
+
+    @Column(name = "value", nullable = true)
+    private Date value;
+
+    public Date getValue() {
+        return value;
+    }
+
+    public void setValue(Date value) {
+        this.value = value;
+    }
+
 
 }

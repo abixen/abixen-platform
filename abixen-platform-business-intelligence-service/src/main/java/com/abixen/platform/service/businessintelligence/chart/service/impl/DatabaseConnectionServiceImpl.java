@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.chart.service.impl;
 
 import com.abixen.platform.service.businessintelligence.chart.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.chart.repository.DatabaseConnectionRepository;
 import com.abixen.platform.service.businessintelligence.chart.service.DatabaseConnectionService;
 import com.abixen.platform.service.businessintelligence.chart.service.DatabaseFactory;

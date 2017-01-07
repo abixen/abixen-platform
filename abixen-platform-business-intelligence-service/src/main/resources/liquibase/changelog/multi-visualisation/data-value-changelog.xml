@@ -6,28 +6,28 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/changelog/multi-visualisation/data-source-value-changelog.xml">
 
-    <changeSet author="MariuszKumor" id="data-source-value-v1">
-        <createTable tableName="data_source_value">
+    <changeSet author="MariuszKumor" id="data-value-v1">
+        <createTable tableName="data_value">
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="position" type="integer"/>
-            <column name="column_id" type="bigint">
+            <column name="data_column_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="id" constraintName="pk__data_source_value__id" tableName="data_source_value"/>
+        <addPrimaryKey columnNames="id" constraintName="pk__data_value__id" tableName="data_value"/>
 
-        <createIndex indexName="idx__data_source_value__column_id" tableName="data_source_value">
-            <column name="column_id"/>
+        <createIndex indexName="idx__data_value__data_column_id" tableName="data_value">
+            <column name="data_column_id"/>
         </createIndex>
 
-        <addForeignKeyConstraint baseColumnNames="column_id" baseTableName="data_source_value"
-                                 constraintName="fk__column_id__data_source_value__data_source_column"
+        <addForeignKeyConstraint baseColumnNames="data_column_id" baseTableName="data_value"
+                                 constraintName="fk__data_column_id__data_value__data_column"
                                  deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
-                                 referencedColumnNames="id" referencedTableName="data_source_column"/>
+                                 referencedColumnNames="id" referencedTableName="data_column"/>
 
     </changeSet>
 

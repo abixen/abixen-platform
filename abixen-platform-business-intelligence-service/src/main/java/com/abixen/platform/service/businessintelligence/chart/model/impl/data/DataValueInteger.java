@@ -12,15 +12,15 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.chart.model.impl;
+package com.abixen.platform.service.businessintelligence.chart.model.impl.data;
 
 import javax.persistence.*;
 
 
 @Entity
-@Table(name = "data_source_value_integer")
+@Table(name = "data_value_integer")
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-public class DataSourceValueInteger extends DataSourceValue<Integer> {
+public class DataValueInteger extends DataValue<Integer> {
 
 
     private static final long serialVersionUID = -4059158260855268805L;

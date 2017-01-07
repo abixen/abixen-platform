@@ -6,21 +6,21 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/changelog/multi-visualisation/data-source-value-string-changelog.xml">
 
-    <changeSet author="MariuszKumor" id="data-source-value-string-v1">
-        <createTable tableName="data_source_value_string">
+    <changeSet author="MariuszKumor" id="data-value-string-v1">
+        <createTable tableName="data_value_string">
             <column name="value" type="varchar(32)"/>
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="id" constraintName="pk__data_source_value_string__id"
-                       tableName="data_source_value_string"/>
+        <addPrimaryKey columnNames="id" constraintName="pk__data_value_string__id"
+                       tableName="data_value_string"/>
 
-        <addForeignKeyConstraint baseColumnNames="id" baseTableName="data_source_value_string"
-                                 constraintName="fk__id__data_source_value_string__data_source_value" deferrable="false"
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="data_value_string"
+                                 constraintName="fk__id__data_value_string__data_value" deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
-                                 referencedColumnNames="id" referencedTableName="data_source_value"/>
+                                 referencedColumnNames="id" referencedTableName="data_value"/>
 
     </changeSet>
 

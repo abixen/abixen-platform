@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.chart.util;
 
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.DataSourceColumn;
 
 
 public interface DataSourceColumnBuilder {

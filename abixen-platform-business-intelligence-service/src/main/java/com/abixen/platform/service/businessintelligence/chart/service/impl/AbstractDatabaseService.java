@@ -18,7 +18,7 @@ import com.abixen.platform.service.businessintelligence.chart.exception.DataPars
 import com.abixen.platform.service.businessintelligence.chart.exception.DataSourceValueException;
 import com.abixen.platform.service.businessintelligence.chart.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.chart.model.enumtype.DataValueType;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.chart.model.web.*;
 import org.apache.commons.lang3.NotImplementedException;
 

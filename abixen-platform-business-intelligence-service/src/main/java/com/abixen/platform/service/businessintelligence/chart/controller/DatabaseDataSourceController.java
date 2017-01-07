@@ -19,7 +19,7 @@ import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.util.ValidationUtil;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.chart.form.DatabaseDataSourceForm;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.chart.model.web.DatabaseDataSourceWeb;
 import com.abixen.platform.service.businessintelligence.chart.service.DatabaseDataSourceService;
 import com.fasterxml.jackson.annotation.JsonView;

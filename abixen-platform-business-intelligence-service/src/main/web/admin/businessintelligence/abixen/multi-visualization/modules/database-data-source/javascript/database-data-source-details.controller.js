@@ -99,6 +99,7 @@
         function getDatabaseTableColumns(databaseConnection, tableName) {
             DatabaseConnection.tableColumns({id: databaseConnection.id, tableName: tableName}, function (data) {
                 $log.log('databaseTableColumns data: ', data);
+                $log.log('databaseDataSourceDetails.entity.columns: ', databaseDataSourceDetails.entity.columns);
 
                 var tmpColumns = [];
 
@@ -108,7 +109,7 @@
 
                     if (databaseDataSourceDetails.entity.columns != null) {
                         for (var j = 0; j < databaseDataSourceDetails.entity.columns.length; j++) {
-                            if (databaseDataSourceDetails.entity.columns[j].name == data[i]) {
+                            if (databaseDataSourceDetails.entity.columns[j].name.toUpperCase() == data[i].toUpperCase()) {
                                 selected = true;
                             }
                         }

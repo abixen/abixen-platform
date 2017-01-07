@@ -12,8 +12,10 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.chart.model.impl;
+package com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.database;
 
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.DataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.chart.model.web.DatabaseDataSourceWeb;
 
 import javax.persistence.*;

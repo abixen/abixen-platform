@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/multi-visualisation/data-source-column-changelog.xml">
+
+    <changeSet author="KonradWisniewski" id="data-source-column-row-v1">
+        <createTable tableName="file_data_source_row">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="row_number" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_data_source_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__data_source_row__id" tableName="file_data_source_row"/>
+
+        <createIndex indexName="idx__file_data_source_row__file_data_source_id" tableName="file_data_source_row">
+            <column name="file_data_source_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="file_data_source_id" baseTableName="file_data_source_row"
+                                 constraintName="fk__file_data_source_id__file_data_source_row__file_data_source" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="file_data_source"/>
+
+    </changeSet>
+
+</databaseChangeLog>

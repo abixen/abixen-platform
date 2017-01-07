@@ -12,13 +12,16 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.chart.model.impl;
+package com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.file;
 
-import com.abixen.platform.service.businessintelligence.chart.model.enumtype.DataSourceFileType;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.DataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.file.DataFile;
 import com.abixen.platform.service.businessintelligence.chart.model.web.FileDataSourceWeb;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -27,18 +30,28 @@ public class FileDataSource extends DataSource implements FileDataSourceWeb, Ser
 
     private static final long serialVersionUID = -1420930478759410093L;
 
+    @ManyToOne
+    @JoinColumn(name = "file_data_id", nullable = false)
+    private DataFile dataFile;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "file_type", nullable = true)
-    private DataSourceFileType dataSourceFileType;
+    @OneToMany(mappedBy = "fileDataSource", cascade = CascadeType.ALL)
+    private Set<FileDataSourceRow> rows = new HashSet<>();
 
-
-    public DataSourceFileType getDataSourceFileType() {
-        return dataSourceFileType;
+    @Override
+    public DataFile getDataFile() {
+        return dataFile;
     }
 
-    public void setDataSourceFileType(DataSourceFileType dataSourceFileType) {
-        this.dataSourceFileType = dataSourceFileType;
+    public void setDataFile(DataFile dataFile) {
+        this.dataFile = dataFile;
     }
 
+    @Override
+    public Set<FileDataSourceRow> getRows() {
+        return rows;
+    }
+
+    public void setRows(Set<FileDataSourceRow> rows) {
+        this.rows = rows;
+    }
 }

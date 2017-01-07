@@ -14,21 +14,20 @@
 
 package com.abixen.platform.service.businessintelligence.chart.util;
 
-import com.abixen.platform.service.businessintelligence.chart.model.impl.FileDataSource;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceColumnFile;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceValue;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.file.FileDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.data.DataValue;
 
 import java.util.List;
 
 
 public interface DataSourceColumnFileBuilder extends DataSourceColumnBuilder {
 
-    DataSourceColumnFile build();
+
 
     DataSourceColumnFileBuilder create();
 
     DataSourceColumnFileBuilder dataSource(FileDataSource fileDataSource);
 
-    DataSourceColumnFileBuilder dataSourceValue(List<DataSourceValue> dataSourceValues);
+    DataSourceColumnFileBuilder dataSourceValue(List<DataValue> dataValues);
 
 }

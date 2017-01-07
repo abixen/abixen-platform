@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.chart.repository;
 
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.database.DatabaseConnection;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

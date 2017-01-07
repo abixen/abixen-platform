@@ -15,19 +15,19 @@
 package com.abixen.platform.service.businessintelligence.chart.util.impl;
 
 import com.abixen.platform.core.util.EntityBuilder;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceValueDouble;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.data.DataValueDouble;
 import com.abixen.platform.service.businessintelligence.chart.util.DataSourceValueBuilder;
 
 
-public class DataSourceValueDoubleBuilderImpl extends EntityBuilder<DataSourceValueDouble> implements DataSourceValueBuilder<DataSourceValueDouble, Double> {
+public class DataSourceValueDoubleBuilderImpl extends EntityBuilder<DataValueDouble> implements DataSourceValueBuilder<DataValueDouble, Double> {
 
     @Override
     protected void initProduct() {
-        this.product = new DataSourceValueDouble();
+        this.product = new DataValueDouble();
     }
 
     @Override
-    protected DataSourceValueDouble assembleProduct() {
+    protected DataValueDouble assembleProduct() {
         return this.product;
     }
 

@@ -12,31 +12,28 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.chart.model.impl;
-
-import com.abixen.platform.service.businessintelligence.chart.util.ModelKeys;
-import org.hibernate.validator.constraints.Length;
+package com.abixen.platform.service.businessintelligence.chart.model.impl.data;
 
 import javax.persistence.*;
 
 
 @Entity
-@Table(name = "data_source_value_string")
+@Table(name = "data_value_double")
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-public class DataSourceValueString extends DataSourceValue<String> {
+public class DataValueDouble extends DataValue<Double> {
 
-    private static final long serialVersionUID = 4578637099421599970L;
 
-    @Length(min = 0, max = ModelKeys.DATASOURCE_VALUE_STRING_MAX_LENGTH)
-    @Column(name = "value", length = ModelKeys.DATASOURCE_VALUE_STRING_MAX_LENGTH, nullable = true)
-    private String value;
+    private static final long serialVersionUID = -1434303122608329824L;
 
-    public String getValue() {
+    @Column(name = "value", nullable = true)
+    private Double value;
+
+    public Double getValue() {
         return value;
     }
 
-    @Override
-    public void setValue(String value) {
+    public void setValue(Double value) {
         this.value = value;
     }
+
 }
