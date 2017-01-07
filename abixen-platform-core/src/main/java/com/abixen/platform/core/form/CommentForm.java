@@ -28,7 +28,6 @@ import javax.validation.constraints.NotNull;
 public class CommentForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
-    @NotNull
     private Long id;
 
     @JsonView(WebModelJsonSerialize.class)
