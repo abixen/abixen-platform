@@ -16,7 +16,7 @@ package com.abixen.platform.core.controller;
 
 import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.service.PermissionService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,12 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/admin/permissions")
 public class PermissionController {
-
-    private static Logger log = Logger.getLogger(PermissionController.class.getName());
 
     @Autowired
     private PermissionService permissionService;

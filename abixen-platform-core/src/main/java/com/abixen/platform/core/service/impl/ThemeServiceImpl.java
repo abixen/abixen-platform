@@ -18,7 +18,7 @@ import com.abixen.platform.core.configuration.properties.AbstractPlatformResourc
 import com.abixen.platform.core.model.impl.Theme;
 import com.abixen.platform.core.repository.ThemeRepository;
 import com.abixen.platform.core.service.*;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -35,12 +35,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.annotation.Resource;
 
-
+@Slf4j
 @Transactional
 @Service
 public class ThemeServiceImpl implements ThemeService {
-
-    private static Logger log = Logger.getLogger(ThemeServiceImpl.class.getName());
 
     private static final int BUFFER_SIZE = 4096;
 

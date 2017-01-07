@@ -19,7 +19,7 @@ import com.abixen.platform.core.service.MailService;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -35,11 +35,9 @@ import javax.servlet.ServletContext;
 import java.io.File;
 import java.util.Map;
 
-
+@Slf4j
 @Service
 public class MailServiceImpl implements MailService, ServletContextAware {
-
-    private static Logger log = Logger.getLogger(MailServiceImpl.class.getName());
 
     @Autowired
     private JavaMailSender mailSender;

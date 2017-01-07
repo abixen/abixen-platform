@@ -15,7 +15,7 @@
 package com.abixen.platform.core.repository;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.PropertySource;
@@ -24,13 +24,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
-
+@Slf4j
 @PropertySource("classpath:application.yml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
 public class RepositoryTest {
 
-    static Logger log = Logger.getLogger(RepositoryTest.class.getName());
 
     @Resource
     private PermissionRepository permissionRepository;

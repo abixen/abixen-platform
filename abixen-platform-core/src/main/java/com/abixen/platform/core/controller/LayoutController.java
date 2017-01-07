@@ -16,7 +16,7 @@ package com.abixen.platform.core.controller;
 
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.service.LayoutService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,10 +29,9 @@ import java.io.IOException;
 
 
 //FIXME
+@Slf4j
 @RestController
 public class LayoutController {
-
-    private static Logger log = Logger.getLogger(LayoutController.class.getName());
 
     @Autowired
     private LayoutService layoutService;

@@ -24,7 +24,7 @@ import com.abixen.platform.core.rabbitmq.message.RabbitMQRemoveModuleMessage;
 import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.service.*;
 import com.abixen.platform.core.util.ModuleBuilder;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,11 +32,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 @Service
 public class ModuleServiceImpl implements ModuleService {
-
-    private final Logger log = Logger.getLogger(ModuleServiceImpl.class.getName());
 
     private final ModuleRepository moduleRepository;
 

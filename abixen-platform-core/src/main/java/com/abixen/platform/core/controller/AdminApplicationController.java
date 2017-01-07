@@ -14,18 +14,16 @@
 
 package com.abixen.platform.core.controller;
 
-import org.apache.log4j.Logger;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class AdminApplicationController {
-
-    private static Logger log = Logger.getLogger(AdminApplicationController.class.getName());
-
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String renderIndex() {

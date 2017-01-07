@@ -24,7 +24,7 @@ import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.util.ValidationUtil;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,12 +34,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/admin/modules")
 public class ModuleController {
-
-    private static Logger log = Logger.getLogger(ModuleController.class.getName());
 
     @Autowired
     private SecurityService securityService;

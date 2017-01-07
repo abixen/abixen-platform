@@ -20,7 +20,7 @@ import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.model.enumtype.UserGender;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.util.UserBuilder;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +40,10 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
+@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
 public class UserServiceTest {
-
-    static Logger log = Logger.getLogger(UserServiceTest.class.getName());
 
     @Autowired
     private UserService userService;

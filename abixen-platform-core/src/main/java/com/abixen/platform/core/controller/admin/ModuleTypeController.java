@@ -18,7 +18,7 @@ import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.service.ModuleTypeService;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,12 +28,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/admin/module-types")
 public class ModuleTypeController {
-
-    private static Logger log = Logger.getLogger(ModuleTypeController.class.getName());
 
     @Autowired
     private ModuleTypeService moduleTypeService;

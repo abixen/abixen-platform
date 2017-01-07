@@ -28,8 +28,8 @@ import com.abixen.platform.core.service.PasswordGeneratorService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.UserBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileExistsException;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,11 +45,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 
-
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
-
-    private static Logger log = Logger.getLogger(UserServiceImpl.class.getName());
 
     private static final int GENERATOR_LENGTH = 12;
     private static final int GENERATOR_NO_OF_CAPS_ALPHA = 2;
