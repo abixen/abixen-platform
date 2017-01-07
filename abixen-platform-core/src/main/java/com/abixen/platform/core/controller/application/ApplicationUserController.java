@@ -19,7 +19,6 @@ import com.abixen.platform.core.controller.common.AbstractUserController;
 import com.abixen.platform.core.service.MailService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.UserService;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,22 +28,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/application/users")
 public class ApplicationUserController extends AbstractUserController {
 
-    private final Logger log = Logger.getLogger(ApplicationUserController.class.getName());
-
-    private final UserService userService;
-
-    private final MailService mailService;
-
-    private final RoleService roleService;
-
-    private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
-
     @Autowired
-    public ApplicationUserController(UserService userService, MailService mailService, RoleService roleService, AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
+    public ApplicationUserController(UserService userService,
+                                     MailService mailService,
+                                     RoleService roleService,
+                                     AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
         super(userService, mailService, roleService, platformResourceConfigurationProperties);
-        this.userService = userService;
-        this.mailService = mailService;
-        this.roleService = roleService;
-        this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
     }
 }

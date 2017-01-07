@@ -24,7 +24,7 @@ import com.abixen.platform.core.service.MailService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.ValidationUtil;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,27 +36,17 @@ import javax.validation.Valid;
 import java.util.List;
 
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/admin/users")
 public class AdminUserController extends AbstractUserController {
 
-    private static Logger log = Logger.getLogger(AdminUserController.class.getName());
-
     private final UserService userService;
-
-    private final MailService mailService;
-
-    private final RoleService roleService;
-
-    private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     @Autowired
     public AdminUserController(UserService userService, MailService mailService, RoleService roleService, AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
         super(userService, mailService, roleService, platformResourceConfigurationProperties);
         this.userService = userService;
-        this.mailService = mailService;
-        this.roleService = roleService;
-        this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)

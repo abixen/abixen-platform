@@ -28,8 +28,8 @@ import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.ValidationUtil;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -50,9 +50,8 @@ import java.util.List;
 import java.util.Map;
 
 
+@Slf4j
 public abstract class AbstractUserController {
-
-    private final Logger log = Logger.getLogger(AbstractUserController.class.getName());
 
     private final UserService userService;
 
