@@ -17,15 +17,12 @@ package com.abixen.platform.core.service.impl;
 import com.abixen.platform.core.service.DomainBuilderService;
 import com.abixen.platform.core.util.*;
 import com.abixen.platform.core.util.impl.*;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-
+@Slf4j
 @Service
 public class DomainBuilderServiceImpl implements DomainBuilderService {
-
-    private final Logger log = Logger.getLogger(DomainBuilderServiceImpl.class.getName());
-
 
     @Override
     public UserBuilder newUserBuilderInstance() {

@@ -17,18 +17,17 @@ package com.abixen.platform.core.controller.admin;
 import com.abixen.platform.core.model.impl.Theme;
 import com.abixen.platform.core.service.ThemeService;
 import java.io.IOException;
-import org.apache.log4j.Logger;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/admin/themes")
 public class AdminThemeController {
-
-    private final Logger log = Logger.getLogger(AdminThemeController.class.getName());
 
     private static final int PAGEABLE_DEFAULT_PAGE_SIZE = 100;
 

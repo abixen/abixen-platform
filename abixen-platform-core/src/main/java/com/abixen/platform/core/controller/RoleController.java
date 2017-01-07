@@ -24,7 +24,7 @@ import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.service.PermissionService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.util.ValidationUtil;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,12 +37,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/admin/roles")
 public class RoleController {
 
-    private static Logger log = Logger.getLogger(RoleController.class.getName());
 
     @Autowired
     private RoleService roleService;

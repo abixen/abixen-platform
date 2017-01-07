@@ -16,15 +16,14 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.rabbitmq.message.RabbitMQMessage;
 import com.abixen.platform.core.service.RabbitMQOperations;
-import org.apache.log4j.Logger;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;
 import org.springframework.stereotype.Service;
 
-
+@Slf4j
 @Service
 public class RabbitMQOperationsMockupImpl implements RabbitMQOperations {
-
-    private final Logger log = Logger.getLogger(ModuleServiceImpl.class.getName());
 
     @Override
     public void convertAndSend(String routingKey, RabbitMQMessage rabbitMQMessage) throws AmqpException {

@@ -17,14 +17,12 @@ package com.abixen.platform.core.security;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 
-
+@Slf4j
 public class PlatformAuditorAware implements AuditorAware<User> {
-
-    private static Logger log = Logger.getLogger(PlatformAuditorAware.class.getName());
 
     @Autowired
     private UserService userService;

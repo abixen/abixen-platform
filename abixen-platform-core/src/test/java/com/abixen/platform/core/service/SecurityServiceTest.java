@@ -21,7 +21,7 @@ import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.repository.PageRepository;
 import com.abixen.platform.core.repository.UserRepository;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +37,8 @@ import static org.junit.Assert.assertTrue;
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
+@Slf4j
 public class SecurityServiceTest {
-
-    static Logger log = Logger.getLogger(SecurityServiceTest.class.getName());
 
     @Resource
     private UserRepository userRepository;

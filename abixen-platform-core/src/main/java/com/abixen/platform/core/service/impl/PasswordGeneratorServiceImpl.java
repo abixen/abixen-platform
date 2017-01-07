@@ -15,16 +15,14 @@
 package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.service.PasswordGeneratorService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
-
+@Slf4j
 @Service
 public class PasswordGeneratorServiceImpl implements PasswordGeneratorService {
-
-    private static Logger log = Logger.getLogger(PasswordGeneratorServiceImpl.class.getName());
 
     private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";

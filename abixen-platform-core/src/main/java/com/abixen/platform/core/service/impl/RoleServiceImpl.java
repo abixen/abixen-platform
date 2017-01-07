@@ -23,7 +23,7 @@ import com.abixen.platform.core.service.DomainBuilderService;
 import com.abixen.platform.core.service.PermissionService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.util.RoleBuilder;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,11 +32,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
-
+@Slf4j
 @Service
 public class RoleServiceImpl implements RoleService {
-
-    private static Logger log = Logger.getLogger(RoleServiceImpl.class.getName());
 
     @Resource
     private RoleRepository roleRepository;

@@ -18,7 +18,7 @@ import com.abixen.platform.core.dto.PageModelDto;
 import com.abixen.platform.core.form.PageForm;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.model.impl.Page;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,9 +33,8 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
+@Slf4j
 public class PageConfigurationServiceTest {
-
-    static Logger log = Logger.getLogger(PageConfigurationServiceTest.class);
 
     @Autowired
     private PageConfigurationService pageConfigurationService;

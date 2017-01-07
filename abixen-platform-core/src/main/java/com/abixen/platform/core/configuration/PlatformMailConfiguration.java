@@ -15,7 +15,7 @@
 package com.abixen.platform.core.configuration;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformMailConfigurationProperties;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,11 +24,9 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
-
+@Slf4j
 @Configuration
 public class PlatformMailConfiguration {
-
-    private static Logger log = Logger.getLogger(PlatformMailConfiguration.class.getName());
 
     @Autowired
     private AbstractPlatformMailConfigurationProperties platformMailConfigurationProperties;

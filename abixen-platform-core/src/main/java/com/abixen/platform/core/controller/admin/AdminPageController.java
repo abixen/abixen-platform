@@ -24,7 +24,7 @@ import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.core.service.PageService;
 import com.abixen.platform.core.util.ValidationUtil;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -36,12 +36,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/admin/pages")
 public class AdminPageController extends AbstractPageController {
-
-    private final Logger log = Logger.getLogger(AdminPageController.class.getName());
 
     private static final int PAGEABLE_DEFAULT_PAGE_SIZE = 100;
 

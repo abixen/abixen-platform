@@ -25,7 +25,7 @@ import com.abixen.platform.core.repository.ModuleTypeRepository;
 import com.abixen.platform.core.service.DomainBuilderService;
 import com.abixen.platform.core.service.ModuleTypeService;
 import com.abixen.platform.core.service.ResourceService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,12 +35,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 @Transactional
 @Service
 public class ModuleTypeServiceImpl implements ModuleTypeService {
-
-    private final Logger log = Logger.getLogger(ModuleTypeServiceImpl.class.getName());
 
     private final ModuleTypeRepository moduleTypeRepository;
 
