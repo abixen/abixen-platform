@@ -35,7 +35,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableCircuitBreaker
 @Configuration
 public class PlatformGatewayApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(PlatformGatewayApplication.class, args);
     }
