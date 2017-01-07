@@ -88,3 +88,20 @@ This library is distributed in the hope that it will be useful, but WITHOUT
 ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
 details.
+
+
+#Faq
+1) I getting "[ERROR] bower angular-svg-round-progressbar#0.3.8 ENOGIT git is not installed or not in the PATH when try start abixen-platform-modules". Why?
+
+    You get this error, becouse you don't have installed git or your configuration of path (on Windows) is default.
+    On Windows you should have in the path two variable "<You path to git folder>\Git\cmd" (is default) and "<You path to git folder>\Git\bin" (it isn't default).
+    Add not default variable and should work. Please remember if you changing path when you IDE is started then you need to restart IDE.
+    
+2) Abixen-platform-gateway can't save data in redis.
+
+    Please run redis server with administrator right.
+    
+3) I done some many good works on front-end side in abixen-platform-web-client and I lost it.
+
+    Probable, you work in "resource/static" folder. This folder is target for grunt build task.
+    Every change should be done in "web" folder. Files from this folder will be auto builded to "static" folder
