@@ -14,11 +14,19 @@
 
 package com.abixen.platform.core.repository;
 
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Page;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
+
+import java.util.List;
 
 
-public interface PageRepository extends JpaRepository<Page, Long> {
+public interface PageRepository extends PlatformJpaRepository<Page, Long> {
 
     Page findByName(String name);
+
+    default List<Page> findAllSecured(PermissionName permissionName) {
+        String query = "FROM Page p WHERE #{securityFilter}";
+        return findAllSecured(query, "p", Page.class.getCanonicalName(), permissionName);
+    }
 }

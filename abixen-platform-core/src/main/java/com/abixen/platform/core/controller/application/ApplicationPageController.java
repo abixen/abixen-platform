@@ -15,8 +15,11 @@
 package com.abixen.platform.core.controller.application;
 
 import com.abixen.platform.core.model.impl.Page;
+import com.abixen.platform.core.model.web.PageWeb;
 import com.abixen.platform.core.service.LayoutService;
 import com.abixen.platform.core.service.PageService;
+import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,8 +43,9 @@ public class ApplicationPageController {
         this.layoutService = layoutService;
     }
 
+    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Page> getPages() {
+    public List<PageWeb> getPages() {
         log.debug("getPages()");
 
         List<Page> pages = pageService.findAllPages();
@@ -51,7 +55,7 @@ public class ApplicationPageController {
             layoutService.convertPageLayoutToJson(page);
         });
 
-        return pages;
+        return (List<PageWeb>) (List<?>) pages;
     }
 
 }

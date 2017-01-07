@@ -149,7 +149,7 @@ public class PageServiceImpl implements PageService {
     @Override
     public List<Page> findAllPages() {
         log.debug("findAllPages()");
-        return pageRepository.findAll();
+        return pageRepository.findAllSecured(PermissionName.PAGE_VIEW);
     }
 
     @PostAuthorize("hasPermission(returnObject, 'PAGE_VIEW')")
