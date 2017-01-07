@@ -7,6 +7,10 @@
         <button type="button" ng-click="moduleTypeList.reload()" ng-disabled="!moduleTypeList.listGridConfig.selectedEntity"
                 class="btn btn-warning pull-left">Reload module configuration
         </button>
+        <span class="buttons-separator"></span>
+        <button type="button" ui-sref="application.moduleTypes.permissions({id:moduleTypeList.listGridConfig.selectedEntity.id})"
+                ng-disabled="!moduleTypeList.listGridConfig.selectedEntity" class="btn btn-default pull-left">Permissions
+        </button>
     </div>
 </div>
 <div class="row grid-row">

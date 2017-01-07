@@ -217,22 +217,14 @@
 
                     dashboard.widget(moduleType.name, {
                         id: null,
+                        serviceId: moduleType.serviceId,
                         title: moduleType.title, //'Chart Module',
                         description: moduleType.description,//'Displays a list of links',
-                        templateUrl: moduleType.initUrl, //'/application/modules/abixen/chart/html/index.html',
-                        //controller: 'ChartModuleController',
-                        //controllerAs: 'ChartModuleController',
+                        templateUrl: moduleType.initUrl!= null ? moduleType.initUrl : '/application/modules/dashboard/html/widget-permission-denied.html',
                         edit: {
-                            //templateUrl: '/application/modules/abixen/chart/html/configurationView.html',
                             reload: false
-                            //controller: 'linklistEditCtrl'
                         },
-                        moduleType: moduleType/*{
-                         id: 1,
-                         name: 'chart',
-                         title: 'Chart visualization',
-                         description: 'This is chart visualization module'
-                         }*/
+                        moduleType: moduleType
                     })
                 }
 

@@ -347,16 +347,21 @@ angular.module('adf')
                     $scope.addWidgetDialog = function () {
                         var addScope = $scope.$new();
                         var model = $scope.model;
-                        var widgets;
+                        var widgets = {};
                         if (angular.isFunction(widgetFilter)) {
-                            widgets = {};
                             angular.forEach(dashboard.widgets, function (widget, type) {
                                 if (widgetFilter(widget, type, model)) {
-                                    widgets[type] = widget;
+                                    if(widget.serviceId != null) {
+                                        widgets[type] = widget;
+                                    }
                                 }
                             });
                         } else {
-                            widgets = dashboard.widgets;
+                            angular.forEach(dashboard.widgets, function (widget, type) {
+                                    if(widget.serviceId != null) {
+                                        widgets[type] = widget;
+                                    }
+                            });
                         }
                         addScope.widgets = widgets;
                         var opts = {

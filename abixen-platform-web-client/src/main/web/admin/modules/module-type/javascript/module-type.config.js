@@ -36,6 +36,11 @@
                 templateUrl: '/admin/modules/module-type/html/list.html',
                 controller: 'ModuleTypeListController',
                 controllerAs: 'moduleTypeList'
+            })
+            .state('application.moduleTypes.permissions', {
+                url: '/permissions/:id',
+                templateUrl: '/admin/modules/common/html/permissions.html',
+                controller: 'ModuleTypePermissionsController'
             });
     }
 })();

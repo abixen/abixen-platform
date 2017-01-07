@@ -30,3 +30,6 @@ id;acl_class_id;object_id
 14;2;12
 #Module instance with id equals 13
 15;2;13
+
+#Module instance with id equals 13
+16;6;1

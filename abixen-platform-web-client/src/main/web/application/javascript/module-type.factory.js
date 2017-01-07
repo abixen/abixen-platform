@@ -24,7 +24,7 @@
 
     function ModuleType($resource) {
 
-        return $resource('/api/user/pages/module-types', {}, {
+        return $resource('/api/application/module-types', {}, {
             query: {method: 'GET', isArray: true}
         });
     }

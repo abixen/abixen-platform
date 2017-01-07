@@ -12,12 +12,10 @@
  * details.
  */
 
-package com.abixen.platform.core.controller;
+package com.abixen.platform.core.controller.application;
 
-import com.abixen.platform.core.model.impl.Page;
+import com.abixen.platform.core.dto.ModuleTypeDto;
 import com.abixen.platform.core.service.ModuleTypeService;
-import com.abixen.platform.core.service.PageService;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,27 +23,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
 @RestController
-@RequestMapping(value = "/api/user/pages")
-public class UserPageController {
-
-    private final Logger log = Logger.getLogger(UserPageController.class.getName());
-
-    private final PageService pageService;
+@RequestMapping(value = "/api/application/module-types")
+public class ApplicationModuleTypeController {
 
     private final ModuleTypeService moduleTypeService;
 
     @Autowired
-    public UserPageController(PageService pageService, ModuleTypeService moduleTypeService) {
-        this.pageService = pageService;
+    public ApplicationModuleTypeController(ModuleTypeService moduleTypeService) {
         this.moduleTypeService = moduleTypeService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Page> getPages() {
-        log.debug("getPages()");
-        List<Page> pages = pageService.findAllPages();
-        return pages;
+    public List<ModuleTypeDto> getModuleTypes() {
+        return moduleTypeService.findAllModuleTypes();
     }
-
 }

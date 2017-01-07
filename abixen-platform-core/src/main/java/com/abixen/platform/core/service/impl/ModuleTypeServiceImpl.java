@@ -16,7 +16,9 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.client.ModulesConfigurationProperties;
 import com.abixen.platform.core.configuration.properties.RegisteredModuleServicesConfigurationProperties;
+import com.abixen.platform.core.dto.ModuleTypeDto;
 import com.abixen.platform.core.integration.ModuleConfigurationIntegrationClient;
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.model.impl.Resource;
 import com.abixen.platform.core.repository.ModuleTypeRepository;
@@ -70,9 +72,23 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
     }
 
     @Override
-    public List<ModuleType> findAllModuleTypes() {
+    public List<ModuleTypeDto> findAllModuleTypes() {
         log.debug("findAllModuleTypes()");
-        return moduleTypeRepository.findAll();
+
+        List<ModuleType> securityFilteredModuleTypes = moduleTypeRepository.findAllSecured(PermissionName.MODULE_TYPE_VIEW);
+        List<ModuleType> allModuleTypes = moduleTypeRepository.findAll();
+
+        List<ModuleTypeDto> moduleTypeDtos = new ArrayList<>();
+
+        allModuleTypes.forEach(moduleType -> {
+            if (securityFilteredModuleTypes.contains(moduleType)) {
+                moduleTypeDtos.add(new ModuleTypeDto(moduleType));
+            } else {
+                moduleTypeDtos.add(new ModuleTypeDto(moduleType.getId(), moduleType.getName()));
+            }
+        });
+
+        return moduleTypeDtos;
     }
 
     @Override

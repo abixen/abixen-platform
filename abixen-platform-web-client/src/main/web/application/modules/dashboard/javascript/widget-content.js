@@ -28,8 +28,6 @@ angular.module('adf')
     .directive('adfWidgetContent', ['$log', '$q', '$sce', '$http', '$templateCache', '$compile', '$controller', '$injector', '$rootScope', 'dashboard', '$timeout', '$stateParams',
         function ($log, $q, $sce, $http, $templateCache, $compile, $controller, $injector, $rootScope, dashboard, $timeout, $stateParams) {
 
-            $log.log('adf adfWidgetContent +++ !!!!!!!!!');
-
             function parseUrl(url) {
                 var parsedUrl = url;
                 if (url.indexOf('{widgetsPath}') >= 0) {

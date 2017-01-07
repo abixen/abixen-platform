@@ -14,11 +14,19 @@
 
 package com.abixen.platform.core.repository;
 
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.ModuleType;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
+
+import java.util.List;
 
 
-public interface ModuleTypeRepository extends JpaRepository<ModuleType, Long> {
+public interface ModuleTypeRepository extends PlatformJpaRepository<ModuleType, Long> {
 
     ModuleType findByName(String name);
+
+    default List<ModuleType> findAllSecured(PermissionName permissionName) {
+        String query = "FROM ModuleType mt WHERE #{securityFilter}";
+        return findAllSecured(query, "mt", ModuleType.class.getCanonicalName(), permissionName);
+    }
 }
