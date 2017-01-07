@@ -15,8 +15,8 @@
 package com.abixen.platform.service.businessintelligence.chart.service.impl;
 
 import com.abixen.platform.service.businessintelligence.chart.form.FileDataSourceForm;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceColumn;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.FileDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.chart.repository.FileDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.chart.service.DomainBuilderService;
 import com.abixen.platform.service.businessintelligence.chart.service.FileDataSourceService;

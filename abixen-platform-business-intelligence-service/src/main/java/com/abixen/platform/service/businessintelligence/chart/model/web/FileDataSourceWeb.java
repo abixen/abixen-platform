@@ -14,17 +14,18 @@
 
 package com.abixen.platform.service.businessintelligence.chart.model.web;
 
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.abixen.platform.service.businessintelligence.chart.model.enumtype.DataSourceFileType;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.FileDataSource;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.file.FileDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.file.FileDataSourceRow;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.file.DataFile;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import java.util.Set;
 
 
 @JsonDeserialize(as = FileDataSource.class)
 public interface FileDataSourceWeb extends DataSourceWeb {
 
-    @JsonView(WebModelJsonSerialize.class)
-    DataSourceFileType getDataSourceFileType();
+    Set<FileDataSourceRow> getRows();
 
+    DataFile getDataFile();
 }

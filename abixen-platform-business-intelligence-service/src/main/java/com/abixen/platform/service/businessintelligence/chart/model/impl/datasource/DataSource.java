@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.chart.model.impl;
+package com.abixen.platform.service.businessintelligence.chart.model.impl.datasource;
 
 import com.abixen.platform.core.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.chart.model.enumtype.DataSourceType;

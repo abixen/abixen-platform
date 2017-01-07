@@ -50,11 +50,6 @@ public class DomainBuilderServiceImpl implements DomainBuilderService {
     }
 
     @Override
-    public DataSourceColumnFileBuilder newDataSourceColumnFileBuilderInstance() {
-        return new DataSourceColumnFileBuilderImpl();
-    }
-
-    @Override
     public DataSourceColumnBuilder newDataSourceColumnBuilderInstance() {
         return new DataSourceColumnBuilderImpl();
     }

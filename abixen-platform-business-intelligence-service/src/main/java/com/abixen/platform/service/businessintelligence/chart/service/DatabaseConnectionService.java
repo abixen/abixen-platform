@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.chart.service;
 
 import com.abixen.platform.service.businessintelligence.chart.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.database.DatabaseConnection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

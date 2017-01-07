@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.chart.service;
 
 
-import com.abixen.platform.service.businessintelligence.chart.model.impl.FileDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.file.FileDataSource;
 
 
 public interface DataSourceImportDataService<T> {

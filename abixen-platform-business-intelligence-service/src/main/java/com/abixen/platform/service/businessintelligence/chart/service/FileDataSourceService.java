@@ -15,8 +15,8 @@
 package com.abixen.platform.service.businessintelligence.chart.service;
 
 import com.abixen.platform.service.businessintelligence.chart.form.FileDataSourceForm;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceColumn;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.FileDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.file.FileDataSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

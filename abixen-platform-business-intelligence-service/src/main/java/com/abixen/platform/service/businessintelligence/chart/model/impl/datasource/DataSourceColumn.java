@@ -12,22 +12,19 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.chart.model.impl;
+package com.abixen.platform.service.businessintelligence.chart.model.impl.datasource;
 
 import com.abixen.platform.core.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.chart.model.web.DataSourceColumnWeb;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
 @Entity
 @Table(name = "data_source_column")
 @SequenceGenerator(sequenceName = "data_source_column_seq", name = "data_source_column_seq", allocationSize = 1)
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type")
 public class DataSourceColumn implements DataSourceColumnWeb, Serializable {
 
     private static final long serialVersionUID = 8078651909903181737L;
@@ -48,9 +45,9 @@ public class DataSourceColumn implements DataSourceColumnWeb, Serializable {
 
     @JsonIgnore
     @ManyToOne
-    @NotNull
-    @JoinColumn(name = "data_source_id", nullable = false)
+    @JoinColumn(name = "data_source_id")
     private DataSource dataSource;
+
 
     @Override
     public Long getId() {
@@ -86,5 +83,6 @@ public class DataSourceColumn implements DataSourceColumnWeb, Serializable {
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
 
 }

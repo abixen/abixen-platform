@@ -17,7 +17,7 @@ package com.abixen.platform.service.businessintelligence.chart.util.impl;
 import com.abixen.platform.core.util.EntityBuilder;
 import com.abixen.platform.service.businessintelligence.chart.model.enumtype.DataSourceFileType;
 import com.abixen.platform.service.businessintelligence.chart.model.enumtype.DataSourceType;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.FileDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.chart.util.FileDataSourceBuilder;
 
 
@@ -33,7 +33,6 @@ public class FileDataSourceBuilderImpl extends EntityBuilder<FileDataSource> imp
     public FileDataSourceBuilder base(String name, String description, DataSourceFileType dataSourceFileType) {
         this.product.setName(name);
         this.product.setDescription(description);
-        this.product.setDataSourceFileType(dataSourceFileType);
         this.product.setDataSourceType(DataSourceType.FILE);
         return this;
     }

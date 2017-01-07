@@ -30,9 +30,6 @@ public interface DomainBuilderService {
 
     DataSetSeriesColumnBuilder newDataSetSeriesColumnBuilderInstance();
 
-    //todo change on generics
-    DataSourceColumnFileBuilder newDataSourceColumnFileBuilderInstance();
-
     DataSourceColumnBuilder newDataSourceColumnBuilderInstance();
 
     DataSourceValueBuilder newDataSourceValueBuilderInstance(DataValueType dataValueType);

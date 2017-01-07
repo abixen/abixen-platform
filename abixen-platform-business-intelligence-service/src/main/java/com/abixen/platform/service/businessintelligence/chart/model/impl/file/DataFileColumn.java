@@ -12,29 +12,18 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.chart.model.impl;
+package com.abixen.platform.service.businessintelligence.chart.model.impl.file;
+
+import com.abixen.platform.service.businessintelligence.chart.model.impl.data.DataColumn;
 
 import javax.persistence.*;
-import java.util.Date;
-
 
 @Entity
-@Table(name = "data_source_value_date")
-@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-public class DataSourceValueDate extends DataSourceValue<Date> {
+@DiscriminatorValue("FILE")
+public class DataFileColumn extends DataColumn {
 
-    private static final long serialVersionUID = -655187403228089633L;
-
-    @Column(name = "value", nullable = true)
-    private Date value;
-
-    public Date getValue() {
-        return value;
-    }
-
-    public void setValue(Date value) {
-        this.value = value;
-    }
-
+    @OneToOne
+    @JoinColumn(name = "data_file_id", nullable = false)
+    private DataFile dataFile;
 
 }

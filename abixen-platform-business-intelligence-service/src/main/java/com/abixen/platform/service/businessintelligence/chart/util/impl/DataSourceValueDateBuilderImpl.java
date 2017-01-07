@@ -15,21 +15,21 @@
 package com.abixen.platform.service.businessintelligence.chart.util.impl;
 
 import com.abixen.platform.core.util.EntityBuilder;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceValueDate;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.data.DataValueDate;
 import com.abixen.platform.service.businessintelligence.chart.util.DataSourceValueBuilder;
 
 import java.util.Date;
 
 
-public class DataSourceValueDateBuilderImpl extends EntityBuilder<DataSourceValueDate> implements DataSourceValueBuilder<DataSourceValueDate, Date> {
+public class DataSourceValueDateBuilderImpl extends EntityBuilder<DataValueDate> implements DataSourceValueBuilder<DataValueDate, Date> {
 
     @Override
     protected void initProduct() {
-        this.product = new DataSourceValueDate();
+        this.product = new DataValueDate();
     }
 
     @Override
-    protected DataSourceValueDate assembleProduct() {
+    protected DataValueDate assembleProduct() {
         return this.product;
     }
 

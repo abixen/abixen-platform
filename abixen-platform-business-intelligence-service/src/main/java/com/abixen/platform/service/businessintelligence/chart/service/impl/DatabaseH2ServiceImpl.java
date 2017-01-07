@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.chart.service.impl;
 
 import com.abixen.platform.service.businessintelligence.chart.exception.DatabaseConnectionException;
 import com.abixen.platform.service.businessintelligence.chart.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.chart.service.DatabaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;

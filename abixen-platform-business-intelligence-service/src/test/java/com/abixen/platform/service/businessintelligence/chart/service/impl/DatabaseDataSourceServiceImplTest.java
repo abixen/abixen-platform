@@ -17,9 +17,9 @@
 import com.abixen.platform.service.businessintelligence.chart.form.DatabaseDataSourceForm;
 import com.abixen.platform.service.businessintelligence.chart.model.enumtype.DataSourceType;
 import com.abixen.platform.service.businessintelligence.chart.model.enumtype.DatabaseType;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DataSourceColumn;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseConnection;
-import com.abixen.platform.service.businessintelligence.chart.model.impl.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.chart.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.chart.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.chart.repository.DataSourceColumnRepository;
 import com.abixen.platform.service.businessintelligence.chart.repository.DatabaseConnectionRepository;
@@ -27,7 +27,6 @@ import com.abixen.platform.service.businessintelligence.chart.repository.Databas
 import com.abixen.platform.service.businessintelligence.chart.service.DatabaseConnectionService;
 import com.abixen.platform.service.businessintelligence.chart.service.DatabaseDataSourceService;
 import com.abixen.platform.service.businessintelligence.chart.service.DomainBuilderService;
-import com.abixen.platform.service.businessintelligence.chart.service.impl.DomainBuilderServiceImpl;
 import com.abixen.platform.service.businessintelligence.configuration.PlatformModuleConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
