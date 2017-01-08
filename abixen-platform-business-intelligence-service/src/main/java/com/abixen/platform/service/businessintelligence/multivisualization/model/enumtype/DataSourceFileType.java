@@ -12,13 +12,21 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
-
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.model.enumtype;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+public enum DataSourceFileType {
+    CSV("CSV"), XLSX("XLSX"), XLS("XLS");
+
+    private final String name;
+
+    DataSourceFileType(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+
 }

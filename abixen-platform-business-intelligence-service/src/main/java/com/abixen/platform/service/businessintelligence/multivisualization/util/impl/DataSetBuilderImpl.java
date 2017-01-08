@@ -12,13 +12,23 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.util.impl;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import com.abixen.platform.core.util.EntityBuilder;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.DataSet;
+import com.abixen.platform.service.businessintelligence.multivisualization.util.DataSetBuilder;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+public class DataSetBuilderImpl extends EntityBuilder<DataSet> implements DataSetBuilder {
+
+    @Override
+    public DataSetBuilder create() {
+        return this;
+    }
+
+    @Override
+    protected void initProduct() {
+        this.product = new DataSet();
+    }
+
 }

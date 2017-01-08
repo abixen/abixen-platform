@@ -28,24 +28,20 @@
             }
         );
 
-        fileDataSourceDetails.gridData = [];
-        fileDataSourceDetails.fileColumns = [];
+        fileDataSourceDetails.fileData = [];
+        fileDataSourceDetails.beforeSaveForm = beforeSaveForm;
 
-        $scope.$watch('fileDataSourceDetails.fileColumns', function () {
-            $scope.$broadcast('FileColumnUpdated', fileDataSourceDetails.fileColumns);
-        }, true);
-
-        $scope.$watch('fileDataSourceDetails.gridData', function () {
-            if (fileDataSourceDetails.gridData !== undefined && fileDataSourceDetails.gridData !== [] && fileDataSourceDetails.gridData.length > 0) {
-                $scope.$broadcast('GridDataUpdated', fileDataSourceDetails.gridData);
-                fileDataSourceDetails.fileColumns = [];
-                Object.keys(fileDataSourceDetails.gridData[0]).forEach(function (column) {
-                    if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
-                        fileDataSourceDetails.fileColumns.push({name: column, selected: false});
-                    }
-                });
+        $scope.$watch('fileDataSourceDetails.fileData', function () {
+            if (fileDataSourceDetails.fileData !== undefined && fileDataSourceDetails.fileData !== [] && fileDataSourceDetails.fileData.length > 0) {
+                $scope.$broadcast('GridDataUpdated', fileDataSourceDetails.fileData);
             }
         }, true);
+
+        function beforeSaveForm() {
+
+
+            fileDataSourceDetails.saveForm();
+        }
 
         function onSuccessSaveForm() {
             $state.go('application.multiVisualization.modules.fileDataSource.list');

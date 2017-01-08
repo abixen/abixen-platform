@@ -12,13 +12,23 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.model.impl;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataSetChartWeb;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+@Entity
+@Table(name = "data_set_chart")
+public class DataSetChart extends DataSet implements DataSetChartWeb {
+
+    private static final long serialVersionUID = 1232457388531081321L;
+
+    public DataSetChart() {
+    }
+
 }
+
+

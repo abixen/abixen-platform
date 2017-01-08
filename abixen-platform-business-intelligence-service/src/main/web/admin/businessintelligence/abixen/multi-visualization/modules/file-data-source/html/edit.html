@@ -1,7 +1,7 @@
 <form role="form" name="fileDataSourceDetails.entityForm" novalidate>
     <div class="row form-row">
 
-        <div class="col-md-6">
+        <div class="col-md-12">
 
             <div class="form-group" show-errors>
                 <input-text model="fileDataSourceDetails.entity.name"
@@ -23,44 +23,13 @@
 
             <div class="form-group">
                 <div class="upload">
-                    <div class="btn upload-btn" platform-upload-file platform-sheet-reader parsed-data="fileDataSourceDetails.gridData">
+                    <div class="btn upload-btn" platform-upload-file platform-sheet-reader parsed-data="fileDataSourceDetails.fileData">
                         <span class="upload-btn-text"> Upload File </span>
                     </div>
                 </div>
             </div>
 
         </div>
-        <div class="col-md-6">
-            <input type="hidden" ng-model="fileDataSourceDetails.entity.columns" name="columns">
-            <div class="columns-section">
-                <div class="columns-section-header row">
-                    <span class="col-xs-8 col-sm-8 col-md-8 col-lg-8 no-padding-left">
-                        <label>
-                            Column name
-                        </label>
-                    </span>
-                    <span class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding-left">
-                        <label>
-                            Available
-                        </label>
-                    </span>
-                </div>
-                <div class="row">
-                    <ul class="columns-section-content" ng-scrollbar rebuild-on-resize
-                        rebuild-on="content-scroll:rebuild">
-                            <li class="columns-section-content-row" on-ng-repeat-render-finish="content-scroll:rebuild" ng-repeat="fileColumn in fileDataSourceDetails.fileColumns">
-                                <span class="col-xs-8 col-sm-8 col-md-8 col-lg-8 no-padding-left">
-                                    {{fileColumn.name}}
-                                </span>
-                                    <span class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding-left">
-                                    <input type="checkbox" ng-model="fileColumn.selected"/>
-                                </span>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
     </div>
     <div class="row form-row file-preview-table">
         <div class="col-xs-12">
@@ -81,7 +50,7 @@
 <div class="row bottom-navigation">
     <div class="col-xs-12">
         <a class="btn save-button"
-           ng-click="saveForm(beforeSaveForm)"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
+           ng-click="fileDataSourceDetails.beforeSaveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
         </a>
         <a class="btn cancel-button"
            ng-click="goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>

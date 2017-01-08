@@ -12,13 +12,29 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import javax.persistence.*;
+import java.util.Date;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+@Entity
+@Table(name = "data_value_date")
+@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
+public class DataValueDate extends DataValue<Date> {
+
+    private static final long serialVersionUID = -655187403228089633L;
+
+    @Column(name = "value", nullable = true)
+    private Date value;
+
+    public Date getValue() {
+        return value;
+    }
+
+    public void setValue(Date value) {
+        this.value = value;
+    }
+
+
 }

@@ -12,13 +12,22 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
-
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.service;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.file.FileDataSource;
+
+
+public interface DataSourceImportDataService<T> {
+
+    /**
+     *
+     * Fill data into the model
+     *
+     */
+    FileDataSource saveData();
+
+    void init(T parameters);
+
+    Boolean verify();
 }
