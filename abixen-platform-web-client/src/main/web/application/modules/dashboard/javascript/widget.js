@@ -177,6 +177,10 @@ angular.module('adf')
                 $scope.onWidgetTitleChanged = function () {
                     $scope.$emit(platformParameters.events.ADF_WIDGET_TITLE_CHANGED_EVENT);
                 };
+
+                $scope.$on(platformParameters.events.MODULE_TEMPORARY_UNAVAILABLE, function (event, args) {
+                    $scope.widgetState.notAvailable = true;
+                });
             },
 
             compile: function compile() {

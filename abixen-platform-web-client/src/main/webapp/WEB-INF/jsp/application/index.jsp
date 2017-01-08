@@ -50,15 +50,16 @@
 <script src="<c:url value='/lib/angular-cookies.min.js' />"></script>
 <script src="<c:url value='/lib/ui-grid.min.js' />"></script>
 <script src="<c:url value='/lib/ng-scrollbar.min.js' />"></script>
-
 <script src="<c:url value='/common/modules.min.js' />"></script>
-<script src="<c:url value='/application/application.min.js' />"></script>
 
 <c:forEach var="resource" items="${resources}">
     <c:if test="${resource.resourcePage == ResourcePage.APPLICATION && resource.resourcePageLocation == ResourcePageLocation.BODY && resource.resourceType == ResourceType.JAVASCRIPT}">
         <script src="<c:url value='${resource.relativeUrl}' />"></script>
     </c:if>
 </c:forEach>
+
+<script src="<c:url value='/application/application.min.js' />"></script>
+
 
 </body>
 </html>

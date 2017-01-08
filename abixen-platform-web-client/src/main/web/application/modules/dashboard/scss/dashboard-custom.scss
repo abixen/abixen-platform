@@ -151,9 +151,9 @@ pre.edit {
   }
 
   .module-body {
-    .permission-denied {
+    .error-container {
       padding: 20px;
-      .permission-denied-message {
+      .error-message {
         background: #ffb7b5;
         border: 1px solid #FF3F00;
         @include border-radius(5px);

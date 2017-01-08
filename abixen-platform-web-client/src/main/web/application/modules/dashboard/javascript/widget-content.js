@@ -119,13 +119,8 @@ angular.module('adf')
                     }
                     $compile($element.contents())(templateScope);
                 }, function (reason) {
-                    // handle promise rejection
-                    var msg = 'Could not resolve all promises';
-                    if (reason) {
-                        msg += ': ' + reason;
-                    }
-                    $log.warn(msg);
-                    $element.html(dashboard.messageTemplate.replace(/{}/g, msg));
+                    $element.html('');
+                    $scope.$emit(platformParameters.events.MODULE_TEMPORARY_UNAVAILABLE);
                 });
 
                 // destroy old scope

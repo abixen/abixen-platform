@@ -16,41 +16,64 @@
 
     'use strict';
 
+    var externalModules = [
+        'platformChartModule',
+        'platformMagicNumberModule',
+        'platformKpiChartModule'
+    ];
+
+    var platformApplicationModules = [
+        'ngResource',
+        'pascalprecht.translate',
+        'platformComponent',
+        'platformApplicationDirectives',
+        'platformUserModule',
+        'platformNavigationModule',
+        'platformUtilsModule',
+        'platformThumbModule',
+        'platformPageModule',
+        'platformListGridModule',
+        'ngAnimate',
+        'ui.router',
+        'ui.bootstrap',
+        'ngAside',
+        'adf.provider',
+        'ui.bootstrap.showErrors',
+        'toaster',
+        'xeditable',
+        'angularFileUpload',
+        'ngCookies',
+        'platformModalModule',
+        'platformModalSelectionModule',
+        'ui.grid',
+        'ui.grid.exporter',
+        'ui.grid.selection',
+        'ui.grid.pinning',
+        'ui.grid.resizeColumns',
+        'ui.grid.moveColumns',
+        'ui.grid.autoResize',
+        'ui.bootstrap.showErrors',
+        'platformFAModalSelection',
+        'ngScrollbar'];
+
+    for (var i = 0; i < externalModules.length; i++) {
+        if (testIfModuleExists(externalModules[i])) {
+            platformApplicationModules.push(externalModules[i]);
+        }
+    }
+
     angular
-        .module('platformApplication', [
-            'pascalprecht.translate',
-            'platformComponent',
-            'platformApplicationDirectives',
-            'platformNavigationModule',
-            'platformUtilsModule',
-            'platformThumbModule',
-            'platformPageModule',
-            'platformListGridModule',
-            'ngAnimate',
-            'ui.router',
-            'ui.bootstrap',
-            'ngAside',
-            'adf.provider',
-            'ui.bootstrap.showErrors',
-            'toaster',
-            'xeditable',
-            'angularFileUpload',
-            'ngCookies',
-            'platformChartModule',
-            'platformMagicNumberModule',
-            'platformKpiChartModule',
-            'platformUserModule',
-            'platformModalModule',
-            'platformModalSelectionModule',
-            'ui.grid',
-            'ui.grid.exporter',
-            'ui.grid.selection',
-            'ui.grid.pinning',
-            'ui.grid.resizeColumns',
-            'ui.grid.moveColumns',
-            'ui.grid.autoResize',
-            'ui.bootstrap.showErrors',
-            'platformFAModalSelection',
-            'ngScrollbar'
-        ]);
+        .module('platformApplication', platformApplicationModules);
+
+    function testIfModuleExists(moduleName) {
+        try {
+            angular.module(moduleName);
+            console.log('Module ' + moduleName + ' exists');
+            return true;
+        } catch (e) {
+            console.error(e);
+            console.error('Module ' + moduleName + ' doesn\'t exist');
+        }
+        return false;
+    }
 })();
