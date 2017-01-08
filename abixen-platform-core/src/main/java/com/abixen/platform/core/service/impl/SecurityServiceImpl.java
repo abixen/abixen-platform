@@ -16,6 +16,7 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.exception.PlatformCoreException;
 import com.abixen.platform.core.model.SecurableModel;
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.AclSidType;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.*;
@@ -78,7 +79,7 @@ public class SecurityServiceImpl implements SecurityService {
         for (Role role : user.getRoles()) {
             userRoleIds.add(role.getId());
         }
-        List<AclEntry> rolesAclEntries = aclEntryRepository.findAll(permissionName, AclSidType.ROLE, userRoleIds, securableModel.getClass().getCanonicalName(), securableModel.getId());
+        List<AclEntry> rolesAclEntries = aclEntryRepository.findAll(permissionName, AclSidType.ROLE, userRoleIds, AclClassName.getByName(securableModel.getClass().getCanonicalName()), securableModel.getId());
 
         if (rolesAclEntries.size() > 0) {
             if (log.isDebugEnabled()) {
@@ -89,7 +90,7 @@ public class SecurityServiceImpl implements SecurityService {
 
         //TODO - make sure if !=null condition is required
         if (securableModel.getCreatedBy() != null && securableModel.getCreatedBy().equals(user)) {
-            List<AclEntry> ownerAclEntries = aclEntryRepository.findAll(permissionName, AclSidType.OWNER, 0L, securableModel.getClass().getCanonicalName(), securableModel.getId());
+            List<AclEntry> ownerAclEntries = aclEntryRepository.findAll(permissionName, AclSidType.OWNER, 0L, AclClassName.getByName(securableModel.getClass().getCanonicalName()), securableModel.getId());
             if (ownerAclEntries.size() > 0) {
                 if (log.isDebugEnabled()) {
                     log.debug("User " + user.getUsername() + " has permission " + permissionName + " to object " + securableModel.getClass().getCanonicalName() + "[id=" + securableModel.getId() + "] based on that he is the owner.");

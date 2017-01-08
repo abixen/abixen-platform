@@ -18,6 +18,7 @@ import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.dto.PageModelDto;
 import com.abixen.platform.core.form.PageConfigurationForm;
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.service.PageConfigurationService;
 import com.abixen.platform.core.util.ValidationUtil;
@@ -43,13 +44,13 @@ public class PageConfigurationController {
         this.pageConfigurationService = pageConfigurationService;
     }
 
-    @PreAuthorize("hasPermission(#id, 'com.abixen.platform.core.model.impl.Page', '" + PermissionName.Values.PAGE_VIEW + "')")
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_VIEW + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public PageModelDto getPageConfiguration(@PathVariable Long id) {
         return pageConfigurationService.getPageConfiguration(id);
     }
 
-    @PreAuthorize("hasPermission(#id, 'com.abixen.platform.core.model.impl.Page', '" + PermissionName.Values.PAGE_ADD + "')")
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createPage(@RequestBody @Valid PageConfigurationForm pageConfigurationForm, BindingResult bindingResult) {
         log.debug("updatePageModel() - pageConfigurationForm: {}", pageConfigurationForm);
@@ -64,7 +65,7 @@ public class PageConfigurationController {
         return new FormValidationResultDto(updatedPageConfigurationForm);
     }
 
-    @PreAuthorize("hasPermission(#id, 'com.abixen.platform.core.model.impl.Page', '" + PermissionName.Values.PAGE_EDIT + "')")
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updatePage(@PathVariable("id") Long id, @RequestBody @Valid PageConfigurationForm pageConfigurationForm, BindingResult bindingResult) {
         log.debug("updatePageModel() - id: {}, pageConfigurationForm: {}", id, pageConfigurationForm);
@@ -79,7 +80,7 @@ public class PageConfigurationController {
         return new FormValidationResultDto(updatedPageConfigurationForm);
     }
 
-    @PreAuthorize("hasPermission(#id, 'com.abixen.platform.core.model.impl.Page', '" + PermissionName.Values.PAGE_CONFIGURATION + "')")
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_CONFIGURATION + "')")
     @RequestMapping(value = "/{id}/configure", method = RequestMethod.PUT)
     public FormValidationResultDto configurePage(@PathVariable("id") Long id, @RequestBody @Valid PageConfigurationForm pageConfigurationForm, BindingResult bindingResult) {
         log.debug("configurePage() - id: {}, pageConfigurationForm: {}", id, pageConfigurationForm);

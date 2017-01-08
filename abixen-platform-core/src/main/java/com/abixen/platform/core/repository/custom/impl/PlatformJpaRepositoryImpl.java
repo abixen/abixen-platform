@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.repository.custom.impl;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
@@ -48,7 +49,7 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
         this.entityManager = entityManager;
     }
 
-    public List<T> findAllSecured(String queryString, String filteredObjectAlias, String securableClassCanonicalName, PermissionName permissionName) {
+    public List<T> findAllSecured(String queryString, String filteredObjectAlias, AclClassName aclClassName, PermissionName permissionName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null) {
@@ -58,7 +59,7 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
 
         PlatformUser platformUser = (PlatformUser) authentication.getPrincipal();
         User user = findUser(platformUser.getId());
-        String aclFilterQueryString = getAclFilterQuery(filteredObjectAlias, user, securableClassCanonicalName, permissionName);
+        String aclFilterQueryString = getAclFilterQuery(filteredObjectAlias, user, aclClassName, permissionName);
 
         String resultQueryString = queryString.replace("#{securityFilter}", aclFilterQueryString);
         log.debug("resultQueryString={}", resultQueryString);
@@ -66,7 +67,7 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
         return entityManager.createQuery(resultQueryString).getResultList();
     }
 
-    private String getAclFilterQuery(String filteredObjectAlias, User user, String securableClassCanonicalName, PermissionName permissionName) {
+    private String getAclFilterQuery(String filteredObjectAlias, User user, AclClassName aclClassName, PermissionName permissionName) {
 
         StringBuilder aclFilterQueryBuilder = new StringBuilder();
 
@@ -84,8 +85,8 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
                 .append("ae.aclSid.sidId IN (")
                 .append(String.join(",", user.getRoles().stream().map(r -> r.getId().toString()).collect(Collectors.toList())))
                 .append(") AND ")
-                .append("ae.aclObjectIdentity.aclClass.name = '")
-                .append(securableClassCanonicalName)
+                .append("ae.aclObjectIdentity.aclClass.aclClassName = '")
+                .append(aclClassName)
                 .append("' AND ")
                 .append("ae.aclObjectIdentity.objectId = ")
                 .append(filteredObjectAlias)
@@ -96,8 +97,8 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
                 .append("' AND ")
                 .append("ae.aclSid.sidType = 'OWNER' AND ")
                 .append("ae.aclSid.sidId IN (0) AND ")
-                .append("ae.aclObjectIdentity.aclClass.name = '")
-                .append(securableClassCanonicalName)
+                .append("ae.aclObjectIdentity.aclClass.aclClassName = '")
+                .append(aclClassName)
                 .append("' AND ")
                 .append("ae.aclObjectIdentity.objectId = ")
                 .append(filteredObjectAlias)

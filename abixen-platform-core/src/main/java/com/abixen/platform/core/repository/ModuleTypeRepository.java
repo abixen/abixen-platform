@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.repository;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
@@ -27,6 +28,6 @@ public interface ModuleTypeRepository extends PlatformJpaRepository<ModuleType, 
 
     default List<ModuleType> findAllSecured(PermissionName permissionName) {
         String query = "FROM ModuleType mt WHERE #{securityFilter}";
-        return findAllSecured(query, "mt", ModuleType.class.getCanonicalName(), permissionName);
+        return findAllSecured(query, "mt", AclClassName.MODULE_TYPE, permissionName);
     }
 }

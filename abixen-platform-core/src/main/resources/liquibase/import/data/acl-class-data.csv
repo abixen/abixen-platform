@@ -1,8 +1,8 @@
 id;name
-1;com.abixen.platform.core.model.impl.Layout
-2;com.abixen.platform.core.model.impl.Module
-3;com.abixen.platform.core.model.impl.Page
-4;com.abixen.platform.core.model.impl.Role
-5;com.abixen.platform.core.model.impl.User
-6;com.abixen.platform.core.model.impl.ModuleType
-7;com.abixen.platform.core.model.impl.Theme
+1;LAYOUT
+2;MODULE
+3;PAGE
+4;ROLE
+5;USER
+6;MODULE_TYPE
+7;THEME

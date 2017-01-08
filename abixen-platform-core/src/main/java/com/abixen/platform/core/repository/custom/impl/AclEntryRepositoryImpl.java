@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.repository.custom.impl;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.AclSidType;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.AclEntry;
@@ -48,14 +49,14 @@ public class AclEntryRepositoryImpl implements AclEntryRepositoryCustom {
      * @return
      */
     @Override
-    public List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, Long sidId, String aclClassName, Long objectId) {
+    public List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, Long sidId, AclClassName aclClassName, Long objectId) {
         List<Long> sidIds = new ArrayList<>();
         sidIds.add(sidId);
         return findAll(permissionName, aclSidType, sidIds, aclClassName, objectId);
     }
 
     @Override
-    public List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, List<Long> sidIds, String aclClassName, Long objectId) {
+    public List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, List<Long> sidIds, AclClassName aclClassName, Long objectId) {
         log.debug("findAll()");
         log.debug("permissionName: " + permissionName);
         log.debug("aclSidType: " + aclSidType);
@@ -67,7 +68,7 @@ public class AclEntryRepositoryImpl implements AclEntryRepositoryCustom {
                 "ae.permission.permissionName = :permissionName AND " +
                 "ae.aclSid.sidType = :aclSidType AND " +
                 "ae.aclSid.sidId IN (:sidIds) AND " +
-                "ae.aclObjectIdentity.aclClass.name = :aclClassName AND " +
+                "ae.aclObjectIdentity.aclClass.aclClassName = :aclClassName AND " +
                 "ae.aclObjectIdentity.objectId = :objectId");
         query.setParameter("permissionName", permissionName);
         query.setParameter("aclSidType", aclSidType);
@@ -78,13 +79,13 @@ public class AclEntryRepositoryImpl implements AclEntryRepositoryCustom {
     }
 
     @Override
-    public List<AclEntry> findAll(String aclClassName, Long objectId) {
+    public List<AclEntry> findAll(AclClassName aclClassName, Long objectId) {
         log.debug("findAll()");
         log.debug("aclClassName: " + aclClassName);
         log.debug("objectId: " + objectId);
 
         Query query = entityManager.createQuery("SELECT ae FROM AclEntry ae WHERE " +
-                "ae.aclObjectIdentity.aclClass.name = :aclClassName AND " +
+                "ae.aclObjectIdentity.aclClass.aclClassName = :aclClassName AND " +
                 "ae.aclObjectIdentity.objectId = :objectId");
         query.setParameter("aclClassName", aclClassName);
         query.setParameter("objectId", objectId);
