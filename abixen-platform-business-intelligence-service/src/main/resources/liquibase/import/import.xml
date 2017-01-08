@@ -20,6 +20,10 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_set_chart</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_set_series</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_set_series_column</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_multi_visualization_data</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_visualization_data</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_something_data</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM chart_sample_visualization_data</sqlCheck>
         </preConditions>
 
         <loadData file="liquibase/import/data/database-connection.csv"
@@ -70,6 +74,21 @@
                   separator=";"
                   tableName="data_set_series">
         </loadData>
-
+        <loadData file="liquibase/import/data/sample-visualization-data.csv"
+                  separator=";"
+                  tableName="sample_visualization_data">
+        </loadData>
+        <loadData file="liquibase/import/data/sample-multi-visualization-data.csv"
+                  separator=";"
+                  tableName="sample_multi_visualization_data">
+        </loadData>
+        <loadData file="liquibase/import/data/sample-something-data.csv"
+                  separator=";"
+                  tableName="sample_something_data">
+        </loadData>
+        <loadData file="liquibase/import/data/chart-sample-visualization-data.csv"
+                  separator=";"
+                  tableName="chart_sample_visualization_data">
+        </loadData>
     </changeSet>
 </databaseChangeLog>
