@@ -39,4 +39,27 @@ public class DataColumn {
     @OneToMany(mappedBy = "dataColumn", cascade = CascadeType.ALL)
     private Set<DataValue> values = new HashSet<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<DataValue> getValues() {
+        return values;
+    }
+
+    public void setValues(Set<DataValue> values) {
+        this.values = values;
+    }
 }

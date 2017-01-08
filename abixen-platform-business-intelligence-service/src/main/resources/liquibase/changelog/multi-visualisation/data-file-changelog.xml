@@ -14,6 +14,9 @@
             <column name="name" type="varchar(300)">
                 <constraints nullable="false"/>
             </column>
+            <column name="descripton" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
             <column name="file_data_source_id" type="bigint">
                 <constraints nullable="false"/>
             </column>

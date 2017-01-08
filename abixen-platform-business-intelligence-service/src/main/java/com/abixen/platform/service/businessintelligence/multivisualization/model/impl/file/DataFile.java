@@ -34,7 +34,41 @@ public class DataFile {
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
     private String name;
 
+    @Column(name = "descripton", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
+    private String descripton;
+
     @OneToMany(mappedBy = "dataFile", cascade = CascadeType.ALL)
     private Set<DataFileColumn> columns = new HashSet<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescripton() {
+        return descripton;
+    }
+
+    public void setDescripton(String descripton) {
+        this.descripton = descripton;
+    }
+
+    public Set<DataFileColumn> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(Set<DataFileColumn> columns) {
+        this.columns = columns;
+    }
 }
