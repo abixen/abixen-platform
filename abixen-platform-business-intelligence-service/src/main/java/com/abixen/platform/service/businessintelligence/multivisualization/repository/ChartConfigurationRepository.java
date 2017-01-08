@@ -12,13 +12,13 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.repository;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.ChartConfiguration;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+public interface ChartConfigurationRepository extends JpaRepository<ChartConfiguration, Long> {
+
+    ChartConfiguration findByModuleId(Long moduleId);
 }

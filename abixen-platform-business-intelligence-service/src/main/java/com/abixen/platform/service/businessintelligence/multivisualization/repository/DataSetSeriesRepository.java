@@ -12,13 +12,13 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
-
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.repository;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.DataSetSeries;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface DataSetSeriesRepository extends JpaRepository<DataSetSeries, Long> {
+
 }

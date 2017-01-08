@@ -12,13 +12,19 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.util;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataValue;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+public interface DataSourceValueBuilder<E extends DataValue, T> {
+
+    E build();
+
+    DataSourceValueBuilder value(T value);
+
+    DataSourceValueBuilder valueString(String value);
+
+    DataSourceValueBuilder position(Integer position);
+
 }

@@ -12,13 +12,16 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.util;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.DataSet;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+
+public interface DataSetBuilder {
+
+    DataSet build();
+
+    DataSetBuilder create();
+
 }

@@ -12,13 +12,28 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import javax.persistence.*;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+@Entity
+@Table(name = "data_value_double")
+@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
+public class DataValueDouble extends DataValue<Double> {
+
+
+    private static final long serialVersionUID = -1434303122608329824L;
+
+    @Column(name = "value", nullable = true)
+    private Double value;
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
 }

@@ -12,13 +12,13 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.model.web;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.DataSetChart;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+@JsonDeserialize(as = DataSetChart.class)
+public interface DataSetChartWeb extends DataSetWeb {
+
 }

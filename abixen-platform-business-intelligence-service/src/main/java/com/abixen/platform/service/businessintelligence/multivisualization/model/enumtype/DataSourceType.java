@@ -12,13 +12,25 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
-
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.model.enumtype;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+public enum DataSourceType {
+    FILE("FILE"), DB("DB");
+
+    private final String name;
+
+    DataSourceType(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
+

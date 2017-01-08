@@ -12,13 +12,14 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
-
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.util;
 
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+public final class ModelKeys {
+
+    public static final int DATASOURCE_VALUE_STRING_MAX_LENGTH = 32;
+
+    public static final char COMMA = ',';
+    public static final char TAB = '\t';
+
 }

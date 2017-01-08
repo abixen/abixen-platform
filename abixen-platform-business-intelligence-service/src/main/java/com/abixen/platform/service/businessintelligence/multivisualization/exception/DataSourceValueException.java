@@ -12,13 +12,17 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.configuration;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+package com.abixen.platform.service.businessintelligence.multivisualization.exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
-public class PlatformModuleServiceConfiguration {
+@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+public class DataSourceValueException extends RuntimeException {
+
+    public DataSourceValueException(String message) {
+        super(message);
+    }
+
 }
