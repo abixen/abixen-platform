@@ -17,32 +17,7 @@
     'use strict';
 
     angular
-        .module('webContentService', [
-            'webContentServiceStructureModule',
+        .module('webContentServiceStructureModule', [
             'ui.router'
         ]);
-})();
-
-(function () {
-
-    'use strict';
-
-    angular
-        .module('webContentService')
-        .config(webContentServiceConfig);
-
-    webContentServiceConfig.$inject = [
-        '$stateProvider'
-    ];
-
-    function webContentServiceConfig($stateProvider) {
-
-        $stateProvider
-            .state('application.webContentService', {
-                url: '/web-content',
-                templateUrl: '/admin/web-content-service/html/index.html',
-                controller: 'WebContentServiceController',
-                controllerAs: 'webContentService'
-            });
-    }
 })();
