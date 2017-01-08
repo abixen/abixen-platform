@@ -13,16 +13,20 @@
  */
 
 (function () {
+
     'use strict';
 
     angular
-        .module('webContentService')
-        .controller('WebContentServiceController', WebContentServiceController);
+        .module('webContentServiceStructureModule')
+        .factory('Structure', Structure);
 
-    WebContentServiceController.$inject = [];
+    Structure.$inject = ['$resource'];
 
-    function WebContentServiceController() {
-        var webContentService = this;
-
+    function Structure($resource) {
+        return $resource('/admin/web-content-service/structures/:id', {}, {
+            query: {method: 'GET', isArray: false},
+            update: {method: 'PUT'}
+        });
     }
+
 })();

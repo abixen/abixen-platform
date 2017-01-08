@@ -32,7 +32,7 @@ module.exports = {
             'src/main/web/admin/**/*.js'
         ],
         concatOrder: [
-            'src/main/web/**/*.web-content.js',
+            'src/main/web/**/*.module.js',
             'src/main/web/**/*.js'
         ]
     },

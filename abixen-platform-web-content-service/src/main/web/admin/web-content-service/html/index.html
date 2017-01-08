@@ -1,16 +1,13 @@
 <div class="web-content-service">
     <ul class="nav nav-tabs tabset platform-tabset">
-        <li ng-class="{active: webContentService.selectedTab == 'WEB-CONTENT'}">
-            <a ui-sref="application.webContentService.webContent.list"
-               ng-click="webContentService.selectTab('WEB-CONTENT')">Web Contents</a>
+        <li ui-sref-active="active">
+            <a ui-sref="application.webContentService.webContent.list">Web Contents</a>
         </li>
-        <li ng-class="{active: webContentService.selectedTab == 'TEMPLATE'}">
-            <a ui-sref="application.webContentService.template.list"
-               ng-click="webContentService.selectTab('TEMPLATE')">Templates</a>
+        <li ui-sref-active="active">
+            <a ui-sref="application.webContentService.template.list">Templates</a>
         </li>
-        <li ng-class="{active: webContentService.selectedTab == 'STRUCTURE'}">
-            <a ui-sref="application.webContentService.structure.list"
-               ng-click="webContentService.selectTab('STRUCTURE')">Structures</a>
+        <li ui-sref-active="active">
+            <a ui-sref="application.webContentService.structure.list">Structures</a>
         </li>
     </ul>
     <ui-view></ui-view>
