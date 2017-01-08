@@ -126,6 +126,13 @@
                 orderIndex: 9,
                 id: 9,
                 iconClass: 'fa fa-database'
-            }) ;
+            })
+            .addSidebarItem({
+                title: 'Web content',
+                state: 'application.webContentService',
+                orderIndex: 10,
+                id: 10,
+                iconClass: 'fa fa-file-image-o'
+            });
     }
 })();

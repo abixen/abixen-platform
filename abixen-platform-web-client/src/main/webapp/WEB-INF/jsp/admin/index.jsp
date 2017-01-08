@@ -16,6 +16,7 @@
     <link href="<c:url value="/lib/ng-scrollbar.min.css" />" rel="stylesheet">
     <link href="<c:url value="/admin/application.min.css" />" rel="stylesheet">
     <link href="<c:url value="/admin/businessintelligence/abixen/businessintelligence.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/admin/web-content-service/web-content.min.css" />" rel="stylesheet">
 
     <c:forEach var="resource" items="${resources}">
         <c:if test="${resource.resourcePage == ResourcePage.ADMIN && resource.resourcePageLocation == ResourcePageLocation.HEADER && resource.resourceType == ResourceType.JAVASCRIPT}">
@@ -52,6 +53,7 @@
 <script src="<c:url value='/common/modules.min.js' />"></script>
 <script src="<c:url value='/admin/application.min.js' />"></script>
 <script src="<c:url value='/admin/businessintelligence/abixen/businessintelligence.min.js' />"></script>
+<script src="<c:url value='/admin/web-content-service/web-content.min.js' />"></script>
 
 <c:forEach var="resource" items="${resources}">
     <c:if test="${resource.resourcePage == ResourcePage.ADMIN && resource.resourcePageLocation == ResourcePageLocation.BODY && resource.resourceType == ResourceType.JAVASCRIPT}">

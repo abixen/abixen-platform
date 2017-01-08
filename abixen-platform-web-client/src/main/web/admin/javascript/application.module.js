@@ -29,6 +29,7 @@
             'platformModuleModule',
             'platformModuleTypeModule',
             'multiVisualizationModule',
+            'webContentService',
             'platformCommonModule',
             'platformListGridModule',
             'platformThumbModule',
