@@ -23,6 +23,9 @@ public interface PageBase<Layout extends LayoutBase> {
     int PAGE_TITLE_MIN_LENGTH = 6;
     int PAGE_TITLE_MAX_LENGTH = 40;
 
+    int PAGE_ICON_MIN_LENGTH = 7;
+    int PAGE_ICON_MAX_LENGTH = 40;
+
     int PAGE_DESCRIPTION_MIN_LENGTH = 40;
     int PAGE_DESCRIPTION_MAX_LENGTH = 40;
 
@@ -38,6 +41,10 @@ public interface PageBase<Layout extends LayoutBase> {
     String getTitle();
 
     void setTitle(String title);
+
+    String getIcon();
+
+    void setIcon(String icon);
 
     String getDescription();
 

@@ -32,11 +32,23 @@ public class PageForm implements Form {
     private String title;
 
     @JsonView(WebModelJsonSerialize.class)
+    @NotNull
+    private String icon;
+
+    @JsonView(WebModelJsonSerialize.class)
     private String description;
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private LayoutWeb layout;
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
     public PageForm() {
     }
@@ -45,6 +57,7 @@ public class PageForm implements Form {
         this.layout = page.getLayout();
         this.id = page.getId();
         this.title = page.getTitle();
+        this.icon = page.getIcon();
         this.description = page.getDescription();
     }
 

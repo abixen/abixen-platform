@@ -40,6 +40,11 @@ public class PageBuilderImpl extends EntityBuilder<Page> implements PageBuilder 
         return this;
     }
 
+    public PageBuilder icon(String icon) {
+        this.product.setIcon(icon);
+        return this;
+    }
+
     public PageBuilder description(String description) {
         this.product.setDescription(description);
         return this;
