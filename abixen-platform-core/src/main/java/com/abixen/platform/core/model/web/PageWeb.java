@@ -27,6 +27,9 @@ public interface PageWeb {
     Long getId();
 
     @JsonView(WebModelJsonSerialize.class)
+    String getIcon();
+
+    @JsonView(WebModelJsonSerialize.class)
     String getName();
 
     @JsonView(WebModelJsonSerialize.class)

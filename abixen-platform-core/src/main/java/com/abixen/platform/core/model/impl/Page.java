@@ -37,6 +37,9 @@ public class Page extends AuditingModel implements PageBase<Layout>, PageWeb, Se
     @Column(name = "title", length = PAGE_TITLE_MAX_LENGTH, nullable = false)
     private String title;
 
+    @Column(name = "icon", columnDefinition = "fa fa-file-text-o", length = PAGE_ICON_MAX_LENGTH, nullable = false)
+    private String icon;
+
     @Column(name = "description", length = PAGE_DESCRIPTION_MAX_LENGTH)
     private String description;
 
@@ -52,6 +55,16 @@ public class Page extends AuditingModel implements PageBase<Layout>, PageWeb, Se
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String getIcon() {
+        return icon;
+    }
+
+    @Override
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     @Override
