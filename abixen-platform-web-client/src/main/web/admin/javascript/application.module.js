@@ -50,6 +50,7 @@
             'ngScrollbar',
             'platformUploadFileModule',
             'platformSheetReaderModule',
-            'platformThemeModule'
+            'platformThemeModule',
+            'platformCommentModule'
         ]);
 })();
