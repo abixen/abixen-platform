@@ -1,0 +1,20 @@
+<div class="row module-navigation-row">
+    <div class="col-xs-12 module-navigation-col">
+        <button type="button"
+                ui-sref="application.webContentService.template.list({id:templateList.listGridConfig.selectedEntity.id})"
+                ng-disabled="!templateList.listGridConfig.selectedEntity"
+                class="btn btn-default pull-left">Edit
+        </button>
+        <span class="buttons-separator"></span>
+        <button type="button" ng-click="templateList.deleteEntity(templateList.listGridConfig.selectedEntity)"
+                ng-disabled="!templateList.listGridConfig.selectedEntity" class="btn btn-warning pull-left">
+            Delete
+        </button>
+    </div>
+</div>
+<div class="row grid-row">
+    <div class="col-xs-12">
+        <platform-list-grid class="default-platform-list-grid"
+                            list-grid-config="templateList.listGridConfig"></platform-list-grid>
+    </div>
+</div>
