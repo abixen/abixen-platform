@@ -25,4 +25,5 @@
     <include file="liquibase/changelog/user-role-changelog.xml"/>
     <include file="liquibase/changelog/comment-changelog.xml"/>
     <include file="liquibase/changelog/theme-changelog.xml"/>
+    <include file="liquibase/changelog/comment-vote-changelog.xml"/>
 </databaseChangeLog>

@@ -27,6 +27,7 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM module</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM theme</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM comment</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM comment_vote</sqlCheck>
         </preConditions>
 
         <loadData file="liquibase/import/data/role-data.csv"
@@ -117,6 +118,11 @@
         <loadData file="liquibase/import/data/comment-data.csv"
                   separator=";"
                   tableName="comment">
+        </loadData>
+
+        <loadData file="liquibase/import/data/comment-vote-data.csv"
+                  separator=";"
+                  tableName="comment_vote">
         </loadData>
 
     </changeSet>

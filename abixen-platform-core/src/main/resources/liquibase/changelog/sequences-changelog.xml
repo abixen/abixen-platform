@@ -23,6 +23,7 @@
         <createSequence sequenceName="user_seq" startValue="4"/>
         <createSequence sequenceName="comment_seq" startValue="11"/>
         <createSequence sequenceName="theme_seq" startValue="1"/>
+        <createSequence sequenceName="comment_vote_seq" startValue="11"/>
     </changeSet>
 
 </databaseChangeLog>
