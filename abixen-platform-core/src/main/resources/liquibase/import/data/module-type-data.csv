@@ -1,5 +1,5 @@
-id;created_date;last_modified_date;name;description;title;init_url;service_id;created_by_id;last_modified_by_id
-1;2017-01-08 00:00:00;2017-01-08 00:00:00;multi-visualization;This is a multi visualization module;Multi Visualization;/application/businessintelligence/abixen/multi-visualization/html/index.html;abixen-platform-business-intelligence-service;1;1
-2;2017-01-08 00:00:00;2017-01-08 00:00:00;magic-number;This is a magic number module;Magic Number;/application/businessintelligence/abixen/magic-number/html/index.html;abixen-platform-business-intelligence-service;1;1
-3;2017-01-08 00:00:00;2017-01-08 00:00:00;kpi-chart;This is a KPI chart module;KPI Chart;/application/businessintelligence/abixen/kpi-chart/html/index.html;abixen-platform-business-intelligence-service;1;1
-4;2017-01-08 00:00:00;2017-01-08 00:00:00;web-content;This is a web content module;Web content;/admin/web-content-service/html/index.html;abixen-platform-web-content-service;1;1
+id;created_date;last_modified_date;name;angular_js_name;description;title;init_url;service_id;created_by_id;last_modified_by_id
+1;2017-01-08 00:00:00;2017-01-08 00:00:00;multi-visualization;platformChartModule;This is a multi visualization module;Multi Visualization;/application/businessintelligence/abixen/multi-visualization/html/index.html;abixen-platform-business-intelligence-service;1;1
+2;2017-01-08 00:00:00;2017-01-08 00:00:00;magic-number;platformMagicNumberModule;This is a magic number module;Magic Number;/application/businessintelligence/abixen/magic-number/html/index.html;abixen-platform-business-intelligence-service;1;1
+3;2017-01-08 00:00:00;2017-01-08 00:00:00;kpi-chart;platformKpiChartModule;This is a KPI chart module;KPI Chart;/application/businessintelligence/abixen/kpi-chart/html/index.html;abixen-platform-business-intelligence-service;1;1
+4;2017-01-08 00:00:00;2017-01-08 00:00:00;web-content;TBD;This is a web content module;Web content;/admin/web-content-service/html/index.html;abixen-platform-web-content-service;1;1

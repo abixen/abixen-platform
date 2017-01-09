@@ -20,6 +20,9 @@
             <column name="name" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
+            <column name="angular_js_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
             <column name="title" type="varchar(40)">
                 <constraints nullable="false"/>
             </column>

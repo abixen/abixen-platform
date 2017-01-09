@@ -27,6 +27,8 @@ public interface ModuleTypeWeb {
 
     String getName();
 
+    String getAngularJsName();
+
     String getTitle();
 
     String getDescription();

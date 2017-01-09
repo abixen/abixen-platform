@@ -16,12 +16,6 @@
 
     'use strict';
 
-    var externalModules = [
-        'platformChartModule',
-        'platformMagicNumberModule',
-        'platformKpiChartModule'
-    ];
-
     var platformApplicationModules = [
         'ngResource',
         'pascalprecht.translate',

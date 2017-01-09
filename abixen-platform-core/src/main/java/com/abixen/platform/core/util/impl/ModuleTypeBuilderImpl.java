@@ -31,8 +31,9 @@ public class ModuleTypeBuilderImpl extends EntityBuilder<ModuleType> implements 
         return this.product;
     }
 
-    public ModuleTypeBuilder basic(String name, String title, String description) {
+    public ModuleTypeBuilder basic(String name, String angularJsName, String title, String description) {
         this.product.setName(name);
+        this.product.setAngularJsName(angularJsName);
         this.product.setTitle(title);
         this.product.setDescription(description);
         return this;

@@ -12,19 +12,18 @@
  * details.
  */
 
-package com.abixen.platform.core.util;
+package com.abixen.platform.client.web.controller;
 
-import com.abixen.platform.core.model.impl.ModuleType;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 
-public interface ModuleTypeBuilder {
+public class BaseController {
 
-    ModuleType build();
-
-    ModuleTypeBuilder basic(String name, String angularJsName, String title, String description);
-
-    ModuleTypeBuilder initUrl(String initUrl);
-
-    ModuleTypeBuilder serviceId(String serviceId);
-
+    protected <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
 }

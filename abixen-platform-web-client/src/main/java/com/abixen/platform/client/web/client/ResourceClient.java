@@ -27,7 +27,7 @@ import java.util.List;
 public interface ResourceClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/resources")
-    List<Resource> getAllUniqueResources();
+    List<Resource> getAllResources();
 
 
 }

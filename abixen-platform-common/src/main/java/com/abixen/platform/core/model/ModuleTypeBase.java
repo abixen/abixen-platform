@@ -20,6 +20,8 @@ public interface ModuleTypeBase {
     int MODULETYPE_NAME_MIN_LENGTH = 5;
     int MODULETYPE_NAME_MAX_LENGTH = 20;
 
+    int MODULETYPE_ANGULAR_JS_NAME_MAX_LENGTH = 100;
+
     int MODULETYPE_TITLE_MIN_LENGTH = 6;
     int MODULETYPE_TITLE_MAX_LENGTH = 40;
 
@@ -38,6 +40,10 @@ public interface ModuleTypeBase {
     String getName();
 
     void setName(String name);
+
+    String getAngularJsName();
+
+    void setAngularJsName(String angularJsName);
 
     String getTitle();
 

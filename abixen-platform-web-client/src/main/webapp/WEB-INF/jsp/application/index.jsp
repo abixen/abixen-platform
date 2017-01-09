@@ -58,8 +58,15 @@
     </c:if>
 </c:forEach>
 
-<script src="<c:url value='/application/application.min.js' />"></script>
+<script type="text/javascript">
+    var externalModules = [
+        <c:forEach var="angularJsModule" items="${angularJsModules}">
+            '${angularJsModule}',
+        </c:forEach>
+    ];
+</script>
 
+<script src="<c:url value='/application/application.min.js' />"></script>
 
 </body>
 </html>

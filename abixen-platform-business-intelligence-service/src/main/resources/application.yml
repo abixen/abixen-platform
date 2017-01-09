@@ -7,6 +7,7 @@ abixen:
     modules:
       -
         name: multi-visualization
+        angularJsName: platformChartModule
         title: Multi Visualization
         description: This is a multi visualization module
         relativeInitUrl: /application/businessintelligence/abixen/multi-visualization/html/index.html
@@ -43,6 +44,7 @@ abixen:
             resourceType: JAVASCRIPT
       -
         name: magic-number
+        angularJsName: platformMagicNumberModule
         title: Magic Number
         description: This is a magic number module
         relativeInitUrl: /application/businessintelligence/abixen/magic-number/html/index.html
@@ -54,6 +56,7 @@ abixen:
             resourceType: JAVASCRIPT
       -
         name: kpi-chart
+        angularJsName: platformKpiChartModule
         title: KPI Chart
         description: This is a KPI chart module
         relativeInitUrl: /application/businessintelligence/abixen/kpi-chart/html/index.html

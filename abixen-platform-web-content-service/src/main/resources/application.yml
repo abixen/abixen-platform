@@ -7,6 +7,7 @@ abixen:
     modules:
       -
         name: web-content
+        angularJsName: TBD
         title: Web content
         description: Web content service
         relativeInitUrl: /admin/web-content-service/html/index.html

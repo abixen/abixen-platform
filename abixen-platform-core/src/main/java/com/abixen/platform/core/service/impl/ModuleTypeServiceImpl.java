@@ -129,7 +129,7 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
                 if (moduleType == null) {
                     moduleType = domainBuilderService.
                             newModuleTypeBuilderInstance().
-                            basic(module.getName(), module.getTitle(), module.getDescription()).
+                            basic(module.getName(), module.getAngularJsName(), module.getTitle(), module.getDescription()).
                             initUrl(module.getRelativeInitUrl()).
                             serviceId(service.getServiceId()).build();
                     moduleTypeRepository.save(moduleType);

@@ -22,11 +22,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,9 +31,8 @@ public class ResourceServiceImpl implements ResourceService {
     private ResourceRepository resourceRepository;
 
     @Override
-    public List<com.abixen.platform.core.model.impl.Resource> findAllUniqueResources() {
-        List<com.abixen.platform.core.model.impl.Resource> resources = resourceRepository.findAll();
-        return resources.stream().filter(distinctByKey(resource -> resource.getRelativeUrl())).collect(Collectors.toList());
+    public List<com.abixen.platform.core.model.impl.Resource> findAllResources() {
+        return resourceRepository.findAll();
     }
 
     @Override
@@ -50,11 +44,4 @@ public class ResourceServiceImpl implements ResourceService {
             resourceRepository.save(resource);
         });
     }
-
-    private <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
-        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
-        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
-    }
-
-
 }
