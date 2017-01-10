@@ -22,7 +22,8 @@ public class ModuleType extends Model implements ModuleTypeBase {
 
     private Long id;
     private String name;
-    private String angularJsName;
+    private String angularJsNameApplication;
+    private String angularJsNameAdmin;
     private String title;
     private String description;
     private String initUrl;
@@ -49,13 +50,23 @@ public class ModuleType extends Model implements ModuleTypeBase {
     }
 
     @Override
-    public String getAngularJsName() {
-        return angularJsName;
+    public String getAngularJsNameApplication() {
+        return angularJsNameApplication;
     }
 
     @Override
-    public void setAngularJsName(String angularJsName) {
-        this.angularJsName = angularJsName;
+    public void setAngularJsNameApplication(String angularJsNameApplication) {
+        this.angularJsNameApplication = angularJsNameApplication;
+    }
+
+    @Override
+    public String getAngularJsNameAdmin() {
+        return angularJsNameAdmin;
+    }
+
+    @Override
+    public void setAngularJsNameAdmin(String angularJsNameAdmin) {
+        this.angularJsNameAdmin = angularJsNameAdmin;
     }
 
     @Override

@@ -41,9 +41,13 @@ public interface ModuleTypeBase {
 
     void setName(String name);
 
-    String getAngularJsName();
+    String getAngularJsNameApplication();
 
-    void setAngularJsName(String angularJsName);
+    void setAngularJsNameApplication(String angularJsNameApplication);
+
+    String getAngularJsNameAdmin();
+
+    void setAngularJsNameAdmin(String angularJsNameAdmin);
 
     String getTitle();
 

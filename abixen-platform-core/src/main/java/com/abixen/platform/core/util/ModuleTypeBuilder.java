@@ -21,7 +21,9 @@ public interface ModuleTypeBuilder {
 
     ModuleType build();
 
-    ModuleTypeBuilder basic(String name, String angularJsName, String title, String description);
+    ModuleTypeBuilder basic(String name, String title, String description);
+
+    ModuleTypeBuilder angular(String angularJsNameApplication, String angularJsNameAdmin);
 
     ModuleTypeBuilder initUrl(String initUrl);
 

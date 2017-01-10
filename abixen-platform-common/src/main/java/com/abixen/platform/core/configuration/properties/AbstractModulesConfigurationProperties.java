@@ -41,7 +41,10 @@ public abstract class AbstractModulesConfigurationProperties {
         private String name;
 
         @NotNull
-        private String angularJsName;
+        private String angularJsNameApplication;
+
+        @NotNull
+        private String angularJsNameAdmin;
 
         @NotNull
         private String title;

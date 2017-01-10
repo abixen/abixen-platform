@@ -36,8 +36,11 @@ public class ModuleType extends AuditingModel implements ModuleTypeBase, ModuleT
     @Column(name = "name", length = MODULETYPE_NAME_MAX_LENGTH, nullable = false)
     private String name;
 
-    @Column(name = "angular_js_name", length = MODULETYPE_ANGULAR_JS_NAME_MAX_LENGTH, nullable = false)
-    private String angularJsName;
+    @Column(name = "angular_js_name_application", length = MODULETYPE_ANGULAR_JS_NAME_MAX_LENGTH, nullable = false)
+    private String angularJsNameApplication;
+
+    @Column(name = "angular_js_name_admin", length = MODULETYPE_ANGULAR_JS_NAME_MAX_LENGTH, nullable = false)
+    private String angularJsNameAdmin;
 
     @Column(name = "title", length = MODULETYPE_TITLE_MAX_LENGTH, nullable = false)
     private String title;
@@ -72,13 +75,23 @@ public class ModuleType extends AuditingModel implements ModuleTypeBase, ModuleT
     }
 
     @Override
-    public String getAngularJsName() {
-        return angularJsName;
+    public String getAngularJsNameApplication() {
+        return angularJsNameApplication;
     }
 
     @Override
-    public void setAngularJsName(String angularJsName) {
-        this.angularJsName = angularJsName;
+    public void setAngularJsNameApplication(String angularJsNameApplication) {
+        this.angularJsNameApplication = angularJsNameApplication;
+    }
+
+    @Override
+    public String getAngularJsNameAdmin() {
+        return angularJsNameAdmin;
+    }
+
+    @Override
+    public void setAngularJsNameAdmin(String angularJsNameAdmin) {
+        this.angularJsNameAdmin = angularJsNameAdmin;
     }
 
     @Override

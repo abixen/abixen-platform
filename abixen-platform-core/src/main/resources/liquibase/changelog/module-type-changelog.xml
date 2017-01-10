@@ -20,7 +20,10 @@
             <column name="name" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
-            <column name="angular_js_name" type="varchar(100)">
+            <column name="angular_js_name_application" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="angular_js_name_admin" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="title" type="varchar(40)">

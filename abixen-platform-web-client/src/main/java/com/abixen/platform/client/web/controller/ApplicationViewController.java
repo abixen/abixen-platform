@@ -43,7 +43,7 @@ public class ApplicationViewController extends BaseController{
         List<Resource> uniqueResources = resources.stream().filter(distinctByKey(resource -> resource.getRelativeUrl())).collect(Collectors.toList());
         uniqueResources.forEach(resource -> log.debug("resource: " + resource));
 
-        List<String> angularJsModules = resources.stream().filter(distinctByKey(r -> r.getModuleType().getAngularJsName())).map(r -> r.getModuleType().getAngularJsName()).collect(Collectors.toList());
+        List<String> angularJsModules = resources.stream().filter(distinctByKey(r -> r.getModuleType().getAngularJsNameApplication())).map(r -> r.getModuleType().getAngularJsNameApplication()).collect(Collectors.toList());
         angularJsModules.forEach(angularJsModule -> log.debug(angularJsModule));
 
         ModelAndView modelAndView = new ModelAndView("application/index");
