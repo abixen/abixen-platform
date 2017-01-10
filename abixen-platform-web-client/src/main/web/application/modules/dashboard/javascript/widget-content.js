@@ -149,43 +149,34 @@ angular.module('adf')
                         currentScope = compileWidget($scope, $element, currentScope);
                     });
 
-                    $log.log('Before binding module ready');
                     $scope.$on(platformParameters.events.MODULE_READY, function () {
                         if ($scope.model.id == null) {
                             return;
                         }
-                        $log.log('Will reload module id: ' + $scope.model.id);
                         $scope.$broadcast(platformParameters.events.RELOAD_MODULE, $scope.model.id, $stateParams.mode);
                     });
 
                     $scope.$on(platformParameters.events.MODULE_FORBIDDEN, function () {
-
-                        $log.log('Will show module is forbidden: ' + $scope.model.id);
                         $scope.$emit(platformParameters.events.SHOW_PERMISSION_DENIED_TO_MODULE);
                     });
 
                     $scope.$on(platformParameters.events.START_REQUEST, function () {
-                        $log.log('Will show loader: ' + $scope.model.id);
                         $scope.$emit(platformParameters.events.SHOW_LOADER);
                     });
 
                     $scope.$on(platformParameters.events.STOP_REQUEST, function () {
-                        $log.log('Will hide loader: ' + $scope.model.id);
                         $scope.$emit(platformParameters.events.HIDE_LOADER);
                     });
 
                     $scope.$on(platformParameters.events.CONFIGURATION_MODE_READY, function () {
-                        $log.log('Will show exit configuration mode icon: ' + $scope.model.id);
                         $scope.$emit(platformParameters.events.SHOW_EXIT_CONFIGURATION_MODE_ICON);
                     });
 
                     $scope.$on(platformParameters.events.VIEW_MODE_READY, function () {
-                        $log.log('Will show configuration mode icon: ' + $scope.model.id);
                         $scope.$emit(platformParameters.events.SHOW_CONFIGURATION_MODE_ICON);
                     });
 
                     $scope.$on(platformParameters.events.REGISTER_MODULE_CONTROL_ICONS, function (event, icons) {
-                        $log.log('Will update module\'s control icons: ', $scope.model.id, icons);
                         $scope.$emit(platformParameters.events.UPDATE_MODULE_CONTROL_ICONS, icons);
                     });
 

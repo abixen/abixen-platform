@@ -135,9 +135,6 @@ angular.module('adf')
             function changeStructure(model, structure) {
                 var columns = readColumns(model);
                 var counter = 0;
-
-                console.log('structure.content: ', structure.content);
-
                 model.rows = angular.copy(JSON.parse(structure.content).rows);  // the parameter is JSON.parse(structure.contentAsJson).rows
                                                                                 // because of the structure passed from DB and to allow updating layout in DB
                 model.structure = structure.title;                              // assign new structure name
