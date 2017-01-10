@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/comment-vote-changelog.xml">
+
+    <changeSet author="BharathRaghavan" id="comment-vote-v1">
+        <createTable tableName="comment_vote">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment_vote_type" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="last_modified_by_id" type="bigint"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk_comment_vote_id" tableName="comment_vote"/>
+
+        <createIndex indexName="idx_comment_vote_created_by_id" tableName="comment_vote">
+            <column name="created_by_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_comment_vote_last_modified_by_id" tableName="comment_vote">
+            <column name="last_modified_by_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="comment_id" baseTableName="comment_vote"
+                                 constraintName="fk__comment_id__comment_vote_comment" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="comment"/>
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="comment_vote"
+                                 constraintName="fk_omment_vote_created_by_id_module_user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_id" baseTableName="comment_vote"
+                                 constraintName="fk_comment_vote_last_modified_by_id_module_user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+    </changeSet>
+</databaseChangeLog>
