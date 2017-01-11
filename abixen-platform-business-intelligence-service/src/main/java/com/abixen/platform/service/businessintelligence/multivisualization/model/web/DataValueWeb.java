@@ -12,22 +12,12 @@
  * details.
  */
 
-(function () {
+package com.abixen.platform.service.businessintelligence.multivisualization.model.web;
 
-    'use strict';
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-    angular
-        .module('platformFileDataSourceModule')
-        .factory('FileDataSource', FileDataSource);
+@JsonDeserialize(as = DataValue.class)
+public interface DataValueWeb {
 
-    FileDataSource.$inject = ['$resource'];
-
-    function FileDataSource($resource) {
-
-        return $resource('/admin/businessintelligence/abixen/multi-visualization/file-data/:id', {}, {
-            query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'}
-        });
-    }
-
-})();
+}

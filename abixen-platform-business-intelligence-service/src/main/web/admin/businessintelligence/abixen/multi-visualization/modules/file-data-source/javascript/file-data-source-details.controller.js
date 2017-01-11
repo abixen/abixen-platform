@@ -38,7 +38,18 @@
         }, true);
 
         function beforeSaveForm() {
-
+            fileDataSourceDetails.entity.columns = [];
+            Object.keys(fileDataSourceDetails.fileData[0]).forEach(function (column) {
+                if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
+                    var values = [];
+                    fileDataSourceDetails.fileData.forEach(function (row) {
+                            values.push({ value: row[column]})
+                    });
+                    fileDataSourceDetails.entity.columns.push({
+                        name: column,
+                        values : values});
+                }
+            });
 
             fileDataSourceDetails.saveForm();
         }

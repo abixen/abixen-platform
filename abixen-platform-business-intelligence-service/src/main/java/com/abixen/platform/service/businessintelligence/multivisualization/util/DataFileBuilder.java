@@ -12,11 +12,19 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualization.model.web;
+package com.abixen.platform.service.businessintelligence.multivisualization.util;
 
-public interface DataSourceValueStringWeb extends DataSourceValueWeb {
 
-    String getValue();
+import com.abixen.platform.service.businessintelligence.multivisualization.dto.DataFileColumnDTO;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.file.DataFile;
 
-    void setValue(String value);
+import java.util.Set;
+
+public interface DataFileBuilder {
+
+    DataFile build();
+
+    DataFileBuilder base(String name, String description);
+
+    DataFileBuilder data(Set<DataFileColumnDTO> dataColumn);
 }

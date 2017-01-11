@@ -14,8 +14,15 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.model.web;
 
-public interface DataSourceValueDoubleWeb extends DataSourceValueWeb {
+import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataValueDouble;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@JsonDeserialize(as = DataValueDouble.class)
+public interface DataValueDoubleWeb extends DataValueWeb {
+
+    @JsonView(WebModelJsonSerialize.class)
     Double getValue();
 
     void setValue(Double value);

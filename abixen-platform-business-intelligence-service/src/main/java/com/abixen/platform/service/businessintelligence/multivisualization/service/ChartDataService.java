@@ -16,15 +16,15 @@ package com.abixen.platform.service.businessintelligence.multivisualization.serv
 
 
 import com.abixen.platform.service.businessintelligence.multivisualization.form.ChartConfigurationForm;
-import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataSourceValueWeb;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueWeb;
 
 import java.util.Map;
 import java.util.List;
 
 public interface ChartDataService {
 
-    List<Map<String, DataSourceValueWeb>> getChartData(ChartConfigurationForm chartConfigurationForm);
+    List<Map<String, DataValueWeb>> getChartData(ChartConfigurationForm chartConfigurationForm);
 
-    List<Map<String, DataSourceValueWeb>> getChartDataPreview(ChartConfigurationForm chartConfigurationForm, String seriesName);
+    List<Map<String, DataValueWeb>> getChartDataPreview(ChartConfigurationForm chartConfigurationForm, String seriesName);
 
 }

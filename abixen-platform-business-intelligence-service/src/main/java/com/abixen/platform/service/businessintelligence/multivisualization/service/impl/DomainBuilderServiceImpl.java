@@ -35,6 +35,11 @@ public class DomainBuilderServiceImpl implements DomainBuilderService {
     }
 
     @Override
+    public DataFileBuilder newDataFileBuilderInstance() {
+        return new DataFileBuilderImpl();
+    }
+
+    @Override
     public DataSetBuilder newDataSetBuilderInstance() {
         return new DataSetBuilderImpl();
     }

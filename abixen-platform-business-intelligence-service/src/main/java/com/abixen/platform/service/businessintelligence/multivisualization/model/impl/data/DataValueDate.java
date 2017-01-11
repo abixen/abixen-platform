@@ -14,6 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data;
 
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueDateWeb;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -21,7 +23,7 @@ import java.util.Date;
 @Entity
 @Table(name = "data_value_date")
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-public class DataValueDate extends DataValue<Date> {
+public class DataValueDate extends DataValue<Date> implements DataValueDateWeb {
 
     private static final long serialVersionUID = -655187403228089633L;
 

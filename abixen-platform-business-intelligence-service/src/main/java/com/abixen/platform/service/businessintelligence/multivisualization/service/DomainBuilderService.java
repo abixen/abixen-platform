@@ -24,6 +24,8 @@ public interface DomainBuilderService {
 
     FileDataSourceBuilder newFileDataSourceBuilderInstance();
 
+    DataFileBuilder newDataFileBuilderInstance();
+
     DataSetBuilder newDataSetBuilderInstance();
 
     DataSetSeriesBuilder newDataSetSeriesBuilderInstance();

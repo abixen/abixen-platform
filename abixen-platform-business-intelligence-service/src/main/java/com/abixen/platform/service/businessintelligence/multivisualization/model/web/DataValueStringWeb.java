@@ -14,6 +14,16 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.model.web;
 
-public interface DataSourceValueWeb {
+import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataValueString;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@JsonDeserialize(as = DataValueString.class)
+public interface DataValueStringWeb extends DataValueWeb {
+
+    @JsonView(WebModelJsonSerialize.class)
+    String getValue();
+
+    void setValue(String value);
 }

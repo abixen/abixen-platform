@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualization.serv
 
 import com.abixen.platform.service.businessintelligence.multivisualization.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualization.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataSourceValueWeb;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.database.DatabaseDataSource;
 
@@ -35,8 +35,8 @@ public interface DatabaseService {
 
     List<String> getTables(Connection connection);
 
-    List<Map<String, DataSourceValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm);
+    List<Map<String, DataValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm);
 
-    List<Map<String, DataSourceValueWeb>> getChartDataPreview(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName);
+    List<Map<String, DataValueWeb>> getChartDataPreview(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName);
 
 }
