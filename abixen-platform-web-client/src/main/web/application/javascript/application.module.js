@@ -48,7 +48,8 @@
         'ui.grid.autoResize',
         'ui.bootstrap.showErrors',
         'platformFAModalSelection',
-        'ngScrollbar'];
+        'ngScrollbar',
+        'platformCommentModule'];
 
     for (var i = 0; i < externalModules.length; i++) {
         if (testIfModuleExists(externalModules[i])) {
