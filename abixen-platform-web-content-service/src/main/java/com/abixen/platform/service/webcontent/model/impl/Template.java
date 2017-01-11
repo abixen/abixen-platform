@@ -28,14 +28,19 @@ public class Template extends AuditingModel implements TemplateWeb, Serializable
 
     private static final long serialVersionUID = -8783217634723319219L;
 
-    public static final int CONTENT_MAX_LENGHT = 1000000;
+    public static final int NAME_MIN_LENGTH = 6;
+    public static final int NAME_MAX_LENGTH = 255;
+    public static final int CONTENT_MAX_LENGTH = 1000000;
 
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "template_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGHT, columnDefinition = "text")
+    @Column(name = "name", nullable = false, length = NAME_MAX_LENGTH)
+    private String name;
+
+    @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGTH, columnDefinition = "text")
     @Lob
     private String content;
 
@@ -46,6 +51,15 @@ public class Template extends AuditingModel implements TemplateWeb, Serializable
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

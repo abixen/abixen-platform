@@ -15,6 +15,9 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="content" type="text"/>
             <column name="created_by_id" type="bigint"/>
             <column name="created_date" type="timestamp"/>

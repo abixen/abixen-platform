@@ -27,6 +27,9 @@ public interface TemplateWeb {
     Long getId();
 
     @JsonView(WebModelJsonSerialize.class)
+    String getName();
+
+    @JsonView(WebModelJsonSerialize.class)
     String getContent();
 
 }

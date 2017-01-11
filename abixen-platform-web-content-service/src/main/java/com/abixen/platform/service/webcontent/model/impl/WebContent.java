@@ -30,9 +30,9 @@ public class WebContent extends AuditingModel implements WebContentWeb, Serializ
 
     private static final long serialVersionUID = 994392175080662107L;
 
-    public static final int TYPE_MAX_LENGHT = 255;
-    public static final int TITLE_MAX_LENGHT = 255;
-    public static final int CONTENT_MAX_LENGHT = 1000000;
+    public static final int TYPE_MAX_LENGTH = 255;
+    public static final int TITLE_MAX_LENGTH = 255;
+    public static final int CONTENT_MAX_LENGTH = 1000000;
 
     @Id
     @Column(name = "id")
@@ -40,13 +40,13 @@ public class WebContent extends AuditingModel implements WebContentWeb, Serializ
     protected Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false, length = TYPE_MAX_LENGHT)
+    @Column(name = "type", nullable = false, length = TYPE_MAX_LENGTH)
     protected WebContentType type;
 
-    @Column(name = "title", nullable = false, length = TITLE_MAX_LENGHT)
+    @Column(name = "title", nullable = false, length = TITLE_MAX_LENGTH)
     protected String title;
 
-    @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGHT, columnDefinition = "text")
+    @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGTH, columnDefinition = "text")
     @Lob
     protected String content;
 

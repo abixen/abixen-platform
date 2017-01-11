@@ -25,7 +25,4 @@ public interface AdvancedWebContentWeb extends WebContentWeb {
     @JsonView(WebModelJsonSerialize.class)
     StructureWeb getStructure();
 
-    @JsonView(WebModelJsonSerialize.class)
-    TemplateWeb getTemplate();
-
 }
