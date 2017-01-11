@@ -4,6 +4,13 @@ spring:
 
 abixen:
   platform:
+    adminSidebarItems:
+      -
+        title: Data Sources
+        state: application.multiVisualization.modules.databaseDataSource.list
+        orderIndex: 9
+        id: 9
+        iconClass: fa fa-database
     modules:
       -
         name: multi-visualization
