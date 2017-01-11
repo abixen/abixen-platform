@@ -17,8 +17,10 @@ package com.abixen.platform.service.webcontent.service.impl;
 import com.abixen.platform.core.exception.PlatformServiceRuntimeException;
 import com.abixen.platform.service.webcontent.form.StructureForm;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
+import com.abixen.platform.service.webcontent.model.impl.Template;
 import com.abixen.platform.service.webcontent.repository.StructureRepository;
 import com.abixen.platform.service.webcontent.service.StructureService;
+import com.abixen.platform.service.webcontent.service.TemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,12 +36,17 @@ public class StructureServiceImpl implements StructureService {
 
     @Resource
     private StructureRepository structureRepository;
+    @Resource
+    private TemplateService templateService;
 
     @Override
     public Structure createStructure(StructureForm structureForm) {
         log.debug("createStructure() - structureForm: {}", structureForm);
         Structure structure = new Structure();
+        structure.setName(structureForm.getName());
         structure.setContent(structureForm.getContent());
+        Template template = templateService.findTemplateById(structureForm.getTemplate().getId());
+        structure.setTemplate(template);
         return structureRepository.save(structure);
     }
 
@@ -47,7 +54,10 @@ public class StructureServiceImpl implements StructureService {
     public Structure updateStructure(StructureForm structureForm) {
         log.debug("updateStructure() - structureForm: {}", structureForm);
         Structure structure = findStructureById(structureForm.getId());
+        structure.setName(structureForm.getName());
         structure.setContent(structureForm.getContent());
+        Template template = templateService.findTemplateById(structureForm.getTemplate().getId());
+        structure.setTemplate(template);
         return structureRepository.save(structure);
     }
 

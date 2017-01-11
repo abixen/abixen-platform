@@ -28,16 +28,25 @@ public class Structure extends AuditingModel implements StructureWeb, Serializab
 
     private static final long serialVersionUID = 1443021404845246701L;
 
-    public static final int CONTENT_MAX_LENGHT = 1000000;
+    public static final int NAME_MIN_LENGTH = 6;
+    public static final int NAME_MAX_LENGTH = 255;
+    public static final int CONTENT_MAX_LENGTH = 1000000;
 
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "structure_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGHT, columnDefinition = "text")
+    @Column(name = "name", nullable = false, length = NAME_MAX_LENGTH)
+    private String name;
+
+    @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGTH, columnDefinition = "text")
     @Lob
     private String content;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "template_id", nullable = false)
+    private Template template;
 
     @Override
     public Long getId() {
@@ -49,6 +58,15 @@ public class Structure extends AuditingModel implements StructureWeb, Serializab
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
     public String getContent() {
         return content;
     }
@@ -57,4 +75,12 @@ public class Structure extends AuditingModel implements StructureWeb, Serializab
         this.content = content;
     }
 
+    @Override
+    public Template getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(Template template) {
+        this.template = template;
+    }
 }

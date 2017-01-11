@@ -20,6 +20,7 @@ import com.abixen.platform.service.webcontent.model.impl.Template;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class TemplateForm implements Form {
 
@@ -28,6 +29,12 @@ public class TemplateForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
+    @Size(min = Template.NAME_MIN_LENGTH, max = Template.NAME_MAX_LENGTH)
+    private String name;
+
+    @JsonView(WebModelJsonSerialize.class)
+    @NotNull
+    @Size(max = Template.CONTENT_MAX_LENGTH)
     private String content;
 
     public TemplateForm() {
@@ -44,6 +51,14 @@ public class TemplateForm implements Form {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getContent() {

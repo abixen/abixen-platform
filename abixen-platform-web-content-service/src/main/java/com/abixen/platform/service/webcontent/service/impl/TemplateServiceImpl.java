@@ -39,6 +39,7 @@ public class TemplateServiceImpl implements TemplateService {
     public Template createTemplate(TemplateForm templateForm) {
         log.debug("createTemplate() - templateForm: {}", templateForm);
         Template template = new Template();
+        template.setName(templateForm.getName());
         template.setContent(templateForm.getContent());
         return templateRepository.save(template);
     }
@@ -47,6 +48,7 @@ public class TemplateServiceImpl implements TemplateService {
     public Template updateTemplate(TemplateForm templateForm) {
         log.debug("updateTemplate() - templateForm: {}", templateForm);
         Template template = findTemplateById(templateForm.getId());
+        template.setName(templateForm.getName());
         template.setContent(templateForm.getContent());
         return templateRepository.save(template);
     }
