@@ -43,9 +43,13 @@ public class AdminViewController extends BaseController{
         List<Resource> uniqueResources = resources.stream().filter(distinctByKey(resource -> resource.getRelativeUrl())).collect(Collectors.toList());
         uniqueResources.forEach(resource -> log.debug("resource: " + resource));
 
+        List<String> angularJsModules = resources.stream().filter(r -> r.getModuleType().getAngularJsNameAdmin() != null).filter(distinctByKey(r -> r.getModuleType().getAngularJsNameAdmin())).map(r -> r.getModuleType().getAngularJsNameAdmin()).collect(Collectors.toList());
+        angularJsModules.forEach(angularJsModule -> log.debug(angularJsModule));
+
 
         ModelAndView modelAndView = new ModelAndView("admin/index");
         modelAndView.addObject("resources", uniqueResources);
+        modelAndView.addObject("angularJsModules", angularJsModules);
 
         return modelAndView;
     }

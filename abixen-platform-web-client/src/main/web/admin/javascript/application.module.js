@@ -16,42 +16,60 @@
 
     'use strict';
 
+    var platformAdminApplicationModules = [
+        'ngResource',
+        'pascalprecht.translate',
+        'platformComponent',
+        'platformNavigationModule',
+        'platformPermissionModule',
+        'platformRoleModule',
+        'platformPageModule',
+        'platformUserModule',
+        'platformLayoutModule',
+        'platformModuleModule',
+        'platformModuleTypeModule',
+        'platformCommonModule',
+        'platformListGridModule',
+        'platformThumbModule',
+        'platformUtilsModule',
+        'ui.bootstrap',
+        'ui.router',
+        'ngAnimate',
+        'ngTouch',
+        'ngRoute',
+        'toaster',
+        'ui.grid',
+        'ui.grid.exporter',
+        'ui.grid.selection',
+        'ui.grid.pinning',
+        'ui.grid.resizeColumns',
+        'ui.grid.moveColumns',
+        'ui.grid.autoResize',
+        'ui.bootstrap.showErrors',
+        'ngScrollbar',
+        'platformUploadFileModule',
+        'platformSheetReaderModule',
+        'platformThemeModule',
+        'platformCommentModule'];
+
+    for (var i = 0; i < externalModules.length; i++) {
+        if (testIfModuleExists(externalModules[i])) {
+            platformAdminApplicationModules.push(externalModules[i]);
+        }
+    }
+
     angular
-        .module('platformAdminApplication', [
-            'pascalprecht.translate',
-            'platformComponent',
-            'platformNavigationModule',
-            'platformPermissionModule',
-            'platformRoleModule',
-            'platformPageModule',
-            'platformUserModule',
-            'platformLayoutModule',
-            'platformModuleModule',
-            'platformModuleTypeModule',
-            'multiVisualizationModule',
-            //'webContentService',
-            'platformCommonModule',
-            'platformListGridModule',
-            'platformThumbModule',
-            'platformUtilsModule',
-            'ui.bootstrap',
-            'ui.router',
-            'ngAnimate',
-            'ngTouch',
-            'ngRoute',
-            'toaster',
-            'ui.grid',
-            'ui.grid.exporter',
-            'ui.grid.selection',
-            'ui.grid.pinning',
-            'ui.grid.resizeColumns',
-            'ui.grid.moveColumns',
-            'ui.grid.autoResize',
-            'ui.bootstrap.showErrors',
-            'ngScrollbar',
-            'platformUploadFileModule',
-            'platformSheetReaderModule',
-            'platformThemeModule',
-            'platformCommentModule'
-        ]);
+        .module('platformAdminApplication', platformAdminApplicationModules);
+
+    function testIfModuleExists(moduleName) {
+        try {
+            angular.module(moduleName);
+            console.log('Module ' + moduleName + ' exists');
+            return true;
+        } catch (e) {
+            console.error(e);
+            console.error('Module ' + moduleName + ' doesn\'t exist');
+        }
+        return false;
+    }
 })();
