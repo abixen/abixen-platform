@@ -14,9 +14,19 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.model.web;
 
-public interface DataSourceValueIntegerWeb extends DataSourceValueWeb {
+import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataValueDate;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-    Integer getValue();
+import java.util.Date;
 
-    void setValue(Integer value);
+@JsonDeserialize(as = DataValueDate.class)
+public interface DataValueDateWeb extends DataValueWeb {
+
+    @JsonView(WebModelJsonSerialize.class)
+    Date getValue();
+
+    void setValue(Date value);
+
 }

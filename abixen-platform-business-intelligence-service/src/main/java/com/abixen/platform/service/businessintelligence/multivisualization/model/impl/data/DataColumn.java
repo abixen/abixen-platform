@@ -17,8 +17,8 @@ package com.abixen.platform.service.businessintelligence.multivisualization.mode
 import com.abixen.platform.core.util.ModelKeys;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -37,7 +37,7 @@ public class DataColumn {
     private String name;
 
     @OneToMany(mappedBy = "dataColumn", cascade = CascadeType.ALL)
-    private Set<DataValue> values = new HashSet<>();
+    private List<DataValue> values = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -55,11 +55,11 @@ public class DataColumn {
         this.name = name;
     }
 
-    public Set<DataValue> getValues() {
+    public List<DataValue> getValues() {
         return values;
     }
 
-    public void setValues(Set<DataValue> values) {
+    public void setValues(List<DataValue> values) {
         this.values = values;
     }
 }

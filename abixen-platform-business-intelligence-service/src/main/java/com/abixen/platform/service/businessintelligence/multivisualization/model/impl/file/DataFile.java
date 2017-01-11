@@ -16,15 +16,16 @@ package com.abixen.platform.service.businessintelligence.multivisualization.mode
 
 
 import com.abixen.platform.core.util.ModelKeys;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataFileWeb;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "data_file")
 @SequenceGenerator(sequenceName = "data_file_seq", name = "data_file_seq", allocationSize = 1)
-public class DataFile {
+public class DataFile implements DataFileWeb {
 
     @Id
     @Column(name = "id")
@@ -34,11 +35,11 @@ public class DataFile {
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
     private String name;
 
-    @Column(name = "descripton", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
-    private String descripton;
+    @Column(name = "description", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
+    private String description;
 
     @OneToMany(mappedBy = "dataFile", cascade = CascadeType.ALL)
-    private Set<DataFileColumn> columns = new HashSet<>();
+    private List<DataFileColumn> columns = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -56,19 +57,20 @@ public class DataFile {
         this.name = name;
     }
 
-    public String getDescripton() {
-        return descripton;
+    @Override
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripton(String descripton) {
-        this.descripton = descripton;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Set<DataFileColumn> getColumns() {
+    public List<DataFileColumn> getColumns() {
         return columns;
     }
 
-    public void setColumns(Set<DataFileColumn> columns) {
+    public void setColumns(List<DataFileColumn> columns) {
         this.columns = columns;
     }
 }

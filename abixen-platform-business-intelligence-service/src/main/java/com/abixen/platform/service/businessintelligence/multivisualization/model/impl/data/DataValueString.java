@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data;
 
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueStringWeb;
 import com.abixen.platform.service.businessintelligence.multivisualization.util.ModelKeys;
 import org.hibernate.validator.constraints.Length;
 
@@ -23,7 +24,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "data_value_string")
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-public class DataValueString extends DataValue<String> {
+public class DataValueString extends DataValue<String> implements DataValueStringWeb {
 
     private static final long serialVersionUID = 4578637099421599970L;
 

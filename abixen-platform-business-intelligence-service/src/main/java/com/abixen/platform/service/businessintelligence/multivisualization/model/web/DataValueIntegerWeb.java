@@ -14,12 +14,16 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.model.web;
 
-import java.util.Date;
+import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataValueInteger;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-public interface DataSourceValueDateWeb extends DataSourceValueWeb {
+@JsonDeserialize(as = DataValueInteger.class)
+public interface DataValueIntegerWeb extends DataValueWeb {
 
-    Date getValue();
+    @JsonView(WebModelJsonSerialize.class)
+    Integer getValue();
 
-    void setValue(Date value);
-
+    void setValue(Integer value);
 }

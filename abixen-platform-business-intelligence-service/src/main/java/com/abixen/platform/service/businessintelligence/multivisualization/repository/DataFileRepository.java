@@ -12,22 +12,13 @@
  * details.
  */
 
-(function () {
+package com.abixen.platform.service.businessintelligence.multivisualization.repository;
 
-    'use strict';
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.file.DataFile;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    angular
-        .module('platformFileDataSourceModule')
-        .factory('FileDataSource', FileDataSource);
 
-    FileDataSource.$inject = ['$resource'];
+public interface DataFileRepository extends JpaRepository<DataFile, Long> {
 
-    function FileDataSource($resource) {
-
-        return $resource('/admin/businessintelligence/abixen/multi-visualization/file-data/:id', {}, {
-            query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'}
-        });
-    }
-
-})();
+    DataFile findByName(String name);
+}

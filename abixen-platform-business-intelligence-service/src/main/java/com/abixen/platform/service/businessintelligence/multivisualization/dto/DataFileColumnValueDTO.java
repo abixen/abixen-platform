@@ -12,22 +12,17 @@
  * details.
  */
 
-(function () {
+package com.abixen.platform.service.businessintelligence.multivisualization.dto;
 
-    'use strict';
+public class DataFileColumnValueDTO {
 
-    angular
-        .module('platformFileDataSourceModule')
-        .factory('FileDataSource', FileDataSource);
+    private String value;
 
-    FileDataSource.$inject = ['$resource'];
-
-    function FileDataSource($resource) {
-
-        return $resource('/admin/businessintelligence/abixen/multi-visualization/file-data/:id', {}, {
-            query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'}
-        });
+    public String getValue() {
+        return value;
     }
 
-})();
+    public void setValue(String value) {
+        this.value = value;
+    }
+}

@@ -91,7 +91,7 @@ public abstract class AbstractDatabaseService {
         return true;
     }
 
-    public List<Map<String, DataSourceValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm) {
+    public List<Map<String, DataValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm) {
         Set<String> chartColumnsSet = getDomainColumn(chartConfigurationForm);
 
         chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
@@ -118,7 +118,7 @@ public abstract class AbstractDatabaseService {
         return chartColumnsSet;
     }
 
-    public List<Map<String, DataSourceValueWeb>> getChartDataPreview(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+    public List<Map<String, DataValueWeb>> getChartDataPreview(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         Set<String> chartColumnsSet = getDomainColumn(chartConfigurationForm);
 
         chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
@@ -133,9 +133,9 @@ public abstract class AbstractDatabaseService {
         return getData(connection, databaseDataSource, chartColumnsSet).subList(0, LIMIT);
     }
 
-    private List<Map<String, DataSourceValueWeb>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet) {
+    private List<Map<String, DataValueWeb>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet) {
         ResultSet rs;
-        List<Map<String, DataSourceValueWeb>> data = new ArrayList<>();
+        List<Map<String, DataValueWeb>> data = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
             rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet));
@@ -143,7 +143,7 @@ public abstract class AbstractDatabaseService {
             if (rs != null) {
                 while (rs.next()) {
                     final ResultSet row = rs;
-                    Map<String, DataSourceValueWeb> rowMap = new HashMap<>();
+                    Map<String, DataValueWeb> rowMap = new HashMap<>();
                     chartColumnsSet.forEach(chartColumnsSetElement -> {
                          rowMap.put(chartColumnsSetElement, getDataFromColumn(row, chartColumnsSetElement));
                     });
@@ -165,7 +165,7 @@ public abstract class AbstractDatabaseService {
         return stringBuilder.toString();
     }
 
-    private DataSourceValueWeb getDataFromColumn(ResultSet row, String columnName) {
+    private DataValueWeb getDataFromColumn(ResultSet row, String columnName) {
         try {
             ResultSetMetaData resultSetMetaData = row.getMetaData();
             String columnTypeName = resultSetMetaData.getColumnTypeName(row.findColumn(columnName));
@@ -181,7 +181,7 @@ public abstract class AbstractDatabaseService {
         }
     }
 
-    private DataSourceValueWeb getValueAsDataSourceValue(ResultSet row, String columnName, DataValueType columnTypeName) throws SQLException {
+    private DataValueWeb getValueAsDataSourceValue(ResultSet row, String columnName, DataValueType columnTypeName) throws SQLException {
         switch (columnTypeName) {
             case DOUBLE:
                 return getValueAsDataSourceValueDoubleWeb(row, columnName);
@@ -195,9 +195,9 @@ public abstract class AbstractDatabaseService {
         }
     }
 
-    private DataSourceValueWeb getValueAsDataSourceValueDateWeb(ResultSet row, String columnName) throws SQLException {
+    private DataValueWeb getValueAsDataSourceValueDateWeb(ResultSet row, String columnName) throws SQLException {
         Date value = row.getDate(row.findColumn(columnName));
-        return new DataSourceValueDateWeb() {
+        return new DataValueDateWeb() {
             @Override
             public Date getValue() {
                 return value;
@@ -210,9 +210,9 @@ public abstract class AbstractDatabaseService {
         };
     }
 
-    private DataSourceValueWeb getValueAsDataSourceValueDoubleWeb(ResultSet row, String columnName) throws SQLException {
+    private DataValueWeb getValueAsDataSourceValueDoubleWeb(ResultSet row, String columnName) throws SQLException {
         Double value = row.getDouble(row.findColumn(columnName));
-        return new DataSourceValueDoubleWeb() {
+        return new DataValueDoubleWeb() {
             @Override
             public Double getValue() {
                 return value;
@@ -225,9 +225,9 @@ public abstract class AbstractDatabaseService {
         };
     }
 
-    private DataSourceValueWeb getValueAsDataSourceValueIntegerWeb(ResultSet row, String columnName) throws SQLException {
+    private DataValueWeb getValueAsDataSourceValueIntegerWeb(ResultSet row, String columnName) throws SQLException {
         Integer value = row.getInt(row.findColumn(columnName));
-        return new DataSourceValueIntegerWeb() {
+        return new DataValueIntegerWeb() {
             @Override
             public Integer getValue() {
                 return value;
@@ -240,9 +240,9 @@ public abstract class AbstractDatabaseService {
         };
     }
 
-    private DataSourceValueWeb getValueAsDataSourceValueStringWeb(ResultSet row, String columnName) throws SQLException {
+    private DataValueWeb getValueAsDataSourceValueStringWeb(ResultSet row, String columnName) throws SQLException {
         String value = row.getString(row.findColumn(columnName));
-        return new DataSourceValueStringWeb() {
+        return new DataValueStringWeb() {
             @Override
             public String getValue() {
                 return value;

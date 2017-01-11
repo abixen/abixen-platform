@@ -27,6 +27,8 @@
 package com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data;
 
 import com.abixen.platform.core.model.Model;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueWeb;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -35,7 +37,7 @@ import javax.persistence.*;
 @Table(name = "data_value")
 @SequenceGenerator(sequenceName = "data_value_seq", name = "data_value_seq", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class DataValue<E> extends Model {
+public abstract class DataValue<E> extends Model implements DataValueWeb {
 
     private static final long serialVersionUID = 9032457388585082311L;
 
@@ -49,6 +51,7 @@ public abstract class DataValue<E> extends Model {
 
     @ManyToOne
     @JoinColumn(name = "data_column_id", nullable = false)
+    @JsonIgnore
     private DataColumn dataColumn;
 
     DataValue() {
@@ -74,5 +77,12 @@ public abstract class DataValue<E> extends Model {
 
     public abstract void setValue(E value);
 
+    public DataColumn getDataColumn() {
+        return dataColumn;
+    }
+
+    public void setDataColumn(DataColumn dataColumn) {
+        this.dataColumn = dataColumn;
+    }
 }
 

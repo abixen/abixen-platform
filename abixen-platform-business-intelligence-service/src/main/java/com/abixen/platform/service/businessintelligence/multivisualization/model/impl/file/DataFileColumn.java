@@ -15,15 +15,25 @@
 package com.abixen.platform.service.businessintelligence.multivisualization.model.impl.file;
 
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataColumn;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataFileColumnWeb;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("FILE")
-public class DataFileColumn extends DataColumn {
+public class DataFileColumn extends DataColumn implements DataFileColumnWeb {
 
     @OneToOne
     @JoinColumn(name = "data_file_id", nullable = false)
+    @JsonIgnore
     private DataFile dataFile;
 
+    public DataFile getDataFile() {
+        return dataFile;
+    }
+
+    public void setDataFile(DataFile dataFile) {
+        this.dataFile = dataFile;
+    }
 }

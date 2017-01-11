@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualization.controller;
 
 import com.abixen.platform.service.businessintelligence.multivisualization.form.ChartConfigurationForm;
-import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataSourceValueWeb;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualization.service.ChartDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class ChartDataPreviewController {
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, 'Module', 'MODULE_VIEW')")
     @RequestMapping(value = "/{seriesName}", method = RequestMethod.POST)
-    public List<Map<String, DataSourceValueWeb>> getPreviewDataForChart(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, @PathVariable("seriesName") String seriesName) {
+    public List<Map<String, DataValueWeb>> getPreviewDataForChart(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, @PathVariable("seriesName") String seriesName) {
         log.debug("getPreviewDataForChart - chartConfigurationForm: " + chartConfigurationForm);
         log.debug("getPreviewDataForChart - value: " + seriesName);
         return chartDataService.getChartDataPreview(chartConfigurationForm, seriesName);
