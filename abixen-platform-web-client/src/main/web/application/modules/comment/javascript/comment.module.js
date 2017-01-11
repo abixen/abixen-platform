@@ -18,6 +18,5 @@
 
     angular
         .module('platformCommentModule', [
-            'ui.router'
         ]);
 })();

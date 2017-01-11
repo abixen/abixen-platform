@@ -49,8 +49,7 @@
         'ngScrollbar',
         'platformUploadFileModule',
         'platformSheetReaderModule',
-        'platformThemeModule',
-        'platformCommentModule'];
+        'platformThemeModule'];
 
     for (var i = 0; i < externalModules.length; i++) {
         if (testIfModuleExists(externalModules[i])) {
