@@ -32,39 +32,49 @@
         '$log',
         'Layout',
         'FileUploader',
-        '$cookies'
+        '$cookies',
+        'responseHandler'
     ];
 
-    function LayoutDetailsController($scope, $http, $state, $stateParams, $log, Layout, FileUploader, $cookies) {
+    function LayoutDetailsController($scope, $http, $state, $stateParams, $log, Layout, FileUploader, $cookies, responseHandler) {
         $log.log('LayoutDetailsController');
 
-        $scope.isUploadIcon = false;
-        angular.extend(this, new AbstractCrudDetailController($scope, $http, $state, $stateParams, $log, Layout, 'application.layouts'));
-        $scope.editorOptions = {
-            lineWrapping: true,
-            lineNumbers: true,
-            readOnly: 'nocursor',
-            mode: 'xml',
-            theme: 'theme'
-        };
-        $scope.editor = CodeMirror.fromTextArea(document.getElementById("xmlInput"), {
-            lineNumbers: true,
-            mode: "text/html",
-            matchBrackets: true
-        });
-        $scope.get($stateParams.id);
+        var layoutDetails = this;
 
-        $scope.$watch('entity', function () {
-
-            if ($scope.entity != null) {
-                $scope.editor.getDoc().setValue($scope.entity.content);
-                if ($scope.entity.iconFileName === null) {
-                    entity.iconFileName = 'default-layout-icon.png';
-                }
+        new AbstractDetailsController(layoutDetails, Layout, responseHandler, $scope,
+            {
+                entityId: $stateParams.id,
+                getValidators: getValidators,
+                onSuccessSaveForm: onSuccessSaveForm
             }
-        });
+        );
+        function getValidators() {
+            var validators = [];
+            validators['title'] =
+                [
+                    new NotNull(),
+                    new Length(6, 40)
+                ];
+            validators['content'] =
+                [
+                    new NotNull(),
+                    new Length(10, 4000)
+                ];
+            validators['iconFileName'] =
+                [
+                    new NotNull(),
+                    new Length(6, 100)
+                ];
 
-        $scope.isUploadLayoutIcon = function () {
+            return validators;
+        }
+
+        function onSuccessSaveForm() {
+            $state.go('application.layouts.list');
+        }
+
+        layoutDetails.isUploadIcon = false;
+        layoutDetails.isUploadLayoutIcon = function () {
             return $state.current.name === 'application.layouts.edit'
         };
 
@@ -85,21 +95,30 @@
         layoutIconChange.cancelAll = cancelAll;
 
         function onCompleteAll() {
-            if ($scope.isUploadIcon) {
-                $scope.isUploadIcon = false;
+            if (layoutDetails.isUploadIcon) {
+                layoutDetails.isUploadIcon = false;
                 layoutIconChange.uploader.clearQueue();
-                $scope.get($stateParams.id);
+                getLayoutIcon($stateParams.id);
             }
         }
 
         function cancelAll() {
             layoutIconChange.uploader.cancelAll();
-            $scope.isUploadIcon = false;
+            layoutDetails.isUploadIcon = false;
         }
 
-        $scope.showUploadLayoutIcon = function () {
-            $scope.isUploadIcon = true;
+        layoutDetails.showUploadLayoutIcon = function () {
+            layoutDetails.isUploadIcon = true;
         };
 
+        function getLayoutIcon(id) {
+            if (id) {
+                Layout.get({id: id}, function (data) {
+                    layoutDetails.entity.iconFileName = data.iconFileName;
+                });
+            } else {
+                layoutDetails.entity.iconFileName = '';
+            }
+        }
     }
 })();
