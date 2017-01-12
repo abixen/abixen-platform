@@ -17,6 +17,7 @@ package com.abixen.platform.service.businessintelligence.model;
 import com.abixen.platform.core.model.Model;
 import com.abixen.platform.core.model.SimpleUserBase;
 import com.abixen.platform.core.model.enumtype.UserGender;
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.enumtype.UserState;
 
 import java.util.Date;
@@ -35,6 +36,7 @@ public class User extends Model implements SimpleUserBase<Role> {
     private String jobTitle;
     private Date birthday;
     private UserGender gender;
+    private UserLanguage selectLanguage;
     private String avatarFileName;
     private String registrationIp;
     private UserState state;
@@ -139,6 +141,16 @@ public class User extends Model implements SimpleUserBase<Role> {
     @Override
     public void setGender(UserGender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public UserLanguage getSelectedLanguage() {
+        return selectLanguage;
+    }
+
+    @Override
+    public void setSelectedLanguage(UserLanguage selectedLanguage) {
+          this.selectLanguage = selectedLanguage;
     }
 
     @Override

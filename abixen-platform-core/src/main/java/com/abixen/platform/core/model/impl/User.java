@@ -16,6 +16,7 @@ package com.abixen.platform.core.model.impl;
 
 import com.abixen.platform.core.model.UserBase;
 import com.abixen.platform.core.model.enumtype.UserGender;
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.enumtype.UserState;
 import com.abixen.platform.core.model.web.UserWeb;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -63,6 +64,10 @@ public class User extends AuditingModel implements UserBase<Role>, UserWeb {
 
     @Column(name = "gender")
     private UserGender gender;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "selectedLanguage",  nullable = false)
+    private UserLanguage selectedLanguage = UserLanguage.ENGLISH;
 
     @Column(name = "avatar_file_name")
     private String avatarFileName;
@@ -180,6 +185,16 @@ public class User extends AuditingModel implements UserBase<Role>, UserWeb {
     @Override
     public void setGender(UserGender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public UserLanguage getSelectedLanguage() {
+        return selectedLanguage;
+    }
+
+    @Override
+    public void setSelectedLanguage(UserLanguage selectedLanguage) {
+            this.selectedLanguage = selectedLanguage;
     }
 
     @Override
