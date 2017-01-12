@@ -24,7 +24,8 @@
             {
                 entityId: $stateParams.id,
                 getValidators: getValidators,
-                onSuccessSaveForm: onSuccessSaveForm
+                onSuccessSaveForm: onSuccessSaveForm,
+                onSuccessGetEntity: onSuccessGetEntity
             }
         );
 
@@ -50,12 +51,30 @@
                         values : values});
                 }
             });
-
+            $log.debug('entity.id: ',fileDataSourceDetails. entity);
             fileDataSourceDetails.saveForm();
         }
 
         function onSuccessSaveForm() {
             $state.go('application.multiVisualization.modules.fileDataSource.list');
+        }
+
+        function onSuccessGetEntity() {
+            if (fileDataSourceDetails.entity.columns == null && fileDataSourceDetails.entity.columns == undefined){
+                return;
+            }
+            var parsedData = [];
+
+            fileDataSourceDetails.entity.columns[0].values.forEach(function (row, index) {
+                var parsedRow = [];
+                fileDataSourceDetails.entity.columns.forEach(function (column, index1) {
+                    parsedRow['col' + index1] = column.values[index].value;
+                });
+                parsedData.push(parsedRow);
+            });
+            fileDataSourceDetails.fileData = parsedData;
+            $scope.$broadcast('GridDataUpdated', parsedData);
+
         }
 
         function getValidators() {

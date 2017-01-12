@@ -15,12 +15,18 @@
 package com.abixen.platform.service.businessintelligence.multivisualization.service.impl;
 
 import com.abixen.platform.service.businessintelligence.multivisualization.form.DataFileForm;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataValue;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataValueDouble;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataValueInteger;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.data.DataValueString;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.file.DataFile;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.file.DataFileColumn;
 import com.abixen.platform.service.businessintelligence.multivisualization.repository.DataFileRepository;
 import com.abixen.platform.service.businessintelligence.multivisualization.service.DataFileService;
 import com.abixen.platform.service.businessintelligence.multivisualization.service.DomainBuilderService;
+import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -69,9 +75,9 @@ public class DataFileServiceImpl implements DataFileService {
     }
 
     @Override
-    public DataFileForm     createDataFile(DataFileForm dataFileForm) {
+    public DataFileForm createDataFile(DataFileForm dataFileForm) {
         DataFile dataFile = buildDataFile(dataFileForm);
-        return new DataFileForm(updateDataFile(createDataFile(dataFile)));
+        return new DataFileForm(createDataFile(dataFile));
     }
 
     @Override
@@ -87,6 +93,25 @@ public class DataFileServiceImpl implements DataFileService {
 
         DataFile dataFile = findDataFile(dataFileForm.getId());
         dataFile.setName(dataFileForm.getName());
+        dataFile.setDescription(dataFileForm.getDescription());
+        List<DataFileColumn> columns = new ArrayList<>();
+        dataFileForm.getColumns().forEach(entity -> {
+            DataFileColumn dataFileColumn = new DataFileColumn();
+            dataFileColumn.setName(entity.getName());
+            List<DataValue> values = new ArrayList<>();
+            entity.getValues().forEach(child -> {
+                if (child != null && child.getValue() != null) {
+                    String value = child.getValue().trim();
+                    DataValue dataValue = getObjForValue(value);
+                    dataValue.setDataColumn(dataFileColumn);
+                    values.add(dataValue);
+                }
+            });
+            dataFileColumn.setValues(values);
+            dataFileColumn.setDataFile(dataFile);
+            columns.add(dataFileColumn);
+        });
+        dataFile.setColumns(columns);
 
         return new DataFileForm(updateDataFile(dataFile));
     }
@@ -118,5 +143,27 @@ public class DataFileServiceImpl implements DataFileService {
             position++;
         }
         return result;
+    }
+
+    private DataValue getObjForValue(String value) {
+        DataValue dataValue;
+        if (value == null) {
+            dataValue = new DataValueString();
+            dataValue.setValue("");
+        } else {
+            if (NumberUtils.isNumber(value)) {
+                if (Ints.tryParse(value) != null) {
+                    dataValue = new DataValueInteger();
+                    dataValue.setValue(Integer.parseInt(value));
+                } else {
+                    dataValue = new DataValueDouble();
+                    dataValue.setValue(Double.parseDouble(value));
+                }
+            } else {
+                dataValue = new DataValueString();
+                dataValue.setValue(value);
+            }
+        }
+        return dataValue;
     }
 }

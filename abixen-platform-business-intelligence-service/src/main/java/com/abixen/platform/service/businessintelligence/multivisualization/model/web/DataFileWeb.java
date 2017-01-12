@@ -27,6 +27,9 @@ import java.util.List;
 public interface DataFileWeb {
 
     @JsonView(WebModelJsonSerialize.class)
+    Long getId();
+
+    @JsonView(WebModelJsonSerialize.class)
     List<DataFileColumn> getColumns();
 
     @JsonView(WebModelJsonSerialize.class)
