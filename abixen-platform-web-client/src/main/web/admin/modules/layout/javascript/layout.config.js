@@ -45,7 +45,8 @@
             .state('application.layouts.edit', {
                 url: '/edit/:id',
                 templateUrl: '/admin/modules/layout/html/edit.html',
-                controller: 'LayoutDetailsController'
+                controller: 'LayoutDetailsController',
+                controllerAs: 'layoutDetails'
             })
             .state('application.layouts.permissions', {
                 url: '/permissions/:id',

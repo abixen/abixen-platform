@@ -15,6 +15,7 @@
 package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import com.abixen.platform.core.form.LayoutForm;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.repository.LayoutRepository;
 import com.abixen.platform.core.service.LayoutService;
@@ -68,6 +69,16 @@ public class LayoutServiceImpl implements LayoutService {
     public Layout updateLayout(Layout layout) {
         log.debug("updateLayout() - layout={}", layout);
         return layoutRepository.save(layout);
+    }
+
+    @Override
+    public LayoutForm updateLayout(LayoutForm layoutForm) {
+        log.debug("updateLayout() - layoutForm: " + layoutForm);
+        Layout layout = findLayout(layoutForm.getId());
+        layout.setContent(layoutForm.getContent());
+        layout.setTitle(layoutForm.getTitle());
+        layout.setIconFileName(layoutForm.getIconFileName());
+        return new LayoutForm(updateLayout(layout));
     }
 
     @Override
