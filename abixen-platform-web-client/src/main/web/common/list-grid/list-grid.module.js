@@ -17,5 +17,13 @@
     'use strict';
 
     angular
-        .module('platformListGridModule', []);
+        .module('platformListGridModule', [
+            'ui.grid',
+            'ui.grid.exporter',
+            'ui.grid.selection',
+            'ui.grid.pinning',
+            'ui.grid.resizeColumns',
+            'ui.grid.moveColumns',
+            'ui.grid.autoResize'
+        ]);
 })();
