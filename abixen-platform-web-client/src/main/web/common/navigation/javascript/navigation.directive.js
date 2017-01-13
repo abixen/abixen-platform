@@ -1,20 +1,50 @@
-var platformNavigationDirectives = angular.module('platformNavigationDirectives', []);
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
 
-platformNavigationDirectives.directive('platformNavigation', ['$log', '$state', 'applicationNavigationItems', 'User', function ($log, $state, applicationNavigationItems, User) {
-    return {
-        restrict: 'E',
-        transclude: true,
-        templateUrl: '/common/navigation/html/platform-navigation.html',
-        scope: {
-            addNewModule: '&addNewModule',
-            addNewPage: '&addNewPage',
-            logout: '&logout',
-            platformUser: '=platformUser',
-            selectedItem: '=selectedItem',
-            showDropdown: '=showDropdown',
-            editUser: '&editUser'
-        },
-        link: function (scope, element, attrs) {
+(function () {
+
+    'use strict';
+
+    angular
+        .module('platformNavigationModule')
+        .directive('platformNavigation', platformNavigationDirective);
+
+    platformNavigationDirective.$inject = [
+        '$log',
+        '$state',
+        'applicationNavigationItems',
+        'User'
+    ];
+
+    function platformNavigationDirective($log, $state, applicationNavigationItems, User) {
+        return {
+            restrict: 'E',
+            transclude: true,
+            templateUrl: '/common/navigation/html/platform-navigation.html',
+            scope: {
+                addNewModule: '&addNewModule',
+                addNewPage: '&addNewPage',
+                logout: '&logout',
+                platformUser: '=platformUser',
+                selectedItem: '=selectedItem',
+                showDropdown: '=showDropdown',
+                editUser: '&editUser'
+            },
+            link: link
+        };
+
+        function link(scope, element, attrs) {
 
             scope.applicationNavigationItems = applicationNavigationItems;
             scope.sidebarItems = applicationNavigationItems.sidebarItems;
@@ -27,15 +57,19 @@ platformNavigationDirectives.directive('platformNavigation', ['$log', '$state', 
             scope.avatarUrl = '';
 
             scope.flags = [
-                        {'name':'English','img':'/common/navigation/image/united-states_flat.png','locale':'en'},
-                        {'name':'Polish','img':'/common/navigation/image/poland_flat.png','locale':'pl'},
-                        {'name':'Russian','img':'/common/navigation/image/russia_flat.png','locale':'ru'},
-                        {'name':'Spanish','img':'/common/navigation/image/spain_flat.png','locale':'es'},
-                        {'name':'Ukrainian','img':'/common/navigation/image/ukraine_flat.png','locale':'ua'}
-                        ];
+                {'name': 'English', 'img': '/common/navigation/image/united-states_flat.png', 'locale': 'en'},
+                {'name': 'Polish', 'img': '/common/navigation/image/poland_flat.png', 'locale': 'pl'},
+                {'name': 'Russian', 'img': '/common/navigation/image/russia_flat.png', 'locale': 'ru'},
+                {'name': 'Spanish', 'img': '/common/navigation/image/spain_flat.png', 'locale': 'es'},
+                {'name': 'Ukrainian', 'img': '/common/navigation/image/ukraine_flat.png', 'locale': 'ua'}
+            ];
 
             //  default locale is en
-            scope.selectedLocale = {'name':'English','img':'/common/navigation/image/united-states_flat.png','locale':'en'};
+            scope.selectedLocale = {
+                'name': 'English',
+                'img': '/common/navigation/image/united-states_flat.png',
+                'locale': 'en'
+            };
 
             var mobileView = 992;
 
@@ -66,17 +100,13 @@ platformNavigationDirectives.directive('platformNavigation', ['$log', '$state', 
                 }
 
             };
-            //scope.$watch('applicationNavigationItems.getTopbarItems()', function(newValue, oldValue) {
-            //   $log.log('applicationNavigationItems.topbarItems: ', applicationNavigationItems.getTopbarItems());
-            //    scope.topbarItems = applicationNavigationItems.getTopbarItems();
-            //});
 
             scope.toggleSidebar = function () {
                 scope.toggle = !scope.toggle;
             };
 
             //  placeholder function to switch language
-            scope.switchLocale = function(locale) {
+            scope.switchLocale = function (locale) {
                 scope.selectedLocale = locale;
             };
 
@@ -112,5 +142,5 @@ platformNavigationDirectives.directive('platformNavigation', ['$log', '$state', 
             }
 
         }
-    };
-}]);
+    }
+})();
