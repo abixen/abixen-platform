@@ -15,9 +15,9 @@ With loosely coupled components, it opens up a possibility of a efficient divisi
 Creating a new module, a new functionality, a developer must not interfere with the existing source code. He can create a new microservice, being a separate spring boot application. 
 Then, implementing necessary interfaces achieves opportunity to integrate the newly created microservice with Abixen Platform structure.
 Finally, a business administrator may use it over the platform.
-Abixen Platform supplies out of the box a few functional modules closed in the Modules microservice.
+Abixen Platform supplies out of the box a few functional modules closed in the Business Intelligence Service and in the Web Content Service.
 This is a good example, how to create the own microservice.
-Mentioned Modules provide mainly visualization functionalities, such as charts, micro charts, KPIs.
+Mentioned serivces provide mainly visualisation functionalities, such as charts, micro charts, KPIs. As well as a web content management, such as templates, structures, articles.
 However opportunities to develop data entry modules are still opened!
 ![Abixen Platform Microservices Architecture](documentation-image/abixen-platform-microservices-architecture.png "Abixen Platform Microservices Architecture")
 
@@ -41,7 +41,6 @@ Preliminary we have to focus on following refactor and changes:
 
 * Change AngularJS style to Papa Style
 * Apply Lombok library on Java side
-* Migrate to Liquibase
 
 In relation to issues, there will be worth to talk about them once refactor and several features described in the section below will be done.
 
@@ -49,12 +48,13 @@ In relation to issues, there will be worth to talk about them once refactor and 
 
 Before release the first version of Abixen Platform we have to finish several features, such as:
 
-* Improve security model
-* Finish chart module
+* Improve the security model
+* Finish the Business Intelligence Service
+* Finish the Web Content Service
 * Solve major issues
 * Perform refactor described above
 
-We are going to release the first version in January 2017. 
+We are going to release the first version in February 2017. 
 
 The next known plans take into account inter alia:
 
@@ -67,7 +67,7 @@ The documentation is available under https://github.com/abixen/abixen-platform/w
 #How to contribute to the repository
 Contributors wanted to join Abixen Platform project have to comply with a few rules: 
 
-* An preferred IDE is IntelliJ IDEA with default formatting styles
+* A preferred IDE is IntelliJ IDEA with default formatting styles
 * Committed source code must be high quality
 * Committed source code must be formatted
 * A commit has to solve an issue from the product backlog (if missing the issue there, please add previously)
