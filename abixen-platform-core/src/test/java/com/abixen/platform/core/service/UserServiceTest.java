@@ -18,6 +18,7 @@ import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.configuration.properties.PlatformTestResourceConfigurationProperties;
 import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.model.enumtype.UserGender;
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.util.UserBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +64,7 @@ public class UserServiceTest {
         userBuilder.credentials("username", "password");
         userBuilder.screenName("screenName");
         userBuilder.personalData("firstName", "middleName", "lastName");
-        userBuilder.additionalData(new Date(), "jobTitle", UserGender.MALE);
+        userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
         userBuilder.registrationIp("127.0.0.1");
         User user = userBuilder.build();
         userService.createUser(user);
@@ -80,7 +81,7 @@ public class UserServiceTest {
         userBuilder.credentials("usernameA", "password");
         userBuilder.screenName("screenNameA");
         userBuilder.personalData("firstName", "middleName", "lastName");
-        userBuilder.additionalData(new Date(), "jobTitle", UserGender.MALE);
+        userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
         userBuilder.registrationIp("127.0.0.1");
         User user = userBuilder.build();
         userService.createUser(user);
@@ -107,7 +108,7 @@ public class UserServiceTest {
         userBuilder.credentials("usernameB", "password");
         userBuilder.screenName("screenNameB");
         userBuilder.personalData("firstName", "middleName", "lastName");
-        userBuilder.additionalData(new Date(), "jobTitle", UserGender.MALE);
+        userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
         userBuilder.registrationIp("127.0.0.1");
         User user = userBuilder.build();
         userService.createUser(user);
@@ -127,7 +128,7 @@ public class UserServiceTest {
         userBuilder.credentials("usernameC", "password");
         userBuilder.screenName("screenNameC");
         userBuilder.personalData("firstName", "middleName", "lastName");
-        userBuilder.additionalData(new Date(), "jobTitle", UserGender.MALE);
+        userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
         userBuilder.registrationIp("127.0.0.1");
         User user = userBuilder.build();
         user.setAvatarFileName("oldAvatarName");

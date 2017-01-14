@@ -15,6 +15,7 @@
 package com.abixen.platform.core.form;
 
 import com.abixen.platform.core.model.enumtype.UserGender;
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.core.model.UserBase;
@@ -57,6 +58,9 @@ public class UserForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     private String jobTitle;
+
+    @JsonView(WebModelJsonSerialize.class)
+    private UserLanguage selectedLanguage;
 
     @JsonView(WebModelJsonSerialize.class)
     private Date birthday;
@@ -128,6 +132,14 @@ public class UserForm implements Form {
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
+    }
+
+    public UserLanguage getSelectedLanguage() {
+        return selectedLanguage;
+    }
+
+    public void setSelectedLanguage(UserLanguage selectedLanguage) {
+        this.selectedLanguage = selectedLanguage;
     }
 
     public Date getBirthday() {

@@ -108,6 +108,8 @@
             opened: false
         };
 
+        $scope.user.selectedLanguage = null;
+
         $scope.user.gender = null;
 
         $scope.cancel = function () {

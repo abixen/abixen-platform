@@ -16,6 +16,7 @@ package com.abixen.platform.core.util.impl;
 
 
 import com.abixen.platform.core.model.enumtype.UserGender;
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.enumtype.UserState;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.model.impl.User;
@@ -64,9 +65,10 @@ public class UserBuilderImpl extends EntityBuilder<User> implements UserBuilder 
     }
 
     @Override
-    public UserBuilder additionalData(Date birthday, String jobTitle, UserGender gender) {
+    public UserBuilder additionalData(Date birthday, String jobTitle, UserLanguage language, UserGender gender) {
         this.product.setBirthday(birthday);
         this.product.setJobTitle(jobTitle);
+        this.product.setSelectedLanguage(language);
         this.product.setGender(gender);
         return this;
     }
