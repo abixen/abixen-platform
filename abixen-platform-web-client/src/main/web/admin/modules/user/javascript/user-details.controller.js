@@ -44,6 +44,7 @@
             }
         );
 
+        userDetails.languageTypes = [{key: 'ENGLISH'}, {key: 'POLISH'},{key:'RUSSIAN'},{key:'SPANISH'},{key:'UKRAINIAN'}];
         userDetails.genderTypes = [{key: 'MALE'}, {key: 'FEMALE'}];
         userDetails.userBaseUrl = "/api/application/users/";
         userDetails.avatarUrl = '';

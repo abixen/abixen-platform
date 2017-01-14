@@ -40,7 +40,8 @@
             'module.user.jobTitle.label': 'Stanowisko',
             'module.user.jobTitle.placeholder': 'Np. Administrator',
             'module.user.birthday.label': 'Data urodzin',
-            'module.user.gender.label': 'Płeć'
+            'module.user.gender.label': 'Płeć',
+            'module.user.language.label': 'Język'
         });
 
         $translateProvider.translations('en', {
@@ -57,7 +58,8 @@
             'module.user.jobTitle.label': 'Job title',
             'module.user.jobTitle.placeholder': 'E.g. Administrator',
             'module.user.birthday.label': 'Birthday',
-            'module.user.gender.label': 'Gender'
+            'module.user.gender.label': 'Gender',
+            'module.user.language.label': 'Language'
         });
     }
 })();
