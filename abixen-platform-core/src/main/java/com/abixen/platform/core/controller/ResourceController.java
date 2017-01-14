@@ -38,7 +38,7 @@ public class ResourceController {
     public List<Resource> getResources() {
         log.debug("getResources()");
 
-        List<Resource> resources = resourceService.findAllUniqueResources();
+        List<Resource> resources = resourceService.findAllResources();
 
         return resources;
     }

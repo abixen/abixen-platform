@@ -15,16 +15,16 @@
 package com.abixen.platform.core.model;
 
 
-public interface AclClassBase {
+import com.abixen.platform.core.model.enumtype.AclClassName;
 
-    int ACL_CLASS_NAME_MAX_LENGTH = 250;
+public interface AclClassBase {
 
     Long getId();
 
     void setId(Long id);
 
-    String getName();
+    AclClassName getAclClassName();
 
-    void setName(String name);
+    void setAclClassName(AclClassName aclClassName);
 
 }

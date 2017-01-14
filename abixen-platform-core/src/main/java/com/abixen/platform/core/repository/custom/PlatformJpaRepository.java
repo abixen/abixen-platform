@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.repository.custom;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,5 +30,5 @@ public interface PlatformJpaRepository<T, ID extends Serializable> extends JpaRe
 
     Page<T> findAllByJsonCriteria(String jsonCriteria, Pageable pageable);
 
-    List<T> findAllSecured(String query, String filteredObjectAlias, String securableClassCanonicalName, PermissionName permissionName);
+    List<T> findAllSecured(String query, String filteredObjectAlias, AclClassName aclClassName, PermissionName permissionName);
 }

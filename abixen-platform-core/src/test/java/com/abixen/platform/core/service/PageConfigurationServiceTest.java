@@ -51,6 +51,7 @@ public class PageConfigurationServiceTest {
         samplePageForm = new PageForm();
         samplePageForm.setTitle("Sample page");
         samplePageForm.setDescription("Sample page to validate PageModel");
+        samplePageForm.setIcon("fa fa-file-text-o");
         Layout layoutWeb = new Layout();
         layoutWeb.setId(7L);
         samplePageForm.setLayout(layoutWeb);
@@ -78,6 +79,8 @@ public class PageConfigurationServiceTest {
         assertEquals(samplePageForm.getTitle(), dto.getPage().getTitle());
 
         assertEquals(samplePageForm.getDescription(), dto.getPage().getDescription());
+
+        assertEquals(samplePageForm.getIcon(), dto.getPage().getIcon());
 
         assertEquals(samplePageForm.getLayout().getId(), dto.getPage().getLayout().getId());
 

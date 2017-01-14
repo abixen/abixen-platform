@@ -14,11 +14,12 @@
 
 package com.abixen.platform.core.repository;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.impl.AclClass;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface AclClassRepository extends JpaRepository<AclClass, Long> {
 
-    AclClass findByName(String name);
+    AclClass findByAclClassName(AclClassName aclClassName);
 }

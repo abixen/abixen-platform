@@ -20,6 +20,7 @@ import com.abixen.platform.service.webcontent.model.impl.WebContent;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class WebContentForm implements Form {
 
@@ -28,10 +29,12 @@ public class WebContentForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
+    @Size(max = WebContent.TITLE_MAX_LENGTH)
     protected String title;
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
+    @Size(max = WebContent.CONTENT_MAX_LENGTH)
     protected String content;
 
     public WebContentForm() {

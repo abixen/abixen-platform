@@ -29,7 +29,7 @@ public class PlatformModulesPackages {
 
     public static final String CLIENT = MAIN + ".client";
 
-    public static final String CHART = MAIN + ".chart";
+    public static final String CHART = MAIN + ".multivisualization";
 
     public static final String KPI_CHART = MAIN + ".kpichart";
 

@@ -19,6 +19,6 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@ComponentScan("com.abixen.platform.businessintelligence.chart.service")
+@ComponentScan("com.abixen.platform.businessintelligence.multivisualization.service")
 public class PlatformModuleServiceConfiguration {
 }

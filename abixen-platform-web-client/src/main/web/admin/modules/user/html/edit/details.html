@@ -38,6 +38,15 @@
                             placeholder="{{'module.user.jobTitle.placeholder' | translate}}"
                             validators="userDetails.validators">
                 </input-text>
+                <input-drop-down model="userDetails.entity.language"
+                                 name="language"
+                                 label="{{'module.user.language.label' | translate}}"
+                                 validators="userDetails.validators"
+                                 options="userDetails.languageTypes"
+                                 show-empty-value="true"
+                                 empty-value-label="Select Lanaguage"
+                                 key-as-value="true">
+                </input-drop-down>
             </div>
             <div class="col-xs-6">
                 <div class="form-group avatar">

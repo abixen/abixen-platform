@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -38,9 +37,8 @@ public class ResourceServiceImpl implements ResourceService {
     private ResourceRepository resourceRepository;
 
     @Override
-    public List<com.abixen.platform.core.model.impl.Resource> findAllUniqueResources() {
-        List<com.abixen.platform.core.model.impl.Resource> resources = resourceRepository.findAll();
-        return resources.stream().filter(distinctByKey(resource -> resource.getRelativeUrl())).collect(Collectors.toList());
+    public List<com.abixen.platform.core.model.impl.Resource> findAllResources() {
+        return resourceRepository.findAll();
     }
 
     @Override

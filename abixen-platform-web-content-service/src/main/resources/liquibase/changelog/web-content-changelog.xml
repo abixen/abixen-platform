@@ -52,9 +52,6 @@
             <column name="structure_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="template_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
 
         <addPrimaryKey columnNames="id" constraintName="pk__advanced_web_content__id" tableName="advanced_web_content"/>
@@ -64,12 +61,6 @@
                                  deferrable="false"
                                  initiallyDeferred="false"
                                  referencedColumnNames="id" referencedTableName="structure"/>
-
-        <addForeignKeyConstraint baseColumnNames="template_id" baseTableName="advanced_web_content"
-                                 constraintName="fk__template_id__advanced_web_content__template"
-                                 deferrable="false"
-                                 initiallyDeferred="false"
-                                 referencedColumnNames="id" referencedTableName="template"/>
     </changeSet>
 
 </databaseChangeLog>

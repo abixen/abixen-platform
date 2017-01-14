@@ -16,6 +16,7 @@ package com.abixen.platform.core.model.impl;
 
 import com.abixen.platform.core.model.AclClassBase;
 import com.abixen.platform.core.model.Model;
+import com.abixen.platform.core.model.enumtype.AclClassName;
 
 import javax.persistence.*;
 
@@ -40,8 +41,9 @@ public class AclClass extends Model implements AclClassBase {
      * Represents a canonical name of domain class.
      * E.g. com.abixen.platform.core.model.impl.User
      */
-    @Column(name = "name", length = ACL_CLASS_NAME_MAX_LENGTH, nullable = false)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "name", nullable = false)
+    private AclClassName aclClassName;
 
     @Override
     public Long getId() {
@@ -54,13 +56,13 @@ public class AclClass extends Model implements AclClassBase {
     }
 
     @Override
-    public String getName() {
-        return name;
+    public AclClassName getAclClassName() {
+        return aclClassName;
     }
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public void setAclClassName(AclClassName aclClassName) {
+        this.aclClassName = aclClassName;
     }
 
 }

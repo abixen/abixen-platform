@@ -17,20 +17,15 @@ package com.abixen.platform.service.webcontent.form;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.webcontent.model.impl.AdvancedWebContent;
 import com.abixen.platform.service.webcontent.model.web.StructureWeb;
-import com.abixen.platform.service.webcontent.model.web.TemplateWeb;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
 
 public class AdvancedWebContentForm extends WebContentForm {
 
-    @NotNull
     @JsonView(WebModelJsonSerialize.class)
+    @NotNull
     private StructureWeb structure;
-
-    @NotNull
-    @JsonView(WebModelJsonSerialize.class)
-    private TemplateWeb template;
 
     public AdvancedWebContentForm() {
     }
@@ -38,7 +33,6 @@ public class AdvancedWebContentForm extends WebContentForm {
     public AdvancedWebContentForm(AdvancedWebContent advancedWebContent) {
         super(advancedWebContent);
         this.structure = advancedWebContent.getStructure();
-        this.template = advancedWebContent.getTemplate();
     }
 
     public StructureWeb getStructure() {
@@ -47,13 +41,5 @@ public class AdvancedWebContentForm extends WebContentForm {
 
     public void setStructure(StructureWeb structure) {
         this.structure = structure;
-    }
-
-    public TemplateWeb getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(TemplateWeb template) {
-        this.template = template;
     }
 }

@@ -31,10 +31,7 @@ public class AdvancedWebContent extends WebContent implements AdvancedWebContent
     @JoinColumn(name = "structure_id", nullable = false)
     private Structure structure;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "template_id", nullable = false)
-    private Template template;
-
+    @Override
     public Structure getStructure() {
         return structure;
     }
@@ -43,11 +40,4 @@ public class AdvancedWebContent extends WebContent implements AdvancedWebContent
         this.structure = structure;
     }
 
-    public Template getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(Template template) {
-        this.template = template;
-    }
 }

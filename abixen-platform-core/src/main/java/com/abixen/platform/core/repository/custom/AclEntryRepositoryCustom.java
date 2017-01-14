@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.repository.custom;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.AclSidType;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.AclEntry;
@@ -26,11 +27,11 @@ import java.util.List;
 public interface AclEntryRepositoryCustom {
 
     //FIXME - should return only one object
-    List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, Long sidId, String aclClassName, Long objectId);
+    List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, Long sidId, AclClassName aclClassName, Long objectId);
 
-    List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, List<Long> sidIds, String aclClassName, Long objectId);
+    List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, List<Long> sidIds, AclClassName aclClassName, Long objectId);
 
-    List<AclEntry> findAll(String aclClassName, Long objectId);
+    List<AclEntry> findAll(AclClassName aclClassName, Long objectId);
 
     int removeAclEntries(AclObjectIdentity aclObjectIdentity, AclSid aclSid);
 

@@ -30,8 +30,6 @@ angular.module('adf')
         function preLink($scope) {
             var definition = $scope.definition;
 
-            $log.log('preLink adf widget !!!!!!!!!', definition);
-
             if (definition) {
                 var w = dashboard.widgets[definition.type];
                 if (w) {
@@ -141,31 +139,24 @@ angular.module('adf')
                 });
 
                 $scope.$on(platformParameters.events.SHOW_LOADER, function () {
-                    $log.log('SHOW_LOADER');
                     loaderCounter++;
                     $scope.widgetState.isLoading = true;
                 });
                 $scope.$on(platformParameters.events.HIDE_LOADER, function () {
-                    $log.log('HIDE_LOADER');
                     if (--loaderCounter === 0) {
                         $scope.widgetState.isLoading = false;
-                        $log.log('HIDE');
                     }
                 });
                 $scope.$on(platformParameters.events.SHOW_PERMISSION_DENIED_TO_MODULE, function () {
-                    $log.log('SHOW_PERMISSION_DENIED_TO_MODULE');
                     $scope.widgetState.permissionDenied = true;
                 });
                 $scope.$on(platformParameters.events.SHOW_EXIT_CONFIGURATION_MODE_ICON, function () {
-                    $log.log('SHOW_EXIT_CONFIGURATION_MODE_ICON');
                     $scope.widgetState.configurationMode = true;
                 });
                 $scope.$on(platformParameters.events.SHOW_CONFIGURATION_MODE_ICON, function () {
-                    $log.log('SHOW_CONFIGURATION_MODE_ICON');
                     $scope.widgetState.configurationMode = false;
                 });
                 $scope.$on(platformParameters.events.UPDATE_MODULE_CONTROL_ICONS, function (event, icons) {
-                    $log.log('UPDATE_MODULE_CONTROL_ICONS', icons);
                     $scope.widgetState.moduleIcons = icons;
                 });
 
@@ -177,6 +168,10 @@ angular.module('adf')
                 $scope.onWidgetTitleChanged = function () {
                     $scope.$emit(platformParameters.events.ADF_WIDGET_TITLE_CHANGED_EVENT);
                 };
+
+                $scope.$on(platformParameters.events.MODULE_TEMPORARY_UNAVAILABLE, function (event, args) {
+                    $scope.widgetState.notAvailable = true;
+                });
             },
 
             compile: function compile() {

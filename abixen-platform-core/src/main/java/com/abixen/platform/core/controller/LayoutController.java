@@ -14,18 +14,28 @@
 
 package com.abixen.platform.core.controller;
 
+import com.abixen.platform.core.dto.FormErrorDto;
+import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.form.LayoutForm;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.service.LayoutService;
 import lombok.extern.slf4j.Slf4j;
+import com.abixen.platform.core.util.ValidationUtil;
+import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 
 //FIXME
@@ -83,10 +93,16 @@ public class LayoutController {
     }
 
     //FIXME
+    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/api/admin/layouts/{id}", method = RequestMethod.PUT)
-    public Layout updateLayout(@PathVariable("id") Long id, @RequestBody Layout layout) {
-        log.debug("update() - id: " + id + ", layout: " + layout);
-        return layoutService.updateLayout(layout);
+    FormValidationResultDto updateLayout(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultDto(layoutForm, formErrors);
+        }
+        LayoutForm layoutFormResult = layoutService.updateLayout(layoutForm);
+        return new FormValidationResultDto(layoutFormResult);
+
     }
 
     //FIXME

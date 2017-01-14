@@ -57,7 +57,7 @@ public enum PermissionName {
         return name;
     }
 
-    private PermissionName(String name) {
+    PermissionName(String name) {
         this.name = name;
     }
 

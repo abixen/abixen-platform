@@ -15,7 +15,13 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="content" type="text"/>
+            <column name="template_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_by_id" type="bigint"/>
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_by_id" type="bigint"/>
@@ -23,6 +29,12 @@
         </createTable>
 
         <addPrimaryKey columnNames="id" constraintName="pk__structure__id" tableName="structure"/>
+
+        <addForeignKeyConstraint baseColumnNames="template_id" baseTableName="structure"
+                                 constraintName="fk__template_id__structure__template"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 referencedColumnNames="id" referencedTableName="template"/>
 
     </changeSet>
 

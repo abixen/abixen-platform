@@ -24,7 +24,7 @@ import java.util.List;
 
 public interface ResourceService {
 
-    List<Resource> findAllUniqueResources();
+    List<Resource> findAllResources();
 
     void updateResource(ModuleType moduleType, List<Resource> newResources);
 

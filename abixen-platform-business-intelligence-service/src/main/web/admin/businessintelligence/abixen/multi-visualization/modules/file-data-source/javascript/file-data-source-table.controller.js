@@ -32,32 +32,23 @@
         fileDataSourceTable.options = undefined;
         fileDataSourceTable.data = undefined;
         fileDataSourceTable.renderTable = false;
-        fileDataSourceTable.getSelectedColumns = getSelectedColumns;
-        fileDataSourceTable.getSelectedRows = getSelectedRows;
         fileDataSourceTable.fileColumns = [];
         fileDataSourceTable.gridData = [];
 
         $scope.$on('GridDataUpdated', function (event, data) {
+            $log.debug('GridDataUpdated - data: ', data.length);
             if (data !== undefined && data !== [] && data.length > 0) {
                 fileDataSourceTable.gridData = data;
+                Object.keys(data[0]).forEach(function (column) {
+                    if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
+                        fileDataSourceTable.fileColumns.push({name: column, selected: true});
+                    }
+                });
                 if (fileDataSourceTable.renderTable !== false) {
                     fileDataSourceTable.listGridConfig.setData(data);
+                }else {
+                    fileDataSourceTable.renderTable = true;
                 }
-            }
-        });
-
-        $scope.$on('FileColumnUpdated', function (event, columns) {
-           fileDataSourceTable.fileColumns = columns;
-           if (columns.map(function(column) {return column.selected;}).indexOf(true) !== -1) {
-                if (columns !== undefined && columns !== [] && columns.length > 0) {
-                    if (fileDataSourceTable.renderTable === false) {
-                        fileDataSourceTable.renderTable = true;
-                    } else {
-                        fileDataSourceTable.listGridConfig.refreshGrid();
-                    }
-                }
-            }else{
-                fileDataSourceTable.renderTable = false;
             }
         });
 
@@ -88,19 +79,6 @@
 
         function onTableReady() {
             fileDataSourceTable.listGridConfig.setData(fileDataSourceTable.gridData);
-        }
-
-        function getSelectedColumns() {
-            var selectedColumn = [];
-            fileDataSourceTable.listGridConfig.getListGridColumns().forEach(function (column) {
-                if (column.visible === undefined || column.visible === true)
-                    selectedColumn.push(column);
-            });
-            return selectedColumn
-        }
-
-        function getSelectedRows() {
-            return fileDataSourceTable.listGridConfig.getListGridSelectedRows()
         }
     }
 })();

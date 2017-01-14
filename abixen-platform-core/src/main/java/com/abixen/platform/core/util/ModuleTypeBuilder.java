@@ -23,6 +23,8 @@ public interface ModuleTypeBuilder {
 
     ModuleTypeBuilder basic(String name, String title, String description);
 
+    ModuleTypeBuilder angular(String angularJsNameApplication, String angularJsNameAdmin);
+
     ModuleTypeBuilder initUrl(String initUrl);
 
     ModuleTypeBuilder serviceId(String serviceId);

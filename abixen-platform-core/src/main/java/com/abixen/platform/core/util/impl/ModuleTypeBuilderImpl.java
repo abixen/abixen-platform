@@ -38,6 +38,13 @@ public class ModuleTypeBuilderImpl extends EntityBuilder<ModuleType> implements 
         return this;
     }
 
+    @Override
+    public ModuleTypeBuilder angular(String angularJsNameApplication, String angularJsNameAdmin) {
+        this.product.setAngularJsNameApplication(angularJsNameApplication);
+        this.product.setAngularJsNameAdmin(angularJsNameAdmin);
+        return this;
+    }
+
     public ModuleTypeBuilder initUrl(String initUrl) {
         this.product.setInitUrl(initUrl);
         return this;

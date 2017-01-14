@@ -24,5 +24,7 @@ public interface PageBuilder {
 
     PageBuilder init(String title, Layout layout);
 
+    PageBuilder icon(String icon);
+
     PageBuilder description(String description);
 }

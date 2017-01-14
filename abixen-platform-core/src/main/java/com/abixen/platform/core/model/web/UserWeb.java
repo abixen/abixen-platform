@@ -15,6 +15,7 @@
 package com.abixen.platform.core.model.web;
 
 import com.abixen.platform.core.model.enumtype.UserGender;
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.User;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -41,6 +42,8 @@ public interface UserWeb {
     Date getBirthday();
 
     UserGender getGender();
+
+    UserLanguage getSelectedLanguage();
 
     String getAvatarFileName();
 

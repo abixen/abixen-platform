@@ -17,9 +17,11 @@ package com.abixen.platform.service.webcontent.form;
 import com.abixen.platform.core.form.Form;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
+import com.abixen.platform.service.webcontent.model.web.TemplateWeb;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class StructureForm implements Form {
 
@@ -28,14 +30,26 @@ public class StructureForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
+    @Size(min = Structure.NAME_MIN_LENGTH, max = Structure.NAME_MAX_LENGTH)
+    private String name;
+
+    @JsonView(WebModelJsonSerialize.class)
+    @NotNull
+    @Size(max = Structure.CONTENT_MAX_LENGTH)
     private String content;
+
+    @JsonView(WebModelJsonSerialize.class)
+    @NotNull
+    private TemplateWeb template;
 
     public StructureForm() {
     }
 
     public StructureForm(Structure structure) {
         this.id = structure.getId();
+        this.name = structure.getName();
         this.content = structure.getContent();
+        this.template = structure.getTemplate();
     }
 
     public Long getId() {
@@ -46,11 +60,27 @@ public class StructureForm implements Form {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public TemplateWeb getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(TemplateWeb template) {
+        this.template = template;
     }
 }

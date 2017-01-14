@@ -15,6 +15,7 @@
 package com.abixen.platform.core.model;
 
 import com.abixen.platform.core.model.enumtype.UserGender;
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.enumtype.UserState;
 
 import java.util.Date;
@@ -62,6 +63,10 @@ public interface SimpleUserBase<Role extends SimpleRoleBase> {
     UserGender getGender();
 
     void setGender(UserGender gender);
+
+    UserLanguage getSelectedLanguage();
+
+    void setSelectedLanguage(UserLanguage selectedLanguage);
 
     String getAvatarFileName();
 

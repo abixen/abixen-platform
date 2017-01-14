@@ -4,9 +4,20 @@ spring:
 
 abixen:
   platform:
+    adminSidebarItems:
+      -
+        title: Web Contents
+        state: application.webContentService
+        orderIndex: 10
+        iconClass: fa fa-file-image-o
+        modules:
+          -
+            name: web-content
     modules:
       -
         name: web-content
+        angularJsNameApplication: webContentService
+        angularJsNameAdmin: TBD
         title: Web content
         description: Web content service
         relativeInitUrl: /admin/web-content-service/html/index.html

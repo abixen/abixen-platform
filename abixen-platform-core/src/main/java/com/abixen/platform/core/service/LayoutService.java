@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service;
 
+import com.abixen.platform.core.form.LayoutForm;
 import com.abixen.platform.core.model.impl.Layout;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,8 @@ public interface LayoutService {
     Layout createLayout(Layout layout);
 
     Layout updateLayout(Layout layout);
+
+    LayoutForm updateLayout(LayoutForm layoutForm);
 
     void deleteLayout(Long id);
 

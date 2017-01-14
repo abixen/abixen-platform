@@ -67,6 +67,7 @@ public class PageServiceImpl implements PageService {
         return domainBuilderService.newPageBuilderInstance()
                 .init(pageForm.getTitle(), layoutService.findLayout(pageForm.getLayout().getId()))
                 .description(pageForm.getDescription())
+                .icon(pageForm.getIcon())
                 .build();
     }
 
@@ -78,6 +79,7 @@ public class PageServiceImpl implements PageService {
                         layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId())
                 )
                 .description(pageConfigurationForm.getPage().getDescription())
+                .icon(pageConfigurationForm.getPage().getIcon())
                 .build();
     }
 
@@ -119,6 +121,7 @@ public class PageServiceImpl implements PageService {
         Page page = findPage(pageForm.getId());
         page.setTitle(pageForm.getTitle());
         page.setDescription(pageForm.getDescription());
+        page.setIcon(pageForm.getIcon());
         page.setLayout(layoutService.findLayout(pageForm.getLayout().getId()));
 
         return new PageForm(updatePage(page));

@@ -4,9 +4,20 @@ spring:
 
 abixen:
   platform:
+    adminSidebarItems:
+      -
+        title: Data Sources
+        state: application.multiVisualization.modules.databaseDataSource.list
+        orderIndex: 9
+        iconClass: fa fa-database
+        modules:
+          -
+            name: multi-visualization
     modules:
       -
         name: multi-visualization
+        angularJsNameApplication: platformChartModule
+        angularJsNameAdmin: TBD
         title: Multi Visualization
         description: This is a multi visualization module
         relativeInitUrl: /application/businessintelligence/abixen/multi-visualization/html/index.html
@@ -43,6 +54,8 @@ abixen:
             resourceType: JAVASCRIPT
       -
         name: magic-number
+        angularJsNameApplication: platformMagicNumberModule
+        angularJsNameAdmin: TBD
         title: Magic Number
         description: This is a magic number module
         relativeInitUrl: /application/businessintelligence/abixen/magic-number/html/index.html
@@ -54,6 +67,8 @@ abixen:
             resourceType: JAVASCRIPT
       -
         name: kpi-chart
+        angularJsNameApplication: platformKpiChartModule
+        angularJsNameAdmin: TBD
         title: KPI Chart
         description: This is a KPI chart module
         relativeInitUrl: /application/businessintelligence/abixen/kpi-chart/html/index.html

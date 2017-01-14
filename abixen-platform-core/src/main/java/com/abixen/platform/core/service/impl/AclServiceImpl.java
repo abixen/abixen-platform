@@ -18,6 +18,7 @@ import com.abixen.platform.core.dto.AclPermissionDto;
 import com.abixen.platform.core.dto.AclRolePermissionsDto;
 import com.abixen.platform.core.dto.AclRolesPermissionsDto;
 import com.abixen.platform.core.model.SecurableModel;
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.AclSidType;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.*;
@@ -75,7 +76,7 @@ public class AclServiceImpl implements AclService {
 
     @Override
     public void insertDefaultAcl(SecurableModel securableModel, List<PermissionName> permissionNames) {
-        AclClass aclClass = aclClassRepository.findByName(securableModel.getClass().getCanonicalName());
+        AclClass aclClass = aclClassRepository.findByAclClassName(AclClassName.getByName(securableModel.getClass().getCanonicalName()));
         AclSid ownerAclSid = aclSidRepository.findBySidTypeAndSidId(AclSidType.OWNER, 0L);
         AclObjectIdentity aclObjectIdentity = aclObjectIdentityRepository.findByAclClassAndObjectId(aclClass, securableModel.getId());
 
@@ -114,8 +115,7 @@ public class AclServiceImpl implements AclService {
             aclRolePermissionsDtos.add(aclRolePermissionsDto);
         }
 
-        //FIXME
-        String aclClassName = permissionAclClassCategory.getAclClass().getName();
+        AclClassName aclClassName = permissionAclClassCategory.getAclClass().getAclClassName();
         List<AclEntry> aclEntries = aclEntryRepository.findAll(aclClassName, objectId);
         log.debug("aclEntries: " + aclEntries);
 
@@ -172,9 +172,8 @@ public class AclServiceImpl implements AclService {
             }
         }
 
-        //FIXME
-        String aclClassName = permissionAclClassCategory.getAclClass().getName();
-        AclClass aclClass = aclClassRepository.findByName(aclClassName);
+        AclClassName aclClassName = permissionAclClassCategory.getAclClass().getAclClassName();
+        AclClass aclClass = aclClassRepository.findByAclClassName(aclClassName);
 
         List<Role> roles = roleService.findAllRoles();
 

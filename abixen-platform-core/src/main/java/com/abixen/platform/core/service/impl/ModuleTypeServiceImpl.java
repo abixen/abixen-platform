@@ -130,6 +130,7 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
                     moduleType = domainBuilderService.
                             newModuleTypeBuilderInstance().
                             basic(module.getName(), module.getTitle(), module.getDescription()).
+                            angular(module.getAngularJsNameApplication(), module.getAngularJsNameAdmin()).
                             initUrl(module.getRelativeInitUrl()).
                             serviceId(service.getServiceId()).build();
                     moduleTypeRepository.save(moduleType);

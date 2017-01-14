@@ -17,8 +17,10 @@ package com.abixen.platform.service.webcontent.service.impl;
 import com.abixen.platform.core.exception.PlatformServiceRuntimeException;
 import com.abixen.platform.service.webcontent.form.AdvancedWebContentForm;
 import com.abixen.platform.service.webcontent.model.impl.AdvancedWebContent;
+import com.abixen.platform.service.webcontent.model.impl.Structure;
 import com.abixen.platform.service.webcontent.repository.AdvancedWebContentRepository;
 import com.abixen.platform.service.webcontent.service.AdvancedWebContentService;
+import com.abixen.platform.service.webcontent.service.StructureService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,12 +36,16 @@ public class AdvancedWebContentServiceImpl implements AdvancedWebContentService 
 
     @Resource
     private AdvancedWebContentRepository advancedWebContentRepository;
+    @Resource
+    private StructureService structureService;
 
     @Override
     public AdvancedWebContent createAdvancedWebContent(AdvancedWebContentForm advancedWebContentForm) {
         log.debug("createAdvancedWebContent() - advancedWebContentForm: {}", advancedWebContentForm);
         AdvancedWebContent advancedWebContent = new AdvancedWebContent();
         advancedWebContent.setContent(advancedWebContentForm.getContent());
+        Structure structure = structureService.findStructureById(advancedWebContentForm.getStructure().getId());
+        advancedWebContent.setStructure(structure);
         return advancedWebContentRepository.save(advancedWebContent);
     }
 
@@ -48,6 +54,8 @@ public class AdvancedWebContentServiceImpl implements AdvancedWebContentService 
         log.debug("updateAdvancedWebContent() - advancedWebContentForm: {}", advancedWebContentForm);
         AdvancedWebContent advancedWebContent = findAdvancedWebContentById(advancedWebContentForm.getId());
         advancedWebContent.setContent(advancedWebContentForm.getContent());
+        Structure structure = structureService.findStructureById(advancedWebContentForm.getStructure().getId());
+        advancedWebContent.setStructure(structure);
         return advancedWebContentRepository.save(advancedWebContent);
     }
 

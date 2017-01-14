@@ -45,5 +45,16 @@
                                  constraintName="fk__module_id__comment__module" deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="module"/>
+
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_id" baseTableName="comment"
+                                 constraintName="fk__last_modified_by_id__comment__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="comment"
+                                 constraintName="fk__created_by_id__comment__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
     </changeSet>
 </databaseChangeLog>

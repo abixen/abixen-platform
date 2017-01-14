@@ -3,39 +3,49 @@
         <div class="alert alert-danger" ng-show="error">
             Error.
         </div>
-        <form class="form-horizontal" role="form" ng-submit="login()" ng-show="!isUploadIcon">
+        <form class="form-horizontal" role="form" ng-submit="login()" ng-show="!layoutDetails.isUploadIcon"
+              name="layoutDetails.entityForm" novalidate>
             <div class="form-group">
                 <div class="row form-row">
-                    <label for="titleInput" class="col-sm-3 control-label">Title</label>
                     <div class="col-sm-9">
-                        <input ng-model="entity.title" type="text" name="title" class="form-control"
-                               id="titleInput" placeholder="Title" required="">
+                        <input-text model="layoutDetails.entity.title"
+                                    name="title"
+                                    label="{{'module.layout.title.label' | translate}}"
+                                    placeholder="{{'module.layout.title.placeholder' | translate}}"
+                                    validators="layoutDetails.validators">
+                        </input-text>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="row form-row">
-                    <label for="xmlInput" class="col-sm-3 control-label">Xml</label>
                     <div class="col-sm-9">
-                                <textarea ng-model="entity.content" type="text" name="content"
-                                          class="form-control" id="xmlInput" placeholder="Xml" rows="5">
-                                </textarea>
+                        <input-text-area model="layoutDetails.entity.content"
+                                         id="xmlInput"
+                                         name="content"
+                                         label="{{'module.layout.content.label' | translate}}"
+                                         placeholder="{{'module.layout.content.placeholder' | translate}}"
+                                         validators="layoutDetails.validators"
+                                         rows="5">
+                        </input-text-area>
                     </div>
                 </div>
             </div>
-            <div class="form-group" ng-show="isUploadLayoutIcon()">
+            <div class="form-group" ng-show="layoutDetails.isUploadLayoutIcon()">
                 <div class="row form-row">
-                    <label class="col-sm-3 control-label">Icon</label>
+                    <label class="control-label">Icon</label>
+                </div>
+                <div class="row form-row">
                     <div class="col-sm-9">
-                        <img src="/api/images/{{entity.iconFileName}}/" class="layout-icon">
-                        <a href="#" ng-click="showUploadLayoutIcon()">
+                        <img src="/api/images/{{layoutDetails.entity.iconFileName}}/" class="layout-icon">
+                        <a href="#" ng-click="layoutDetails.showUploadLayoutIcon()">
                             <i class="fa fa-pencil-square-o"></i>Change
                         </a>
                     </div>
                 </div>
             </div>
         </form>
-        <div class="row form-row" ng-show="isUploadIcon">
+        <div class="row form-row" ng-show="layoutDetails.isUploadIcon">
             <h2>Layout Icon uploader</h2>
             <div ng-show="layoutIconChange.uploader.isHTML5">
                 <div class="" ng-if="layoutIconChange.uploader.queue[0] != undefined"
@@ -54,19 +64,23 @@
                 </div>
             </div>
         </div>
-        <div class="row form-row">
-            <div class="row bottom-navigation ng-scope">
-                <div class="col-sm-offset-3 col-sm-9" ng-show="!isUploadIcon">
-                    <a class="btn save-button ng-click-active" ng-click="saveForm()">
-                        <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
-                    <a class="btn cancel-button">
-                        <i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
-                </div>
-                <div class="col-sm-offset-3 col-sm-9" ng-show="isUploadIcon">
-                    <a class="btn save-button" ng-click="layoutIconChange.uploader.uploadAll()"
-                       ng-disabled="!layoutIconChange.uploader.getNotUploadedItems().length"><i class="fa fa-floppy-o"></i><span>&nbsp;Upload</span></a>
-                    <a class="btn cancel-button" ng-click="layoutIconChange.cancelAll();hideUploadLayoutIcon()"><i
-                            class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
+        <div class="form-group">
+            <div class="row form-row">
+                <div class="row bottom-navigation ng-scope">
+                    <div class="col-sm-offset-3 col-sm-6" ng-show="!layoutDetails.isUploadIcon">
+                        <a class="btn save-button ng-click-active" ng-click="layoutDetails.saveForm()"
+                           ng-disabled="layoutDetails.entityForm.$invalid">
+                            <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
+                        <a class="btn cancel-button" ui-sref="application.layouts.list">
+                            <i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
+                    </div>
+                    <div class="col-sm-offset-3 col-sm-9" ng-show="layoutDetails.isUploadIcon">
+                        <a class="btn save-button" ng-click="layoutIconChange.uploader.uploadAll()"
+                           ng-disabled="!layoutIconChange.uploader.getNotUploadedItems().length"><i
+                                class="fa fa-floppy-o"></i><span>&nbsp;Upload</span></a>
+                        <a class="btn cancel-button" ng-click="layoutIconChange.cancelAll()"><i
+                                class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
+                    </div>
                 </div>
             </div>
         </div>

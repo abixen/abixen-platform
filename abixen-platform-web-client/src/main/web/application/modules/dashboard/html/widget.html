@@ -4,9 +4,14 @@
             <div ng-include src="definition.titleTemplateUrl"></div>
         </div>
         <div class="module-body" uib-collapse="widgetState.isCollapsed">
-            <div ng-if="widgetState.permissionDenied" class="permission-denied">
-                <div class="permission-denied-message">
-                    <i class="fa fa-exclamation-triangle"></i> You have no permission to this module.
+            <div ng-if="widgetState.permissionDenied" class="error-container">
+                <div class="error-message">
+                    <i class="fa fa-exclamation-triangle"></i>&nbsp;You have no permission to this module.
+                </div>
+            </div>
+            <div ng-if="widgetState.notAvailable" class="error-container">
+                <div class="error-message">
+                    <i class="fa fa-exclamation-triangle"></i>&nbsp;Module is temporary unavailable.
                 </div>
             </div>
             <adf-widget-content ng-if="!widgetState.permissionDenied" model="definition" content="widget"/>
