@@ -26,4 +26,6 @@
     <include file="liquibase/changelog/comment-changelog.xml"/>
     <include file="liquibase/changelog/theme-changelog.xml"/>
     <include file="liquibase/changelog/comment-vote-changelog.xml"/>
+    <include file="liquibase/changelog/admin-sidebar-item-changelog.xml"/>
+    <include file="liquibase/changelog/admin-sidebar-item-module-type-changelog.xml"/>
 </databaseChangeLog>

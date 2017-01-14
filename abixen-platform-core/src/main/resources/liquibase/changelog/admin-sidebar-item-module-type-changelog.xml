@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/admin-sidebar-item-module-type-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="admin-sidebar-item-module-type-v1">
+        <createTable tableName="admin_sidebar_item_module_type">
+            <column name="admin_sidebar_item_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="module_type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="admin_sidebar_item_id, module_type_id" constraintName="pk__admin_sidebar_item_module_type__admin_sidebar_item_id__module_type_id"
+                       tableName="admin_sidebar_item_module_type"/>
+
+        <createIndex indexName="idx__admin_sidebar_item_module_type__admin_sidebar_item_id" tableName="admin_sidebar_item_module_type">
+            <column name="admin_sidebar_item_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__admin_sidebar_item_module_type__module_type_id" tableName="admin_sidebar_item_module_type">
+            <column name="module_type_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="admin_sidebar_item_id" baseTableName="admin_sidebar_item_module_type"
+                                 constraintName="fk__admin_sidebar_item_id__admin_sidebar_item_module_type__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="admin_sidebar_item"/>
+
+        <addForeignKeyConstraint baseColumnNames="module_type_id" baseTableName="admin_sidebar_item_module_type"
+                                 constraintName="fk__module_type_id__admin_sidebar_item_module_type__role" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="module_type"/>
+
+    </changeSet>
+
+</databaseChangeLog>

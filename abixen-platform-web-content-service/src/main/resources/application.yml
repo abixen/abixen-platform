@@ -5,12 +5,14 @@ spring:
 abixen:
   platform:
     adminSidebarItems:
+      -
+        title: Web Contents
+        state: application.webContentService
+        orderIndex: 10
+        iconClass: fa fa-file-image-o
+        modules:
           -
-            title: Web Contents
-            state: application.webContentService
-            orderIndex: 10
-            id: 10
-            iconClass: fa fa-file-image-o
+            name: web-content
     modules:
       -
         name: web-content
