@@ -46,21 +46,23 @@
 
         function getTableColumns() {
             return [
-                {field: 'id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
-                {field: 'name', pinnedLeft: true, width: 200},
-                {field: 'title', pinnedLeft: true, width: 200},
-                {field: 'serviceId', pinnedLeft: true, width: 200},
-                {field: 'initUrl', width: 400},
-                {field: 'description', width: 400},
+                {field: 'id', name: 'Id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
+                {field: 'name', name: 'Name', pinnedLeft: true, width: 200},
+                {field: 'title', name: 'Title', pinnedLeft: true, width: 200},
+                {field: 'serviceId', name: 'Service Id', pinnedLeft: true, width: 200},
+                {field: 'initUrl', name: 'Init Url', width: 400},
+                {field: 'description', name: 'Description', width: 400},
                 {field: 'createdBy.username', name: 'Created By', width: 200},
                 {
                     field: 'createdDate',
+                    name: 'Created Date',
                     width: 200,
                     cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
                 },
                 {field: 'lastModifiedBy.username', name: 'Last Modified By', width: 200},
                 {
                     field: 'lastModifiedDate',
+                    name: 'Last Modified Date',
                     width: 200,
                     cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
                 }
