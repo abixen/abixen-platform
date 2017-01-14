@@ -12,21 +12,25 @@
  * details.
  */
 
-package com.abixen.platform.core.service;
+(function () {
 
-import com.abixen.platform.core.model.impl.ModuleType;
-import com.abixen.platform.core.model.impl.Resource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+    'use strict';
 
-import java.util.List;
+    angular
+        .module('platformModuleTypeModule')
+        .factory('ModuleTypeResourcesFactory', ModuleTypeResourcesFactory);
 
+    ModuleTypeResourcesFactory.$inject = ['$resource', '$log'];
 
-public interface ResourceService {
+    function ModuleTypeResourcesFactory($resource, $log) {
+        $log.log('ModuleTypeResourcesFactory');
 
-    List<Resource> findAllResources();
+        return $resource('/api/admin/module-types/:moduleId/resources/', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+    }
 
-    void updateResource(ModuleType moduleType, List<Resource> newResources);
-
-    Page<Resource> findAllResourcesForModule(Long moduleId, Pageable pageable);
-}
+})();

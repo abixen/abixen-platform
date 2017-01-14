@@ -18,10 +18,16 @@ import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.repository.ResourceRepository;
 import com.abixen.platform.core.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 @Slf4j
 @Service
@@ -44,4 +50,16 @@ public class ResourceServiceImpl implements ResourceService {
             resourceRepository.save(resource);
         });
     }
+
+    @Override
+    public Page<com.abixen.platform.core.model.impl.Resource> findAllResourcesForModule(Long moduleId, Pageable pageable) {
+        return this.resourceRepository.findAllByModuleId(moduleId, pageable);
+    }
+
+    private <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
+
+
 }

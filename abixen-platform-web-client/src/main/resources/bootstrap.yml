@@ -30,7 +30,6 @@ spring:
 
 ---
 
-
 spring:
   profiles: dev
   cloud:
