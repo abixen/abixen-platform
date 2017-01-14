@@ -12,45 +12,28 @@
  * details.
  */
 
-package com.abixen.platform.core.model.impl;
+package com.abixen.platform.client.web.model;
+
 
 import com.abixen.platform.core.model.AdminSidebarItemBase;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.abixen.platform.core.model.Model;
 
-import javax.persistence.*;
+public class AdminSidebarItem extends Model implements AdminSidebarItemBase {
 
-
-@JsonSerialize(as = AdminSidebarItem.class)
-@Entity
-@Table(name = "admin_sidebar_item")
-@SequenceGenerator(sequenceName = "admin_sidebar_item_seq", name = "admin_sidebar_item_seq", allocationSize = 1)
-public class AdminSidebarItem extends AuditingModel implements AdminSidebarItemBase {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "admin_sidebar_item_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
-
-    @Column(name = "title", length = TITLE_MAX_LENGTH, nullable = false)
     private String title;
-
-    @Column(name = "angular_js_state", length = ANGULAR_JS_STATE_MAX_LENGTH, nullable = false)
     private String angularJsState;
-
-    @Column(name = "order_index", nullable = false)
     private Double orderIndex;
-
-    @Column(name = "icon_class", length = ICON_CLASS_MAX_LENGTH, nullable = false)
     private String iconClass;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
 
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 
     @Override

@@ -15,7 +15,9 @@
 package com.abixen.platform.core.model;
 
 
-public interface ModuleTypeBase {
+import java.util.Set;
+
+public interface ModuleTypeBase<AdminSidebarItem extends AdminSidebarItemBase> {
 
     int MODULETYPE_NAME_MIN_LENGTH = 5;
     int MODULETYPE_NAME_MAX_LENGTH = 20;
@@ -64,4 +66,8 @@ public interface ModuleTypeBase {
     String getServiceId();
 
     void setServiceId(String serviceId);
+
+    Set<AdminSidebarItem> getAdminSidebarItems();
+
+    void setAdminSidebarItems(Set<AdminSidebarItem> adminSidebarItems);
 }

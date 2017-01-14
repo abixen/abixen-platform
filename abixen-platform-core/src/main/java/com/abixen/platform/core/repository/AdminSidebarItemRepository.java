@@ -12,32 +12,12 @@
  * details.
  */
 
-package com.abixen.platform.core.model;
+package com.abixen.platform.core.repository;
+
+import com.abixen.platform.core.model.impl.AdminSidebarItem;
+import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
 
 
-public interface AdminSidebarItemBase{
+public interface AdminSidebarItemRepository extends PlatformJpaRepository<AdminSidebarItem, Long> {
 
-    int TITLE_MAX_LENGTH = 40;
-    int ANGULAR_JS_STATE_MAX_LENGTH = 255;
-    int ICON_CLASS_MAX_LENGTH = 40;
-
-    Long getId();
-
-    void setId(Long id);
-
-    String getTitle();
-
-    void setTitle(String title);
-
-    String getAngularJsState();
-
-    void setAngularJsState(String angularJsState);
-
-    Double getOrderIndex();
-
-    void setOrderIndex(Double orderIndex);
-
-    String getIconClass();
-
-    void setIconClass(String iconClass);
 }

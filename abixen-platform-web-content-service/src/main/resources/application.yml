@@ -6,13 +6,11 @@ abixen:
   platform:
     adminSidebarItems:
       -
+        name: web-content-sidebar-item
         title: Web Contents
-        state: application.webContentService
+        angularJsState: application.webContentService
         orderIndex: 10
         iconClass: fa fa-file-image-o
-        modules:
-          -
-            name: web-content
     modules:
       -
         name: web-content
@@ -21,6 +19,9 @@ abixen:
         title: Web content
         description: Web content service
         relativeInitUrl: /admin/web-content-service/html/index.html
+        adminSidebarItems:
+          -
+            name: web-content-sidebar-item
         staticResources:
           -
             relativeUrl: /admin/web-content-service/web-content.min.js

@@ -6,13 +6,11 @@ abixen:
   platform:
     adminSidebarItems:
       -
+        name: data-source-sidebar-item
         title: Data Sources
-        state: application.multiVisualization.modules.databaseDataSource.list
+        angularJsState: application.multiVisualization.modules.databaseDataSource.list
         orderIndex: 9
         iconClass: fa fa-database
-        modules:
-          -
-            name: multi-visualization
     modules:
       -
         name: multi-visualization
@@ -21,6 +19,9 @@ abixen:
         title: Multi Visualization
         description: This is a multi visualization module
         relativeInitUrl: /application/businessintelligence/abixen/multi-visualization/html/index.html
+        adminSidebarItems:
+          -
+            name: data-source-sidebar-item
         staticResources:
           -
             relativeUrl: /application/businessintelligence/abixen/businessintelligence.min.js
