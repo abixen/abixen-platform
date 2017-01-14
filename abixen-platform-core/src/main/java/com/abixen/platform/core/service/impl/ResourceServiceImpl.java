@@ -18,6 +18,8 @@ import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.repository.ResourceRepository;
 import com.abixen.platform.core.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,5 +45,10 @@ public class ResourceServiceImpl implements ResourceService {
         newResources.forEach(resource -> {
             resourceRepository.save(resource);
         });
+    }
+
+    @Override
+    public Page<com.abixen.platform.core.model.impl.Resource> findAllResources(Long moduleId, Pageable pageable) {
+        return this.resourceRepository.findAllResources(moduleId, pageable);
     }
 }
