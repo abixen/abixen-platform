@@ -41,6 +41,12 @@
                 url: '/permissions/:id',
                 templateUrl: '/admin/modules/common/html/permissions.html',
                 controller: 'ModuleTypePermissionsController'
+            })
+            .state('application.moduleTypes.resources', {
+                url: '/:id/resources/list',
+                templateUrl: '/admin/modules/common/html/resources.html',
+                controller: 'ModuleTypeResourcesListController',
+                controllerAs : 'moduleTypeResourceList'
             });
     }
 })();
