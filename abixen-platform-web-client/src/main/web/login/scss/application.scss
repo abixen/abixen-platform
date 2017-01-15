@@ -2,13 +2,13 @@
 @import "../../common/button/scss/styles";
 
 .login-container {
+  background: $base-color url("/login/image/background.png");
   .left-side {
-    background: $base-color-lighter url("/login/image/left-side-bg.png");
+
     > .row {
       height: 100%;
       text-align: center;
     }
-    border-right: 2px solid $base-color-brightest;
 
     .abixen-logo {
       width: 450px;
@@ -28,7 +28,6 @@
   }
 
   .right-side {
-    background: $base-color-lighter url("/login/image/right-side-bg.jpg") center;
 
     > .row {
       height: 100%;
@@ -36,7 +35,7 @@
 
     .panel {
       margin-top: 150px;
-      background: rgba(5, 78, 129, 0.6);
+      background: rgba(5, 78, 129, 0.3);
       color: #FFFFFF;
 
       label {
@@ -58,6 +57,7 @@
       }
 
       .reset-button {
+        margin-left: 10px;
         @include platform-button($complementary-color, $complementary-color-lighter, rgba(255, 255, 255, 0.3), $complementary-color, rgba(255, 255, 255, 0.3), $complementary-color-lighter);
       }
     }
