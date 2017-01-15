@@ -18,6 +18,7 @@ import com.abixen.platform.core.model.ResourceBase;
 import com.abixen.platform.core.model.enumtype.ResourcePage;
 import com.abixen.platform.core.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.core.model.enumtype.ResourceType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -51,6 +52,7 @@ public class Resource extends AuditingModel implements ResourceBase<ModuleType> 
     @Column(name = "resource_type", nullable = false)
     private ResourceType resourceType;
 
+    @JsonIgnore
     @JoinColumn(name = "module_type_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     private ModuleType moduleType;

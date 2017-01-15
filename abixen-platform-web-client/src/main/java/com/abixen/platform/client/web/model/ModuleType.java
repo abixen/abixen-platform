@@ -17,10 +17,10 @@ package com.abixen.platform.client.web.model;
 import com.abixen.platform.core.model.Model;
 import com.abixen.platform.core.model.ModuleTypeBase;
 
-import java.util.Set;
+import java.util.List;
 
 
-public class ModuleType extends Model implements ModuleTypeBase<AdminSidebarItem> {
+public class ModuleType extends Model implements ModuleTypeBase<AdminSidebarItem, Resource> {
 
     private Long id;
     private String name;
@@ -30,7 +30,8 @@ public class ModuleType extends Model implements ModuleTypeBase<AdminSidebarItem
     private String description;
     private String initUrl;
     private String serviceId;
-    private Set<AdminSidebarItem> adminSidebarItems;
+    private List<Resource> resources;
+    private List<AdminSidebarItem> adminSidebarItems;
 
     @Override
     public Long getId() {
@@ -113,12 +114,22 @@ public class ModuleType extends Model implements ModuleTypeBase<AdminSidebarItem
     }
 
     @Override
-    public Set<AdminSidebarItem> getAdminSidebarItems() {
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    @Override
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
+
+    @Override
+    public List<AdminSidebarItem> getAdminSidebarItems() {
         return adminSidebarItems;
     }
 
     @Override
-    public void setAdminSidebarItems(Set<AdminSidebarItem> adminSidebarItems) {
+    public void setAdminSidebarItems(List<AdminSidebarItem> adminSidebarItems) {
         this.adminSidebarItems = adminSidebarItems;
     }
 

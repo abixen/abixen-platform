@@ -19,7 +19,7 @@ import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.util.EntityBuilder;
 import com.abixen.platform.core.util.ModuleTypeBuilder;
 
-import java.util.Set;
+import java.util.List;
 
 
 public class ModuleTypeBuilderImpl extends EntityBuilder<ModuleType> implements ModuleTypeBuilder {
@@ -60,7 +60,7 @@ public class ModuleTypeBuilderImpl extends EntityBuilder<ModuleType> implements 
     }
 
     @Override
-    public ModuleTypeBuilder adminSidebarItems(Set<AdminSidebarItem> adminSidebarItems) {
+    public ModuleTypeBuilder adminSidebarItems(List<AdminSidebarItem> adminSidebarItems) {
         this.product.setAdminSidebarItems(adminSidebarItems);
         return this;
     }

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.client.web.client;
 
-import com.abixen.platform.client.web.model.Resource;
+import com.abixen.platform.client.web.model.ModuleType;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,12 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 
-
 @FeignClient("abixen-platform-core")
-public interface ResourceClient {
+public interface ModuleTypeClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/resources")
-    List<Resource> getAllResources();
+    @RequestMapping(method = RequestMethod.GET, value = "/api/admin/module-types/all")
+    List<ModuleType> getAllModuleTypes();
 
 
 }

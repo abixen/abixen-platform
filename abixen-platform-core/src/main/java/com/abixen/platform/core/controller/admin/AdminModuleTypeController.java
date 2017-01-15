@@ -28,10 +28,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/admin/module-types")
-public class ModuleTypeController {
+public class AdminModuleTypeController {
 
     @Autowired
     private ModuleTypeService moduleTypeService;
@@ -40,7 +42,14 @@ public class ModuleTypeController {
     public Page<ModuleType> getModuleTypes(@PageableDefault(size = 1, page = 0) Pageable pageable) {
         log.debug("getModuleTypes()");
 
-        return moduleTypeService.findAllModuleTypes(pageable);
+        return moduleTypeService.findModuleTypes(pageable);
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<ModuleType> getModuleTypes() {
+        log.debug("getModuleTypes()");
+
+        return moduleTypeService.findModuleTypes();
     }
 
     @JsonView(WebModelJsonSerialize.class)

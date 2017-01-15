@@ -27,7 +27,9 @@ public interface ModuleTypeService {
 
     List<ModuleTypeDto> findAllModuleTypes();
 
-    Page<ModuleType> findAllModuleTypes(Pageable pageable);
+    Page<ModuleType> findModuleTypes(Pageable pageable);
+
+    List<ModuleType> findModuleTypes();
 
     void reload(Long id);
 

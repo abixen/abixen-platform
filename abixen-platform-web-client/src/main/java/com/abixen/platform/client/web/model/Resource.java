@@ -18,7 +18,6 @@ import com.abixen.platform.core.model.Model;
 import com.abixen.platform.core.model.ResourceBase;
 import com.abixen.platform.core.model.enumtype.ResourcePage;
 import com.abixen.platform.core.model.enumtype.ResourcePageLocation;
-import com.abixen.platform.core.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.core.model.enumtype.ResourceType;
 
 

@@ -34,9 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @Transactional
@@ -93,9 +91,14 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
     }
 
     @Override
-    public Page<ModuleType> findAllModuleTypes(Pageable pageable) {
+    public Page<ModuleType> findModuleTypes(Pageable pageable) {
         log.debug("findAllModuleTypes()");
         return moduleTypeRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<ModuleType> findModuleTypes() {
+        return moduleTypeRepository.findAll();
     }
 
     @Override
@@ -173,8 +176,8 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
         return newResources;
     }
 
-    private Set<AdminSidebarItem> generateAdminSidebarItem(ModulesConfigurationProperties.Module module) {
-        Set<AdminSidebarItem> newAdminSidebarItems = new HashSet<>();
+    private List<AdminSidebarItem> generateAdminSidebarItem(ModulesConfigurationProperties.Module module) {
+        List<AdminSidebarItem> newAdminSidebarItems = new ArrayList<>();
 
         module.getAdminSidebarItems().forEach(asi -> {
             AdminSidebarItem adminSidebarItem = new AdminSidebarItem();
