@@ -44,8 +44,8 @@ public class CommentVoteServiceImpl implements CommentVoteService {
     public CommentVoteForm saveCommentVote(CommentVoteForm commentVoteForm) {
         log.debug("saveCommentVote() - commentVoteForm={}", commentVoteForm);
         CommentVote commentVote = buildCommentVote(commentVoteForm);
-        CommentVote savedComment = commentVoteRepository.save(commentVote);
-        return commentVoteForm;
+        CommentVote savedCommentVote = commentVoteRepository.save(commentVote);
+        return new CommentVoteForm(savedCommentVote);
     }
 
     @Override
