@@ -28,6 +28,8 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM theme</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM comment</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM comment_vote</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM admin_sidebar_item</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM module_type_admin_sidebar_item</sqlCheck>
         </preConditions>
 
         <loadData file="liquibase/import/data/role-data.csv"
@@ -123,6 +125,16 @@
         <loadData file="liquibase/import/data/comment-vote-data.csv"
                   separator=";"
                   tableName="comment_vote">
+        </loadData>
+
+        <loadData file="liquibase/import/data/admin-sidebar-item-data.csv"
+                  separator=";"
+                  tableName="admin_sidebar_item">
+        </loadData>
+
+        <loadData file="liquibase/import/data/module-type-admin-sidebar-item-changelog.csv"
+                  separator=";"
+                  tableName="module_type_admin_sidebar_item">
         </loadData>
 
     </changeSet>
