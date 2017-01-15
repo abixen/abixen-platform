@@ -19,6 +19,7 @@
     angular
         .module('webContentService', [
             'webContentServiceStructureModule',
+            'webContentServiceTemplateModule',
             'ui.router'
         ]);
 })();

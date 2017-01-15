@@ -36,6 +36,12 @@
                 templateUrl: '/admin/web-content-service/modules/template/html/list.html',
                 controller: 'WebContentServiceTemplateListController',
                 controllerAs: 'templateList'
+            })
+            .state('application.webContentService.template.add', {
+                url: '/add',
+                templateUrl: '/admin/web-content-service/modules/template/html/details.html',
+                controller: 'WebContentServiceTemplateDetailsController',
+                controllerAs: 'templateDetails'
             });
     }
 })();
