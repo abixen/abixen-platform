@@ -33,6 +33,10 @@ public class DatabaseFactoryImpl implements DatabaseFactory {
     @Qualifier("databaseH2Service")
     private DatabaseService databaseH2Service;
 
+    @Autowired
+    @Qualifier("databaseMySQLService")
+    private DatabaseService databaseMySQLService;
+
     @Override
     public DatabaseService getDatabaseService(DatabaseType databaseType) {
         switch (databaseType) {
@@ -40,6 +44,8 @@ public class DatabaseFactoryImpl implements DatabaseFactory {
                 return databasePostgresService;
             case H2:
                 return databaseH2Service;
+            case MYSQL:
+                return databaseMySQLService;
             default: throw new DatabaseConnectionException("Invalid database type");
         }
     }
