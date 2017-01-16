@@ -83,12 +83,12 @@
             validators['name'] =
                 [
                     new NotNull(),
-                    new Length(6, 40)
+                    new Length(0, 60)
                 ];
 
             validators['description'] =
                 [
-                    new Length(0, 40)
+                    new Length(0, 1000)
                 ];
             return validators;
         }

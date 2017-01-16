@@ -18,6 +18,9 @@ package com.abixen.platform.service.businessintelligence.multivisualization.mode
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.DataSource;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "file_data_source_row")
@@ -30,9 +33,13 @@ public class FileDataSourceRow {
     private Long id;
 
     @Column(name = "row_number")
+    @NotNull
+    @Min(0)
     private Integer rowNumber;
 
     @ManyToOne
     @JoinColumn(name = "file_data_source_id", nullable = false)
+    @NotNull
+    @Valid
     private DataSource fileDataSource;
 }

@@ -19,6 +19,7 @@ import com.abixen.platform.core.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataFileWeb;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +34,11 @@ public class DataFile implements DataFileWeb {
     private Long id;
 
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
+    @NotNull
     private String name;
 
     @Column(name = "description", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
+    @NotNull
     private String description;
 
     @OneToMany(mappedBy = "dataFile", cascade = CascadeType.ALL)
