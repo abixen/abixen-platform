@@ -20,7 +20,6 @@
         'ngResource',
         'pascalprecht.translate',
         'platformComponent',
-        'platformApplicationDirectives',
         'platformUserModule',
         'platformNavigationModule',
         'platformUtilsModule',

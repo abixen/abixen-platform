@@ -20,13 +20,14 @@ import com.abixen.platform.core.model.web.ModuleTypeWeb;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @JsonSerialize(as = ModuleType.class)
 @Entity
 @Table(name = "module_type")
 @SequenceGenerator(sequenceName = "module_type_seq", name = "module_type_seq", allocationSize = 1)
-public class ModuleType extends AuditingModel implements ModuleTypeBase, ModuleTypeWeb, SecurableModel<User> {
+public class ModuleType extends AuditingModel implements ModuleTypeBase<AdminSidebarItem, Resource>, ModuleTypeWeb, SecurableModel<User> {
 
     @Id
     @Column(name = "id")
@@ -53,6 +54,21 @@ public class ModuleType extends AuditingModel implements ModuleTypeBase, ModuleT
 
     @Column(name = "service_id", length = RESOURCE_SERVICE_ID_MAX_LENGTH, nullable = false)
     private String serviceId;
+
+    @OneToMany(mappedBy = "moduleType")
+    private List<Resource> resources;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "module_type_admin_sidebar_item",
+            joinColumns = {@JoinColumn(
+                    name = "module_type_id",
+                    nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(
+                    name = "admin_sidebar_item_id",
+                    nullable = false,
+                    updatable = false)})
+    private List<AdminSidebarItem> adminSidebarItems;
 
     @Override
     public Long getId() {
@@ -132,6 +148,26 @@ public class ModuleType extends AuditingModel implements ModuleTypeBase, ModuleT
     @Override
     public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
+    }
+
+    @Override
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    @Override
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
+
+    @Override
+    public List<AdminSidebarItem> getAdminSidebarItems() {
+        return adminSidebarItems;
+    }
+
+    @Override
+    public void setAdminSidebarItems(List<AdminSidebarItem> adminSidebarItems) {
+        this.adminSidebarItems = adminSidebarItems;
     }
 
 }

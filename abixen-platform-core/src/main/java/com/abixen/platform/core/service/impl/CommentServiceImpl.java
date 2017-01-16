@@ -22,10 +22,12 @@ import com.abixen.platform.core.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Slf4j
+@Transactional
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -42,7 +44,7 @@ public class CommentServiceImpl implements CommentService {
 
         Comment comment = buildComment(commentForm);
         Comment savedComment = commentRepository.save(comment);
-        return commentForm;
+        return new CommentForm(savedComment);
     }
 
     @Override

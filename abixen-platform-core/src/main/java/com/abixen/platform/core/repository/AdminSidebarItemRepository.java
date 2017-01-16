@@ -12,23 +12,12 @@
  * details.
  */
 
-package com.abixen.platform.client.web.client;
+package com.abixen.platform.core.repository;
 
-import com.abixen.platform.client.web.model.Resource;
-import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
+import com.abixen.platform.core.model.impl.AdminSidebarItem;
+import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
 
 
-
-@FeignClient("abixen-platform-core")
-public interface ResourceClient {
-
-    @RequestMapping(method = RequestMethod.GET, value = "/api/resources")
-    List<Resource> getAllResources();
-
+public interface AdminSidebarItemRepository extends PlatformJpaRepository<AdminSidebarItem, Long> {
 
 }
-

@@ -16,6 +16,8 @@ package com.abixen.platform.core.repository;
 
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.model.impl.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +28,7 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
     @Modifying
     @Query("DELETE FROM Resource r WHERE r.moduleType = ?1")
     void deleteResources(ModuleType moduleType);
+
+    @Query("FROM Resource r WHERE r.moduleType.id = ?1")
+    Page<Resource> findAllResources(Long moduleId, Pageable pageable);
 }

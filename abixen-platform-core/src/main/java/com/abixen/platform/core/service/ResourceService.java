@@ -16,6 +16,8 @@ package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.model.impl.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -26,4 +28,5 @@ public interface ResourceService {
 
     void updateResource(ModuleType moduleType, List<Resource> newResources);
 
+    Page<Resource> findAllResources(Long moduleId, Pageable pageable);
 }

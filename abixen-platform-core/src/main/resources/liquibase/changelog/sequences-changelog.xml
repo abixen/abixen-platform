@@ -24,6 +24,7 @@
         <createSequence sequenceName="comment_seq" startValue="11"/>
         <createSequence sequenceName="theme_seq" startValue="1"/>
         <createSequence sequenceName="comment_vote_seq" startValue="11"/>
+        <createSequence sequenceName="admin_sidebar_item_seq" startValue="3"/>
     </changeSet>
 
 </databaseChangeLog>

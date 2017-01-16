@@ -27,14 +27,17 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('pl', {
-
+            'module.layout.title.label': 'Tytuł',
+            'module.layout.title.placeholder': 'Np. 2 (50/50)',
+            'module.layout.content.label': 'Xml',
+            'module.layout.content.placeholder': 'Definicja układu strony'
         });
 
         $translateProvider.translations('en', {
             'module.layout.title.label': 'Title',
-            'module.layout.title.placeholder': '',
+            'module.layout.title.placeholder': 'E.g. 2 (50/50)',
             'module.layout.content.label': 'Xml',
-            'module.layout.content.placeholder': ''
+            'module.layout.content.placeholder': 'Layout\'s definition'
         });
     }
 })();

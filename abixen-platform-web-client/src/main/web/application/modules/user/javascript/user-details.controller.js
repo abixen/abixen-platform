@@ -81,6 +81,7 @@
 
         $scope.user = {};
 
+        $scope.userLanguage=['ENGLISH','POLISH','RUSSIAN','SPANISH','UKRAINIAN'];
         $scope.userGender = ['MALE', 'FEMALE'];
         $scope.password = {
             currentPassword: null, newPassword: null, retypeNewPassword: null

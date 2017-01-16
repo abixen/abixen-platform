@@ -43,21 +43,23 @@
 
         function getTableColumns() {
             return [
-                {field: 'id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
-                {field: 'username', pinnedLeft: true, width: 200},
-                {field: 'firstName', pinnedLeft: true, width: 200},
-                {field: 'lastName', pinnedLeft: true, width: 200},
-                {field: 'state', pinnedLeft: true, width: 100},
-                {field: 'registrationIp', width: 200},
+                {field: 'id', name: 'Id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
+                {field: 'username', name: 'Username', pinnedLeft: true, width: 200},
+                {field: 'firstName', name: 'First Name', pinnedLeft: true, width: 200},
+                {field: 'lastName', name: 'Last Name', pinnedLeft: true, width: 200},
+                {field: 'state', name: 'State', pinnedLeft: true, width: 100},
+                {field: 'registrationIp', name: 'Registration Ip', width: 200},
                 {field: 'createdBy.username', name: 'Created By', width: 200},
                 {
                     field: 'createdDate',
+                    name: 'Created Date',
                     width: 200,
                     cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
                 },
                 {field: 'lastModifiedBy.username', name: 'Last Modified By', width: 200},
                 {
                     field: 'lastModifiedDate',
+                    name: 'Last Modified Date',
                     width: 200,
                     cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
                 }

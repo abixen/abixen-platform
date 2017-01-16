@@ -54,6 +54,9 @@ public abstract class AbstractModulesConfigurationProperties {
         private String relativeInitUrl;
 
         @NotNull
+        private List<AdminSidebarItem> adminSidebarItems = new ArrayList<>();
+
+        @NotNull
         private List<StaticResource> staticResources = new ArrayList<>();
 
         @Getter
@@ -72,6 +75,26 @@ public abstract class AbstractModulesConfigurationProperties {
             @NotNull
             private ResourceType resourceType;
         }
-    }
 
+        @Getter
+        @Setter
+        public static class AdminSidebarItem {
+
+            @NotNull
+            private String title;
+
+            @NotNull
+            private String angularJsState;
+
+            @NotNull
+            private Double orderIndex;
+
+            @NotNull
+            private String iconClass;
+
+            @NotNull
+            private List<Module> modules = new ArrayList<>();
+
+        }
+    }
 }

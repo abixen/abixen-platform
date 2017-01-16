@@ -24,6 +24,6 @@ public interface CommentVoteBase<Comment extends CommentBase>  {
     void setCommentVoteType(CommentVoteType commentVoteType);
 
     Comment getComment();
-    void setComment(Comment parent);
+    void setComment(Comment comment);
 
 }

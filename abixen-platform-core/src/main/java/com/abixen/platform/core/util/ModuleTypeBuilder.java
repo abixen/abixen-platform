@@ -14,7 +14,10 @@
 
 package com.abixen.platform.core.util;
 
+import com.abixen.platform.core.model.impl.AdminSidebarItem;
 import com.abixen.platform.core.model.impl.ModuleType;
+
+import java.util.List;
 
 
 public interface ModuleTypeBuilder {
@@ -28,5 +31,7 @@ public interface ModuleTypeBuilder {
     ModuleTypeBuilder initUrl(String initUrl);
 
     ModuleTypeBuilder serviceId(String serviceId);
+
+    ModuleTypeBuilder adminSidebarItems(List<AdminSidebarItem> adminSidebarItems);
 
 }

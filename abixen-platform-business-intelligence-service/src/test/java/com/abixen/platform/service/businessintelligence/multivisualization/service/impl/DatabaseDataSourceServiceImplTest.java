@@ -102,6 +102,9 @@ public class DatabaseDataSourceServiceImplTest {
         databaseConnection.setDatabaseType(DatabaseType.ORACLE);
         databaseConnection.setDatabaseHost("abixenserver");
         databaseConnection.setDatabasePort(1122);
+        databaseConnection.setDatabaseName("abixen_bi");
+        databaseConnection.setUsername("system");
+        databaseConnection.setPassword("passowrd");
         databaseDataSource.setFilter("Tet1");
         databaseDataSource.setTable("EMPLOYEE");
         DataSourceColumn dataSourceColumn = new DataSourceColumn();

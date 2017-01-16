@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/admin-sidebar-item-changelog.xml">
+
+    <changeSet author="MariuszKumor" id="admin-sidebar-item-v1">
+        <createTable tableName="admin_sidebar_item">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="angular_js_state" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_index" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="icon_class" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="last_modified_by_id" type="bigint"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__admin_sidebar_item__id" tableName="admin_sidebar_item"/>
+
+        <createIndex indexName="idx__admin_sidebar_item__last_modified_by_id" tableName="admin_sidebar_item">
+            <column name="last_modified_by_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx__admin_sidebar_item__created_by_id" tableName="admin_sidebar_item">
+            <column name="created_by_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_id" baseTableName="admin_sidebar_item"
+                                 constraintName="fk__last_modified_by_id__admin_sidebar_item__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="admin_sidebar_item"
+                                 constraintName="fk__created_by_id__admin_sidebar_item__user" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="user_"/>
+
+    </changeSet>
+
+</databaseChangeLog>

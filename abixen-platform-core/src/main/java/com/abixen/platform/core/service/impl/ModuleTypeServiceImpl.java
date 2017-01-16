@@ -19,6 +19,7 @@ import com.abixen.platform.core.configuration.properties.RegisteredModuleService
 import com.abixen.platform.core.dto.ModuleTypeDto;
 import com.abixen.platform.core.integration.ModuleConfigurationIntegrationClient;
 import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.core.model.impl.AdminSidebarItem;
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.model.impl.Resource;
 import com.abixen.platform.core.repository.ModuleTypeRepository;
@@ -90,9 +91,14 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
     }
 
     @Override
-    public Page<ModuleType> findAllModuleTypes(Pageable pageable) {
+    public Page<ModuleType> findModuleTypes(Pageable pageable) {
         log.debug("findAllModuleTypes()");
         return moduleTypeRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<ModuleType> findModuleTypes() {
+        return moduleTypeRepository.findAll();
     }
 
     @Override
@@ -111,6 +117,8 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
 
         List<Resource> newResources = generateResources(moduleType, module);
         resourceService.updateResource(moduleType, newResources);
+        moduleType.setAdminSidebarItems(generateAdminSidebarItem(module));
+        moduleTypeRepository.save(moduleType);
     }
 
     @Override
@@ -132,12 +140,14 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
                             basic(module.getName(), module.getTitle(), module.getDescription()).
                             angular(module.getAngularJsNameApplication(), module.getAngularJsNameAdmin()).
                             initUrl(module.getRelativeInitUrl()).
-                            serviceId(service.getServiceId()).build();
+                            serviceId(service.getServiceId()).
+                            adminSidebarItems(generateAdminSidebarItem(module)).build();
                     moduleTypeRepository.save(moduleType);
                 } else {
                     moduleType.setDescription(module.getDescription());
                     moduleType.setTitle(module.getTitle());
                     moduleType.setInitUrl(module.getRelativeInitUrl());
+                    moduleType.setAdminSidebarItems(generateAdminSidebarItem(module));
                     moduleTypeRepository.save(moduleType);
                 }
 
@@ -164,5 +174,22 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
         });
 
         return newResources;
+    }
+
+    private List<AdminSidebarItem> generateAdminSidebarItem(ModulesConfigurationProperties.Module module) {
+        List<AdminSidebarItem> newAdminSidebarItems = new ArrayList<>();
+
+        module.getAdminSidebarItems().forEach(asi -> {
+            AdminSidebarItem adminSidebarItem = new AdminSidebarItem();
+
+            adminSidebarItem.setTitle(asi.getTitle());
+            adminSidebarItem.setAngularJsState(asi.getAngularJsState());
+            adminSidebarItem.setIconClass(asi.getIconClass());
+            adminSidebarItem.setOrderIndex(asi.getOrderIndex());
+
+            newAdminSidebarItems.add(adminSidebarItem);
+        });
+
+        return newAdminSidebarItems;
     }
 }

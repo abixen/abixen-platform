@@ -20,6 +20,9 @@ import com.abixen.platform.service.businessintelligence.multivisualization.model
 import com.abixen.platform.core.model.audit.AuditingModel;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
@@ -31,34 +34,55 @@ public class DatabaseConnection extends AuditingModel implements DatabaseConnect
 
     private static final long serialVersionUID = -1411930471159410093L;
 
+    public static final int NAME_MAX_LENGTH = 40;
+    public static final int DESCRIPTION_MAX_LENGTH = 1000;
+    public static final int DATABASE_HOST_MAX_LENGTH = 255;
+    public static final int DATABASE_NAME_MAX_LENGTH = 255;
+    public static final int USERNAME_MAX_LENGTH = 40;
+    public static final int PASSWORD_MAX_LENGTH = 40;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "database_connection_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
+    @NotNull
+    @Size(max = NAME_MAX_LENGTH)
     private String name;
 
     @Column(name = "description", nullable = true)
+    @Size(max = DESCRIPTION_MAX_LENGTH)
     private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "database_type", nullable = false)
+    @NotNull
     private DatabaseType databaseType;
 
     @Column(name = "database_host")
+    @NotNull
+    @Size(max = DATABASE_HOST_MAX_LENGTH)
     private String databaseHost;
 
     @Column(name = "database_port")
+    @NotNull
+    @Min(0)
     private Integer databasePort;
 
     @Column(name = "database_name")
+    @NotNull
+    @Size(max = DATABASE_NAME_MAX_LENGTH)
     private String databaseName;
 
     @Column(name = "username")
+    @NotNull
+    @Size(max = USERNAME_MAX_LENGTH)
     private String username;
 
     @Column(name = "password")
+    @NotNull
+    @Size(max = PASSWORD_MAX_LENGTH)
     private String password;
 
     @Override

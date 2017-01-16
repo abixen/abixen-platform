@@ -98,29 +98,29 @@
             validators['name'] =
                 [
                     new NotNull(),
-                    new Length(6, 40)
+                    new Length(0, 40)
                 ];
 
             validators['description'] =
                 [
-                    new Length(0, 40)
+                    new Length(0, 1000)
                 ];
 
             validators['username'] =
                 [
                     new NotNull(),
-                    new Length(6, 40)
+                    new Length(0, 40)
                 ];
 
             validators['password'] =
                 [
                     new NotNull(),
-                    new Length(6, 40)
+                    new Length(0, 40)
                 ];
             validators['databaseHost'] =
                 [
                     new NotNull(),
-                    new Length(6, 40)
+                    new Length(0, 255)
                 ];
             validators['databasePort'] =
                 [
@@ -129,7 +129,7 @@
             validators['databaseName'] =
                 [
                     new NotNull(),
-                    new Length(6, 40)
+                    new Length(0, 40)
                 ];
 
             return validators;

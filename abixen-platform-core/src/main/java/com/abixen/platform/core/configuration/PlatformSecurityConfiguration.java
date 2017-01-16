@@ -31,6 +31,7 @@ public class PlatformSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/admin/users/custom/username/*/").permitAll()
+                .antMatchers("/api/admin/module-types/all").permitAll()
                 .antMatchers("/api/admin/securities/**").permitAll()
                 .antMatchers("/api/resources").permitAll()
                 .antMatchers("/api/user-activation/activate/*/").permitAll()

@@ -152,6 +152,16 @@
             <artifactId>liquibase-core</artifactId>
             <version>3.5.3</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>12.1.0.1-atlassian-hosted</version>
+        </dependency>
 
         <!-- CSV files reader -->
         <dependency>
@@ -318,6 +328,10 @@
             <id>spring-releases</id>
             <name>Spring Releases</name>
             <url>http://repo.spring.io/libs-release-local</url>
+        </repository>
+        <repository>
+            <id>oracle-jdbc</id>
+            <url>https://maven.atlassian.com/3rdparty/</url>
         </repository>
     </repositories>
 
