@@ -19,6 +19,8 @@ import com.abixen.platform.service.businessintelligence.multivisualization.model
 import com.abixen.platform.service.businessintelligence.multivisualization.model.web.FileDataSourceWeb;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,6 +34,8 @@ public class FileDataSource extends DataSource implements FileDataSourceWeb, Ser
 
     @ManyToOne
     @JoinColumn(name = "file_data_id", nullable = false)
+    @NotNull
+    @Valid
     private DataFile dataFile;
 
     @OneToMany(mappedBy = "fileDataSource", cascade = CascadeType.ALL)
