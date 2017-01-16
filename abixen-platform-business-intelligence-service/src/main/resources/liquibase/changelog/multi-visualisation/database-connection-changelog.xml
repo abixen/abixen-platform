@@ -31,9 +31,7 @@
             <column name="name" type="varchar(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="password" type="varchar(40)"/>
             <column name="username" type="varchar(40)">
                 <constraints nullable="false"/>
             </column>

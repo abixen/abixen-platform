@@ -66,7 +66,6 @@ public class DatabaseConnectionForm implements Form {
     private String username;
 
     @JsonView(WebModelJsonSerialize.class)
-    @NotNull
     @Size(max = PASSWORD_MAX_LENGTH)
     private String password;
 

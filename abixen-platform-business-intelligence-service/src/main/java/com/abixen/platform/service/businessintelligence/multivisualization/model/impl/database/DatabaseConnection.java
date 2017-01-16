@@ -81,7 +81,6 @@ public class DatabaseConnection extends AuditingModel implements DatabaseConnect
     private String username;
 
     @Column(name = "password")
-    @NotNull
     @Size(max = PASSWORD_MAX_LENGTH)
     private String password;
 

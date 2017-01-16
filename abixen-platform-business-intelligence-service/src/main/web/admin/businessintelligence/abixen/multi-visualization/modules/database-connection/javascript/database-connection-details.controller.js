@@ -114,7 +114,6 @@
 
             validators['password'] =
                 [
-                    new NotNull(),
                     new Length(0, 40)
                 ];
             validators['databaseHost'] =
