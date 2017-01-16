@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
         userBuilder.credentials(userForm.getUsername(), userPassword);
         userBuilder.screenName(userForm.getScreenName());
         userBuilder.personalData(userForm.getFirstName(), userForm.getMiddleName(), userForm.getLastName());
-        userBuilder.additionalData(userForm.getBirthday(), userForm.getJobTitle(), userForm.getGender());
+        userBuilder.additionalData(userForm.getBirthday(), userForm.getJobTitle(), userForm.getSelectedLanguage(), userForm.getGender());
         userBuilder.registrationIp("127.0.0.1");
         return userBuilder.build();
     }
@@ -106,6 +106,7 @@ public class UserServiceImpl implements UserService {
         user.setMiddleName(userForm.getMiddleName());
         user.setLastName(userForm.getLastName());
         user.setJobTitle(userForm.getJobTitle());
+        user.setSelectedLanguage(userForm.getSelectedLanguage());
         user.setBirthday(userForm.getBirthday());
         user.setGender(userForm.getGender());
 
