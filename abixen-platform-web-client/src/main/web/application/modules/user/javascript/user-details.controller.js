@@ -109,7 +109,7 @@
             opened: false
         };
 
-        $scope.user.language = null;
+        $scope.user.selectedLanguage = null;
 
         $scope.user.gender = null;
 
