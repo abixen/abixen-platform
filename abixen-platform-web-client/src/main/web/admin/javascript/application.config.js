@@ -92,7 +92,7 @@
                 id: 4,
                 iconClass: 'fa fa-file-text-o'
             })
-           .addSidebarItem({
+            .addSidebarItem({
                 title: 'Instances of modules',
                 state: 'application.modules.list',
                 orderIndex: 5,
@@ -119,20 +119,13 @@
                 orderIndex: 8,
                 id: 8,
                 iconClass: 'fa fa-clone'
-            })
-            .addSidebarItem({
-                title: 'Data Sources',
-                state: 'application.multiVisualization.modules.databaseDataSource.list',
-                orderIndex: 9,
-                id: 9,
-                iconClass: 'fa fa-database'
-            })
-            .addSidebarItem({
-                title: 'Web content',
-                state: 'application.webContentService',
-                orderIndex: 10,
-                id: 10,
-                iconClass: 'fa fa-file-image-o'
             });
+
+        var nextId = 9;
+
+        for (var i = 0; i < externalAdminSidebarItems.length; i++) {
+            externalAdminSidebarItems[i].id = nextId++;
+            applicationNavigationItemsProvider.addSidebarItem(externalAdminSidebarItems[i]);
+        }
     }
 })();

@@ -51,21 +51,19 @@ public class AdminViewController extends BaseController {
             adminSidebarItems.addAll(moduleType.getAdminSidebarItems());
         });
 
-        resources.forEach(resource -> log.debug("resource: {}", resource));
-        adminSidebarItems.forEach(adminSidebarItem -> log.debug("adminSidebarItem: {}", adminSidebarItem));
-
-
         List<Resource> uniqueResources = resources.stream().filter(distinctByKey(resource -> resource.getRelativeUrl())).collect(Collectors.toList());
-        //uniqueResources.forEach(resource -> log.debug("resource: " + resource));
+        uniqueResources.forEach(resource -> log.debug("resource: " + resource));
 
         List<String> angularJsModules = moduleTypes.stream().filter(moduleType -> moduleType.getAngularJsNameAdmin() != null).filter(distinctByKey(moduleType -> moduleType.getAngularJsNameAdmin())).map(moduleType -> moduleType.getAngularJsNameAdmin()).collect(Collectors.toList());
         angularJsModules.forEach(angularJsModule -> log.debug(angularJsModule));
 
-
+        List<AdminSidebarItem> uniqueAdminSidebarItems = adminSidebarItems.stream().filter(distinctByKey(adminSidebarItem -> adminSidebarItem.getTitle())).collect(Collectors.toList());
+        uniqueAdminSidebarItems.forEach(adminSidebarItem -> log.debug("adminSidebarItem: {}", adminSidebarItem));
 
         ModelAndView modelAndView = new ModelAndView("admin/index");
         modelAndView.addObject("resources", uniqueResources);
         modelAndView.addObject("angularJsModules", angularJsModules);
+        modelAndView.addObject("adminSidebarItems", uniqueAdminSidebarItems);
 
         return modelAndView;
     }

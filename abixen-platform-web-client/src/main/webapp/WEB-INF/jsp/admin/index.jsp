@@ -69,6 +69,20 @@
     ];
 </script>
 
+<script type="text/javascript">
+    var externalAdminSidebarItems = [
+        <c:forEach var="adminSidebarItem" items="${adminSidebarItems}">
+        {
+            title: '${adminSidebarItem.title}',
+            state: '${adminSidebarItem.angularJsState}',
+            orderIndex: ${adminSidebarItem.orderIndex},
+            id: 0,
+            iconClass: '${adminSidebarItem.iconClass}'
+        },
+        </c:forEach>
+    ];
+</script>
+
 <script src="<c:url value='/admin/application.min.js' />"></script>
 
 </body>
