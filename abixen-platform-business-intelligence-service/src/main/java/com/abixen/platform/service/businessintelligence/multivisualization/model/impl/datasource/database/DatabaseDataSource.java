@@ -19,6 +19,8 @@ import com.abixen.platform.service.businessintelligence.multivisualization.model
 import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DatabaseDataSourceWeb;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -31,6 +33,8 @@ public class DatabaseDataSource extends DataSource implements DatabaseDataSource
 
     @ManyToOne
     @JoinColumn(name = "database_connection_id", nullable = false)
+    @NotNull
+    @Valid
     private DatabaseConnection databaseConnection;
 
     @Lob

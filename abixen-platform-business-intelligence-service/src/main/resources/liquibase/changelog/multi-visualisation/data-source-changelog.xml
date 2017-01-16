@@ -18,9 +18,9 @@
             <column name="type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="varchar(255)"/>
+            <column name="description" type="varchar(1000)"/>
             <column name="filter" type="clob"/>
-            <column name="name" type="varchar(300)">
+            <column name="name" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

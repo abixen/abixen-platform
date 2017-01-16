@@ -20,6 +20,8 @@ import com.abixen.platform.service.businessintelligence.multivisualization.model
 import com.abixen.platform.core.model.audit.AuditingModel;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,15 +36,21 @@ public class DataSource extends AuditingModel implements DataSourceWeb, Serializ
 
     private static final long serialVersionUID = -1420930478759410093L;
 
+    public static final int NAME_MAX_LENGTH = 60;
+    public static final int DESCRIPTION_MAX_LENGTH = 1000;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "data_source_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
+    @NotNull
+    @Size(max = NAME_MAX_LENGTH)
     private String name;
 
     @Column(name = "description", nullable = true)
+    @Size(max = DESCRIPTION_MAX_LENGTH)
     private String description;
 
     @OneToMany(mappedBy = "dataSource", cascade = CascadeType.ALL)
@@ -50,6 +58,7 @@ public class DataSource extends AuditingModel implements DataSourceWeb, Serializ
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
+    @NotNull
     private DataSourceType dataSourceType;
 
     @Lob
