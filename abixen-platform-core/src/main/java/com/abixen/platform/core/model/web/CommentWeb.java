@@ -33,4 +33,8 @@ public interface CommentWeb {
 
     @JsonView(WebModelJsonSerialize.class)
     ModuleWeb getModule();
+
+    @JsonView(WebModelJsonSerialize.class)
+    UserWeb getCreatedBy();
+
 }

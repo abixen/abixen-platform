@@ -17,34 +17,37 @@
 
     angular
         .module('platformCommentModule')
-        .directive('comments', commentsDirective);
+        .directive('comment', commentDirective);
 
-    commentsDirective.$inject = ['$log', '$http'];
+    commentDirective.$inject = ['$log', '$http'];
 
-    function commentsDirective($log, $http) {
+    function commentDirective($log, $http) {
+        var counter = 0,
+            depth = null;
+
         return {
             restrict: 'E',
-            templateUrl: '/application/modules/comment/html/comments.template.html',
+            templateUrl: '/application/modules/comment/html/comment.template.html',
             scope: {
-                moduleId: '='
+                commentItem: '='
             },
+            compile: compile,
             controller: CommentsDirectiveController,
-            controllerAs: 'comments',
+            controllerAs: 'comment',
             bindToController: true
         };
+
+        function compile(tElement, tAttrs) {
+            depth = tAttrs.depth || depth || 1;
+            if (counter == depth) {
+                tElement.find('comment').remove();
+                depth = 'end';
+            }
+            depth == 'end' ? counter = 0 : counter++;
+        }
     }
 
-    function CommentsDirectiveController($scope, $log, Comment) {
-        var comments = this;
-        comments.commentItems = [];
-        renderComments(comments.moduleId);
-
-        function renderComments(moduleId) {
-            $log.info("Render comments for module:" + moduleId);
-            Comment.query({moduleId: moduleId}, function (data) {
-                comments.commentItems = data;
-                $log.info("comments:" + comments.commentItems);
-            });
-        }
+    function CommentsDirectiveController($scope, $log, $http) {
+        var comment = this;
     }
 })();

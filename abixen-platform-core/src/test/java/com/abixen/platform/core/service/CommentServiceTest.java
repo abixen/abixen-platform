@@ -44,14 +44,14 @@ public class CommentServiceTest {
         CommentForm commentForm = new CommentForm();
         commentForm.setId(1L);
         commentForm.setMessage("Test Comment parent");
-        commentForm.setParent(null);
+        commentForm.setParentId(null);
 
         CommentForm commentFromDB = commentService.saveComment(commentForm);
 
         assertNotNull(commentFromDB);
         assertEquals(commentForm.getId(), commentFromDB.getId());
         assertEquals(commentForm.getMessage(), commentFromDB.getMessage());
-        assertEquals(commentForm.getParent(), commentFromDB.getParent());
+        assertEquals(commentForm.getParentId(), commentFromDB.getParentId());
 
         CommentForm commentChild = new CommentForm();
         commentChild.setId(2L);
@@ -59,11 +59,11 @@ public class CommentServiceTest {
         Comment parentComment = new Comment();
         parentComment.setId(commentFromDB.getId());
 
-        commentChild.setParent(parentComment);
+        commentChild.setParentId(parentComment.getId());
         CommentForm childCommentFromDB = commentService.saveComment(commentChild);
 
         assertNotNull(childCommentFromDB);
-        assertEquals(childCommentFromDB.getParent().getId(), commentChild.getParent().getId());
+        assertEquals(childCommentFromDB.getParentId(), commentChild.getParentId());
 
     }
 }

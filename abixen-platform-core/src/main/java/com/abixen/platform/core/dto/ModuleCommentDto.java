@@ -12,9 +12,9 @@
  * details.
  */
 
-package com.abixen.platform.core.form;
+package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.model.impl.Comment;
+import com.abixen.platform.core.model.web.CommentWeb;
 import com.abixen.platform.core.model.web.UserWeb;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -22,11 +22,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
-public class CommentForm implements Form {
-
+public class ModuleCommentDto {
     @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
@@ -43,18 +43,23 @@ public class CommentForm implements Form {
     @JsonView(WebModelJsonSerialize.class)
     private UserWeb user;
 
-    public CommentForm() {
+    @JsonView(WebModelJsonSerialize.class)
+    private List<ModuleCommentDto> children;
+
+    public ModuleCommentDto() {
     }
 
-    public CommentForm(Comment comment) {
-        this.id = comment.getId();
-        this.message = comment.getMessage();
-        if (comment.getParent() != null) {
-            this.parentId = comment.getParent().getId();
+    public ModuleCommentDto(CommentWeb commentWeb) {
+
+        this.id = commentWeb.getId();
+        this.message = commentWeb.getMessage();
+        this.moduleId = commentWeb.getModule().getId();
+        this.user = commentWeb.getCreatedBy();
+        if (commentWeb.getParent() != null) {
+            this.parentId = commentWeb.getParent().getId();
+        } else {
+            this.parentId = 0L; //cannot use null here
         }
-        if (comment.getModule() != null) {
-            this.moduleId = comment.getModule().getId();
-        }
-        this.user = comment.getCreatedBy();
     }
+
 }
