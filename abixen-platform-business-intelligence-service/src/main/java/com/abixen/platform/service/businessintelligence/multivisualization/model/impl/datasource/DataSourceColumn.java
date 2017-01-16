@@ -19,7 +19,13 @@ import com.abixen.platform.service.businessintelligence.multivisualization.model
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
+
+import static com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.DataSource.NAME_MAX_LENGTH;
 
 
 @Entity
@@ -38,14 +44,18 @@ public class DataSourceColumn implements DataSourceColumnWeb, Serializable {
     private Long id;
 
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
+    @NotNull
+    @Size(max = NAME_MAX_LENGTH)
     private String name;
 
     @Column(name = "position")
+    @Min(0)
     private Integer position;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "data_source_id")
+    @Valid
     private DataSource dataSource;
 
 

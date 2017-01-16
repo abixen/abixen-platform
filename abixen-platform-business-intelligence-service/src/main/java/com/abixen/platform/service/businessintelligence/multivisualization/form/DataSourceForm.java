@@ -20,7 +20,11 @@ import com.abixen.platform.service.businessintelligence.multivisualization.model
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
+
+import static com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.DataSource.DESCRIPTION_MAX_LENGTH;
+import static com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.DataSource.NAME_MAX_LENGTH;
 
 
 public class DataSourceForm implements Form {
@@ -30,9 +34,11 @@ public class DataSourceForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
+    @Size(max = NAME_MAX_LENGTH)
     private String name;
 
     @JsonView(WebModelJsonSerialize.class)
+    @Size(max = DESCRIPTION_MAX_LENGTH)
     private String description;
 
     @JsonView(WebModelJsonSerialize.class)

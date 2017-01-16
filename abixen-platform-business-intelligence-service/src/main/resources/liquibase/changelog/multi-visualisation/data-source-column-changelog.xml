@@ -11,7 +11,7 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="varchar(300)">
+            <column name="name" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>
             <column name="position" type="integer"/>
