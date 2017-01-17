@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -16,6 +16,8 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.form.LayoutForm;
+import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.repository.LayoutRepository;
 import com.abixen.platform.core.service.LayoutService;
@@ -31,6 +33,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -59,18 +62,21 @@ public class LayoutServiceImpl implements LayoutService {
         this.layoutRepository = layoutRepository;
     }
 
+    @PreAuthorize("hasPermission('" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_ADD + "')")
     @Override
     public Layout createLayout(Layout layout) {
         log.debug("createLayout() - layout={}", layout);
         return layoutRepository.save(layout);
     }
 
+    @PreAuthorize("hasPermission(#layout.id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_EDIT + "')")
     @Override
     public Layout updateLayout(Layout layout) {
         log.debug("updateLayout() - layout={}", layout);
         return layoutRepository.save(layout);
     }
 
+    @PreAuthorize("hasPermission(#layoutForm.id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_EDIT + "')")
     @Override
     public LayoutForm updateLayout(LayoutForm layoutForm) {
         log.debug("updateLayout() - layoutForm: " + layoutForm);
@@ -81,6 +87,7 @@ public class LayoutServiceImpl implements LayoutService {
         return new LayoutForm(updateLayout(layout));
     }
 
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_DELETE + "')")
     @Override
     public void deleteLayout(Long id) {
         log.debug("deleteLayout() - id={}", id);
@@ -118,12 +125,14 @@ public class LayoutServiceImpl implements LayoutService {
         return layoutRepository.findAll(pageable);
     }
 
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_VIEW + "')")
     @Override
     public Layout findLayout(Long id) {
         log.debug("findLayout() - id={}", id);
         return layoutRepository.findOne(id);
     }
 
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_EDIT + "')")
     @Override
     public Layout changeIcon(Long id, MultipartFile iconFile) throws IOException {
         Layout layout = findLayout(id);
