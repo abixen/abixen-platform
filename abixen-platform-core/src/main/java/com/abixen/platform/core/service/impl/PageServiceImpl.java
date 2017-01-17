@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -16,6 +16,7 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.form.PageConfigurationForm;
 import com.abixen.platform.core.form.PageForm;
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.Page;
@@ -108,12 +109,14 @@ public class PageServiceImpl implements PageService {
         return new PageForm(createPage(page));
     }
 
+    @PreAuthorize("hasPermission('" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
     @Override
     public Page createPage(PageConfigurationForm pageConfigurationForm) {
         Page page = buildPage(pageConfigurationForm);
         return createPage(page);
     }
 
+    @PreAuthorize("hasPermission(#pageForm.id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
     @Override
     public PageForm updatePage(PageForm pageForm) {
         log.debug("updatePage() - pageForm={}", pageForm);
@@ -127,13 +130,14 @@ public class PageServiceImpl implements PageService {
         return new PageForm(updatePage(page));
     }
 
-    @PreAuthorize("hasPermission(#page, 'PAGE_EDIT')")
+    @PreAuthorize("hasPermission(#page.id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
     @Override
     public Page updatePage(Page page) {
         log.debug("updatePage() - page: " + page);
         return pageRepository.saveAndFlush(page);
     }
 
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_DELETE + "')")
     @Override
     @Transactional
     public void deletePage(Long id) {
@@ -155,7 +159,7 @@ public class PageServiceImpl implements PageService {
         return pageRepository.findAllSecured(PermissionName.PAGE_VIEW);
     }
 
-    @PostAuthorize("hasPermission(returnObject, 'PAGE_VIEW')")
+    @PostAuthorize("hasPermission(returnObject, '" + PermissionName.Values.PAGE_VIEW + "')")
     @Override
     public Page findPage(Long id) {
         log.debug("findPage() - id: " + id);
