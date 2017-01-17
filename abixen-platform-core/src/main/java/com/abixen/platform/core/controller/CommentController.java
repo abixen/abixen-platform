@@ -17,18 +17,24 @@ package com.abixen.platform.core.controller;
 
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.ModuleCommentDto;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
 import com.abixen.platform.core.service.CommentService;
 import com.abixen.platform.core.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @RestController
@@ -38,10 +44,27 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<CommentForm> findComments(@RequestParam(value = "moduleId") Long moduleId) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<ModuleCommentDto> findComments(@RequestParam(value = "moduleId") Long moduleId) {
         List<Comment> comments = commentService.getAllComments(moduleId);
-        return comments.stream().map(CommentForm::new).collect(Collectors.toList());
+        List<ModuleCommentDto> commentsDto = comments.stream().map(ModuleCommentDto::new).collect(toList());
+        Map<Long, List<ModuleCommentDto>> groupByParent = commentsDto.stream().collect(Collectors.groupingBy(ModuleCommentDto::getParentId));
+        List<ModuleCommentDto> rootComments = groupByParent.get(0L);
+        if (rootComments != null) {
+            populateChildren(rootComments, groupByParent);
+            return rootComments;
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    private void populateChildren(List<ModuleCommentDto> rootComments, Map<Long, List<ModuleCommentDto>> groupByParent) {
+        for (ModuleCommentDto dto : rootComments) {
+            dto.setChildren(groupByParent.get(dto.getId()));
+            if (!CollectionUtils.isEmpty(dto.getChildren())) {
+                populateChildren(dto.getChildren(), groupByParent);
+            }
+        }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)

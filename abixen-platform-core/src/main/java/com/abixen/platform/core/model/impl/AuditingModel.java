@@ -54,10 +54,14 @@ public abstract class AuditingModel extends Model implements AuditingModelBase<U
     public abstract Long getId();
 
     public User getCreatedBy() {
-        if (!this.equals(createdBy)) {
-            return createdBy;
+        if  (this instanceof User) {
+            if (!this.equals(createdBy)) {
+                return createdBy;
+            } else {
+                return null;
+            }
         }
-        return null;
+        return createdBy;
     }
 
     public void setCreatedBy(User createdBy) {

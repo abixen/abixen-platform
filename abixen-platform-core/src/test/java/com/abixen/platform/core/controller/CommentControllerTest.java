@@ -17,8 +17,10 @@ package com.abixen.platform.core.controller;
 import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.ModuleCommentDto;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
+import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.service.CommentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
@@ -74,14 +76,19 @@ public class CommentControllerTest {
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
+        Module module = new Module();
+        module.setId(3L);
+
         Comment comment1 = new Comment();
         comment1.setId(1L);
         comment1.setMessage("Test Comment Parent");
         comment1.setParent(null);
+        comment1.setModule(module);
         Comment comment2 = new Comment();
         comment2.setId(2L);
         comment2.setMessage("Test Comment Child");
         comment2.setParent(comment1);
+        comment2.setModule(module);
 
         inputComments.add(comment1);
         inputComments.add(comment2);
@@ -100,10 +107,10 @@ public class CommentControllerTest {
 
         String contentString = commentsResponse.getResponse().getContentAsString();
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<CommentForm> resList = mapper.readValue(contentString, mapper.getTypeFactory().constructCollectionType(
-                ArrayList.class, CommentForm.class));
+        ArrayList<ModuleCommentDto> resList = mapper.readValue(contentString, mapper.getTypeFactory().constructCollectionType(
+                ArrayList.class, ModuleCommentDto.class));
 
-        assertTrue(resList.size() == 2);
+        assertTrue(resList.size() == 1);
         assertTrue(resList.get(0).getId() == 1L);
     }
 

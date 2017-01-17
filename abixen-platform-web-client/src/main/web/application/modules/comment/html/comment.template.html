@@ -1,0 +1,20 @@
+<li>
+    <div class="commenter-image">
+        <img src="http://kingofwallpapers.com/profile-pics/profile-pics-007.jpg" />
+    </div>
+    <div>
+        <strong> &nbsp;&nbsp;{{comment.commentItem.user.firstName}}&nbsp;{{comment.commentItem.user.lastName}}&nbsp;</strong>
+        <span class="date sub-text">on March 6th, 2014</span>
+    </div>
+    <ul class="comment-text">
+        <p class="">{{comment.commentItem.message}}</p>
+    </ul>
+    <ul class="sub-text">
+        <a href="#"><p class="">Reply</p></a>
+    </ul>
+
+    <ul ng-repeat="child in comment.commentItem.children" style="list-style: none;">
+        <comment depth="10" comment-item="child"></comment>
+    </ul>
+
+</li>

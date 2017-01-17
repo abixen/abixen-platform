@@ -16,7 +16,6 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
-import com.abixen.platform.core.model.web.CommentWeb;
 import com.abixen.platform.core.repository.CommentRepository;
 import com.abixen.platform.core.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
@@ -58,8 +57,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = new Comment();
         comment.setId(commentForm.getId());
         comment.setMessage(commentForm.getMessage());
-        CommentWeb parentComment = commentForm.getParent();
-        Long parentCommentId = parentComment != null ? parentComment.getId() : null;
+        Long parentCommentId = commentForm.getParentId();
         comment.setParent(parentCommentId != null ? commentRepository.findOne(parentCommentId) : null);
 
         return comment;
