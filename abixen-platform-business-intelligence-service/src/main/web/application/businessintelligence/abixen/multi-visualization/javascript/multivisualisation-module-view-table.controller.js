@@ -60,7 +60,7 @@
             ));
 
             registerSubviewTableIcons(moduleConfiguration.chartType);
-
+            $scope.$emit(platformParameters.events.STOP_REQUEST);
         }
 
         function onGetError(error) {

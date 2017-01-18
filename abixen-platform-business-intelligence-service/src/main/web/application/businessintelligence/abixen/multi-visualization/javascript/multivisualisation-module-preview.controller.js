@@ -33,11 +33,12 @@
 
         $log.log('$scope.moduleId: ' + $scope.moduleId);
         $log.log('$scope.initWizardStep.idSelected: ' + $scope.initWizardStep.idSelected);
+        $log.log('$scope.initWizardStep: ', $scope.initWizardStep);
 
         var chartModulePreview = this;
         chartModulePreview.options = undefined;
         chartModulePreview.data = undefined;
-        chartModulePreview.previewType = "CHART";
+        chartModulePreview.previewType = $scope.initWizardStep.isChart()? 'CHART' : 'TABLE';
         chartModulePreview.setPreviewType = setPreviewType;
 
         $scope.$emit(platformParameters.events.START_REQUEST);

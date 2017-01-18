@@ -35,6 +35,9 @@
         var multivisualisationModuleTable = this;
         multivisualisationModuleTable.options = undefined;
         multivisualisationModuleTable.data = undefined;
+        if ($scope.tableConfiguration) {
+            $scope.chartConfiguration = $scope.initWizardStep.isChart() ? $scope.chartConfiguration : $scope.tableConfiguration;
+        }
 
         if ($scope.chartConfiguration) {
             angular.extend(multivisualisationModuleTable, new MultivisualisationModuleAbstractTableController(multivisualisationModuleTable, $log, CharData, moduleResponseErrorHandler, $scope,

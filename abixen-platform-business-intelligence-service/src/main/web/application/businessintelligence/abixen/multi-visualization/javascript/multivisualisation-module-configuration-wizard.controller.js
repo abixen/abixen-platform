@@ -107,15 +107,16 @@
 
         };
 
-        var saveConfiguration = function () {
+        var saveConfiguration = function (configuration) {
+            if (configuration === undefined) configuration = $scope.chartConfiguration;
             if ($scope.chartConfiguration.id) {
-                ChartModuleConfiguration.update({id: $scope.chartConfiguration.id}, $scope.chartConfiguration, function () {
-                    $log.log('ChartModuleConfiguration has been updated: ', $scope.chartConfiguration);
+                ChartModuleConfiguration.update({id: configuration.id}, configuration, function () {
+                    $log.log('ChartModuleConfiguration has been updated: ', configuration);
                     $scope.$emit('VIEW_MODE');
                 });
             } else {
-                ChartModuleConfiguration.save($scope.chartConfiguration, function () {
-                    $log.log('ChartModuleConfiguration has been saved: ', $scope.chartConfiguration);
+                ChartModuleConfiguration.save(configuration, function () {
+                    $log.log('ChartModuleConfiguration has been saved: ', configuration);
                     $scope.$emit('VIEW_MODE');
                 });
             }
@@ -210,6 +211,9 @@
             };
             $scope.moduleConfigurationWizardStep.stepSelected = function () {
                 $log.log('moduleConfigurationWizardStep selected');
+                if ($scope.stepCurrent === 2 && !$scope.initWizardStep.isChart()){
+                    refreshColumn();
+                }
                 /*if ($scope.moduleConfigurationWizardStep.chart.series == null) {
                  $scope.moduleConfigurationWizardStep.chart.series = [];
                  $scope.moduleConfigurationWizardStep.chart.addSeries();
@@ -247,78 +251,65 @@
 
             $scope.moduleConfigurationWizardStep.table.getColumnData = function (idx) {
                 $scope.moduleConfigurationWizardStep.table.columnPreviewData = [];
-                $scope.moduleConfigurationWizardStep.table.columnPreviewData.push({value: 5});
-                $scope.moduleConfigurationWizardStep.table.columnPreviewData.push({value: 243});
-                $scope.moduleConfigurationWizardStep.table.columnPreviewData.push({value: 333});
-                $scope.moduleConfigurationWizardStep.table.columnPreviewData.push({value: 13});
-                $scope.moduleConfigurationWizardStep.table.columnPreviewData.push({value: 34});
-                $scope.moduleConfigurationWizardStep.table.columnPreviewData.push({value: 32});
-                //todo more
-            }
+                if ($scope.moduleConfigurationWizardStep.table.columnSelected.name != undefined && $scope.moduleConfigurationWizardStep.table.columnSelected.name !== '') {
+                    CharDataPreview.query({seriesName: $scope.moduleConfigurationWizardStep.table.columnSelected.name}, buildTableConfiguration(), function (data) {
+                        $log.log('CharDataPreview.query: ', data);
+                        data.forEach(function (el) {
+                            $scope.moduleConfigurationWizardStep.table.columnPreviewData.push({
+                                value: el[$scope.moduleConfigurationWizardStep.table.columnSelected.name].value
+                            });
+                        })
+
+                    });
+                }
+            };
 
             $scope.moduleConfigurationWizardStep.table.setSelected = function (idx) {
                 $log.log('moduleConfigurationWizardStep setSelected ', idx);
 
-                $scope.moduleConfigurationWizardStep.table.columnSelected = $scope.moduleConfigurationWizardStep.table.columns[idx];
-                $scope.moduleConfigurationWizardStep.table.getColumnData(idx);
-
-            };
-            $scope.moduleConfigurationWizardStep.table.toggleColumn = function (idx) {
-
-                var column = $scope.moduleConfigurationWizardStep.table.columns[idx];
-                if (column.isActive) {
-                    column.isActive = false;
-                } else {
-                    column.isActive = true;
+                $scope.moduleConfigurationWizardStep.table.columnSelected = $scope.moduleConfigurationWizardStep.table.columns[idx-1];
+                $scope.moduleConfigurationWizardStep.table.columns[idx-1].isActive = !$scope.moduleConfigurationWizardStep.table.columns[idx-1].isActive ;
+                if ($scope.moduleConfigurationWizardStep.table.columns[idx-1].isActive === true) {
+                    $scope.moduleConfigurationWizardStep.table.getColumnData(idx - 1);
+                }else {
+                    buildTableConfiguration();
                 }
 
 
             };
 
-            $scope.moduleConfigurationWizardStep.table.columns.push({
-                idx: 0,
-                name: 'Column 1',
-                isValid: true,
-                isActive: false
-            });
-            $scope.moduleConfigurationWizardStep.table.columns.push({
-                idx: 1,
-                name: 'Column 2',
-                isValid: true,
-                isActive: false
-            });
-            $scope.moduleConfigurationWizardStep.table.columns.push({
-                idx: 2,
-                name: 'Column 3',
-                isValid: true,
-                isActive: false
-            });
-            $scope.moduleConfigurationWizardStep.table.columns.push({
-                idx: 3,
-                name: 'Column 4',
-                isValid: true,
-                isActive: false
-            });
-            $scope.moduleConfigurationWizardStep.table.columns.push({
-                idx: 4,
-                name: 'Column 5',
-                isValid: true,
-                isActive: false
-            });
-            $scope.moduleConfigurationWizardStep.table.columns.push({
-                idx: 5,
-                name: 'Column 6',
-                isValid: true,
-                isActive: false
-            });
-            $scope.moduleConfigurationWizardStep.table.columns.push({
-                idx: 6,
-                name: 'Column 7',
-                isValid: true,
-                isActive: false
-            });
+            var refreshColumn = function () {
+                $log.debug('$scope.chartConfiguration.dataSource', $scope.chartConfiguration.dataSource);
+                $scope.moduleConfigurationWizardStep.table.columns = [];
+                function compare(a,b) {
+                    if (a.id < b.id)
+                        return -1;
+                    if (a.id > b.id)
+                        return 1;
+                    return 0;
+                }
+                $scope.chartConfiguration.dataSource.columns.sort(compare).forEach(function (column) {
+                    var isActive = false;
+                    if ($scope.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn !== null){
+                        isActive = $scope.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name === column.name;
+                    }
+                    if (isActive === false &&  $scope.chartConfiguration.dataSetChart.dataSetSeries !== null){
+                       $scope.chartConfiguration.dataSetChart.dataSetSeries.forEach(function (series) {
+                           if (isActive === false && series.valueSeriesColumn.name === column.name){
+                               isActive = true;
+                           }
+                       })
+                    }
 
-
+                    $scope.moduleConfigurationWizardStep.table.columns.push({
+                        idx: column.id,
+                        name: column.name,
+                        isValid: true,
+                        isActive: isActive,
+                        dataSourceColumn: column
+                    });
+                })
+            };
         };
 
         $scope.dataSources = null;
@@ -395,9 +386,61 @@
                 $scope.stepCurrent++;
                 changeWizardView();
             } else {
-                saveConfiguration();
+                if ($scope.initWizardStep.isChart()) {
+                    saveConfiguration();
+                }else {
+                    saveConfiguration(buildTableConfiguration())
+                }
             }
             $log.log('next step:', $scope.stepCurrent);
+        };
+
+        var buildTableConfiguration = function () {
+            $scope.tableConfiguration = {};
+            var tableConfiguration = {
+                axisXName: '',
+                axisYName: '',
+                chartType: 'TABLE',
+                dataSource: $scope.chartConfiguration.dataSource,
+                moduleId: $scope.chartConfiguration.moduleId,
+                id: $scope.chartConfiguration.id,
+                dataSetChart: {
+                    dataSetSeries: [],
+                    domainXSeriesColumn: null,
+                    domainZSeriesColumn: null
+                }
+            };
+
+            var i = 0;
+            $scope.moduleConfigurationWizardStep.table.columns.forEach(function (column) {
+                $log.debug('column: ',column);
+                if (column.isActive === true){
+                    if (i === 0){
+                        tableConfiguration.dataSetChart.domainXSeriesColumn = {
+                            id: null,
+                            name: '',
+                            type: 'X',
+                            dataSourceColumn: column.dataSourceColumn
+                        };
+                        i++
+                    } else {
+                        tableConfiguration.dataSetChart.dataSetSeries.push({
+                            id: null,
+                            name: column.dataSourceColumn.name,
+                            isValid: true,
+                            valueSeriesColumn: {
+                                id: null,
+                                name: column.dataSourceColumn.name,
+                                type: 'Y',
+                                dataSourceColumn: column.dataSourceColumn
+                            }
+                        });
+                        i++;
+                    }
+                }
+            });
+            $scope.tableConfiguration = tableConfiguration;
+            return tableConfiguration
         };
 
         $scope.prev = function () {

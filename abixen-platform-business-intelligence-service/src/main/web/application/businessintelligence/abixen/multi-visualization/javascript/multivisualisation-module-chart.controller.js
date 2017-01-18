@@ -49,12 +49,15 @@
         }
 
         function onGetResult(moduleConfiguration) {
-            CharData.query({}, moduleConfiguration)
-                .$promise
-                .then(onQueryResult, onQueryError);
+            if (moduleConfiguration.chartType === 'TABLE') {
+                $scope.$emit('SHOW_SUBVIEW_TABLE_EVENT');
+            } else {
+                CharData.query({}, moduleConfiguration)
+                    .$promise
+                    .then(onQueryResult, onQueryError);
 
-            registerSubviewChartIcons(moduleConfiguration.chartType);
-
+                registerSubviewChartIcons(moduleConfiguration.chartType);
+            }
             function onQueryResult(data) {
                 var chartParams = dataChartAdapter.convertTo(moduleConfiguration, data);
 
@@ -68,6 +71,7 @@
             function onQueryError(error) {
                 moduleResponseErrorHandler.handle(error, $scope);
             }
+
         }
 
         function onGetError(error) {
