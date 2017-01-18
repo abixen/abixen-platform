@@ -30,10 +30,10 @@
                                 <img ng-src="{{selectedLocale.img}}">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
-                                <li class="link" ng-repeat="flag in flags">
-                                    <a class="col-xs-12" ng-click="switchLocale(flag)">
+                                <li class="link" ng-repeat="locale in locales">
+                                    <a class="col-xs-12" ng-click="switchLocale(locale)">
                                          <span class="drop">
-                                            <img ng-src="{{flag.img}}">{{flag.name}}
+                                            <img ng-src="{{locale.img}}">{{locale.title}}
                                          </span>
                                     </a>
                                 </li>

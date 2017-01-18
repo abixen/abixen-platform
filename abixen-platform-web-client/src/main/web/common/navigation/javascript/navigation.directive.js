@@ -24,10 +24,12 @@
         '$log',
         '$state',
         'applicationNavigationItems',
-        'User'
+        'User',
+        '$translate',
+        '$filter'
     ];
 
-    function platformNavigationDirective($log, $state, applicationNavigationItems, User) {
+    function platformNavigationDirective($log, $state, applicationNavigationItems, User, $translate, $filter) {
         return {
             restrict: 'E',
             transclude: true,
@@ -56,20 +58,16 @@
             scope.baseUserUrl = '/api/application/users/';
             scope.avatarUrl = '';
 
-            scope.flags = [
-                {'name': 'English', 'img': '/common/navigation/image/united-states_flat.png', 'locale': 'ENGLISH'},
-                {'name': 'Polish', 'img': '/common/navigation/image/poland_flat.png', 'locale': 'POLISH'},
-                {'name': 'Russian', 'img': '/common/navigation/image/russia_flat.png', 'locale': 'RUSSIAN'},
-                {'name': 'Spanish', 'img': '/common/navigation/image/spain_flat.png', 'locale': 'SPAIN'},
-                {'name': 'Ukrainian', 'img': '/common/navigation/image/ukraine_flat.png', 'locale': 'UKRAINIAN'}
+            scope.locales = [
+                {title: 'English', img: '/common/navigation/image/united-states_flat.png', name: 'ENGLISH'},
+                {title: 'Polish', img: '/common/navigation/image/poland_flat.png', name: 'POLISH'},
+                {title: 'Russian', img: '/common/navigation/image/russia_flat.png', name: 'RUSSIAN'},
+                {title: 'Spanish', img: '/common/navigation/image/spain_flat.png', name: 'SPAIN'},
+                {title: 'Ukrainian', img: '/common/navigation/image/ukraine_flat.png', name: 'UKRAINIAN'}
             ];
 
-            //  default locale is en
-            scope.selectedLocale = {
-                'name': 'English',
-                'img': '/common/navigation/image/united-states_flat.png',
-                'locale': 'ENGLISH'
-            };
+            //  default locale is ENGLISH
+            scope.selectedLocale = scope.locales[0];
 
             var mobileView = 992;
 
@@ -105,9 +103,9 @@
                 scope.toggle = !scope.toggle;
             };
 
-            //  placeholder function to switch language
             scope.switchLocale = function (locale) {
                 scope.selectedLocale = locale;
+                $translate.use(scope.selectedLocale.name);
             };
 
             window.onresize = function () {
@@ -125,6 +123,7 @@
                         scope.user = data;
                         scope.avatarUrl = scope.baseUserUrl + scope.user.id + '/avatar/' + scope.user.avatarFileName;
                         $log.log('User has been got: ', scope.user);
+                        scope.selectedLocale = $filter("filter")(scope.locales, {name: scope.user.selectedLanguage})[0];
                     });
                 } else {
                     scope.user = {};
