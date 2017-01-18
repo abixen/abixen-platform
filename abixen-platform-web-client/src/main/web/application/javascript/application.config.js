@@ -25,16 +25,24 @@
         '$httpProvider',
         '$stateProvider',
         '$urlRouterProvider',
-        'modalWindowProvider'
+        'modalWindowProvider',
+        '$translateProvider'
     ];
 
-    function platformApplicationConfig($httpProvider, $stateProvider, $urlRouterProvider, modalWindowProvider) {
+    function platformApplicationConfig($httpProvider,
+                                       $stateProvider,
+                                       $urlRouterProvider,
+                                       modalWindowProvider,
+                                       $translateProvider) {
 
         $httpProvider.interceptors.push('platformHttpInterceptor');
 
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         $urlRouterProvider.otherwise('/');
+
+        $translateProvider.preferredLanguage('en');
+
         $stateProvider
             .state('application', {
                 abstract: true,
@@ -47,7 +55,7 @@
         modalWindowProvider.setWarningWindowClass('warning-modal');
     }
 
-    function run(editableOptions, editableThemes){
+    function run(editableOptions, editableThemes) {
         // set `default` theme
         editableOptions.theme = 'bs3';
 
