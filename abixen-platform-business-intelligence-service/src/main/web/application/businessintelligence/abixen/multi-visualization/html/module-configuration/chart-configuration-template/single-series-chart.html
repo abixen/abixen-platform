@@ -3,7 +3,7 @@
     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-init="initDataSetSeries()">
         <!--keys -->
         <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-            <label class="header"><span class="">Keys</span></label>
+            <label class="header"><span class="">{{'module.multivisualisation.configuration.preview.headerKey.label' | translate}}</span></label>
         </div>
         <div class="axis-x-filter">
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
@@ -33,7 +33,7 @@
             <!--values -->
 
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                <label class="header"><span class="">Values</span></label>
+                <label class="header"><span class="">{{'module.multivisualisation.configuration.valuesSelect.label' | translate}}</span></label>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
                 <select name="singleSelect" id="axisYColumn"
@@ -49,12 +49,12 @@
     <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" ng-show="dataSetSeriesSelected != null">
         <!-- preview data-->
         <div class="">
-            <label class="header"><span class="">Preview data</span></label>
+            <label class="header"><span class="">{{'module.multivisualisation.configuration.preview.label' | translate}}</span></label>
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Key</th>
-                    <th>Value</th>
+                    <th>{{'module.multivisualisation.configuration.preview.headerKey.label' | translate}}</th>
+                    <th>{{'module.multivisualisation.configuration.preview.headerValue.label' | translate}}</th>
                 </tr>
                 </thead>
                 <tbody>
