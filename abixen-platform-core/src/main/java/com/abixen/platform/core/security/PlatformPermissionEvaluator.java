@@ -34,6 +34,7 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
     private final SecurityService securityService;
     private final UserService userService;
 
+
     @Autowired
     public PlatformPermissionEvaluator(SecurityService securityService,
                                        UserService userService) {

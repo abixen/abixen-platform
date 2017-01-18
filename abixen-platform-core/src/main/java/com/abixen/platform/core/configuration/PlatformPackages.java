@@ -25,6 +25,8 @@ public class PlatformPackages {
 
     static final String CONFIG = MAIN + ".configuration";
 
+    static final String SECURITY = MAIN + ".security";
+
     static final String INTEGRATION = MAIN + ".integration";
 
     static final String DOMAIN = MAIN + ".model.impl";
