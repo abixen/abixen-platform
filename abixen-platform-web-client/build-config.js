@@ -17,7 +17,8 @@ module.exports = {
         libStyles: 'lib/lib.min.css',
         fontawesome: 'src/main/resources/static/lib/fonts/fontawesome',
         roboto: 'src/main/resources/static/fonts/roboto',
-        glyphicons: 'src/main/resources/static/fonts/bootstrap'
+        glyphicons: 'src/main/resources/static/fonts/bootstrap',
+        ckeditor: 'src/main/resources/static/lib/ckeditor'
     },
     images: {
         login: 'src/main/web/login/image/*',
@@ -61,7 +62,8 @@ module.exports = {
         ],
         fontawesome: 'bower_components/fontawesome/fonts/*',
         roboto: 'bower_components/roboto-fontface/fonts/*',
-        glyphicons: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*'
+        glyphicons: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+        ckeditor: 'bower_components/ckeditor/**'
     },
     templates: {
         files: 'src/main/web/**/*.html',

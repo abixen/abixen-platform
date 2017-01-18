@@ -34,6 +34,12 @@
 
         var templateDetails = this;
 
+        templateDetails.ckeditorOptions = {
+            language: 'en',
+            allowedContent: true,
+            entities: false
+        };
+
         angular.extend(templateDetails, new AbstractDetailsController(templateDetails, Template, responseHandler, $scope,
             {
                 entityId: $stateParams.id,

@@ -146,7 +146,10 @@ function libsTask() {
     var glyphicons = gulp.src(config.libs.glyphicons)
         .pipe(gulp.dest(config.dest.glyphicons));
 
-    return merge(libs, fontawesome, roboto, glyphicons);
+    var ckeditor = gulp.src(config.libs.ckeditor)
+        .pipe(gulp.dest(config.dest.ckeditor));
+
+    return merge(libs, fontawesome, roboto, glyphicons, ckeditor);
 }
 
 function loginImagesTask() {
