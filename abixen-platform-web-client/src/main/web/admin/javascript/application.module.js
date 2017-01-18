@@ -28,7 +28,6 @@
         'platformLayoutModule',
         'platformModuleModule',
         'platformModuleTypeModule',
-        'platformCommonModule',
         'platformListGridModule',
         'platformThumbModule',
         'platformUtilsModule',
