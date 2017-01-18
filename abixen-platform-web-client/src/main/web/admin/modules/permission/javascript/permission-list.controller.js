@@ -44,10 +44,11 @@
         function getTableColumns() {
             return [
                 {field: 'id', name: 'Id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
-                {field: 'title', name: 'Title', pinnedLeft: true, width: 200 /*filter: {term: 'cat|dog&!pink'}*/},
+                {field: 'title', name: 'Title', pinnedLeft: true, width: 200},
+                {field: 'permissionGeneralCategory.title', name: 'General Category', pinnedLeft: true, width: 200},
+                {field: 'permissionAclClassCategory.title', name: 'ACL Category', pinnedLeft: true, width: 200},
                 {field: 'description', name: 'Description', enableSorting: false, width: 200/*, filter: {term: '(x1|x2)&(z1|z2)'}*/},
                 {field: 'permissionName', name: 'Permission Name', width: 200},
-                {field: 'permissionCategory', name: 'Permission Category', width: 200},
                 {field: 'createdBy.username', name: 'Created By', width: 200},
                 {
                     field: 'createdDate',
