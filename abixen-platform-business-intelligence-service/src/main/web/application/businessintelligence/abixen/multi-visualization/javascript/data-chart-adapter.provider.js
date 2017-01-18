@@ -336,6 +336,9 @@
             var chartType = configurationData.chartType;
             $log.debug('convertTo chartType: ' + chartType);
 
+            if (chartType === 'TABLE') {
+                return convertToChart(configurationData, data, genericChartAdapter('table'));
+            }
             if (chartType === 'LINE' || chartType === 'LINE_TABLE') {
                 return convertToChart(configurationData, data, genericChartAdapter('lineChart'));
             }
