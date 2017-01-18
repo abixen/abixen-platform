@@ -26,14 +26,14 @@
 
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('pl', {
+        $translateProvider.translations('POLISH', {
             'module.module.title.label': 'Tytuł',
             'module.module.title.placeholder': 'Np. Sprzedaż w 2016',
             'module.module.description.label': 'Opis',
             'module.module.description.placeholder': 'Np. Strona prezentuje sprzedaż detaliczną naszego kluczowego produktu w 2016 roku.'
         });
 
-        $translateProvider.translations('en', {
+        $translateProvider.translations('ENGLISH', {
             'module.module.title.label': 'Title',
             'module.module.title.placeholder': 'E.g. Sales in 2016',
             'module.module.description.label': 'Description',

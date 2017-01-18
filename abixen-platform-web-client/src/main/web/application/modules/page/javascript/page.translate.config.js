@@ -26,14 +26,14 @@
 
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('pl', {
+        $translateProvider.translations('POLISH', {
             'module.page.title.label': 'Tytuł',
             'module.page.title.placeholder': 'Np. Sprzedaż w sklepach',
             'module.page.description.label': 'Opis',
             'module.page.description.placeholder': 'Np. Strona przedstawia wykresy prezentujące sprzedaż w sklepach.'
         });
 
-        $translateProvider.translations('en', {
+        $translateProvider.translations('ENGLISH', {
             'module.page.title.label': 'Title',
             'module.page.title.placeholder': 'E.g. Sales in stores',
             'module.page.description.label': 'Description',

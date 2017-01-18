@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.security;
 
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -28,13 +29,26 @@ public class PlatformUser extends User implements PlatformWebUser {
     private String firstname;
     private String lastname;
     private boolean admin;
+    private UserLanguage selectedLanguage;
 
-    public PlatformUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities, String firstname, String lastname, boolean admin, Long id) {
+    public PlatformUser(String username,
+                        String password,
+                        boolean enabled,
+                        boolean accountNonExpired,
+                        boolean credentialsNonExpired,
+                        boolean accountNonLocked,
+                        Collection<? extends GrantedAuthority> authorities,
+                        String firstname,
+                        String lastname,
+                        boolean admin,
+                        Long id,
+                        UserLanguage selectedLanguage) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.admin = admin;
         this.firstname = firstname;
         this.lastname = lastname;
         this.id = id;
+        this.selectedLanguage = selectedLanguage;
     }
 
     @Override
@@ -57,4 +71,8 @@ public class PlatformUser extends User implements PlatformWebUser {
         return admin;
     }
 
+    @Override
+    public UserLanguage getSelectedLanguage() {
+        return selectedLanguage;
+    }
 }

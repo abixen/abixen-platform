@@ -57,18 +57,18 @@
             scope.avatarUrl = '';
 
             scope.flags = [
-                {'name': 'English', 'img': '/common/navigation/image/united-states_flat.png', 'locale': 'en'},
-                {'name': 'Polish', 'img': '/common/navigation/image/poland_flat.png', 'locale': 'pl'},
-                {'name': 'Russian', 'img': '/common/navigation/image/russia_flat.png', 'locale': 'ru'},
-                {'name': 'Spanish', 'img': '/common/navigation/image/spain_flat.png', 'locale': 'es'},
-                {'name': 'Ukrainian', 'img': '/common/navigation/image/ukraine_flat.png', 'locale': 'ua'}
+                {'name': 'English', 'img': '/common/navigation/image/united-states_flat.png', 'locale': 'ENGLISH'},
+                {'name': 'Polish', 'img': '/common/navigation/image/poland_flat.png', 'locale': 'POLISH'},
+                {'name': 'Russian', 'img': '/common/navigation/image/russia_flat.png', 'locale': 'RUSSIAN'},
+                {'name': 'Spanish', 'img': '/common/navigation/image/spain_flat.png', 'locale': 'SPAIN'},
+                {'name': 'Ukrainian', 'img': '/common/navigation/image/ukraine_flat.png', 'locale': 'UKRAINIAN'}
             ];
 
             //  default locale is en
             scope.selectedLocale = {
                 'name': 'English',
                 'img': '/common/navigation/image/united-states_flat.png',
-                'locale': 'en'
+                'locale': 'ENGLISH'
             };
 
             var mobileView = 992;

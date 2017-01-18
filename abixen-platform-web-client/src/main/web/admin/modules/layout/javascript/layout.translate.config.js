@@ -26,14 +26,14 @@
 
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('pl', {
+        $translateProvider.translations('POLISH', {
             'module.layout.title.label': 'Tytuł',
             'module.layout.title.placeholder': 'Np. 2 (50/50)',
             'module.layout.content.label': 'Xml',
             'module.layout.content.placeholder': 'Definicja układu strony'
         });
 
-        $translateProvider.translations('en', {
+        $translateProvider.translations('ENGLISH', {
             'module.layout.title.label': 'Title',
             'module.layout.title.placeholder': 'E.g. 2 (50/50)',
             'module.layout.content.label': 'Xml',

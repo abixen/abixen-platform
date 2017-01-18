@@ -24,7 +24,7 @@
 
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('pl', {
+        $translateProvider.translations('POLISH', {
             'search': 'Szukaj',
             'dashboard': 'Dashboard',
             'users': 'Użytkownicy',
@@ -38,7 +38,7 @@
             'logout': 'Wyloguj'
         });
 
-        $translateProvider.translations('en', {
+        $translateProvider.translations('ENGLISH', {
             'search': 'Search',
             'dashboard': 'Dashboard',
             'users': 'Users',

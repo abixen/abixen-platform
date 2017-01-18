@@ -26,7 +26,7 @@
 
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('pl', {
+        $translateProvider.translations('POLISH', {
             'module.user.screenName.label': 'Nazwa wyświetlana',
             'module.user.screenName.placeholder': 'Np. Janek',
             'module.user.username.label': 'E-mail',
@@ -44,7 +44,7 @@
             'module.user.language.label': 'Język'
         });
 
-        $translateProvider.translations('en', {
+        $translateProvider.translations('ENGLISH', {
             'module.user.screenName.label': 'Screen name',
             'module.user.screenName.placeholder': 'E.g. Joe',
             'module.user.username.label': 'E-mail',

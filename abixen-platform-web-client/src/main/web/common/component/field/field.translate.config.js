@@ -24,7 +24,7 @@
 
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('pl', {
+        $translateProvider.translations('POLISH', {
             'application.validator.invalid.minlength': 'Min długość pola "{{label}}" wynosi {{min}}',
             'application.validator.invalid.maxlength': 'Max długość pola "{{label}}" wynosi {{max}}',
             'application.validator.invalid.required': '{{label}} jest wymagane',
@@ -32,28 +32,28 @@
 
         });
 
-        $translateProvider.translations('en', {
+        $translateProvider.translations('ENGLISH', {
             'application.validator.invalid.minlength': 'Min length of field "{{label}}" is {{min}}',
             'application.validator.invalid.maxlength': 'Max length of field "{{label}}" is {{max}}',
             'application.validator.invalid.required': '{{label}} is required',
             'application.validator.invalid.email': '{{label}} has invalid format'
         });
 
-        $translateProvider.translations('ru', {
+        $translateProvider.translations('RUSSIAN', {
             'application.validator.invalid.minlength': 'Длина поля "{{label}}" не менее {{min}}',
             'application.validator.invalid.maxlength': 'Длина поля "{{label}}" не более {{max}}',
             'application.validator.invalid.required': '{{label}} обязательное поле',
             'application.validator.invalid.email': '{{label}} имеет неверный формат'
         });
 
-        $translateProvider.translations('ua', {
+        $translateProvider.translations('UKRAINIAN', {
             'application.validator.invalid.minlength': 'Довжина поля "{{label}}" не менше {{min}}',
             'application.validator.invalid.maxlength': 'Довжина поля "{{label}}" не більше {{max}}',
             'application.validator.invalid.required': '{{label}} обов\'язкове поле',
             'application.validator.invalid.email': '{{label}} має невірний формат'
         });
 
-        $translateProvider.translations('es', {
+        $translateProvider.translations('SPAIN', {
             'application.validator.invalid.minlength': 'La longitud mínima del campo "{{label}}" es {{min}}',
             'application.validator.invalid.maxlength': 'La longitud máxima del campo "{{label}}" es {{max}}',
             'application.validator.invalid.required': '{{label}} es requerido(a)',

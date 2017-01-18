@@ -69,7 +69,18 @@ public class PlatformUserDetailsService implements UserDetailsService {
         //FIXME
         boolean admin = isAdmin(authorities);
 
-        PlatformUser platformUser = new PlatformUser(user.getUsername(), user.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, user.getFirstName(), user.getLastName(), admin, user.getId());
+        PlatformUser platformUser = new PlatformUser(user.getUsername(),
+                user.getPassword(),
+                enabled,
+                accountNonExpired,
+                credentialsNonExpired,
+                accountNonLocked,
+                authorities,
+                user.getFirstName(),
+                user.getLastName(),
+                admin,
+                user.getId(),
+                user.getSelectedLanguage());
 
         return platformUser;
     }

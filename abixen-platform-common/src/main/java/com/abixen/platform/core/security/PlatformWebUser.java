@@ -15,6 +15,7 @@
 package com.abixen.platform.core.security;
 
 
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
@@ -28,6 +29,8 @@ public interface PlatformWebUser {
     String getFirstname();
 
     String getLastname();
+
+    UserLanguage getSelectedLanguage();
 
     boolean isAdmin();
 

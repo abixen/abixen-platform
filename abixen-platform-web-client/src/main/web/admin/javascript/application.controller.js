@@ -23,13 +23,12 @@
     ApplicationController.$inject = [
         '$scope',
         '$http',
-        '$state',
-        '$window',
         '$log',
-        'applicationNavigationItems'
+        'applicationNavigationItems',
+        '$translate'
     ];
 
-    function ApplicationController($scope, $http, $state, $window, $log, applicationNavigationItems) {
+    function ApplicationController($scope, $http, $log, applicationNavigationItems, $translate) {
 
         $log.log('ApplicationController');
 
@@ -54,6 +53,7 @@
         $http.get('/user', {}).success(function (platformUser) {
             $scope.platformUser = platformUser;
             $log.log('platformUser: ', $scope.platformUser);
+            $translate.use($scope.platformUser.selectedLanguage);
         });
 
         var redirectAction = {

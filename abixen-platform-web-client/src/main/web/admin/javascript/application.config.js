@@ -37,7 +37,7 @@
         showErrorsConfigProvider.showSuccess(true);
         $urlRouterProvider.otherwise('/');
 
-        $translateProvider.preferredLanguage('en');
+        $translateProvider.preferredLanguage('ENGLISH');
 
         $stateProvider
             .state('application', {

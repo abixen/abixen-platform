@@ -33,7 +33,8 @@
         'ModuleType',
         'dashboard',
         'toaster',
-        'modalWindow'
+        'modalWindow',
+        '$translate'
     ];
 
     function PlatformInitController($rootScope,
@@ -48,7 +49,8 @@
                                     ModuleType,
                                     dashboard,
                                     toaster,
-                                    modalWindow) {
+                                    modalWindow,
+                                    $translate) {
 
         $log.log('PlatformInitController');
 
@@ -74,6 +76,7 @@
             $http.get('/user', {}).success(function (platformUser) {
                 $scope.platformUser = platformUser;
                 $log.log('platformUser: ', $scope.platformUser);
+                $translate.use($scope.platformUser.selectedLanguage);
             });
         };
 
@@ -246,7 +249,7 @@
         });
 
         var redirectAction = {
-            title: 'Admin Page',
+            title: 'Control Panel',
             onClick: function () {
                 $scope.showDropdown = false;
                 window.location = applicationAdminUrl;
