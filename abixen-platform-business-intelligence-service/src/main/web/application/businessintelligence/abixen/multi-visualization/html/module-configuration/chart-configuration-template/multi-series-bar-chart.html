@@ -3,30 +3,27 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
         <a class="btn add-new-button pull-left"
            ng-click="addDataSetSeries()">
-            <i class="fa fa-plus"></i><span class="hidden-xs">&nbsp;Add Series</span>
+            <i class="fa fa-plus"></i><span class="hidden-xs">&nbsp;{{'module.multivisualisation.configuration.addSeries' | translate}}</span>
         </a>
     </div>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-            <label class="header"><span>Domain axis label</span></label>
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-            <input type="text" name="input" ng-model="chartConfiguration.axisXName"
-                   required ng-trim="true" class="form-control" placeholder="Put keys Axis display name">
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-            <label class="header"><span>Values axis label</span></label>
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-            <input type="text" name="input" ng-model="chartConfiguration.axisYName"
-                   required ng-trim="true" class="form-control" placeholder="Put values Axis display name">
-        </div>
+        <input-text model="chartConfiguration.axisXName"
+                    name="axisXName"
+                    label="{{'module.multivisualisation.configuration.domainAxis.label' | translate}}"
+                    placeholder="{{'module.multivisualisation.configuration.domainAxis.placeholder' | translate}}">
+        </input-text>
+
+        <input-text model="chartConfiguration.axisYName"
+                    name="axisYName"
+                    label="{{'module.multivisualisation.configuration.valuesAxis.label' | translate}}"
+                    placeholder="{{'module.multivisualisation.configuration.valuesAxis.placeholder' | translate}}">
+        </input-text>
 
     </div>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <!--domain - axisX -->
         <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-            <label class="header"><span class="">Domain</span></label>
+            <label class="header"><span class="">{{'module.multivisualisation.configuration.domainSelect.label' | translate}}</span></label>
         </div>
         <div class="axis-x-filter">
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
@@ -70,7 +67,7 @@
             <!-- series details -->
             <div>
                 <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                    <label class="header"><span>Series name</span></label>
+                    <label class="header"><span>{{'module.multivisualisation.configuration.seriesSelect.label' | translate}}</span></label>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
                     <input type="text" name="seriesSelectedName"
@@ -82,7 +79,7 @@
             <!--axisY -->
 
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                <label class="header"><span>Values</span></label>
+                <label class="header"><span>{{'module.multivisualisation.configuration.axisYSelect.label' | translate}}</span></label>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
                 <select name="singleSelect" id="axisYColumn"
@@ -98,12 +95,12 @@
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" ng-show="dataSetSeriesSelected != null">
         <!-- preview data-->
         <div class="">
-            <label class="header"><span>Preview data</span></label>
+            <label class="header"><span>{{'module.multivisualisation.configuration.preview.label' | translate}}</span></label>
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Domain</th>
-                    <th>Value</th>
+                    <th>{{'module.multivisualisation.configuration.preview.headerX.label' | translate}}</th>
+                    <th>{{'module.multivisualisation.configuration.preview.headerY.label' | translate}}</th>
                 </tr>
                 </thead>
                 <tbody>
