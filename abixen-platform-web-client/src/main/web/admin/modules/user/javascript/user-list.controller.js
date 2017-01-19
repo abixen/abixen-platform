@@ -32,9 +32,13 @@
 
         var userList = this;
 
+        userList.searchFields = createSearchFields();
+        userList.searchFilter = {};
+
         angular.extend(userList, new AbstractListGridController(User,
             {
-                getTableColumns: getTableColumns
+                getTableColumns: getTableColumns,
+                filter: userList.searchFilter
             }
         ));
 
@@ -43,11 +47,18 @@
 
         function getTableColumns() {
             return [
-                {field: 'id', name: 'Id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
+                {
+                    field: 'id',
+                    name: 'Id',
+                    pinnedLeft: true,
+                    enableColumnResizing: false,
+                    enableFiltering: false,
+                    width: 50
+                },
                 {field: 'username', name: 'Username', pinnedLeft: true, width: 200},
-                {field: 'firstName', name: 'First Name', pinnedLeft: true, width: 200},
-                {field: 'lastName', name: 'Last Name', pinnedLeft: true, width: 200},
-                {field: 'state', name: 'State', pinnedLeft: true, width: 100},
+                {field: 'firstName', name: 'First Name', width: 200},
+                {field: 'lastName', name: 'Last Name', width: 200},
+                {field: 'state', name: 'State', width: 100},
                 {field: 'registrationIp', name: 'Registration Ip', width: 200},
                 {field: 'createdBy.username', name: 'Created By', width: 200},
                 {
@@ -62,6 +73,50 @@
                     name: 'Last Modified Date',
                     width: 200,
                     cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
+                }
+            ];
+        }
+
+        function createSearchFields() {
+            return [
+                {
+                    name: 'username',
+                    label: 'module.user.username.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'firstName',
+                    label: 'module.user.firstName.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'lastName',
+                    label: 'module.user.lastName.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'gender',
+                    label: 'module.user.gender.label',
+                    type: 'input-drop-down',
+                    options: [{key: 'MALE'}, {key: 'FEMALE'}],
+                    showEmptyValue: true,
+                    emptyValueLabel: 'module.user.gender.select',
+                    keyAsValue: 'true'
+                },
+                {
+                    name: 'selectedLanguage',
+                    label: 'module.user.language.label',
+                    type: 'input-drop-down',
+                    options: [
+                        {key: 'ENGLISH'},
+                        {key: 'POLISH'},
+                        {key: 'RUSSIAN'},
+                        {key: 'SPANISH'},
+                        {key: 'UKRAINIAN'}
+                    ],
+                    showEmptyValue: true,
+                    emptyValueLabel: 'module.user.language.select',
+                    keyAsValue: 'true'
                 }
             ];
         }

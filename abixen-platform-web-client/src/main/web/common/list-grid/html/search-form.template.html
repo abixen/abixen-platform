@@ -1,0 +1,27 @@
+<div class="row">
+    <form>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3" ng-repeat="field in searchForm.fields">
+            <input-text ng-if="field.type == 'input-text'"
+                        model="searchForm.filter[field.name]"
+                        name="field.name"
+                        label="{{field.label | translate}}">
+            </input-text>
+            <input-drop-down ng-if="field.type == 'input-drop-down'"
+                             model="searchForm.filter[field.name]"
+                             name="field.name"
+                             label="{{field.label | translate}}"
+                             options="field.options"
+                             show-empty-value="field.showEmptyValue"
+                             empty-value-label="{{field.emptyValueLabel | translate}}"
+                             key-as-value="field.keyAsValue">
+            </input-drop-down>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <div class="form-group">
+                <button id="search-button" class="btn search-form-button" ng-click="searchForm.onSearch()">
+                    <i class="fa fa-search"></i><span>&nbsp;Search</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

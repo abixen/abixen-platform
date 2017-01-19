@@ -25,3 +25,20 @@
     }
   }
 }
+
+.default-platform-search-form {
+  .search-form-button {
+    margin-top: 24px;
+    color: $font-color !important;
+    background-color: $base-color !important;
+    border: 1px solid $base-color-darkest !important;
+    font-size: 20px !important;
+    padding: 2px 12px !important;
+
+    &:hover {
+      color: $font-color !important;
+      background-color: $base-color-lighter !important;
+      border: 1px solid $base-color-darker !important;
+    }
+  }
+}

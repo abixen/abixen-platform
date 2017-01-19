@@ -41,7 +41,9 @@
             'module.user.jobTitle.placeholder': 'Np. Administrator',
             'module.user.birthday.label': 'Data urodzin',
             'module.user.gender.label': 'Płeć',
-            'module.user.language.label': 'Język'
+            'module.user.gender.select': 'Wybierz płeć',
+            'module.user.language.label': 'Język',
+            'module.user.language.select': 'Wybierz język'
         });
 
         $translateProvider.translations('ENGLISH', {
@@ -59,7 +61,9 @@
             'module.user.jobTitle.placeholder': 'E.g. Administrator',
             'module.user.birthday.label': 'Birthday',
             'module.user.gender.label': 'Gender',
-            'module.user.language.label': 'Language'
+            'module.user.gender.select': 'Select gender',
+            'module.user.language.label': 'Language',
+            'module.user.language.select': 'Select language'
         });
     }
 })();

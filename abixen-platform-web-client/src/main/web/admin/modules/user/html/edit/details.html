@@ -44,7 +44,7 @@
                                  validators="userDetails.validators"
                                  options="userDetails.languageTypes"
                                  show-empty-value="true"
-                                 empty-value-label="Select language"
+                                 empty-value-label="{{module.user.language.select | translate}}"
                                  key-as-value="true">
                 </input-drop-down>
             </div>
@@ -73,7 +73,7 @@
                                  validators="userDetails.validators"
                                  options="userDetails.genderTypes"
                                  show-empty-value="true"
-                                 empty-value-label="Select gender"
+                                 empty-value-label="{{module.user.gender.select | translate}}"
                                  key-as-value="true">
                 </input-drop-down>
             </div>
