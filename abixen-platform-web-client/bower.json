@@ -24,6 +24,7 @@
     "angular-file-upload": "2.3.4",
     "angular-ui-codemirror": "0.3.0",
     "angular-loading-bar":"0.9.0",
-    "ng-scrollbar": "0.0.8"
+    "ng-scrollbar": "0.0.8",
+    "ckeditor": "4.5.7"
   }
 }
