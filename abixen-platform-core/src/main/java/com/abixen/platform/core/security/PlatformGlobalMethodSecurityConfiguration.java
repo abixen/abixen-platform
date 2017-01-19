@@ -26,7 +26,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class PlatformGlobalMethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
 
-    private final PlatformPermissionEvaluator platformPermissionEvaluator;
+    private PlatformPermissionEvaluator platformPermissionEvaluator;
 
     @Autowired
     public PlatformGlobalMethodSecurityConfiguration(PlatformPermissionEvaluator platformPermissionEvaluator) {
