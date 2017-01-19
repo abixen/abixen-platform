@@ -44,10 +44,5 @@
     SearchFormController.$inject = ['$scope'];
 
     function SearchFormController(scope) {
-        console.log('SearchFormController')
-;
-        var searchForm = this;
-
-
     }
 })();
