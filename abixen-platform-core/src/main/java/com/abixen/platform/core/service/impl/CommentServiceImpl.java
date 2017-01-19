@@ -17,6 +17,7 @@ package com.abixen.platform.core.service.impl;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
 import com.abixen.platform.core.repository.CommentRepository;
+import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,12 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
 
+    private final ModuleRepository moduleRepository;
+
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, ModuleRepository moduleRepository) {
         this.commentRepository = commentRepository;
+        this.moduleRepository = moduleRepository;
     }
 
     @Override
@@ -59,7 +63,8 @@ public class CommentServiceImpl implements CommentService {
         comment.setMessage(commentForm.getMessage());
         Long parentCommentId = commentForm.getParentId();
         comment.setParent(parentCommentId != null ? commentRepository.findOne(parentCommentId) : null);
-
+        Long moduleId = commentForm.getModuleId();
+        comment.setModule(moduleId != null ? moduleRepository.findOne(moduleId) : null);
         return comment;
     }
 }
