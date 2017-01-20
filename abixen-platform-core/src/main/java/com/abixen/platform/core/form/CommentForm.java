@@ -22,6 +22,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import static com.abixen.platform.core.model.CommentBase.COMMENT_MESSAGE_MAX_LENGTH;
 
 @Getter
 @Setter
@@ -32,12 +34,14 @@ public class CommentForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
+    @Size(max = COMMENT_MESSAGE_MAX_LENGTH)
     private String message;
 
     @JsonView(WebModelJsonSerialize.class)
     private Long parentId;
 
     @JsonView(WebModelJsonSerialize.class)
+    @NotNull
     private Long moduleId;
 
     @JsonView(WebModelJsonSerialize.class)

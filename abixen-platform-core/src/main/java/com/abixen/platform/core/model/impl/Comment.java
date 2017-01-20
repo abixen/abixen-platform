@@ -18,6 +18,8 @@ import com.abixen.platform.core.model.CommentBase;
 import com.abixen.platform.core.model.web.CommentWeb;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -31,6 +33,8 @@ public class Comment extends AuditingModel implements CommentBase<Comment, Modul
     private Long id;
 
     @Column(name = "message", length = COMMENT_MESSAGE_MAX_LENGTH, nullable = false)
+    @Size(max = COMMENT_MESSAGE_MAX_LENGTH)
+    @NotNull
     private String message;
 
     @JoinColumn(name = "parent_id", nullable = true)
@@ -39,6 +43,7 @@ public class Comment extends AuditingModel implements CommentBase<Comment, Modul
 
     @JoinColumn(name = "module_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
     private Module module;
 
     @Override

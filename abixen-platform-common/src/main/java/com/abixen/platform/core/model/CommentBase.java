@@ -15,8 +15,9 @@ package com.abixen.platform.core.model;
 
 public interface CommentBase<Comment extends CommentBase, Module extends ModuleBase>  {
 
-    int COMMENT_MESSAGE_MIN_LENGTH = 1;
-    int COMMENT_MESSAGE_MAX_LENGTH = 5000;
+    public static final int COMMENT_MESSAGE_MIN_LENGTH = 1;
+    public static final int COMMENT_MESSAGE_MAX_LENGTH = 1000;
+
 
     Long getId();
     void setId(Long id);
