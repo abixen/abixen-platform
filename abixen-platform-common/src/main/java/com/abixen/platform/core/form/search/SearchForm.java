@@ -12,19 +12,8 @@
  * details.
  */
 
-package com.abixen.platform.core.exception;
+package com.abixen.platform.core.form.search;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+public interface SearchForm {
 
-@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class PlatformCoreException extends RuntimeException {
-
-    public PlatformCoreException(String message) {
-        super(message);
-    }
-
-    public PlatformCoreException(Throwable cause) {
-        super(cause);
-    }
 }

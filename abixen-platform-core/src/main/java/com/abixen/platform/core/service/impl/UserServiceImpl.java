@@ -20,6 +20,7 @@ import com.abixen.platform.core.exception.UserActivationException;
 import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.form.UserForm;
 import com.abixen.platform.core.form.UserRolesForm;
+import com.abixen.platform.core.form.UserSearchForm;
 import com.abixen.platform.core.model.enumtype.UserState;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.UserRepository;
@@ -126,9 +127,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> findAllUsers(Pageable pageable) {
+    public Page<User> findAllUsers(Pageable pageable, UserSearchForm userSearchForm) {
         log.debug("findAllUsers() - pageable: " + pageable);
-        return userRepository.findAll(pageable);
+        return userRepository.findAll(pageable, userSearchForm);
     }
 
     @Override

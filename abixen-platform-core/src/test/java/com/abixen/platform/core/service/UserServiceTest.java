@@ -17,6 +17,8 @@ package com.abixen.platform.core.service;
 import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.configuration.properties.PlatformTestResourceConfigurationProperties;
 import com.abixen.platform.core.form.UserChangePasswordForm;
+import com.abixen.platform.core.form.UserSearchForm;
+import com.abixen.platform.core.form.search.SearchForm;
 import com.abixen.platform.core.model.enumtype.UserGender;
 import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.User;
@@ -25,6 +27,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -156,16 +162,17 @@ public class UserServiceTest {
         avatarFile.delete();
     }
 
+    @Test
+    public void findAllUsers() {
 
-    /*@Test
-    public void updateUser() {
-        log.debug("updateUser()");
-        User user = userService.findUser("username");
-        user.setFirstname("firstname2");
-        userService.updateUser(user);
-        User userAfterUpdate = userService.findUser("username");
-        assertEquals("firstname2", userAfterUpdate.getFirstname());
-    }*/
+        UserSearchForm searchForm = new UserSearchForm();
+        searchForm.setSelectedLanguage(UserLanguage.ENGLISH);
 
+        Pageable pageable = new PageRequest(0, 10, Sort.Direction.ASC, "firstName");
+        Page<User> usersPage = userService.findAllUsers(pageable, searchForm);
+        log.debug("usersPage.getTotalElements(): {}", usersPage.getTotalElements());
+
+        assertEquals(5, usersPage.getTotalElements());
+    }
 
 }

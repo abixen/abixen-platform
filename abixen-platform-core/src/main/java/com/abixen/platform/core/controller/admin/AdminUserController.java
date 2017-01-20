@@ -19,6 +19,7 @@ import com.abixen.platform.core.controller.common.AbstractUserController;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.form.UserRolesForm;
+import com.abixen.platform.core.form.UserSearchForm;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.service.MailService;
 import com.abixen.platform.core.service.RoleService;
@@ -50,10 +51,10 @@ public class AdminUserController extends AbstractUserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<User> getUsers(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public Page<User> getUsers(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
         log.debug("getUsers()");
 
-        Page<User> users = userService.findAllUsers(pageable);
+        Page<User> users = userService.findAllUsers(pageable, userSearchForm);
         for (User user : users) {
             log.debug("user: " + user);
         }
@@ -76,7 +77,6 @@ public class AdminUserController extends AbstractUserController {
         return new FormValidationResultDto(userRolesForm);
     }
 
-    //:.+
     @RequestMapping(value = "/custom/username/{username}/", method = RequestMethod.GET)
     public User getUserByUsername(@PathVariable("username") String username) {
         log.debug("getUserByUsername() - username: " + username);

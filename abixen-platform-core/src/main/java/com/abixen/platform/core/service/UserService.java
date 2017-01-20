@@ -17,6 +17,7 @@ package com.abixen.platform.core.service;
 import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.form.UserForm;
 import com.abixen.platform.core.form.UserRolesForm;
+import com.abixen.platform.core.form.UserSearchForm;
 import com.abixen.platform.core.model.impl.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +40,7 @@ public interface UserService {
 
     void deleteUser(Long id);
 
-    Page<User> findAllUsers(Pageable pageable);
+    Page<User> findAllUsers(Pageable pageable, UserSearchForm userSearchForm);
 
     User findUser(Long id);
 

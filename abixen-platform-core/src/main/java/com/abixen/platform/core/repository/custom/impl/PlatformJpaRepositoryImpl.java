@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.repository.custom.impl;
 
+import com.abixen.platform.core.form.search.SearchForm;
 import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.User;
@@ -27,6 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.security.core.Authentication;
@@ -49,7 +52,12 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
         this.entityManager = entityManager;
     }
 
-    public List<T> findAllSecured(String queryString, String filteredObjectAlias, AclClassName aclClassName, PermissionName permissionName) {
+    public Page<T> findAll(Pageable pageable, SearchForm searchForm) {
+        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll((Specification<T>) Specifications.where(SearchFormSpecifications.bySearchForm(searchForm)), pageable));
+    }
+
+    public List<T> findAllSecured(String queryString, String filteredObjectAlias, AclClassName
+            aclClassName, PermissionName permissionName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null) {

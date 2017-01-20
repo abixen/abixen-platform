@@ -15,10 +15,10 @@
 package com.abixen.platform.core.repository;
 
 import com.abixen.platform.core.model.impl.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
 
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends PlatformJpaRepository<User, Long> {
 
     User findByUsername(String username);
 
