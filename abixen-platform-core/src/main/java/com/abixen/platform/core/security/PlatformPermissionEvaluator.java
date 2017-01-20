@@ -21,23 +21,27 @@ import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
+import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
+
 @Slf4j
 @Component
+@Lazy
+@Scope(proxyMode = TARGET_CLASS)
 public class PlatformPermissionEvaluator implements PermissionEvaluator {
 
-    private final SecurityService securityService;
-    private final UserService userService;
-
+    private SecurityService securityService;
+    private UserService userService;
 
     @Autowired
-    public PlatformPermissionEvaluator(SecurityService securityService,
-                                       UserService userService) {
+    public PlatformPermissionEvaluator(SecurityService securityService, UserService userService) {
         this.securityService = securityService;
         this.userService = userService;
     }
