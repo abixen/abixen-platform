@@ -39,7 +39,7 @@
             })
             .state('application.users.add', {
                 url: '/add',
-                templateUrl: '/admin/modules/user/html/edit.html',
+                templateUrl: '/admin/modules/user/html/edit/details.html',
                 controller: 'UserDetailsController',
                 controllerAs: 'userDetails'
             })
