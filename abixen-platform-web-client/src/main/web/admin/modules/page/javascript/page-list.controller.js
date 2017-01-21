@@ -32,9 +32,13 @@
 
         var pageList = this;
 
+        pageList.searchFields = createSearchFields();
+        pageList.searchFilter = {};
+
         angular.extend(pageList, new AbstractListGridController(Page,
             {
-                getTableColumns: getTableColumns
+                getTableColumns: getTableColumns,
+                filter: pageList.searchFilter
             }
         ));
 
@@ -78,6 +82,26 @@
             };
 
             applicationNavigationItems.setTopbarItem(addPageButton);
+        }
+
+        function createSearchFields() {
+            return [
+                {
+                    name: 'name',
+                    label: 'module.page.name.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'title',
+                    label: 'module.page.title.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'description',
+                    label: 'module.page.description.label',
+                    type: 'input-text'
+                }
+            ];
         }
     }
 })();
