@@ -16,6 +16,7 @@ package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.form.RoleForm;
 import com.abixen.platform.core.form.RolePermissionsForm;
+import com.abixen.platform.core.form.RoleSearchForm;
 import com.abixen.platform.core.model.impl.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +32,7 @@ public interface RoleService {
 
     void deleteRole(Long id);
 
-    Page<Role> findAllRoles(Pageable pageable);
+    Page<Role> findAllRoles(Pageable pageable, RoleSearchForm roleSearchForm);
 
     Role findRole(Long id);
 

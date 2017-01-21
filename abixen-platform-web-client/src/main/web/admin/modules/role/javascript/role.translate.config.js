@@ -29,13 +29,13 @@
         $translateProvider.translations('POLISH', {
             'module.role.name.label': 'Nazwa wyświetlana',
             'module.role.type.label': 'Np. Janek',
-            'module.role.type.select': 'Select Role'
+            'module.role.type.select': '--Select Role--'
         });
 
         $translateProvider.translations('ENGLISH', {
             'module.role.name.label': 'Name',
             'module.role.type.label': 'Role Type',
-            'module.role.type.select': 'Select Role'
+            'module.role.type.select': '--Select Role--'
         });
     }
 })();

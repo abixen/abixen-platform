@@ -17,6 +17,7 @@ package com.abixen.platform.core.service.impl;
 import com.abixen.platform.core.dto.RolePermissionDto;
 import com.abixen.platform.core.form.RoleForm;
 import com.abixen.platform.core.form.RolePermissionsForm;
+import com.abixen.platform.core.form.RoleSearchForm;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.repository.RoleRepository;
 import com.abixen.platform.core.service.DomainBuilderService;
@@ -64,9 +65,9 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Page<Role> findAllRoles(Pageable pageable) {
+    public Page<Role> findAllRoles(Pageable pageable, RoleSearchForm roleSearchForm) {
         log.debug("findAllRoles() - pageable: " + pageable);
-        return roleRepository.findAll(pageable);
+        return roleRepository.findAll(pageable, roleSearchForm);
     }
 
     @Override

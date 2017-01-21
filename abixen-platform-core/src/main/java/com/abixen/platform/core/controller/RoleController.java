@@ -18,6 +18,7 @@ import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.form.RoleForm;
 import com.abixen.platform.core.form.RolePermissionsForm;
+import com.abixen.platform.core.form.RoleSearchForm;
 import com.abixen.platform.core.model.enumtype.RoleType;
 import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.model.impl.Role;
@@ -50,10 +51,10 @@ public class RoleController {
     private PermissionService permissionService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<Role> getRoles(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public Page<Role> getRoles(@PageableDefault(size = 1, page = 0) Pageable pageable, RoleSearchForm roleSearchForm) {
         log.debug("getRoles()");
 
-        Page<Role> roles = roleService.findAllRoles(pageable);
+        Page<Role> roles = roleService.findAllRoles(pageable, roleSearchForm);
         for (Role role : roles) {
             log.debug("role: " + role);
         }
