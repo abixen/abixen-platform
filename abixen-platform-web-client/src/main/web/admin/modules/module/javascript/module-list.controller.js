@@ -31,9 +31,13 @@
 
         var moduleList = this;
 
+        moduleList.searchFields = createSearchFields();
+        moduleList.searchFilter = {};
+
         angular.extend(moduleList, new AbstractListGridController(Module,
             {
-                getTableColumns: getTableColumns
+                getTableColumns: getTableColumns,
+                filter: moduleList.searchFilter
             }
         ));
 
@@ -65,6 +69,26 @@
 
         function updateNavigation() {
             applicationNavigationItems.clearTopbarItems();
+        }
+
+        function createSearchFields() {
+            return [
+                {
+                    name: 'name',
+                    label: 'module.module.name.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'title',
+                    label: 'module.module.title.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'serveId',
+                    label: 'module.module.serviceId.label',
+                    type: 'input-text'
+                }
+            ];
         }
     }
 })();
