@@ -32,9 +32,13 @@
 
         var roleList = this;
 
+        roleList.searchFields = createSearchFields();
+        roleList.searchFilter = {};
+
         angular.extend(roleList, new AbstractListGridController(Role,
             {
-                getTableColumns: getTableColumns
+                getTableColumns: getTableColumns,
+                filter: roleList.searchFilter
             }
         ));
 
@@ -77,6 +81,29 @@
             };
 
             applicationNavigationItems.setTopbarItem(newRoleButton);
+        }
+
+        function createSearchFields() {
+            return [
+                {
+                    name: 'name',
+                    label: 'module.role.name.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'roleType',
+                    label: 'module.role.type.label',
+                    type: 'input-drop-down',
+                    options: [
+                        {key: 'ROLE_ADMIN'},
+                        {key: 'ROLE_USER'},
+                        {key: 'ROLE_PAGE_EDITOR'}
+                    ],
+                    showEmptyValue: true,
+                    emptyValueLabel: 'module.role.type.select',
+                    keyAsValue: 'true'
+                }
+            ];
         }
     }
 })();
