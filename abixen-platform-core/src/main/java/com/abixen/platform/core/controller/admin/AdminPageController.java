@@ -18,6 +18,7 @@ import com.abixen.platform.core.controller.common.AbstractPageController;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.form.PageForm;
+import com.abixen.platform.core.form.PageSearchForm;
 import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.model.web.PageWeb;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
@@ -75,10 +76,10 @@ public class AdminPageController extends AbstractPageController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public org.springframework.data.domain.Page<Page> getPages(@PageableDefault(size = PAGEABLE_DEFAULT_PAGE_SIZE) Pageable pageable) {
+    public org.springframework.data.domain.Page<Page> getPages(@PageableDefault(size = PAGEABLE_DEFAULT_PAGE_SIZE) Pageable pageable, PageSearchForm pageSearchForm) {
         log.debug("getPages()");
 
-        org.springframework.data.domain.Page<Page> pages = pageService.findAllPages(pageable);
+        org.springframework.data.domain.Page<Page> pages = pageService.findAllPages(pageable, pageSearchForm);
         for (Page page : pages) {
             log.debug("page: " + page);
         }
