@@ -17,6 +17,7 @@ package com.abixen.platform.core.controller.admin;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.form.ModuleForm;
+import com.abixen.platform.core.form.ModuleSearchForm;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.web.ModuleWeb;
 import com.abixen.platform.core.service.ModuleService;
@@ -46,10 +47,10 @@ public class ModuleController {
     private ModuleService moduleService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public org.springframework.data.domain.Page<Module> getModules(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public org.springframework.data.domain.Page<Module> getModules(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleSearchForm moduleSearchForm) {
         log.debug("getModules()");
 
-        return moduleService.findAllModules(pageable);
+        return moduleService.findAllModules(pageable, moduleSearchForm);
     }
 
     @JsonView(WebModelJsonSerialize.class)

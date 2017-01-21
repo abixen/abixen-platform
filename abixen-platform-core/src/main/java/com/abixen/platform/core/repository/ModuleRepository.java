@@ -16,7 +16,7 @@ package com.abixen.platform.core.repository;
 
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.Page;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,7 +24,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface ModuleRepository extends JpaRepository<Module, Long> {
+public interface ModuleRepository extends PlatformJpaRepository<Module, Long> {
 
     List<Module> findByPage(Page page);
 

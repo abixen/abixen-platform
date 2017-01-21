@@ -30,18 +30,14 @@
             'module.module.title.label': 'Tytuł',
             'module.module.title.placeholder': 'Np. Sprzedaż w 2016',
             'module.module.description.label': 'Opis',
-            'module.module.description.placeholder': 'Np. Strona prezentuje sprzedaż detaliczną naszego kluczowego produktu w 2016 roku.',
-            'module.module.name.label': 'Name',
-            'module.module.serviceId.label': 'Service Id'
+            'module.module.description.placeholder': 'Np. Strona prezentuje sprzedaż detaliczną naszego kluczowego produktu w 2016 roku.'
         });
 
         $translateProvider.translations('ENGLISH', {
             'module.module.title.label': 'Title',
             'module.module.title.placeholder': 'E.g. Sales in 2016',
             'module.module.description.label': 'Description',
-            'module.module.description.placeholder': 'E.g. The page presents retail sales of our key products in 2016.',
-            'module.module.name.label': 'Name',
-            'module.module.serviceId.label': 'Service Id'
+            'module.module.description.placeholder': 'E.g. The page presents retail sales of our key products in 2016.'
         });
     }
 })();

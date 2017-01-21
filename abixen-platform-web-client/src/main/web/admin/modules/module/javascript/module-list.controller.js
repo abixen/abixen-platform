@@ -74,18 +74,13 @@
         function createSearchFields() {
             return [
                 {
-                    name: 'name',
-                    label: 'module.module.name.label',
-                    type: 'input-text'
-                },
-                {
                     name: 'title',
                     label: 'module.module.title.label',
                     type: 'input-text'
                 },
                 {
-                    name: 'serveId',
-                    label: 'module.module.serviceId.label',
+                    name: 'description',
+                    label: 'module.module.description.label',
                     type: 'input-text'
                 }
             ];
