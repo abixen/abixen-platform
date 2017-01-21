@@ -12,12 +12,24 @@
  * details.
  */
 
-package com.abixen.platform.core.repository;
+package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.model.impl.Role;
-import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
+import com.abixen.platform.core.form.search.SearchField;
+import com.abixen.platform.core.form.search.SearchForm;
+import com.abixen.platform.core.model.enumtype.RoleType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
+public class RoleSearchForm implements SearchForm {
 
-public interface RoleRepository extends PlatformJpaRepository<Role, Long> {
+    @SearchField
+    private String name;
+
+    @SearchField(operator = SearchField.Operator.EQUALS)
+    private RoleType roleType;
 
 }
