@@ -29,32 +29,7 @@ public @interface SearchField {
     String domainField() default "";
 
     enum Operator {
-        EQUALS(Values.EQUALS),
-        LIKE(Values.LIKE);
-
-        private final String name;
-
-        public String getName() {
-            return name;
-        }
-
-        Operator(String name) {
-            this.name = name;
-        }
-
-        public static Operator getByName(String name) {
-            for (Operator prop : values()) {
-                if (prop.getName().equals(name)) {
-                    return prop;
-                }
-            }
-
-            throw new IllegalArgumentException(name + " is not a valid Operator");
-        }
-
-        public static class Values {
-            public static final String EQUALS = "=";
-            public static final String LIKE = "LIKE";
-        }
+        EQUALS,
+        LIKE;
     }
 }
