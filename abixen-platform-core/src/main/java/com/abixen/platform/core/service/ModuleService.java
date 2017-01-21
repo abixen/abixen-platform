@@ -16,6 +16,7 @@ package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.dto.DashboardModuleDto;
 import com.abixen.platform.core.form.ModuleForm;
+import com.abixen.platform.core.form.ModuleSearchForm;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +43,6 @@ public interface ModuleService {
 
     Module buildModule(DashboardModuleDto dashboardModuleDto, Page page);
 
-    org.springframework.data.domain.Page<Module> findAllModules(Pageable pageable);
+    org.springframework.data.domain.Page<Module> findAllModules(Pageable pageable, ModuleSearchForm moduleSearchForm);
 
 }

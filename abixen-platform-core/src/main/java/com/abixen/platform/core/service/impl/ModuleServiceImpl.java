@@ -16,6 +16,7 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.dto.DashboardModuleDto;
 import com.abixen.platform.core.form.ModuleForm;
+import com.abixen.platform.core.form.ModuleSearchForm;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.Page;
@@ -147,9 +148,9 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     @Override
-    public org.springframework.data.domain.Page<Module> findAllModules(Pageable pageable) {
+    public org.springframework.data.domain.Page<Module> findAllModules(Pageable pageable, ModuleSearchForm moduleSearchForm) {
         log.debug("findAllModules() - pageable: " + pageable);
-        return moduleRepository.findAll(pageable);
+        return moduleRepository.findAll(pageable, moduleSearchForm);
     }
 
 }
