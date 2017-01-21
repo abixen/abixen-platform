@@ -16,6 +16,7 @@ package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.form.PageConfigurationForm;
 import com.abixen.platform.core.form.PageForm;
+import com.abixen.platform.core.form.PageSearchForm;
 import com.abixen.platform.core.model.impl.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -38,7 +39,7 @@ public interface PageService {
 
     void deletePage(Long id);
 
-    org.springframework.data.domain.Page<Page> findAllPages(Pageable pageable);
+    org.springframework.data.domain.Page<Page> findAllPages(Pageable pageable, PageSearchForm pageSearchForm);
 
     List<Page> findAllPages();
 

@@ -16,6 +16,7 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.form.PageConfigurationForm;
 import com.abixen.platform.core.form.PageForm;
+import com.abixen.platform.core.form.PageSearchForm;
 import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
@@ -148,9 +149,9 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public org.springframework.data.domain.Page<Page> findAllPages(Pageable pageable) {
+    public org.springframework.data.domain.Page<Page> findAllPages(Pageable pageable, PageSearchForm pageSearchForm) {
         log.debug("findAllPages() - pageable={}", pageable);
-        return pageRepository.findAll(pageable);
+        return pageRepository.findAll(pageable, pageSearchForm);
     }
 
     @Override
