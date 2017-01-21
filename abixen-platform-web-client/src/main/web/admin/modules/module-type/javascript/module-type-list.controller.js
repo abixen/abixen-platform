@@ -32,9 +32,13 @@
 
         var moduleTypeList = this;
 
+        moduleTypeList.searchFields = createSearchFields();
+        moduleTypeList.searchFilter = {};
+
         angular.extend(moduleTypeList, new AbstractListGridController(ModuleType,
             {
-                getTableColumns: getTableColumns
+                getTableColumns: getTableColumns,
+                filter: moduleTypeList.searchFilter
             }
         ));
 
@@ -91,6 +95,26 @@
 
         function updateNavigation() {
             applicationNavigationItems.clearTopbarItems();
+        }
+
+        function createSearchFields() {
+            return [
+                {
+                    name: 'name',
+                    label: 'module.module-type.name.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'title',
+                    label: 'module.module-type.title.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'description',
+                    label: 'module.module-type.serviceId.label',
+                    type: 'input-text'
+                }
+            ];
         }
     }
 })();
