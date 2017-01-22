@@ -28,15 +28,22 @@
         '$stateParams',
         '$log',
         'Page',
-        'Layout'
+        'Layout',
+        'responseHandler'
     ];
 
-    function PageDetailController($scope, $http, $state, $parse, $stateParams, $log, Page, Layout) {
+    function PageDetailController($scope, $http, $state, $parse, $stateParams, $log, Page, Layout, responseHandler) {
         $log.log('PageDetailController');
 
-        angular.extend(this, new AbstractCrudDetailController($scope, $http, $state, $stateParams, $log, Page, $parse, 'application.pages'));
+        var pageDetails = this;
 
-        $scope.layouts = [];
+        new AbstractDetailsController(pageDetails, Page, responseHandler, $scope,
+            {
+                getValidators: getValidators,
+                onSuccessSaveForm: onSuccessSaveForm
+            }
+        );
+         $scope.layouts = [];
 
         var readLayouts = function () {
             var queryParameters = {
@@ -52,6 +59,25 @@
 
         readLayouts();
 
-        $scope.get($stateParams.id);
+        function getValidators() {
+            var validators = [];
+
+            validators['title'] =
+                [
+                    new NotNull(),
+                    new Length(6, 40)
+                ];
+
+            validators['description'] =
+                [
+                    new Length(0, 40)
+                ];
+
+            return validators;
+        }
+
+        function onSuccessSaveForm() {
+            $state.go('application.pages.list');
+        }
     }
 })();

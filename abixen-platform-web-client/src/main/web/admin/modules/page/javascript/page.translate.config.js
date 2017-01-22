@@ -29,13 +29,17 @@
         $translateProvider.translations('POLISH', {
             'module.page.name.label': 'Nazwa wyświetlana',
             'module.page.title.label': 'Np. Janek',
-            'module.page.description.label': 'Desc'
+            'module.page.description.label': 'Desc',
+            'module.page.title.placeholder':'Title',
+            'module.page.description.placeholder':'Description'
         });
 
         $translateProvider.translations('ENGLISH', {
             'module.page.name.label': 'Name',
             'module.page.title.label': 'Title',
-            'module.page.description.label': 'Description'
+            'module.page.description.label': 'Description',
+            'module.page.title.placeholder':'Title',
+            'module.page.description.placeholder':'Description'
         });
     }
 })();
