@@ -20,10 +20,12 @@ import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.form.UserForm;
 import com.abixen.platform.core.form.UserRolesForm;
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.service.MailService;
 import com.abixen.platform.core.service.RoleService;
+import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.ValidationUtil;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
@@ -59,12 +61,16 @@ public abstract class AbstractUserController {
 
     private final RoleService roleService;
 
+    private final SecurityService securityService;
+
+
     private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
-    public AbstractUserController(UserService userService, MailService mailService, RoleService roleService, AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
+    public AbstractUserController(UserService userService, MailService mailService, RoleService roleService, SecurityService securityService, AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
         this.userService = userService;
         this.mailService = mailService;
         this.roleService = roleService;
+        this.securityService = securityService;
         this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
     }
 
@@ -194,5 +200,12 @@ public abstract class AbstractUserController {
         mailService.sendMail(user.getUsername(), params, MailService.USER_PASSWORD_CHANGE_MAIL, "Password has been changed");
 
         return new FormValidationResultDto(userChangePasswordFormResult);
+    }
+
+    @RequestMapping(value = "/selected-language", method = RequestMethod.PUT)
+    public ResponseEntity<UserLanguage> updateSelectedLanguage(@PathVariable UserLanguage selectedLanguage) {
+        log.debug("updateSelectedLanguage() for logged user : " + selectedLanguage);
+        UserLanguage updatedSelectedLanguage = userService.updateSelectedLanguage(securityService.getAuthorizedUser().getId(), selectedLanguage);
+        return new ResponseEntity<UserLanguage>(updatedSelectedLanguage, HttpStatus.OK);
     }
 }
