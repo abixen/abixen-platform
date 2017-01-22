@@ -17,6 +17,7 @@ package com.abixen.platform.core.controller;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.form.LayoutForm;
+import com.abixen.platform.core.form.LayoutSearchForm;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.service.LayoutService;
 import lombok.extern.slf4j.Slf4j;
@@ -48,10 +49,10 @@ public class LayoutController {
 
     //FIXME
     @RequestMapping(value = "/api/dashboard", method = RequestMethod.GET)
-    public Page<Layout> getDashboardLayouts(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public Page<Layout> getDashboardLayouts(@PageableDefault(size = 1, page = 0) Pageable pageable, LayoutSearchForm layoutSearchForm) {
         log.debug("getLayouts()");
 
-        Page<Layout> layouts = layoutService.findAllLayouts(pageable);
+        Page<Layout> layouts = layoutService.findAllLayouts(pageable, layoutSearchForm);
 
         for (Layout layout : layouts) {
             log.debug("layout: " + layout);
@@ -64,10 +65,10 @@ public class LayoutController {
 
     //FIXME
     @RequestMapping(value = "/api/admin/layouts", method = RequestMethod.GET)
-    public Page<Layout> getLayouts(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public Page<Layout> getLayouts(@PageableDefault(size = 1, page = 0) Pageable pageable, LayoutSearchForm layoutSearchForm) {
         log.debug("getLayouts()");
 
-        Page<Layout> layouts = layoutService.findAllLayouts(pageable);
+        Page<Layout> layouts = layoutService.findAllLayouts(pageable, layoutSearchForm);
         for (Layout layout : layouts) {
             log.debug("layout: " + layout);
         }
