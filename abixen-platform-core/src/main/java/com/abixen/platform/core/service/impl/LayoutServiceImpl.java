@@ -16,6 +16,7 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.form.LayoutForm;
+import com.abixen.platform.core.form.LayoutSearchForm;
 import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Layout;
@@ -121,8 +122,8 @@ public class LayoutServiceImpl implements LayoutService {
     }
 
     @Override
-    public Page<Layout> findAllLayouts(Pageable pageable) {
-        return layoutRepository.findAll(pageable);
+    public Page<Layout> findAllLayouts(Pageable pageable, LayoutSearchForm layoutSearchForm) {
+        return layoutRepository.findAll(pageable, layoutSearchForm);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_VIEW + "')")

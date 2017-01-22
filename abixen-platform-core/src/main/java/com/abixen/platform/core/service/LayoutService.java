@@ -15,6 +15,7 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.form.LayoutForm;
+import com.abixen.platform.core.form.LayoutSearchForm;
 import com.abixen.platform.core.model.impl.Layout;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,7 @@ public interface LayoutService {
 
     String htmlLayoutToJson(String htmlString);
 
-    Page<Layout> findAllLayouts(Pageable pageable);
+    Page<Layout> findAllLayouts(Pageable pageable, LayoutSearchForm layoutSearchForm);
 
     Layout findLayout(Long id);
 

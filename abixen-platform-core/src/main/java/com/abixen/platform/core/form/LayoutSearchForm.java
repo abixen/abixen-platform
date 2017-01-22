@@ -12,14 +12,20 @@
  * details.
  */
 
-package com.abixen.platform.core.repository;
+package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.model.impl.Layout;
-import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import com.abixen.platform.core.form.search.SearchField;
+import com.abixen.platform.core.form.search.SearchForm;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
+public class LayoutSearchForm implements SearchForm {
 
-public interface LayoutRepository extends PlatformJpaRepository<Layout, Long>, JpaSpecificationExecutor<Layout> {
+    @SearchField
+    private String title;
 
-    Layout findByTitle(String title);
 }
