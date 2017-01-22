@@ -21,6 +21,7 @@ import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.form.UserForm;
 import com.abixen.platform.core.form.UserRolesForm;
 import com.abixen.platform.core.form.UserSearchForm;
+import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.enumtype.UserState;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.UserRepository;
@@ -212,5 +213,13 @@ public class UserServiceImpl implements UserService {
         user.setAvatarFileName(newAvatarFileName);
         updateUser(user);
         return findUser(userId);
+    }
+
+    @Override
+    public UserLanguage updateSelectedLanguage(Long userId, UserLanguage selectedLanguage) {
+        User user = findUser(userId);
+        user.setSelectedLanguage(selectedLanguage);
+        updateUser(user);
+        return selectedLanguage;
     }
 }

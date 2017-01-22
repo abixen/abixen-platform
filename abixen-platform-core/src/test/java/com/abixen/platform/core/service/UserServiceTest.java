@@ -36,6 +36,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -173,6 +174,25 @@ public class UserServiceTest {
         log.debug("usersPage.getTotalElements(): {}", usersPage.getTotalElements());
 
         assertEquals(5, usersPage.getTotalElements());
+    }
+
+    @Test
+    public void updateSelectedLanguage() {
+
+        UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
+        userBuilder.credentials("usertestlang", "password");
+        userBuilder.screenName("screentestlang");
+        userBuilder.personalData("firstName", "middleName", "lastName");
+        userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
+        userBuilder.registrationIp("127.0.0.1");
+        User user = userBuilder.build();
+        user.setAvatarFileName("oldAvatarName");
+        User createdUser = userService.createUser(user);
+        userService.updateSelectedLanguage(createdUser.getId(), UserLanguage.POLISH);
+        User lookupUser = userService.findUser(createdUser.getId());
+
+        assertEquals(lookupUser.getSelectedLanguage(), UserLanguage.POLISH);
+        userService.deleteUser(lookupUser.getId());
     }
 
 }

@@ -23,6 +23,7 @@ import com.abixen.platform.core.form.UserSearchForm;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.service.MailService;
 import com.abixen.platform.core.service.RoleService;
+import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -45,8 +46,8 @@ public class AdminUserController extends AbstractUserController {
     private final UserService userService;
 
     @Autowired
-    public AdminUserController(UserService userService, MailService mailService, RoleService roleService, AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
-        super(userService, mailService, roleService, platformResourceConfigurationProperties);
+    public AdminUserController(UserService userService, MailService mailService, RoleService roleService, SecurityService securityService, AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
+        super(userService, mailService, roleService, securityService, platformResourceConfigurationProperties);
         this.userService = userService;
     }
 
