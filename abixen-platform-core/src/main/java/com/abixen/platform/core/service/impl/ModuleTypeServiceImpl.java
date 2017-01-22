@@ -17,6 +17,7 @@ package com.abixen.platform.core.service.impl;
 import com.abixen.platform.core.client.ModulesConfigurationProperties;
 import com.abixen.platform.core.configuration.properties.RegisteredModuleServicesConfigurationProperties;
 import com.abixen.platform.core.dto.ModuleTypeDto;
+import com.abixen.platform.core.form.ModuleTypeSearchForm;
 import com.abixen.platform.core.integration.ModuleConfigurationIntegrationClient;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.AdminSidebarItem;
@@ -91,9 +92,9 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
     }
 
     @Override
-    public Page<ModuleType> findModuleTypes(Pageable pageable) {
+    public Page<ModuleType> findModuleTypes(Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm) {
         log.debug("findAllModuleTypes()");
-        return moduleTypeRepository.findAll(pageable);
+        return moduleTypeRepository.findAll(pageable, moduleTypeSearchForm);
     }
 
     @Override

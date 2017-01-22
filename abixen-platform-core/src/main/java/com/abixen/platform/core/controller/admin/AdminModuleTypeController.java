@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.controller.admin;
 
+import com.abixen.platform.core.form.ModuleTypeSearchForm;
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.service.ModuleTypeService;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
@@ -39,10 +40,10 @@ public class AdminModuleTypeController {
     private ModuleTypeService moduleTypeService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<ModuleType> getModuleTypes(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public Page<ModuleType> getModuleTypes(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm) {
         log.debug("getModuleTypes()");
 
-        return moduleTypeService.findModuleTypes(pageable);
+        return moduleTypeService.findModuleTypes(pageable, moduleTypeSearchForm);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
