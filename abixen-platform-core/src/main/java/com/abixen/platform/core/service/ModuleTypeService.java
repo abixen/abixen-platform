@@ -15,6 +15,7 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.dto.ModuleTypeDto;
+import com.abixen.platform.core.form.ModuleTypeSearchForm;
 import com.abixen.platform.core.model.impl.ModuleType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,7 @@ public interface ModuleTypeService {
 
     List<ModuleTypeDto> findAllModuleTypes();
 
-    Page<ModuleType> findModuleTypes(Pageable pageable);
+    Page<ModuleType> findModuleTypes(Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm);
 
     List<ModuleType> findModuleTypes();
 

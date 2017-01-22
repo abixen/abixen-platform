@@ -110,7 +110,7 @@
                     type: 'input-text'
                 },
                 {
-                    name: 'description',
+                    name: 'serviceId',
                     label: 'module.module-type.serviceId.label',
                     type: 'input-text'
                 }
