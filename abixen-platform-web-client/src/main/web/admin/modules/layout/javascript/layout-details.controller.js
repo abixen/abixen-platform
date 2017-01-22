@@ -120,5 +120,15 @@
                 layoutDetails.entity.iconFileName = '';
             }
         }
+
+        angular.element(document).ready(function () {
+            var editor = CodeMirror.fromTextArea(document.getElementById("contentInput"), {
+                lineNumbers: true,
+                lineWrapping: true,
+                mode: "text/html",
+                matchBrackets: true,
+                theme: 'default'
+            });
+        });
     }
 })();
