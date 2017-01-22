@@ -40,7 +40,8 @@
             .state('application.pages.add', {
                 url: '/add',
                 templateUrl: '/admin/modules/page/html/edit.html',
-                controller: 'PageDetailController'
+                controller: 'PageDetailController',
+                controllerAs: 'pageDetails'
             })
             .state('application.pages.edit', {
                 url: '/edit/:id',

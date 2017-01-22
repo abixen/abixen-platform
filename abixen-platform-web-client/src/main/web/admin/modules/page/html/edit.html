@@ -2,38 +2,20 @@
     <form class="form-horizontal" role="form" name="entityForm" novalidate>
         <div class="col-md-6">
 
-            <div class="form-group" show-errors>
-                <label for="titleInput" class="col-sm-3 control-label">Title</label>
+            <input-text model="pageDetails.entity.page.title"
+                        name="title"
+                        label="{{'module.page.title.label' | translate}}"
+                        placeholder="{{'module.page.title.placeholder' | translate}}"
+                        validators="pageDetails.validators">
+            </input-text>
 
-                <div class="col-sm-9">
-                    <input ng-model="entity.title" type="text" name="title" class="form-control" id="titleInput"
-                           placeholder="Title" ng-required="true" ng-minlength="6" ng-maxlength="40">
-
-                    <p class="help-block" ng-if="entityForm.title.$error.required">Required</p>
-
-                    <p class="help-block" ng-if="entityForm.title.$error.minlength">Min length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.title.$error.maxlength">Max length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.title.$error.serverMessage">
-                        {{entityForm.title.$error.serverMessage}}</p>
-                </div>
-            </div>
-
-            <div class="form-group" show-errors>
-                <label for="descriptionInput" class="col-sm-3 control-label">Description</label>
-
-                <div class="col-sm-9">
-                        <textarea ng-model="entity.description" type="text" name="description" class="form-control"
-                                  id="descriptionInput" placeholder="Description" rows="10" ng-maxlength="40">
-                        </textarea>
-
-                    <p class="help-block" ng-if="entityForm.description.$error.maxlength">Max length is invalid</p>
-
-                    <p class="help-block" ng-if="entityForm.description.$error.serverMessage">
-                        {{entityForm.description.$error.serverMessage}}</p>
-                </div>
-            </div>
+            <input-text-area model="pageDetails.entity.page.description"
+                             name="description"
+                             label="{{'module.page.description.label' | translate}}"
+                             placeholder="{{'module.page.description.placeholder' | translate}}"
+                             validators="pageDetails.validators"
+                             rows="5">
+            </input-text-area>
         </div>
         <div class="col-md-6">
             <div>
