@@ -31,15 +31,17 @@
         $log.log('PermissionListController');
 
         var permissionList = this;
+        permissionList.searchFields = createSearchFields();
+        permissionList.searchFilter = {};
 
         angular.extend(permissionList, new AbstractListGridController(Permission,
             {
-                getTableColumns: getTableColumns
+                getTableColumns: getTableColumns,
+                filter: permissionList.searchFilter
             }
         ));
 
         updateNavigation();
-
 
         function getTableColumns() {
             return [
@@ -68,6 +70,21 @@
 
         function updateNavigation() {
             applicationNavigationItems.clearTopbarItems();
+        }
+
+        function createSearchFields() {
+            return [
+                {
+                    name: 'title',
+                    label: 'module.permission.title.label',
+                    type: 'input-text'
+                },
+                {
+                    name: 'description',
+                    label: 'module.permission.description.label',
+                    type: 'input-text'
+                }
+            ];
         }
     }
 })();
