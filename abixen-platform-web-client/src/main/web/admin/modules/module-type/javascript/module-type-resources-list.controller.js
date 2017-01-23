@@ -29,7 +29,7 @@
     ];
 
     function ModuleTypeResourcesListController($log, $stateParams, ModuleTypeResource, applicationNavigationItems, toaster) {
-        $log.log('ModuleTypeResourcesListController: id --> ' + $stateParams.id);
+        $log.log('ModuleTypeResourcesListController - id: ' + $stateParams.id);
 
         var moduleTypeResourcesList = this;
 
@@ -42,19 +42,16 @@
             }
         ));
 
-        moduleTypeResourcesList.reload = reload;
-        moduleTypeResourcesList.reloadAll = reloadAll;
-
         updateNavigation();
 
 
         function getTableColumns() {
             return [
-                {field: 'id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
-                {field: 'resourceType', pinnedLeft: true, width: 200},
-                {field: 'resourcePage', pinnedLeft: true, width: 200},
-                {field: 'resourcePageLocation', pinnedLeft: true, width: 200},
-                {field: 'relativeUrl', width: 400}
+                {field: 'id', name: 'Id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
+                {field: 'resourceType', name: 'Resource Type', pinnedLeft: true, width: 200},
+                {field: 'resourcePage', name: 'Resource Page', pinnedLeft: true, width: 200},
+                {field: 'resourcePageLocation', name: 'Resource Page Location', width: 200},
+                {field: 'relativeUrl', name: 'Relative Url', width: 400}
             ];
         }
 
