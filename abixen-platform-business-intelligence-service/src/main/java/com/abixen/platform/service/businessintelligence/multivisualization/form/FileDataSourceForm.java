@@ -15,19 +15,11 @@
 package com.abixen.platform.service.businessintelligence.multivisualization.form;
 
 import com.abixen.platform.core.form.Form;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.abixen.platform.service.businessintelligence.multivisualization.model.enumtype.DataSourceFileType;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.file.FileDataSource;
-import com.fasterxml.jackson.annotation.JsonView;
-
-import javax.validation.constraints.NotNull;
-
 
 public class FileDataSourceForm extends DataSourceForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
-    @NotNull
-    private DataSourceFileType dataSourceFileType;
+    private DataFileForm fileData;
 
     public FileDataSourceForm() {
     }
@@ -36,14 +28,13 @@ public class FileDataSourceForm extends DataSourceForm implements Form {
         this.setId(fileDataSource.getId());
         this.setName(fileDataSource.getName());
         this.setDescription(fileDataSource.getDescription());
-     //   this.dataSourceFileType = fileDataSource.getDataSourceFileType();
     }
 
-    public DataSourceFileType getDataSourceFileType() {
-        return dataSourceFileType;
+    public DataFileForm getFileData() {
+        return fileData;
     }
 
-    public void setDataSourceFileType(DataSourceFileType dataSourceFileType) {
-        this.dataSourceFileType = dataSourceFileType;
+    public void setFileData(DataFileForm fileData) {
+        this.fileData = fileData;
     }
 }

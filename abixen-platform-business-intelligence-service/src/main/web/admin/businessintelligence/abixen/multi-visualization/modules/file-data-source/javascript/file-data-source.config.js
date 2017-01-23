@@ -45,7 +45,7 @@
             .state('application.multiVisualization.modules.fileDataSource.edit', {
                 url: '/edit/:id',
                 templateUrl: '/admin/businessintelligence/abixen/multi-visualization/modules/file-data-source/html/edit.html',
-                controller: 'FileDataDetailSourceController',
+                controller: 'FileDataSourceDetailController',
                 controllerAs: 'fileDataSourceDetails'
             });
     }

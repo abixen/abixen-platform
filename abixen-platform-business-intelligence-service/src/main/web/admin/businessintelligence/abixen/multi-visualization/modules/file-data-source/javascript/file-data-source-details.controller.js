@@ -42,15 +42,26 @@
 
         function beforeSaveForm() {
             $log.debug('entity.id: ',fileDataSourceDetails.entity);
+            fileDataSourceDetails.entity.columns = [];
+            fileDataSourceDetails.fileColumns.forEach(function (column) {
+                if (column.selected === true){
+                    fileDataSourceDetails.entity.columns.push({
+                        id: column.id,
+                        name: column.name,
+                        position: column.position
+                    })
+                }
+            });
             fileDataSourceDetails.saveForm();
         }
 
         function getColumns(fileData) {
             $log.debug('fileData: ', fileData);
             fileDataSourceDetails.fileColumns = [];
-            fileData.columns.forEach(function (column) {
+            fileData.columns.forEach(function (column, index) {
                 fileDataSourceDetails.fileColumns.push({
                     name: column.name,
+                    position: index,
                     selected:false
                 })
             })
