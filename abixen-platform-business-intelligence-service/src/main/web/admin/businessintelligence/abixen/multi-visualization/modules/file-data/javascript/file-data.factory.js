@@ -22,7 +22,7 @@
 
     FileData.$inject = ['$resource'];
 
-    function FileDataSource($resource) {
+    function FileData($resource) {
 
         return $resource('/admin/businessintelligence/abixen/multi-visualization/file-data/:id', {}, {
             query: {method: 'GET', isArray: false},

@@ -1,0 +1,86 @@
+<form role="form" name="fileDataSourceDetails.entityForm" novalidate>
+    <div class="row form-row">
+        <div class="col-md-6">
+            <div class="form-group" show-errors>
+                <input-text model="fileDataSourceDetails.entity.name"
+                            name="name"
+                            label="{{'service.businessintelligence.fileDataSource.name.label' | translate}}"
+                            placeholder="{{'service.businessintelligence.fileDataSource.name.placeholder' | translate}}"
+                            validators="fileDataSourceDetails.validators">
+                </input-text>
+            </div>
+            <div class="form-group" show-errors>
+                <input-text model="fileDataSourceDetails.entity.description"
+                            name="description"
+                            label="{{'service.businessintelligence.fileDataSource.description.label' | translate}}"
+                            placeholder="{{'service.businessintelligence.fileDataSource.description.placeholder' | translate}}"
+                            validators="fileDataSourceDetails.validators">
+                </input-text>
+            </div>
+            <label for="fileDataInput" class="control-label">File data</label>
+            <select name="fileData" class="form-control" id="fileDataInput"
+                    ng-model="fileDataSourceDetails.entity.fileData" ng-required="true"
+                    ng-change="fileDataSourceDetails.getColumns(fileDataSourceDetails.entity.fileData)"
+                    ng-options="fileData as fileData.name for fileData in fileDataSourceDetails.fileDatas track by fileData.id">
+            </select>
+            <p class="help-block"
+               ng-if="entityForm.fileData.$error.required && entityForm.fileData.$touched">
+                Required</p>
+            <p class="help-block" ng-if="entityForm.fileData.$error.serverMessage">
+                {{entityForm.fileData.$error.serverMessage}}</p>
+        </div>
+        <div class="col-md-6">
+            <input type="hidden" ng-model="fileDataSourceDetails.entity.columns" name="columns">
+            <div class="columns-section">
+                <div class="columns-section-header row">
+                    <span class="col-xs-8 col-sm-8 col-md-8 col-lg-8 no-padding-left">
+                        <label>
+                            {{'service.businessintelligence.fileDataSource.column.header.name' | translate}}
+                        </label>
+                    </span>
+                    <span class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding-left">
+                        <label>
+                            {{'service.businessintelligence.fileDataSource.column.header.available' | translate}}
+                        </label>
+                    </span>
+                </div>
+                <div class="row">
+                    <ul class="columns-section-content" ng-scrollbar rebuild-on-resize
+                        rebuild-on="content-scroll:rebuild">
+                        <li class="columns-section-content-row" on-ng-repeat-render-finish="content-scroll:rebuild" ng-repeat="fileColumn in fileDataSourceDetails.fileColumns">
+                                <span class="col-xs-8 col-sm-8 col-md-8 col-lg-8 no-padding-left">
+                                    {{fileColumn.name}}
+                                </span>
+                            <span class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding-left">
+                                    <input type="checkbox" ng-model="fileColumn.selected"/>
+                                </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row form-row file-preview-table">
+        <div class="col-xs-12">
+            <div
+                    ng-controller="FileDataTableController as fileDataTable">
+                <div ng-if="fileDataTable.renderTable">
+                    <platform-list-grid class="default-platform-list-grid"
+                                        list-grid-config="fileDataTable.listGridConfig"
+                                        load-all-records="true">
+                    </platform-list-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row bottom-navigation">
+    <div class="col-xs-12">
+        <a class="btn save-button"
+           ng-click="fileDataSourceDetails.beforeSaveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;{{'service.businessintelligence.fileDataSource.save' | translate}}</span>
+        </a>
+        <a class="btn cancel-button"
+           ng-click="fileDataSourceDetails.goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;{{'service.businessintelligence.fileDataSource.cancel' | translate}}</span>
+        </a>
+    </div>
+</div>
