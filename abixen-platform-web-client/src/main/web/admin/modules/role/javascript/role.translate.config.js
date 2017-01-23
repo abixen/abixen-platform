@@ -27,15 +27,15 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
-            'module.role.name.label': 'Nazwa wyświetlana',
-            'module.role.type.label': 'Np. Janek',
-            'module.role.type.select': '--Select Role--'
+            'module.role.name.label': 'Nazwa',
+            'module.role.type.label': 'Rodzaj roli',
+            'module.role.type.select': 'Wybierz rodzaj roli'
         });
 
         $translateProvider.translations('ENGLISH', {
             'module.role.name.label': 'Name',
-            'module.role.type.label': 'Role Type',
-            'module.role.type.select': '--Select Role--'
+            'module.role.type.label': 'Role type',
+            'module.role.type.select': 'Select role type'
         });
     }
 })();
