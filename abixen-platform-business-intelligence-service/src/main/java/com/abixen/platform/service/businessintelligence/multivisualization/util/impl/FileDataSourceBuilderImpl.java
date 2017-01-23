@@ -15,13 +15,19 @@
 package com.abixen.platform.service.businessintelligence.multivisualization.util.impl;
 
 import com.abixen.platform.core.util.EntityBuilder;
-import com.abixen.platform.service.businessintelligence.multivisualization.model.enumtype.DataSourceFileType;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.enumtype.DataSourceType;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.file.FileDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.file.DataFile;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualization.util.FileDataSourceBuilder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class FileDataSourceBuilderImpl extends EntityBuilder<FileDataSource> implements FileDataSourceBuilder {
+
 
     @Override
     protected void initProduct() {
@@ -30,10 +36,26 @@ public class FileDataSourceBuilderImpl extends EntityBuilder<FileDataSource> imp
 
 
     @Override
-    public FileDataSourceBuilder base(String name, String description, DataSourceFileType dataSourceFileType) {
+    public FileDataSourceBuilder base(String name, String description) {
         this.product.setName(name);
         this.product.setDescription(description);
         this.product.setDataSourceType(DataSourceType.FILE);
+        return this;
+    }
+
+    @Override
+    public FileDataSourceBuilder data(Set<DataSourceColumnWeb> columns, DataFile dataFile) {
+        Set<DataSourceColumn> dataSourceColumnSet = new HashSet<>();
+        columns.forEach(column -> {
+            DataSourceColumn dataSourceColumn = new DataSourceColumn();
+            dataSourceColumn.setName(column.getName());
+            dataSourceColumn.setId(column.getId());
+            dataSourceColumn.setPosition(column.getPosition());
+            dataSourceColumn.setDataSource(this.product);
+            dataSourceColumnSet.add(dataSourceColumn);
+        });
+        this.product.setColumns(dataSourceColumnSet);
+        this.product.setDataFile(dataFile);
         return this;
     }
 

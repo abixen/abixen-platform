@@ -15,15 +15,20 @@
 package com.abixen.platform.service.businessintelligence.multivisualization.util;
 
 
-import com.abixen.platform.service.businessintelligence.multivisualization.model.enumtype.DataSourceFileType;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.file.FileDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.file.DataFile;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataSourceColumnWeb;
+
+import java.util.Set;
 
 
 public interface FileDataSourceBuilder {
 
     FileDataSource build();
 
-    FileDataSourceBuilder base(String name, String description, DataSourceFileType dataSourceFileType);
+    FileDataSourceBuilder base(String name, String description);
+
+    FileDataSourceBuilder data(Set<DataSourceColumnWeb> columns, DataFile dataFile);
 
     FileDataSourceBuilder filter(String filter);
 

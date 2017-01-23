@@ -37,6 +37,10 @@
             $state.$current.name === 'application.multiVisualization.modules.databaseConnection.edit' ||
             $state.$current.name === 'application.multiVisualization.modules.databaseConnection.add') {
             $scope.selectedModule = 'databaseConnection';
+        } else if ($state.$current.name === 'application.multiVisualization.modules.fileData.list' ||
+            $state.$current.name === 'application.multiVisualization.modules.fileData.edit' ||
+            $state.$current.name === 'application.multiVisualization.modules.fileData.add') {
+            $scope.selectedModule = 'fileData';
         } else if ($state.$current.name === 'application.multiVisualization.modules.fileDataSource.list' ||
             $state.$current.name === 'application.multiVisualization.modules.fileDataSource.edit' ||
             $state.$current.name === 'application.multiVisualization.modules.fileDataSource.add') {
@@ -50,6 +54,9 @@
         };
         $scope.selectFileDataSources = function () {
             $scope.selectedModule = 'fileDataSource'
+        };
+        $scope.selectFileData = function () {
+            $scope.selectedModule = 'fileData'
         };
     }
 })();

@@ -1,0 +1,59 @@
+<form role="form" name="fileDataDetails.entityForm" novalidate>
+    <div class="row form-row">
+
+        <div class="col-md-12">
+
+            <div class="form-group" show-errors>
+                <input-text model="fileDataDetails.entity.name"
+                            name="name"
+                            label="{{'service.businessintelligence.fileData.name.label' | translate}}"
+                            placeholder="{{'service.businessintelligence.fileData.name.placeholder' | translate}}"
+                            validators="fileDataSourceDetails.validators">
+                </input-text>
+            </div>
+
+            <div class="form-group" show-errors>
+                <input-text model="fileDataDetails.entity.description"
+                            name="description"
+                            label="{{'service.businessintelligence.fileData.description.label' | translate}}"
+                            placeholder="{{'service.businessintelligence.fileData.description.placeholder' | translate}}"
+                            validators="fileDataSourceDetails.validators">
+                </input-text>
+            </div>
+
+            <div class="form-group">
+                <div class="upload">
+                    <div class="btn upload-btn" platform-upload-file platform-sheet-reader parsed-data="fileDataDetails.fileData">
+                        <span class="upload-btn-text"> Upload File </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row form-row file-preview-table">
+        <div class="col-xs-12">
+            <div
+                    ng-controller="FileDataTableController as fileDataTable">
+                <div ng-if="fileDataTable.renderTable">
+                    <platform-list-grid class="default-platform-list-grid"
+                                        list-grid-config="fileDataTable.listGridConfig"
+                                        load-all-records="true">
+                    </platform-list-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+<div class="row bottom-navigation">
+    <div class="col-xs-12">
+        <a class="btn save-button"
+           ng-click="fileDataDetails.beforeSaveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
+        </a>
+        <a class="btn cancel-button"
+           ng-click="goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+        </a>
+    </div>
+</div>

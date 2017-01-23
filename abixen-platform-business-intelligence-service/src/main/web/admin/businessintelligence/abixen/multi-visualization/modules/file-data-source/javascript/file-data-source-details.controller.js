@@ -13,69 +13,65 @@
         '$stateParams',
         '$log',
         'FileDataSource',
+        'FileData',
         'responseHandler'
     ];
 
-    function FileDataSourceDetailController($scope, $http, $state, $stateParams, $log, FileDataSource, responseHandler) {
-        $log.log('FileDataSourceDetailController');
+    function FileDataSourceDetailController($scope, $http, $state, $stateParams, $log, FileDataSource, FileData, responseHandler) {
+        $log.log('FileDataDetailController');
         var fileDataSourceDetails = this;
 
         new AbstractDetailsController(fileDataSourceDetails, FileDataSource, responseHandler, $scope,
             {
                 entityId: $stateParams.id,
                 getValidators: getValidators,
-                onSuccessSaveForm: onSuccessSaveForm,
-                onSuccessGetEntity: onSuccessGetEntity
+                onSuccessSaveForm: onSuccessSaveForm
             }
         );
 
         fileDataSourceDetails.fileData = [];
+        fileDataSourceDetails.fileDatas = [];
+        fileDataSourceDetails.fileColumns = [];
         fileDataSourceDetails.beforeSaveForm = beforeSaveForm;
+        fileDataSourceDetails.getColumns = getColumns;
 
-        $scope.$watch('fileDataSourceDetails.fileData', function () {
-            if (fileDataSourceDetails.fileData !== undefined && fileDataSourceDetails.fileData !== [] && fileDataSourceDetails.fileData.length > 0) {
-                $scope.$broadcast('GridDataUpdated', fileDataSourceDetails.fileData);
-            }
-        }, true);
+        FileData.query({}, function (data) {
+            fileDataSourceDetails.fileDatas = data.content;
+            $log.log('fileDataSourceDetails.fileDatas: ', fileDataSourceDetails.fileDatas);
+        });
 
         function beforeSaveForm() {
+            $log.debug('entity.id: ',fileDataSourceDetails.entity);
             fileDataSourceDetails.entity.columns = [];
-            Object.keys(fileDataSourceDetails.fileData[0]).forEach(function (column) {
-                if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
-                    var values = [];
-                    fileDataSourceDetails.fileData.forEach(function (row) {
-                            values.push({ value: row[column]})
-                    });
+            fileDataSourceDetails.fileColumns.forEach(function (column) {
+                if (column.selected === true){
                     fileDataSourceDetails.entity.columns.push({
-                        name: column,
-                        values : values});
+                        id: column.id,
+                        name: column.name,
+                        position: column.position
+                    })
                 }
             });
-            $log.debug('entity.id: ',fileDataSourceDetails. entity);
             fileDataSourceDetails.saveForm();
+        }
+
+        function getColumns(fileData) {
+            $log.debug('fileData: ', fileData);
+            fileDataSourceDetails.fileColumns = [];
+            fileData.columns.forEach(function (column, index) {
+                fileDataSourceDetails.fileColumns.push({
+                    name: column.name,
+                    position: index,
+                    selected:false
+                })
+            })
         }
 
         function onSuccessSaveForm() {
             $state.go('application.multiVisualization.modules.fileDataSource.list');
         }
 
-        function onSuccessGetEntity() {
-            if (fileDataSourceDetails.entity.columns == null && fileDataSourceDetails.entity.columns == undefined){
-                return;
-            }
-            var parsedData = [];
 
-            fileDataSourceDetails.entity.columns[0].values.forEach(function (row, index) {
-                var parsedRow = [];
-                fileDataSourceDetails.entity.columns.forEach(function (column, index1) {
-                    parsedRow['col' + index1] = column.values[index].value;
-                });
-                parsedData.push(parsedRow);
-            });
-            fileDataSourceDetails.fileData = parsedData;
-            $scope.$broadcast('GridDataUpdated', parsedData);
-
-        }
 
         function getValidators() {
             var validators = [];
