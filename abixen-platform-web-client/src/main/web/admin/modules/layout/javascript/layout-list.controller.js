@@ -32,13 +32,9 @@
 
         var layoutList = this;
 
-        layoutList.searchFields = createSearchFields();
-        layoutList.searchFilter = {};
-
         angular.extend(layoutList, new AbstractListGridController(Layout,
             {
-                getTableColumns: getTableColumns,
-                filter: layoutList.searchFilter
+                getTableColumns: getTableColumns
             }
         ));
 
@@ -78,16 +74,6 @@
             };
 
             applicationNavigationItems.setTopbarItem(newLayoutButton);
-        }
-
-        function createSearchFields() {
-            return [
-                {
-                    name: 'title',
-                    label: 'module.layout.title.label',
-                    type: 'input-text'
-                }
-            ];
         }
     }
 })();

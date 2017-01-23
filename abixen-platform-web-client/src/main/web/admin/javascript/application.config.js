@@ -57,18 +57,12 @@
 
 
         applicationNavigationItemsProvider
-            .addSidebarItem({
-                title: 'Dashboard',
-                state: 'application.dashboard',
-                orderIndex: 0,
-                id: 0,
-                iconClass: 'fa fa-th'
-            })
+
             .addSidebarItem({
                 title: 'Users',
                 state: 'application.users.list',
-                orderIndex: 1,
-                id: 1,
+                orderIndex: 0,
+                id: 0,
                 iconClass: 'fa fa-user'
             })
             .addSidebarItem({
