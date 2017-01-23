@@ -27,7 +27,7 @@
     function platformFileDataModuleConfig($stateProvider) {
         $stateProvider
             .state('application.multiVisualization.modules.fileData', {
-                url: '/file-data-source',
+                url: '/file-data',
                 templateUrl: '/admin/businessintelligence/abixen/multi-visualization/modules/file-data/html/index.html'
             })
             .state('application.multiVisualization.modules.fileData.list', {

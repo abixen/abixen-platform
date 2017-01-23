@@ -4,13 +4,17 @@
             <a ui-sref="application.multiVisualization.modules.databaseDataSource.list"
                ng-click="selectDatabaseDataSources()">Database Data Sources</a>
         </li>
+        <li ng-class="selectedModule == 'fileDataSource' ? 'active':''">
+            <a ui-sref="application.multiVisualization.modules.fileDataSource.list"
+               ng-click="selectFileDataSources()">File Data Sources</a>
+        </li>
         <li ng-class="selectedModule == 'databaseConnection' ? 'active':''">
             <a ui-sref="application.multiVisualization.modules.databaseConnection.list"
                ng-click="selectDatabaseConnections()">Database Connections</a>
         </li>
-        <li ng-class="selectedModule == 'fileDataSource' ? 'active':''">
+        <li ng-class="selectedModule == 'fileData' ? 'active':''">
             <a ui-sref="application.multiVisualization.modules.fileData.list"
-               ng-click="selectFileDataSources()">File Data</a>
+               ng-click="selectFileData()">File Data</a>
         </li>
     </ul>
     <ui-view></ui-view>
