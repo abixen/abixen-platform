@@ -18,7 +18,6 @@ import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.configuration.properties.PlatformTestResourceConfigurationProperties;
 import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.form.UserSearchForm;
-import com.abixen.platform.core.form.search.SearchForm;
 import com.abixen.platform.core.model.enumtype.UserGender;
 import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.User;
@@ -36,7 +35,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;

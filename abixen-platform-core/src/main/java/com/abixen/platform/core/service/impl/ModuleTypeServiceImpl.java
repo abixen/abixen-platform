@@ -23,10 +23,10 @@ import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.AdminSidebarItem;
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.model.impl.Resource;
+import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.ModuleTypeRepository;
-import com.abixen.platform.core.service.DomainBuilderService;
-import com.abixen.platform.core.service.ModuleTypeService;
-import com.abixen.platform.core.service.ResourceService;
+import com.abixen.platform.core.security.PlatformUser;
+import com.abixen.platform.core.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,26 +43,28 @@ import java.util.List;
 public class ModuleTypeServiceImpl implements ModuleTypeService {
 
     private final ModuleTypeRepository moduleTypeRepository;
-
     private final ModuleConfigurationIntegrationClient moduleConfigurationIntegrationClient;
-
     private final ResourceService resourceService;
-
     private final RegisteredModuleServicesConfigurationProperties registeredModuleServicesConfigurationProperties;
-
     private final DomainBuilderService domainBuilderService;
+    private final SecurityService securityService;
+    private final UserService userService;
 
     @Autowired
     public ModuleTypeServiceImpl(ModuleTypeRepository moduleTypeRepository,
                                  ModuleConfigurationIntegrationClient moduleConfigurationIntegrationClient,
                                  ResourceService resourceService,
                                  RegisteredModuleServicesConfigurationProperties registeredModuleServicesConfigurationProperties,
-                                 DomainBuilderService domainBuilderService) {
+                                 DomainBuilderService domainBuilderService,
+                                 SecurityService securityService,
+                                 UserService userService) {
         this.moduleTypeRepository = moduleTypeRepository;
         this.moduleConfigurationIntegrationClient = moduleConfigurationIntegrationClient;
         this.resourceService = resourceService;
         this.registeredModuleServicesConfigurationProperties = registeredModuleServicesConfigurationProperties;
         this.domainBuilderService = domainBuilderService;
+        this.securityService = securityService;
+        this.userService = userService;
     }
 
     @Override
@@ -75,7 +77,10 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
     public List<ModuleTypeDto> findAllModuleTypes() {
         log.debug("findAllModuleTypes()");
 
-        List<ModuleType> securityFilteredModuleTypes = moduleTypeRepository.findAllSecured(PermissionName.MODULE_TYPE_VIEW);
+        PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
+        User authorizedUser = userService.findUser(platformAuthorizedUser.getId());
+
+        List<ModuleType> securityFilteredModuleTypes = moduleTypeRepository.findAllSecured(authorizedUser, PermissionName.MODULE_TYPE_VIEW);
         List<ModuleType> allModuleTypes = moduleTypeRepository.findAll();
 
         List<ModuleTypeDto> moduleTypeDtos = new ArrayList<>();

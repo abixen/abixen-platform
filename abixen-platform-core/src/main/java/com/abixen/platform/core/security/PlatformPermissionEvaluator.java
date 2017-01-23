@@ -17,6 +17,7 @@ package com.abixen.platform.core.security;
 import com.abixen.platform.core.model.SecurableModel;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.User;
+import com.abixen.platform.core.service.SecuribleModelService;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,11 +39,15 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 public class PlatformPermissionEvaluator implements PermissionEvaluator {
 
     private SecurityService securityService;
+    private SecuribleModelService securibleModelService;
     private UserService userService;
 
     @Autowired
-    public PlatformPermissionEvaluator(SecurityService securityService, UserService userService) {
+    public PlatformPermissionEvaluator(SecurityService securityService,
+                                       SecuribleModelService securibleModelService,
+                                       UserService userService) {
         this.securityService = securityService;
+        this.securibleModelService = securibleModelService;
         this.userService = userService;
     }
 
@@ -65,7 +70,10 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
         if (targetId == null) {
             return securityService.hasUserPermissionToClass(user, PermissionName.valueOf((String) permission), targetType);
         }
-        return securityService.hasUserPermissionToObject(user, PermissionName.valueOf((String) permission), (Long) targetId, targetType);
+
+        SecurableModel securibleModel = securibleModelService.getSecuribleModel((Long) targetId, targetType);
+
+        return securityService.hasUserPermissionToObject(user, PermissionName.valueOf((String) permission), securibleModel);
     }
 
 }

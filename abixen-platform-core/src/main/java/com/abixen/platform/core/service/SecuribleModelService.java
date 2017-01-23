@@ -15,21 +15,9 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.enumtype.PermissionName;
-import com.abixen.platform.core.model.impl.Role;
-import com.abixen.platform.core.model.impl.User;
-import com.abixen.platform.core.security.PlatformUser;
 
 
-public interface SecurityService {
+public interface SecuribleModelService {
 
-    Boolean hasUserPermissionToObject(User user, PermissionName permissionName, SecurableModel securableModel);
-
-    Boolean hasUserPermissionToClass(User user, PermissionName permissionName, String domainClassName);
-
-    Boolean hasUserRole(User user, Role role);
-
-    PlatformUser getAuthorizedUser();
-
-    boolean hasPermission(String username, SecurableModel securibleObject, String permissionName);
+    SecurableModel getSecuribleModel(Long securableObjectId, String domainCanonicalClassName);
 }

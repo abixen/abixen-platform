@@ -17,6 +17,7 @@ package com.abixen.platform.core.repository.custom;
 import com.abixen.platform.core.form.search.SearchForm;
 import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.core.model.impl.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,7 +32,17 @@ public interface PlatformJpaRepository<T, ID extends Serializable> extends JpaRe
 
     Page<T> findAllByJsonCriteria(String jsonCriteria, Pageable pageable);
 
-    List<T> findAllSecured(String query, String filteredObjectAlias, AclClassName aclClassName, PermissionName permissionName);
+    List<T> findAll(SearchForm searchForm);
 
     Page<T> findAll(Pageable pageable, SearchForm searchForm);
+
+    List<T> findAll(SearchForm searchForm, User user, AclClassName aclClassName, PermissionName permissionName);
+
+    Page<T> findAll(Pageable pageable, SearchForm searchForm, User user, AclClassName aclClassName, PermissionName permissionName);
+
+    List<T> findAll(User user, AclClassName aclClassName, PermissionName permissionName);
+
+    Page<T> findAll(Pageable pageable, User user, AclClassName aclClassName, PermissionName permissionName);
+
+
 }
