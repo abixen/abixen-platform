@@ -17,22 +17,22 @@
     'use strict';
 
     angular
-        .module('platformFileDataSourceModule')
-        .controller('FileDataSourceListController', FileDataSourceListController);
+        .module('platformFileDataModule')
+        .controller('FileDataListController', FileDataListController);
 
-    FileDataSourceListController.$inject = [
+    FileDataListController.$inject = [
         '$log',
-        'FileDataSource',
+        'FileData',
         'applicationNavigationItems',
         '$state'
     ];
 
-    function FileDataSourceListController($log, FileDataSource, applicationNavigationItems, $state) {
-        $log.log('FileDataSourceListController');
+    function FileDataListController($log, FileData, applicationNavigationItems, $state) {
+        $log.log('FileDataListController');
 
-        var fileDataSourceList = this;
+        var fileDataList = this;
 
-        angular.extend(fileDataSourceList, new AbstractListGridController(FileDataSource,
+        angular.extend(fileDataList, new AbstractListGridController(FileData,
             {
                 getTableColumns: getTableColumns
             }
@@ -65,9 +65,9 @@
                 id: 1,
                 styleClass: 'btn add-new-button',
                 faIcon: 'fa fa-plus',
-                title: 'New File Data Source',
+                title: 'New File Data',
                 onClick: function () {
-                    $state.go('application.multiVisualization.modules.fileDataSource.add');
+                    $state.go('application.multiVisualization.modules.fileData.add');
                 },
                 visible: true,
                 disabled: false

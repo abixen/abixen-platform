@@ -17,42 +17,42 @@
     'use strict';
 
     angular
-        .module('platformFileDataSourceModule')
-        .controller('FileDataSourceTableController', FileDataSourceTableController);
+        .module('platformFileDataModule')
+        .controller('FileDataTableController', FileDataTableController);
 
-    FileDataSourceTableController.$inject = [
+    FileDataTableController.$inject = [
         '$scope',
         '$log'
     ];
 
-    function FileDataSourceTableController($scope, $log) {
-        $log.log('FileDataSourceTableController');
+    function FileDataTableController($scope, $log) {
+        $log.log('FileDataTableController');
 
-        var fileDataSourceTable = this;
-        fileDataSourceTable.options = undefined;
-        fileDataSourceTable.data = undefined;
-        fileDataSourceTable.renderTable = false;
-        fileDataSourceTable.fileColumns = [];
-        fileDataSourceTable.gridData = [];
+        var fileDataTable = this;
+        fileDataTable.options = undefined;
+        fileDataTable.data = undefined;
+        fileDataTable.renderTable = false;
+        fileDataTable.fileColumns = [];
+        fileDataTable.gridData = [];
 
         $scope.$on('GridDataUpdated', function (event, data) {
             $log.debug('GridDataUpdated - data: ', data.length);
             if (data !== undefined && data !== [] && data.length > 0) {
-                fileDataSourceTable.gridData = data;
+                fileDataTable.gridData = data;
                 Object.keys(data[0]).forEach(function (column) {
                     if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
-                        fileDataSourceTable.fileColumns.push({name: column, selected: true});
+                        fileDataTable.fileColumns.push({name: column, selected: true});
                     }
                 });
-                if (fileDataSourceTable.renderTable !== false) {
-                    fileDataSourceTable.listGridConfig.setData(data);
+                if (fileDataTable.renderTable !== false) {
+                    fileDataTable.listGridConfig.setData(data);
                 }else {
-                    fileDataSourceTable.renderTable = true;
+                    fileDataTable.renderTable = true;
                 }
             }
         });
 
-        angular.extend(fileDataSourceTable, new AbstractListGridController(null,
+        angular.extend(fileDataTable, new AbstractListGridController(null,
             {
                 getTableColumns: getTableColumns,
                 dataProviderType: 'list',
@@ -65,7 +65,7 @@
 
         function getTableColumns() {
             var columns = [];
-            fileDataSourceTable.fileColumns.forEach(function (column) {
+            fileDataTable.fileColumns.forEach(function (column) {
                 columns.push({
                     field: column.name,
                     name: column.name,
@@ -78,7 +78,7 @@
         }
 
         function onTableReady() {
-            fileDataSourceTable.listGridConfig.setData(fileDataSourceTable.gridData);
+            fileDataTable.listGridConfig.setData(fileDataTable.gridData);
         }
     }
 })();

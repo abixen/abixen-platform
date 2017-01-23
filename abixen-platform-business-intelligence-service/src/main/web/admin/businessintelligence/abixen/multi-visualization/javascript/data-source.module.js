@@ -18,5 +18,5 @@
     'use strict';
 
     angular
-        .module('platformDataSourceModule', [ 'platformFileDataSourceModule', 'platformDatabaseDataSourceModule', 'platformDatabaseConnectionModule', 'ngResource']);
+        .module('platformDataSourceModule', [ 'platformFileDataModule', 'platformDatabaseDataSourceModule', 'platformDatabaseConnectionModule', 'ngResource']);
 })();
