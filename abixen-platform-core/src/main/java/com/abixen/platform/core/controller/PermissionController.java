@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.controller;
 
+import com.abixen.platform.core.form.PermissionSearchForm;
 import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,10 +37,10 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<Permission> getPermissions(@PageableDefault(size = 1, page = 0) Pageable pageable) throws IOException, NoSuchFieldException {
+    public Page<Permission> getPermissions(@PageableDefault(size = 1, page = 0) Pageable pageable, PermissionSearchForm permissionSearchForm) throws IOException, NoSuchFieldException {
         log.debug("getPermissions()");
 
-        Page<Permission> permissions = permissionService.findAllPermissions(pageable, null);
+        Page<Permission> permissions = permissionService.findAllPermissions(pageable, null, permissionSearchForm);
         for (Permission permission : permissions) {
             log.debug("permission: " + permission);
         }

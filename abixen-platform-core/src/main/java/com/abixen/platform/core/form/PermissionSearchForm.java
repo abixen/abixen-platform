@@ -11,22 +11,22 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+package com.abixen.platform.core.form;
 
-package com.abixen.platform.core.service;
+import com.abixen.platform.core.form.search.SearchField;
+import com.abixen.platform.core.form.search.SearchForm;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import com.abixen.platform.core.form.PermissionSearchForm;
-import com.abixen.platform.core.model.impl.Permission;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+@Getter
+@Setter
+@ToString
+public class PermissionSearchForm implements SearchForm {
 
-import java.util.List;
+    @SearchField
+    private String title;
 
-
-public interface PermissionService {
-
-    Page<Permission> findAllPermissions(Pageable pageable, String jsonCriteria, PermissionSearchForm permissionSearchForm) throws NoSuchFieldException;
-
-    List<Permission> findAllPermissions();
-
-    Permission findPermission(Long id);
+    @SearchField
+    private String description;
 }

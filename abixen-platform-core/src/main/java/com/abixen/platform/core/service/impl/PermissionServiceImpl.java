@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.form.PermissionSearchForm;
 import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.repository.PermissionRepository;
 import com.abixen.platform.core.service.PermissionService;
@@ -32,12 +33,13 @@ public class PermissionServiceImpl implements PermissionService {
     private PermissionRepository permissionRepository;
 
     @Override
-    public Page<Permission> findAllPermissions(Pageable pageable, String jsonCriteria) throws NoSuchFieldException {
+    public Page<Permission> findAllPermissions(Pageable pageable, String jsonCriteria, PermissionSearchForm permissionSearchForm) throws NoSuchFieldException {
         log.debug("findAllPermissions() - pageable: " + pageable + ", jsonCriteria: " + jsonCriteria);
 
         //TODO
         //return permissionRepository.findAllByJsonCriteria(jsonCriteria, pageable);
-        return permissionRepository.findAll(pageable);
+        return permissionRepository.findAll(pageable, permissionSearchForm);
+
     }
 
     @Override
