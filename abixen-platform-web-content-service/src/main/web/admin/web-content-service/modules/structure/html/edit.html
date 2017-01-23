@@ -1,0 +1,46 @@
+<form role="form" name="structureDetails.entityForm" novalidate>
+    <div class="row form-row">
+
+        <div class="col-md-6">
+            <div class="form-group" show-errors>
+                <input-text model="structureDetails.entity.title"
+                            name="title"
+                            label="{{'structureDetails.title.label' | translate}}"
+                            placeholder="{{'structureDetails.title.placeholder' | translate}}"
+                            validators="structureDetails.validators">
+                </input-text>
+
+                <input-text-area model="structureDetails.entity.description"
+                            name="content"
+                            id="xmlcontent"
+                            label="{{'structureDetails.content.label' | translate}}"
+                            placeholder="{{'structureDetails.content.placeholder' | translate}}"
+                            validators="structureDetails.validators">
+                </input-text-area>
+
+                <input-drop-down name="template"
+                                 id="templateInput"
+                                 model="entity.template"
+                                 label="{{'structureDetails.template.label' | translate}}"
+                                 options="structureDetails.templates"
+                                 show-empty-value="true"
+                                 key-as-value="true">
+                </input-drop-down>
+
+            </div>
+
+        </div>
+
+    </div>
+</form>
+<div class="row bottom-navigation">
+    <div class="col-xs-12">
+        <a class="btn save-button"
+           ng-click="structureDetails.beforeSaveForm()"><i
+                class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
+        </a>
+        <a class="btn cancel-button"
+           ng-click="structureDetails.goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+        </a>
+    </div>
+</div>
