@@ -40,13 +40,14 @@
             .state('application.pages.add', {
                 url: '/add',
                 templateUrl: '/admin/modules/page/html/edit.html',
-                controller: 'PageDetailController',
+                controller: 'PageDetailsController',
                 controllerAs: 'pageDetails'
             })
             .state('application.pages.edit', {
                 url: '/edit/:id',
                 templateUrl: '/admin/modules/page/html/edit.html',
-                controller: 'PageDetailController'
+                controller: 'PageDetailsController',
+                controllerAs: 'pageDetails'
             })
             .state('application.pages.permissions', {
                 url: '/permissions/:id',

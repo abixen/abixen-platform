@@ -18,22 +18,20 @@
 
     angular
         .module('platformPageModule')
-        .controller('PageDetailController', PageDetailController);
+        .controller('PageDetailsController', PageDetailsController);
 
-    PageDetailController.$inject = [
+    PageDetailsController.$inject = [
         '$scope',
-        '$http',
         '$state',
-        '$parse',
-        '$stateParams',
         '$log',
         'Page',
         'Layout',
-        'responseHandler'
+        'responseHandler',
+        'applicationNavigationItems'
     ];
 
-    function PageDetailController($scope, $http, $state, $parse, $stateParams, $log, Page, Layout, responseHandler) {
-        $log.log('PageDetailController');
+    function PageDetailsController($scope, $state, $log, Page, Layout, responseHandler, applicationNavigationItems) {
+        $log.log('PageDetailsController');
 
         var pageDetails = this;
 
@@ -43,21 +41,11 @@
                 onSuccessSaveForm: onSuccessSaveForm
             }
         );
-         $scope.layouts = [];
 
-        var readLayouts = function () {
-            var queryParameters = {
-                page: 0,
-                size: 20,
-                sort: 'id,asc'
-            };
+        pageDetails.layouts = [];
 
-            Layout.query(queryParameters, function (data) {
-                $scope.layouts = data.content;
-            });
-        };
-
-        readLayouts();
+        findLayouts();
+        updateNavigation();
 
         function getValidators() {
             var validators = [];
@@ -74,6 +62,26 @@
                 ];
 
             return validators;
+        }
+
+        function findLayouts() {
+            var queryParameters = {
+                page: 0,
+                size: 1000,
+                sort: 'id,asc'
+            };
+
+            Layout.query(queryParameters)
+                .$promise
+                .then(onFindLayouts);
+
+            function onFindLayouts(data) {
+                pageDetails.layouts = data.content;
+            }
+        }
+
+        function updateNavigation() {
+            applicationNavigationItems.setTopbarItem([]);
         }
 
         function onSuccessSaveForm() {
