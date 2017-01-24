@@ -1,3 +1,3 @@
 id;title;angular_js_state;order_index;icon_class;created_date;last_modified_date;created_by_id;last_modified_by_id
 1;Data Sources;application.multiVisualization.modules.databaseDataSource.list;9;fa fa-database;NULL;NULL;NULL;NULL
-2;Web Contents;application.webContentService;10;fa fa-file-image-o;NULL;NULL;NULL;NULL
+2;Web Contents;application.webContentService.webContent.list;10;fa fa-file-image-o;NULL;NULL;NULL;NULL

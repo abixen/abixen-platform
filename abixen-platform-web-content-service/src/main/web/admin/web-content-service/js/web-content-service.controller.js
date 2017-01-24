@@ -19,10 +19,29 @@
         .module('webContentService')
         .controller('WebContentServiceController', WebContentServiceController);
 
-    WebContentServiceController.$inject = [];
+    WebContentServiceController.$inject = ['$log', '$state', '$scope'];
 
-    function WebContentServiceController() {
+    function WebContentServiceController($log, $state, $scope) {
+        $log.log('$state.$current.name: ' + $state.$current.name);
+
         var webContentService = this;
+
+        if ($state.$current.name === 'application.webContentService.webContent.list' ) {
+            $scope.selectedModule = 'webContentServiceWebContentModule';
+        } else if ($state.$current.name === 'application.webContentService.template.list') {
+            $scope.selectedModule = 'webContentServiceTemplateModule';
+        } else if ($state.$current.name === 'application.webContentService.structure.list') {
+            $scope.selectedModule = 'webContentServiceStructureModule';
+        }
+        $scope.selectWebContentServiceWebContent = function () {
+            $scope.selectedModule = 'webContentServiceWebContentModule'
+        };
+        $scope.selectWebContentServiceTemplate = function () {
+            $scope.selectedModule = 'webContentServiceTemplateModule';
+        };
+        $scope.selectWebContentServiceStructure = function () {
+            $scope.selectedModule = 'webContentServiceStructureModule'
+        };
 
     }
 })();
