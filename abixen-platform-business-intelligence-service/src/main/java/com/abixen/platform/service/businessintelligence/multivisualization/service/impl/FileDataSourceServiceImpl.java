@@ -88,7 +88,7 @@ public class FileDataSourceServiceImpl implements FileDataSourceService {
         log.debug("buildDataSource() - fileDataSourceForm: " + fileDataSourceForm);
         return domainBuilderService.newFileDataSourceBuilderInstance()
                 .base(fileDataSourceForm.getName(), fileDataSourceForm.getDescription())
-                .data(fileDataSourceForm.getColumns(), dataFileService.findDataFile(fileDataSourceForm.getFileData().getId()))
+                .data(fileDataSourceForm.getColumns(), dataFileService.findDataFile(fileDataSourceForm.getDataFile().getId()))
                 .build();
     }
 
@@ -111,7 +111,18 @@ public class FileDataSourceServiceImpl implements FileDataSourceService {
 
         FileDataSource fileDataSource = findDataSource(fileDataSourceForm.getId());
         fileDataSource.setName(fileDataSourceForm.getName());
-
+        fileDataSource.setDescription(fileDataSourceForm.getDescription());
+        Set<DataSourceColumn> dataSourceColumnSet = new HashSet<>();
+        fileDataSourceForm.getColumns().forEach(column -> {
+            DataSourceColumn dataSourceColumn = new DataSourceColumn();
+            dataSourceColumn.setName(column.getName());
+            dataSourceColumn.setId(column.getId());
+            dataSourceColumn.setPosition(column.getPosition());
+            dataSourceColumn.setDataSource(fileDataSource);
+            dataSourceColumnSet.add(dataSourceColumn);
+        });
+        fileDataSource.setColumns(dataSourceColumnSet);
+        fileDataSource.setDataFile(dataFileService.findDataFile(fileDataSourceForm.getDataFile().getId()));
         return new FileDataSourceForm(updateDataSource(fileDataSource));
     }
 

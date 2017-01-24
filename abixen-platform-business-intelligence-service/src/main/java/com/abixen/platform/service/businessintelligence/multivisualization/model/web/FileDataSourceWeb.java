@@ -14,9 +14,11 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.model.web;
 
+import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.file.FileDataSourceRow;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.file.DataFile;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Set;
@@ -25,7 +27,9 @@ import java.util.Set;
 @JsonDeserialize(as = FileDataSource.class)
 public interface FileDataSourceWeb extends DataSourceWeb {
 
+    @JsonView(WebModelJsonSerialize.class)
     Set<FileDataSourceRow> getRows();
 
+    @JsonView(WebModelJsonSerialize.class)
     DataFile getDataFile();
 }

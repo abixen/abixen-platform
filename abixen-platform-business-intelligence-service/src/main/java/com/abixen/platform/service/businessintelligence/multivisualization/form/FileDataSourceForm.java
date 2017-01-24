@@ -19,7 +19,7 @@ import com.abixen.platform.service.businessintelligence.multivisualization.model
 
 public class FileDataSourceForm extends DataSourceForm implements Form {
 
-    private DataFileForm fileData;
+    private DataFileForm dataFile;
 
     public FileDataSourceForm() {
     }
@@ -30,11 +30,11 @@ public class FileDataSourceForm extends DataSourceForm implements Form {
         this.setDescription(fileDataSource.getDescription());
     }
 
-    public DataFileForm getFileData() {
-        return fileData;
+    public DataFileForm getDataFile() {
+        return dataFile;
     }
 
-    public void setFileData(DataFileForm fileData) {
-        this.fileData = fileData;
+    public void setDataFile(DataFileForm dataFile) {
+        this.dataFile = dataFile;
     }
 }
