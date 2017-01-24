@@ -18,6 +18,7 @@ import com.abixen.platform.service.businessintelligence.multivisualization.form.
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualization.repository.FileDataSourceRepository;
+import com.abixen.platform.service.businessintelligence.multivisualization.service.DataFileService;
 import com.abixen.platform.service.businessintelligence.multivisualization.service.DomainBuilderService;
 import com.abixen.platform.service.businessintelligence.multivisualization.service.FileDataSourceService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,9 @@ public class FileDataSourceServiceImpl implements FileDataSourceService {
 
     @Autowired
     private DomainBuilderService domainBuilderService;
+
+    @Autowired
+    private DataFileService dataFileService;
 
     @Override
     public Set<DataSourceColumn> getDataSourceColumns(Long dataSourceId) {
@@ -83,27 +87,21 @@ public class FileDataSourceServiceImpl implements FileDataSourceService {
     public FileDataSource buildDataSource(FileDataSourceForm fileDataSourceForm) {
         log.debug("buildDataSource() - fileDataSourceForm: " + fileDataSourceForm);
         return domainBuilderService.newFileDataSourceBuilderInstance()
-                .base(fileDataSourceForm.getName(), fileDataSourceForm.getDescription(), fileDataSourceForm.getDataSourceFileType())
+                .base(fileDataSourceForm.getName(), fileDataSourceForm.getDescription())
+                .data(fileDataSourceForm.getColumns(), dataFileService.findDataFile(fileDataSourceForm.getFileData().getId()))
                 .build();
     }
 
     @Override
     public FileDataSourceForm createDataSource(FileDataSourceForm fileDataSourceForm) {
         FileDataSource fileDataSource = buildDataSource(fileDataSourceForm);
-        return new FileDataSourceForm(updateDataSource(createDataSource(fileDataSource)));
+        return new FileDataSourceForm(createDataSource(fileDataSource));
     }
 
     @Override
     public FileDataSource createDataSource(FileDataSource fileDataSource) {
         log.debug("createDataSource() - fileDataSource: " + fileDataSource);
         FileDataSource createdFileDataSource = fileDataSourceRepository.save(fileDataSource);
-        /*aclService.insertDefaultAcl(createdPage, new ArrayList<PermissionName>() {{
-            add(PermissionName.PAGE_VIEW);
-            add(PermissionName.PAGE_EDIT);
-            add(PermissionName.PAGE_DELETE);
-            add(PermissionName.PAGE_CONFIGURATION);
-            add(PermissionName.PAGE_PERMISSION);
-        }});*/
         return createdFileDataSource;
     }
 

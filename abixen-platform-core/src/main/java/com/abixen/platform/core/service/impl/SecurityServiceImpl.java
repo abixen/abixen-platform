@@ -14,16 +14,16 @@
 
 package com.abixen.platform.core.service.impl;
 
-import com.abixen.platform.core.exception.PlatformCoreException;
 import com.abixen.platform.core.model.SecurableModel;
 import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.AclSidType;
 import com.abixen.platform.core.model.enumtype.PermissionName;
-import com.abixen.platform.core.model.impl.*;
+import com.abixen.platform.core.model.impl.AclEntry;
+import com.abixen.platform.core.model.impl.Permission;
+import com.abixen.platform.core.model.impl.Role;
+import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.AclEntryRepository;
 import com.abixen.platform.core.security.PlatformUser;
-import com.abixen.platform.core.service.ModuleService;
-import com.abixen.platform.core.service.PageService;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -43,18 +43,12 @@ import java.util.List;
 public class SecurityServiceImpl implements SecurityService {
 
     private final UserService userService;
-    private final ModuleService moduleService;
-    private final PageService pageService;
     private final AclEntryRepository aclEntryRepository;
 
     @Autowired
     public SecurityServiceImpl(UserService userService,
-                               ModuleService moduleService,
-                               PageService pageService,
                                AclEntryRepository aclEntryRepository) {
         this.userService = userService;
-        this.moduleService = moduleService;
-        this.pageService = pageService;
         this.aclEntryRepository = aclEntryRepository;
 
     }
@@ -106,26 +100,6 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public Boolean hasUserPermissionToObject(User user, PermissionName permissionName, Long securableObjectId, String domainCanonicalClassName) {
-        SecurableModel securableObject;
-
-        log.debug("hasUserPermissionToObject() userId={}, permissionName={}, securableObjectId={}, domainCanonicalClassName={}", user.getId(), permissionName, securableObjectId, domainCanonicalClassName);
-
-        switch (domainCanonicalClassName) {
-            case "com.abixen.platform.core.model.impl.Page":
-                securableObject = pageService.findPage(securableObjectId);
-                break;
-            case "com.abixen.platform.core.model.impl.Module":
-                securableObject = moduleService.findModule(securableObjectId);
-                break;
-            default:
-                throw new PlatformCoreException("Wrong domainCanonicalClassName value: " + domainCanonicalClassName);
-        }
-
-        return hasUserPermissionToObject(user, permissionName, securableObject);
-    }
-
-    @Override
     public Boolean hasUserPermissionToClass(User user, PermissionName permissionName, String domainCanonicalClassName) {
         if (user == null) {
             throw new IllegalArgumentException("User can not be null.");
@@ -153,16 +127,6 @@ public class SecurityServiceImpl implements SecurityService {
         return user.getRoles().contains(role);
     }
 
-    //FIXME - to remove?
-    @Override
-    public List<String> getForbiddenPageNames() {
-        log.debug("getForbiddenPageNames()");
-        List<String> forbiddenPageNames = new ArrayList<String>();
-        forbiddenPageNames.add("pages");
-        forbiddenPageNames.add("roles");
-        return forbiddenPageNames;
-    }
-
     @Override
     public PlatformUser getAuthorizedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -173,20 +137,10 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public boolean hasPermission(String username, Long securableObjectId, String securableObjectClassName, String permissionName) {
-        SecurableModel securableObject;
-
-        switch (securableObjectClassName) {
-            case "Module":
-                securableObject = moduleService.findModule(securableObjectId);
-                break;
-            default:
-                throw new PlatformCoreException("Wrong securableObjectClassName value: " + securableObjectClassName);
-        }
-
+    public boolean hasPermission(String username, SecurableModel securibleObject, String permissionName) {
         User user = userService.findUser(username);
 
-        boolean hasPermission = hasUserPermissionToObject(user, PermissionName.valueOf(permissionName), securableObject);
+        boolean hasPermission = hasUserPermissionToObject(user, PermissionName.valueOf(permissionName), securibleObject);
         log.debug("hasPermission: " + hasPermission);
 
         return hasPermission;

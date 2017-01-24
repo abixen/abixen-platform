@@ -11,12 +11,22 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+package com.abixen.platform.core.form;
 
+import com.abixen.platform.core.form.search.SearchField;
+import com.abixen.platform.core.form.search.SearchForm;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-(function () {
+@Getter
+@Setter
+@ToString
+public class PermissionSearchForm implements SearchForm {
 
-    'use strict';
+    @SearchField
+    private String title;
 
-    angular
-        .module('platformDataSourceModule', [ 'platformFileDataModule', 'platformFileDataSourceModule', 'platformDatabaseDataSourceModule', 'platformDatabaseConnectionModule', 'ngResource']);
-})();
+    @SearchField
+    private String description;
+}

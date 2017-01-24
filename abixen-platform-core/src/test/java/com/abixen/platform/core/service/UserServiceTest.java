@@ -18,7 +18,6 @@ import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.configuration.properties.PlatformTestResourceConfigurationProperties;
 import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.form.UserSearchForm;
-import com.abixen.platform.core.form.search.SearchForm;
 import com.abixen.platform.core.model.enumtype.UserGender;
 import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.User;
@@ -173,6 +172,25 @@ public class UserServiceTest {
         log.debug("usersPage.getTotalElements(): {}", usersPage.getTotalElements());
 
         assertEquals(5, usersPage.getTotalElements());
+    }
+
+    @Test
+    public void updateSelectedLanguage() {
+
+        UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
+        userBuilder.credentials("usertestlang", "password");
+        userBuilder.screenName("screentestlang");
+        userBuilder.personalData("firstName", "middleName", "lastName");
+        userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
+        userBuilder.registrationIp("127.0.0.1");
+        User user = userBuilder.build();
+        user.setAvatarFileName("oldAvatarName");
+        User createdUser = userService.createUser(user);
+        userService.updateSelectedLanguage(createdUser.getId(), UserLanguage.POLISH);
+        User lookupUser = userService.findUser(createdUser.getId());
+
+        assertEquals(lookupUser.getSelectedLanguage(), UserLanguage.POLISH);
+        userService.deleteUser(lookupUser.getId());
     }
 
 }

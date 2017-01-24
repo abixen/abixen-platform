@@ -19,7 +19,9 @@ import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
-import com.abixen.platform.core.security.PlatformUser;
+import com.abixen.platform.core.repository.custom.impl.specification.AndSpecifications;
+import com.abixen.platform.core.repository.custom.impl.specification.SearchFormSpecifications;
+import com.abixen.platform.core.repository.custom.impl.specification.SecuredSpecifications;
 import com.abixen.platform.core.util.SqlOperatorUtil;
 import com.abixen.platform.core.util.SqlParameterUtil;
 import com.google.gson.Gson;
@@ -32,14 +34,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
@@ -52,76 +51,44 @@ public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
         this.entityManager = entityManager;
     }
 
+    public Page<T> findAll(Pageable pageable, SearchForm searchForm, User user, AclClassName aclClassName, PermissionName permissionName) {
+        Specification<T> securedSpecification = SecuredSpecifications.getSpecification(user, aclClassName, permissionName);
+        Specification<T> searchFormSpecification = SearchFormSpecifications.getSpecification(searchForm);
+        Specification<T> specification = AndSpecifications.getSpecification(searchFormSpecification, securedSpecification);
+
+        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll(Specifications.where(specification), pageable));
+    }
+
+    public List<T> findAll(SearchForm searchForm, User user, AclClassName aclClassName, PermissionName permissionName) {
+        Specification<T> securedSpecification = SecuredSpecifications.getSpecification(user, aclClassName, permissionName);
+        Specification<T> searchFormSpecification = SearchFormSpecifications.getSpecification(searchForm);
+        Specification<T> specification = AndSpecifications.getSpecification(searchFormSpecification, securedSpecification);
+
+        return this.findAll(Specifications.where(specification));
+    }
+
+    public Page<T> findAll(Pageable pageable, User user, AclClassName aclClassName, PermissionName permissionName) {
+        Specification<T> securedSpecification = SecuredSpecifications.getSpecification(user, aclClassName, permissionName);
+
+        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll(Specifications.where(securedSpecification), pageable));
+    }
+
+    public List<T> findAll(User user, AclClassName aclClassName, PermissionName permissionName) {
+        Specification<T> securedSpecification = SecuredSpecifications.getSpecification(user, aclClassName, permissionName);
+
+        return this.findAll(Specifications.where(securedSpecification));
+    }
+
     public Page<T> findAll(Pageable pageable, SearchForm searchForm) {
-        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll((Specification<T>) Specifications.where(SearchFormSpecifications.bySearchForm(searchForm)), pageable));
+        Specification<T> searchFormSpecification = SearchFormSpecifications.getSpecification(searchForm);
+
+        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll(Specifications.where(searchFormSpecification), pageable));
     }
 
-    public List<T> findAllSecured(String queryString, String filteredObjectAlias, AclClassName
-            aclClassName, PermissionName permissionName) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public List<T> findAll(SearchForm searchForm) {
+        Specification<T> searchFormSpecification = SearchFormSpecifications.getSpecification(searchForm);
 
-        if (authentication == null) {
-            log.error("An user is not signed in.");
-            return new ArrayList<>();
-        }
-
-        PlatformUser platformUser = (PlatformUser) authentication.getPrincipal();
-        User user = findUser(platformUser.getId());
-        String aclFilterQueryString = getAclFilterQuery(filteredObjectAlias, user, aclClassName, permissionName);
-
-        String resultQueryString = queryString.replace("#{securityFilter}", aclFilterQueryString);
-        log.debug("resultQueryString={}", resultQueryString);
-
-        return entityManager.createQuery(resultQueryString).getResultList();
-    }
-
-    private String getAclFilterQuery(String filteredObjectAlias, User user, AclClassName aclClassName, PermissionName permissionName) {
-
-        StringBuilder aclFilterQueryBuilder = new StringBuilder();
-
-        aclFilterQueryBuilder.append(" ( 0 < (SELECT COUNT(u) FROM User u JOIN u.roles r JOIN r.permissions p WHERE ")
-                .append("u.id = ")
-                .append(user.getId())
-                .append("AND p.permissionName = '")
-                .append(permissionName)
-                .append("')) ")
-                .append("OR (0 < (SELECT COUNT(ae) FROM AclEntry ae WHERE ")
-                .append("ae.permission.permissionName = '")
-                .append(permissionName)
-                .append("' AND ")
-                .append("ae.aclSid.sidType = 'ROLE' AND ")
-                .append("ae.aclSid.sidId IN (")
-                .append(String.join(",", user.getRoles().stream().map(r -> r.getId().toString()).collect(Collectors.toList())))
-                .append(") AND ")
-                .append("ae.aclObjectIdentity.aclClass.aclClassName = '")
-                .append(aclClassName)
-                .append("' AND ")
-                .append("ae.aclObjectIdentity.objectId = ")
-                .append(filteredObjectAlias)
-                .append(".id)) ")
-                .append("OR (0 < (SELECT COUNT(ae) FROM AclEntry ae WHERE ")
-                .append("ae.permission.permissionName = '")
-                .append(permissionName)
-                .append("' AND ")
-                .append("ae.aclSid.sidType = 'OWNER' AND ")
-                .append("ae.aclSid.sidId IN (0) AND ")
-                .append("ae.aclObjectIdentity.aclClass.aclClassName = '")
-                .append(aclClassName)
-                .append("' AND ")
-                .append("ae.aclObjectIdentity.objectId = ")
-                .append(filteredObjectAlias)
-                .append(".id))");
-
-        String aclFilterQuery = aclFilterQueryBuilder.toString();
-
-        return aclFilterQuery;
-    }
-
-    private User findUser(Long userId) {
-        String queryString = "FROM User u WHERE u.id = :userId";
-        Query query = entityManager.createQuery(queryString);
-        query.setParameter("userId", userId);
-        return (User) query.getSingleResult();
+        return this.findAll(Specifications.where(searchFormSpecification));
     }
 
     public Page<T> findAllByJsonCriteria(String jsonCriteria, Pageable pageable) {

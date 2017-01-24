@@ -15,6 +15,8 @@
 package com.abixen.platform.core.controller;
 
 
+import com.abixen.platform.core.model.SecurableModel;
+import com.abixen.platform.core.service.SecuribleModelService;
 import com.abixen.platform.core.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,17 +30,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class SecurityController {
 
     private final SecurityService securityService;
+    private final SecuribleModelService securibleModelService;
 
     @Autowired
-    public SecurityController(SecurityService securityService) {
+    public SecurityController(SecurityService securityService,
+                              SecuribleModelService securibleModelService) {
         this.securityService = securityService;
+        this.securibleModelService = securibleModelService;
     }
 
 
     @RequestMapping(value = "/has-permission/{username}/{securableObjectId}/{securableObjectClassName}/{permissionName}", method = RequestMethod.GET)
     public boolean hasPermission(@PathVariable String username, @PathVariable Long securableObjectId, @PathVariable String securableObjectClassName, @PathVariable String permissionName) {
-
-        return securityService.hasPermission(username, securableObjectId, securableObjectClassName, permissionName);
+        SecurableModel securibleModel = securibleModelService.getSecuribleModel(securableObjectId, securableObjectClassName);
+        return securityService.hasPermission(username, securibleModel, permissionName);
     }
 
 }

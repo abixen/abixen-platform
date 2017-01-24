@@ -12,11 +12,19 @@
  * details.
  */
 
+package com.abixen.platform.core.repository.custom.impl.specification;
 
-(function () {
 
-    'use strict';
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
 
-    angular
-        .module('platformDataSourceModule', [ 'platformFileDataModule', 'platformFileDataSourceModule', 'platformDatabaseDataSourceModule', 'platformDatabaseConnectionModule', 'ngResource']);
-})();
+@Slf4j
+public class AndSpecifications {
+    public static <T> Specification<T> getSpecification(Specification<T> firstSpecification, Specification<T> secondSpecification) {
+
+        return (candidateRoot, criteriaQuery, cb) -> cb.and(
+                firstSpecification.toPredicate(candidateRoot, criteriaQuery, cb),
+                secondSpecification.toPredicate(candidateRoot, criteriaQuery, cb)
+        );
+    }
+}

@@ -12,13 +12,12 @@
  * details.
  */
 
-package com.abixen.platform.core.repository.custom.impl;
+package com.abixen.platform.core.repository.custom.impl.specification;
 
 
 import com.abixen.platform.core.exception.PlatformCoreException;
 import com.abixen.platform.core.form.search.SearchField;
 import com.abixen.platform.core.form.search.SearchForm;
-import com.abixen.platform.core.model.impl.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -31,10 +30,11 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class SearchFormSpecifications {
-    public static Specification<User> bySearchForm(final SearchForm searchForm) {
-        return (candidateRoot, criteriaQuery, criteriaBuilder) -> {
-            log.debug("findAll() - searchFormClass: {}, searchForm: {}", searchForm.getClass(), searchForm);
+    public static <T> Specification<T> getSpecification(final SearchForm searchForm) {
+        log.debug("findAll() - searchFormClass: {}, searchForm: {}", searchForm.getClass(), searchForm);
 
+        return (candidateRoot, criteriaQuery, criteriaBuilder) -> {
+            final String percentSign = "%";
             List<Predicate> predicates = new ArrayList<>();
 
             List<Field> fields = Arrays
@@ -60,7 +60,7 @@ public class SearchFormSpecifications {
                             predicates.add(criteriaBuilder.equal(candidateRoot.get(domainField), field.get(searchForm)));
                         } else if (SearchField.Operator.LIKE.equals(operator)) {
                             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(candidateRoot.get(domainField)),
-                                    "%" + field.get(searchForm).toString().toLowerCase() + "%"));
+                                    percentSign + field.get(searchForm).toString().toLowerCase() + percentSign));
 
                         }
                     }

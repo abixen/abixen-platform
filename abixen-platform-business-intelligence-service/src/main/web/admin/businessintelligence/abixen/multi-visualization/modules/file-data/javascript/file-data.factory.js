@@ -12,11 +12,22 @@
  * details.
  */
 
-
 (function () {
 
     'use strict';
 
     angular
-        .module('platformDataSourceModule', [ 'platformFileDataModule', 'platformFileDataSourceModule', 'platformDatabaseDataSourceModule', 'platformDatabaseConnectionModule', 'ngResource']);
+        .module('platformFileDataModule')
+        .factory('FileData', FileData);
+
+    FileData.$inject = ['$resource'];
+
+    function FileData($resource) {
+
+        return $resource('/admin/businessintelligence/abixen/multi-visualization/file-data/:id', {}, {
+            query: {method: 'GET', isArray: false},
+            update: {method: 'PUT'}
+        });
+    }
+
 })();

@@ -17,6 +17,7 @@ package com.abixen.platform.core.repository;
 import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Page;
+import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
 
 import java.util.List;
@@ -26,8 +27,7 @@ public interface PageRepository extends PlatformJpaRepository<Page, Long> {
 
     Page findByName(String name);
 
-    default List<Page> findAllSecured(PermissionName permissionName) {
-        String query = "FROM Page p WHERE #{securityFilter}";
-        return findAllSecured(query, "p", AclClassName.PAGE, permissionName);
+    default List<Page> findAllSecured(User user, PermissionName permissionName) {
+        return findAll(user, AclClassName.PAGE, permissionName);
     }
 }

@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -21,8 +21,10 @@ import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.Page;
+import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.repository.PageRepository;
+import com.abixen.platform.core.security.PlatformUser;
 import com.abixen.platform.core.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,8 @@ public class PageServiceImpl implements PageService {
     private final DomainBuilderService domainBuilderService;
     private final LayoutService layoutService;
     private final ModuleService moduleService;
+    private final SecurityService securityService;
+    private final UserService userService;
     private final PageRepository pageRepository;
     private final ModuleRepository moduleRepository;
 
@@ -53,12 +57,16 @@ public class PageServiceImpl implements PageService {
                            DomainBuilderService domainBuilderService,
                            LayoutService layoutService,
                            ModuleService moduleService,
+                           SecurityService securityService,
+                           UserService userService,
                            PageRepository pageRepository,
                            ModuleRepository moduleRepository) {
         this.aclService = aclService;
         this.domainBuilderService = domainBuilderService;
         this.layoutService = layoutService;
         this.moduleService = moduleService;
+        this.securityService = securityService;
+        this.userService = userService;
         this.pageRepository = pageRepository;
         this.moduleRepository = moduleRepository;
     }
@@ -157,7 +165,10 @@ public class PageServiceImpl implements PageService {
     @Override
     public List<Page> findAllPages() {
         log.debug("findAllPages()");
-        return pageRepository.findAllSecured(PermissionName.PAGE_VIEW);
+        PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
+        User authorizedUser = userService.findUser(platformAuthorizedUser.getId());
+
+        return pageRepository.findAllSecured(authorizedUser, PermissionName.PAGE_VIEW);
     }
 
     @PostAuthorize("hasPermission(returnObject, '" + PermissionName.Values.PAGE_VIEW + "')")

@@ -18,26 +18,34 @@
 
     angular
         .module('platformFileDataSourceModule')
-        .config(platformFileDataSourceModuleTranslateConfig);
+        .config(platformFileDataModuleSourceTranslateConfig);
 
 
-    platformFileDataSourceModuleTranslateConfig.$inject = ['$translateProvider'];
-    function platformFileDataSourceModuleTranslateConfig($translateProvider) {
+    platformFileDataModuleSourceTranslateConfig.$inject = ['$translateProvider'];
+    function platformFileDataModuleSourceTranslateConfig($translateProvider) {
 
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('pl', {
-            'service.businessintelligence.fileDataSoruce.name.label': 'Nazwa',
-            'service.businessintelligence.fileDataSoruce.name.placeholder': 'Np. Sprzedaż w Q3',
-            'service.businessintelligence.fileDataSoruce.description.label': 'Opis',
-            'service.businessintelligence.fileDataSoruce.description.placeholder': 'Np. Plik zawiera dane z trzeciego kwartału'
+        $translateProvider.translations('POLISH', {
+            'service.businessintelligence.fileDataSource.name.label': 'Nazwa',
+            'service.businessintelligence.fileDataSource.name.placeholder': 'Np. Sprzedaż w Q3 ZD',
+            'service.businessintelligence.fileDataSource.description.label': 'Opis',
+            'service.businessintelligence.fileDataSource.description.placeholder': 'Np. Żródlo danych zawiera dane z trzeciego kwartału',
+            'service.businessintelligence.fileDataSource.save': 'Zapisz',
+            'service.businessintelligence.fileDataSource.cancel': 'Anuluj',
+            'service.businessintelligence.fileDataSource.column.header.name': 'Nazwa kolumny',
+            'service.businessintelligence.fileDataSource.column.header.available': 'Dostępna'
         });
 
-        $translateProvider.translations('en', {
-            'service.businessintelligence.fileDataSoruce.name.label': 'Name',
-            'service.businessintelligence.fileDataSoruce.name.placeholder': 'E.g. Selling Q3 Data',
-            'service.businessintelligence.fileDataSoruce.description.label': 'Description',
-            'service.businessintelligence.fileDataSoruce.description.placeholder': 'E.g. The file contains data from the third quarter'
+        $translateProvider.translations('ENGLISH', {
+            'service.businessintelligence.fileDataSource.name.label': 'Name',
+            'service.businessintelligence.fileDataSource.name.placeholder': 'E.g. Selling Q3 Data DS',
+            'service.businessintelligence.fileDataSource.description.label': 'Description',
+            'service.businessintelligence.fileDataSource.description.placeholder': 'E.g. The data source contains data from the third quarter',
+            'service.businessintelligence.fileDataSource.save': 'Save',
+            'service.businessintelligence.fileDataSource.cancel': 'Cancel',
+            'service.businessintelligence.fileDataSource.column.header.name': 'Column name',
+            'service.businessintelligence.fileDataSource.column.header.available': 'Available'
         });
     }
 })();

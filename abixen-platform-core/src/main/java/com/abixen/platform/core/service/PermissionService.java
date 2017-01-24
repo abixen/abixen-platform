@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service;
 
+import com.abixen.platform.core.form.PermissionSearchForm;
 import com.abixen.platform.core.model.impl.Permission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public interface PermissionService {
 
-    Page<Permission> findAllPermissions(Pageable pageable, String jsonCriteria) throws NoSuchFieldException;
+    Page<Permission> findAllPermissions(Pageable pageable, String jsonCriteria, PermissionSearchForm permissionSearchForm) throws NoSuchFieldException;
 
     List<Permission> findAllPermissions();
 

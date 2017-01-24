@@ -27,19 +27,19 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
-            'module.page.name.label': 'Nazwa wyświetlana',
-            'module.page.title.label': 'Np. Janek',
-            'module.page.description.label': 'Desc',
-            'module.page.title.placeholder':'Title',
-            'module.page.description.placeholder':'Description'
+            'module.page.name.label': 'Nazwa',
+            'module.page.title.label': 'Tytuł',
+            'module.page.title.placeholder': 'Np. Sprzedaż w sklepach',
+            'module.page.description.label': 'Opis',
+            'module.page.description.placeholder': 'Np. Strona przedstawia wykresy prezentujące sprzedaż w sklepach.'
         });
 
         $translateProvider.translations('ENGLISH', {
             'module.page.name.label': 'Name',
             'module.page.title.label': 'Title',
+            'module.page.title.placeholder': 'E.g. Sales in stores',
             'module.page.description.label': 'Description',
-            'module.page.title.placeholder':'Title',
-            'module.page.description.placeholder':'Description'
+            'module.page.description.placeholder': 'E.g. The page contains charts presenting a sales in the stores.'
         });
     }
 })();

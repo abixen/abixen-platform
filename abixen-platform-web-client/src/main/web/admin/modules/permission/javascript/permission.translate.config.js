@@ -12,30 +12,28 @@
  * details.
  */
 
-(function () {
+(function(){
 
     'use strict';
-
+    
     angular
-        .module('platformRoleModule')
-        .config(platformRoleModuleConfig);
+        .module('platformPermissionModule')
+        .config(platformPermissionModuleConfig);
 
-
-    platformRoleModuleConfig.$inject = ['$translateProvider'];
-    function platformRoleModuleConfig($translateProvider) {
+    platformPermissionModuleConfig.$inject = ['$translateProvider'];
+    function platformPermissionModuleConfig($translateProvider){
 
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('POLISH', {
-            'module.role.name.label': 'Nazwa',
-            'module.role.type.label': 'Rodzaj roli',
-            'module.role.type.select': 'Wybierz rodzaj roli'
+        $translateProvider.translations('POLISH',{
+            'module.permission.title.label' : 'Tytuł',
+            'module.permission.description.label' : 'Opis',
         });
 
-        $translateProvider.translations('ENGLISH', {
-            'module.role.name.label': 'Name',
-            'module.role.type.label': 'Role type',
-            'module.role.type.select': 'Select role type'
-        });
+        $translateProvider.translations('ENGLISH',{
+            'module.permission.title.label' : 'Title',
+            'module.permission.description.label' : 'Description',
+            }
+        );
     }
 })();

@@ -26,14 +26,14 @@
 
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('pl', {
+        $translateProvider.translations('POLISH', {
             'service.businessintelligence.databaseDataSourceDetails.name.label': 'Nazwa',
             'service.businessintelligence.databaseDataSourceDetails.name.placeholder': 'Np. Sprzedaż w Q3 BD',
             'service.businessintelligence.databaseDataSourceDetails.description.label': 'Opis',
             'service.businessintelligence.databaseDataSourceDetails.description.placeholder': 'Np. Baza danych zawiera dane z trzeciego kwartału'
         });
 
-        $translateProvider.translations('en', {
+        $translateProvider.translations('ENGLISH', {
             'service.businessintelligence.databaseDataSourceDetails.name.label': 'Name',
             'service.businessintelligence.databaseDataSourceDetails.name.placeholder': 'E.g. Selling Q3 Data DB',
             'service.businessintelligence.databaseDataSourceDetails.description.label': 'Description',
