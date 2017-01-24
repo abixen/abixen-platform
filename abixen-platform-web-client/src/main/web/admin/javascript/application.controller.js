@@ -34,7 +34,6 @@
 
         var applicationLoginUrl = '/login';
         var applicationDashboardUrl = '/';
-
         $scope.platformUser = null;
 
         $scope.logout = function () {
@@ -62,7 +61,7 @@
                 window.location = applicationDashboardUrl;
             }
         };
-
         applicationNavigationItems.setRedirectAction(redirectAction);
+
     }
 })();
