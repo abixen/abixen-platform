@@ -67,7 +67,7 @@ public class CommentController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);

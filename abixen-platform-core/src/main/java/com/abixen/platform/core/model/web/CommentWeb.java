@@ -19,6 +19,8 @@ import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.util.Date;
+
 @JsonDeserialize(as = Comment.class)
 public interface CommentWeb {
 
@@ -37,4 +39,6 @@ public interface CommentWeb {
     @JsonView(WebModelJsonSerialize.class)
     UserWeb getCreatedBy();
 
+    @JsonView(WebModelJsonSerialize.class)
+    Date getCreatedDate();
 }

@@ -19,9 +19,9 @@
         .module('platformCommentModule')
         .directive('comment', commentDirective);
 
-    commentDirective.$inject = ['$log', '$http'];
+    commentDirective.$inject = ['$log', '$http', '$compile', 'responseHandler'];
 
-    function commentDirective($log, $http) {
+    function commentDirective($log, $http, $compile) {
         var counter = 0,
             depth = null;
 
@@ -47,7 +47,58 @@
         }
     }
 
-    function CommentsDirectiveController($scope, $log, $http) {
+    function CommentsDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest) {
         var comment = this;
+        var addCommentForm = {};
+        var replyClickCounter = 0;
+
+        new AbstractDetailsController(comment, Comment, responseHandler, $scope,
+            {
+                entityId: null,
+                initEntity: {
+                    parentId: comment.commentItem.id,
+                    moduleId: comment.commentItem.moduleId
+                },
+                getValidators: getValidators,
+                onSuccessSaveForm: onSuccessSaveForm
+            }
+        );
+
+        comment.openReplyForm = openReplyForm;
+
+        function openReplyForm(commentId) {
+            var selector = '#reply-ref-' + commentId;
+            if (replyClickCounter === 0) {
+                var targetElement = angular.element(document.querySelector(selector));
+                $templateRequest("/application/modules/comment/html/add.comment.template.html",false)
+                    .then(function (html) {
+                        addCommentForm = angular.element(html);
+                        targetElement.append(addCommentForm);
+                        $compile(addCommentForm)($scope);
+                        replyClickCounter++;
+                });
+            }
+        }
+
+        function getValidators() {
+            var validators = [];
+            validators['message'] =
+                [
+                    new NotNull(),
+                    new Length(1, 1000)
+                ];
+            return validators;
+        }
+
+        function onSuccessSaveForm() {
+            addCommentForm.remove();
+            replyClickCounter = 0;
+            var curChildren = comment.commentItem.children;
+            if(angular.isUndefined(curChildren) || curChildren === null){
+                comment.commentItem.children = [comment.entity];
+            }else{
+                comment.commentItem.children.push(comment.entity);
+            }
+        }
     }
 })();

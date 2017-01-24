@@ -22,6 +22,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -46,6 +47,9 @@ public class ModuleCommentDto {
     @JsonView(WebModelJsonSerialize.class)
     private List<ModuleCommentDto> children;
 
+    @JsonView(WebModelJsonSerialize.class)
+    private Date createdDate;
+
     public ModuleCommentDto() {
     }
 
@@ -55,6 +59,7 @@ public class ModuleCommentDto {
         this.message = commentWeb.getMessage();
         this.moduleId = commentWeb.getModule().getId();
         this.user = commentWeb.getCreatedBy();
+        this.createdDate = commentWeb.getCreatedDate();
         if (commentWeb.getParent() != null) {
             this.parentId = commentWeb.getParent().getId();
         } else {
