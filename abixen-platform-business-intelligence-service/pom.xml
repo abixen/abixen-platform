@@ -163,11 +163,11 @@
             <version>12.1.0.1-atlassian-hosted</version>
         </dependency>
 
-        <!-- CSV files reader -->
+        <!-- JSON utils -->
         <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>3.3</version>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
         </dependency>
 
         <!-- JSP pages render -->

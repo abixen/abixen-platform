@@ -20,7 +20,7 @@ import com.abixen.platform.service.businessintelligence.multivisualization.form.
 import com.abixen.platform.service.businessintelligence.multivisualization.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.web.*;
-import org.apache.commons.lang3.NotImplementedException;
+import org.apache.commons.lang.NotImplementedException;
 
 import java.sql.*;
 import java.util.*;

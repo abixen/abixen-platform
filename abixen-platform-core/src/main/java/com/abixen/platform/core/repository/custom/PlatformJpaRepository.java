@@ -30,8 +30,6 @@ import java.util.List;
 @NoRepositoryBean
 public interface PlatformJpaRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 
-    Page<T> findAllByJsonCriteria(String jsonCriteria, Pageable pageable);
-
     List<T> findAll(SearchForm searchForm);
 
     Page<T> findAll(Pageable pageable, SearchForm searchForm);
@@ -43,6 +41,4 @@ public interface PlatformJpaRepository<T, ID extends Serializable> extends JpaRe
     List<T> findAll(User user, AclClassName aclClassName, PermissionName permissionName);
 
     Page<T> findAll(Pageable pageable, User user, AclClassName aclClassName, PermissionName permissionName);
-
-
 }

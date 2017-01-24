@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.util;
+package com.abixen.platform.service.businessintelligence.multivisualization.util;
 
 import com.abixen.platform.core.exception.PlatformRuntimeException;
 
