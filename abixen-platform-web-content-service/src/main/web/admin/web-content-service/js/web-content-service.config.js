@@ -20,6 +20,7 @@
         .module('webContentService', [
             'webContentServiceStructureModule',
             'webContentServiceTemplateModule',
+            'webContentServiceWebContentModule',
             'ui.router'
         ]);
 })();
@@ -40,7 +41,7 @@
 
         $stateProvider
             .state('application.webContentService', {
-                url: '/web-content',
+                url: '/web-content-service',
                 templateUrl: '/admin/web-content-service/html/index.html',
                 controller: 'WebContentServiceController',
                 controllerAs: 'webContentService'

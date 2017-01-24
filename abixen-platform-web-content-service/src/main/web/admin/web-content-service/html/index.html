@@ -1,13 +1,13 @@
 <div class="web-content-service">
     <ul class="nav nav-tabs tabset platform-tabset">
-        <li ui-sref-active="active">
-            <a ui-sref="application.webContentService.webContent.list">Web Contents</a>
+        <li ng-class="selectedModule == 'webContentServiceWebContentModule' ? 'active':''">
+            <a ui-sref="application.webContentService.webContent.list" ng-click="selectWebContentServiceWebContent()">Web Contents</a>
         </li>
-        <li ui-sref-active="active">
-            <a ui-sref="application.webContentService.template.list">Templates</a>
+        <li ng-class="selectedModule == 'webContentServiceTemplateModule' ? 'active':''">
+            <a ui-sref="application.webContentService.template.list" ng-click="selectWebContentServiceTemplate()">Templates</a>
         </li>
-        <li ui-sref-active="active">
-            <a ui-sref="application.webContentService.structure.list">Structures</a>
+        <li ng-class="selectedModule == 'webContentServiceStructureModule' ? 'active':''">
+            <a ui-sref="application.webContentService.structure.list" ng-click="selectWebContentServiceStructure()">Structures</a>
         </li>
     </ul>
     <ui-view></ui-view>

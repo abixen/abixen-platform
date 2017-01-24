@@ -8,7 +8,7 @@ abixen:
       -
         name: web-content-sidebar-item
         title: Web Contents
-        angularJsState: application.webContentService
+        angularJsState: application.webContentService.webContent.list
         orderIndex: 10
         iconClass: fa fa-file-image-o
     modules:
