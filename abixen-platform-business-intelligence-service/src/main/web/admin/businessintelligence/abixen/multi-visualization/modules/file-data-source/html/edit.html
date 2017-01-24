@@ -19,7 +19,7 @@
             </div>
             <label for="fileDataInput" class="control-label">File data</label>
             <select name="fileData" class="form-control" id="fileDataInput"
-                    ng-model="fileDataSourceDetails.entity.fileData" ng-required="true"
+                    ng-model="fileDataSourceDetails.entity.dataFile" ng-required="true"
                     ng-change="fileDataSourceDetails.getColumns(fileDataSourceDetails.entity.fileData)"
                     ng-options="fileData as fileData.name for fileData in fileDataSourceDetails.fileDatas track by fileData.id">
             </select>
