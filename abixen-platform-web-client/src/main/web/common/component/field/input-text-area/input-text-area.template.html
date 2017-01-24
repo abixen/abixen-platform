@@ -1,6 +1,6 @@
 <div class="form-group"
      show-errors>
-    <label for="{{inputTextArea.name}}Input"
+    <label ng-if="inputTextArea.label" for="{{inputTextArea.name}}Input"
            class="control-label">{{inputTextArea.label}}</label>
     <textarea ng-model="inputTextArea.model"
            name="{{inputTextArea.name}}"
