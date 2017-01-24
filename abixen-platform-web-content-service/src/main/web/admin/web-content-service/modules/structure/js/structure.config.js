@@ -36,6 +36,18 @@
                 templateUrl: '/admin/web-content-service/modules/structure/html/list.html',
                 controller: 'WebContentServiceStructureListController',
                 controllerAs: 'structureList'
+            })
+            .state('application.webContentService.structure.add', {
+                url: '/add',
+                templateUrl: '/admin/web-content-service/modules/structure/html/edit.html',
+                controller: 'WebContentDetailsController',
+                controllerAs: 'structureDetails'
+            })
+            .state('application.webContentService.structure.edit', {
+                url: '/edit/:id',
+                templateUrl: '/admin/web-content-service/modules/structure/html/edit.html',
+                controller: 'WebContentDetailsController',
+                controllerAs: 'structureDetails'
             });
     }
 })();
