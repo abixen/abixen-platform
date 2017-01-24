@@ -38,40 +38,39 @@ public class JsonFilterServiceImpl implements JsonFilterService {
     }
 
     protected String convertJsonToJpqlRecursive(Map<String, Object> jsonCriteriaMap, List<Object> parameters) {
-        String query = "( ";
+        String query = "(";
         int conditionArgumentNumber = 0;
         String currentOperator = "";
         for (String key : jsonCriteriaMap.keySet()) {
-            if (key.equals("and") || key.equals("or")) {
-                currentOperator = key.toUpperCase();
-            }
-            if (jsonCriteriaMap.get(key) instanceof Map) {
-                //TODO - probably unused condition
+            if (key.equals("group")) {
+                query = query.substring(0, query.length() - 1);
                 query += convertJsonToJpqlRecursive((Map<String, Object>) jsonCriteriaMap.get(key), parameters);
-            } else if (jsonCriteriaMap.get(key) instanceof List) {
-                for (Object criteriaObject : (List) jsonCriteriaMap.get(key)) {
-                    if (conditionArgumentNumber > 0) {
-                        query += " " + currentOperator + " ";
+                query = query.substring(0, query.length() - 1);
+            } else {
+                if (key.equals("operator")) {
+                    currentOperator = jsonCriteriaMap.get(key).toString().toUpperCase();
+                } else if (key.equals("rules")) {
+                    for (Object criteriaObject : (List) jsonCriteriaMap.get(key)) {
+                        if (conditionArgumentNumber > 0) {
+                            query += currentOperator + " ";
+                        }
+                        if (criteriaObject instanceof Map) {
+                            Map<String, Object> criteriaMap = (Map<String, Object>) criteriaObject;
+                            if (criteriaMap.keySet().contains("group")) {
+                                query += convertJsonToJpqlRecursive(criteriaMap, parameters);
+                            } else {
+                                query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + criteriaMap.get("data") + " ";
+                            }
+                        }
+                        conditionArgumentNumber++;
                     }
-                    if (criteriaObject instanceof Map) {
-                        Map<String, Object> criteriaMap = (Map<String, Object>) criteriaObject;
-                        if (criteriaMap.keySet().contains("or") || criteriaMap.keySet().contains("and")) {
-                            query += convertJsonToJpqlRecursive(criteriaMap, parameters);
-                        } //else {
-                            //String condition = SqlParameterUtil.getSqlConditionLeftArgument(getDomainClass(), (String) criteriaMap.get("name")) + " " + SqlOperatorUtil.convertJsonToSqlOperator((String) criteriaMap.get("operation"));
-                            //query += condition + " :p" + parameters.size();
-                            //parameters.add(SqlParameterUtil.getParameterValue(getDomainClass(), (String) criteriaMap.get("name"), criteriaMap.get("value")));
-                        //}
+                    if (query.substring(query.length() - 1, query.length()).equals(" ")) {
+                        query = query.substring(0, query.length() - 1);
                     }
-                    conditionArgumentNumber++;
                 }
             }
-            conditionArgumentNumber++;
-            //TODO - probably unused condition
         }
-        query += " )";
+        query += ")";
         return query;
     }
-
-
 }
