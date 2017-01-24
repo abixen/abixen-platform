@@ -15,6 +15,7 @@
 package com.abixen.platform.core.model.impl;
 
 import com.abixen.platform.core.model.LayoutBase;
+import com.abixen.platform.core.model.SecurableModel;
 import com.abixen.platform.core.model.web.LayoutWeb;
 
 import javax.persistence.*;
@@ -23,7 +24,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "layout")
 @SequenceGenerator(sequenceName = "layout_seq", name = "layout_seq", allocationSize = 1)
-public class Layout extends AuditingModel implements LayoutBase, LayoutWeb {
+public class Layout extends AuditingModel implements LayoutBase, LayoutWeb, SecurableModel<User> {
 
     @Id
     @Column(name = "id")

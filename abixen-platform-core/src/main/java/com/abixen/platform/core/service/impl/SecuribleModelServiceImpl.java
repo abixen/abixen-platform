@@ -16,8 +16,9 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.exception.PlatformCoreException;
 import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.service.ModuleService;
-import com.abixen.platform.core.service.PageService;
+import com.abixen.platform.core.repository.LayoutRepository;
+import com.abixen.platform.core.repository.ModuleRepository;
+import com.abixen.platform.core.repository.PageRepository;
 import com.abixen.platform.core.service.SecuribleModelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +30,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SecuribleModelServiceImpl implements SecuribleModelService {
 
-    private final ModuleService moduleService;
-    private final PageService pageService;
+    private final ModuleRepository moduleRepository;
+    private final PageRepository pageRepository;
+    private final LayoutRepository layoutRepository;
 
     @Autowired
-    public SecuribleModelServiceImpl(ModuleService moduleService,
-                                     PageService pageService) {
-        this.moduleService = moduleService;
-        this.pageService = pageService;
-
+    public SecuribleModelServiceImpl(ModuleRepository moduleRepository,
+                                     PageRepository pageRepository,
+                                     LayoutRepository layoutRepository) {
+        this.moduleRepository = moduleRepository;
+        this.pageRepository = pageRepository;
+        this.layoutRepository = layoutRepository;
     }
 
     @Override
@@ -48,11 +51,14 @@ public class SecuribleModelServiceImpl implements SecuribleModelService {
 
         switch (domainCanonicalClassName) {
             case "com.abixen.platform.core.model.impl.Page":
-                securibleObject = pageService.findPage(securableObjectId);
+                securibleObject = pageRepository.findOne(securableObjectId);
                 break;
             case "com.abixen.platform.core.model.impl.Module":
             case "Module":
-                securibleObject = moduleService.findModule(securableObjectId);
+                securibleObject = moduleRepository.findOne(securableObjectId);
+                break;
+            case "com.abixen.platform.core.model.impl.Layout":
+                securibleObject = layoutRepository.findOne(securableObjectId);
                 break;
             default:
                 throw new PlatformCoreException("Wrong domainCanonicalClassName value: " + domainCanonicalClassName);
