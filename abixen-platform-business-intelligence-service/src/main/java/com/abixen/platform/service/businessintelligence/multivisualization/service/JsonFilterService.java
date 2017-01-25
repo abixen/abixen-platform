@@ -14,7 +14,10 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.service;
 
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+
 public interface JsonFilterService {
 
-    String convertJsonToJpql(String jsonCriteria);
+    String convertJsonToJpql(String jsonCriteria, ResultSetMetaData rsmd) throws SQLException;
 }

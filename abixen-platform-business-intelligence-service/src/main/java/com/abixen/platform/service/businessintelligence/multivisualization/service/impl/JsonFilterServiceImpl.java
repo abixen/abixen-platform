@@ -14,37 +14,42 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.service.impl;
 
+import com.abixen.platform.service.businessintelligence.multivisualization.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualization.service.JsonFilterService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.lang.NotImplementedException;
 import org.springframework.stereotype.Service;
 
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 
 @Service
 public class JsonFilterServiceImpl implements JsonFilterService {
 
     @Override
-    public String convertJsonToJpql(String jsonCriteria) {
+    public String convertJsonToJpql(String jsonCriteria, ResultSetMetaData rsmd) throws SQLException {
         Map<String, Object> jsonCriteriaMap = new Gson().fromJson(jsonCriteria, new TypeToken<HashMap<String, Object>>() {
         }.getType());
 
         List<Object> queryParameters = new ArrayList<Object>();
-        return convertJsonToJpqlRecursive(jsonCriteriaMap, queryParameters);
+        return convertJsonToJpqlRecursive(jsonCriteriaMap, queryParameters, getColumnTypeMapping(rsmd));
     }
 
-    protected String convertJsonToJpqlRecursive(Map<String, Object> jsonCriteriaMap, List<Object> parameters) {
+    protected String convertJsonToJpqlRecursive(Map<String, Object> jsonCriteriaMap, List<Object> parameters, Map<String, String> typeMapping) {
         String query = "(";
         int conditionArgumentNumber = 0;
         String currentOperator = "";
         for (String key : jsonCriteriaMap.keySet()) {
             if (key.equals("group")) {
                 query = query.substring(0, query.length() - 1);
-                query += convertJsonToJpqlRecursive((Map<String, Object>) jsonCriteriaMap.get(key), parameters);
+                query += convertJsonToJpqlRecursive((Map<String, Object>) jsonCriteriaMap.get(key), parameters, typeMapping);
                 query = query.substring(0, query.length() - 1);
             } else {
                 if (key.equals("operator")) {
@@ -57,9 +62,20 @@ public class JsonFilterServiceImpl implements JsonFilterService {
                         if (criteriaObject instanceof Map) {
                             Map<String, Object> criteriaMap = (Map<String, Object>) criteriaObject;
                             if (criteriaMap.keySet().contains("group")) {
-                                query += convertJsonToJpqlRecursive(criteriaMap, parameters);
+                                query += convertJsonToJpqlRecursive(criteriaMap, parameters, typeMapping);
                             } else {
-                                query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + criteriaMap.get("data") + " ";
+                                if (typeMapping == null) {
+                                    query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + criteriaMap.get("data") + " ";
+                                } else {
+                                    String fieldTypeName = typeMapping.get(criteriaMap.get("field").toString());
+                                    String data = "";
+                                    if (fieldTypeName == null) {
+                                        data = criteriaMap.get("data").toString();
+                                    } else {
+                                        data = prepareDataSection(DataValueType.valueOf(fieldTypeName), criteriaMap.get("data").toString());
+                                    }
+                                    query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + data + " ";
+                                }
                             }
                         }
                         conditionArgumentNumber++;
@@ -72,5 +88,40 @@ public class JsonFilterServiceImpl implements JsonFilterService {
         }
         query += ")";
         return query;
+    }
+
+    private String prepareDataSection(DataValueType dataValueType, String data) {
+        switch (dataValueType) {
+            case DOUBLE:
+                return data;
+            case DATE:
+                return "\"" + data + "\"";
+            case INTEGER:
+                return data;
+            case STRING:
+                return "\"" + data + "\"";
+            default: throw new NotImplementedException("Not recognized column type.");
+        }
+    }
+
+    private Map<String, String> getColumnTypeMapping(ResultSetMetaData rsmd) throws SQLException {
+        int columnCount = rsmd.getColumnCount();
+        Map<String, String> columnTypeMapping = new HashMap<>();
+
+        IntStream.range(1, columnCount + 1).forEach(i -> {
+            try {
+                String columnTypeName = rsmd.getColumnTypeName(i);
+                if ("BIGINT".equals(columnTypeName)) {
+                    columnTypeName = "INTEGER";
+                }
+                if ("VARCHAR".equals(columnTypeName)) {
+                    columnTypeName = "STRING";
+                }
+                columnTypeMapping.put(rsmd.getColumnName(i).toUpperCase(), columnTypeName.toUpperCase());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+        return columnTypeMapping;
     }
 }
