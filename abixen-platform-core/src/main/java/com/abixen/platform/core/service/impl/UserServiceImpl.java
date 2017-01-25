@@ -41,7 +41,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,36 +50,40 @@ import java.util.Date;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final int GENERATOR_LENGTH = 12;
-    private static final int GENERATOR_NO_OF_CAPS_ALPHA = 2;
-    private static final int GENERATOR_NO_OF_DIGITS = 8;
-    private static final int GENERATOR_NO_OF_SPECIAL_CHARS = 2;
+    private final int generatorLength = 12;
+    private final int generatorNoOfCAPSAlpha = 2;
+    private final int generatorNoOfDigits = 8;
+    private final int generatorNoOfSpecialChars = 2;
 
-    @Resource
-    private UserRepository userRepository;
-
-    @Autowired
-    private DomainBuilderService domainBuilderService;
-
-    @Autowired
-    private PasswordGeneratorService passwordGeneratorService;
+    private final UserRepository userRepository;
+    private final DomainBuilderService domainBuilderService;
+    private final PasswordGeneratorService passwordGeneratorService;
+    private final RoleService roleService;
+    private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+    public UserServiceImpl(UserRepository userRepository,
+                           DomainBuilderService domainBuilderService,
+                           PasswordGeneratorService passwordGeneratorService,
+                           RoleService roleService,
+                           AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
+        this.userRepository = userRepository;
+        this.domainBuilderService = domainBuilderService;
+        this.passwordGeneratorService = passwordGeneratorService;
+        this.roleService = roleService;
+        this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
+    }
 
     @Override
     public String generateUserPassword() {
-        return passwordGeneratorService.generate(GENERATOR_LENGTH, GENERATOR_NO_OF_CAPS_ALPHA, GENERATOR_NO_OF_DIGITS, GENERATOR_NO_OF_SPECIAL_CHARS);
+        return passwordGeneratorService.generate(generatorLength, generatorNoOfCAPSAlpha, generatorNoOfDigits, generatorNoOfSpecialChars);
     }
 
     @Override
     public User buildUser(UserForm userForm, String userPassword) {
-        log.debug("buildUser() - userForm: " + userForm);
+        log.debug("buildUser() - userForm: {}", userForm);
 
-        log.debug("Generated password: " + userPassword);
+        log.debug("Generated password: {}", userPassword);
 
         UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
         userBuilder.credentials(userForm.getUsername(), userPassword);
@@ -93,13 +96,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        log.debug("createUser() - user: " + user);
+        log.debug("createUser() - user: {}", user);
         return userRepository.save(user);
     }
 
     @Override
     public UserForm updateUser(UserForm userForm) {
-        log.debug("updateUser() - userForm: " + userForm);
+        log.debug("updateUser() - userForm: {}", userForm);
 
         User user = findUser(userForm.getId());
         user.setUsername(userForm.getUsername());
@@ -117,61 +120,60 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(User user) {
-        log.debug("updateUser() - user: " + user);
+        log.debug("updateUser() - user: {}", user);
         return userRepository.save(user);
     }
 
     @Override
     public void deleteUser(Long id) {
-        log.debug("deleteUser() - id: " + id);
+        log.debug("deleteUser() - id: {}", id);
         userRepository.delete(id);
     }
 
     @Override
     public Page<User> findAllUsers(Pageable pageable, UserSearchForm userSearchForm) {
-        log.debug("findAllUsers() - pageable: " + pageable);
+        log.debug("findAllUsers() - pageable: {}", pageable);
         return userRepository.findAll(pageable, userSearchForm);
     }
 
     @Override
     public User findUser(Long id) {
-        log.debug("findUser() - id: " + id);
+        log.debug("findUser() - id: {}", id);
         return userRepository.findOne(id);
     }
 
     @Override
     public User buildUserRoles(UserRolesForm userRolesForm) {
-        log.debug("buildUserRoles() - userRolesForm: " + userRolesForm);
+        log.debug("buildUserRoles() - userRolesForm: {}", userRolesForm);
 
         User user = findUser(userRolesForm.getUser().getId());
         user.getRoles().clear();
 
-        for (UserRoleDto userRoleDto : userRolesForm.getUserRoles()) {
-            if (userRoleDto.isSelected()) {
-                user.getRoles().add(roleService.findRole(userRoleDto.getRole().getId()));
-            }
-        }
+        userRolesForm.getUserRoles().stream().filter(UserRoleDto::isSelected).forEach(userRoleDto -> {
+            user.getRoles().add(roleService.findRole(userRoleDto.getRole().getId()));
+        });
+
         return user;
     }
 
     @Override
     public User findUser(String username) {
-        log.debug("findUser() - username: " + username);
+        log.debug("findUser() - username: {}", username);
         return userRepository.findByUsername(username);
     }
 
     @Override
     public User activate(String userHashKey) {
-        log.info("Activation user with hash key " + userHashKey);
+        log.info("Activation user with hash key {}", userHashKey);
         User user = userRepository.findByHashKey(userHashKey);
 
         if (user == null) {
-            log.error("Cannot activate user with hash key " + userHashKey + ". Wrong hash key.");
+            log.error("Cannot activate user with hash key {}. Wrong hash key.", userHashKey);
             throw new UserActivationException("Cannot activate user because a hash key is wrong.");
         }
 
         if (user.getState().equals(UserState.ACTIVE)) {
-            log.warn("Cannot activate user " + user.getUsername() + " with hash key " + userHashKey + ". User is active already.");
+            log.warn("Cannot activate user {} with hash key {}. User is active already.", user.getUsername(), userHashKey);
             throw new UserActivationException("Cannot activate user because the user is active already.");
         }
 
