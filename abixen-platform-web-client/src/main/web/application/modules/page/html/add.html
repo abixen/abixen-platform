@@ -26,6 +26,14 @@
                                      validators="pageDetails.validators"
                                      rows="5">
                     </input-text-area>
+
+                    <div class="form-group">
+                        <label class="control-label">Icon</label>
+                        <div class="row form-group">
+                            <i class="{{(pageDetails.entity.page.icon==undefined)?'fa fa-file-text-o':pageDetails.entity.page.icon}}"></i>
+                            <span class="icon-spacing"></span><a href="" ng-click="pageDetails.changeIcon()">Change</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">

@@ -121,5 +121,8 @@ body {
   @include modal-dialog($warning-color);
 }
 
+.icon-spacing {
+  padding-right: 20px;
+}
 
 
