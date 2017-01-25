@@ -22,16 +22,14 @@
 
     UserDetailsController.$inject = [
         '$scope',
-        '$http',
         '$state',
         '$stateParams',
         '$log',
         'User',
-        '$parse',
         'responseHandler'
     ];
 
-    function UserDetailsController($scope, $http, $state, $stateParams, $log, User, $parse, responseHandler) {
+    function UserDetailsController($scope, $state, $stateParams, $log, User, responseHandler) {
         $log.log('UserDetailController');
 
         var userDetails = this;

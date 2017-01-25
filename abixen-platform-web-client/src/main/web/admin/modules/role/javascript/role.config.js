@@ -40,12 +40,14 @@
             .state('application.roles.add', {
                 url: '/add',
                 templateUrl: '/admin/modules/role/html/edit.html',
-                controller: 'RoleDetailController'
+                controller: 'RoleDetailsController',
+                controllerAs: 'roleDetails'
             })
             .state('application.roles.edit', {
                 url: '/edit/:id',
                 templateUrl: '/admin/modules/role/html/edit.html',
-                controller: 'RoleDetailController'
+                controller: 'RoleDetailsController',
+                controllerAs: 'roleDetails'
             })
             .state('application.roles.permissions', {
                 url: '/permissions/:id',

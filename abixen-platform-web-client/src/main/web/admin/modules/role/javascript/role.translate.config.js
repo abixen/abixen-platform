@@ -28,12 +28,14 @@
 
         $translateProvider.translations('POLISH', {
             'module.role.name.label': 'Nazwa',
+            'module.role.name.placeholder': 'Np. Administrator',
             'module.role.type.label': 'Rodzaj roli',
             'module.role.type.select': 'Wybierz rodzaj roli'
         });
 
         $translateProvider.translations('ENGLISH', {
             'module.role.name.label': 'Name',
+            'module.role.name.placeholder': 'E.g. Administrator',
             'module.role.type.label': 'Role type',
             'module.role.type.select': 'Select role type'
         });
