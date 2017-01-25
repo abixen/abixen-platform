@@ -29,6 +29,7 @@ import com.abixen.platform.core.service.DomainBuilderService;
 import com.abixen.platform.core.service.PasswordGeneratorService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.UserService;
+import com.abixen.platform.core.util.IpAddressUtil;
 import com.abixen.platform.core.util.UserBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileExistsException;
@@ -39,8 +40,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -85,12 +89,14 @@ public class UserServiceImpl implements UserService {
 
         log.debug("Generated password: {}", userPassword);
 
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+
         UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
         userBuilder.credentials(userForm.getUsername(), userPassword);
         userBuilder.screenName(userForm.getScreenName());
         userBuilder.personalData(userForm.getFirstName(), userForm.getMiddleName(), userForm.getLastName());
         userBuilder.additionalData(userForm.getBirthday(), userForm.getJobTitle(), userForm.getSelectedLanguage(), userForm.getGender());
-        userBuilder.registrationIp("127.0.0.1");
+        userBuilder.registrationIp(IpAddressUtil.getClientIpAddress(request));
         return userBuilder.build();
     }
 
