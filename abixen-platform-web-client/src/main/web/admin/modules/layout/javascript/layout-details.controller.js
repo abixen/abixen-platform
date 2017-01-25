@@ -122,7 +122,7 @@
         }
 
         angular.element(document).ready(function () {
-            var editor = CodeMirror.fromTextArea(document.getElementById("contentInput"), {
+            layoutDetails.editor = CodeMirror.fromTextArea(document.getElementById("contentInput"), {
                 lineNumbers: true,
                 lineWrapping: true,
                 mode: "text/html",
@@ -130,5 +130,12 @@
                 theme: 'default'
             });
         });
+
+        $scope.$watch('layoutDetails.entity.content', function () {
+            if (layoutDetails.entity.content != null) {
+                layoutDetails.editor.getDoc().setValue(layoutDetails.entity.content);
+            }
+        });
+
     }
 })();
