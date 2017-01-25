@@ -59,6 +59,14 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public RoleForm updateRole(RoleForm roleForm) {
+        log.debug("updateRole() - roleForm: {}", roleForm);
+        Role role = roleRepository.findOne(roleForm.getId());
+        role.setName(roleForm.getName());
+        return new RoleForm(roleRepository.save(role));
+    }
+
+    @Override
     public void deleteRole(Long id) {
         log.debug("deleteRole() - id: " + id);
         roleRepository.delete(id);

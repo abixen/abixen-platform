@@ -89,9 +89,15 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Role updateRole(@PathVariable("id") Long id, @RequestBody Role role) {
-        log.debug("update() - id: " + id + ", role: " + role);
-        return roleService.updateRole(role);
+    public FormValidationResultDto updateRole(@PathVariable("id") Long id, @RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
+        log.debug("update() - id: " + id + ", roleForm: " + roleForm);
+
+        if (bindingResult.hasErrors()) {
+            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultDto(roleForm, formErrors);
+        }
+
+        return new FormValidationResultDto(roleService.updateRole(roleForm));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

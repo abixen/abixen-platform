@@ -23,6 +23,8 @@ import javax.validation.constraints.NotNull;
 
 public class RoleForm implements Form {
 
+    private Long id;
+
     @NotNull
     @Length(min = RoleBase.ROLE_NAME_MIN_LENGTH, max = RoleBase.ROLE_NAME_MAX_LENGTH)
     private String name;
@@ -32,6 +34,7 @@ public class RoleForm implements Form {
     }
 
     public RoleForm(Role role) {
+        this.id = role.getId();
         this.name = role.getName();
     }
 
@@ -42,5 +45,14 @@ public class RoleForm implements Form {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
 }

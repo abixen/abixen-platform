@@ -30,6 +30,8 @@ public interface RoleService {
 
     Role updateRole(Role role);
 
+    RoleForm updateRole(RoleForm roleForm);
+
     void deleteRole(Long id);
 
     Page<Role> findAllRoles(Pageable pageable, RoleSearchForm roleSearchForm);
