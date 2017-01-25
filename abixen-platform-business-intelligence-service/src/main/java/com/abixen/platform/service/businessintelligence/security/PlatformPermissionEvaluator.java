@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.security;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.security.PlatformUser;
 import com.abixen.platform.service.businessintelligence.integration.SecurityIntegrationClient;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +53,7 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
         PlatformUser platformUser = (PlatformUser) authentication.getPrincipal();
         log.debug("platformWebUser" + platformUser.getId());
 
-        return securityIntegrationClient.hasPermission(platformUser.getUsername(), (Long) targetId, targetType, (String) permission);
+        return securityIntegrationClient.hasPermission(platformUser.getUsername(), (Long) targetId, AclClassName.getByName(targetType), (String) permission);
     }
 
 }

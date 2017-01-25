@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.integration;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.service.businessintelligence.client.SecurityClient;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +35,14 @@ public class SecurityIntegrationClient {
     @HystrixCommand(fallbackMethod = "hasPermissionFallback")
     public boolean hasPermission(String username,
                                  Long securableObjectId,
-                                 String securableObjectClassName,
+                                 AclClassName aclClassName,
                                  String permissionName) {
-        return securityClient.hasPermission(username, securableObjectId, securableObjectClassName, permissionName);
+        return securityClient.hasPermission(username, securableObjectId, aclClassName, permissionName);
     }
 
     private boolean hasPermissionFallback(String username,
                                           Long securableObjectId,
-                                          String securableObjectClassName,
+                                          AclClassName aclClassName,
                                           String permissionName) {
         log.error("hasPermissionFallback: {}", username);
         return false;

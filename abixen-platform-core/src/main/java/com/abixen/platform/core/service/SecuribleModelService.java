@@ -15,9 +15,10 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.model.SecurableModel;
+import com.abixen.platform.core.model.enumtype.AclClassName;
 
 
 public interface SecuribleModelService {
 
-    SecurableModel getSecuribleModel(Long securableObjectId, String domainCanonicalClassName);
+    SecurableModel getSecuribleModel(Long securableObjectId, AclClassName aclClassName);
 }

@@ -16,6 +16,7 @@ package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.exception.PlatformCoreException;
 import com.abixen.platform.core.model.SecurableModel;
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.repository.LayoutRepository;
 import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.repository.PageRepository;
@@ -44,24 +45,23 @@ public class SecuribleModelServiceImpl implements SecuribleModelService {
     }
 
     @Override
-    public SecurableModel getSecuribleModel(Long securableObjectId, String domainCanonicalClassName) {
+    public SecurableModel getSecuribleModel(Long securableObjectId, AclClassName aclClassName) {
         SecurableModel securibleObject;
 
-        log.debug("getSecuribleModel() - securableObjectId={}, domainCanonicalClassName={}", securableObjectId, domainCanonicalClassName);
+        log.debug("getSecuribleModel() - securableObjectId={}, aclClassName={}", securableObjectId, aclClassName);
 
-        switch (domainCanonicalClassName) {
-            case "com.abixen.platform.core.model.impl.Page":
+        switch (aclClassName) {
+            case PAGE:
                 securibleObject = pageRepository.findOne(securableObjectId);
                 break;
-            case "com.abixen.platform.core.model.impl.Module":
-            case "Module":
+            case MODULE:
                 securibleObject = moduleRepository.findOne(securableObjectId);
                 break;
-            case "com.abixen.platform.core.model.impl.Layout":
+            case LAYOUT:
                 securibleObject = layoutRepository.findOne(securableObjectId);
                 break;
             default:
-                throw new PlatformCoreException("Wrong domainCanonicalClassName value: " + domainCanonicalClassName);
+                throw new PlatformCoreException("Unsupported aclClassName value: " + aclClassName);
         }
 
         return securibleObject;

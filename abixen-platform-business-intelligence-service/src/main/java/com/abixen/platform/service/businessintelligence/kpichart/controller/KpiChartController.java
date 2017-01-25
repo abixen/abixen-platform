@@ -14,6 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.kpichart.controller;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.kpichart.model.web.KpiChartConfigurationWeb;
 import com.abixen.platform.service.businessintelligence.kpichart.service.KpiChartConfigurationService;
@@ -35,7 +37,7 @@ public class KpiChartController {
     @Autowired
     private KpiChartConfigurationService chartConfigurationService;
 
-    @PreAuthorize("hasPermission(#moduleId, 'Module', 'MODULE_VIEW')")
+    @PreAuthorize("hasPermission(#moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{moduleId}", method = RequestMethod.GET)
     public KpiChartConfigurationWeb getKpiChartConfiguration(@PathVariable Long moduleId) {

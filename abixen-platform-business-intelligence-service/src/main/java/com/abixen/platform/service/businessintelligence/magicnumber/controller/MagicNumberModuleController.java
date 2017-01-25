@@ -14,6 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.magicnumber.controller;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.magicnumber.model.web.MagicNumberModuleWeb;
 import com.abixen.platform.service.businessintelligence.magicnumber.service.MagicNumberModuleService;
@@ -35,7 +37,7 @@ public class MagicNumberModuleController {
     @Autowired
     private MagicNumberModuleService magicNumberModuleService;
 
-    @PreAuthorize("hasPermission(#moduleId, 'Module', 'MODULE_VIEW')")
+    @PreAuthorize("hasPermission(#moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{moduleId}", method = RequestMethod.GET)
     public MagicNumberModuleWeb getMagicNumberModule(@PathVariable Long moduleId) {
@@ -43,6 +45,5 @@ public class MagicNumberModuleController {
 
         return magicNumberModuleService.findMagicNumberModuleByModuleId(moduleId);
     }
-
 
 }

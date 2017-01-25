@@ -14,6 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.kpichart.controller;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.security.PlatformWebUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,20 +31,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/application/businessintelligence/abixen/kpi-chart/init")
 public class KpiChartInitController {
 
-    @PreAuthorize("hasPermission(#id, 'Module', 'MODULE_VIEW')")
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public PlatformWebUser init(@PathVariable Long id) {
-        log.debug("init() - id:" + id);
-
-        //TODO - temporary for testing frontend loaders.
-        /*try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
+        log.debug("init() - id: {}", id);
 
         return (PlatformWebUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
-
 
 }

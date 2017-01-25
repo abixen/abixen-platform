@@ -15,6 +15,7 @@
 package com.abixen.platform.core.security;
 
 import com.abixen.platform.core.model.SecurableModel;
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.service.SecuribleModelService;
@@ -71,7 +72,7 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
             return securityService.hasUserPermissionToClass(user, PermissionName.valueOf((String) permission), targetType);
         }
 
-        SecurableModel securibleModel = securibleModelService.getSecuribleModel((Long) targetId, targetType);
+        SecurableModel securibleModel = securibleModelService.getSecuribleModel((Long) targetId, AclClassName.getByName(targetType));
 
         return securityService.hasUserPermissionToObject(user, PermissionName.valueOf((String) permission), securibleModel);
     }

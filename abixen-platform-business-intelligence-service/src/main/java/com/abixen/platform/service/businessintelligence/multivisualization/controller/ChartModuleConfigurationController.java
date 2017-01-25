@@ -16,6 +16,8 @@ package com.abixen.platform.service.businessintelligence.multivisualization.cont
 
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.util.ValidationUtil;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualization.form.ChartConfigurationForm;
@@ -46,7 +48,7 @@ public class ChartModuleConfigurationController {
         this.chartConfigurationService = chartConfigurationService;
     }
 
-    @PreAuthorize("hasPermission(#moduleId, 'Module', 'MODULE_VIEW')")
+    @PreAuthorize("hasPermission(#moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{moduleId}", method = RequestMethod.GET)
     public ChartConfigurationForm getChartConfigurationForm(@PathVariable Long moduleId) {
@@ -65,7 +67,7 @@ public class ChartModuleConfigurationController {
         return chartConfigurationForm;
     }
 
-    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, 'Module', 'MODULE_CONFIGURATION')")
+    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
@@ -81,7 +83,7 @@ public class ChartModuleConfigurationController {
         return new FormValidationResultDto(chartConfigurationFormResult);
     }
 
-    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, 'Module', 'MODULE_CONFIGURATION')")
+    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {

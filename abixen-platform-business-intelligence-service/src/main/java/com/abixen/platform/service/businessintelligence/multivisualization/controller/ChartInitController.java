@@ -14,6 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.controller;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.security.PlatformWebUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/application/businessintelligence/abixen/multi-visualization")
 public class ChartInitController {
 
-    @PreAuthorize("hasPermission(#id, 'Module', 'MODULE_VIEW')")
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public PlatformWebUser init(@PathVariable Long id) {
         log.debug("init() - id:" + id);

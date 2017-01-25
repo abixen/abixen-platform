@@ -16,6 +16,7 @@ package com.abixen.platform.core.controller;
 
 
 import com.abixen.platform.core.model.SecurableModel;
+import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.service.SecuribleModelService;
 import com.abixen.platform.core.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,9 @@ public class SecurityController {
     }
 
 
-    @RequestMapping(value = "/has-permission/{username}/{securableObjectId}/{securableObjectClassName}/{permissionName}", method = RequestMethod.GET)
-    public boolean hasPermission(@PathVariable String username, @PathVariable Long securableObjectId, @PathVariable String securableObjectClassName, @PathVariable String permissionName) {
-        SecurableModel securibleModel = securibleModelService.getSecuribleModel(securableObjectId, securableObjectClassName);
+    @RequestMapping(value = "/has-permission/{username}/{securableObjectId}/{aclClassName}/{permissionName}", method = RequestMethod.GET)
+    public boolean hasPermission(@PathVariable String username, @PathVariable Long securableObjectId, @PathVariable AclClassName aclClassName, @PathVariable String permissionName) {
+        SecurableModel securibleModel = securibleModelService.getSecuribleModel(securableObjectId, aclClassName);
         return securityService.hasPermission(username, securibleModel, permissionName);
     }
 

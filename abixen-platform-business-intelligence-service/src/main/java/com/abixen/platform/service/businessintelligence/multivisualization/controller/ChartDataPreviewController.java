@@ -14,6 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualization.controller;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.service.businessintelligence.multivisualization.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualization.service.ChartDataService;
@@ -38,13 +40,13 @@ public class ChartDataPreviewController {
         this.chartDataService = chartDataService;
     }
 
-    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, 'Module', 'MODULE_VIEW')")
+    //TODO - change POST to GET
+    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "/{seriesName}", method = RequestMethod.POST)
     public List<Map<String, DataValueWeb>> getPreviewDataForChart(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, @PathVariable("seriesName") String seriesName) {
         log.debug("getPreviewDataForChart - chartConfigurationForm: " + chartConfigurationForm);
         log.debug("getPreviewDataForChart - value: " + seriesName);
         return chartDataService.getChartDataPreview(chartConfigurationForm, seriesName);
     }
-
 
 }
