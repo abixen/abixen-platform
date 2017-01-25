@@ -54,6 +54,7 @@
 
         pageDetails.layouts = [];
         pageDetails.cancel = cancel;
+        pageDetails.changeIcon = changeIcon;
 
         readLayouts();
 
@@ -105,6 +106,12 @@
                 ];
 
             return validators;
+        }
+
+        //FIXME
+        function changeIcon() {
+            pageDetails.entity.page.icon = 'fa-flag';
+            console.log(pageDetails.entity.page.icon);
         }
     }
 })();
