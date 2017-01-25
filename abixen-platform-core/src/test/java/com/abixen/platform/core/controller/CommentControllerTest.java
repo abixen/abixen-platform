@@ -16,7 +16,6 @@ package com.abixen.platform.core.controller;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.dto.ModuleCommentDto;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
@@ -43,15 +42,12 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -139,8 +135,8 @@ public class CommentControllerTest {
         List<FormErrorDto> validErrors = mapper.readValue(jsonObject.get("formErrors").toString(),
                 mapper.getTypeFactory().constructCollectionType(ArrayList.class, FormErrorDto.class));
         assertNotNull(resForm);
-        assertTrue(validErrors.isEmpty());
-        assertTrue(resForm.getId() == 10);
+        assertFalse(validErrors.isEmpty());
+        assertTrue(resForm.getId() == null);
     }
 
     @Test
@@ -169,7 +165,7 @@ public class CommentControllerTest {
         List<FormErrorDto> validErrors = mapper.readValue(jsonObject.get("formErrors").toString(),
                 mapper.getTypeFactory().constructCollectionType(ArrayList.class, FormErrorDto.class));
         assertNotNull(resForm);
-        assertTrue(validErrors.isEmpty());
-        assertEquals(resForm.getMessage(), "Test Another Text");
+        assertFalse(validErrors.isEmpty());
+        assertEquals(resForm.getMessage(), "Test Text");
     }
 }
