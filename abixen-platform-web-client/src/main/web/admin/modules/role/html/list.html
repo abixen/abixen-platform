@@ -1,15 +1,18 @@
 <div class="row module-navigation-row">
     <div class="col-xs-12 module-navigation-col">
         <button type="button" ui-sref="application.roles.edit({id:roleList.listGridConfig.selectedEntity.id})"
-                ng-disabled="!roleList.listGridConfig.selectedEntity" class="btn btn-default pull-left">Edit Role
+                ng-disabled="!roleList.listGridConfig.selectedEntity" class="btn btn-default pull-left">
+            <i class="fa fa-pencil-square-o"></i>Edit Role
         </button>
         <span class="buttons-separator"></span>
         <button type="button" ng-click="roleList.deleteEntity(roleList.listGridConfig.selectedEntity)" ng-disabled="!roleList.listGridConfig.selectedEntity"
-                class="btn btn-warning pull-left">Delete Role
+                class="btn btn-warning pull-left">
+            <i class="fa fa-trash-o"></i>Delete Role
         </button>
         <span class="buttons-separator"></span>
         <button type="button" ui-sref="application.roles.permissions({id:roleList.listGridConfig.selectedEntity.id})"
-                ng-disabled="!roleList.listGridConfig.selectedEntity" class="btn btn-default pull-left">Define Permissions
+                ng-disabled="!roleList.listGridConfig.selectedEntity" class="btn btn-default pull-left">
+            <i class="fa fa-key"></i>Define Permissions
         </button>
     </div>
 </div>
