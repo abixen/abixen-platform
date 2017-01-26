@@ -35,7 +35,7 @@
 
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         showErrorsConfigProvider.showSuccess(true);
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/users/list');
 
         $translateProvider.preferredLanguage('ENGLISH');
 
