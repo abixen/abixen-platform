@@ -39,7 +39,8 @@ public class JsonFilterServiceImpl implements JsonFilterService {
         }.getType());
 
         List<Object> queryParameters = new ArrayList<Object>();
-        return convertJsonToJpqlRecursive(jsonCriteriaMap, queryParameters, getColumnTypeMapping(rsmd));
+        String conditionString = convertJsonToJpqlRecursive(jsonCriteriaMap, queryParameters, getColumnTypeMapping(rsmd));
+        return !"()".equals(conditionString) ? conditionString : "1=1";
     }
 
     protected String convertJsonToJpqlRecursive(Map<String, Object> jsonCriteriaMap, List<Object> parameters, Map<String, String> typeMapping) {
@@ -100,7 +101,8 @@ public class JsonFilterServiceImpl implements JsonFilterService {
                 return data;
             case STRING:
                 return "\"" + data + "\"";
-            default: throw new NotImplementedException("Not recognized column type.");
+            default:
+                throw new NotImplementedException("Not recognized column type.");
         }
     }
 
