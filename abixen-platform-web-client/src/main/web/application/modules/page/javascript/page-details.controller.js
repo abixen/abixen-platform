@@ -31,10 +31,11 @@
         'Layout',
         'applicationNavigationItems',
         'toaster',
-        'responseHandler'
+        'responseHandler',
+        'FaSelectionModalWindowServices'
     ];
 
-    function PageDetailsController($scope, $rootScope, $state, $parse, $log, $uibModalInstance, PageModel, Layout, applicationNavigationItems, toaster, responseHandler) {
+    function PageDetailsController($scope, $rootScope, $state, $parse, $log, $uibModalInstance, PageModel, Layout, applicationNavigationItems, toaster, responseHandler, FaSelectionModalWindowServices) {
         $log.log('PageDetailsController');
 
         var pageDetails = this;
@@ -108,10 +109,14 @@
             return validators;
         }
 
-        //FIXME
+
         function changeIcon() {
-            pageDetails.entity.page.icon = 'fa-flag';
-            console.log(pageDetails.entity.page.icon);
+
+            pageDetails.selectedIcon = new Array();
+            FaSelectionModalWindowServices.openSelectionDialog('Select Icon', pageDetails.selectedIcon, platformParameters.modalSelectionType.SINGLE, 'app-modal-window',
+                function () {
+                    pageDetails.entity.page.icon = pageDetails.selectedIcon[0];
+                });
         }
     }
 })();
