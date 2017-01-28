@@ -20,7 +20,9 @@ import com.abixen.platform.service.businessintelligence.multivisualization.form.
 import com.abixen.platform.service.businessintelligence.multivisualization.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.web.*;
+import com.abixen.platform.service.businessintelligence.multivisualization.service.JsonFilterService;
 import org.apache.commons.lang.NotImplementedException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
 import java.util.*;
@@ -32,14 +34,15 @@ public abstract class AbstractDatabaseService {
 
     private static final int LIMIT = 6;
 
+    @Autowired
+    private JsonFilterService jsonFilterService;
+
     public List<String> getColumns(Connection connection, String tableName) {
 
         List<String> columns = new ArrayList<>();
 
         try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
-            ResultSetMetaData rsmd = rs.getMetaData();
+            ResultSetMetaData rsmd = getDatabaseMetaData(connection, tableName);
 
             int columnCount = rsmd.getColumnCount();
 
@@ -56,6 +59,13 @@ public abstract class AbstractDatabaseService {
         }
 
         return columns;
+    }
+
+    private ResultSetMetaData getDatabaseMetaData(Connection connection, String tableName) throws SQLException {
+        Statement stmt = connection.createStatement();
+        //FixMe
+        ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
+        return rs.getMetaData();
     }
 
     public List<String> getTables(Connection connection) {
@@ -130,7 +140,9 @@ public abstract class AbstractDatabaseService {
         if (chartColumnsSet.isEmpty()) {
             return new ArrayList<>();
         }
-        return getData(connection, databaseDataSource, chartColumnsSet).subList(0, LIMIT);
+        //FixMe
+        List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, chartColumnsSet);
+        return data.subList(0, data.size() < LIMIT ? data.size() : LIMIT);
     }
 
     private List<Map<String, DataValueWeb>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet) {
@@ -138,14 +150,15 @@ public abstract class AbstractDatabaseService {
         List<Map<String, DataValueWeb>> data = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet));
+            ResultSetMetaData resultSetMetaData = getDatabaseMetaData(connection, databaseDataSource.getTable());
+            rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet, resultSetMetaData));
 
             if (rs != null) {
                 while (rs.next()) {
                     final ResultSet row = rs;
                     Map<String, DataValueWeb> rowMap = new HashMap<>();
                     chartColumnsSet.forEach(chartColumnsSetElement -> {
-                         rowMap.put(chartColumnsSetElement, getDataFromColumn(row, chartColumnsSetElement));
+                        rowMap.put(chartColumnsSetElement, getDataFromColumn(row, chartColumnsSetElement));
                     });
                     data.add(rowMap);
                 }
@@ -157,11 +170,13 @@ public abstract class AbstractDatabaseService {
         return data;
     }
 
-    private String buildQueryForChartData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet) {
+    private String buildQueryForChartData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData) throws SQLException {
         StringBuilder stringBuilder = new StringBuilder("SELECT ");
         stringBuilder.append(chartColumnsSet.toString().substring(1, chartColumnsSet.toString().length() - 1));
         stringBuilder.append(" FROM ");
         stringBuilder.append(databaseDataSource.getTable());
+        stringBuilder.append(" WHERE ");
+        stringBuilder.append(jsonFilterService.convertJsonToJpql(databaseDataSource.getFilter(), resultSetMetaData));
         return stringBuilder.toString();
     }
 
@@ -191,7 +206,8 @@ public abstract class AbstractDatabaseService {
                 return getValueAsDataSourceValueIntegerWeb(row, columnName);
             case STRING:
                 return getValueAsDataSourceValueStringWeb(row, columnName);
-            default: throw new NotImplementedException("Not recognized column type.");
+            default:
+                throw new NotImplementedException("Not recognized column type.");
         }
     }
 
