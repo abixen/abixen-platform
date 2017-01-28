@@ -1,0 +1,37 @@
+.platform-tabset {
+  color: $base-color;
+
+  li {
+    cursor: pointer;
+
+    a {
+      border-top: #F6F6F6 3px solid;
+      color: $base-color;
+      font-size: 16px;
+    }
+
+    &.active {
+      a {
+        outline: none;
+        border-top: $complementary-color 3px solid !important;
+        background: #F6F6F6 !important;
+        font-weight: bold;
+        color: $base-color;
+
+        &:hover {
+          border-top: $complementary-color-lighter 3px solid;
+          color: $base-color-lighter;
+        }
+      }
+    }
+
+    &:hover {
+      a {
+        outline: none;
+        background: #F6F6F6;
+        border-top: $complementary-color-lighter 3px solid;
+        color: $base-color-lighter;
+      }
+    }
+  }
+}
