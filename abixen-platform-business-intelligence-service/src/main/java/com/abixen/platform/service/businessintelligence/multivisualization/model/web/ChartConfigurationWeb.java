@@ -43,5 +43,8 @@ public interface ChartConfigurationWeb {
     String getAxisYName();
 
     @JsonView(WebModelJsonSerialize.class)
+    String getFilter();
+
+    @JsonView(WebModelJsonSerialize.class)
     DataSourceWeb getDataSource();
 }

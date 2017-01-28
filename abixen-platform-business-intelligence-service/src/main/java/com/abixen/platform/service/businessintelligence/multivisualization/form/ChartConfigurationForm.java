@@ -50,6 +50,9 @@ public class ChartConfigurationForm implements Form {
     @JsonView(WebModelJsonSerialize.class)
     private String axisYName;
 
+    @JsonView(WebModelJsonSerialize.class)
+    private String filter;
+
     @NotNull
     @JsonView(WebModelJsonSerialize.class)
     private DataSourceWeb dataSource;
@@ -65,6 +68,7 @@ public class ChartConfigurationForm implements Form {
         this.axisXName = chartConfiguration.getAxisXName();
         this.axisYName = chartConfiguration.getAxisYName();
         this.dataSource = chartConfiguration.getDataSource();
+        this.filter = chartConfiguration.getFilter();
     }
 
     public Long getId() {
@@ -113,6 +117,14 @@ public class ChartConfigurationForm implements Form {
 
     public void setAxisYName(String axisYName) {
         this.axisYName = axisYName;
+    }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
     }
 
     public DataSourceWeb getDataSource() {

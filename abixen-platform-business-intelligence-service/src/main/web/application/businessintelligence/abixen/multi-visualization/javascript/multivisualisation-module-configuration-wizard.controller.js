@@ -44,6 +44,7 @@
             if (moduleId) {
                 ChartModuleConfiguration.get({id: moduleId}, function (data) {
                     $scope.chartConfiguration = data;
+                    buildObjFromJson($scope.chartConfiguration.dataSetChart.domainXSeriesColumn, $scope.chartConfiguration.filter);
                     if ($scope.chartConfiguration.id == null) {
                         $scope.chartConfiguration = {
                             moduleId: $scope.moduleId,
@@ -109,6 +110,7 @@
 
         var saveConfiguration = function (configuration) {
             if (configuration === undefined) configuration = $scope.chartConfiguration;
+            configuration = prepareFilterForDomain(configuration);
             if ($scope.chartConfiguration.id) {
                 ChartModuleConfiguration.update({id: configuration.id}, configuration, function () {
                     $log.log('ChartModuleConfiguration has been updated: ', configuration);
@@ -122,6 +124,46 @@
             }
         };
 
+
+        var prepareFilterForDomain = function (configuration) {
+            $log.debug("configuration", configuration);
+            configuration.filter = parseObjToJsonCriteriaAsString(configuration.dataSetChart.domainXSeriesColumn);
+            return configuration
+        };
+
+        var parseObjToJsonCriteriaAsString = function (domainSeries) {
+            return convertToString(buildJsonFromObj(domainSeries))
+        };
+
+        var buildJsonFromObj = function (domainSeries) {
+            return {
+                group: {
+                    operator: "AND",
+                    rules: [
+                        {
+                            condition: domainSeries.filterObj.operator,
+                            field: domainSeries.dataSourceColumn.name,
+                            data: domainSeries.filterObj.value
+                        }
+                    ]
+                }
+            }
+        };
+
+        var buildObjFromJson = function (domainSeries, json) {
+            $log.debug("domainSeries: ", domainSeries);
+            $log.debug("json: ", json);
+            var jsonObj = JSON.parse(json);
+            if (jsonObj.group !== undefined) {
+                domainSeries.filterObj = {};
+                domainSeries.filterObj.operator = jsonObj.group.rules[0].condition;
+                domainSeries.filterObj.value = jsonObj.group.rules[0].data;
+            }
+        };
+
+        var convertToString = function (jsonObj) {
+            return JSON.stringify(jsonObj);
+        };
 
         var initModuleConfigurationWizardStep = function () {
             $scope.moduleConfigurationWizardStep = {};
@@ -147,6 +189,10 @@
 
             $scope.addDataSetSeries = function () {
                 $log.log('moduleConfigurationWizardStep series', $scope.chartConfiguration.dataSetChart.dataSetSeries);
+
+                if ($scope.chartConfiguration.dataSetChart.dataSetSeries === undefined) {
+                    $scope.chartConfiguration.dataSetChart.dataSetSeries = [];
+                }
 
                 if ($scope.chartConfiguration.dataSetChart.dataSetSeries.length == 0) {
                     $scope.seriesNumber = 1;
@@ -228,6 +274,7 @@
             $scope.moduleConfigurationWizardStep.getSeriesData = function () {
                 $scope.moduleConfigurationWizardStep.chart.seriesPreviewData = [];
                 if ($scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name != undefined && $scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== '') {
+                    $scope.chartConfiguration = prepareFilterForDomain($scope.chartConfiguration);
                     CharDataPreview.query({seriesName: $scope.dataSetSeriesSelected.name}, $scope.chartConfiguration, function (data) {
                         $log.log('CharDataPreview.query: ', data);
                         data.forEach(function (el) {
