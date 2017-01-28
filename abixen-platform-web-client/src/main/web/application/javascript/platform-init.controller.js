@@ -254,12 +254,7 @@
                 templateUrl: '/application/modules/user/html/edit.html',
                 size: 'md',
                 backdrop: false,
-                controller: 'UserDetailsController',
-                resolve: {
-                    userId: function () {
-                        return platformSecurity.getPlatformUser().id;
-                    }
-                }
+                controller: 'UserAccountDetailsController as userAccountDetails'
             });
         };
 

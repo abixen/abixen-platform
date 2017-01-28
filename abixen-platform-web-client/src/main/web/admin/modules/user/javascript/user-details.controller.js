@@ -121,7 +121,7 @@
                 ];
             validators['selectedLanguage'] =
                 [
-                    new NotNull(),
+                    new NotNull()
                 ];
 
             return validators;

@@ -24,6 +24,9 @@ import javax.validation.constraints.NotNull;
 public class UserChangePasswordForm implements Form {
 
     @NotNull
+    private Long id;
+
+    @NotNull
     @NotEmpty
     @Length(max = UserBase.PASSWORD_MAX_LENGTH)
     private String currentPassword;
@@ -37,6 +40,14 @@ public class UserChangePasswordForm implements Form {
     @NotEmpty
     @Length(max = UserBase.PASSWORD_MAX_LENGTH)
     private String retypeNewPassword;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCurrentPassword() {
         return currentPassword;
