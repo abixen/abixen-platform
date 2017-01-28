@@ -43,7 +43,10 @@
             .state('application', {
                 abstract: true,
                 controller: 'ApplicationController',
-                templateUrl: '/admin/html/application.html'
+                templateUrl: '/admin/html/application.html',
+                resolve: {
+                    platformSecurityResolver: platformSecurityResolver
+                }
             })
             .state('application.search', {
                 url: '/search?query',
@@ -116,6 +119,19 @@
         for (var i = 0; i < externalAdminSidebarItems.length; i++) {
             externalAdminSidebarItems[i].id = nextId++;
             applicationNavigationItemsProvider.addSidebarItem(externalAdminSidebarItems[i]);
+        }
+
+        platformSecurityResolver.$inject = ['$http', 'platformSecurity'];
+
+        function platformSecurityResolver($http, platformSecurity) {
+            console.log("platform security resolver");
+            $http
+                .get('/user', {})
+                .success(onSuccess);
+
+            function onSuccess(platformUser) {
+                platformSecurity.setPlatformUser(platformUser);
+            }
         }
     }
 })();

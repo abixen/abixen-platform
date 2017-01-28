@@ -24,12 +24,12 @@
         '$log',
         '$state',
         'applicationNavigationItems',
-        'User',
         '$translate',
-        '$filter'
+        '$filter',
+        'platformSecurity'
     ];
 
-    function platformNavigationDirective($log, $state, applicationNavigationItems, User, $translate, $filter) {
+    function platformNavigationDirective($log, $state, applicationNavigationItems, $translate, $filter, platformSecurity) {
         return {
             restrict: 'E',
             transclude: true,
@@ -38,7 +38,6 @@
                 addNewModule: '&addNewModule',
                 addNewPage: '&addNewPage',
                 logout: '&logout',
-                platformUser: '=platformUser',
                 selectedItem: '=selectedItem',
                 showDropdown: '=showDropdown',
                 editUser: '&editUser'
@@ -57,14 +56,16 @@
             scope.toggle = true;
             scope.baseUserUrl = '/api/application/users/';
             scope.avatarUrl = '';
-
+            scope.platformUser = platformSecurity.getPlatformUser();
+            scope.avatarUrl = scope.baseUserUrl + scope.platformUser.id + '/avatar/' + scope.platformUser.avatarFileName;
             scope.locales = [
                 {title: 'English', img: '/common/navigation/image/united-states_flat.png', name: 'ENGLISH'},
-                {title: 'Polish', img: '/common/navigation/image/poland_flat.png', name: 'POLISH'},
+                {title: 'Polski', img: '/common/navigation/image/poland_flat.png', name: 'POLISH'},
                 {title: 'Russian', img: '/common/navigation/image/russia_flat.png', name: 'RUSSIAN'},
                 {title: 'Spanish', img: '/common/navigation/image/spain_flat.png', name: 'SPAIN'},
                 {title: 'Ukrainian', img: '/common/navigation/image/ukraine_flat.png', name: 'UKRAINIAN'}
             ];
+            scope.selectedLocale = $filter("filter")(scope.locales, {name: scope.platformUser.selectedLanguage})[0];
 
             //  default locale is ENGLISH
             scope.selectedLocale = scope.locales[0];
@@ -115,31 +116,6 @@
             scope.$on(platformParameters.events.SIDEBAR_ELEMENT_SELECTED, function (event, id) {
                 scope.selectedItem = id;
             });
-
-            var getUser = function (id) {
-                $log.log('selected user id:', id);
-                if (id) {
-                    User.get({id: id}, function (data) {
-                        scope.user = data;
-                        scope.avatarUrl = scope.baseUserUrl + scope.user.id + '/avatar/' + scope.user.avatarFileName;
-                        $log.log('User has been got: ', scope.user);
-                        scope.selectedLocale = $filter("filter")(scope.locales, {name: scope.user.selectedLanguage})[0];
-                    });
-                } else {
-                    scope.user = {};
-                }
-            };
-            if (scope.platformUser != null) {
-                getUser(scope.platformUser.id);
-            } else {
-                scope.$watch('platformUser', function () {
-                    $log.log('scope platform user watch', scope.platformUser);
-                    if (scope.platformUser != null) {
-                        getUser(scope.platformUser.id);
-                    }
-                });
-            }
-
         }
     }
 })();

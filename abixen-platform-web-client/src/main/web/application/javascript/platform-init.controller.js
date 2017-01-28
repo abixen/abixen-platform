@@ -34,7 +34,8 @@
         'dashboard',
         'toaster',
         'modalWindow',
-        '$translate'
+        '$translate',
+        'platformSecurity'
     ];
 
     function PlatformInitController($rootScope,
@@ -50,14 +51,13 @@
                                     dashboard,
                                     toaster,
                                     modalWindow,
-                                    $translate) {
+                                    $translate,
+                                    platformSecurity) {
 
         $log.log('PlatformInitController');
 
         var applicationLoginUrl = '/login';
         var applicationAdminUrl = '/admin';
-
-        $scope.platformUser = null;
 
         $scope.logout = function () {
             $http.get('/user', {
@@ -71,16 +71,6 @@
                 window.location = applicationLoginUrl;
             });
         };
-
-        var getPlatformUser = function () {
-            $http.get('/user', {}).success(function (platformUser) {
-                $scope.platformUser = platformUser;
-                $log.log('platformUser: ', $scope.platformUser);
-                $translate.use($scope.platformUser.selectedLanguage);
-            });
-        };
-
-        getPlatformUser();
 
         $scope.showDropdown = false;
 
@@ -267,7 +257,7 @@
                 controller: 'UserDetailsController',
                 resolve: {
                     userId: function () {
-                        return $scope.platformUser.id;
+                        return platformSecurity.getPlatformUser().id;
                     }
                 }
             });

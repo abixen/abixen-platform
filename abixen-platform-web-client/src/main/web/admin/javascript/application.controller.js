@@ -24,17 +24,15 @@
         '$scope',
         '$http',
         '$log',
-        'applicationNavigationItems',
-        '$translate'
+        'applicationNavigationItems'
     ];
 
-    function ApplicationController($scope, $http, $log, applicationNavigationItems, $translate) {
+    function ApplicationController($scope, $http, $log, applicationNavigationItems) {
 
         $log.log('ApplicationController');
 
         var applicationLoginUrl = '/login';
         var applicationDashboardUrl = '/';
-        $scope.platformUser = null;
 
         $scope.logout = function () {
             $http.get('/user', {
@@ -48,12 +46,6 @@
                 window.location = applicationLoginUrl;
             });
         };
-
-        $http.get('/user', {}).success(function (platformUser) {
-            $scope.platformUser = platformUser;
-            $log.log('platformUser: ', $scope.platformUser);
-            $translate.use($scope.platformUser.selectedLanguage);
-        });
 
         var redirectAction = {
             title: 'Dashboard',

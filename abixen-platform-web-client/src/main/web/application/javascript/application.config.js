@@ -47,12 +47,28 @@
             .state('application', {
                 abstract: true,
                 controller: 'PlatformInitController',
-                templateUrl: '/application/html/index.html'
+                templateUrl: '/application/html/index.html',
+                resolve: {
+                    platformSecurityResolver: platformSecurityResolver
+                }
             });
 
         modalWindowProvider.setOkButtonClass('btn save-button add-module-btton');
         modalWindowProvider.setCancelButtonClass('btn cancel-button');
         modalWindowProvider.setWarningWindowClass('warning-modal');
+
+        platformSecurityResolver.$inject = ['$http', 'platformSecurity'];
+
+        function platformSecurityResolver($http, platformSecurity) {
+            console.log("platform security resolver");
+            $http
+                .get('/user', {})
+                .success(onSuccess);
+
+            function onSuccess(platformUser) {
+                platformSecurity.setPlatformUser(platformUser);
+            }
+        }
     }
 
     function run(editableOptions, editableThemes) {
