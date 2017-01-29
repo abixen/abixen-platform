@@ -50,6 +50,10 @@ public class ModuleCommentDto {
     @JsonView(WebModelJsonSerialize.class)
     private Date createdDate;
 
+    @JsonView(WebModelJsonSerialize.class)
+    private Integer depth;
+
+
     public ModuleCommentDto() {
     }
 

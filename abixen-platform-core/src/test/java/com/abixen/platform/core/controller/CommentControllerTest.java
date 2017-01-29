@@ -40,6 +40,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -74,20 +75,13 @@ public class CommentControllerTest {
 
         Module module = new Module();
         module.setId(3L);
+        Comment comment1 = Comment.builder().id(1L).message("Test Comment Parent").parent(null).module(module).build();
+        Comment comment2 = Comment.builder().id(2L).message("Some new 11").parent(comment1).module(module).build();
+        Comment comment3 = Comment.builder().id(3L).message("Some new 11").parent(comment2).module(module).build();
+        Comment comment4 = Comment.builder().id(4L).message("Some new 22").parent(comment3).module(module).build();
+        Comment comment5 = Comment.builder().id(5L).message("Some new 33").parent(comment2).module(module).build();
 
-        Comment comment1 = new Comment();
-        comment1.setId(1L);
-        comment1.setMessage("Test Comment Parent");
-        comment1.setParent(null);
-        comment1.setModule(module);
-        Comment comment2 = new Comment();
-        comment2.setId(2L);
-        comment2.setMessage("Test Comment Child");
-        comment2.setParent(comment1);
-        comment2.setModule(module);
-
-        inputComments.add(comment1);
-        inputComments.add(comment2);
+        inputComments.addAll(Arrays.asList(new Comment[]{comment1, comment2, comment3, comment4, comment5}));
     }
 
     @Test
@@ -108,6 +102,7 @@ public class CommentControllerTest {
 
         assertTrue(resList.size() == 1);
         assertTrue(resList.get(0).getId() == 1L);
+        assertTrue(resList.get(0).getDepth() == 4);
     }
 
     @Test

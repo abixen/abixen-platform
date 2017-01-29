@@ -1,20 +1,25 @@
 <li>
     <div class="commenter-image">
-        <img src="http://kingofwallpapers.com/profile-pics/profile-pics-007.jpg" />
+        <img src="http://kingofwallpapers.com/profile-pics/profile-pics-007.jpg"/>
     </div>
     <div>
-        <strong> &nbsp;&nbsp;{{comment.commentItem.user.firstName}}&nbsp;{{comment.commentItem.user.lastName}}&nbsp;</strong>
+        <strong>
+            &nbsp;&nbsp;{{comment.commentItem.user.firstName}}&nbsp;{{comment.commentItem.user.lastName}}&nbsp;</strong>
         <span class="date sub-text">{{comment.commentItem.createdDate | date }}</span>
     </div>
     <ul class="comment-text">
         <p class="">{{comment.commentItem.message}}</p>
     </ul>
     <ul class="sub-text" id="reply-ref-{{comment.commentItem.id}}">
-        <a ng-href ng-click="comment.openReplyForm(comment.commentItem.id)" style="cursor: pointer"><p class="">Reply</p></a>
+        <div style="display: inline">
+            <a ng-href ng-click="comment.openReplyForm(comment.commentItem.id)" style="cursor: pointer">Reply</a> &nbsp;&nbsp;
+        </div>
+        <div ng-show="comment.canEdit" style="display: inline">
+            <a ng-href ng-click="comment.openEditForm(comment.commentItem.id)" style="cursor: pointer">Edit</a>
+        </div>
     </ul>
 
-    <ul ng-repeat="child in comment.commentItem.children" style="list-style: none;">
+    <ul ng-repeat="child in comment.commentItem.children" class="without-list-style">
         <comment depth="10" comment-item="child"></comment>
     </ul>
-
 </li>

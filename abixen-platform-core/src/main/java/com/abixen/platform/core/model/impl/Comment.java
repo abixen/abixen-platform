@@ -16,12 +16,18 @@ package com.abixen.platform.core.model.impl;
 
 import com.abixen.platform.core.model.CommentBase;
 import com.abixen.platform.core.model.web.CommentWeb;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "comment")
 @SequenceGenerator(sequenceName = "comment_seq", name = "comment_seq", allocationSize = 1)
 public class Comment extends AuditingModel implements CommentBase<Comment, Module>, CommentWeb {

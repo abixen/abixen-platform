@@ -34,7 +34,7 @@
         };
     }
 
-    function CommentsDirectiveController($scope, $log, Comment) {
+    function CommentsDirectiveController($log, Comment) {
         var comments = this;
         comments.commentItems = [];
         renderComments(comments.moduleId);
@@ -43,7 +43,6 @@
             $log.info("Render comments for module:" + moduleId);
             Comment.query({moduleId: moduleId}, function (data) {
                 comments.commentItems = data;
-                $log.info("comments:" + comments.commentItems);
             });
         }
     }
