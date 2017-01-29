@@ -19,9 +19,9 @@
         .module('platformCommentModule')
         .directive('comment', commentDirective);
 
-    commentDirective.$inject = ['$log', '$http', '$compile', 'responseHandler'];
+    commentDirective.$inject = ['$log', '$http', '$compile', 'responseHandler', 'platformSecurity'];
 
-    function commentDirective($log, $http, $compile) {
+    function commentDirective($log, $http, $compile, platformSecurity) {
         var counter = 0,
             depth = null;
 
@@ -47,10 +47,12 @@
         }
     }
 
-    function CommentsDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest) {
+    function CommentsDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest, platformSecurity) {
         var comment = this;
         var addCommentForm = {};
         var replyClickCounter = 0;
+        var action;
+        var platformUser = platformSecurity.getPlatformUser();
 
         new AbstractDetailsController(comment, Comment, responseHandler, $scope,
             {
@@ -65,18 +67,49 @@
         );
 
         comment.openReplyForm = openReplyForm;
+        comment.openEditForm = openEditForm;
+        comment.canEdit = canEdit();
+
+        function canEdit() {
+            var res = angular.isDefined(comment.commentItem.user)
+                && comment.commentItem.user != null
+                && (platformUser.id === comment.commentItem.user.id);
+            return res;
+        }
 
         function openReplyForm(commentId) {
             var selector = '#reply-ref-' + commentId;
+            action = 'ADD';
+            comment.entity = {};
+            comment.entity.parentId = comment.commentItem.id;
+            comment.entity.moduleId = comment.commentItem.moduleId;
+
             if (replyClickCounter === 0) {
                 var targetElement = angular.element(document.querySelector(selector));
-                $templateRequest("/application/modules/comment/html/add.comment.template.html",false)
+                $templateRequest("/application/modules/comment/html/add.comment.template.html", false)
                     .then(function (html) {
                         addCommentForm = angular.element(html);
                         targetElement.append(addCommentForm);
                         $compile(addCommentForm)($scope);
                         replyClickCounter++;
-                });
+                    });
+            }
+        }
+
+        function openEditForm(commentId) {
+            var selector = '#reply-ref-' + commentId;
+            comment.entity = comment.commentItem;
+            action = 'EDIT';
+
+            if (replyClickCounter === 0) {
+                var targetElement = angular.element(document.querySelector(selector));
+                $templateRequest("/application/modules/comment/html/add.comment.template.html", false)
+                    .then(function (html) {
+                        addCommentForm = angular.element(html);
+                        targetElement.append(addCommentForm);
+                        $compile(addCommentForm)($scope);
+                        replyClickCounter++;
+                    });
             }
         }
 
@@ -94,11 +127,16 @@
             addCommentForm.remove();
             replyClickCounter = 0;
             var curChildren = comment.commentItem.children;
-            if(angular.isUndefined(curChildren) || curChildren === null){
-                comment.commentItem.children = [comment.entity];
-            }else{
-                comment.commentItem.children.push(comment.entity);
+
+            if (action === 'ADD') {
+                if (angular.isUndefined(curChildren) || curChildren === null) {
+                    comment.commentItem.children = [comment.entity];
+                } else {
+                    comment.commentItem.children.push(comment.entity);
+                }
             }
         }
+
+
     }
 })();

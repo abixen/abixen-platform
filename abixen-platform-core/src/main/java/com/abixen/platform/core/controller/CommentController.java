@@ -52,10 +52,30 @@ public class CommentController {
         List<ModuleCommentDto> rootComments = groupByParent.get(0L);
         if (rootComments != null) {
             populateChildren(rootComments, groupByParent);
+            calculateMaxDepth(rootComments, 0);
             return rootComments;
         } else {
             return Collections.emptyList();
         }
+    }
+
+    private Integer calculateMaxDepth(List<ModuleCommentDto> rootComments, Integer depth) {
+        int thisLevelMax = depth;
+        depth++;
+        for (ModuleCommentDto dto : rootComments) {
+            if (!CollectionUtils.isEmpty(dto.getChildren())) {
+                int curRes = calculateMaxDepth(dto.getChildren(), depth);
+                if (curRes > thisLevelMax) {
+                    thisLevelMax = curRes;
+                }
+            } else {
+                if (depth > thisLevelMax) {
+                    thisLevelMax = depth;
+                }
+            }
+            dto.setDepth(thisLevelMax);
+        }
+        return thisLevelMax;
     }
 
     private void populateChildren(List<ModuleCommentDto> rootComments, Map<Long, List<ModuleCommentDto>> groupByParent) {
@@ -73,7 +93,7 @@ public class CommentController {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(commentForm, formErrors);
         }
-        CommentForm savedForm =  commentService.saveComment(commentForm);
+        CommentForm savedForm = commentService.saveComment(commentForm);
         return new FormValidationResultDto(savedForm);
     }
 
