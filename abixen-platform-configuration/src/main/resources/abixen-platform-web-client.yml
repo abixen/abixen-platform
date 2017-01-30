@@ -55,6 +55,8 @@ hystrix:
 
 spring:
   profiles: cloud
+  zipkin:
+    baseUrl: http://zipkin:9411
 
 eureka:
   instance:
@@ -71,6 +73,8 @@ eureka:
 
 spring:
   profiles: dev
+  zipkin:
+    baseUrl: http://localhost:9411
 
 eureka:
   instance:

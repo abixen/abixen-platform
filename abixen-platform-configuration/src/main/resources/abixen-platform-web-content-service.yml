@@ -14,16 +14,18 @@ spring:
     host: redis
     port: 6379
   rabbitmq:
-    host: rabbit-mq
+    host: rabbitmq
     port: 5672
     username: guest
     password: guest
+  zipkin:
+    baseUrl: http://zipkin:9411
 platform:
   webcontent:
     jdbc:
       driverClassName: org.postgresql.Driver
       dialect: org.hibernate.dialect.PostgreSQLDialect
-      databaseUrl: jdbc:postgresql://web-content-service-postgres-database:5432/abixen_platform_web_content
+      databaseUrl: jdbc:postgresql://web-content-service-postgres-database:5432/abixen_platform_web_content_service
       username: abixen
       password: fy2Lkxw201sV
 eureka:
@@ -51,6 +53,8 @@ spring:
     port: 5672
     username: guest
     password: guest
+  zipkin:
+    baseUrl: http://localhost:9411
 platform:
   webcontent:
       jdbc:
