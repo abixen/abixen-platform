@@ -37,9 +37,11 @@ public class JsonFilterServiceImpl implements JsonFilterService {
     public String convertJsonToJpql(String jsonCriteria, ResultSetMetaData rsmd) throws SQLException {
         Map<String, Object> jsonCriteriaMap = new Gson().fromJson(jsonCriteria, new TypeToken<HashMap<String, Object>>() {
         }.getType());
-
-        List<Object> queryParameters = new ArrayList<Object>();
-        String conditionString = convertJsonToJpqlRecursive(jsonCriteriaMap, queryParameters, getColumnTypeMapping(rsmd));
+        String conditionString = "()";
+        if (jsonCriteriaMap != null && jsonCriteriaMap.size() > 0) {
+            List<Object> queryParameters = new ArrayList<Object>();
+            conditionString = convertJsonToJpqlRecursive(jsonCriteriaMap, queryParameters, getColumnTypeMapping(rsmd));
+        }
         return !"()".equals(conditionString) ? conditionString : "1=1";
     }
 
@@ -65,17 +67,19 @@ public class JsonFilterServiceImpl implements JsonFilterService {
                             if (criteriaMap.keySet().contains("group")) {
                                 query += convertJsonToJpqlRecursive(criteriaMap, parameters, typeMapping);
                             } else {
-                                if (typeMapping == null) {
-                                    query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + criteriaMap.get("data") + " ";
-                                } else {
-                                    String fieldTypeName = typeMapping.get(criteriaMap.get("field").toString());
-                                    String data = "";
-                                    if (fieldTypeName == null) {
-                                        data = criteriaMap.get("data").toString();
+                                if (criteriaMap.get("field") != null && criteriaMap.get("condition") != null && criteriaMap.get("data") != null) {
+                                    if (typeMapping == null) {
+                                        query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + criteriaMap.get("data") + " ";
                                     } else {
-                                        data = prepareDataSection(DataValueType.valueOf(fieldTypeName), criteriaMap.get("data").toString());
+                                        String fieldTypeName = typeMapping.get(criteriaMap.get("field").toString());
+                                        String data = "";
+                                        if (fieldTypeName == null) {
+                                            data = criteriaMap.get("data").toString();
+                                        } else {
+                                            data = prepareDataSection(DataValueType.valueOf(fieldTypeName), criteriaMap.get("data").toString());
+                                        }
+                                        query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + data + " ";
                                     }
-                                    query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + data + " ";
                                 }
                             }
                         }

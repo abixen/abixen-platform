@@ -54,6 +54,7 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
                 .basic(chartConfigurationForm.getModuleId(), chartConfigurationForm.getChartType())
                 .data(chartConfigurationForm.getDataSetChart(), databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
                 .axis(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
+                .filter(chartConfigurationForm.getFilter())
                 .build();
     }
 
@@ -72,6 +73,7 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
                 .basic(chartConfigurationForm.getModuleId(), chartConfigurationForm.getChartType())
                 .data(chartConfigurationForm.getDataSetChart(), databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
                 .axis(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
+                .filter(chartConfigurationForm.getFilter())
                 .build();
 
         return new ChartConfigurationForm(updateChartConfiguration(chartConfigurationUpdated));

@@ -32,5 +32,7 @@ public interface ChartConfigurationBuilder {
 
     ChartConfigurationBuilder axis(String axisXName, String axisYName);
 
+    ChartConfigurationBuilder filter(String filter);
+
 }
 

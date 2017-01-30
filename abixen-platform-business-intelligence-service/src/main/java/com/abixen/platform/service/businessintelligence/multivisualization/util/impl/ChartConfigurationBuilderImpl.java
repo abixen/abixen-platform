@@ -100,6 +100,11 @@ public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfigurat
         return this;
     }
 
+    @Override
+    public ChartConfigurationBuilder filter(String filter) {
+        this.product.setFilter(filter);
+        return this;
+    }
 
     @Override
     protected void initProduct() {

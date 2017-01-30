@@ -21,6 +21,7 @@
             <column name="axis_y_name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="filter" type="clob"/>
             <column name="chart_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>

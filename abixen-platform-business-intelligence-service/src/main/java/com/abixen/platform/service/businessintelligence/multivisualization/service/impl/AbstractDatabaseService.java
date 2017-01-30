@@ -113,7 +113,7 @@ public abstract class AbstractDatabaseService {
         if (chartColumnsSet.isEmpty()) {
             return new ArrayList<>();
         }
-        return getData(connection, databaseDataSource, chartColumnsSet);
+        return getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm);
     }
 
     private Set<String> getDomainColumn(ChartConfigurationForm chartConfigurationForm) {
@@ -141,17 +141,17 @@ public abstract class AbstractDatabaseService {
             return new ArrayList<>();
         }
         //FixMe
-        List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, chartColumnsSet);
+        List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm);
         return data.subList(0, data.size() < LIMIT ? data.size() : LIMIT);
     }
 
-    private List<Map<String, DataValueWeb>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet) {
+    private List<Map<String, DataValueWeb>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ChartConfigurationForm chartConfigurationForm) {
         ResultSet rs;
         List<Map<String, DataValueWeb>> data = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
             ResultSetMetaData resultSetMetaData = getDatabaseMetaData(connection, databaseDataSource.getTable());
-            rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet, resultSetMetaData));
+            rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet, resultSetMetaData, chartConfigurationForm));
 
             if (rs != null) {
                 while (rs.next()) {
@@ -170,13 +170,15 @@ public abstract class AbstractDatabaseService {
         return data;
     }
 
-    private String buildQueryForChartData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData) throws SQLException {
+    private String buildQueryForChartData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData, ChartConfigurationForm chartConfigurationForm) throws SQLException {
         StringBuilder stringBuilder = new StringBuilder("SELECT ");
         stringBuilder.append(chartColumnsSet.toString().substring(1, chartColumnsSet.toString().length() - 1));
         stringBuilder.append(" FROM ");
         stringBuilder.append(databaseDataSource.getTable());
         stringBuilder.append(" WHERE ");
         stringBuilder.append(jsonFilterService.convertJsonToJpql(databaseDataSource.getFilter(), resultSetMetaData));
+        stringBuilder.append(" AND ");
+        stringBuilder.append(jsonFilterService.convertJsonToJpql(chartConfigurationForm.getFilter(), resultSetMetaData));
         return stringBuilder.toString();
     }
 

@@ -52,6 +52,10 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
     @Column(name = "axis_y_name", nullable = false)
     private String axisYName;
 
+    @Lob
+    @Column(name = "filter", nullable = true)
+    private String filter;
+
     @ManyToOne
     @JoinColumn(name = "data_source_id", nullable = false)
     private DataSource dataSource;
@@ -108,6 +112,15 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
 
     public void setAxisYName(String axisYName) {
         this.axisYName = axisYName;
+    }
+
+    @Override
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
     }
 
     @Override
