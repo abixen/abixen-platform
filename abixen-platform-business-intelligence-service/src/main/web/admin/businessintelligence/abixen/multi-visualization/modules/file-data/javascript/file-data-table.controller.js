@@ -39,6 +39,7 @@
             $log.debug('GridDataUpdated - data: ', data.length);
             if (data !== undefined && data !== [] && data.length > 0) {
                 fileDataTable.gridData = data;
+                fileDataTable.fileColumns = [];
                 Object.keys(data[0]).forEach(function (column) {
                     if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
                         fileDataTable.fileColumns.push({name: column, selected: true});
