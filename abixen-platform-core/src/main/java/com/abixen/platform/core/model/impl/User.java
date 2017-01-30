@@ -66,7 +66,7 @@ public class User extends AuditingModel implements UserBase<Role>, UserWeb {
     private UserGender gender;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "selectedLanguage",  nullable = false)
+    @Column(name = "selected_language",  nullable = false)
     private UserLanguage selectedLanguage = UserLanguage.ENGLISH;
 
     @Column(name = "avatar_file_name")

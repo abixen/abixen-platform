@@ -13,7 +13,7 @@
             </column>
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_date" type="timestamp"/>
-            <column name="selectedLanguage" type="varchar(50)">
+            <column name="selected_language" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
             <column name="birthday" type="timestamp"/>
