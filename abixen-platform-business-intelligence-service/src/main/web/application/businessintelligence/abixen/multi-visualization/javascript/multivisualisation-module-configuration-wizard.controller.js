@@ -37,14 +37,15 @@
 
         $scope.chartConfiguration = {
             axisXName: '',
-            axisYName: ''
+            axisYName: '',
+            id: null,
+            moduleId: null
         };
 
         var getChartConfiguration = function (moduleId) {
-            if (moduleId) {
+            if (moduleId !== null) {
                 ChartModuleConfiguration.get({id: moduleId}, function (data) {
                     $scope.chartConfiguration = data;
-                    buildObjFromJson($scope.chartConfiguration.dataSetChart.domainXSeriesColumn, $scope.chartConfiguration.filter);
                     if ($scope.chartConfiguration.id == null) {
                         $scope.chartConfiguration = {
                             moduleId: $scope.moduleId,
@@ -60,6 +61,8 @@
                                 }
                             }
                         }
+                    } else {
+                        buildObjFromJson($scope.chartConfiguration.dataSetChart.domainXSeriesColumn, $scope.chartConfiguration.filter);
                     }
                     $log.log('ChartModuleConfiguration has been got 2: ', data, $scope.chartConfiguration);
                 });
@@ -136,6 +139,9 @@
         };
 
         var buildJsonFromObj = function (domainSeries) {
+            if (domainSeries.filterObj === null || domainSeries.filterObj === undefined){
+                domainSeries.filterObj = {};
+            }
             return {
                 group: {
                     operator: "AND",
@@ -273,7 +279,7 @@
 
             $scope.moduleConfigurationWizardStep.getSeriesData = function () {
                 $scope.moduleConfigurationWizardStep.chart.seriesPreviewData = [];
-                if ($scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name != undefined && $scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== '') {
+                if ($scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn !== null && $scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== undefined && $scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== '') {
                     $scope.chartConfiguration = prepareFilterForDomain($scope.chartConfiguration);
                     CharDataPreview.query({seriesName: $scope.dataSetSeriesSelected.name}, $scope.chartConfiguration, function (data) {
                         $log.log('CharDataPreview.query: ', data);
