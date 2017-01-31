@@ -6,6 +6,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/changelog/multi-visualisation/chart-configuration-changelog.xml">
 
+    <property name="clob.type" value="varchar(2147483647)" dbms="h2"/>
+    <property name="clob.type" value="clob" dbms="mysql, postgresql, oracle, mssql, sybase, asany, db2, derby, hsqldb, informix, firebird, sqlite"/>
+
     <changeSet author="MariuszKumor" id="chart-configuration-v1">
         <createTable tableName="chart_configuration">
             <column name="id" type="bigint">
@@ -21,7 +24,7 @@
             <column name="axis_y_name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="filter" type="clob"/>
+            <column name="filter" type="${clob.type}"/>
             <column name="chart_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
