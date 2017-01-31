@@ -37,7 +37,6 @@ public class CommentForm implements Form {
     private String message;
 
     @JsonView(WebModelJsonSerialize.class)
-    @NotNull
     private Long parentId;
 
     @JsonView(WebModelJsonSerialize.class)
