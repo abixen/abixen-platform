@@ -20,6 +20,7 @@ import com.abixen.platform.core.util.ValidationUtil;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualization.form.DatabaseDataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DatabaseDataSourceWeb;
 import com.abixen.platform.service.businessintelligence.multivisualization.service.DatabaseDataSourceService;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -94,5 +96,14 @@ public class DatabaseDataSourceController {
         return new FormValidationResultDto(databaseDataSourceFormResult);
     }
 
+    @JsonView(WebModelJsonSerialize.class)
+    @RequestMapping(value = "/preview", method = RequestMethod.POST)
+    public  List<Map<String, DataValueWeb>> getPreviewData(@RequestBody @Valid DatabaseDataSourceForm databaseDataSourceForm) {
+        log.debug("createDataSource() - databaseDataSourceForm: " + databaseDataSourceForm);
+
+        List<Map<String, DataValueWeb>> databaseDataSourcePreviewData = databaseDataSourceService.getPreviewData(databaseDataSourceForm);
+
+        return databaseDataSourcePreviewData;
+    }
 
 }

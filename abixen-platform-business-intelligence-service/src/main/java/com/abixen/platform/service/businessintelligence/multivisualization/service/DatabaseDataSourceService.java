@@ -17,6 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualization.serv
 import com.abixen.platform.service.businessintelligence.multivisualization.form.DatabaseDataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueWeb;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -46,4 +47,6 @@ public interface DatabaseDataSourceService {
     DatabaseDataSource updateDataSource(DatabaseDataSource databaseDataSource);
 
     DatabaseDataSource findDataSource(Long id);
+
+    List<Map<String, DataValueWeb>> getPreviewData(DatabaseDataSourceForm databaseDataSourceForm);
 }

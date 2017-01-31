@@ -32,7 +32,8 @@ import java.util.stream.IntStream;
 
 public abstract class AbstractDatabaseService {
 
-    private static final int LIMIT = 6;
+    private final int chartLimit = 6;
+    private final int datasourceLimit = 20;
 
     @Autowired
     private JsonFilterService jsonFilterService;
@@ -142,7 +143,22 @@ public abstract class AbstractDatabaseService {
         }
         //FixMe
         List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm);
-        return data.subList(0, data.size() < LIMIT ? data.size() : LIMIT);
+        return data.subList(0, data.size() < chartLimit ? data.size() : chartLimit);
+    }
+
+    public List<Map<String, DataValueWeb>> getDataSourcePreview(Connection connection, DatabaseDataSource databaseDataSource) {
+        Set<String> dataSourceColumnsSet = new HashSet<>();
+
+        databaseDataSource.getColumns().forEach(column -> {
+            dataSourceColumnsSet.add(column.getName());
+        });
+
+        if (dataSourceColumnsSet.isEmpty()) {
+            return new ArrayList<>();
+        }
+        //FixMe
+        List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, dataSourceColumnsSet, null);
+        return data.subList(0, data.size() < datasourceLimit ? data.size() : datasourceLimit);
     }
 
     private List<Map<String, DataValueWeb>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ChartConfigurationForm chartConfigurationForm) {
@@ -151,17 +167,18 @@ public abstract class AbstractDatabaseService {
         try {
             Statement statement = connection.createStatement();
             ResultSetMetaData resultSetMetaData = getDatabaseMetaData(connection, databaseDataSource.getTable());
-            rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet, resultSetMetaData, chartConfigurationForm));
-
-            if (rs != null) {
-                while (rs.next()) {
-                    final ResultSet row = rs;
-                    Map<String, DataValueWeb> rowMap = new HashMap<>();
-                    chartColumnsSet.forEach(chartColumnsSetElement -> {
-                        rowMap.put(chartColumnsSetElement, getDataFromColumn(row, chartColumnsSetElement));
-                    });
-                    data.add(rowMap);
-                }
+            if (chartConfigurationForm != null) {
+                rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet, resultSetMetaData, chartConfigurationForm));
+            } else {
+                rs = statement.executeQuery(buildQueryForDataSourceData(databaseDataSource, chartColumnsSet, resultSetMetaData).toString());
+            }
+            while (rs.next()) {
+                final ResultSet row = rs;
+                Map<String, DataValueWeb> rowMap = new HashMap<>();
+                chartColumnsSet.forEach(chartColumnsSetElement -> {
+                    rowMap.put(chartColumnsSetElement, getDataFromColumn(row, chartColumnsSetElement));
+                });
+                data.add(rowMap);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -171,15 +188,20 @@ public abstract class AbstractDatabaseService {
     }
 
     private String buildQueryForChartData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData, ChartConfigurationForm chartConfigurationForm) throws SQLException {
+        StringBuilder stringBuilder = buildQueryForDataSourceData(databaseDataSource, chartColumnsSet, resultSetMetaData);
+        stringBuilder.append(" AND ");
+        stringBuilder.append(jsonFilterService.convertJsonToJpql(chartConfigurationForm.getFilter(), resultSetMetaData));
+        return stringBuilder.toString();
+    }
+
+    private StringBuilder buildQueryForDataSourceData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData) throws SQLException {
         StringBuilder stringBuilder = new StringBuilder("SELECT ");
         stringBuilder.append(chartColumnsSet.toString().substring(1, chartColumnsSet.toString().length() - 1));
         stringBuilder.append(" FROM ");
         stringBuilder.append(databaseDataSource.getTable());
         stringBuilder.append(" WHERE ");
         stringBuilder.append(jsonFilterService.convertJsonToJpql(databaseDataSource.getFilter(), resultSetMetaData));
-        stringBuilder.append(" AND ");
-        stringBuilder.append(jsonFilterService.convertJsonToJpql(chartConfigurationForm.getFilter(), resultSetMetaData));
-        return stringBuilder.toString();
+        return stringBuilder;
     }
 
     private DataValueWeb getDataFromColumn(ResultSet row, String columnName) {

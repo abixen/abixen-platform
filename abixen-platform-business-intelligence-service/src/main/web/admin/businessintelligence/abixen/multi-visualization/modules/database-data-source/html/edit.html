@@ -77,12 +77,26 @@
         </div>
     </div>
 
+    <div class="row form-row file-preview-table">
+        <div class="col-xs-12">
+            <div
+                    ng-controller="DataBaseDataSourceTableController as dataBaseDataSourceTable">
+                <div ng-if="dataBaseDataSourceTable.renderTable">
+                    <platform-list-grid class="default-platform-list-grid"
+                                        list-grid-config="dataBaseDataSourceTable.listGridConfig"
+                                        load-all-records="true">
+                    </platform-list-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </form>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
         <a class="btn save-button"
-           ng-click="databaseDataSourceDetails.testConnection()"><i
+           ng-click="databaseDataSourceDetails.getPreviewData()"><i
                 class="fa fa-table"></i><span>&nbsp;Get Sample Data</span>
         </a>
         <a class="btn save-button"
