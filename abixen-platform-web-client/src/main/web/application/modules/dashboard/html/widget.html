@@ -14,8 +14,8 @@
                     <i class="fa fa-exclamation-triangle"></i>&nbsp;Module is temporary unavailable.
                 </div>
             </div>
-            <adf-widget-content ng-if="!widgetState.permissionDenied" model="definition" content="widget"/>
+            <adf-widget-content ng-if="!widgetState.permissionDenied" ng-show="!widgetState.chatShowing" model="definition" content="widget"/>
+            <comments module-id="definition.wid" ng-if="widgetState.chatShowing"></comments>
         </div>
     </div>
-    <!--<comments module-id="definition.wid"></comments>-->
 </div>

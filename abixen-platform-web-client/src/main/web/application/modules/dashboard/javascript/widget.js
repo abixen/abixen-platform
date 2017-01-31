@@ -69,6 +69,7 @@ angular.module('adf')
                         $scope.widgetState.isCollapsed = false;
                         $scope.widgetState.isLoading = false;
                         $scope.widgetState.permissionDenied = false;
+                        $scope.widgetState.chatShowing = false;
                     }
 
                 } else {
@@ -163,6 +164,10 @@ angular.module('adf')
                 $scope.toggleFullScreenMode = function () {
                     $scope.widgetState.fullScreenMode = !$scope.widgetState.fullScreenMode;
                     $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.widgetState.fullScreenMode);
+                };
+
+                $scope.toggleChat = function () {
+                    $scope.widgetState.chatShowing = !$scope.widgetState.chatShowing;
                 };
 
                 $scope.onWidgetTitleChanged = function () {
