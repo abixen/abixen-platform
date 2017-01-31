@@ -18,6 +18,7 @@ import com.abixen.platform.core.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.enumtype.DataSourceType;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataSourceWeb;
 import com.abixen.platform.core.model.audit.AuditingModel;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -62,6 +63,7 @@ public class DataSource extends AuditingModel implements DataSourceWeb, Serializ
     private DataSourceType dataSourceType;
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "filter", nullable = true)
     private String filter;
 

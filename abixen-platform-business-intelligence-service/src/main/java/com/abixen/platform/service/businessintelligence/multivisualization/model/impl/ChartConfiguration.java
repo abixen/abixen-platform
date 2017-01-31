@@ -18,6 +18,7 @@ import com.abixen.platform.service.businessintelligence.multivisualization.model
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.web.ChartConfigurationWeb;
 import com.abixen.platform.core.model.audit.AuditingModel;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -53,6 +54,7 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
     private String axisYName;
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "filter", nullable = true)
     private String filter;
 
