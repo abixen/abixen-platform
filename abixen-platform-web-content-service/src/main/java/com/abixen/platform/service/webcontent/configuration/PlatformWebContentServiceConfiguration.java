@@ -17,9 +17,11 @@ package com.abixen.platform.service.webcontent.configuration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import static com.abixen.platform.service.webcontent.configuration.PlatformWebContentServicePackages.*;
+
 
 @Configuration
-@ComponentScan(basePackages = {PlatformWebContentServicePackages.CONFIG, PlatformWebContentServicePackages.CONTROLLER})
+@ComponentScan(basePackages = {CONFIG, CONTROLLER, SERVICE, REPOSITORY})
 public class PlatformWebContentServiceConfiguration {
 
 }
