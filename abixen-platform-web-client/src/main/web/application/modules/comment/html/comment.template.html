@@ -1,4 +1,12 @@
-<li>
+<li ng-if="comment.commentItem == null">
+    <ul class="sub-text" id="root-comment-ul-{{comment.moduleId}}">
+        <div style="display: inline">
+            <a ng-href ng-click="comment.openAddForm()" style="cursor: pointer">Add new comment</a>
+        </div>
+    </ul>
+</li>
+
+<li ng-if="comment.commentItem != null">
     <div class="commenter-image">
         <img src="http://kingofwallpapers.com/profile-pics/profile-pics-007.jpg"/>
     </div>
