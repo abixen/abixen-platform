@@ -39,4 +39,6 @@ public interface DatabaseService {
 
     List<Map<String, DataValueWeb>> getChartDataPreview(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName);
 
+    List<Map<String, DataValueWeb>> getDataSourcePreview(Connection connection, DatabaseDataSource databaseDataSource);
+
 }

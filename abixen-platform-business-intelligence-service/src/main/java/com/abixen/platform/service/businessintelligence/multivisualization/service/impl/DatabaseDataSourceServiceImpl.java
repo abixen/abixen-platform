@@ -15,12 +15,12 @@
 package com.abixen.platform.service.businessintelligence.multivisualization.service.impl;
 
 import com.abixen.platform.service.businessintelligence.multivisualization.form.DatabaseDataSourceForm;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualization.repository.DatabaseDataSourceRepository;
-import com.abixen.platform.service.businessintelligence.multivisualization.service.DatabaseConnectionService;
-import com.abixen.platform.service.businessintelligence.multivisualization.service.DatabaseDataSourceService;
-import com.abixen.platform.service.businessintelligence.multivisualization.service.DomainBuilderService;
+import com.abixen.platform.service.businessintelligence.multivisualization.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +28,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Connection;
 import java.util.*;
 
 
@@ -43,6 +44,9 @@ public class DatabaseDataSourceServiceImpl implements DatabaseDataSourceService 
 
     @Autowired
     private DomainBuilderService domainBuilderService;
+
+    @Autowired
+    private DatabaseFactory databaseFactory;
 
     @Override
     public Set<DataSourceColumn> getDataSourceColumns(Long dataSourceId) {
@@ -138,5 +142,14 @@ public class DatabaseDataSourceServiceImpl implements DatabaseDataSourceService 
     public DatabaseDataSource findDataSource(Long id) {
         log.debug("findPage() - id: " + id);
         return databaseDataSourceRepository.findOne(id);
+    }
+
+    @Override
+    public List<Map<String, DataValueWeb>> getPreviewData(DatabaseDataSourceForm databaseDataSourceForm) {
+        DatabaseConnection databaseConnection = databaseConnectionService.findDatabaseConnection(databaseDataSourceForm.getDatabaseConnection().getId());
+        DatabaseService databaseService = databaseFactory.getDatabaseService(databaseDataSourceForm.getDatabaseConnection().getDatabaseType());
+        Connection connection = databaseService.getConnection(databaseConnection);
+        List<Map<String, DataValueWeb>> dataSourcePreviewData = databaseService.getDataSourcePreview(connection, buildDataSource(databaseDataSourceForm));
+        return dataSourcePreviewData;
     }
 }

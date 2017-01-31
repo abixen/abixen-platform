@@ -27,10 +27,11 @@
         '$stateParams',
         '$log',
         'DatabaseConnection',
+        'DatabaseDataSourcePreviewData',
         'responseHandler'
     ];
 
-    function DatabaseDataSourceDetailsController($scope, DatabaseDataSource, $state, $stateParams, $log, DatabaseConnection, responseHandler) {
+    function DatabaseDataSourceDetailsController($scope, DatabaseDataSource, $state, $stateParams, $log, DatabaseConnection, DatabaseDataSourcePreviewData, responseHandler) {
         $log.log('DatabaseDataSourceDetailsController');
         var databaseDataSourceDetails = this;
 
@@ -52,6 +53,7 @@
         databaseDataSourceDetails.getDatabaseTableColumns = getDatabaseTableColumns;
         databaseDataSourceDetails.beforeSaveForm = beforeSaveForm;
         databaseDataSourceDetails.goToViewMode = goToViewMode;
+        databaseDataSourceDetails.getPreviewData = getPreviewData;
 
         databaseDataSourceDetails.json = null;
         databaseDataSourceDetails.filter = JSON.parse(data);
@@ -160,6 +162,33 @@
             databaseDataSourceDetails.saveForm();
         }
 
+        function getPreviewData() {
+            databaseDataSourceDetails.entity.columns = [];
+
+            var columnPosition = 1;
+
+            for (var i = 0; i < databaseDataSourceDetails.databaseTableColumns.length; i++) {
+                if (databaseDataSourceDetails.databaseTableColumns[i].selected) {
+                    databaseDataSourceDetails.entity.columns.push({
+                        name: databaseDataSourceDetails.databaseTableColumns[i].name,
+                        position: columnPosition++
+                    });
+                }
+            }
+
+            DatabaseDataSourcePreviewData.query({}, databaseDataSourceDetails.entity)
+                .$promise
+                .then(onQueryResult, onQueryError);
+        }
+
+        function onQueryResult(data) {
+            $log.log('DatabaseDataSourcePreviewData.query: ', data);
+            $scope.$broadcast('DatabaseDataSourceDataUpdated', data);
+        }
+
+        function onQueryError(error) {
+            responseHandler.handle(error, $scope);
+        }
 
         function getValidators() {
             var validators = [];
