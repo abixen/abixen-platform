@@ -188,10 +188,13 @@ public abstract class AbstractDatabaseService {
     }
 
     private String buildQueryForChartData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData, ChartConfigurationForm chartConfigurationForm) throws SQLException {
-        StringBuilder stringBuilder = buildQueryForDataSourceData(databaseDataSource, chartColumnsSet, resultSetMetaData);
-        stringBuilder.append(" AND ");
-        stringBuilder.append(jsonFilterService.convertJsonToJpql(chartConfigurationForm.getFilter(), resultSetMetaData));
-        return stringBuilder.toString();
+        StringBuilder outerSelect = new StringBuilder("SELECT ");
+        outerSelect.append(chartColumnsSet.toString().substring(1, chartColumnsSet.toString().length() - 1));
+        outerSelect.append(" FROM (");
+        outerSelect.append(buildQueryForDataSourceData(databaseDataSource, chartColumnsSet, resultSetMetaData));
+        outerSelect.append(") WHERE ");
+        outerSelect.append(jsonFilterService.convertJsonToJpql(chartConfigurationForm.getFilter(), resultSetMetaData));
+        return outerSelect.toString();
     }
 
     private StringBuilder buildQueryForDataSourceData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData) throws SQLException {
