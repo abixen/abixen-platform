@@ -26,7 +26,7 @@
 
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('pl', {
+        $translateProvider.translations('POLISH', {
             'service.businessintelligence.databaseConnection.name.label': 'Nazwa',
             'service.businessintelligence.databaseConnection.name.placeholder': 'Np. Połączenie do bazy danych z danymi sprzedaży',
             'service.businessintelligence.databaseConnection.description.label': 'Opis',
@@ -43,7 +43,7 @@
             'service.businessintelligence.databaseConnection.databaseName.placeholder': 'Np. dane_sprz_1'
         });
 
-        $translateProvider.translations('en', {
+        $translateProvider.translations('ENGLISH', {
             'service.businessintelligence.databaseConnection.name.label': 'Name',
             'service.businessintelligence.databaseConnection.name.placeholder': 'E.g. Connection to database with selling data',
             'service.businessintelligence.databaseConnection.description.label': 'Description',

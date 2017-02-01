@@ -98,7 +98,7 @@ public class JsonFilterServiceTest {
         when(resultSetMetaData.getColumnTypeName(1)).thenReturn("BIGINT");
         when(resultSetMetaData.getColumnTypeName(2)).thenReturn("DOUBLE");
         when(resultSetMetaData.getColumnTypeName(3)).thenReturn("DATE");
-        String manualyConvertedCriteria = "(REVENUE_GROSS = 23 AND ID = 4 AND (REVENUE_NET = 22 AND SALES_DAY = \"04-05-2016\"))";
+        String manualyConvertedCriteria = "(REVENUE_GROSS = 23 AND ID = 4 AND (REVENUE_NET = 22 AND SALES_DAY = '04-05-2016'))";
         String convertedCriteria = jsonFilterService.convertJsonToJpql(jsonCriteria, resultSetMetaData);
         assertEquals(manualyConvertedCriteria, convertedCriteria);
     }
