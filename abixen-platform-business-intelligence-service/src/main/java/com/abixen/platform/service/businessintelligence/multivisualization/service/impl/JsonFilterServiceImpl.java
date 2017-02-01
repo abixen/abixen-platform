@@ -100,11 +100,11 @@ public class JsonFilterServiceImpl implements JsonFilterService {
             case DOUBLE:
                 return data;
             case DATE:
-                return "\"" + data + "\"";
+                return "'" + data + "'";
             case INTEGER:
                 return data;
             case STRING:
-                return "\"" + data + "\"";
+                return "'" + data + "'";
             default:
                 throw new NotImplementedException("Not recognized column type.");
         }
