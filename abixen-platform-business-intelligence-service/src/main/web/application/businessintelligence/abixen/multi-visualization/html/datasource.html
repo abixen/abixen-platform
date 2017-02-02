@@ -9,9 +9,9 @@
         </div>
         <div class="wizard-datasource-wrapper">
             <div class="list-group">
-                <a ng-repeat='fileDataSource in dataSources' class="list-group-item"
-                   ng-click="setDataSourceSelected(fileDataSource)"
-                   ng-class="{'active': fileDataSource.id == chartConfiguration.dataSource.id}">
+                <a ng-repeat='fileDataSource in configWizard.dataSources' class="list-group-item"
+                   ng-click="configWizard.setDataSourceSelected(fileDataSource)"
+                   ng-class="{'active': fileDataSource.id == configWizard.chartConfiguration.dataSource.id}">
 
                 <span style="width:10%">
                     <h4>{{fileDataSource.id}}</h4>
@@ -28,7 +28,7 @@
                 </a>
             </div>
         </div>
-        <div ng-if="dataSources.length==0">
+        <div ng-if="configWizard.dataSources.length==0">
             <div>There is no data source yet</div>
         </div>
 

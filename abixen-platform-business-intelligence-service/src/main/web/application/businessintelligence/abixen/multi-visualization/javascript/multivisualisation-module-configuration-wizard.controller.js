@@ -22,7 +22,6 @@
 
     ChartModuleConfigurationWizardController.$inject = [
         '$scope',
-        '$http',
         '$log',
         'ApplicationDatabaseDataSource',
         'ChartModuleConfiguration',
@@ -30,91 +29,74 @@
         'multivisualisationWizardStep'
     ];
 
-    function ChartModuleConfigurationWizardController($scope, $http, $log, ApplicationDatabaseDataSource, ChartModuleConfiguration, CharDataPreview, multivisualisationWizardStep) {
+    function ChartModuleConfigurationWizardController($scope, $log, ApplicationDatabaseDataSource, ChartModuleConfiguration, CharDataPreview, multivisualisationWizardStep) {
         $log.log('ChartModuleConfigurationWizardController');
-        $scope.stepCurrent = 0;
-        $scope.stepMax = 3;
 
-        $scope.chartConfiguration = {
+        var configWizard = this;
+        var seriesNumber = 1; //todo remove in the future
+
+        configWizard.stepCurrent = 0;
+        configWizard.stepMax = 3;
+
+        //TODO - check if needed
+        $scope.chartConfiguration = configWizard.chartConfiguration = {
             axisXName: '',
             axisYName: '',
             id: null,
             moduleId: null
         };
 
-        var getChartConfiguration = function (moduleId) {
-            if (moduleId !== null) {
-                ChartModuleConfiguration.get({id: moduleId}, function (data) {
-                    $scope.chartConfiguration = data;
-                    if ($scope.chartConfiguration.id == null) {
-                        $scope.chartConfiguration = {
-                            moduleId: $scope.moduleId,
-                            axisXName: '',
-                            axisYName: '',
-                            dataSetChart: {
-                                dataSetSeries: [],
-                                domainXSeriesColumn: {
-                                    id: null,
-                                    name: '',
-                                    type: 'X',
-                                    dataSourceColumn: null
-                                }
-                            }
-                        }
-                    } else {
-                        buildObjFromJson($scope.chartConfiguration.dataSetChart.domainXSeriesColumn, $scope.chartConfiguration.filter);
-                    }
-                    $log.log('ChartModuleConfiguration has been got 2: ', data, $scope.chartConfiguration);
-                });
-            }
+        configWizard.chartTypes = multivisualisationWizardStep.getChartTypes();
+        configWizard.dataSources = null;
+
+        configWizard.chart = {
+            name: null,
+            hasTable: false,
+            axisX: null,
+            axisY: null,
+            series: null,
+            seriesSelected: null
         };
+
+        configWizard.table = {
+            columns: [],
+            columnSelected: null
+        };
+
+        configWizard.setDataSourceSelected = setDataSourceSelected;
+        configWizard.setChartTypeSelected = setChartTypeSelected;
+        configWizard.initDataSetSeries = initDataSetSeries;
+        configWizard.addDataSetSeries = addDataSetSeries;
+        configWizard.removeDataSetSeries = removeDataSetSeries;
+        configWizard.setDataSetSeriesSelected = setDataSetSeriesSelected;
+        configWizard.canNext = canNext;
+        configWizard.next = next;
+        configWizard.prev = prev;
+        configWizard.reloadPreviewData = reloadPreviewData;
+        configWizard.isChart = $scope.isChart = chartTypeWizardStepIsChart;
+        configWizard.setColumnSelected = setColumnSelected;
+
 
         getChartConfiguration($scope.moduleId);
+        changeWizardView();
 
 
-        //$scope.name;
+        function chartTypeWizardStepValidate() {
+            return configWizard.chartConfiguration.chartType !== null;
+        }
 
+        function chartTypeWizardStepIsChart() {
+            return !(configWizard.chartConfiguration.chartType === 'TABLE')
+        }
 
-        var init = function () {
-            $scope.stepCurrent = 0;
-            initInitWizardStep();
-            initDataSourceWizardStep();
-            initModuleConfigurationWizardStep();
+        function setChartTypeSelected(chartType) {
+            configWizard.chartConfiguration.chartType = chartType.type;
+        }
 
-        };
-        var initInitWizardStep = function () {
-
-            $scope.initWizardStep = {};
-            $scope.chartTypes = multivisualisationWizardStep.getChartTypes();
-
-            //$scope.initWizardStep.selected = null;
-            $scope.setChartTypeSelected = function (chartType) {
-                $log.log('setChartTypeSelected: ', chartType);
-                //$scope.initWizardStep.selected = moduleType;
-                $scope.chartConfiguration.chartType = chartType.type;
-            };
-
-            $scope.initWizardStep.validate = function () {
-                if ($scope.chartConfiguration.chartType == null) {
-                    return false;
-                }
-                return true;
-            };
-
-            $scope.initWizardStep.isChart = function () {
-                if ($scope.chartConfiguration.chartType == 'TABLE') {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-
-        };
-
-        var saveConfiguration = function (configuration) {
-            if (configuration === undefined) configuration = $scope.chartConfiguration;
+        function saveConfiguration(configuration) {
+            if (configuration === undefined) configuration = configWizard.chartConfiguration;
             configuration = prepareFilterForDomain(configuration);
-            if ($scope.chartConfiguration.id) {
+            if (configWizard.chartConfiguration.id) {
                 ChartModuleConfiguration.update({id: configuration.id}, configuration, function () {
                     $log.log('ChartModuleConfiguration has been updated: ', configuration);
                     $scope.$emit('VIEW_MODE');
@@ -125,26 +107,25 @@
                     $scope.$emit('VIEW_MODE');
                 });
             }
-        };
+        }
 
-
-        var prepareFilterForDomain = function (configuration) {
+        function prepareFilterForDomain(configuration) {
             $log.debug("configuration", configuration);
             configuration.filter = parseObjToJsonCriteriaAsString(configuration.dataSetChart.domainXSeriesColumn);
             return configuration
-        };
+        }
 
-        var parseObjToJsonCriteriaAsString = function (domainSeries) {
+        function parseObjToJsonCriteriaAsString(domainSeries) {
             return convertToString(buildJsonFromObj(domainSeries))
-        };
+        }
 
-        var buildJsonFromObj = function (domainSeries) {
-            if (domainSeries.filterObj === null || domainSeries.filterObj === undefined){
+        function buildJsonFromObj(domainSeries) {
+            if (domainSeries.filterObj === null || domainSeries.filterObj === undefined) {
                 domainSeries.filterObj = {};
             }
             return {
                 group: {
-                    operator: "AND",
+                    operator: 'AND',
                     rules: [
                         {
                             condition: domainSeries.filterObj.operator,
@@ -154,221 +135,110 @@
                     ]
                 }
             }
-        };
+        }
 
-        var buildObjFromJson = function (domainSeries, json) {
-            $log.debug("domainSeries: ", domainSeries);
-            $log.debug("json: ", json);
+        function buildObjFromJson(domainSeries, json) {
             var jsonObj = JSON.parse(json);
+
             if (jsonObj.group !== undefined) {
                 domainSeries.filterObj = {};
                 domainSeries.filterObj.operator = jsonObj.group.rules[0].condition;
                 domainSeries.filterObj.value = jsonObj.group.rules[0].data;
             }
-        };
+        }
 
-        var convertToString = function (jsonObj) {
+        function convertToString(jsonObj) {
             return JSON.stringify(jsonObj);
-        };
+        }
 
-        var initModuleConfigurationWizardStep = function () {
-            $scope.moduleConfigurationWizardStep = {};
-            $scope.moduleConfigurationWizardStep.chart = {};
-            $scope.moduleConfigurationWizardStep.chart.name = null;
-            $scope.moduleConfigurationWizardStep.chart.hasTable = false;
-            $scope.moduleConfigurationWizardStep.chart.axisX = null;
-            $scope.moduleConfigurationWizardStep.chart.axisY = null;
-            $scope.moduleConfigurationWizardStep.chart.series = null;
-            $scope.moduleConfigurationWizardStep.chart.seriesSelected = null;
-            $scope.seriesNumber = 1; //todo remove in the future
+        function setColumnSelected(idx) {
+            $log.log('moduleConfigurationWizardStep setSelected ', idx);
 
-            $scope.initDataSetSeries = function () {
-                if ($scope.chartConfiguration.dataSetChart.dataSetSeries.length === 0) {
-                    $scope.addDataSetSeries();
-                } else {
-                    $log.debug('$scope.dataSetSeriesSelected ', $scope.dataSetSeriesSelected);
-                    if ($scope.dataSetSeriesSelected === undefined || $scope.dataSetSeriesSelected === null) {
-                        $scope.setDataSetSeriesSelected($scope.chartConfiguration.dataSetChart.dataSetSeries[0]);
-                    }
+            configWizard.table.columnSelected = configWizard.table.columns[idx - 1];
+            configWizard.table.columns[idx - 1].isActive = !configWizard.table.columns[idx - 1].isActive;
+            if (configWizard.table.columns[idx - 1].isActive === true) {
+                getColumnData(idx - 1);
+            } else {
+                buildTableConfiguration();
+            }
+        }
+
+        function refreshColumn() {
+            $log.debug('configWizard.chartConfiguration.dataSource', configWizard.chartConfiguration.dataSource);
+            configWizard.table.columns = [];
+            function compare(a, b) {
+                if (a.id < b.id)
+                    return -1;
+                if (a.id > b.id)
+                    return 1;
+                return 0;
+            }
+
+            configWizard.chartConfiguration.dataSource.columns.sort(compare).forEach(function (column) {
+                var isActive = false;
+                if (configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn !== null) {
+                    isActive = configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name === column.name;
                 }
-            };
-
-            $scope.addDataSetSeries = function () {
-                $log.log('moduleConfigurationWizardStep series', $scope.chartConfiguration.dataSetChart.dataSetSeries);
-
-                if ($scope.chartConfiguration.dataSetChart.dataSetSeries === undefined) {
-                    $scope.chartConfiguration.dataSetChart.dataSetSeries = [];
+                if (isActive === false && configWizard.chartConfiguration.dataSetChart.dataSetSeries !== null) {
+                    configWizard.chartConfiguration.dataSetChart.dataSetSeries.forEach(function (series) {
+                        if (isActive === false && series.valueSeriesColumn.name === column.name) {
+                            isActive = true;
+                        }
+                    })
                 }
 
-                if ($scope.chartConfiguration.dataSetChart.dataSetSeries.length == 0) {
-                    $scope.seriesNumber = 1;
-                }
-
-                $scope.chartConfiguration.dataSetChart.dataSetSeries.push({
-                    id: null,
-                    name: ('Series ' + $scope.seriesNumber),
+                configWizard.table.columns.push({
+                    idx: column.id,
+                    name: column.name,
                     isValid: true,
-                    valueSeriesColumn: {
-                        id: null,
-                        name: '',
-                        type: 'Y',
-                        dataSourceColumn: null
-                    }
+                    isActive: isActive,
+                    dataSourceColumn: column
+                });
+            })
+        }
+
+        function moduleConfigurationWizardStepSelected() {
+            $log.log('moduleConfigurationWizardStep selected');
+            if (configWizard.stepCurrent === 2 && !chartTypeWizardStepIsChart()) {
+                refreshColumn();
+            }
+        }
+
+        function getColumnData(idx) {
+            configWizard.table.columnPreviewData = [];
+            if (configWizard.table.columnSelected.name != undefined && configWizard.table.columnSelected.name !== '') {
+                CharDataPreview.query({seriesName: configWizard.table.columnSelected.name}, buildTableConfiguration(), function (data) {
+                    $log.log('CharDataPreview.query: ', data);
+                    data.forEach(function (el) {
+                        configWizard.table.columnPreviewData.push({
+                            value: el[configWizard.table.columnSelected.name].value
+                        });
+                    })
 
                 });
-                $scope.seriesNumber++;
+            }
+        }
 
-                if ($scope.dataSetSeriesSelected == null) {
-                    $scope.setDataSetSeriesSelected($scope.chartConfiguration.dataSetChart.dataSetSeries[0]);
-                }
-            };
+        function getSeriesData() {
+            configWizard.chart.seriesPreviewData = [];
+            if (configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn !== null && configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== undefined && configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== '') {
+                configWizard.chartConfiguration = prepareFilterForDomain(configWizard.chartConfiguration);
+                CharDataPreview.query({seriesName: configWizard.dataSetSeriesSelected.name}, configWizard.chartConfiguration, function (data) {
+                    $log.log('CharDataPreview.query: ', data);
+                    data.forEach(function (el) {
+                        configWizard.chart.seriesPreviewData.push({
+                            x: el[configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value,
+                            y: el[configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name].value
+                        });
+                    })
 
-            $scope.removeDataSetSeries = function (dataSetSeries) {
-                $log.log('moduleConfigurationWizardStep removeSeries ', dataSetSeries);
+                }, function (error) {
 
-                var index = $scope.chartConfiguration.dataSetChart.dataSetSeries.indexOf(dataSetSeries);
+                });
+            }
+        }
 
-                if (index + 1 < $scope.chartConfiguration.dataSetChart.dataSetSeries.length) {
-                    var nextDataSetSeries = $scope.chartConfiguration.dataSetChart.dataSetSeries[index + 1];
-                    $scope.setDataSetSeriesSelected(nextDataSetSeries);
-                } else if (index > 0) {
-                    var prevDataSetSeries = $scope.chartConfiguration.dataSetChart.dataSetSeries[index - 1];
-                    $scope.setDataSetSeriesSelected(prevDataSetSeries);
-                } else {
-                    $scope.setDataSetSeriesSelected(null);
-                }
-
-                $scope.chartConfiguration.dataSetChart.dataSetSeries.splice(index, 1);
-
-                //TODO - select previous
-
-                /*for (var i = 0; i < $scope.moduleConfigurationWizardStep.chart.series.length; i++) {
-                 if ($scope.moduleConfigurationWizardStep.chart.series[i].idx == idx) {
-                 $scope.moduleConfigurationWizardStep.chart.series[i].isValid = false;
-                 }
-                 }*/
-
-            };
-            $scope.setDataSetSeriesSelected = function (dataSetSeries) {
-                $log.log('moduleConfigurationWizardStep setSelected ', dataSetSeries);
-
-                $scope.dataSetSeriesSelected = dataSetSeries; //$scope.moduleConfigurationWizardStep.chart.series[idx - 1];
-
-
-                //TODO - pull from backend
-                $scope.moduleConfigurationWizardStep.getSeriesData();
-                $log.log('dataSetSeriesSelected:', $scope.dataSetSeriesSelected);
-
-
-            };
-            $scope.moduleConfigurationWizardStep.stepSelected = function () {
-                $log.log('moduleConfigurationWizardStep selected');
-                if ($scope.stepCurrent === 2 && !$scope.initWizardStep.isChart()){
-                    refreshColumn();
-                }
-                /*if ($scope.moduleConfigurationWizardStep.chart.series == null) {
-                 $scope.moduleConfigurationWizardStep.chart.series = [];
-                 $scope.moduleConfigurationWizardStep.chart.addSeries();
-                 $scope.moduleConfigurationWizardStep.chart.seriesSelected = $scope.moduleConfigurationWizardStep.chart.series[0];
-                 }*/
-            };
-
-            $scope.reloadPreviewData = function () {
-                $scope.moduleConfigurationWizardStep.getSeriesData();
-            };
-
-            $scope.moduleConfigurationWizardStep.getSeriesData = function () {
-                $scope.moduleConfigurationWizardStep.chart.seriesPreviewData = [];
-                if ($scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn !== null && $scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== undefined && $scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== '') {
-                    $scope.chartConfiguration = prepareFilterForDomain($scope.chartConfiguration);
-                    CharDataPreview.query({seriesName: $scope.dataSetSeriesSelected.name}, $scope.chartConfiguration, function (data) {
-                        $log.log('CharDataPreview.query: ', data);
-                        data.forEach(function (el) {
-                            $scope.moduleConfigurationWizardStep.chart.seriesPreviewData.push({
-                                x: el[$scope.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value,
-                                y: el[$scope.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name].value
-                            });
-                        })
-
-                    }, function (error) {
-
-                    });
-                }
-            };
-
-            //table
-
-            $scope.moduleConfigurationWizardStep.table = {};
-            $scope.moduleConfigurationWizardStep.table.columns = [];
-            $scope.moduleConfigurationWizardStep.table.columnSelected = null;
-
-            $scope.moduleConfigurationWizardStep.table.getColumnData = function (idx) {
-                $scope.moduleConfigurationWizardStep.table.columnPreviewData = [];
-                if ($scope.moduleConfigurationWizardStep.table.columnSelected.name != undefined && $scope.moduleConfigurationWizardStep.table.columnSelected.name !== '') {
-                    CharDataPreview.query({seriesName: $scope.moduleConfigurationWizardStep.table.columnSelected.name}, buildTableConfiguration(), function (data) {
-                        $log.log('CharDataPreview.query: ', data);
-                        data.forEach(function (el) {
-                            $scope.moduleConfigurationWizardStep.table.columnPreviewData.push({
-                                value: el[$scope.moduleConfigurationWizardStep.table.columnSelected.name].value
-                            });
-                        })
-
-                    });
-                }
-            };
-
-            $scope.moduleConfigurationWizardStep.table.setSelected = function (idx) {
-                $log.log('moduleConfigurationWizardStep setSelected ', idx);
-
-                $scope.moduleConfigurationWizardStep.table.columnSelected = $scope.moduleConfigurationWizardStep.table.columns[idx-1];
-                $scope.moduleConfigurationWizardStep.table.columns[idx-1].isActive = !$scope.moduleConfigurationWizardStep.table.columns[idx-1].isActive ;
-                if ($scope.moduleConfigurationWizardStep.table.columns[idx-1].isActive === true) {
-                    $scope.moduleConfigurationWizardStep.table.getColumnData(idx - 1);
-                }else {
-                    buildTableConfiguration();
-                }
-
-
-            };
-
-            var refreshColumn = function () {
-                $log.debug('$scope.chartConfiguration.dataSource', $scope.chartConfiguration.dataSource);
-                $scope.moduleConfigurationWizardStep.table.columns = [];
-                function compare(a,b) {
-                    if (a.id < b.id)
-                        return -1;
-                    if (a.id > b.id)
-                        return 1;
-                    return 0;
-                }
-                $scope.chartConfiguration.dataSource.columns.sort(compare).forEach(function (column) {
-                    var isActive = false;
-                    if ($scope.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn !== null){
-                        isActive = $scope.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name === column.name;
-                    }
-                    if (isActive === false &&  $scope.chartConfiguration.dataSetChart.dataSetSeries !== null){
-                       $scope.chartConfiguration.dataSetChart.dataSetSeries.forEach(function (series) {
-                           if (isActive === false && series.valueSeriesColumn.name === column.name){
-                               isActive = true;
-                           }
-                       })
-                    }
-
-                    $scope.moduleConfigurationWizardStep.table.columns.push({
-                        idx: column.id,
-                        name: column.name,
-                        isValid: true,
-                        isActive: isActive,
-                        dataSourceColumn: column
-                    });
-                })
-            };
-        };
-
-        $scope.dataSources = null;
-
-
-        var getDataSources = function () {
+        function getDataSources() {
             $scope.$emit(platformParameters.events.START_REQUEST);
             var queryParameters = {
                 page: 0,
@@ -376,87 +246,42 @@
                 sort: 'id,asc'
             };
 
-            ApplicationDatabaseDataSource.query(queryParameters, function (data) {
-                $log.log('ApplicationDatabaseDataSource query', data);
-                $scope.dataSources = data.content;
+            ApplicationDatabaseDataSource.query(queryParameters)
+                .$promise
+                .then(onQueryResult, onQueryError);
+
+            function onQueryResult(data) {
+                configWizard.dataSources = data.content;
                 $scope.$emit(platformParameters.events.STOP_REQUEST);
-            });
+            }
 
-        };
-
-        $scope.setDataSourceSelected = function (dataSource) {
-            $log.log('setDataSourceSelected', dataSource);
-            $scope.chartConfiguration.dataSource = dataSource;
+            function onQueryError() {
+                $scope.$emit(platformParameters.events.STOP_REQUEST);
+            }
         }
 
-        var initDataSourceWizardStep = function () {
-            $scope.dataSourceWizardStep = {};
-
-            $scope.dataSourceWizardStep.stepSelected = function () {
-                if ($scope.dataSources == null) {
-                    getDataSources();
-                }
-            };
-
-            //$scope.dataSourceWizardStep.selected = null;
-            //$scope.dataSourceWizardStep.idSelected = null;
-
-            //$scope.dataSourceWizardStep.setSelected = function (id) {
-            //   $scope.dataSourceWizardStep.idSelected = id;
-            //};
-
-            $scope.dataSourceWizardStep.validate = function () {
-                if ($scope.chartConfiguration.dataSource == null) return false;
-                return true;
-            };
-
-
-        };
-
-
-        $scope.canNext = function () {
-
-            //$log.info('step current ', $scope.stepCurrent);
-            var validate = true;
-            if ($scope.stepCurrent == 0) {
-                validate = $scope.initWizardStep.validate();
-                //$log.info('validate 0', validate);
-                return validate;
-            }
-            if ($scope.stepCurrent == 1) {
-                validate = $scope.dataSourceWizardStep.validate();
-                //$log.info('validate 1', validate);
-                return validate;
-            }
-            //$log.info('validate default', validate);
-            return validate
-            // validate($scope.stepCurrent)
-            //todo
+        function setDataSourceSelected(dataSource) {
+            configWizard.chartConfiguration.dataSource = dataSource;
         }
 
-        $scope.next = function () {
-            if ($scope.stepCurrent < $scope.stepMax) {
-                $scope.stepCurrent++;
-                changeWizardView();
-            } else {
-                if ($scope.initWizardStep.isChart()) {
-                    saveConfiguration();
-                }else {
-                    saveConfiguration(buildTableConfiguration())
-                }
+        function dataSourceWizardStepStepSelected() {
+            if (configWizard.dataSources == null) {
+                getDataSources();
             }
-            $log.log('next step:', $scope.stepCurrent);
-        };
+        }
 
-        var buildTableConfiguration = function () {
-            $scope.tableConfiguration = {};
+        function dataSourceWizardStepValidate() {
+            return configWizard.chartConfiguration.dataSource !== null;
+        }
+
+        function buildTableConfiguration() {
             var tableConfiguration = {
                 axisXName: '',
                 axisYName: '',
                 chartType: 'TABLE',
-                dataSource: $scope.chartConfiguration.dataSource,
-                moduleId: $scope.chartConfiguration.moduleId,
-                id: $scope.chartConfiguration.id,
+                dataSource: configWizard.chartConfiguration.dataSource,
+                moduleId: configWizard.chartConfiguration.moduleId,
+                id: configWizard.chartConfiguration.id,
                 dataSetChart: {
                     dataSetSeries: [],
                     domainXSeriesColumn: null,
@@ -465,10 +290,10 @@
             };
 
             var i = 0;
-            $scope.moduleConfigurationWizardStep.table.columns.forEach(function (column) {
-                $log.debug('column: ',column);
-                if (column.isActive === true){
-                    if (i === 0){
+            configWizard.table.columns.forEach(function (column) {
+                $log.debug('column: ', column);
+                if (column.isActive === true) {
+                    if (i === 0) {
                         tableConfiguration.dataSetChart.domainXSeriesColumn = {
                             id: null,
                             name: '',
@@ -492,33 +317,161 @@
                     }
                 }
             });
-            $scope.tableConfiguration = tableConfiguration;
             return tableConfiguration
-        };
+        }
 
-        $scope.prev = function () {
-            if ($scope.stepCurrent > 0) {
-                $scope.stepCurrent--;
+        function prev() {
+            if (configWizard.stepCurrent > 0) {
+                configWizard.stepCurrent--;
             }
-            $log.log('prev step:', $scope.stepCurrent);
-        };
+        }
 
-
-        var changeWizardView = function () {
-            switch ($scope.stepCurrent) {
+        function changeWizardView() {
+            switch (configWizard.stepCurrent) {
+                //TODO - is it OK?
                 case 0:
 
                 case 1:
-                    $scope.dataSourceWizardStep.stepSelected();
+                    dataSourceWizardStepStepSelected();
                     break;
                 case 2:
-                    $scope.moduleConfigurationWizardStep.stepSelected();
+                    moduleConfigurationWizardStepSelected();
                     break;
             }
-        };
+        }
 
-        init();
-        changeWizardView();
+        function getChartConfiguration(moduleId) {
+            if (moduleId === null) {
+                return;
+            }
+            ChartModuleConfiguration.get({id: moduleId}, function (data) {
+                $scope.chartConfiguration = configWizard.chartConfiguration = data;
+                if (configWizard.chartConfiguration.id == null) {
+                    configWizard.chartConfiguration = {
+                        moduleId: $scope.moduleId,
+                        axisXName: '', //TODO maybe null, not '' ?
+                        axisYName: '',
+                        dataSetChart: {
+                            dataSetSeries: [],
+                            domainXSeriesColumn: {
+                                id: null,
+                                name: '',
+                                type: 'X',
+                                dataSourceColumn: null
+                            }
+                        }
+                    }
+                } else {
+                    buildObjFromJson(configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn, configWizard.chartConfiguration.filter);
+                }
+            });
+        }
+
+        function initDataSetSeries() {
+            if (configWizard.chartConfiguration.dataSetChart.dataSetSeries.length === 0) {
+                addDataSetSeries();
+            } else {
+                if (configWizard.dataSetSeriesSelected === undefined || configWizard.dataSetSeriesSelected === null) {
+                    configWizard.setDataSetSeriesSelected(configWizard.chartConfiguration.dataSetChart.dataSetSeries[0]);
+                }
+            }
+        }
+
+        function addDataSetSeries() {
+            $log.log('moduleConfigurationWizardStep series', configWizard.chartConfiguration.dataSetChart.dataSetSeries);
+
+            if (configWizard.chartConfiguration.dataSetChart.dataSetSeries === undefined) {
+                configWizard.chartConfiguration.dataSetChart.dataSetSeries = [];
+            }
+
+            if (configWizard.chartConfiguration.dataSetChart.dataSetSeries.length == 0) {
+                seriesNumber = 1;
+            }
+
+            configWizard.chartConfiguration.dataSetChart.dataSetSeries.push({
+                id: null,
+                name: ('Series ' + seriesNumber),
+                isValid: true,
+                valueSeriesColumn: {
+                    id: null,
+                    name: '',
+                    type: 'Y',
+                    dataSourceColumn: null
+                }
+
+            });
+            seriesNumber++;
+
+            if (configWizard.dataSetSeriesSelected == null) {
+                configWizard.setDataSetSeriesSelected(configWizard.chartConfiguration.dataSetChart.dataSetSeries[0]);
+            }
+        }
+
+        function removeDataSetSeries(dataSetSeries) {
+            $log.log('moduleConfigurationWizardStep removeSeries ', dataSetSeries);
+
+            var index = configWizard.chartConfiguration.dataSetChart.dataSetSeries.indexOf(dataSetSeries);
+
+            if (index + 1 < configWizard.chartConfiguration.dataSetChart.dataSetSeries.length) {
+                var nextDataSetSeries = configWizard.chartConfiguration.dataSetChart.dataSetSeries[index + 1];
+                configWizard.setDataSetSeriesSelected(nextDataSetSeries);
+            } else if (index > 0) {
+                var prevDataSetSeries = configWizard.chartConfiguration.dataSetChart.dataSetSeries[index - 1];
+                configWizard.setDataSetSeriesSelected(prevDataSetSeries);
+            } else {
+                configWizard.setDataSetSeriesSelected(null);
+            }
+
+            configWizard.chartConfiguration.dataSetChart.dataSetSeries.splice(index, 1);
+
+            //TODO - select previous
+
+            /*for (var i = 0; i < configWizard.chart.series.length; i++) {
+             if (configWizard.chart.series[i].idx == idx) {
+             configWizard.chart.series[i].isValid = false;
+             }
+             }*/
+
+        }
+
+        function setDataSetSeriesSelected(dataSetSeries) {
+            $log.log('moduleConfigurationWizardStep setSelected ', dataSetSeries);
+
+            configWizard.dataSetSeriesSelected = dataSetSeries; //configWizard.chart.series[idx - 1];
+
+            getSeriesData();
+        }
+
+        function canNext() {
+            var validate = true;
+            if (configWizard.stepCurrent == 0) {
+                validate = chartTypeWizardStepValidate();
+                return validate;
+            }
+            if (configWizard.stepCurrent == 1) {
+                validate = dataSourceWizardStepValidate();
+                return validate;
+            }
+            return validate
+        }
+
+        function next() {
+            if (configWizard.stepCurrent < configWizard.stepMax) {
+                configWizard.stepCurrent++;
+                changeWizardView();
+            } else {
+                if (chartTypeWizardStepIsChart()) {
+                    saveConfiguration();
+                } else {
+                    saveConfiguration(buildTableConfiguration())
+                }
+            }
+            $log.log('next step:', configWizard.stepCurrent);
+        }
+
+        function reloadPreviewData() {
+            getSeriesData();
+        }
 
     }
 })();

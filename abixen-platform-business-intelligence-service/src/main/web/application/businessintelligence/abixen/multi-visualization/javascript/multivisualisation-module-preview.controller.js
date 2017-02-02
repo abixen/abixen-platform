@@ -32,13 +32,11 @@
         $log.log('ChartModulePreviewController');
 
         $log.log('$scope.moduleId: ' + $scope.moduleId);
-        $log.log('$scope.initWizardStep.idSelected: ' + $scope.initWizardStep.idSelected);
-        $log.log('$scope.initWizardStep: ', $scope.initWizardStep);
 
         var chartModulePreview = this;
         chartModulePreview.options = undefined;
         chartModulePreview.data = undefined;
-        chartModulePreview.previewType = $scope.initWizardStep.isChart()? 'CHART' : 'TABLE';
+        chartModulePreview.previewType = $scope.isChart() ? 'CHART' : 'TABLE';
         chartModulePreview.setPreviewType = setPreviewType;
 
         $scope.$emit(platformParameters.events.START_REQUEST);
@@ -63,7 +61,7 @@
 
         function setPreviewType(type) {
             $log.log('setPreviewType', type);
-           chartModulePreview.previewType = type;
+            chartModulePreview.previewType = type;
         }
     }
 })();

@@ -1,6 +1,6 @@
 <!-- content -->
 <div class="row wizard-chart-configuration-content">
-    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-init="initDataSetSeries()">
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-init="configWizard.initDataSetSeries()">
         <!--keys -->
         <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
             <label class="header"><span class="">{{'module.multivisualisation.configuration.preview.headerKey.label' | translate}}</span></label>
@@ -8,13 +8,13 @@
         <div class="axis-x-filter">
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
                 <select class="form-control" name="singleSelect" id="axisxColumn"
-                        ng-model="chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn"
-                        ng-options="seriesColumn as seriesColumn.name for seriesColumn in chartConfiguration.dataSource.columns track by seriesColumn.id">
+                        ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn"
+                        ng-options="seriesColumn as seriesColumn.name for seriesColumn in configWizard.chartConfiguration.dataSource.columns track by seriesColumn.id">
                 </select>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
                 <select class="form-control" name="singleSelect" id="axisxOperator"
-                        ng-model="chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.operator">
+                        ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.operator">
                     <option value="">Operator</option>
                     <option value=">">min</option>
                     <option value="<">max</option>
@@ -23,13 +23,13 @@
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 no-padding">
                 <input placeholder="value" type="text" name="input"
-                       ng-model="chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.value"
+                       ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.value"
                        ng-trim="true" class="form-control">
             </div>
         </div>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-        <div ng-show="dataSetSeriesSelected != null">
+        <div ng-show="configWizard.dataSetSeriesSelected != null">
             <!--values -->
 
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
@@ -38,15 +38,15 @@
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
                 <select name="singleSelect" id="axisYColumn"
                         class="form-control"
-                        ng-model="dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn"
-                        ng-options="seriesColumn as seriesColumn.name for seriesColumn in chartConfiguration.dataSource.columns track by seriesColumn.id"
-                        ng-change="reloadPreviewData()">
+                        ng-model="configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn"
+                        ng-options="seriesColumn as seriesColumn.name for seriesColumn in configWizard.chartConfiguration.dataSource.columns track by seriesColumn.id"
+                        ng-change="configWizard.reloadPreviewData()">
                 </select>
             </div>
 
         </div>
     </div>
-    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" ng-show="dataSetSeriesSelected != null">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" ng-show="configWizard.dataSetSeriesSelected != null">
         <!-- preview data-->
         <div class="">
             <label class="header"><span class="">{{'module.multivisualisation.configuration.preview.label' | translate}}</span></label>
@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
 
-                <tr ng-repeat="data in moduleConfigurationWizardStep.chart.seriesPreviewData">
+                <tr ng-repeat="data in configWizard.chart.seriesPreviewData">
                     <td>{{data.x}}</td>
                     <td>{{data.y}}</td>
                 </tr>

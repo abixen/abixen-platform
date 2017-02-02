@@ -6,13 +6,13 @@
             <!-- series -->
             <div class="wizard-table-configuration-content-columns">
                 <div class="list-group">
-                    <a ng-repeat='column in moduleConfigurationWizardStep.table.columns'
+                    <a ng-repeat='column in configWizard.table.columns'
                        ng-show="column.isValid"
-                       ng-click="moduleConfigurationWizardStep.table.setSelected(column.idx)"
-                       ng-class="{'active': column.idx == moduleConfigurationWizardStep.table.columnSelected.idx}"
+                       ng-click="configWizard.setColumnSelected(column.idx)"
+                       ng-class="{'active': column.idx == configWizard.table.columnSelected.idx}"
                        class="list-group-item ">
                         <h5 class="list-group-item-heading">{{column.name}}</h5>
-                        <span ng-click="moduleConfigurationWizardStep.table.toggleColumn(column.idx)">
+                        <span ng-click="configWizard.table.toggleColumn(column.idx)">
                            
                             <i ng-class="column.isActive ? 'active': 'nonactive'"
                                class="fa fa-check pull-right"></i><span class="hidden-xs">&nbsp;</span>
@@ -29,7 +29,7 @@
 
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <select class="form-control" name="singleSelect" id="operatorColumn"
-                                ng-model="moduleConfigurationWizardStep.table.columnSelected.operator">
+                                ng-model="configWizard.table.columnSelected.operator">
                             <option value="">Operator</option>
                             <option value="add">Add</option>
                             <option value="divide">Divide</option>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <input placeholder=" value" type="text" name="input"
-                               ng-model="moduleConfigurationWizardStep.table.columnSelected.operatorValue"
+                               ng-model="configWizard.table.columnSelected.operatorValue"
                                ng-trim="true" class="form-control">
                     </div>
 
@@ -60,7 +60,7 @@
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="data in moduleConfigurationWizardStep.table.columnPreviewData">
+                    <tr ng-repeat="data in configWizard.table.columnPreviewData">
                         <td>{{data.value}}</td>
                     </tr>
                     </tbody>
