@@ -97,15 +97,18 @@
             if (configuration === undefined) configuration = configWizard.chartConfiguration;
             configuration = prepareFilterForDomain(configuration);
             if (configWizard.chartConfiguration.id) {
-                ChartModuleConfiguration.update({id: configuration.id}, configuration, function () {
-                    $log.log('ChartModuleConfiguration has been updated: ', configuration);
-                    $scope.$emit('VIEW_MODE');
-                });
+                ChartModuleConfiguration.update({id: configuration.id}, configuration)
+                    .$promise
+                    .then(onResult);
             } else {
-                ChartModuleConfiguration.save(configuration, function () {
-                    $log.log('ChartModuleConfiguration has been saved: ', configuration);
-                    $scope.$emit('VIEW_MODE');
-                });
+                ChartModuleConfiguration.save(configuration)
+                    .$promise
+                    .then(onResult);
+            }
+
+            function onResult() {
+                $log.log('ChartModuleConfiguration has been updated: ', configuration);
+                $scope.$emit('VIEW_MODE');
             }
         }
 
