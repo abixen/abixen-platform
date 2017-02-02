@@ -51,7 +51,7 @@
 
     function CommentDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest, platformSecurity) {
         var comment = this;
-        var addCommentForm = {};
+        var addCommentForm;
         var replyClickCounter = 0;
         var action;
         var platformUser = platformSecurity.getPlatformUser();
@@ -71,6 +71,7 @@
         comment.openReplyForm = openReplyForm;
         comment.openEditForm = openEditForm;
         comment.openAddForm = openAddForm;
+        comment.cancelForm = cancelForm;
         comment.canEdit = canEdit();
         comment.avatarFullPath = getAvatarFullPath();
 
@@ -113,6 +114,13 @@
             comment.entity.parentId = null;
             comment.entity.moduleId = comment.moduleId;
             appendAndShowCommentForm(selector);
+        }
+
+        function cancelForm() {
+            if (addCommentForm) {
+                addCommentForm.remove();
+                replyClickCounter = 0;
+            }
         }
 
         function getValidators() {

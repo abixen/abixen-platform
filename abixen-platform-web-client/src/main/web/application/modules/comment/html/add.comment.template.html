@@ -1,8 +1,19 @@
-<form name="comment.entityForm">
-    <div class="form-group col-sm-2">
-        <input-text-area model="comment.entity.message" id="message" name="message" placeholder="Your comments" validators="" rows="1"></input-text-area>
-    </div>
-    <div class="form-group col-sm-4">
-        <button ng-click="comment.saveForm()" class="btn btn-warning pull-right" type="button">Post</button>
-    </div>
-</form>
+<div class="col-sm-12">
+    <form name="comment.entityForm">
+        <div class="form-group col-sm-4">
+            <input-text-area model="comment.entity.message" id="message" name="message" placeholder="Your comments" validators="" rows="1"></input-text-area>
+        </div>
+        <div class="form-group col-sm-2">
+            <table>
+                <tr>
+                    <td>
+                        <button ng-click="comment.saveForm()" class="btn btn-warning" type="button">Post</button>
+                    </td>
+                    <td>
+                        <button ng-click="comment.cancelForm()" class="btn btn-default" type="button">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
