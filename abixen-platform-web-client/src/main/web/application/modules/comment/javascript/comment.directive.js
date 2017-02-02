@@ -72,6 +72,15 @@
         comment.openEditForm = openEditForm;
         comment.openAddForm = openAddForm;
         comment.canEdit = canEdit();
+        comment.avatarFullPath = getAvatarFullPath();
+
+        function getAvatarFullPath() {
+            var res = '';
+            if (angular.isDefined(comment.commentItem) && comment.commentItem != null) {
+                res = '/api/application/users/' + comment.commentItem.user.id + '/avatar/' + comment.commentItem.user.avatarFileName;
+            }
+            return res;
+        }
 
         function canEdit() {
             var res = angular.isDefined(comment.commentItem)
