@@ -120,7 +120,6 @@ services:
     image: abixen-platform/abixen-platform-zipkin
     ports:
       - "9411:9411"
-      - "9412:9412"
     links:
      - gateway
      - core
@@ -132,8 +131,18 @@ services:
      - business-intelligence-service
      - web-content-service
 
+  zipkin-web:
+    image: abixen-platform/zipkin-web
+    build: ../zipkin-web
+    ports:
+      - "9412:9412"
+    links:
+     - zipkin
+    depends_on:
+     - zipkin
+
   load-balancer:
-    image: traefik:v1.1.0-rc4
+    image: traefik:v1.1.2-alpine
     command: --web --docker --docker.domain=devd.io --logLevel=DEBUG
     ports:
       - "80:80"
