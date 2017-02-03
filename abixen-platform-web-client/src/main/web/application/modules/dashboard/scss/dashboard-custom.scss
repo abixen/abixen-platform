@@ -171,17 +171,9 @@ pre.edit {
     min-height: 145px;
   }
 
-  .add-module-button {
-    margin-top: 10px;
-    @media only screen and (min-width: 768px) {
-      margin-top: 25px;
-      position: absolute;
-      top: 80px;
-    }
-  }
-
   .module-row {
     margin-bottom: 20px;
+    border-bottom: 1px solid #054e81;
   }
 }
 
