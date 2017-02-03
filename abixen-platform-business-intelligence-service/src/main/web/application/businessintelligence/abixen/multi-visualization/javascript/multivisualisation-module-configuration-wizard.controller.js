@@ -40,8 +40,6 @@
 
         //TODO - check if needed
         $scope.chartConfiguration = configWizard.chartConfiguration = {
-            axisXName: '',
-            axisYName: '',
             id: null,
             moduleId: null
         };

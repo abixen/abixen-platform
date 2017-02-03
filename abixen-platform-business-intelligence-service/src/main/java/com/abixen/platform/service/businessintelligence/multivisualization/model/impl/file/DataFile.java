@@ -37,8 +37,7 @@ public class DataFile implements DataFileWeb {
     @NotNull
     private String name;
 
-    @Column(name = "description", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
-    @NotNull
+    @Column(name = "description", length = ModelKeys.NAME_MAX_LENGTH)
     private String description;
 
     @OneToMany(mappedBy = "dataFile", cascade = CascadeType.ALL)

@@ -47,10 +47,10 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
     @JoinColumn(name = "data_set_chart_id", nullable = false)
     private DataSetChart dataSetChart;
 
-    @Column(name = "axis_x_name", nullable = false)
+    @Column(name = "axis_x_name")
     private String axisXName;
 
-    @Column(name = "axis_y_name", nullable = false)
+    @Column(name = "axis_y_name")
     private String axisYName;
 
     @Lob

@@ -60,22 +60,24 @@
         function getColumns(fileData) {
             $log.debug('fileData: ', fileData);
             fileDataSourceDetails.fileColumns = [];
-            fileData.columns.forEach(function (column, index) {
-                var selected = false;
-                if (fileDataSourceDetails.entity.columns != null && fileDataSourceDetails.entity.columns != undefined){
-                    fileDataSourceDetails.entity.columns.forEach(function (selectedColumn) {
-                        if (selectedColumn.name.toUpperCase() === column.name.toUpperCase()){
-                            selected = true
-                        }
-                    })
-                }
+            if (fileData && fileData.columns) {
+                fileData.columns.forEach(function (column, index) {
+                    var selected = false;
+                    if (fileDataSourceDetails.entity.columns != null && fileDataSourceDetails.entity.columns != undefined) {
+                        fileDataSourceDetails.entity.columns.forEach(function (selectedColumn) {
+                            if (selectedColumn.name.toUpperCase() === column.name.toUpperCase()) {
+                                selected = true
+                            }
+                        })
+                    }
 
-                fileDataSourceDetails.fileColumns.push({
-                    name: column.name,
-                    position: index,
-                    selected:selected
+                    fileDataSourceDetails.fileColumns.push({
+                        name: column.name,
+                        position: index,
+                        selected: selected
+                    })
                 })
-            })
+            }
         }
 
         function onSuccessSaveForm() {

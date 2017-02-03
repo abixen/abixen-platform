@@ -40,17 +40,20 @@
 
         function beforeSaveForm() {
             fileDataDetails.entity.columns = [];
-            Object.keys(fileDataDetails.fileData[0]).forEach(function (column) {
-                if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
-                    var values = [];
-                    fileDataDetails.fileData.forEach(function (row) {
-                            values.push({ value: row[column]})
-                    });
-                    fileDataDetails.entity.columns.push({
-                        name: column,
-                        values : values});
-                }
-            });
+            if (fileDataDetails.fileData[0] != null) {
+                Object.keys(fileDataDetails.fileData[0]).forEach(function (column) {
+                    if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
+                        var values = [];
+                        fileDataDetails.fileData.forEach(function (row) {
+                            values.push({value: row[column]})
+                        });
+                        fileDataDetails.entity.columns.push({
+                            name: column,
+                            values: values
+                        });
+                    }
+                });
+            }
             $log.debug('entity.id: ',fileDataDetails.entity);
             fileDataDetails.saveForm();
         }
@@ -60,7 +63,7 @@
         }
 
         function onSuccessGetEntity() {
-            if (fileDataDetails.entity.columns == null && fileDataDetails.entity.columns == undefined){
+            if (fileDataDetails.entity.columns == null || fileDataDetails.entity.columns.length === 0 || fileDataDetails.entity.columns == undefined){
                 return;
             }
             var parsedData = [];

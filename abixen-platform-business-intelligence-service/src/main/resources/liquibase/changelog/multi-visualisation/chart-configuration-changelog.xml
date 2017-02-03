@@ -19,10 +19,10 @@
             <column name="last_modified_by_id" type="bigint"/>
             <column name="last_modified_date" type="timestamp"/>
             <column name="axis_x_name" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="axis_y_name" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="filter" type="${clob.type}"/>
             <column name="chart_type" type="varchar(255)">
