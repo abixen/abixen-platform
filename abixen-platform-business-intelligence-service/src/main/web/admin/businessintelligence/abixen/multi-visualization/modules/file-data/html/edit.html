@@ -7,13 +7,13 @@
                             name="name"
                             label="{{'service.businessintelligence.fileData.name.label' | translate}}"
                             placeholder="{{'service.businessintelligence.fileData.name.placeholder' | translate}}"
-                            validators="fileDataSourceDetails.validators">
+                            validators="fileDataDetails.validators">
                 </input-text>
                 <input-text model="fileDataDetails.entity.description"
                             name="description"
                             label="{{'service.businessintelligence.fileData.description.label' | translate}}"
                             placeholder="{{'service.businessintelligence.fileData.description.placeholder' | translate}}"
-                            validators="fileDataSourceDetails.validators">
+                            validators="fileDataDetails.validators">
                 </input-text>
 
                 <div class="upload">
@@ -42,7 +42,7 @@
 </form>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
-        <a class="btn save-button"
+        <a class="btn save-button " ng-disabled="fileDataDetails.entityForm.$invalid"
            ng-click="fileDataDetails.beforeSaveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
         </a>
         <a class="btn cancel-button"
