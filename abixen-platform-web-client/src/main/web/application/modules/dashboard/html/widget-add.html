@@ -5,26 +5,25 @@
     <div class="form-container" id="form-container"
          window-resize header="addModulePanelHeader" body="addModulePanelBody" footer="addModulePanelFooter">
         <div class="row module-row" ng-repeat="(key, widget) in widgets">
-            <div class="col-sm-6">
+            <div class="col-xs-8">
                 <a href="" ng-click="addWidget(key, widget)">
                     {{widget.title}}
                 </a>
                 <div>
                     {{widget.description}}
                 </div>
-                <a class="btn save-button add-module-button"
-                   ng-click="addWidget(key, widget)"><i class="fa fa-check-circle-o"></i><span>&nbsp;Add module</span>
-                </a>
             </div>
-            <div class="col-sm-6">
-                <div class="module-image"></div>
+            <div class="col-xs-4">
+                <a class="btn save-button pull-right"
+                   ng-click="addWidget(key, widget)"><i class="fa fa-plus"></i><span>&nbsp;Add</span>
+                </a>
             </div>
         </div>
     </div>
 </div>
 <div class="modal-footer aside-panel-footer" id="addModulePanelFooter">
     <div class="row bottom-navigation">
-        <div class="col-sx-12 bottom-navigation-content">
+        <div class="col-xs-12 bottom-navigation-content">
             <a class="btn cancel-button" ng-click="closeDialog()"><i
                     class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
         </div>
