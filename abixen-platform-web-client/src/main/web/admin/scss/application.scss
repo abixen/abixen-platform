@@ -64,6 +64,10 @@ body {
         background: none;
         color: #333;
       }
+
+      i {
+        padding-right: 5px;
+      }
     }
   }
 }
@@ -80,7 +84,7 @@ body {
   @include platform-button($font-color, $font-color, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
 }
 
-.platform-success-button{
+.platform-success-button {
   background-color: $success-color;
   border: 1px solid $success-color-darkest;
   color: $font-color;
@@ -96,7 +100,7 @@ body {
   }
 }
 
-.platform-warning-button{
+.platform-warning-button {
   background-color: $warning-color;
   border: 1px solid $warning-color-darkest;
   color: $font-color;
@@ -122,8 +126,7 @@ body {
 
   text-align: right;
 
-    .btn {
-      margin-left: 10px;
-    }
+  .btn {
+    margin-left: 10px;
+  }
 }
-
