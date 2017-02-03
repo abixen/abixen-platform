@@ -34,7 +34,8 @@
             {
                 entityId: userId,
                 getValidators: getUserDetailsValidators,
-                onSuccessSaveForm: onUserDetailsSuccessSaveForm
+                onSuccessSaveForm: onUserDetailsSuccessSaveForm,
+                onSuccessGetEntity: onSuccessGetEntity
             }
         );
 
@@ -49,7 +50,7 @@
         );
 
         userAccountDetails.userDetails.uploader = creteUploder();
-        userAccountDetails.userDetails.avatarUrl = userBaseUrl + userId + '/avatar/' + userAccountDetails.userDetails.entity.avatarFileName;
+        userAccountDetails.userDetails.avatarUrl = '';
         userAccountDetails.userDetails.isUploadAvatar = false;
         userAccountDetails.userDetails.hideUploadContent = hideUploadContent;
         userAccountDetails.userDetails.showUploadContent = showUploadContent;
@@ -74,6 +75,10 @@
                 default:
                     throw new Error('Unsupported a saveForm() operation.')
             }
+        }
+
+        function onSuccessGetEntity() {
+            userAccountDetails.userDetails.avatarUrl = userBaseUrl + userId + '/avatar/' + userAccountDetails.userDetails.entity.avatarFileName;
         }
 
         function selectUserDetails() {
@@ -119,14 +124,13 @@
 
             uploader.onCompleteItem = function (fileItem, response, status, headers) {
                 if (response.id != undefined) {
-                    $scope.user = response;
-                    userAccountDetails.userDetails.avatarUrl = $scope.userBaseUrl + userId + '/avatar/' + $scope.user.avatarFileName;
+                    userAccountDetails.userDetails.avatarUrl = userBaseUrl + userId + '/avatar/' + response.avatarFileName;
                 }
             };
 
             uploader.onCompleteAll = function () {
-                if ($scope.isUploadAvatar) {
-                    $scope.isUploadAvatar = false;
+                if (userAccountDetails.userDetails.isUploadAvatar) {
+                    userAccountDetails.userDetails.isUploadAvatar = false;
                     uploader.clearQueue()
                 }
             };
