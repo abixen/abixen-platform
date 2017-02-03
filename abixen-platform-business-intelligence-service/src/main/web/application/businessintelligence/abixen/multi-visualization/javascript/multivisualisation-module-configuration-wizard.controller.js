@@ -63,15 +63,16 @@
             columnSelected: null
         };
 
+        configWizard.canNext = canNext;
+        configWizard.next = next;
+        configWizard.prev = prev;
+
         configWizard.setDataSourceSelected = setDataSourceSelected;
         configWizard.setChartTypeSelected = setChartTypeSelected;
         configWizard.initDataSetSeries = initDataSetSeries;
         configWizard.addDataSetSeries = addDataSetSeries;
         configWizard.removeDataSetSeries = removeDataSetSeries;
         configWizard.setDataSetSeriesSelected = setDataSetSeriesSelected;
-        configWizard.canNext = canNext;
-        configWizard.next = next;
-        configWizard.prev = prev;
         configWizard.reloadPreviewData = reloadPreviewData;
         configWizard.isChart = $scope.isChart = chartTypeWizardStepIsChart;
         configWizard.setColumnSelected = setColumnSelected;
@@ -143,7 +144,7 @@
         function buildObjFromJson(domainSeries, json) {
             var jsonObj = JSON.parse(json);
 
-            if (jsonObj.group !== undefined) {
+            if (jsonObj && jsonObj.group !== undefined) {
                 domainSeries.filterObj = {};
                 domainSeries.filterObj.operator = jsonObj.group.rules[0].condition;
                 domainSeries.filterObj.value = jsonObj.group.rules[0].data;
@@ -169,6 +170,7 @@
         function refreshColumn() {
             $log.debug('configWizard.chartConfiguration.dataSource', configWizard.chartConfiguration.dataSource);
             configWizard.table.columns = [];
+
             function compare(a, b) {
                 if (a.id < b.id)
                     return -1;
@@ -210,15 +212,18 @@
         function getColumnData(idx) {
             configWizard.table.columnPreviewData = [];
             if (configWizard.table.columnSelected.name != undefined && configWizard.table.columnSelected.name !== '') {
-                CharDataPreview.query({seriesName: configWizard.table.columnSelected.name}, buildTableConfiguration(), function (data) {
-                    $log.log('CharDataPreview.query: ', data);
-                    data.forEach(function (el) {
-                        configWizard.table.columnPreviewData.push({
-                            value: el[configWizard.table.columnSelected.name].value
-                        });
-                    })
+                CharDataPreview.query({seriesName: configWizard.table.columnSelected.name}, buildTableConfiguration())
+                    .$promise
+                    .then(onQueryResult)
+            }
 
-                });
+            function onQueryResult(data) {
+                $log.log('CharDataPreview.query: ', data);
+                data.forEach(function (el) {
+                    configWizard.table.columnPreviewData.push({
+                        value: el[configWizard.table.columnSelected.name].value
+                    });
+                })
             }
         }
 
@@ -226,18 +231,19 @@
             configWizard.chart.seriesPreviewData = [];
             if (configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn !== null && configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== undefined && configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== '') {
                 configWizard.chartConfiguration = prepareFilterForDomain(configWizard.chartConfiguration);
-                CharDataPreview.query({seriesName: configWizard.dataSetSeriesSelected.name}, configWizard.chartConfiguration, function (data) {
-                    $log.log('CharDataPreview.query: ', data);
-                    data.forEach(function (el) {
-                        configWizard.chart.seriesPreviewData.push({
-                            x: el[configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value,
-                            y: el[configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name].value
-                        });
-                    })
+                CharDataPreview.query({seriesName: configWizard.dataSetSeriesSelected.name}, configWizard.chartConfiguration)
+                    .$promise
+                    .then(onQueryResult);
+            }
 
-                }, function (error) {
-
-                });
+            function onQueryResult(data) {
+                $log.log('CharDataPreview.query: ', data);
+                data.forEach(function (el) {
+                    configWizard.chart.seriesPreviewData.push({
+                        x: el[configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value,
+                        y: el[configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name].value
+                    });
+                })
             }
         }
 
@@ -347,9 +353,13 @@
             if (moduleId === null) {
                 return;
             }
-            ChartModuleConfiguration.get({id: moduleId}, function (data) {
-                $scope.chartConfiguration = configWizard.chartConfiguration = data;
-                if (configWizard.chartConfiguration.id == null) {
+            ChartModuleConfiguration.get({id: moduleId})
+                .$promise
+                .then(onGetResult);
+
+            function onGetResult(chartConfiguration) {
+                $scope.chartConfiguration = configWizard.chartConfiguration = chartConfiguration;
+                if (configWizard.chartConfiguration.id === null) {
                     configWizard.chartConfiguration = {
                         moduleId: $scope.moduleId,
                         axisXName: '', //TODO maybe null, not '' ?
@@ -367,7 +377,7 @@
                 } else {
                     buildObjFromJson(configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn, configWizard.chartConfiguration.filter);
                 }
-            });
+            }
         }
 
         function initDataSetSeries() {
@@ -375,7 +385,7 @@
                 addDataSetSeries();
             } else {
                 if (configWizard.dataSetSeriesSelected === undefined || configWizard.dataSetSeriesSelected === null) {
-                    configWizard.setDataSetSeriesSelected(configWizard.chartConfiguration.dataSetChart.dataSetSeries[0]);
+                    setDataSetSeriesSelected(configWizard.chartConfiguration.dataSetChart.dataSetSeries[0]);
                 }
             }
         }
@@ -406,7 +416,7 @@
             seriesNumber++;
 
             if (configWizard.dataSetSeriesSelected == null) {
-                configWizard.setDataSetSeriesSelected(configWizard.chartConfiguration.dataSetChart.dataSetSeries[0]);
+                setDataSetSeriesSelected(configWizard.chartConfiguration.dataSetChart.dataSetSeries[0]);
             }
         }
 
@@ -417,12 +427,12 @@
 
             if (index + 1 < configWizard.chartConfiguration.dataSetChart.dataSetSeries.length) {
                 var nextDataSetSeries = configWizard.chartConfiguration.dataSetChart.dataSetSeries[index + 1];
-                configWizard.setDataSetSeriesSelected(nextDataSetSeries);
+                setDataSetSeriesSelected(nextDataSetSeries);
             } else if (index > 0) {
                 var prevDataSetSeries = configWizard.chartConfiguration.dataSetChart.dataSetSeries[index - 1];
-                configWizard.setDataSetSeriesSelected(prevDataSetSeries);
+                setDataSetSeriesSelected(prevDataSetSeries);
             } else {
-                configWizard.setDataSetSeriesSelected(null);
+                setDataSetSeriesSelected(null);
             }
 
             configWizard.chartConfiguration.dataSetChart.dataSetSeries.splice(index, 1);
@@ -434,7 +444,6 @@
              configWizard.chart.series[i].isValid = false;
              }
              }*/
-
         }
 
         function setDataSetSeriesSelected(dataSetSeries) {
