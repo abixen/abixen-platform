@@ -68,7 +68,6 @@ public class CommentServiceImpl implements CommentService {
         comment.setParent(parentCommentId != null ? commentRepository.findOne(parentCommentId) : null);
         Long moduleId = commentForm.getModuleId();
         comment.setModule(moduleId != null ? moduleRepository.findOne(moduleId) : null);
-        comment.setCreatedBy(commentForm.getUser() != null ? userRepository.findOne(commentForm.getUser().getId()) : null);
         return comment;
     }
 }
