@@ -153,7 +153,7 @@
         function appendAndShowCommentForm(selector) {
             if (replyClickCounter === 0) {
                 var targetElement = angular.element(document.querySelector(selector));
-                $templateRequest("/application/modules/comment/html/add.comment.template.html", false)
+                $templateRequest("/application/modules/comment/html/add-comment.template.html", false)
                     .then(function (html) {
                         addCommentForm = angular.element(html);
                         targetElement.append(addCommentForm);
