@@ -30,6 +30,7 @@ public class PlatformUser extends User implements PlatformWebUser {
     private String lastname;
     private boolean admin;
     private UserLanguage selectedLanguage;
+    private String avatarFileName;
 
     public PlatformUser(String username,
                         String password,
@@ -42,13 +43,15 @@ public class PlatformUser extends User implements PlatformWebUser {
                         String lastname,
                         boolean admin,
                         Long id,
-                        UserLanguage selectedLanguage) {
+                        UserLanguage selectedLanguage,
+                        String avatarFileName) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.admin = admin;
         this.firstname = firstname;
         this.lastname = lastname;
         this.id = id;
         this.selectedLanguage = selectedLanguage;
+        this.avatarFileName = avatarFileName;
     }
 
     @Override
@@ -74,5 +77,10 @@ public class PlatformUser extends User implements PlatformWebUser {
     @Override
     public UserLanguage getSelectedLanguage() {
         return selectedLanguage;
+    }
+
+    @Override
+    public String getAvatarFileName() {
+        return avatarFileName;
     }
 }

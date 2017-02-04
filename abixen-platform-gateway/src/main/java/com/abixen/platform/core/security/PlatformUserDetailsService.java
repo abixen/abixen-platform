@@ -80,7 +80,8 @@ public class PlatformUserDetailsService implements UserDetailsService {
                 user.getLastName(),
                 admin,
                 user.getId(),
-                user.getSelectedLanguage());
+                user.getSelectedLanguage(),
+                user.getAvatarFileName());
 
         return platformUser;
     }
