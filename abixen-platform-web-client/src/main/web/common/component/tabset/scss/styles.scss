@@ -1,36 +1,48 @@
 .platform-tabset {
-  color: $base-color;
 
-  li {
-    cursor: pointer;
+  .nav-tabs {
+    border-bottom: none;
 
-    a {
-      border-top: #F6F6F6 3px solid;
+    li {
       color: $base-color;
-      font-size: 16px;
-    }
+      cursor: pointer;
+      border-bottom: 1px solid #ddd;
 
-    &.active {
       a {
-        outline: none;
-        border-top: $complementary-color 3px solid !important;
-        background: #F6F6F6 !important;
-        font-weight: bold;
+        border-top: #F6F6F6 3px solid;
         color: $base-color;
+        font-size: 16px;
+      }
 
-        &:hover {
-          border-top: $complementary-color-lighter 3px solid;
-          color: $base-color-lighter;
+      &.active {
+        border-bottom: none;
+
+        a {
+          outline: none;
+          border-top: $complementary-color 3px solid !important;
+          border-bottom: none;
+          background: transparent !important;
+          font-weight: bold;
+          color: $base-color;
+
+          &:hover {
+            border-top: $complementary-color-lighter 3px solid;
+            border-bottom: none;
+            color: $base-color-lighter;
+          }
         }
       }
-    }
 
-    &:hover {
-      a {
-        outline: none;
-        background: #F6F6F6;
-        border-top: $complementary-color-lighter 3px solid;
-        color: $base-color-lighter;
+      &:hover {
+        border-bottom: none;
+
+        a {
+          outline: none;
+          background: transparent;
+          border-top: $complementary-color-lighter 3px solid;
+          border-bottom: none;
+          color: $base-color-lighter;
+        }
       }
     }
   }
