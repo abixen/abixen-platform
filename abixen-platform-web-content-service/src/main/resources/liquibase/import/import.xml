@@ -5,5 +5,15 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/import/import.xml">
+    <changeSet author="KonradWisniewski" id="import-v1" runAlways="false" runOnChange="true">
+
+        <preConditions onFail="HALT">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM web_content</sqlCheck>
+        </preConditions>
+        <loadData file="liquibase/import/data/web-content-data.csv"
+                  separator=";"
+                  tableName="web_content">
+        </loadData>
+    </changeSet>
 
 </databaseChangeLog>
