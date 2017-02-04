@@ -37,10 +37,9 @@ public class WebContentServiceTest {
     WebContentService webContentService;
 
     @Test
-    public void sample() {
+    public void getWebContents() {
         Page<WebContent> webContentPage = webContentService.getWebContents(new PageRequest(0, 10));
-
-        assertEquals(0, webContentPage.getTotalElements());
+        assertEquals(2, webContentPage.getTotalElements());
     }
 
 }

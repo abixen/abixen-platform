@@ -1,0 +1,3 @@
+id;type;title;content;created_by_id;created_date;last_modified_by_id;last_modified_date
+1;SIMPLE;home page;This is chart sample instance visualization module #2;1;NULL;1;NULL
+2;ADVANCED;home adv page;This is adv chart sample instance visualization module #2;1;NULL;1;NULL
