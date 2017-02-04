@@ -55,9 +55,7 @@
             scope.dropdownStyleClass = applicationNavigationItems.getDropdownStyleClass();
             scope.toggle = true;
             scope.baseUserUrl = '/api/application/users/';
-            scope.avatarUrl = '';
-            scope.platformUser = platformSecurity.getPlatformUser();
-            scope.avatarUrl = scope.baseUserUrl + scope.platformUser.id + '/avatar/' + scope.platformUser.avatarFileName;
+
             scope.locales = [
                 {title: 'English', img: '/common/navigation/image/united-states_flat.png', name: 'ENGLISH'},
                 {title: 'Polski', img: '/common/navigation/image/poland_flat.png', name: 'POLISH'},
@@ -65,10 +63,6 @@
                 {title: 'Spanish', img: '/common/navigation/image/spain_flat.png', name: 'SPAIN'},
                 {title: 'Ukrainian', img: '/common/navigation/image/ukraine_flat.png', name: 'UKRAINIAN'}
             ];
-            scope.selectedLocale = $filter("filter")(scope.locales, {name: scope.platformUser.selectedLanguage})[0];
-
-            //  default locale is ENGLISH
-            scope.selectedLocale = scope.locales[0];
 
             var mobileView = 992;
 
@@ -77,7 +71,6 @@
             };
 
             scope.$watch(scope.getWidth, function (newValue, oldValue) {
-                $log.log('scope.toggle: ' + scope.toggle);
                 if (newValue >= mobileView) {
                     scope.toggle = true;
                 } else {
@@ -85,6 +78,9 @@
                 }
 
             });
+
+            scope.$watch(platformSecurity.getPlatformUser, onChangeUser);
+
 
             if (!scope.selectedItem && !$state.params.id) {
                 scope.selectedItem = 0;
@@ -116,6 +112,12 @@
             scope.$on(platformParameters.events.SIDEBAR_ELEMENT_SELECTED, function (event, id) {
                 scope.selectedItem = id;
             });
+
+            function onChangeUser() {
+                scope.platformUser = platformSecurity.getPlatformUser();
+                scope.avatarUrl = scope.baseUserUrl + scope.platformUser.id + '/avatar/' + scope.platformUser.avatarFileName;
+                scope.selectedLocale = $filter("filter")(scope.locales, {name: scope.platformUser.selectedLanguage})[0];
+            }
         }
     }
 })();

@@ -121,17 +121,11 @@
             applicationNavigationItemsProvider.addSidebarItem(externalAdminSidebarItems[i]);
         }
 
-        platformSecurityResolver.$inject = ['$http', 'platformSecurity'];
+        platformSecurityResolver.$inject = ['platformSecurity'];
 
-        function platformSecurityResolver($http, platformSecurity) {
+        function platformSecurityResolver(platformSecurity) {
             console.log("platform security resolver");
-            $http
-                .get('/user', {})
-                .success(onSuccess);
-
-            function onSuccess(platformUser) {
-                platformSecurity.setPlatformUser(platformUser);
-            }
+            platformSecurity.reloadPlatformUser();
         }
     }
 })();

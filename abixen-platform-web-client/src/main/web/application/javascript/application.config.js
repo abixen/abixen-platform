@@ -57,17 +57,11 @@
         modalWindowProvider.setCancelButtonClass('btn cancel-button');
         modalWindowProvider.setWarningWindowClass('warning-modal');
 
-        platformSecurityResolver.$inject = ['$http', 'platformSecurity'];
+        platformSecurityResolver.$inject = ['platformSecurity'];
 
-        function platformSecurityResolver($http, platformSecurity) {
+        function platformSecurityResolver(platformSecurity) {
             console.log("platform security resolver");
-            $http
-                .get('/user', {})
-                .success(onSuccess);
-
-            function onSuccess(platformUser) {
-                platformSecurity.setPlatformUser(platformUser);
-            }
+            platformSecurity.reloadPlatformUser();
         }
     }
 

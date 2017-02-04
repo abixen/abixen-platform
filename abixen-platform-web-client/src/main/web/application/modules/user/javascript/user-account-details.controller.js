@@ -152,6 +152,7 @@
         }
 
         function onUserDetailsSuccessSaveForm() {
+            platformSecurity.reloadPlatformUser();
             $uibModalInstance.dismiss();
             toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Updated', 'The account has been updated successfully.');
         }

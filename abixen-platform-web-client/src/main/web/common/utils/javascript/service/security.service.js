@@ -19,24 +19,29 @@
         .module('platformUtilsModule')
         .service('platformSecurity', platformSecurity);
 
-    function platformSecurity() {
+    platformSecurity.$inject = [
+        '$http'
+    ];
+
+    function platformSecurity($http) {
         var platformSecurity = this;
         var platformUser = null;
 
-        platformSecurity.setPlatformUser = setPlatformUser;
         platformSecurity.getPlatformUser = getPlatformUser;
-
-        function setPlatformUser(value) {
-            if (platformUser == null) {
-                platformUser = value;
-            } else {
-                throw new Error("Platform user is set already.");
-            }
-
-        }
+        platformSecurity.reloadPlatformUser = reloadPlatformUser;
 
         function getPlatformUser() {
             return platformUser;
+        }
+
+        function reloadPlatformUser() {
+            $http
+                .get('/user', {})
+                .success(onSuccess);
+
+            function onSuccess(pUser) {
+                platformUser = pUser;
+            }
         }
 
     }
