@@ -1,2 +1,26 @@
 server:
   port: 9411
+
+
+---
+
+
+spring:
+  profiles: platform-cloud
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+
+
+---
+
+
+spring:
+  profiles: dev
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

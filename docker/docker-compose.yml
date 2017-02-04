@@ -33,6 +33,7 @@ services:
       - core
       - business-intelligence-service
       - web-content-service
+      - zipkin
     depends_on:
       - discovery
       - configuration
@@ -40,6 +41,7 @@ services:
       - core
       - business-intelligence-service
       - web-content-service
+      - zipkin
 
   business-intelligence-service:
     image: abixen-platform/abixen-platform-business-intelligence-service
@@ -48,11 +50,13 @@ services:
       - configuration
       - business-intelligence-service-postgres-database
       - rabbitmq
+      - zipkin
     depends_on:
       - discovery
       - configuration
       - business-intelligence-service-postgres-database
       - rabbitmq
+      - zipkin
 
   web-content-service:
     image: abixen-platform/abixen-platform-web-content-service
@@ -61,11 +65,13 @@ services:
       - configuration
       - web-content-service-postgres-database
       - rabbitmq
+      - zipkin
     depends_on:
       - discovery
       - configuration
       - web-content-service-postgres-database
       - rabbitmq
+      - zipkin
 
   core:
     image: abixen-platform/abixen-platform-core
@@ -75,12 +81,14 @@ services:
       - redis
       - core-postgres-database
       - rabbitmq
+      - zipkin
     depends_on:
       - discovery
       - configuration
       - redis
       - core-postgres-database
       - rabbitmq
+      - zipkin
     volumes:
       - /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library:/data/image-library
 
@@ -91,11 +99,13 @@ services:
      - configuration
      - gateway
      - core
+     - zipkin
     depends_on:
      - discovery
      - configuration
      - gateway
      - core
+     - zipkin
     labels:
       - "traefik.port=8080"
       - "traefik.frontend.rule=Host:platform.abixen.devd.io"
@@ -121,15 +131,11 @@ services:
     ports:
       - "9411:9411"
     links:
-     - gateway
-     - core
-     - business-intelligence-service
-     - web-content-service
+     - rabbitmq
+     - configuration
     depends_on:
-     - gateway
-     - core
-     - business-intelligence-service
-     - web-content-service
+     - rabbitmq
+     - configuration
 
   zipkin-web:
     image: abixen-platform/zipkin-web
