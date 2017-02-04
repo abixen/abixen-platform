@@ -202,10 +202,10 @@ public abstract class AbstractUserController {
         return new FormValidationResultDto(userChangePasswordFormResult);
     }
 
-    @RequestMapping(value = "/selected-language", method = RequestMethod.PUT)
+    @RequestMapping(value = "/selected-language/{selectedLanguage}", method = RequestMethod.PUT)
     public ResponseEntity<UserLanguage> updateSelectedLanguage(@PathVariable UserLanguage selectedLanguage) {
         log.debug("updateSelectedLanguage() for logged user : " + selectedLanguage);
         UserLanguage updatedSelectedLanguage = userService.updateSelectedLanguage(securityService.getAuthorizedUser().getId(), selectedLanguage);
-        return new ResponseEntity<UserLanguage>(updatedSelectedLanguage, HttpStatus.OK);
+        return new ResponseEntity(updatedSelectedLanguage, HttpStatus.OK);
     }
 }

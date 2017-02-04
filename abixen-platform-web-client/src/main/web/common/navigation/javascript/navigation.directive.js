@@ -25,10 +25,11 @@
         'applicationNavigationItems',
         '$translate',
         '$filter',
-        'platformSecurity'
+        'platformSecurity',
+        'User'
     ];
 
-    function platformNavigationDirective($state, applicationNavigationItems, $translate, $filter, platformSecurity) {
+    function platformNavigationDirective($state, applicationNavigationItems, $translate, $filter, platformSecurity, User) {
         return {
             restrict: 'E',
             transclude: true,
@@ -86,8 +87,14 @@
 
 
             function switchLocale(locale) {
-                navigation.selectedLocale = locale;
-                $translate.use(navigation.selectedLocale.name);
+                User.selectLanguage({selectedLanguage: locale.name}, {})
+                    .$promise
+                    .then(onSelectLanguage);
+
+                function onSelectLanguage() {
+                    navigation.selectedLocale = locale;
+                    $translate.use(navigation.selectedLocale.name);
+                }
             }
 
             function changeState(sidebarItem) {

@@ -26,7 +26,11 @@
 
         return $resource('/api/admin/users/:id', {}, {
             query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'}
+            update: {method: 'PUT'},
+            selectLanguage: {
+                method: 'PUT',
+                url: '/api/admin/users/selected-language/:selectedLanguage'
+            }
         });
     }
 
