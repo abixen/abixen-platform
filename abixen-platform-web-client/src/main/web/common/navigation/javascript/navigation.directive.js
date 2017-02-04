@@ -21,7 +21,6 @@
         .directive('platformNavigation', platformNavigationDirective);
 
     platformNavigationDirective.$inject = [
-        '$log',
         '$state',
         'applicationNavigationItems',
         '$translate',
@@ -29,7 +28,7 @@
         'platformSecurity'
     ];
 
-    function platformNavigationDirective($log, $state, applicationNavigationItems, $translate, $filter, platformSecurity) {
+    function platformNavigationDirective($state, applicationNavigationItems, $translate, $filter, platformSecurity) {
         return {
             restrict: 'E',
             transclude: true,
@@ -42,21 +41,27 @@
                 showDropdown: '=showDropdown',
                 editUser: '&editUser'
             },
-            link: link
+            link: link,
+            controller: NavigationController,
+            controllerAs: 'navigation',
+            bindToController: true
         };
 
-        function link(scope, element, attrs) {
+        NavigationController.$inject = ['$scope', 'fieldSize'];
 
-            scope.applicationNavigationItems = applicationNavigationItems;
-            scope.sidebarItems = applicationNavigationItems.sidebarItems;
-            scope.topbarItems = applicationNavigationItems.topbarItems;
-            scope.topbarDropdownItems = applicationNavigationItems.topbarDropdownItems;
-            scope.redirectAction = applicationNavigationItems.getRedirectAction();
-            scope.dropdownStyleClass = applicationNavigationItems.getDropdownStyleClass();
-            scope.toggle = true;
-            scope.baseUserUrl = '/api/application/users/';
+        function NavigationController($scope, fieldSize) {
+            var navigation = this;
+            var baseUserUrl = '/api/application/users/';
+            var mobileView = 992;
 
-            scope.locales = [
+            navigation.applicationNavigationItems = applicationNavigationItems;
+            navigation.sidebarItems = applicationNavigationItems.sidebarItems;
+            navigation.topbarItems = applicationNavigationItems.topbarItems;
+            navigation.topbarDropdownItems = applicationNavigationItems.topbarDropdownItems;
+            navigation.redirectAction = applicationNavigationItems.getRedirectAction();
+            navigation.dropdownStyleClass = applicationNavigationItems.getDropdownStyleClass();
+            navigation.toggle = true;
+            navigation.locales = [
                 {title: 'English', img: '/common/navigation/image/united-states_flat.png', name: 'ENGLISH'},
                 {title: 'Polski', img: '/common/navigation/image/poland_flat.png', name: 'POLISH'},
                 {title: 'Russian', img: '/common/navigation/image/russia_flat.png', name: 'RUSSIAN'},
@@ -64,60 +69,63 @@
                 {title: 'Ukrainian', img: '/common/navigation/image/ukraine_flat.png', name: 'UKRAINIAN'}
             ];
 
-            var mobileView = 992;
+            navigation.switchLocale = switchLocale;
+            navigation.changeState = changeState;
+            navigation.toggleSidebar = toggleSidebar;
 
-            scope.getWidth = function () {
-                return window.innerWidth;
-            };
+            $scope.$watch(getWidth, onWidthChange);
+            $scope.$watch(platformSecurity.getPlatformUser, onUserChange);
 
-            scope.$watch(scope.getWidth, function (newValue, oldValue) {
-                if (newValue >= mobileView) {
-                    scope.toggle = true;
-                } else {
-                    scope.toggle = false;
-                }
-
+            $scope.$on(platformParameters.events.SIDEBAR_ELEMENT_SELECTED, function (event, id) {
+                navigation.selectedItem = id;
             });
 
-            scope.$watch(platformSecurity.getPlatformUser, onChangeUser);
-
-
-            if (!scope.selectedItem && !$state.params.id) {
-                scope.selectedItem = 0;
+            if (!navigation.selectedItem && !$state.params.id) {
+                navigation.selectedItem = 0;
             }
 
-            scope.changeState = function (sidebarItem) {
-                scope.selectedItem = sidebarItem.id;
+
+            function switchLocale(locale) {
+                navigation.selectedLocale = locale;
+                $translate.use(navigation.selectedLocale.name);
+            }
+
+            function changeState(sidebarItem) {
+                navigation.selectedItem = sidebarItem.id;
                 if (sidebarItem.isPage) {
                     $state.go(sidebarItem.state, {id: sidebarItem.id});
                 } else {
                     $state.go(sidebarItem.state);
                 }
+            }
 
-            };
+            function toggleSidebar() {
+                navigation.toggle = !navigation.toggle;
+            }
 
-            scope.toggleSidebar = function () {
-                scope.toggle = !scope.toggle;
-            };
+            function onUserChange() {
+                navigation.platformUser = platformSecurity.getPlatformUser();
+                navigation.avatarUrl = baseUserUrl + navigation.platformUser.id + '/avatar/' + navigation.platformUser.avatarFileName;
+                navigation.selectedLocale = $filter("filter")(navigation.locales, {name: navigation.platformUser.selectedLanguage})[0];
+            }
 
-            scope.switchLocale = function (locale) {
-                scope.selectedLocale = locale;
-                $translate.use(scope.selectedLocale.name);
-            };
+            function onWidthChange(newValue) {
+                if (newValue >= mobileView) {
+                    navigation.toggle = true;
+                } else {
+                    navigation.toggle = false;
+                }
+            }
 
+            function getWidth() {
+                return window.innerWidth;
+            }
+        }
+
+        function link(scope, element, attrs) {
             window.onresize = function () {
                 scope.$apply();
             };
-
-            scope.$on(platformParameters.events.SIDEBAR_ELEMENT_SELECTED, function (event, id) {
-                scope.selectedItem = id;
-            });
-
-            function onChangeUser() {
-                scope.platformUser = platformSecurity.getPlatformUser();
-                scope.avatarUrl = scope.baseUserUrl + scope.platformUser.id + '/avatar/' + scope.platformUser.avatarFileName;
-                scope.selectedLocale = $filter("filter")(scope.locales, {name: scope.platformUser.selectedLanguage})[0];
-            }
         }
     }
 })();
