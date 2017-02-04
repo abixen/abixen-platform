@@ -52,6 +52,7 @@
         userAccountDetails.userDetails.uploader = creteUploder();
         userAccountDetails.userDetails.avatarUrl = '';
         userAccountDetails.userDetails.isUploadAvatar = false;
+        userAccountDetails.userDetails.genderTypes = [{key: 'MALE'}, {key: 'FEMALE'}];
         userAccountDetails.userDetails.hideUploadContent = hideUploadContent;
         userAccountDetails.userDetails.showUploadContent = showUploadContent;
         userAccountDetails.cancel = cancel;
