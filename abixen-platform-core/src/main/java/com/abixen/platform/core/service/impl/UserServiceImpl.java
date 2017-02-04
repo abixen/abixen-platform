@@ -25,6 +25,7 @@ import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.enumtype.UserState;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.UserRepository;
+import com.abixen.platform.core.security.PlatformUser;
 import com.abixen.platform.core.service.DomainBuilderService;
 import com.abixen.platform.core.service.PasswordGeneratorService;
 import com.abixen.platform.core.service.RoleService;
@@ -36,6 +37,10 @@ import org.apache.commons.io.FileExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -127,7 +132,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(User user) {
         log.debug("updateUser() - user: {}", user);
-        return userRepository.save(user);
+
+        User updatedUser = userRepository.save(user);
+        updatePlatformUser(user);
+
+        return updatedUser;
     }
 
     @Override
@@ -229,5 +238,36 @@ public class UserServiceImpl implements UserService {
         user.setSelectedLanguage(selectedLanguage);
         updateUser(user);
         return selectedLanguage;
+    }
+
+    private void updatePlatformUser(User user) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        PlatformUser currentPlatformUser = null;
+
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            currentPlatformUser = (PlatformUser) authentication.getPrincipal();
+        }
+
+        if (currentPlatformUser != null && currentPlatformUser.getId().equals(user.getId())) {
+            log.info("Update of signed in user {}", currentPlatformUser.getUsername());
+
+            PlatformUser newPlatformUser = new PlatformUser(user.getUsername(),
+                    user.getPassword(),
+                    currentPlatformUser.isEnabled(),
+                    currentPlatformUser.isAccountNonExpired(),
+                    currentPlatformUser.isCredentialsNonExpired(),
+                    currentPlatformUser.isAccountNonLocked(),
+                    currentPlatformUser.getAuthorities(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    currentPlatformUser.isAdmin(),
+                    user.getId(),
+                    user.getSelectedLanguage(),
+                    user.getAvatarFileName());
+
+            Authentication newAuthentication = new UsernamePasswordAuthenticationToken(newPlatformUser, newPlatformUser.getPassword(), newPlatformUser.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+        }
     }
 }
