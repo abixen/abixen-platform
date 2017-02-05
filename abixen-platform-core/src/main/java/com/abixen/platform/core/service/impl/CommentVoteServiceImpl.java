@@ -25,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Transactional
 @Service
@@ -55,6 +57,12 @@ public class CommentVoteServiceImpl implements CommentVoteService {
         commentVote.setCommentVoteType(commentVoteForm.getCommentVoteType());
         CommentVote updatedComment = commentVoteRepository.save(commentVote);
         return commentVoteForm;
+    }
+
+    @Override
+    public void deleteByCommentIds(List<Long> commentIds) {
+        log.debug("deleteCommentVoteByCommentId() - commentIds = {}", commentIds);
+        commentVoteRepository.deleteByCommentId(commentIds);
     }
 
     private CommentVote buildCommentVote(CommentVoteForm commentVoteForm) {

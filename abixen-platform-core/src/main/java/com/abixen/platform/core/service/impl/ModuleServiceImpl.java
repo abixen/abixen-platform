@@ -32,6 +32,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -47,17 +48,21 @@ public class ModuleServiceImpl implements ModuleService {
 
     private final RabbitMQOperations rabbitMQOperations;
 
+    private final CommentService commentService;
+
     @Autowired
     public ModuleServiceImpl(ModuleRepository moduleRepository,
                              ModuleTypeService moduleTypeService,
                              DomainBuilderService domainBuilderService,
                              AclService aclService,
-                             RabbitMQOperations rabbitMQOperations) {
+                             RabbitMQOperations rabbitMQOperations,
+                             CommentService commentService) {
         this.moduleRepository = moduleRepository;
         this.moduleTypeService = moduleTypeService;
         this.domainBuilderService = domainBuilderService;
         this.aclService = aclService;
         this.rabbitMQOperations = rabbitMQOperations;
+        this.commentService = commentService;
     }
 
     @Override
@@ -114,8 +119,10 @@ public class ModuleServiceImpl implements ModuleService {
         modules.forEach(module -> {
             RabbitMQMessage removeMessage = new RabbitMQRemoveModuleMessage(module.getId(), module.getModuleType().getName());
             rabbitMQOperations.convertAndSend(module.getModuleType().getServiceId(), removeMessage);
-
         });
+
+        List<Long> moduleIds = modules.stream().map(module -> module.getId()).collect(Collectors.toList());
+        commentService.deleteCommentByModuleIds(moduleIds);
 
         moduleRepository.removeAllExcept(page, ids);
     }
@@ -129,8 +136,10 @@ public class ModuleServiceImpl implements ModuleService {
         modules.forEach(module -> {
             RabbitMQMessage removeMessage = new RabbitMQRemoveModuleMessage(module.getId(), module.getModuleType().getName());
             rabbitMQOperations.convertAndSend(module.getModuleType().getServiceId(), removeMessage);
-
         });
+
+        List<Long> moduleIds = modules.stream().map(module -> module.getId()).collect(Collectors.toList());
+        commentService.deleteCommentByModuleIds(moduleIds);
 
         moduleRepository.removeAll(page);
     }

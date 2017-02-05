@@ -20,6 +20,7 @@ import com.abixen.platform.core.repository.CommentRepository;
 import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.repository.UserRepository;
 import com.abixen.platform.core.service.CommentService;
+import com.abixen.platform.core.service.CommentVoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Transactional
@@ -37,13 +39,15 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final ModuleRepository moduleRepository;
     private final UserRepository userRepository;
+    private final CommentVoteService commentVoteService;
 
 
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository, ModuleRepository moduleRepository, UserRepository userRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, ModuleRepository moduleRepository, UserRepository userRepository, CommentVoteService commentVoteService) {
         this.commentRepository = commentRepository;
         this.moduleRepository = moduleRepository;
         this.userRepository = userRepository;
+        this.commentVoteService = commentVoteService;
     }
 
     @Override
@@ -69,6 +73,18 @@ public class CommentServiceImpl implements CommentService {
         allUnderlying.add(rootNode);
         allUnderlying.forEach(commentRepository::delete);
         return allUnderlying.size();
+    }
+
+    @Override
+    public void deleteCommentByModuleIds(List<Long> moduleIds) {
+        log.debug("deleteCommentByModuleId() - moduleIds : {}", moduleIds);
+
+        moduleIds.forEach(moduleId -> {
+            List<Comment> comments = this.commentRepository.getAllComments(moduleId);
+            List<Long> commentIds = comments.stream().map(comment -> comment.getId()).collect(Collectors.toList());
+            commentVoteService.deleteByCommentIds(commentIds);
+        });
+        commentRepository.deleteCommentsByModuleIds(moduleIds);
     }
 
     private List<Comment> findAllUnderlying(Comment rootNode, ArrayList<Comment> accumulator) {
