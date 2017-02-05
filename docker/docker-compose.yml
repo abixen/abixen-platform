@@ -90,7 +90,7 @@ services:
       - rabbitmq
       - zipkin
     volumes:
-      - /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/image-library:/data/image-library
+      - ../data/image-library:/data/image-library
 
   web-client:
     image: abixen-platform/abixen-platform-web-client
@@ -168,7 +168,7 @@ services:
       POSTGRES_USER: abixen
       POSTGRES_DB: abixen_platform_core
     volumes:
-      - /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/db/core:/var/lib/postgresql/data
+      - ../data/db/core:/var/lib/postgresql/data
 
   business-intelligence-service-postgres-database:
     image: postgres:9.4
@@ -179,7 +179,7 @@ services:
       POSTGRES_USER: abixen
       POSTGRES_DB: abixen_platform_businessintelligence_service
     volumes:
-      - /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/db/businessintelligence:/var/lib/postgresql/data
+      - ../data/db/businessintelligence:/var/lib/postgresql/data
 
   web-content-service-postgres-database:
     image: postgres:9.4
@@ -190,4 +190,4 @@ services:
       POSTGRES_USER: abixen
       POSTGRES_DB: abixen_platform_web_content_service
     volumes:
-      - /Users/MariuszKumor/workspace/projects/github/abixen-platform/data/db/web_content:/var/lib/postgresql/data
+      - ../data/db/web_content:/var/lib/postgresql/data
