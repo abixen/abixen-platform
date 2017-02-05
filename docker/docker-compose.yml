@@ -19,21 +19,11 @@ services:
 
   configuration:
     image: abixen-platform/abixen-platform-configuration
-    links:
-      - discovery
     depends_on:
       - discovery
 
   gateway:
     image: abixen-platform/abixen-platform-gateway
-    links:
-      - discovery
-      - configuration
-      - redis
-      - core
-      - business-intelligence-service
-      - web-content-service
-      - zipkin
     depends_on:
       - discovery
       - configuration
@@ -45,12 +35,6 @@ services:
 
   business-intelligence-service:
     image: abixen-platform/abixen-platform-business-intelligence-service
-    links:
-      - discovery
-      - configuration
-      - business-intelligence-service-postgres-database
-      - rabbitmq
-      - zipkin
     depends_on:
       - discovery
       - configuration
@@ -60,12 +44,6 @@ services:
 
   web-content-service:
     image: abixen-platform/abixen-platform-web-content-service
-    links:
-      - discovery
-      - configuration
-      - web-content-service-postgres-database
-      - rabbitmq
-      - zipkin
     depends_on:
       - discovery
       - configuration
@@ -75,13 +53,6 @@ services:
 
   core:
     image: abixen-platform/abixen-platform-core
-    links:
-      - discovery
-      - configuration
-      - redis
-      - core-postgres-database
-      - rabbitmq
-      - zipkin
     depends_on:
       - discovery
       - configuration
@@ -94,12 +65,6 @@ services:
 
   web-client:
     image: abixen-platform/abixen-platform-web-client
-    links:
-     - discovery
-     - configuration
-     - gateway
-     - core
-     - zipkin
     depends_on:
      - discovery
      - configuration
@@ -115,11 +80,6 @@ services:
     image: abixen-platform/abixen-platform-hystrix-dashboard
     ports:
       - "8989:8989"
-    links:
-     - gateway
-     - core
-     - business-intelligence-service
-     - web-content-service
     depends_on:
      - gateway
      - core
@@ -130,9 +90,6 @@ services:
     image: abixen-platform/abixen-platform-zipkin
     ports:
       - "9411:9411"
-    links:
-     - rabbitmq
-     - configuration
     depends_on:
      - rabbitmq
      - configuration
@@ -142,8 +99,6 @@ services:
     build: ../zipkin-web
     ports:
       - "9412:9412"
-    links:
-     - zipkin
     depends_on:
      - zipkin
 
@@ -191,3 +146,6 @@ services:
       POSTGRES_DB: abixen_platform_web_content_service
     volumes:
       - ../data/db/web_content:/var/lib/postgresql/data
+
+networks:
+  default:
