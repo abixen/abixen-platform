@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyList;
+import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -162,5 +165,20 @@ public class CommentControllerTest {
         assertNotNull(resForm);
         assertFalse(validErrors.isEmpty());
         assertEquals(resForm.getMessage(), "Test Text");
+    }
+
+    @Test
+    public void testDeleteComment() throws Exception {
+        when(commentService.deleteComment(555L)).thenReturn(4);
+        MvcResult commentsResponse = this.mockMvc.perform(delete("/api/comments/555")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andReturn();
+        String strResp = commentsResponse.getResponse().getContentAsString();
+        assertNotNull(strResp);
+        assertEquals(strResp, "4");
+
     }
 }

@@ -24,7 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -58,6 +60,26 @@ public class CommentServiceImpl implements CommentService {
         log.debug("getAllComments() - moduleId={}", moduleId);
 
         return commentRepository.getAllComments(moduleId);
+    }
+
+    @Override
+    public Integer deleteComment(Long commentId) {
+        Comment rootNode = commentRepository.findOne(commentId);
+        List<Comment> allUnderlying = findAllUnderlying(rootNode, new ArrayList<>());
+        allUnderlying.add(rootNode);
+        allUnderlying.forEach(commentRepository::delete);
+        return allUnderlying.size();
+    }
+
+    private List<Comment> findAllUnderlying(Comment rootNode, ArrayList<Comment> accumulator) {
+        List<Comment> children = commentRepository.getCommentsWithParent(rootNode.getId());
+        if (CollectionUtils.isEmpty(children)) {
+            return accumulator;
+        } else {
+            accumulator.addAll(children);
+            children.forEach(child -> findAllUnderlying(child, accumulator));
+        }
+        return accumulator;
     }
 
     private Comment buildComment(CommentForm commentForm) {

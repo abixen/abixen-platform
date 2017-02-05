@@ -23,11 +23,14 @@
             <a ng-href ng-click="comment.openReplyForm(comment.commentItem.id)" style="cursor: pointer">Reply</a> &nbsp;&nbsp;
         </div>
         <div ng-show="comment.canEdit" style="display: inline">
-            <a ng-href ng-click="comment.openEditForm(comment.commentItem.id)" style="cursor: pointer">Edit</a>
+            <a ng-href ng-click="comment.openEditForm(comment.commentItem.id)" style="cursor: pointer">Edit</a> &nbsp;&nbsp;
+        </div>
+        <div ng-show="comment.canEdit" style="display: inline">
+            <a ng-href ng-click="comment.deleteComment(comment.commentItem)" style="cursor: pointer">Delete</a>
         </div>
     </ul>
 
     <ul ng-repeat="child in comment.commentItem.children" class="without-list-style">
-        <comment depth="10" comment-item="child"></comment>
+        <comment depth="10" comment-item="child" roots="comment.commentItem.children"></comment>
     </ul>
 </li>
