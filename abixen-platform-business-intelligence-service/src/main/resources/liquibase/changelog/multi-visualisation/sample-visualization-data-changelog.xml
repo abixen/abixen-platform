@@ -11,7 +11,7 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="group" type="varchar(30)"/>
+            <column name="group_" type="varchar(30)"/>
             <column name="value" type="double"/>
         </createTable>
 
