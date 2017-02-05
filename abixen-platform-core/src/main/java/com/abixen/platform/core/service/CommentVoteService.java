@@ -21,4 +21,6 @@ public interface CommentVoteService {
     CommentVoteForm saveCommentVote(CommentVoteForm commentVoteForm);
 
     CommentVoteForm updateCommentVote(CommentVoteForm commentVoteForm);
+
+    void deleteCommentVotes(Long commentId);
 }

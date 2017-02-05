@@ -20,6 +20,7 @@ import com.abixen.platform.core.form.ModuleForm;
 import com.abixen.platform.core.form.ModuleSearchForm;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.web.ModuleWeb;
+import com.abixen.platform.core.service.CommentService;
 import com.abixen.platform.core.service.ModuleService;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.util.ValidationUtil;
@@ -29,6 +30,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +48,9 @@ public class ModuleController {
 
     @Autowired
     private ModuleService moduleService;
+
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public org.springframework.data.domain.Page<Module> getModules(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleSearchForm moduleSearchForm) {
@@ -74,6 +80,16 @@ public class ModuleController {
         moduleService.updateModule(moduleForm);
 
         return new FormValidationResultDto(moduleForm);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deleteModule(@PathVariable("id") Long id) {
+        log.debug("deleteModule() - id: " + id);
+        commentService.deleteComments(id);
+
+//        moduleService.deleteModule(id);  //will be added by Ivan
+
+        return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
 }

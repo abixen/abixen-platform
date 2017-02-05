@@ -17,6 +17,7 @@ package com.abixen.platform.core.service.impl;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
 import com.abixen.platform.core.repository.CommentRepository;
+import com.abixen.platform.core.repository.CommentVoteRepository;
 import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.repository.UserRepository;
 import com.abixen.platform.core.service.CommentService;
@@ -37,13 +38,15 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final ModuleRepository moduleRepository;
     private final UserRepository userRepository;
+    private final CommentVoteRepository commentVoteRepository;
 
 
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository, ModuleRepository moduleRepository, UserRepository userRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, ModuleRepository moduleRepository, UserRepository userRepository, CommentVoteRepository commentVoteRepository) {
         this.commentRepository = commentRepository;
         this.moduleRepository = moduleRepository;
         this.userRepository = userRepository;
+        this.commentVoteRepository = commentVoteRepository;
     }
 
     @Override
@@ -62,7 +65,6 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.getAllComments(moduleId);
     }
 
-    @Override
     public Integer deleteComment(Long commentId) {
         Comment rootNode = commentRepository.findOne(commentId);
         List<Comment> allUnderlying = findAllUnderlying(rootNode, new ArrayList<>());

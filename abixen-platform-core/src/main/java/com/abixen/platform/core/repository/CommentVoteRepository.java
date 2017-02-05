@@ -16,7 +16,11 @@ package com.abixen.platform.core.repository;
 
 import com.abixen.platform.core.model.impl.CommentVote;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface CommentVoteRepository  extends JpaRepository<CommentVote, Long> {
 
+    @Query("FROM CommentVote cv WHERE cv.comment.id = :commentId")
+    void deleteCommentVotes(@Param("commentId") Long commentId);
 }
