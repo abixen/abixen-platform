@@ -20,5 +20,6 @@
 # Other
 /**/src/main/resources/static/
 
-
+# Databases
+/data/db/
 
