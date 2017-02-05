@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Slf4j
 @Transactional
@@ -73,5 +74,11 @@ public class TemplateServiceImpl implements TemplateService {
     public Page<Template> findAllTemplates(Pageable pageable) {
         log.debug("findAllTemplates() - pageable: {}", pageable);
         return templateRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Template> findAllTemplates() {
+        log.debug("findAllTemplates()");
+        return templateRepository.findAll();
     }
 }

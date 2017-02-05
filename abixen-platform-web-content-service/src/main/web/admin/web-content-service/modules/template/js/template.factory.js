@@ -25,7 +25,12 @@
     function Template($resource) {
         return $resource('/admin/web-content-service/templates/:id', {}, {
             query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'}
+            update: {method: 'PUT'},
+            queryAll: {
+                method: 'GET',
+                isArray: true,
+                url: '/admin/web-content-service/templates/all'
+            }
         });
     }
 

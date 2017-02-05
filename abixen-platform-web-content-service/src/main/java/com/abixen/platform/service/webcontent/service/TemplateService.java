@@ -19,6 +19,8 @@ import com.abixen.platform.service.webcontent.model.impl.Template;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface TemplateService {
 
     Template createTemplate(TemplateForm templateForm);
@@ -31,4 +33,5 @@ public interface TemplateService {
 
     Page<Template> findAllTemplates(Pageable pageable);
 
+    List<Template> findAllTemplates();
 }

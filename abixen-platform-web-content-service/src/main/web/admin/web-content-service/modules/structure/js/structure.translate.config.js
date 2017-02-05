@@ -32,7 +32,8 @@
             'structureDetails.content.label': 'Content',
             'structureDetails.content.placeholder': 'Content',
             'structureDetails.template.label': 'Template',
-            'structureDetails.template.placeholder': 'Template'
+            'structureDetails.template.placeholder': 'Template',
+            'structureDetails.template.select': 'Select Template'
         });
 
         $translateProvider.translations('ENGLISH', {
@@ -41,7 +42,8 @@
             'structureDetails.content.label': 'Content',
             'structureDetails.content.placeholder': 'Content',
             'structureDetails.template.label': 'Template',
-            'structureDetails.template.placeholder': 'Template'
+            'structureDetails.template.placeholder': 'Template',
+            'structureDetails.template.select': 'Select Template'
         });
     }
 })();

@@ -103,4 +103,13 @@ public class TemplateController {
 
         return templates;
     }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<Template> getTemplates() {
+        log.debug("getTemplates()");
+
+        List<Template> templates = templateService.findAllTemplates();
+
+        return templates;
+    }
 }
