@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:8-jre
 VOLUME /tmp
 ADD abixen-platform-hystrix-dashboard.jar app.jar
 RUN bash -c 'touch /app.jar'

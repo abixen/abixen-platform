@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:8-jre
 VOLUME /tmp
 VOLUME /tmp
 ADD abixen-platform-configuration.jar app.jar

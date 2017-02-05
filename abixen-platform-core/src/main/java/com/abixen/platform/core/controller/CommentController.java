@@ -107,5 +107,9 @@ public class CommentController {
         return new FormValidationResultDto(updatedForm);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public Integer deleteComment(@PathVariable("id") Long id) {
+        return commentService.deleteComment(id);
+    }
 
 }

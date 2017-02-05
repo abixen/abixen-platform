@@ -10,7 +10,8 @@
     <ul ng-repeat="commentItem in comments.commentItems" class="comment-list">
         <li>
             <ul class="without-list-style">
-                <comment depth="10" module-id="comments.moduleId" comment-item="commentItem"></comment>
+                <comment depth="10" module-id="comments.moduleId" comment-item="commentItem"
+                         roots="comments.commentItems"></comment>
             </ul>
         </li>
     </ul>

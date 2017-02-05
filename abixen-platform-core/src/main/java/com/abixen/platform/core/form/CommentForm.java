@@ -18,14 +18,15 @@ import com.abixen.platform.core.model.impl.Comment;
 import com.abixen.platform.core.model.web.UserWeb;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 import static com.abixen.platform.core.model.CommentBase.COMMENT_MESSAGE_MAX_LENGTH;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 public class CommentForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
