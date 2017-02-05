@@ -72,6 +72,7 @@
         comment.openEditForm = openEditForm;
         comment.openAddForm = openAddForm;
         comment.cancelForm = cancelForm;
+        comment.deleteComment = deleteComment;
         comment.canEdit = canEdit();
         comment.avatarFullPath = getAvatarFullPath();
 
@@ -161,6 +162,15 @@
                         replyClickCounter++;
                     });
             }
+        }
+
+        function deleteComment(commentItem) {
+            $log.info('delete comment with id ' + commentItem.id);
+            Comment.delete({id: commentItem.id})
+                .$promise.then(function (data) {
+                var index = comment.roots.indexOf(commentItem);
+                comment.roots.splice(index, 1);
+            });
         }
     }
 })();

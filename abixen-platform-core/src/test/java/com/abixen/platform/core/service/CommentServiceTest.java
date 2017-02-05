@@ -29,6 +29,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -173,4 +174,18 @@ public class CommentServiceTest {
             assertEquals(moduleTest.getDescription(), commentDb.getModule().getDescription());
         }
     }
+
+    @Test
+    public void testDeleteComment() {
+        CommentForm parentForm = CommentForm.builder().message("I am parent comment").moduleId(moduleDb.getId()).build();
+        CommentForm parentFormDb = commentService.saveComment(parentForm);
+        CommentForm commentForm1 = CommentForm.builder().message("Test commentForm1").moduleId(moduleDb.getId()).parentId(parentFormDb.getId()).build();
+        commentService.saveComment(commentForm1);
+        CommentForm commentForm2 = CommentForm.builder().message("Test commentForm2").moduleId(moduleDb.getId()).parentId(parentFormDb.getId()).build();
+        commentService.saveComment(commentForm2);
+
+        Integer numOfDeleted = commentService.deleteComment(parentFormDb.getId());
+        assertEquals(new Integer(3), numOfDeleted);
+    }
+
 }
