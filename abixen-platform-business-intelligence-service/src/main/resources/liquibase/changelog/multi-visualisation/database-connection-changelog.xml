@@ -15,7 +15,7 @@
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_by_id" type="bigint"/>
             <column name="last_modified_date" type="timestamp"/>
-            <column name="database_host" type="varchar(20)">
+            <column name="database_host" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="database_name" type="varchar(255)">
