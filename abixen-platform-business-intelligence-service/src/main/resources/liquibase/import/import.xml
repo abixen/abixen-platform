@@ -6,6 +6,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/import/import.xml">
 
+    <property name="databaseConnectionFile" value="database-connection-h2" dbms="h2"/>
+    <property name="databaseConnectionFile" value="database-connection-postgres" dbms="postgresql"/>
+
     <changeSet author="KonradWisniewski" id="import-v1" runAlways="false" runOnChange="true">
 
         <preConditions onFail="HALT">
@@ -26,7 +29,7 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM chart_sample_visualization_data</sqlCheck>
         </preConditions>
 
-        <loadData file="liquibase/import/data/database-connection.csv"
+        <loadData file="liquibase/import/data/${databaseConnectionFile}.csv"
                   separator=";"
                   tableName="database_connection">
         </loadData>
