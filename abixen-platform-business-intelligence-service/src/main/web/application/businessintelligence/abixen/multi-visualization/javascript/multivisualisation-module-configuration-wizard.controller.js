@@ -431,9 +431,12 @@
                 setDataSetSeriesSelected(prevDataSetSeries);
             } else {
                 setDataSetSeriesSelected(null);
+                configWizard.chartConfiguration.dataSetChart.dataSetSeries = [];
             }
 
-            configWizard.chartConfiguration.dataSetChart.dataSetSeries.splice(index, 1);
+            if (configWizard.chartConfiguration.dataSetChart.dataSetSeries !== []) {
+                configWizard.chartConfiguration.dataSetChart.dataSetSeries.splice(index, 1);
+            }
 
             //TODO - select previous
 
@@ -449,7 +452,9 @@
 
             configWizard.dataSetSeriesSelected = dataSetSeries; //configWizard.chart.series[idx - 1];
 
-            getSeriesData();
+            if (dataSetSeries !== null) {
+                getSeriesData();
+            }
         }
 
         function canNext() {
