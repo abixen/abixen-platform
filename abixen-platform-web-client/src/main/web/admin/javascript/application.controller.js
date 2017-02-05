@@ -46,9 +46,8 @@
                 window.location = applicationLoginUrl;
             });
         };
-
         var redirectAction = {
-            title: 'Dashboard',
+            title: 'Close control panel',
             onClick: function () {
                 window.location = applicationDashboardUrl;
             }

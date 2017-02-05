@@ -9,7 +9,7 @@
         <div class="sidebar-content" ng-scrollbar rebuild-on-resize rebuild-on="sidebar-scroll:rebuild">
             <ul class="sidebar">
                 <li class="sidebar-list" on-ng-repeat-render-finish="sidebar-scroll:rebuild" ng-repeat="sidebarItem in navigation.sidebarItems | orderBy: 'orderIndex'">
-                    <a ng-click="navigation.changeState(sidebarItem)" ng-class="{'selected': sidebarItem.id == selectedItem}">{{sidebarItem.title}}<span
+                    <a ng-click="navigation.changeState(sidebarItem)" ng-class="{'selected': sidebarItem.id == navigation.selectedItem}">{{sidebarItem.title}}<span
                             class="menu-icon" ng-class="sidebarItem.iconClass"></span></a>
                 </li>
             </ul>

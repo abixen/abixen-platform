@@ -26,7 +26,6 @@
 
         $translateProvider.translations('POLISH', {
             'search': 'Szukaj',
-            'dashboard': 'Dashboard',
             'users': 'Użytkownicy',
             'roles': 'Role',
             'permissions': 'Uprawnienia',
@@ -40,7 +39,6 @@
 
         $translateProvider.translations('ENGLISH', {
             'search': 'Search',
-            'dashboard': 'Dashboard',
             'users': 'Users',
             'roles': 'Roles',
             'permissions': 'Permissions',
