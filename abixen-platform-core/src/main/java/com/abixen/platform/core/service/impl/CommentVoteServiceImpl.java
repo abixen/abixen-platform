@@ -57,6 +57,12 @@ public class CommentVoteServiceImpl implements CommentVoteService {
         return commentVoteForm;
     }
 
+    @Override
+    public void deleteCommentVotes(Long commentId) {
+        log.debug("deleteCommentVote() - commentId = {}", commentId);
+        this.commentVoteRepository.deleteCommentVotes(commentId);
+    }
+
     private CommentVote buildCommentVote(CommentVoteForm commentVoteForm) {
         CommentVote commentVote = new CommentVote();
         commentVote.setId(commentVoteForm.getId());

@@ -24,4 +24,6 @@ public interface CommentService {
     CommentForm saveComment(CommentForm commentForm);
 
     List<Comment> getAllComments(Long moduleId);
+
+    void deleteComments(Long moduleId);
 }

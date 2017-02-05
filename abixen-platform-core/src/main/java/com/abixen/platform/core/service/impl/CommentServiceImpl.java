@@ -17,6 +17,7 @@ package com.abixen.platform.core.service.impl;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
 import com.abixen.platform.core.repository.CommentRepository;
+import com.abixen.platform.core.repository.CommentVoteRepository;
 import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.repository.UserRepository;
 import com.abixen.platform.core.service.CommentService;
@@ -35,13 +36,15 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final ModuleRepository moduleRepository;
     private final UserRepository userRepository;
+    private final CommentVoteRepository commentVoteRepository;
 
 
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository, ModuleRepository moduleRepository, UserRepository userRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, ModuleRepository moduleRepository, UserRepository userRepository, CommentVoteRepository commentVoteRepository) {
         this.commentRepository = commentRepository;
         this.moduleRepository = moduleRepository;
         this.userRepository = userRepository;
+        this.commentVoteRepository = commentVoteRepository;
     }
 
     @Override
@@ -58,6 +61,14 @@ public class CommentServiceImpl implements CommentService {
         log.debug("getAllComments() - moduleId={}", moduleId);
 
         return commentRepository.getAllComments(moduleId);
+    }
+
+    @Override
+    public void deleteComments(Long moduleId) {
+        log.debug("deleteCommentsForModule() - moduleId = {}", moduleId);
+        List<Comment> comments = this.commentRepository.getAllComments(moduleId);
+        comments.forEach(comment -> commentVoteRepository.deleteCommentVotes(comment.getId()));
+        commentRepository.deleteComments(moduleId);
     }
 
     private Comment buildComment(CommentForm commentForm) {

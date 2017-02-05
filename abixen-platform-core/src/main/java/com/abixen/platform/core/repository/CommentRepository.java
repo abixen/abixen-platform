@@ -23,4 +23,7 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query("FROM Comment c WHERE c.module.id = :moduleId")
     List<Comment> getAllComments(@Param("moduleId") Long moduleId);
+
+    @Query("FROM comment c WHERE c.module.id = :moduleId")
+    void deleteComments(@Param("moduleId") Long moduleId);
 }
