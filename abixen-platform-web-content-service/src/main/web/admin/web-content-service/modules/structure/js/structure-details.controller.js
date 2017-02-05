@@ -17,19 +17,20 @@
     'use strict';
 
     angular
-        .module('webContentServiceStructureModule',['ui.codemirror'])
+        .module('webContentServiceStructureModule', ['ui.codemirror'])
         .controller('WebContentDetailsController', WebContentDetailsController);
 
     WebContentDetailsController.$inject = [
         '$scope',
         'Structure',
+        'Template',
         '$state',
         '$stateParams',
         '$log',
         'responseHandler'
     ];
 
-    function WebContentDetailsController($scope, Structure, $state, $stateParams, $log, responseHandler) {
+    function WebContentDetailsController($scope, Structure, Template, $state, $stateParams, $log, responseHandler) {
         $log.log('WebContentDetailsController');
         var structureDetails = this;
 
@@ -78,11 +79,16 @@
             return validators;
         }
 
-        structureDetails.templates = [
-            { key: 'Template1' },
-            { key: 'Template2' },
-            { key: 'Template3' }
-        ];
+
+        Template.queryAll().$promise.then(onQueryResult);
+
+        function onQueryResult(templates) {
+            var templatesTemp = [];
+            templates.forEach(function (template) {
+                templatesTemp.push({key: template.id, value: template.name});
+            });
+            structureDetails.templates = templatesTemp;
+        }
 
         angular.element(document).ready(function () {
             var editor = CodeMirror.fromTextArea(document.getElementById("contentInput"), {
@@ -92,6 +98,6 @@
                 matchBrackets: true,
                 theme: 'default'
             });
-    });
+        });
     }
 })();
