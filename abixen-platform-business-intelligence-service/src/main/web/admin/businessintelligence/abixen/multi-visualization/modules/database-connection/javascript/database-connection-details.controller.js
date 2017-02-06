@@ -60,7 +60,7 @@
                 databaseConnectionDetails.entityForm.$setPristine();
                 $log.log('data.form: ', data);
                 angular.forEach(data.form, function (rejectedValue, fieldName) {
-                    $log.log('fiel22dName: ' + fieldName + ', ' + rejectedValue);
+                    $log.log('fieldName: ' + fieldName + ', ' + rejectedValue);
                     if (fieldName !== 'id' && fieldName !== 'moduleId') {
                         databaseConnectionDetails.entityForm[fieldName].$setValidity('serverMessage', true);
                     }

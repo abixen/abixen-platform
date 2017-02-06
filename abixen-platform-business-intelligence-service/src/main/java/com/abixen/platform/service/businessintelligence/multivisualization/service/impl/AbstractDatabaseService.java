@@ -189,10 +189,10 @@ public abstract class AbstractDatabaseService {
 
     private String buildQueryForChartData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData, ChartConfigurationForm chartConfigurationForm) throws SQLException {
         StringBuilder outerSelect = new StringBuilder("SELECT ");
-        outerSelect.append(chartColumnsSet.toString().substring(1, chartColumnsSet.toString().length() - 1));
+        outerSelect.append("subQueryResult." + chartColumnsSet.toString().substring(1, chartColumnsSet.toString().length() - 1));
         outerSelect.append(" FROM (");
         outerSelect.append(buildQueryForDataSourceData(databaseDataSource, chartColumnsSet, resultSetMetaData));
-        outerSelect.append(") WHERE ");
+        outerSelect.append(") subQueryResult WHERE ");
         outerSelect.append(jsonFilterService.convertJsonToJpql(chartConfigurationForm.getFilter(), resultSetMetaData));
         return outerSelect.toString();
     }
@@ -210,12 +210,15 @@ public abstract class AbstractDatabaseService {
     private DataValueWeb getDataFromColumn(ResultSet row, String columnName) {
         try {
             ResultSetMetaData resultSetMetaData = row.getMetaData();
-            String columnTypeName = resultSetMetaData.getColumnTypeName(row.findColumn(columnName));
+            String columnTypeName = resultSetMetaData.getColumnTypeName(row.findColumn(columnName)).toUpperCase();
             if ("BIGINT".equals(columnTypeName)) {
                 columnTypeName = "INTEGER";
             }
             if ("VARCHAR".equals(columnTypeName)) {
                 columnTypeName = "STRING";
+            }
+            if ("FLOAT8".equals(columnTypeName)) {
+                columnTypeName = "DOUBLE";
             }
             return getValueAsDataSourceValue(row, columnName, DataValueType.valueOf(columnTypeName));
         } catch (SQLException e) {

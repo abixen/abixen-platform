@@ -123,6 +123,9 @@ public class JsonFilterServiceImpl implements JsonFilterService {
                 if ("VARCHAR".equals(columnTypeName)) {
                     columnTypeName = "STRING";
                 }
+                if ("FLOAT8".equals(columnTypeName)) {
+                    columnTypeName = "DOUBLE";
+                }
                 columnTypeMapping.put(rsmd.getColumnName(i).toUpperCase(), columnTypeName.toUpperCase());
             } catch (SQLException e) {
                 e.printStackTrace();
