@@ -6,9 +6,9 @@
                    ng-click="configWizard.setChartTypeSelected(chartType)"
                    ng-class="{'active': chartType.type == configWizard.chartConfiguration.chartType}"
                    class="list-group-item ">
-                    <h4 class="list-group-item-heading">{{chartType.name}}</h4>
+                    <h4 class="list-group-item-heading">{{chartType.name | translate}}</h4>
 
-                    <p class="list-group-item-text">{{chartType.description}}</p>
+                    <p class="list-group-item-text">{{chartType.description | translate}}</p>
                 </a>
             </div>
         </div>
