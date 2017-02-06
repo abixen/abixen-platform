@@ -12,12 +12,21 @@
                     <query-builder fields="fields" group="rule.group"></query-builder>
                 </div>
                 <div ng-switch-default="ng-switch-default">
-                    <div class="form-inline">
-                        <select ng-options="t.name as t.name for t in fields" ng-model="rule.field" class="form-control"></select>
-                        <select style="margin-left: 5px" ng-options="c.name as c.name for c in conditions" ng-model="rule.condition" class="form-control"></select>
-                        <input style="margin-left: 5px" type="text" ng-model="rule.data" class="form-control"/>
-                        <a style="margin-left: 5px" class="btn btn-default platform-warning-button" ng-click="removeCondition($index)"><i class="fa fa-trash-o"></i><span>Remove Condition</span></a>
-                    </div>
+                    <ng-form name="conditionForm">
+                        <div class="form-inline" ng-class="{'has-error': conditionForm.dataInput.$error.required && (!conditionForm.dataInput.$pristine || conditionForm.dataInput.$touched) }">
+                            <select name="columnSelect" ng-options="t.name as t.name for t in fields" ng-model="rule.field"
+                                    class="form-control" required></select>
+                            <select style="margin-left: 5px" ng-options="c.name as c.name for c in conditions"
+                                    ng-model="rule.condition" class="form-control"></select>
+                            <input style="margin-left: 5px" type="text" name="dataInput" ng-model="rule.data"
+                                   class="form-control" required/>
+                            <a style="margin-left: 5px" class="btn btn-default platform-warning-button"
+                               ng-click="removeCondition($index)"><i class="fa fa-trash-o"></i><span>Remove Condition</span></a>
+                            <p class="help-block"
+                               ng-if="conditionForm.dataInput.$error.required && (!conditionForm.dataInput.$pristine || conditionForm.dataInput.$touched)">
+                                Fields can't be empty</p>
+                        </div>
+                    </ng-form>
                 </div>
             </div>
         </div>

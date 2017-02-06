@@ -95,16 +95,16 @@
 </form>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
-        <a class="btn save-button"
+        <button class="btn save-button" ng-disabled="databaseDataSourceDetails.entityForm.$valid"
            ng-click="databaseDataSourceDetails.getPreviewData()"><i
                 class="fa fa-table"></i><span>&nbsp;Get Sample Data</span>
-        </a>
-        <a class="btn save-button"
+        </button>
+        <button class="btn save-button" ng-disabled="databaseDataSourceDetails.entityForm.$valid"
            ng-click="databaseDataSourceDetails.beforeSaveForm()"><i
                 class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
-        </a>
-        <a class="btn cancel-button"
+        </button>
+        <button class="btn cancel-button"
            ng-click="databaseDataSourceDetails.goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
-        </a>
+        </button>
     </div>
 </div>
