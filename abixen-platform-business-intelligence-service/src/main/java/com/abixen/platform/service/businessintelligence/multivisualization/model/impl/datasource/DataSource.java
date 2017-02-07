@@ -54,7 +54,7 @@ public class DataSource extends AuditingModel implements DataSourceWeb, Serializ
     @Size(max = DESCRIPTION_MAX_LENGTH)
     private String description;
 
-    @OneToMany(mappedBy = "dataSource", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dataSource", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<DataSourceColumn> columns = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
@@ -100,7 +100,12 @@ public class DataSource extends AuditingModel implements DataSourceWeb, Serializ
     }
 
     public void setColumns(Set<DataSourceColumn> columns) {
-        this.columns = columns;
+        if (this.columns != null) {
+            this.columns.clear();
+            this.columns.addAll(columns);
+        } else {
+            this.columns = columns;
+        }
     }
 
     public DataSourceType getDataSourceType() {

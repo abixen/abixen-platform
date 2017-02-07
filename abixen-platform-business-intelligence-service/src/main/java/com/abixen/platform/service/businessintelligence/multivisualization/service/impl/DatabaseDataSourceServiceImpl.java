@@ -18,6 +18,7 @@ import com.abixen.platform.service.businessintelligence.multivisualization.form.
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualization.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualization.repository.DatabaseDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualization.service.*;
@@ -128,7 +129,15 @@ public class DatabaseDataSourceServiceImpl implements DatabaseDataSourceService 
         databaseDataSource.setFilter(databaseDataSourceForm.getFilter());
         databaseDataSource.setTable(databaseDataSourceForm.getTable());
         databaseDataSource.setDescription(databaseDataSourceForm.getDescription());
-
+        Set<DataSourceColumn> dataSourceColumns = new HashSet<>();
+        for (DataSourceColumnWeb dataSourceColumnWeb : databaseDataSourceForm.getColumns()) {
+            DataSourceColumn dataSourceColumn = new DataSourceColumn();
+            dataSourceColumn.setName(dataSourceColumnWeb.getName());
+            dataSourceColumn.setPosition(dataSourceColumnWeb.getPosition());
+            dataSourceColumn.setDataSource(databaseDataSource);
+            dataSourceColumns.add(dataSourceColumn);
+        }
+        databaseDataSource.setColumns(dataSourceColumns);
         return new DatabaseDataSourceForm(updateDataSource(databaseDataSource));
     }
 
