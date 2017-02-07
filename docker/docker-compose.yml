@@ -1,9 +1,19 @@
 version: '2'
 
 services:
+  # we need to have some image defined to limit repetition of logging parameters
+  base:
+    image: hello-world
+    logging:
+      driver: gelf
+      options:
+        gelf-address: udp://localhost:12201
+
   redis:
     image: redis:3.0
     hostname: redis
+    extends:
+      service: base
 
   rabbitmq:
     image: rabbitmq:3.6.6-management
@@ -11,19 +21,26 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    extends:
+      service: base
 
   discovery:
     image: abixen-platform/abixen-platform-eureka
     ports:
       - "8761:8761"
+    extends:
+      service: base
 
   configuration:
     image: abixen-platform/abixen-platform-configuration
     depends_on:
       - discovery
+    extends:
+      service: base
 
   gateway:
     image: abixen-platform/abixen-platform-gateway
+    command: -Xmx=512m
     depends_on:
       - discovery
       - configuration
@@ -32,6 +49,8 @@ services:
       - business-intelligence-service
       - web-content-service
       - zipkin
+    extends:
+      service: base
 
   business-intelligence-service:
     image: abixen-platform/abixen-platform-business-intelligence-service
@@ -41,6 +60,8 @@ services:
       - business-intelligence-service-postgres-database
       - rabbitmq
       - zipkin
+    extends:
+      service: base
 
   web-content-service:
     image: abixen-platform/abixen-platform-web-content-service
@@ -50,6 +71,8 @@ services:
       - web-content-service-postgres-database
       - rabbitmq
       - zipkin
+    extends:
+      service: base
 
   core:
     image: abixen-platform/abixen-platform-core
@@ -62,6 +85,8 @@ services:
       - zipkin
     volumes:
       - ../data/image-library:/data/image-library
+    extends:
+      service: base
 
   web-client:
     image: abixen-platform/abixen-platform-web-client
@@ -75,6 +100,8 @@ services:
       - "traefik.port=8080"
       - "traefik.frontend.rule=Host:platform.abixen.devd.io"
       - "traefik.backend.loadbalancer.sticky=true"
+    extends:
+      service: base
 
   hystrix-dashboard:
     image: abixen-platform/abixen-platform-hystrix-dashboard
@@ -85,6 +112,8 @@ services:
      - core
      - business-intelligence-service
      - web-content-service
+    extends:
+      service: base
 
   zipkin:
     image: abixen-platform/abixen-platform-zipkin
@@ -93,6 +122,8 @@ services:
     depends_on:
      - rabbitmq
      - configuration
+    extends:
+      service: base
 
   zipkin-web:
     image: abixen-platform/zipkin-web
@@ -101,6 +132,8 @@ services:
       - "9412:9412"
     depends_on:
      - zipkin
+    extends:
+      service: base
 
   load-balancer:
     image: traefik:v1.1.2-alpine
@@ -113,6 +146,8 @@ services:
       - /dev/null:/traefik.toml
     depends_on:
       - web-client
+    extends:
+      service: base
 
   core-postgres-database:
     image: postgres:9.4
@@ -124,6 +159,8 @@ services:
       POSTGRES_DB: abixen_platform_core
     volumes:
       - ../data/db/core:/var/lib/postgresql/data
+    extends:
+      service: base
 
   business-intelligence-service-postgres-database:
     image: postgres:9.4
@@ -135,6 +172,8 @@ services:
       POSTGRES_DB: abixen_platform_businessintelligence_service
     volumes:
       - ../data/db/businessintelligence:/var/lib/postgresql/data
+    extends:
+      service: base
 
   web-content-service-postgres-database:
     image: postgres:9.4
@@ -146,6 +185,40 @@ services:
       POSTGRES_DB: abixen_platform_web_content_service
     volumes:
       - ../data/db/web_content:/var/lib/postgresql/data
+    extends:
+      service: base
+
+# Logging components
+
+  elasticsearch:
+    image: elasticsearch:5-alpine
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+
+  logstash:
+    image: logstash:5-alpine
+    #command: logstash -f /etc/logstash/conf.d/logstash.conf
+    #command: logstash -e 'input { gelf { } } filter { } output { elasticsearch { hosts => "elasticsearch:9200" } }'
+    command: logstash -e 'input { gelf { } } filter { } output { elasticsearch { hosts => "elasticsearch:9200" } stdout { codec => rubydebug } }'
+
+#    volumes:
+#      - ./logstash/:/etc/logstash/conf.d
+    ports:
+      - "12201:12201/udp"
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: kibana:5
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_URL: "http://elasticsearch:9200"
 
 networks:
   default:
