@@ -1,15 +1,17 @@
 <div class="row module-navigation-row">
     <div class="col-xs-12 module-navigation-col">
         <button type="button" ui-sref="application.modules.edit({id:moduleList.listGridConfig.selectedEntity.id})" ng-disabled="!moduleList.listGridConfig.selectedEntity"
-                class="btn btn-default pull-left">Edit Module
+                class="btn btn-default pull-left">
+            <i class="fa fa-pencil-square-o"></i> Edit Module
         </button>
         <span class="buttons-separator"></span>
         <button type="button" ng-click="moduleList.deleteEntity(moduleList.listGridConfig.selectedEntity)" ng-disabled="!moduleList.listGridConfig.selectedEntity" class="btn btn-warning pull-left">
-            Delete Module
+            <i class="fa fa-trash-o"></i>Delete Module
         </button>
         <span class="buttons-separator"></span>
         <button type="button" ui-sref="application.modules.permissions({id:moduleList.listGridConfig.selectedEntity.id})"
-                ng-disabled="!moduleList.listGridConfig.selectedEntity" class="btn btn-default pull-left">Permissions
+                ng-disabled="!moduleList.listGridConfig.selectedEntity" class="btn btn-default pull-left">
+            <i class="fa fa-key"></i>Permissions
         </button>
     </div>
 </div>

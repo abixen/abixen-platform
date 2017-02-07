@@ -3,12 +3,13 @@
         <button type="button"
                 ui-sref="application.webContentService.structure.list({id:structureList.listGridConfig.selectedEntity.id})"
                 ng-disabled="!structureList.listGridConfig.selectedEntity"
-                class="btn btn-default pull-left">Edit
+                class="btn btn-default pull-left">
+               <i class="fa fa-pencil-square-o"></i>Edit
         </button>
         <span class="buttons-separator"></span>
         <button type="button" ng-click="structureList.deleteEntity(structureList.listGridConfig.selectedEntity)"
                 ng-disabled="!structureList.listGridConfig.selectedEntity" class="btn btn-warning pull-left">
-            Delete
+            <i class="fa fa-trash-o"></i>Delete
         </button>
     </div>
 </div>

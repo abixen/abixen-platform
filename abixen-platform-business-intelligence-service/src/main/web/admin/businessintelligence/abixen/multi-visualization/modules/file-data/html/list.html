@@ -1,11 +1,12 @@
 <div class="row module-navigation-row">
     <div class="col-xs-12 module-navigation-col">
         <button type="button" ui-sref="application.multiVisualization.modules.fileData.edit({id:fileDataList.listGridConfig.selectedEntity.id})" ng-disabled="!fileDataList.listGridConfig.selectedEntity"
-                class="btn btn-default pull-left">Edit File Data
+                class="btn btn-default pull-left">
+            <i class="fa fa-pencil-square-o"></i>Edit File Data
         </button>
         <span class="buttons-separator"></span>
         <button type="button" ng-click="fileDataList.deleteEntity(fileDataList.listGridConfig.selectedEntity)" ng-disabled="!fileDataList.listGridConfig.selectedEntity" class="btn btn-warning pull-left">
-            Delete File Data
+            <i class="fa fa-trash-o"></i> Delete File Data
         </button>
     </div>
 </div>

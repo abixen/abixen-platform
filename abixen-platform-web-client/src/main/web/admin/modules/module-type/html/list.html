@@ -1,19 +1,23 @@
 <div class="row module-navigation-row">
     <div class="col-xs-12 module-navigation-col">
         <button type="button" ng-click="moduleTypeList.reloadAll()"
-                class="btn btn-warning pull-left">Reload all services configuration
+                class="btn btn-warning pull-left">
+               <i class="fa fa-cogs"></i>Reload all services configuration
         </button>
         <span class="buttons-separator"></span>
         <button type="button" ng-click="moduleTypeList.reload()" ng-disabled="!moduleTypeList.listGridConfig.selectedEntity"
-                class="btn btn-warning pull-left">Reload module configuration
+                class="btn btn-warning pull-left">
+            <i class="fa fa-cog"></i>Reload module configuration
         </button>
         <span class="buttons-separator"></span>
         <button type="button" ui-sref="application.moduleTypes.permissions({id:moduleTypeList.listGridConfig.selectedEntity.id})"
-                ng-disabled="!moduleTypeList.listGridConfig.selectedEntity" class="btn btn-default pull-left">Permissions
+                ng-disabled="!moduleTypeList.listGridConfig.selectedEntity" class="btn btn-default pull-left">
+                <i class="fa fa-key"></i>Permissions
         </button>
         <span class="buttons-separator"></span>
         <button type="button" ui-sref="application.moduleTypes.resources({id:moduleTypeList.listGridConfig.selectedEntity.id})"
-                ng-disabled="!moduleTypeList.listGridConfig.selectedEntity" class="btn btn-default pull-left">Resources
+                ng-disabled="!moduleTypeList.listGridConfig.selectedEntity" class="btn btn-default pull-left">
+            <i class="fa fa-globe"></i>Resources
         </button>
     </div>
 </div>
