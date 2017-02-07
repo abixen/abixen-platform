@@ -1,11 +1,12 @@
 <div class="row module-navigation-row">
     <div class="col-xs-12 module-navigation-col">
         <button type="button" ui-sref="application.multiVisualization.modules.databaseConnection.edit({id:databaseConnectionList.listGridConfig.selectedEntity.id})" ng-disabled="!databaseConnectionList.listGridConfig.selectedEntity"
-                class="btn btn-default pull-left">Edit Database Connection
+                class="btn btn-default pull-left">
+             <i class="fa fa-pencil-square-o"></i>Edit Database Connection
         </button>
         <span class="buttons-separator"></span>
         <button type="button" ng-click="databaseConnectionList.deleteEntity(databaseConnectionList.listGridConfig.selectedEntity)" ng-disabled="!databaseConnectionList.listGridConfig.selectedEntity" class="btn btn-warning pull-left">
-            Delete Database Connection
+            <i class="fa fa-trash-o"></i> Delete Database Connection
         </button>
     </div>
 </div>
