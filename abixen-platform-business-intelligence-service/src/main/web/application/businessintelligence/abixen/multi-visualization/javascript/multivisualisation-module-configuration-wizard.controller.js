@@ -61,6 +61,16 @@
             columnSelected: null
         };
 
+        configWizard.conditionsForFilter = [
+            {name: ''},
+            {name: '='},
+            {name: '<>'},
+            {name: '<'},
+            {name: '<='},
+            {name: '>'},
+            {name: '>='}
+        ];
+
         configWizard.canNext = canNext;
         configWizard.next = next;
         configWizard.prev = prev;
@@ -124,19 +134,29 @@
         function buildJsonFromObj(domainSeries) {
             if (domainSeries.filterObj === null || domainSeries.filterObj === undefined) {
                 domainSeries.filterObj = {};
+                domainSeries.filterObj.conditionOne = [];
+                domainSeries.filterObj.conditionTwo = [];
             }
-            return {
+            var filter = {
                 group: {
                     operator: 'AND',
                     rules: [
                         {
-                            condition: domainSeries.filterObj.operator,
+                            condition: domainSeries.filterObj.conditionOne.operator,
                             field: domainSeries.dataSourceColumn.name,
-                            data: domainSeries.filterObj.value
+                            data: domainSeries.filterObj.conditionOne.value
                         }
                     ]
                 }
+            };
+            if (domainSeries.filterObj.conditionTwo && domainSeries.filterObj.conditionTwo.value !== null){
+                filter.group.rules.push({
+                    condition: domainSeries.filterObj.conditionTwo.operator,
+                    field: domainSeries.dataSourceColumn.name,
+                    data: domainSeries.filterObj.conditionTwo.value
+                })
             }
+            return filter;
         }
 
         function buildObjFromJson(domainSeries, json) {
@@ -144,8 +164,14 @@
 
             if (jsonObj && jsonObj.group !== undefined) {
                 domainSeries.filterObj = {};
-                domainSeries.filterObj.operator = jsonObj.group.rules[0].condition;
-                domainSeries.filterObj.value = jsonObj.group.rules[0].data;
+                domainSeries.filterObj.conditionOne = {};
+                domainSeries.filterObj.conditionOne.operator = jsonObj.group.rules[0].condition;
+                domainSeries.filterObj.conditionOne.value = jsonObj.group.rules[0].data;
+                if (jsonObj.group.rules[1] && jsonObj.group.rules[1].data){
+                    domainSeries.filterObj.conditionTwo = {};
+                    domainSeries.filterObj.conditionTwo.operator = jsonObj.group.rules[1].condition;
+                    domainSeries.filterObj.conditionTwo.value = jsonObj.group.rules[1].data;
+                }
             }
         }
 

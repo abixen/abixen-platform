@@ -34,17 +34,25 @@
                 </select>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
-                <select class="form-control" name="singleSelect" id="axisxOperator"
-                        ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.operator">
-                    <option value="">Operator</option>
-                    <option value=">">min</option>
-                    <option value="<">max</option>
+                <select class="form-control" name="singleSelect" id="axisxFirstOperator" ng-options="c.name as c.name for c in configWizard.conditionsForFilter"
+                        ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.operator">
+                </select>
+
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-7 no-padding value-padding">
+                <input placeholder="value" type="text" name="input"
+                       ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"
+                       ng-trim="true" class="form-control">
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
+                <select class="form-control" name="singleSelect" id="axisxSecondOperator" ng-options="c.name as c.name for c in configWizard.conditionsForFilter"
+                        ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.operator">
                 </select>
 
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 no-padding">
                 <input placeholder="value" type="text" name="input"
-                       ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.value"
+                       ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"
                        ng-trim="true" class="form-control">
             </div>
         </div>
