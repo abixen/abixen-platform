@@ -41,7 +41,7 @@
 
         $stateProvider
             .state('application.webContentService', {
-                url: '/web-content-service',
+                url: '/web-content',
                 templateUrl: '/service/abixen/web-content/admin/html/index.html',
                 controller: 'WebContentServiceController',
                 controllerAs: 'webContentService'

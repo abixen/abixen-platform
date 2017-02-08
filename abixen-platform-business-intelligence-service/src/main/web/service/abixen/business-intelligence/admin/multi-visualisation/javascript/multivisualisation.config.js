@@ -27,12 +27,12 @@
     function multiVisualisationModuleConfig($stateProvider) {
         $stateProvider
             .state('application.multiVisualisation', {
-                url: '/multi-visualization',
+                url: '/business-intelligence',
                 templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/html/index.html',
                 controller: 'MultiVisualizationController'
             })
             .state('application.multiVisualisation.modules', {
-                url: '/business-intelligence',
+                url: '/multi-visualization',
                 templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/html/index.html'
             });
     }

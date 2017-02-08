@@ -28,7 +28,7 @@
 
         $stateProvider
             .state('application.webContentService.template', {
-                url: '/templates',
+                url: '/template',
                 templateUrl: '/service/abixen/web-content/admin/modules/template/html/index.html'
             })
             .state('application.webContentService.template.list', {
