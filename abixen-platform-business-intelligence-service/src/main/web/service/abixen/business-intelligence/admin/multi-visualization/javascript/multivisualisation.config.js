@@ -32,7 +32,7 @@
                 controller: 'MultiVisualizationController'
             })
             .state('application.multiVisualization.modules', {
-                url: '/businessintelligence',
+                url: '/business-intelligence',
                 templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/html/index.html'
             });
     }

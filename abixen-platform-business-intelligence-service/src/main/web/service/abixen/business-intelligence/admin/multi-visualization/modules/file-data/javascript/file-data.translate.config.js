@@ -27,17 +27,17 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
-            'service.businessintelligence.fileData.name.label': 'Nazwa',
-            'service.businessintelligence.fileData.name.placeholder': 'Np. Sprzedaż w Q3',
-            'service.businessintelligence.fileData.description.label': 'Opis',
-            'service.businessintelligence.fileData.description.placeholder': 'Np. Plik zawiera dane z trzeciego kwartału'
+            'service.businessIntelligence.fileData.name.label': 'Nazwa',
+            'service.businessIntelligence.fileData.name.placeholder': 'Np. Sprzedaż w Q3',
+            'service.businessIntelligence.fileData.description.label': 'Opis',
+            'service.businessIntelligence.fileData.description.placeholder': 'Np. Plik zawiera dane z trzeciego kwartału'
         });
 
         $translateProvider.translations('ENGLISH', {
-            'service.businessintelligence.fileData.name.label': 'Name',
-            'service.businessintelligence.fileData.name.placeholder': 'E.g. Selling Q3 Data',
-            'service.businessintelligence.fileData.description.label': 'Description',
-            'service.businessintelligence.fileData.description.placeholder': 'E.g. The file contains data from the third quarter'
+            'service.businessIntelligence.fileData.name.label': 'Name',
+            'service.businessIntelligence.fileData.name.placeholder': 'E.g. Selling Q3 Data',
+            'service.businessIntelligence.fileData.description.label': 'Description',
+            'service.businessIntelligence.fileData.description.placeholder': 'E.g. The file contains data from the third quarter'
         });
     }
 })();

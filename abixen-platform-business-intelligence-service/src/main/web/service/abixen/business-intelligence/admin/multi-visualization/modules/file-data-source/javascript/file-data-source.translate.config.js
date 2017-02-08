@@ -27,25 +27,25 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
-            'service.businessintelligence.fileDataSource.name.label': 'Nazwa',
-            'service.businessintelligence.fileDataSource.name.placeholder': 'Np. Sprzedaż w Q3 ZD',
-            'service.businessintelligence.fileDataSource.description.label': 'Opis',
-            'service.businessintelligence.fileDataSource.description.placeholder': 'Np. Żródlo danych zawiera dane z trzeciego kwartału',
-            'service.businessintelligence.fileDataSource.save': 'Zapisz',
-            'service.businessintelligence.fileDataSource.cancel': 'Anuluj',
-            'service.businessintelligence.fileDataSource.column.header.name': 'Nazwa kolumny',
-            'service.businessintelligence.fileDataSource.column.header.available': 'Dostępna'
+            'service.businessIntelligence.fileDataSource.name.label': 'Nazwa',
+            'service.businessIntelligence.fileDataSource.name.placeholder': 'Np. Sprzedaż w Q3 ZD',
+            'service.businessIntelligence.fileDataSource.description.label': 'Opis',
+            'service.businessIntelligence.fileDataSource.description.placeholder': 'Np. Żródlo danych zawiera dane z trzeciego kwartału',
+            'service.businessIntelligence.fileDataSource.save': 'Zapisz',
+            'service.businessIntelligence.fileDataSource.cancel': 'Anuluj',
+            'service.businessIntelligence.fileDataSource.column.header.name': 'Nazwa kolumny',
+            'service.businessIntelligence.fileDataSource.column.header.available': 'Dostępna'
         });
 
         $translateProvider.translations('ENGLISH', {
-            'service.businessintelligence.fileDataSource.name.label': 'Name',
-            'service.businessintelligence.fileDataSource.name.placeholder': 'E.g. Selling Q3 Data DS',
-            'service.businessintelligence.fileDataSource.description.label': 'Description',
-            'service.businessintelligence.fileDataSource.description.placeholder': 'E.g. The data source contains data from the third quarter',
-            'service.businessintelligence.fileDataSource.save': 'Save',
-            'service.businessintelligence.fileDataSource.cancel': 'Cancel',
-            'service.businessintelligence.fileDataSource.column.header.name': 'Column name',
-            'service.businessintelligence.fileDataSource.column.header.available': 'Available'
+            'service.businessIntelligence.fileDataSource.name.label': 'Name',
+            'service.businessIntelligence.fileDataSource.name.placeholder': 'E.g. Selling Q3 Data DS',
+            'service.businessIntelligence.fileDataSource.description.label': 'Description',
+            'service.businessIntelligence.fileDataSource.description.placeholder': 'E.g. The data source contains data from the third quarter',
+            'service.businessIntelligence.fileDataSource.save': 'Save',
+            'service.businessIntelligence.fileDataSource.cancel': 'Cancel',
+            'service.businessIntelligence.fileDataSource.column.header.name': 'Column name',
+            'service.businessIntelligence.fileDataSource.column.header.available': 'Available'
         });
     }
 })();

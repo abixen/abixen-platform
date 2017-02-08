@@ -27,37 +27,37 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
-            'service.businessintelligence.databaseConnection.name.label': 'Nazwa',
-            'service.businessintelligence.databaseConnection.name.placeholder': 'Np. Połączenie do bazy danych z danymi sprzedaży',
-            'service.businessintelligence.databaseConnection.description.label': 'Opis',
-            'service.businessintelligence.databaseConnection.description.placeholder': 'Np. Połączenie do bazy danych z danymi sprzedaży w trzecim kwartale',
-            'service.businessintelligence.databaseConnection.username.label': 'Nazwa użytkownika',
-            'service.businessintelligence.databaseConnection.username.placeholder': 'Np. joe.brown.db',
-            'service.businessintelligence.databaseConnection.password.label': 'Hasło',
-            'service.businessintelligence.databaseConnection.password.placeholder': 'Np. sekretneHasło1',
-            'service.businessintelligence.databaseConnection.databaseHost.label': 'Host bazy danych',
-            'service.businessintelligence.databaseConnection.databaseHost.placeholder': 'Np. localhost',
-            'service.businessintelligence.databaseConnection.databasePort.label': 'Port bazy danych',
-            'service.businessintelligence.databaseConnection.databasePort.placeholder': 'Np. 5432',
-            'service.businessintelligence.databaseConnection.databaseName.label': 'Nazwa bazy danych',
-            'service.businessintelligence.databaseConnection.databaseName.placeholder': 'Np. dane_sprz_1'
+            'service.businessIntelligence.databaseConnection.name.label': 'Nazwa',
+            'service.businessIntelligence.databaseConnection.name.placeholder': 'Np. Połączenie do bazy danych z danymi sprzedaży',
+            'service.businessIntelligence.databaseConnection.description.label': 'Opis',
+            'service.businessIntelligence.databaseConnection.description.placeholder': 'Np. Połączenie do bazy danych z danymi sprzedaży w trzecim kwartale',
+            'service.businessIntelligence.databaseConnection.username.label': 'Nazwa użytkownika',
+            'service.businessIntelligence.databaseConnection.username.placeholder': 'Np. joe.brown.db',
+            'service.businessIntelligence.databaseConnection.password.label': 'Hasło',
+            'service.businessIntelligence.databaseConnection.password.placeholder': 'Np. sekretneHasło1',
+            'service.businessIntelligence.databaseConnection.databaseHost.label': 'Host bazy danych',
+            'service.businessIntelligence.databaseConnection.databaseHost.placeholder': 'Np. localhost',
+            'service.businessIntelligence.databaseConnection.databasePort.label': 'Port bazy danych',
+            'service.businessIntelligence.databaseConnection.databasePort.placeholder': 'Np. 5432',
+            'service.businessIntelligence.databaseConnection.databaseName.label': 'Nazwa bazy danych',
+            'service.businessIntelligence.databaseConnection.databaseName.placeholder': 'Np. dane_sprz_1'
         });
 
         $translateProvider.translations('ENGLISH', {
-            'service.businessintelligence.databaseConnection.name.label': 'Name',
-            'service.businessintelligence.databaseConnection.name.placeholder': 'E.g. Connection to database with selling data',
-            'service.businessintelligence.databaseConnection.description.label': 'Description',
-            'service.businessintelligence.databaseConnection.description.placeholder': 'E.g. Connection to database with selling data from the third quarter',
-            'service.businessintelligence.databaseConnection.username.label': 'Username',
-            'service.businessintelligence.databaseConnection.username.placeholder': 'E.g. joe.brown.db',
-            'service.businessintelligence.databaseConnection.password.label': 'Password',
-            'service.businessintelligence.databaseConnection.password.placeholder': 'E.g. secretPassword1',
-            'service.businessintelligence.databaseConnection.databaseHost.label': 'Database host',
-            'service.businessintelligence.databaseConnection.databaseHost.placeholder': 'E.g. localhost',
-            'service.businessintelligence.databaseConnection.databasePort.label': 'Database port',
-            'service.businessintelligence.databaseConnection.databasePort.placeholder': 'E.g. 5432',
-            'service.businessintelligence.databaseConnection.databaseName.label': 'Database name',
-            'service.businessintelligence.databaseConnection.databaseName.placeholder': 'E.g. sell_date_1'
+            'service.businessIntelligence.databaseConnection.name.label': 'Name',
+            'service.businessIntelligence.databaseConnection.name.placeholder': 'E.g. Connection to database with selling data',
+            'service.businessIntelligence.databaseConnection.description.label': 'Description',
+            'service.businessIntelligence.databaseConnection.description.placeholder': 'E.g. Connection to database with selling data from the third quarter',
+            'service.businessIntelligence.databaseConnection.username.label': 'Username',
+            'service.businessIntelligence.databaseConnection.username.placeholder': 'E.g. joe.brown.db',
+            'service.businessIntelligence.databaseConnection.password.label': 'Password',
+            'service.businessIntelligence.databaseConnection.password.placeholder': 'E.g. secretPassword1',
+            'service.businessIntelligence.databaseConnection.databaseHost.label': 'Database host',
+            'service.businessIntelligence.databaseConnection.databaseHost.placeholder': 'E.g. localhost',
+            'service.businessIntelligence.databaseConnection.databasePort.label': 'Database port',
+            'service.businessIntelligence.databaseConnection.databasePort.placeholder': 'E.g. 5432',
+            'service.businessIntelligence.databaseConnection.databaseName.label': 'Database name',
+            'service.businessIntelligence.databaseConnection.databaseName.placeholder': 'E.g. sell_date_1'
         });
     }
 })();

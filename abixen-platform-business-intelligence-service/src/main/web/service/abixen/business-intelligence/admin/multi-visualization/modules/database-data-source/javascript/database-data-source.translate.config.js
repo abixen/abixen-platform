@@ -27,17 +27,17 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
-            'service.businessintelligence.databaseDataSourceDetails.name.label': 'Nazwa',
-            'service.businessintelligence.databaseDataSourceDetails.name.placeholder': 'Np. Sprzedaż w Q3 BD',
-            'service.businessintelligence.databaseDataSourceDetails.description.label': 'Opis',
-            'service.businessintelligence.databaseDataSourceDetails.description.placeholder': 'Np. Baza danych zawiera dane z trzeciego kwartału'
+            'service.businessIntelligence.databaseDataSourceDetails.name.label': 'Nazwa',
+            'service.businessIntelligence.databaseDataSourceDetails.name.placeholder': 'Np. Sprzedaż w Q3 BD',
+            'service.businessIntelligence.databaseDataSourceDetails.description.label': 'Opis',
+            'service.businessIntelligence.databaseDataSourceDetails.description.placeholder': 'Np. Baza danych zawiera dane z trzeciego kwartału'
         });
 
         $translateProvider.translations('ENGLISH', {
-            'service.businessintelligence.databaseDataSourceDetails.name.label': 'Name',
-            'service.businessintelligence.databaseDataSourceDetails.name.placeholder': 'E.g. Selling Q3 Data DB',
-            'service.businessintelligence.databaseDataSourceDetails.description.label': 'Description',
-            'service.businessintelligence.databaseDataSourceDetails.description.placeholder': 'E.g. The database contains data from the third quarter'
+            'service.businessIntelligence.databaseDataSourceDetails.name.label': 'Name',
+            'service.businessIntelligence.databaseDataSourceDetails.name.placeholder': 'E.g. Selling Q3 Data DB',
+            'service.businessIntelligence.databaseDataSourceDetails.description.label': 'Description',
+            'service.businessIntelligence.databaseDataSourceDetails.description.placeholder': 'E.g. The database contains data from the third quarter'
         });
     }
 })();
