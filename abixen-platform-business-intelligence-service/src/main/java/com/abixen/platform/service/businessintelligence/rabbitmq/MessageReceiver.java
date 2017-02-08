@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.rabbitmq;
 
 import com.abixen.platform.core.rabbitmq.message.RabbitMQRemoveModuleMessage;
-import com.abixen.platform.service.businessintelligence.multivisualization.service.ChartConfigurationService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.service.ChartConfigurationService;
 import com.abixen.platform.service.businessintelligence.kpichart.service.KpiChartConfigurationService;
 import com.abixen.platform.service.businessintelligence.magicnumber.service.MagicNumberModuleService;
 import lombok.extern.slf4j.Slf4j;

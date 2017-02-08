@@ -8,7 +8,7 @@ abixen:
       -
         name: data-source-sidebar-item
         title: Data Sources
-        angularJsState: application.multiVisualization.modules.databaseDataSource.list
+        angularJsState: application.multiVisualisation.modules.databaseDataSource.list
         orderIndex: 9
         iconClass: fa fa-database
     modules:
