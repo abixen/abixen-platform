@@ -4,9 +4,9 @@ module.exports = {
     dest: {
         dir: 'src/main/resources/static',
         files: 'src/main/resources/static/**',
-        adminLibs: 'src/main/resources/static/admin/web-content-service/lib',
-        adminScripts: 'admin/web-content-service/web-content.min.js',
-        adminStyles: 'admin/web-content-service/web-content.min.css'
+        adminLibs: 'src/main/resources/static/service/abixen/web-content/admin/lib',
+        adminScripts: 'service/abixen/web-content/admin/web-content.min.js',
+        adminStyles: 'service/abixen/web-content/admin/web-content.min.css'
     },
     adminLibs: {
         files: [
@@ -29,7 +29,7 @@ module.exports = {
     },
     scripts: {
         adminFiles: [
-            'src/main/web/admin/**/*.js'
+            'src/main/web/service/abixen/web-content/admin/**/*.js'
         ],
         concatOrder: [
             'src/main/web/**/*.module.js',
@@ -38,10 +38,10 @@ module.exports = {
     },
     styles: {
         adminWatch: [
-            'src/main/web/admin/web-content-service/**/*.scss'
+            'src/main/web/service/abixen/web-content/admin/**/*.scss'
         ],
         adminSass: [
-            'src/main/web/admin/web-content-service/scss/web-content.scss'
+            'src/main/web/service/abixen/web-content/admin/scss/web-content.scss'
         ]
     }
 };

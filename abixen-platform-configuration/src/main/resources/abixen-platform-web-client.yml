@@ -19,23 +19,23 @@ zuul:
 
     # Begin of businessintelligence microservice
     businessintelligenceApplication:
-      path: /application/businessintelligence/abixen/**
-      serviceId: http://${abixen.services.gateway.uri:localhost}:9090/application/businessintelligence/abixen
+      path: /service/abixen/business-intelligence/application/**
+      serviceId: http://${abixen.services.gateway.uri:localhost}:9090/service/abixen/business-intelligence/application
       sensitive-headers:
     businessintelligenceAdmin:
-      path: /admin/businessintelligence/abixen/**
-      url: http://${abixen.services.gateway.uri:localhost}:9090/admin/businessintelligence/abixen
+      path: /service/abixen/business-intelligence/admin/**
+      url: http://${abixen.services.gateway.uri:localhost}:9090/service/abixen/business-intelligence/admin/
       sensitive-headers:
     # End of businessintelligence microservice
 
     # Begin of web-content microservice
     webContentApplication:
-      path: /application/web-content-service/**
-      url: http://${abixen.services.gateway.uri:localhost}:9092/application/web-content-service
+      path: /service/abixen/web-content/application/**
+      url: http://${abixen.services.gateway.uri:localhost}:9092/service/abixen/web-content/application/
       sensitive-headers:
     webContentAdmin:
-      path: /admin/web-content-service/**
-      url: http://${abixen.services.gateway.uri:localhost}:9092/admin/web-content-service
+      path: /service/abixen/web-content/admin/**
+      url: http://${abixen.services.gateway.uri:localhost}:9092/service/abixen/web-content/admin/
       sensitive-headers:
     # End of web-content microservice
 

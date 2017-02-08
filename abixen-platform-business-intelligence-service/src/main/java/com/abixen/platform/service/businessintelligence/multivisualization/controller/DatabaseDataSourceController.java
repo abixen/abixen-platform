@@ -39,7 +39,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/admin/businessintelligence/abixen/multi-visualization/database-data-sources")
+@RequestMapping(value = "/service/abixen/business-intelligence/admin/multi-visualization/database-data-sources")
 public class DatabaseDataSourceController {
 
     private final DatabaseDataSourceService databaseDataSourceService;

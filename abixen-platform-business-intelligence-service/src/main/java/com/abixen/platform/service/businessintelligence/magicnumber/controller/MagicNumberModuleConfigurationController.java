@@ -36,7 +36,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/application/businessintelligence/abixen/magic-number/configuration")
+@RequestMapping(value = "/service/abixen/business-intelligence/application/magic-number/configuration")
 public class MagicNumberModuleConfigurationController {
 
     @Autowired

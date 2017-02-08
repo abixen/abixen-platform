@@ -36,7 +36,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/admin/web-content-service/structures")
+@RequestMapping(value = "/service/abixen/web-content/admin/structures")
 public class StructureController {
 
     private final StructureService structureService;

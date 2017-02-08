@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/application/businessintelligence/abixen/magic-number")
+@RequestMapping(value = "/service/abixen/business-intelligence/application/magic-number")
 public class MagicNumberModuleController {
 
     @Autowired

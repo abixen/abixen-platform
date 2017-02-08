@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/application/businessintelligence/abixen/kpi-chart")
+@RequestMapping(value = "/service/abixen/business-intelligence/application/kpi-chart")
 public class KpiChartController {
 
     @Autowired

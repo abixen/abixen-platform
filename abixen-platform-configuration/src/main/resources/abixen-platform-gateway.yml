@@ -34,23 +34,23 @@ zuul:
 
     # Begin of businessintelligence microservice
     businessintelligenceApplication:
-      path: /application/businessintelligence/abixen/**
-      url: http://business-intelligence-service:9091/application/businessintelligence/abixen
+      path: /service/abixen/business-intelligence/application/**
+      url: http://business-intelligence-service:9091/service/abixen/business-intelligence/application
       sensitive-headers:
     businessintelligenceAdmin:
-      path: /admin/businessintelligence/abixen/**
-      url: http://business-intelligence-service:9091/admin/businessintelligence/abixen
+      path: /service/abixen/business-intelligence/admin/**
+      url: http://business-intelligence-service:9091/service/abixen/business-intelligence/admin
       sensitive-headers:
     # End of businessintelligence microservice
 
     # Begin of web-content microservice
     webContentApplication:
-      path: /application/web-content-service/**
-      url: http://web-content-service:9092/application/web-content-service
+      path: /service/abixen/web-content/application/**
+      url: http://web-content-service:9092/service/abixen/web-content/application
       sensitive-headers:
     webContentAdmin:
-      path: /admin/web-content-service/**
-      url: http://web-content-service:9092/admin/web-content-service
+      path: /service/abixen/web-content/admin/**
+      url: http://web-content-service:9092/service/abixen/web-content/admin
       sensitive-headers:
     # End of web-content microservice
 
@@ -98,20 +98,20 @@ zuul:
       url: http://localhost:9000/api
       sensitive-headers:
     businessintelligenceApplication:
-      path: /application/businessintelligence/abixen/**
-      url: http://localhost:9091/application/businessintelligence/abixen
+      path: /service/abixen/business-intelligence/application/**
+      url: http://localhost:9091/service/abixen/business-intelligence/application
       sensitive-headers:
     businessintelligenceAdmin:
-      path: /admin/businessintelligence/abixen/**
-      url: http://localhost:9091/admin/businessintelligence/abixen
+      path: /service/abixen/business-intelligence/admin/**
+      url: http://localhost:9091/service/abixen/business-intelligence/admin
       sensitive-headers:
     webContentApplication:
-      path: /application/web-content-service/**
-      url: http://localhost:9092/application/web-content-service
+      path: /service/abixen/web-content/application/**
+      url: http://localhost:9092/service/abixen/web-content/application
       sensitive-headers:
     webContentAdmin:
-      path: /admin/web-content-service/**
-      url: http://localhost:9092/admin/web-content-service
+      path: /service/abixen/web-content/admin/**
+      url: http://localhost:9092/service/abixen/web-content/admin/
       sensitive-headers:
 
 eureka:
