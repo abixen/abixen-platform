@@ -179,7 +179,7 @@
                         state: 'application.page',
                         orderIndex: i,
                         isPage: true,
-                        iconClass: 'fa fa-file-text-o'
+                        iconClass: pages[i].icon
                     });
                 }
 
