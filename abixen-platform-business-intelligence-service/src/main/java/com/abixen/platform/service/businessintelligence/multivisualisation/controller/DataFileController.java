@@ -37,7 +37,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/service/abixen/business-intelligence/admin/multi-visualization/file-data")
+@RequestMapping(value = "/service/abixen/business-intelligence/admin/multi-visualisation/file-data")
 public class DataFileController {
 
     private final DataFileService dataFileService;

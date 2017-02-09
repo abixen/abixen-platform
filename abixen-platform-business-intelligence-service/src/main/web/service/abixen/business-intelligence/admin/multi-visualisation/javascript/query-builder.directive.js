@@ -30,7 +30,7 @@
                 group: '=',
                 fields: '='
             },
-            templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/html/query-builder.html',
+            templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/html/query-builder.html',
             compile: compile
         };
 

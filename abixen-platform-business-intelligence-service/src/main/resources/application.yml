@@ -13,43 +13,58 @@ abixen:
         iconClass: fa fa-database
     modules:
       -
-        name: multi-visualization
+        name: multi-visualisation
         angularJsNameApplication: platformChartModule
         angularJsNameAdmin: TBD
-        title: Multi Visualization
-        description: This is a multi visualization module
-        relativeInitUrl: /service/abixen/application/businessintelligence/multi-visualization/html/index.html
+        title: Multi Visualisation
+        description: This is a multi visualisation module
+        relativeInitUrl: /service/abixen/application/business-intelligence/multi-visualisation/html/index.html
         adminSidebarItems:
           -
             name: data-source-sidebar-item
         staticResources:
           -
-            relativeUrl: /service/abixen/application/businessintelligence/businessintelligence.min.js
-            resourcePageLocation: BODY
-            resourcePage: APPLICATION
-            resourceType: JAVASCRIPT
-          -
-            relativeUrl: /service/abixen/application/businessintelligence/lib/d3.min.js
-            resourcePageLocation: BODY
-            resourcePage: APPLICATION
-            resourceType: JAVASCRIPT
-          -
-            relativeUrl: /service/abixen/application/businessintelligence/lib/nv.d3.min.js
-            resourcePageLocation: BODY
-            resourcePage: APPLICATION
-            resourceType: JAVASCRIPT
-          -
-            relativeUrl: /service/abixen/application/businessintelligence/lib/nv.d3.min.css
+            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.css
             resourcePageLocation: HEADER
             resourcePage: APPLICATION
             resourceType: CSS
           -
-            relativeUrl: /service/abixen/application/businessintelligence/lib/angular-nvd3.min.js
+            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.js
             resourcePageLocation: BODY
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT
           -
-            relativeUrl: /service/abixen/admin/businessintelligence/lib/xlsx.full.min.js
+            relativeUrl: /service/abixen/application/business-intelligence/lib/d3.min.js
+            resourcePageLocation: BODY
+            resourcePage: APPLICATION
+            resourceType: JAVASCRIPT
+          -
+            relativeUrl: /service/abixen/application/business-intelligence/lib/nv.d3.min.js
+            resourcePageLocation: BODY
+            resourcePage: APPLICATION
+            resourceType: JAVASCRIPT
+          -
+            relativeUrl: /service/abixen/application/business-intelligence/lib/nv.d3.min.css
+            resourcePageLocation: HEADER
+            resourcePage: APPLICATION
+            resourceType: CSS
+          -
+            relativeUrl: /service/abixen/application/business-intelligence/lib/angular-nvd3.min.js
+            resourcePageLocation: BODY
+            resourcePage: APPLICATION
+            resourceType: JAVASCRIPT
+          -
+            relativeUrl: /service/abixen/admin/business-intelligence/lib/xlsx.full.min.js
+            resourcePageLocation: BODY
+            resourcePage: ADMIN
+            resourceType: JAVASCRIPT
+          -
+            relativeUrl: /service/abixen/admin/business-intelligence/business-intelligence.min.css
+            resourcePageLocation: HEADER
+            resourcePage: ADMIN
+            resourceType: CSS
+          -
+            relativeUrl: /service/abixen/admin/business-intelligence/business-intelligence.min.js
             resourcePageLocation: BODY
             resourcePage: ADMIN
             resourceType: JAVASCRIPT
@@ -59,10 +74,15 @@ abixen:
         angularJsNameAdmin: TBD
         title: Magic Number
         description: This is a magic number module
-        relativeInitUrl: /service/abixen/application/businessintelligence/magic-number/html/index.html
+        relativeInitUrl: /service/abixen/application/business-intelligence/magic-number/html/index.html
         staticResources:
           -
-            relativeUrl: /service/abixen/application/businessintelligence/businessintelligence.min.js
+            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.css
+            resourcePageLocation: HEADER
+            resourcePage: APPLICATION
+            resourceType: CSS
+          -
+            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.js
             resourcePageLocation: BODY
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT
@@ -72,15 +92,20 @@ abixen:
         angularJsNameAdmin: TBD
         title: KPI Chart
         description: This is a KPI chart module
-        relativeInitUrl: /service/abixen/application/businessintelligence/kpi-chart/html/index.html
+        relativeInitUrl: /service/abixen/application/business-intelligence/kpi-chart/html/index.html
         staticResources:
           -
-            relativeUrl: /service/abixen/application/businessintelligence/businessintelligence.min.js
+            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.css
+            resourcePageLocation: HEADER
+            resourcePage: APPLICATION
+            resourceType: CSS
+          -
+            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.js
             resourcePageLocation: BODY
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT
           -
-            relativeUrl: /service/abixen/application/businessintelligence/lib/roundProgress.min.js
+            relativeUrl: /service/abixen/application/business-intelligence/lib/roundProgress.min.js
             resourcePageLocation: BODY
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT

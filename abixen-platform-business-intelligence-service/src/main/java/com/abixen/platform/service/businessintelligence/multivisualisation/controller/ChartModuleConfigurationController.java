@@ -38,7 +38,7 @@ import java.util.List;
 @Slf4j
 @Transactional
 @RestController
-@RequestMapping(value = "/service/abixen/business-intelligence/application/multi-visualization/configuration")
+@RequestMapping(value = "/service/abixen/business-intelligence/application/multi-visualisation/configuration")
 public class ChartModuleConfigurationController {
 
     private final ChartConfigurationService chartConfigurationService;

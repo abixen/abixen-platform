@@ -23,7 +23,7 @@
     DatabaseDataSource.$inject = ['$resource'];
 
     function DatabaseDataSource($resource) {
-        return $resource('/service/abixen/business-intelligence/admin/multi-visualization/database-data-sources/:id', {}, {
+        return $resource('/service/abixen/business-intelligence/admin/multi-visualisation/database-data-sources/:id', {}, {
             query: {method: 'GET', isArray: false},
             update: {method: 'PUT'}
         });

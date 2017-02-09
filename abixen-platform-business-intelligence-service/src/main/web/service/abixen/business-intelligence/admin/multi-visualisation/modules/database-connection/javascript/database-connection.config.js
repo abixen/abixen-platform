@@ -28,23 +28,23 @@
         $stateProvider
             .state('application.multiVisualisation.modules.databaseConnection', {
                 url: '/database-connection',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/database-connection/html/index.html'
+                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/database-connection/html/index.html'
             })
             .state('application.multiVisualisation.modules.databaseConnection.list', {
                 url: '/list',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/database-connection/html/list.html',
+                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/database-connection/html/list.html',
                 controller: 'DatabaseConnectionListController',
                 controllerAs: 'databaseConnectionList'
             })
             .state('application.multiVisualisation.modules.databaseConnection.add', {
                 url: '/add',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/database-connection/html/edit.html',
+                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/database-connection/html/edit.html',
                 controller: 'DatabaseConnectionDetailsController',
                 controllerAs: 'databaseConnectionDetails'
             })
             .state('application.multiVisualisation.modules.databaseConnection.edit', {
                 url: '/edit/:id',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/database-connection/html/edit.html',
+                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/database-connection/html/edit.html',
                 controller: 'DatabaseConnectionDetailsController',
                 controllerAs: 'databaseConnectionDetails'
             });

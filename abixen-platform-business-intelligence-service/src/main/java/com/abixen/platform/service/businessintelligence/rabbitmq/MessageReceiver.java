@@ -47,7 +47,7 @@ public class MessageReceiver {
         log.debug("receiveRabbitMQRemoveModuleMessage: moduleId={}, moduleTypeName={}", message.getModuleId(), message.getModuleTypeName());
 
         switch (message.getModuleTypeName()) {
-            case "multi-visualization":
+            case "multi-visualisation":
                 chartConfigurationService.removeChartConfiguration(message.getModuleId());
                 break;
             case "magic-number":

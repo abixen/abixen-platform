@@ -6,10 +6,10 @@ module.exports = {
         files: 'src/main/resources/static/**',
         applicationLibs: 'src/main/resources/static/service/abixen/business-intelligence/application/lib',
         adminLibs: 'src/main/resources/static/service/abixen/business-intelligence/admin/lib',
-        adminScripts: 'service/abixen/business-intelligence/admin/businessintelligence.min.js',
-        applicationScripts: 'service/abixen/business-intelligence/application/businessintelligence.min.js',
-        applicationStyles: 'service/abixen/business-intelligence/application/businessintelligence.min.css',
-        adminStyles: 'service/abixen/business-intelligence/admin/businessintelligence.min.css'
+        adminScripts: 'service/abixen/business-intelligence/admin/business-intelligence.min.js',
+        applicationScripts: 'service/abixen/business-intelligence/application/business-intelligence.min.js',
+        applicationStyles: 'service/abixen/business-intelligence/application/business-intelligence.min.css',
+        adminStyles: 'service/abixen/business-intelligence/admin/business-intelligence.min.css'
     },
     applicationLibs: {
         files: [

@@ -18,15 +18,15 @@
 
     angular
         .module('multiVisualisationModule')
-        .controller('MultiVisualizationController', MultiVisualizationController);
+        .controller('MultiVisualisationController', MultiVisualisationController);
 
-    MultiVisualizationController.$inject = [
+    MultiVisualisationController.$inject = [
         '$scope',
         '$log',
         '$state'
     ];
 
-    function MultiVisualizationController($scope, $log, $state) {
+    function MultiVisualisationController($scope, $log, $state) {
         $log.log('$state.$current.name: ' + $state.$current.name);
 
         if ($state.$current.name === 'application.multiVisualisation.modules.databaseDataSource.list' ||

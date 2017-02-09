@@ -24,7 +24,7 @@
 
     function ChartModuleInit($resource) {
 
-        return $resource('/service/abixen/business-intelligence/application/multi-visualization/:id',
+        return $resource('/service/abixen/business-intelligence/application/multi-visualisation/:id',
             {},
             {}
         );

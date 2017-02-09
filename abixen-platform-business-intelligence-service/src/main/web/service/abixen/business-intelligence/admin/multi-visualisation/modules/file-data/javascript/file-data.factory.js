@@ -24,7 +24,7 @@
 
     function FileData($resource) {
 
-        return $resource('/service/abixen/business-intelligence/admin/multi-visualization/file-data/:id', {}, {
+        return $resource('/service/abixen/business-intelligence/admin/multi-visualisation/file-data/:id', {}, {
             query: {method: 'GET', isArray: false},
             update: {method: 'PUT'}
         });

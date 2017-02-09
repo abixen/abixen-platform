@@ -28,12 +28,12 @@
         $stateProvider
             .state('application.multiVisualisation', {
                 url: '/business-intelligence',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/html/index.html',
-                controller: 'MultiVisualizationController'
+                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/html/index.html',
+                controller: 'MultiVisualisationController'
             })
             .state('application.multiVisualisation.modules', {
-                url: '/multi-visualization',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/html/index.html'
+                url: '/multi-visualisation',
+                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/html/index.html'
             });
     }
 })();

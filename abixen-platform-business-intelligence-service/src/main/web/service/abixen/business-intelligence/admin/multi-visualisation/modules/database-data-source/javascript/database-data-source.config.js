@@ -28,23 +28,23 @@
         $stateProvider
             .state('application.multiVisualisation.modules.databaseDataSource', {
                 url: '/data-source',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/database-data-source/html/index.html'
+                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/database-data-source/html/index.html'
             })
             .state('application.multiVisualisation.modules.databaseDataSource.list', {
                 url: '/list',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/database-data-source/html/list.html',
+                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/database-data-source/html/list.html',
                 controller: 'DatabaseDataSourceListController',
                 controllerAs: 'databaseDataSourceList'
             })
             .state('application.multiVisualisation.modules.databaseDataSource.add', {
                 url: '/add',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/database-data-source/html/edit.html',
+                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/database-data-source/html/edit.html',
                 controller: 'DatabaseDataSourceDetailsController',
                 controllerAs: 'databaseDataSourceDetails'
             })
             .state('application.multiVisualisation.modules.databaseDataSource.edit', {
                 url: '/edit/:id',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualization/modules/database-data-source/html/edit.html',
+                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/database-data-source/html/edit.html',
                 controller: 'DatabaseDataSourceDetailsController',
                 controllerAs: 'databaseDataSourceDetails'
             });
