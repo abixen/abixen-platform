@@ -1,16 +1,16 @@
 <div class="comments">
-    <ul class="comment-list">
-        <li>
-            <ul class="without-list-style">
-                <comment depth="10" module-id="comments.moduleId" comment-item=""
-                         roots="comments.commentItems"></comment>
-            </ul>
-        </li>
-    </ul>
     <ul ng-repeat="commentItem in comments.commentItems" class="comment-list">
         <li>
             <ul class="without-list-style">
                 <comment depth="10" module-id="comments.moduleId" comment-item="commentItem"
+                         roots="comments.commentItems"></comment>
+            </ul>
+        </li>
+    </ul>
+    <ul class="without-list-style">
+        <li>
+            <ul class="without-list-style">
+                <comment depth="10" module-id="comments.moduleId" comment-item=""
                          roots="comments.commentItems"></comment>
             </ul>
         </li>
