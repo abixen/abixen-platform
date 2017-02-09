@@ -21,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
+
 import static com.abixen.platform.core.model.CommentBase.COMMENT_MESSAGE_MAX_LENGTH;
 
 @Getter
@@ -47,6 +49,9 @@ public class CommentForm implements Form {
     @JsonView(WebModelJsonSerialize.class)
     private UserWeb user;
 
+    @JsonView(WebModelJsonSerialize.class)
+    private Date createdDate;
+
     public CommentForm() {
     }
 
@@ -60,5 +65,6 @@ public class CommentForm implements Form {
             this.moduleId = comment.getModule().getId();
         }
         this.user = comment.getCreatedBy();
+        this.createdDate = comment.getCreatedDate();
     }
 }
