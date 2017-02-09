@@ -55,6 +55,7 @@
         var replyClickCounter = 0;
         var action;
         var platformUser = platformSecurity.getPlatformUser();
+        var commentBeforeEdit;
 
         new AbstractDetailsController(comment, Comment, responseHandler, $scope,
             {
@@ -103,6 +104,7 @@
 
         function openEditForm(commentId) {
             var selector = '#reply-ref-' + commentId;
+            commentBeforeEdit = angular.copy(comment.commentItem);
             comment.entity = comment.commentItem;
             action = 'EDIT';
             appendAndShowCommentForm(selector);
@@ -119,6 +121,7 @@
 
         function cancelForm() {
             if (addCommentForm) {
+                angular.copy(commentBeforeEdit, comment.commentItem);
                 addCommentForm.remove();
                 replyClickCounter = 0;
             }
