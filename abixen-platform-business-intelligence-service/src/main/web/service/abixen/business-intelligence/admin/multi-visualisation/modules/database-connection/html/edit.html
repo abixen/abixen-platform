@@ -1,102 +1,81 @@
 <div class="row form-row">
     <form role="form" name="databaseConnectionDetails.entityForm" novalidate>
         <div class="col-md-6">
+            <input-text model="databaseConnectionDetails.entity.name"
+                        name="name"
+                        label="{{'service.businessIntelligence.databaseConnection.name.label' | translate}}"
+                        placeholder="{{'service.businessIntelligence.databaseConnection.name.placeholder' | translate}}"
+                        validators="databaseConnectionDetails.validators">
+            </input-text>
 
-            <div class="form-group" show-errors>
-                <input-text model="databaseConnectionDetails.entity.name"
-                            name="name"
-                            label="{{'service.businessIntelligence.databaseConnection.name.label' | translate}}"
-                            placeholder="{{'service.businessIntelligence.databaseConnection.name.placeholder' | translate}}"
-                            validators="databaseConnectionDetails.validators">
-                </input-text>
-            </div>
+            <input-text model="databaseConnectionDetails.entity.description"
+                        name="description"
+                        label="{{'service.businessIntelligence.databaseConnection.description.label' | translate}}"
+                        placeholder="{{'service.businessIntelligence.databaseConnection.description.placeholder' | translate}}"
+                        validators="databaseConnectionDetails.validators">
+            </input-text>
 
-            <div class="form-group" show-errors>
-                <input-text model="databaseConnectionDetails.entity.description"
-                            name="description"
-                            label="{{'service.businessIntelligence.databaseConnection.description.label' | translate}}"
-                            placeholder="{{'service.businessIntelligence.databaseConnection.description.placeholder' | translate}}"
-                            validators="databaseConnectionDetails.validators">
-                </input-text>
-            </div>
+            <input-text model="databaseConnectionDetails.entity.username"
+                        name="username"
+                        label="{{'service.businessIntelligence.databaseConnection.username.label' | translate}}"
+                        placeholder="{{'service.businessIntelligence.databaseConnection.username.placeholder' | translate}}"
+                        validators="databaseConnectionDetails.validators">
+            </input-text>
 
-            <div class="form-group" show-errors>
-                <input-text model="databaseConnectionDetails.entity.username"
-                            name="username"
-                            label="{{'service.businessIntelligence.databaseConnection.username.label' | translate}}"
-                            placeholder="{{'service.businessIntelligence.databaseConnection.username.placeholder' | translate}}"
-                            validators="databaseConnectionDetails.validators">
-                </input-text>
-            </div>
-
-            <div class="form-group" show-errors>
-                <input-text model="databaseConnectionDetails.entity.password"
-                            name="password"
-                            label="{{'service.businessIntelligence.databaseConnection.password.label' | translate}}"
-                            placeholder="{{'service.businessIntelligence.databaseConnection.password.placeholder' | translate}}"
-                            validators="databaseConnectionDetails.validators">
-                </input-text>
-            </div>
-
+            <input-text model="databaseConnectionDetails.entity.password"
+                        name="password"
+                        label="{{'service.businessIntelligence.databaseConnection.password.label' | translate}}"
+                        placeholder="{{'service.businessIntelligence.databaseConnection.password.placeholder' | translate}}"
+                        validators="databaseConnectionDetails.validators">
+            </input-text>
         </div>
 
         <div class="col-md-6">
-            <div class="form-group" show-errors>
-                <label for="databaseTypeInput" class="control-label">Database Type</label>
+            <input-drop-down name="databaseType"
+                             id="databaseTypeInput"
+                             model="databaseConnectionDetails.entity.databaseType"
+                             label="{{'service.businessIntelligence.databaseConnection.databaseType.label' | translate}}"
+                             options="databaseConnectionDetails.databaseTypes"
+                             show-empty-value="true"
+                             empty-value-label="{{'service.businessIntelligence.databaseConnection.databaseType.select' | translate}}"
+                             key-as-value="true">
+            </input-drop-down>
 
-                <div>
-                    <select name="databaseType" class="form-control" id="databaseTypeInput"
-                            ng-model="databaseConnectionDetails.entity.databaseType" ng-required="true"
-                            ng-options="databaseType as databaseType for databaseType in databaseConnectionDetails.databaseTypes">
-                    </select>
+            <input-text model="databaseConnectionDetails.entity.databaseHost"
+                        name="databaseHost"
+                        label="{{'service.businessIntelligence.databaseConnection.databaseHost.label' | translate}}"
+                        placeholder="{{'service.businessIntelligence.databaseConnection.databaseHost.placeholder' | translate}}"
+                        validators="databaseConnectionDetails.validators">
+            </input-text>
 
-                    <p class="help-block" ng-if="databaseConnectionDetails.entityForm.databaseType.$error.required && databaseConnectionDetails.entityForm.databaseType.$touched">Required</p>
+            <input-text model="databaseConnectionDetails.entity.databasePort"
+                        name="databasePort"
+                        label="{{'service.businessIntelligence.databaseConnection.databasePort.label' | translate}}"
+                        placeholder="{{'service.businessIntelligence.databaseConnection.databasePort.placeholder' | translate}}"
+                        validators="databaseConnectionDetails.validators">
+            </input-text>
 
-                    <p class="help-block" ng-if="databaseConnectionDetails.entityForm.databaseType.$error.serverMessage">
-                        {{databaseConnectionDetails.entityForm.databaseType.$error.serverMessage}}</p>
-                </div>
-            </div>
-
-            <div class="form-group" show-errors>
-                <input-text model="databaseConnectionDetails.entity.databaseHost"
-                            name="databaseHost"
-                            label="{{'service.businessIntelligence.databaseConnection.databaseHost.label' | translate}}"
-                            placeholder="{{'service.businessIntelligence.databaseConnection.databaseHost.placeholder' | translate}}"
-                            validators="databaseConnectionDetails.validators">
-                </input-text>
-            </div>
-
-            <div class="form-group" show-errors>
-                <input-text model="databaseConnectionDetails.entity.databasePort"
-                            name="databasePort"
-                            label="{{'service.businessIntelligence.databaseConnection.databasePort.label' | translate}}"
-                            placeholder="{{'service.businessIntelligence.databaseConnection.databasePort.placeholder' | translate}}"
-                            validators="databaseConnectionDetails.validators">
-                </input-text>
-            </div>
-
-            <div class="form-group" show-errors>
-                <input-text model="databaseConnectionDetails.entity.databaseName"
-                            name="databaseName"
-                            label="{{'service.businessIntelligence.databaseConnection.databaseName.label' | translate}}"
-                            placeholder="{{'service.businessIntelligence.databaseConnection.databaseName.placeholder' | translate}}"
-                            validators="databaseConnectionDetails.validators">
-                </input-text>
-            </div>
+            <input-text model="databaseConnectionDetails.entity.databaseName"
+                        name="databaseName"
+                        label="{{'service.businessIntelligence.databaseConnection.databaseName.label' | translate}}"
+                        placeholder="{{'service.businessIntelligence.databaseConnection.databaseName.placeholder' | translate}}"
+                        validators="databaseConnectionDetails.validators">
+            </input-text>
         </div>
-
     </form>
 </div>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
-        <a class="btn save-button"
+        <button class="btn save-button"
+                ng-disabled="databaseConnectionDetails.entityForm.$invalid"
            ng-click="databaseConnectionDetails.testConnection()"><i class="fa fa-check-circle-o"></i><span>&nbsp;Test Connection</span>
-        </a>
-        <a class="btn save-button"
+        </button>
+        <button class="btn save-button"
+                ng-disabled="databaseConnectionDetails.entityForm.$invalid"
            ng-click="databaseConnectionDetails.saveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
-        </a>
-        <a class="btn cancel-button"
-           ng-click="databaseConnectionDetails.goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
-        </a>
+        </button>
+        <button class="btn cancel-button"
+           ng-click="databaseConnectionDetails.cancel()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+        </button>
     </div>
 </div>

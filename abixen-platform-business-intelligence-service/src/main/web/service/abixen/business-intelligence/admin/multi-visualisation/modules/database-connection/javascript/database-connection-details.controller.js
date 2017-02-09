@@ -42,10 +42,9 @@
             }
         );
 
-        databaseConnectionDetails.databaseTypes = ['POSTGRES', 'MYSQL', 'ORACLE', 'H2'];
+        databaseConnectionDetails.databaseTypes = [{key: 'POSTGRES'}, {key: 'MYSQL'}, {key: 'ORACLE'}, {key: 'H2'}];
         databaseConnectionDetails.testConnection = testConnection;
-        databaseConnectionDetails.goToViewMode = goToViewMode;
-
+        databaseConnectionDetails.cancel = cancel;
 
 
         function testConnection() {
@@ -88,7 +87,7 @@
             $state.go('application.multiVisualisation.modules.databaseConnection.list');
         }
 
-        function goToViewMode() {
+        function cancel() {
             $state.go('application.multiVisualisation.modules.databaseConnection.list');
         }
 
