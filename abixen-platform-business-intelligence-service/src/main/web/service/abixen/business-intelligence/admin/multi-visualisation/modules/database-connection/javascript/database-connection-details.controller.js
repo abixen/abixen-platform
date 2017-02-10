@@ -127,7 +127,7 @@
             validators['databaseName'] =
                 [
                     new NotNull(),
-                    new Length(0, 40)
+                    new Length(0, 255)
                 ];
 
             return validators;
