@@ -61,7 +61,7 @@ platform:
     jdbc:
       driverClassName: org.h2.Driver
       dialect: org.hibernate.dialect.H2Dialect
-      databaseUrl: jdbc:h2:file:~/abixen-platform-business-intelligence-service-h2-db
+      databaseUrl: jdbc:h2:file:../data/db/h2/abixen-platform-business-intelligence-service-h2-db
       username: sa
       password:
 
