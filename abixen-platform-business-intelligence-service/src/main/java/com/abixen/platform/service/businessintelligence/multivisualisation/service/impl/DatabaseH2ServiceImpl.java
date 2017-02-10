@@ -91,7 +91,7 @@ public class DatabaseH2ServiceImpl extends AbstractDatabaseService implements Da
             Boolean isInternalDatabase = databaseConnectionForm.getDatabaseHost().equalsIgnoreCase(LOCALHOST_FOR_INTERNAL_DB);
             if (isInternalDatabase) {
                 connection = DriverManager.getConnection(
-                        "jdbc:h2:file:~/" +
+                        "jdbc:h2:file:" +
                                 databaseConnectionForm.getDatabaseName(),
                         databaseConnectionForm.getUsername(),
                         databaseConnectionForm.getPassword());
