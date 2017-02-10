@@ -48,39 +48,16 @@
 
 
         function testConnection() {
-            $log.log('testConnection()');
-            if (databaseConnectionDetails.entityForm.$invalid) {
-                $log.log('Form is invalid and could not be saved.');
-                $scope.$broadcast('show-errors-check-validity');
-                return;
-            }
+            DatabaseConnection.test({}, databaseConnectionDetails.entity)
+                .$promise
+                .then(onTestResult);
 
-            DatabaseConnection.test({}, databaseConnectionDetails.entity, function (data) {
-                databaseConnectionDetails.entityForm.$setPristine();
-                $log.log('data.form: ', data);
-                angular.forEach(data.form, function (rejectedValue, fieldName) {
-                    $log.log('fieldName: ' + fieldName + ', ' + rejectedValue);
-                    if (fieldName !== 'id' && fieldName !== 'moduleId') {
-                        databaseConnectionDetails.entityForm[fieldName].$setValidity('serverMessage', true);
-                    }
-                });
-
+            function onTestResult(data) {
                 if (data.formErrors.length == 0) {
                     toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Connected', 'The application has been connected to the database successfully.');
                     return;
                 }
-
-                for (var i = 0; i < data.formErrors.length; i++) {
-                    var fieldName = data.formErrors[i].field;
-                    $log.log('fieldName: ' + fieldName);
-                    var message = data.formErrors[i].message;
-                    var serverMessage = $parse('entityForm.' + fieldName + '.$error.serverMessage');
-                    databaseConnectionDetails.entityForm[fieldName].$setValidity('serverMessage', false);
-                    serverMessage.assign($scope, message);
-                }
-
-                $scope.$broadcast('show-errors-check-validity');
-            });
+            }
         }
 
         function onSuccessSaveForm() {
