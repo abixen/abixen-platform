@@ -14,17 +14,19 @@
                             placeholder="{{'service.businessIntelligence.fileDataSource.description.placeholder' | translate}}"
                             validators="fileDataSourceDetails.validators">
                 </input-text>
-                <label for="fileDataInput" class="control-label">File data</label>
-                <select name="fileDataInput" class="form-control" id="fileDataInput"
-                        ng-model="fileDataSourceDetails.entity.dataFile" ng-required="true"
-                        ng-change="fileDataSourceDetails.getColumns(fileDataSourceDetails.entity.fileData)"
-                        ng-options="fileData as fileData.name for fileData in fileDataSourceDetails.fileDatas track by fileData.id">
-                </select>
-                <p class="help-block"
-                   ng-if="entityForm.fileDataInput.$error.required && entityForm.fileDataInput.$touched">
-                    Required</p>
-                <p class="help-block" ng-if="entityForm.fileDataInput.$error.serverMessage">
-                    {{entityForm.fileDataInput.$error.serverMessage}}</p>
+                <input-drop-down name="fileData"
+                                 id="dfileDataInput"
+                                 ng-model="fileDataSourceDetails.entity.dataFile"
+                                 ng-model-as-object="true"
+                                 label="{{'service.businessIntelligence.fileDataSource.fileData.label' | translate}}"
+                                 options="fileDataSourceDetails.fileDatas"
+                                 show-empty-value="true"
+                                 value-key="id"
+                                 value-label="name"
+                                 empty-value-label="{{'service.businessIntelligence.fileDataSource.fileData.select' | translate}}"
+                                 key-as-value="false"
+                                 validators="fileDataSourceDetails.validators">
+                </input-drop-down>
             </div>
         </div>
         <div class="col-md-6">

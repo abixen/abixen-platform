@@ -105,6 +105,12 @@
                 [
                     new Length(0, 1000)
                 ];
+
+            validators['fileData'] =
+                [
+                    new NotNull()
+                ];
+
             return validators;
         }
     }
