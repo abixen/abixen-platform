@@ -2,18 +2,19 @@
     <label for="{{inputDropDown.name}}Input"
            class="control-label">{{inputDropDown.label}}</label>
     <select ng-model="inputDropDown.ngModel"
-           ng-model-as-object="inputDropDown.ngModelAsObject"
-           name="{{inputDropDown.name}}"
-           options="inputDropDown.options"
-           show-empty-value="inputDropDown.showEmptyValue"
-           empty-value-label="inputDropDown.emptyValueLabel"
-           key-as-value="inputDropDown.keyAsValue"
-           value-key="inputDropDown.valueKey"
-           value-label="inputDropDown.valueLabel"
-           class="form-control"
-           id="{{inputDropDown.name}}Input"
-           ng-required="inputDropDown.fieldValidators.notNull"
-           input-drop-down-filler />
+            ng-model-as-object="inputDropDown.ngModelAsObject"
+            name="{{inputDropDown.name}}"
+            options="inputDropDown.options"
+            show-empty-value="inputDropDown.showEmptyValue"
+            empty-value-label="inputDropDown.emptyValueLabel"
+            key-as-value="inputDropDown.keyAsValue"
+            value-key="inputDropDown.valueKey"
+            value-label="inputDropDown.valueLabel"
+            class="form-control"
+            id="{{inputDropDown.name}}Input"
+            ng-required="inputDropDown.fieldValidators.notNull"
+            input-drop-down-filler>
+    </select>
 
     <p class="help-block"
        ng-if="form[inputDropDown.name].$error.required && !form[inputDropDown.name].$pristine">
