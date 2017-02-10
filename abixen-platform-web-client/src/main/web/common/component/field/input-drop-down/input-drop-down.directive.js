@@ -19,23 +19,28 @@
         .module('platformField')
         .directive('inputDropDown', inputDropDown);
 
-    inputDropDown.$inject = ['$parse', 'validation'];
-    function inputDropDown($parse, validation) {
+    inputDropDown.$inject = ['validation'];
+    function inputDropDown(validation) {
 
         return {
             restrict: 'E',
             require: '^form',
             templateUrl: '/common/component/field/input-drop-down/input-drop-down.template.html',
             scope: {
-                model: '=',
+                ngModel: '=',
+                ngModelAsObject: '=',
                 validators: '=',
                 label: '@',
                 name: '@',
                 size: '@',
                 options: '=',
                 showEmptyValue: '=',
+                valueKey: '@',
+                valueLabel: '@',
                 emptyValueLabel: '@',
-                keyAsValue: '='
+                valueKeyType: '@',
+                keyAsValue: '=',
+                onChange: '&'
             },
             link: link,
             controller: InputDropDownController,
@@ -44,6 +49,12 @@
         };
 
         function link(scope, element, attrs, formCtrl) {
+            if (scope.inputDropDown.onChange) {
+                scope.$watch('inputDropDown.ngModel', function () {
+                    scope.inputDropDown.onChange();
+                });
+            }
+
             scope.form = formCtrl;
             removeServerErrorAfterChange(scope, element);
         }
@@ -56,13 +67,14 @@
         }
     }
 
-    InputDropDownController.$inject = ['fieldSize'];
+    InputDropDownController.$inject = ['fieldSize', '$filter'];
 
-    function InputDropDownController(fieldSize) {
+    function InputDropDownController(fieldSize, $filter) {
         var inputDropDown = this;
 
         initValidators();
         initResponsiveClasses();
+
 
         function initValidators() {
             if (!inputDropDown.validators) {

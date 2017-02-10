@@ -88,6 +88,11 @@
         });
 
         function getDatabaseTables(databaseConnection) {
+            if (databaseConnection === undefined || databaseConnection === null) {
+                databaseDataSourceDetails.databaseTables = [];
+                return;
+            }
+
             DatabaseConnection.tables({id: databaseConnection.id}, function (data) {
                 databaseDataSourceDetails.databaseTables = data;
                 $log.log('databaseDataSourceDetails.databaseTables: ', databaseDataSourceDetails.databaseTables);
@@ -130,14 +135,12 @@
             return String(str).replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
 
-         function onSuccessGetEntity() {
-             $log.log('afterGetDatabaseDataSource', databaseDataSourceDetails.entity);
-             databaseDataSourceDetails.json = JSON.stringify(databaseDataSourceDetails.entity.filter, null, 2);
-             databaseDataSourceDetails.filter = JSON.parse(databaseDataSourceDetails.entity.filter);
+        function onSuccessGetEntity() {
+            $log.log('afterGetDatabaseDataSource', databaseDataSourceDetails.entity);
+            databaseDataSourceDetails.json = JSON.stringify(databaseDataSourceDetails.entity.filter, null, 2);
+            databaseDataSourceDetails.filter = JSON.parse(databaseDataSourceDetails.entity.filter);
 
-             databaseDataSourceDetails.getDatabaseTables(databaseDataSourceDetails.entity.databaseConnection);
-             databaseDataSourceDetails.getDatabaseTableColumns(databaseDataSourceDetails.entity.databaseConnection, databaseDataSourceDetails.entity.table);
-
+            databaseDataSourceDetails.getDatabaseTableColumns(databaseDataSourceDetails.entity.databaseConnection, databaseDataSourceDetails.entity.table);
         }
 
         function goToViewMode() {
@@ -197,6 +200,11 @@
                 [
                     new NotNull(),
                     new Length(0, 60)
+                ];
+
+            validators['databaseConnection'] =
+                [
+                    new NotNull()
                 ];
 
             validators['description'] =

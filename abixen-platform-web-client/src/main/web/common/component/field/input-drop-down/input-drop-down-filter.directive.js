@@ -20,22 +20,61 @@
         .module('platformField')
         .directive('inputDropDownFiller', inputDropDownFillerDirective);
 
-    inputDropDownFillerDirective.$inject = ['$compile'];
+    inputDropDownFillerDirective.$inject = ['$compile', '$filter'];
 
-    function inputDropDownFillerDirective($compile) {
+    function inputDropDownFillerDirective($compile, $filter) {
 
         return {
             restrict: 'A',
+            require: 'ngModel',
             scope: {
                 options: '=',
                 showEmptyValue: '=',
                 emptyValueLabel: '=',
+                ngModelAsObject: '=',
+                valueKey: '=',
+                valueLabel: '=',
                 keyAsValue: '='
             },
             link: link
         };
 
-        function link(scope, element, attrs) {
+        function link(scope, element, attrs, ngModel) {
+            if (scope.valueKey === undefined || scope.valueKey === null) {
+                scope.valueKey = 'key';
+            }
+
+            ngModel.$parsers.push(function (val) {
+                if (val === '') {
+                    return null;
+                }
+
+                var filterMap = {};
+                filterMap[scope.valueKey] = val;
+                var resultValues = $filter('filter')(scope.options, filterMap);
+
+                if (resultValues.length > 0) {
+                    if (scope.ngModelAsObject) {
+                        return resultValues[0];
+                    } else {
+                        return resultValues[0][scope.valueKey];
+                    }
+
+                }
+                return null;
+            });
+
+            ngModel.$formatters.push(function (val) {
+                if (val === undefined || val === null) {
+                    return '';
+                }
+
+                if (scope.ngModelAsObject) {
+                    return '' + val[scope.valueKey];
+                }
+
+                return '' + val;
+            });
 
             scope.$watch('options', onOptionsChanged);
 
@@ -47,13 +86,12 @@
                 }
 
                 angular.forEach(newValue, function (option, key) {
-                    console.log('option: ', option, scope.keyAsValue);
                     if (scope.keyAsValue) {
-                        html += '<option value="' + option.key + '">' +
-                            option.key + '</option>';
+                        html += '<option value="' + option[scope.valueKey] + '">' +
+                            option[scope.valueKey] + '</option>';
                     } else {
-                        html += '<option value="' + option.key + '">' +
-                            option.value + '</option>';
+                        html += '<option value="' + option[scope.valueKey] + '">' +
+                            option[scope.valueLabel] + '</option>';
                     }
                 });
 

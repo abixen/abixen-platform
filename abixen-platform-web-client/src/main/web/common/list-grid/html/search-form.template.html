@@ -7,7 +7,7 @@
                         label="{{field.label | translate}}">
             </input-text>
             <input-drop-down ng-if="field.type == 'input-drop-down'"
-                             model="searchForm.filter[field.name]"
+                             ng-model="searchForm.filter[field.name]"
                              name="field.name"
                              label="{{field.label | translate}}"
                              options="field.options"

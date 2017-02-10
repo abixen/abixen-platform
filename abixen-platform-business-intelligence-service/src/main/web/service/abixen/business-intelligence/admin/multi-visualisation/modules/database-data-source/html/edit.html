@@ -18,22 +18,20 @@
                             validators="databaseDataSourceDetails.validators">
                 </input-text>
 
-
-                <label for="databaseConnectionInput" class="control-label">Database connection</label>
-
-                <select name="databaseConnection" class="form-control" id="databaseConnectionInput"
-                        ng-model="databaseDataSourceDetails.entity.databaseConnection" ng-required="true"
-                        ng-change="databaseDataSourceDetails.getDatabaseTables(databaseDataSourceDetails.entity.databaseConnection)"
-                        ng-options="databaseConnection as databaseConnection.name for databaseConnection in databaseDataSourceDetails.databaseConnections track by databaseConnection.id">
-                </select>
-
-                <p class="help-block"
-                   ng-if="entityForm.databaseConnection.$error.required && entityForm.databaseConnection.$touched">
-                    Required</p>
-
-                <p class="help-block" ng-if="entityForm.databaseConnection.$error.serverMessage">
-                    {{entityForm.databaseConnection.$error.serverMessage}}</p>
-
+                <input-drop-down name="databaseConnection"
+                                 id="databaseConnectionInput"
+                                 ng-model="databaseDataSourceDetails.entity.databaseConnection"
+                                 ng-model-as-object="true"
+                                 label="{{'service.businessIntelligence.databaseConnection.databaseType.label' | translate}}"
+                                 options="databaseDataSourceDetails.databaseConnections"
+                                 on-change="databaseDataSourceDetails.getDatabaseTables(databaseDataSourceDetails.entity.databaseConnection)"
+                                 show-empty-value="true"
+                                 value-key="id"
+                                 value-label="name"
+                                 empty-value-label="{{'service.businessIntelligence.databaseConnection.databaseType.select' | translate}}"
+                                 key-as-value="false"
+                                 validators="databaseDataSourceDetails.validators">
+                </input-drop-down>
 
                 <label for="databaseTableInput" class="control-label">Database table</label>
 
