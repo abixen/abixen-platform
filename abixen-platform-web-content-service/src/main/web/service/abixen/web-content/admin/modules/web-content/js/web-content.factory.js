@@ -18,11 +18,11 @@
 
     angular
         .module('webContentServiceWebContentModule')
-        .factory('WebContentService', WebContentService);
+        .factory('WebContent', WebContent);
 
-    WebContentService.$inject = ['$resource'];
+    WebContent.$inject = ['$resource'];
 
-    function WebContentService($resource) {
+    function WebContent($resource) {
         return $resource('/service/abixen/web-content/admin/web-contents/:id', {}, {
             query: {method: 'GET', isArray: false},
             update: {method: 'PUT'}

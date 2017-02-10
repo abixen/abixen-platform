@@ -19,13 +19,13 @@
         .module('webContentServiceWebContentModule')
         .controller('WebContentServiceWebContentController', WebContentServiceWebContentController);
 
-    WebContentServiceWebContentController.$inject = ['applicationNavigationItems', 'WebContentService'];
+    WebContentServiceWebContentController.$inject = ['applicationNavigationItems', 'WebContent'];
 
-    function WebContentServiceWebContentController(applicationNavigationItems, WebContentService) {
+    function WebContentServiceWebContentController(applicationNavigationItems, WebContent) {
 
         var webContentList = this;
 
-        angular.extend(webContentList, new AbstractListGridController(WebContentService,
+        angular.extend(webContentList, new AbstractListGridController(WebContent,
             {
                 getTableColumns: getTableColumns
             }
