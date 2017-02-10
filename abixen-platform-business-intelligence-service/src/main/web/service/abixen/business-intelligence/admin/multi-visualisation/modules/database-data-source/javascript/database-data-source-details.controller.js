@@ -90,11 +90,19 @@
         function getDatabaseTables(databaseConnection) {
             if (databaseConnection === undefined || databaseConnection === null) {
                 databaseDataSourceDetails.databaseTables = [];
+                databaseDataSourceDetails.entity.table = null;
                 return;
             }
 
-            DatabaseConnection.tables({id: databaseConnection.id}, function (data) {
-                databaseDataSourceDetails.databaseTables = data;
+            DatabaseConnection.tables({id: databaseConnection.id}, function (databaseTables) {
+
+                var databaseTablesTmp = [];
+
+                databaseTables.forEach(function (databaseTable) {
+                    databaseTablesTmp.push({key: databaseTable});
+                });
+
+                databaseDataSourceDetails.databaseTables = databaseTablesTmp;
                 $log.log('databaseDataSourceDetails.databaseTables: ', databaseDataSourceDetails.databaseTables);
             });
         }
@@ -203,6 +211,11 @@
                 ];
 
             validators['databaseConnection'] =
+                [
+                    new NotNull()
+                ];
+
+            validators['databaseTable'] =
                 [
                     new NotNull()
                 ];

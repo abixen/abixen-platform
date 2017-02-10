@@ -22,31 +22,27 @@
                                  id="databaseConnectionInput"
                                  ng-model="databaseDataSourceDetails.entity.databaseConnection"
                                  ng-model-as-object="true"
-                                 label="{{'service.businessIntelligence.databaseConnection.databaseType.label' | translate}}"
+                                 label="{{'service.businessIntelligence.databaseDataSourceDetails.databaseConnection.label' | translate}}"
                                  options="databaseDataSourceDetails.databaseConnections"
                                  on-change="databaseDataSourceDetails.getDatabaseTables(databaseDataSourceDetails.entity.databaseConnection)"
                                  show-empty-value="true"
                                  value-key="id"
                                  value-label="name"
-                                 empty-value-label="{{'service.businessIntelligence.databaseConnection.databaseType.select' | translate}}"
+                                 empty-value-label="{{'service.businessIntelligence.databaseDataSourceDetails.databaseConnection.select' | translate}}"
                                  key-as-value="false"
                                  validators="databaseDataSourceDetails.validators">
                 </input-drop-down>
 
-                <label for="databaseTableInput" class="control-label">Database table</label>
-
-                <select name="table" class="form-control" id="databaseTableInput"
-                        ng-model="databaseDataSourceDetails.entity.table" ng-required="true"
-                        ng-change="databaseDataSourceDetails.getDatabaseTableColumns(databaseDataSourceDetails.entity.databaseConnection, databaseDataSourceDetails.entity.table)"
-                        ng-options="databaseTable for databaseTable in databaseDataSourceDetails.databaseTables">
-                </select>
-
-                <p class="help-block"
-                   ng-if="entityForm.databaseTable.$error.required && entityForm.databaseTable.$touched">
-                    Required</p>
-
-                <p class="help-block" ng-if="entityForm.databaseTable.$error.serverMessage">
-                    {{entityForm.databaseTable.$error.serverMessage}}</p>
+                <input-drop-down name="databaseTable"
+                                 id="databaseTableInput"
+                                 ng-model="databaseDataSourceDetails.entity.table"
+                                 label="{{'service.businessIntelligence.databaseDataSourceDetails.table.label' | translate}}"
+                                 options="databaseDataSourceDetails.databaseTables"
+                                 show-empty-value="true"
+                                 empty-value-label="{{'service.businessIntelligence.databaseDataSourceDetails.table.select' | translate}}"
+                                 key-as-value="true"
+                                 validators="databaseDataSourceDetails.validators">
+                </input-drop-down>
             </div>
 
         </div>

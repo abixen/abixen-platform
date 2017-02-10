@@ -30,14 +30,22 @@
             'service.businessIntelligence.databaseDataSourceDetails.name.label': 'Nazwa',
             'service.businessIntelligence.databaseDataSourceDetails.name.placeholder': 'Np. Sprzedaż w Q3 BD',
             'service.businessIntelligence.databaseDataSourceDetails.description.label': 'Opis',
-            'service.businessIntelligence.databaseDataSourceDetails.description.placeholder': 'Np. Baza danych zawiera dane z trzeciego kwartału'
+            'service.businessIntelligence.databaseDataSourceDetails.description.placeholder': 'Np. Baza danych zawiera dane z trzeciego kwartału',
+            'service.businessIntelligence.databaseDataSourceDetails.databaseConnection.label': 'Połączenie do bazy danych',
+            'service.businessIntelligence.databaseDataSourceDetails.databaseConnection.select': 'Wybierz połączenie',
+            'service.businessIntelligence.databaseDataSourceDetails.table.label': 'Tabela/widok z wybranego połączenia',
+            'service.businessIntelligence.databaseDataSourceDetails.table.select': 'Wybierz tabelę/widok'
         });
 
         $translateProvider.translations('ENGLISH', {
             'service.businessIntelligence.databaseDataSourceDetails.name.label': 'Name',
             'service.businessIntelligence.databaseDataSourceDetails.name.placeholder': 'E.g. Selling Q3 Data DB',
             'service.businessIntelligence.databaseDataSourceDetails.description.label': 'Description',
-            'service.businessIntelligence.databaseDataSourceDetails.description.placeholder': 'E.g. The database contains data from the third quarter'
+            'service.businessIntelligence.databaseDataSourceDetails.description.placeholder': 'E.g. The database contains data from the third quarter',
+            'service.businessIntelligence.databaseDataSourceDetails.databaseConnection.label': 'Database connection',
+            'service.businessIntelligence.databaseDataSourceDetails.databaseConnection.select': 'Select database connection',
+            'service.businessIntelligence.databaseDataSourceDetails.table.label': 'Table/view from selected connection',
+            'service.businessIntelligence.databaseDataSourceDetails.table.select': 'Select table/view'
         });
     }
 })();
