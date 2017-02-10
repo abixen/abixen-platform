@@ -52,18 +52,27 @@
 
         function getTableColumns() {
             return [
-                {field: 'id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
-                {field: 'title', pinnedLeft: true, width: 200},
-                {field: 'type', pinnedLeft: true, width: 200},
+                {
+                    field: 'id',
+                    name: 'Id',
+                    pinnedLeft: true,
+                    enableColumnResizing: false,
+                    enableFiltering: false,
+                    width: 50
+                },
+                {field: 'title', name: 'Title', pinnedLeft: true, width: 200},
+                {field: 'type', name: 'Type', pinnedLeft: true, width: 200},
                 {field: 'content', name: 'Created By', width: 200},
                 {
                     field: 'createdDate',
+                    name: 'Created Date',
                     width: 200,
                     cellFilter: 'date:\'' + platformParameters.formats.DATE_TIME_FORMAT + '\''
                 },
                 {field: 'lastModifiedBy.username', name: 'Last Modified By', width: 200},
                 {
                     field: 'lastModifiedDate',
+                    name: 'Last Modified Date',
                     width: 200,
                     cellFilter: 'date:\'' + platformParameters.formats.DATE_TIME_FORMAT + '\''
                 }
