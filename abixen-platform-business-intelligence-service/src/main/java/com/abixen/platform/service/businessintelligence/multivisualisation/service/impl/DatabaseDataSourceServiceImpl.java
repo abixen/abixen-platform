@@ -31,6 +31,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.Connection;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -130,15 +131,36 @@ public class DatabaseDataSourceServiceImpl implements DatabaseDataSourceService 
         databaseDataSource.setTable(databaseDataSourceForm.getTable());
         databaseDataSource.setDescription(databaseDataSourceForm.getDescription());
         Set<DataSourceColumn> dataSourceColumns = new HashSet<>();
-        for (DataSourceColumnWeb dataSourceColumnWeb : databaseDataSourceForm.getColumns()) {
+        List<String> oldColumnNames = databaseDataSource.getColumns().stream()
+                        .map(DataSourceColumn::getName)
+                        .peek(s -> s = s.toUpperCase())
+                        .collect(Collectors.toList());
+        List<String> newColumnNames = databaseDataSourceForm.getColumns().stream()
+                        .map(DataSourceColumnWeb::getName)
+                        .peek(s -> s = s.toUpperCase())
+                        .collect(Collectors.toList());
+        newColumnNames.replaceAll(String::toUpperCase);
+        oldColumnNames.replaceAll(String::toUpperCase);
+        List<DataSourceColumn> toRemove = databaseDataSource.getColumns().stream().filter(dataSourceColumn -> !newColumnNames.contains(dataSourceColumn.getName().toUpperCase())).collect(Collectors.toList());
+        List<DataSourceColumnWeb> toAdd = databaseDataSourceForm.getColumns().stream().filter(dataSourceColumn -> !oldColumnNames.contains(dataSourceColumn.getName().toUpperCase())).collect(Collectors.toList());
+        if (!toRemove.isEmpty()) {
+            databaseDataSource.removeColumns(new HashSet<>(toRemove));
+        }
+        if (!toAdd.isEmpty()) {
+            convertDataSourceColumnWebToDataSourceColumn(databaseDataSource, dataSourceColumns, toAdd);
+            databaseDataSource.addColumns(dataSourceColumns);
+        }
+        return new DatabaseDataSourceForm(updateDataSource(databaseDataSource));
+    }
+
+    private void convertDataSourceColumnWebToDataSourceColumn(DatabaseDataSource databaseDataSource, Set<DataSourceColumn> dataSourceColumns, List<DataSourceColumnWeb> toAdd) {
+        for (DataSourceColumnWeb dataSourceColumnWeb : toAdd) {
             DataSourceColumn dataSourceColumn = new DataSourceColumn();
             dataSourceColumn.setName(dataSourceColumnWeb.getName());
             dataSourceColumn.setPosition(dataSourceColumnWeb.getPosition());
             dataSourceColumn.setDataSource(databaseDataSource);
             dataSourceColumns.add(dataSourceColumn);
         }
-        databaseDataSource.setColumns(dataSourceColumns);
-        return new DatabaseDataSourceForm(updateDataSource(databaseDataSource));
     }
 
     @Override

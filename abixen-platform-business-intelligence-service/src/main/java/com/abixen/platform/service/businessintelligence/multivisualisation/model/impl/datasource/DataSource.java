@@ -108,6 +108,20 @@ public class DataSource extends AuditingModel implements DataSourceWeb, Serializ
         }
     }
 
+    public void addColumns(Set<DataSourceColumn> columns) {
+        if (this.columns != null) {
+            this.columns.addAll(columns);
+        } else {
+            this.columns = columns;
+        }
+    }
+
+    public void removeColumns(Set<DataSourceColumn> columns) {
+        if (this.columns != null) {
+            this.columns.removeAll(columns);
+        }
+    }
+
     public DataSourceType getDataSourceType() {
         return dataSourceType;
     }
