@@ -80,16 +80,14 @@
         }
 
         function readLayouts() {
-            //FIXME
-            var queryParameters = {
-                page: 0,
-                size: 20,
-                sort: 'id,asc'
-            };
+            Layout.query()
+                .$promise
+                .then(onQueryResult);
 
-            Layout.query(queryParameters, function (data) {
-                pageDetails.layouts = data.content;
-            });
+            function onQueryResult(layouts) {
+                console.log('--layouts--->', layouts);
+                pageDetails.layouts = layouts;
+            }
         }
 
         function getValidators() {

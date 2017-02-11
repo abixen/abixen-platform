@@ -25,8 +25,6 @@ import java.util.List;
 
 public interface PageRepository extends PlatformJpaRepository<Page, Long> {
 
-    Page findByName(String name);
-
     default List<Page> findAllSecured(User user, PermissionName permissionName) {
         return findAll(user, AclClassName.PAGE, permissionName);
     }

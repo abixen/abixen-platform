@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.controller;
+package com.abixen.platform.core.controller.admin;
 
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
@@ -39,53 +39,37 @@ import java.io.IOException;
 import java.util.List;
 
 
-//FIXME
 @Slf4j
 @RestController
-public class LayoutController {
+@RequestMapping(value = "/api/admin/layouts")
+public class AdminLayoutController {
+
+    private final LayoutService layoutService;
 
     @Autowired
-    private LayoutService layoutService;
+    public AdminLayoutController(LayoutService layoutService) {
+        this.layoutService = layoutService;
+    }
 
-    //FIXME
-    @RequestMapping(value = "/api/dashboard", method = RequestMethod.GET)
-    public Page<Layout> getDashboardLayouts(@PageableDefault(size = 1, page = 0) Pageable pageable, LayoutSearchForm layoutSearchForm) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public Page<Layout> getLayouts(@PageableDefault(size = 1) Pageable pageable, LayoutSearchForm layoutSearchForm) {
         log.debug("getLayouts()");
 
         Page<Layout> layouts = layoutService.findAllLayouts(pageable, layoutSearchForm);
 
         for (Layout layout : layouts) {
-            log.debug("layout: " + layout);
-
             String html = layout.getContent();
             layout.setContent(layoutService.htmlLayoutToJson(html));
         }
         return layouts;
     }
 
-    //FIXME
-    @RequestMapping(value = "/api/admin/layouts", method = RequestMethod.GET)
-    public Page<Layout> getLayouts(@PageableDefault(size = 1, page = 0) Pageable pageable, LayoutSearchForm layoutSearchForm) {
-        log.debug("getLayouts()");
-
-        Page<Layout> layouts = layoutService.findAllLayouts(pageable, layoutSearchForm);
-        for (Layout layout : layouts) {
-            log.debug("layout: " + layout);
-        }
-
-        return layouts;
-    }
-
-    //FIXME
-    @RequestMapping(value = "/api/admin/layouts/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Layout getLayout(@PathVariable Long id) {
         log.debug("getLayout() - id: " + id);
 
-        Layout layout = layoutService.findLayout(id);
-
-        return layout;
+        return layoutService.findLayout(id);
     }
-
 
     @RequestMapping(value = "/api/admin/layouts", method = RequestMethod.POST)
     public Layout createLayout(@RequestBody Layout layout) {
@@ -93,9 +77,8 @@ public class LayoutController {
         return layoutService.createLayout(layout);
     }
 
-    //FIXME
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/api/admin/layouts/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     FormValidationResultDto updateLayout(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -106,15 +89,14 @@ public class LayoutController {
 
     }
 
-    //FIXME
-    @RequestMapping(value = "/api/admin/layouts/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteLayout(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
         layoutService.deleteLayout(id);
-        return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/admin/layouts/{id}/icon", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/icon", method = RequestMethod.POST)
     public Layout updateLayoutIcon(@PathVariable Long id, @RequestParam("iconFile") MultipartFile iconFile) throws IOException {
         return layoutService.changeIcon(id, iconFile);
     }

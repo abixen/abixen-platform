@@ -20,8 +20,12 @@ import com.abixen.platform.core.form.LayoutSearchForm;
 import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Layout;
+import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.LayoutRepository;
+import com.abixen.platform.core.security.PlatformUser;
 import com.abixen.platform.core.service.LayoutService;
+import com.abixen.platform.core.service.SecurityService;
+import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.LayoutColumnUtil;
 import com.abixen.platform.core.util.LayoutRowUtil;
 import com.google.gson.Gson;
@@ -52,13 +56,19 @@ import java.util.List;
 @Service
 public class LayoutServiceImpl implements LayoutService {
 
-    private AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
-    private LayoutRepository layoutRepository;
+    private final SecurityService securityService;
+    private final UserService userService;
+    private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+    private final LayoutRepository layoutRepository;
 
 
     @Autowired
-    public LayoutServiceImpl(AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
+    public LayoutServiceImpl(SecurityService securityService,
+                             UserService userService,
+                             AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
                              LayoutRepository layoutRepository) {
+        this.securityService = securityService;
+        this.userService = userService;
         this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
         this.layoutRepository = layoutRepository;
     }
@@ -124,6 +134,14 @@ public class LayoutServiceImpl implements LayoutService {
     @Override
     public Page<Layout> findAllLayouts(Pageable pageable, LayoutSearchForm layoutSearchForm) {
         return layoutRepository.findAll(pageable, layoutSearchForm);
+    }
+
+    @Override
+    public List<Layout> findAllLayouts() {
+        PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
+        User authorizedUser = userService.findUser(platformAuthorizedUser.getId());
+
+        return layoutRepository.findAllSecured(authorizedUser, PermissionName.LAYOUT_VIEW);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_VIEW + "')")

@@ -10,8 +10,8 @@
 
     function Layout($resource) {
 
-        return $resource('/api/dashboard/:id', {}, {
-            query: {method: 'GET'/*, isArray: false*/},
+        return $resource('/api/application/layouts/:id', {}, {
+            query: {method: 'GET', isArray: true},
             update: {method: 'PUT'}
         });
     }

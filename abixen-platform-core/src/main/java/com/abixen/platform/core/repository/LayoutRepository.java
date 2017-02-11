@@ -14,12 +14,19 @@
 
 package com.abixen.platform.core.repository;
 
+import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Layout;
+import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
+import java.util.List;
 
 
 public interface LayoutRepository extends PlatformJpaRepository<Layout, Long>, JpaSpecificationExecutor<Layout> {
 
-    Layout findByTitle(String title);
+    default List<Layout> findAllSecured(User user, PermissionName permissionName) {
+        return findAll(user, AclClassName.LAYOUT, permissionName);
+    }
 }
