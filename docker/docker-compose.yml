@@ -26,6 +26,7 @@ services:
 
   discovery:
     image: abixen-platform/abixen-platform-eureka
+    command: -Xmx512m -jar /app.jar
     ports:
       - "8761:8761"
     extends:
@@ -33,6 +34,7 @@ services:
 
   configuration:
     image: abixen-platform/abixen-platform-configuration
+    command: -Xmx512m -jar /app.jar
     depends_on:
       - discovery
     extends:
@@ -40,7 +42,7 @@ services:
 
   gateway:
     image: abixen-platform/abixen-platform-gateway
-    command: -Xmx=512m
+    command: -Xmx512m -jar /app.jar
     depends_on:
       - discovery
       - configuration
@@ -54,6 +56,7 @@ services:
 
   business-intelligence-service:
     image: abixen-platform/abixen-platform-business-intelligence-service
+    command: -Xmx512m -jar /app.jar
     depends_on:
       - discovery
       - configuration
@@ -65,6 +68,7 @@ services:
 
   web-content-service:
     image: abixen-platform/abixen-platform-web-content-service
+    command: -Xmx1024m -jar /app.jar
     depends_on:
       - discovery
       - configuration
@@ -76,6 +80,7 @@ services:
 
   core:
     image: abixen-platform/abixen-platform-core
+    command: -Xmx1024m -jar /app.jar
     depends_on:
       - discovery
       - configuration
@@ -90,6 +95,7 @@ services:
 
   web-client:
     image: abixen-platform/abixen-platform-web-client
+    command: -Xmx512m -jar /app.war
     depends_on:
      - discovery
      - configuration
@@ -100,11 +106,10 @@ services:
       - "traefik.port=8080"
       - "traefik.frontend.rule=Host:platform.abixen.devd.io"
       - "traefik.backend.loadbalancer.sticky=true"
-    extends:
-      service: base
 
   hystrix-dashboard:
     image: abixen-platform/abixen-platform-hystrix-dashboard
+    command: -Xmx512m -jar /app.jar
     ports:
       - "8989:8989"
     depends_on:
@@ -117,6 +122,7 @@ services:
 
   zipkin:
     image: abixen-platform/abixen-platform-zipkin
+    command: -Xmx512m -jar /app.jar
     ports:
       - "9411:9411"
     depends_on:
@@ -200,12 +206,10 @@ services:
 
   logstash:
     image: logstash:5-alpine
-    #command: logstash -f /etc/logstash/conf.d/logstash.conf
-    #command: logstash -e 'input { gelf { } } filter { } output { elasticsearch { hosts => "elasticsearch:9200" } }'
-    command: logstash -e 'input { gelf { } } filter { } output { elasticsearch { hosts => "elasticsearch:9200" } stdout { codec => rubydebug } }'
+    command: logstash -e 'input { gelf { } } filter { } output { elasticsearch { hosts => "elasticsearch:9200" } }'
+    # uncomment to enable output of all incoming messages to stdout of logstash container
+    # command: logstash -e 'input { gelf { } } filter { } output { elasticsearch { hosts => "elasticsearch:9200" } stdout { codec => rubydebug } }'
 
-#    volumes:
-#      - ./logstash/:/etc/logstash/conf.d
     ports:
       - "12201:12201/udp"
     depends_on:
