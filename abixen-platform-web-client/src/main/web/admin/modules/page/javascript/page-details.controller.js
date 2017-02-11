@@ -53,12 +53,12 @@
             validators['title'] =
                 [
                     new NotNull(),
-                    new Length(6, 40)
+                    new Length(1, 40)
                 ];
 
             validators['description'] =
                 [
-                    new Length(0, 40)
+                    new Length(0, 255)
                 ];
 
             return validators;
