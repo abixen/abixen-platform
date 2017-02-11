@@ -38,6 +38,7 @@
                                  ng-model="databaseDataSourceDetails.entity.table"
                                  label="{{'service.businessIntelligence.databaseDataSourceDetails.table.label' | translate}}"
                                  options="databaseDataSourceDetails.databaseTables"
+                                 on-change="databaseDataSourceDetails.getDatabaseTableColumns(databaseDataSourceDetails.entity.databaseConnection, databaseDataSourceDetails.entity.table)"
                                  show-empty-value="true"
                                  empty-value-label="{{'service.businessIntelligence.databaseDataSourceDetails.table.select' | translate}}"
                                  key-as-value="true"
