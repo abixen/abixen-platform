@@ -130,6 +130,11 @@
     @include platform-button($font-color-reversed, $font-color-reversed, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
   }
 
+  .refresh-button{
+    font-size: 16px;
+    @include platform-button($font-color-reversed, $font-color-reversed, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
+  }
+
   .wizard-chart-configuration-content, .wizard-table-configuration-content {
     label{
       display: block;

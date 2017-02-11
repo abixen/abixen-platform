@@ -35,6 +35,12 @@
                        ng-trim="true" class="form-control">
             </div>
         </div>
+        <button class="btn refresh-button pull-right"
+                ng-show="configWizard.chartConfiguration.dataSetChart.dataSetSeries.length > 0" ng-click="configWizard.reloadPreviewData()">
+            <span class="hidden-xs">{{ 'module.multivisualisation.refreshPreviewData' | translate}}&nbsp;</span>
+            <i class="fa fa-refresh">
+            </i>
+        </button>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
         <div ng-show="configWizard.dataSetSeriesSelected != null">
