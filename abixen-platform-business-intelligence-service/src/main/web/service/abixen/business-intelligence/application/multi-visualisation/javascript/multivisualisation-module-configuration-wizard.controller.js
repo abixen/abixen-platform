@@ -140,15 +140,16 @@
             var filter = {
                 group: {
                     operator: 'AND',
-                    rules: [
-                        {
-                            condition: domainSeries.filterObj.conditionOne.operator,
-                            field: domainSeries.dataSourceColumn.name,
-                            data: domainSeries.filterObj.conditionOne.value
-                        }
-                    ]
+                    rules: []
                 }
             };
+            if (domainSeries.filterObj.conditionOne && domainSeries.filterObj.conditionOne.value !== null){
+                filter.group.rules.push({
+                    condition: domainSeries.filterObj.conditionOne.operator,
+                    field: domainSeries.dataSourceColumn.name,
+                    data: domainSeries.filterObj.conditionOne.value
+                })
+            }
             if (domainSeries.filterObj.conditionTwo && domainSeries.filterObj.conditionTwo.value !== null){
                 filter.group.rules.push({
                     condition: domainSeries.filterObj.conditionTwo.operator,
@@ -369,6 +370,9 @@
                     break;
                 case 2:
                     moduleConfigurationWizardStepSelected();
+                    break;
+                case 3:
+                    configWizard.chartConfiguration = prepareFilterForDomain(configWizard.chartConfiguration);
                     break;
             }
         }
