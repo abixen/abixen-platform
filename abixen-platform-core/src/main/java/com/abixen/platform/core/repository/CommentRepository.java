@@ -26,4 +26,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @Query("FROM Comment c WHERE c.parent.id = :parentId")
     List<Comment> getCommentsWithParent(@Param("parentId") Long parentId);
+
+    @Query("DELETE FROM Comment c WHERE c.module.id IN (:moduleIds)")
+    List<Comment> deleteCommentsByModuleIds(@Param("moduleIds") List<Long> moduleIds);
 }
