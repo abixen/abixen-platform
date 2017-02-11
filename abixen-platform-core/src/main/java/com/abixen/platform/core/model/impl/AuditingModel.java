@@ -112,14 +112,14 @@ public abstract class AuditingModel extends Model implements AuditingModelBase<U
         for (Field field : fields) {
             if (!Modifier.isStatic(field.getModifiers())) {
                 result.append("    ");
-                try {
+                //try {
                     result.append(field.getName());
                     result.append(": ");
                     //requires access to private field
-                    result.append(field.get(this));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                  //  result.append(field.get(this));
+                //} catch (IllegalAccessException e) {
+                //    e.printStackTrace();
+                //}
                 result.append(newLine);
             }
         }

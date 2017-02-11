@@ -1,4 +1,5 @@
 /**
+/**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -116,15 +117,15 @@ public class ModuleServiceImpl implements ModuleService {
 
         List<Module> modules = moduleRepository.findAllExcept(page, ids);
 
-        modules.forEach(module -> {
-            RabbitMQMessage removeMessage = new RabbitMQRemoveModuleMessage(module.getId(), module.getModuleType().getName());
-            rabbitMQOperations.convertAndSend(module.getModuleType().getServiceId(), removeMessage);
-        });
-
         List<Long> moduleIds = modules.stream().map(module -> module.getId()).collect(Collectors.toList());
         commentService.deleteCommentByModuleIds(moduleIds);
 
         moduleRepository.removeAllExcept(page, ids);
+
+        modules.forEach(module -> {
+            RabbitMQMessage removeMessage = new RabbitMQRemoveModuleMessage(module.getId(), module.getModuleType().getName());
+            rabbitMQOperations.convertAndSend(module.getModuleType().getServiceId(), removeMessage);
+        });
     }
 
     @Override
@@ -133,15 +134,15 @@ public class ModuleServiceImpl implements ModuleService {
 
         List<Module> modules = moduleRepository.findByPage(page);
 
-        modules.forEach(module -> {
-            RabbitMQMessage removeMessage = new RabbitMQRemoveModuleMessage(module.getId(), module.getModuleType().getName());
-            rabbitMQOperations.convertAndSend(module.getModuleType().getServiceId(), removeMessage);
-        });
-
         List<Long> moduleIds = modules.stream().map(module -> module.getId()).collect(Collectors.toList());
         commentService.deleteCommentByModuleIds(moduleIds);
 
         moduleRepository.removeAll(page);
+
+        modules.forEach(module -> {
+            RabbitMQMessage removeMessage = new RabbitMQRemoveModuleMessage(module.getId(), module.getModuleType().getName());
+            rabbitMQOperations.convertAndSend(module.getModuleType().getServiceId(), removeMessage);
+        });
     }
 
     @Override

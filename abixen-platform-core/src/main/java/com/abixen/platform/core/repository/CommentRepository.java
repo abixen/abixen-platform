@@ -16,17 +16,20 @@ package com.abixen.platform.core.repository;
 
 import com.abixen.platform.core.model.impl.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
+
     @Query("FROM Comment c WHERE c.module.id = :moduleId")
     List<Comment> getAllComments(@Param("moduleId") Long moduleId);
 
     @Query("FROM Comment c WHERE c.parent.id = :parentId")
     List<Comment> getCommentsWithParent(@Param("parentId") Long parentId);
 
+    @Modifying(clearAutomatically = true)
     @Query("DELETE FROM Comment c WHERE c.module.id IN (:moduleIds)")
-    List<Comment> deleteCommentsByModuleIds(@Param("moduleIds") List<Long> moduleIds);
+    void deleteCommentsByModuleIds(@Param("moduleIds") List<Long> moduleIds);
 }

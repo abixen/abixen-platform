@@ -16,6 +16,7 @@ package com.abixen.platform.core.repository;
 
 import com.abixen.platform.core.model.impl.CommentVote;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -23,6 +24,7 @@ import java.util.List;
 
 public interface CommentVoteRepository  extends JpaRepository<CommentVote, Long> {
 
+    @Modifying(clearAutomatically = true)
     @Query("DELETE FROM CommentVote cv WHERE cv.comment.id IN (:commentIds)")
     void deleteByCommentId(@Param("commentIds") List<Long> commentIds);
 }
