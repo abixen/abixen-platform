@@ -56,6 +56,12 @@
                        ng-trim="true" class="form-control">
             </div>
         </div>
+        <button class="btn refresh-button pull-right"
+                ng-show="configWizard.chartConfiguration.dataSetChart.dataSetSeries.length > 0" ng-click="configWizard.reloadPreviewData()">
+            <span class="hidden-xs">{{ 'module.multivisualisation.refreshPreviewData' | translate}}&nbsp;</span>
+            <i class="fa fa-refresh">
+            </i>
+        </button>
         <!-- series -->
         <div class="col-lg-12 col-md-12 col-sm-12 no-padding wizard-chart-configuration-content-series">
             <div class="list-group">
