@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -112,14 +112,20 @@ public abstract class AuditingModel extends Model implements AuditingModelBase<U
         for (Field field : fields) {
             if (!Modifier.isStatic(field.getModifiers())) {
                 result.append("    ");
-                //try {
+                try {
                     result.append(field.getName());
                     result.append(": ");
-                    //requires access to private field
-                  //  result.append(field.get(this));
-                //} catch (IllegalAccessException e) {
-                //    e.printStackTrace();
-                //}
+
+                    Object object = field.get(this);
+
+                    if (object instanceof AuditingModel) {
+                        result.append(((AuditingModel) field.get(this)).getId());
+                    } else {
+                        result.append(field.get(this));
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
                 result.append(newLine);
             }
         }

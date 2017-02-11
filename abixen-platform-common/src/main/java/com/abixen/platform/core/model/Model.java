@@ -44,8 +44,14 @@ public abstract class Model implements Serializable {
                 try {
                     result.append(field.getName());
                     result.append(": ");
-                    //requires access to private field
-                    result.append(field.get(this));
+
+                    Object object = field.get(this);
+
+                    if (object instanceof Model) {
+                        result.append(((Model) field.get(this)).getId());
+                    } else {
+                        result.append(field.get(this));
+                    }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
