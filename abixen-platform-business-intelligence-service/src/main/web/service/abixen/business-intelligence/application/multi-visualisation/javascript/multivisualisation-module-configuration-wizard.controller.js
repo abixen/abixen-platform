@@ -254,11 +254,13 @@
 
         function getSeriesData() {
             configWizard.chart.seriesPreviewData = [];
-            if (configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn !== null && configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== undefined && configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== '') {
-                configWizard.chartConfiguration = prepareFilterForDomain(configWizard.chartConfiguration);
-                CharDataPreview.query({seriesName: configWizard.dataSetSeriesSelected.name}, configWizard.chartConfiguration)
-                    .$promise
-                    .then(onQueryResult);
+            if (configWizard.dataSetSeriesSelected) {
+                if (configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn !== null && configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== undefined && configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== '') {
+                    configWizard.chartConfiguration = prepareFilterForDomain(configWizard.chartConfiguration);
+                    CharDataPreview.query({seriesName: configWizard.dataSetSeriesSelected.name}, configWizard.chartConfiguration)
+                        .$promise
+                        .then(onQueryResult);
+                }
             }
 
             function onQueryResult(data) {
@@ -482,9 +484,7 @@
 
             configWizard.dataSetSeriesSelected = dataSetSeries; //configWizard.chart.series[idx - 1];
 
-            if (dataSetSeries !== null) {
-                getSeriesData();
-            }
+
         }
 
         function canNext() {

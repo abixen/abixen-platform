@@ -111,6 +111,13 @@
   .no-padding{
     padding: 0;
   }
+
+  .wizard-select {
+    .form-group {
+      padding-left: 0px !important;
+    }
+  }
+
   .no-margin{
     margin: 0;
   }
@@ -131,7 +138,7 @@
   }
 
   .refresh-button{
-    font-size: 16px;
+    font-size: 16px!important;
     @include platform-button($font-color-reversed, $font-color-reversed, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
   }
 
