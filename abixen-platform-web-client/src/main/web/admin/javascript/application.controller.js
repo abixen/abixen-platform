@@ -24,15 +24,20 @@
         '$scope',
         '$http',
         '$log',
-        'applicationNavigationItems'
+        'applicationNavigationItems',
+        'toaster'
     ];
 
-    function ApplicationController($scope, $http, $log, applicationNavigationItems) {
+    function ApplicationController($scope, $http, $log, applicationNavigationItems, toaster) {
 
         $log.log('ApplicationController');
 
         var applicationLoginUrl = '/login';
         var applicationDashboardUrl = '/';
+
+        $scope.$on('$stateNotFound', function (event, transition) {
+            toaster.pop(platformParameters.statusAlertTypes.ERROR, 'Module unavailable', 'Module is unavailable. Please refresh the page and try again.');
+        });
 
         $scope.logout = function () {
             $http.get('/user', {
