@@ -1,0 +1,34 @@
+version: '2'
+services:
+  influxdb:
+    image: influxdb:1.2-alpine
+    ports:
+      - "8086:8086"
+      - "8083:8086"
+      - "8090:8090"
+      - "8099:8099"
+    environment:
+      INFLUXDB_DATA_ENGINE: tsm1
+
+  telegraf:
+    image: telegraf:1.2-alpine
+    volumes:
+      - ./conf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "8125:8125"
+    depends_on:
+      - influxdb
+      - grafana
+
+  grafana:
+    image: grafana/grafana:4.1.1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - influxdb
+
+networks:
+  default:
+    external:
+      name: docker_default
