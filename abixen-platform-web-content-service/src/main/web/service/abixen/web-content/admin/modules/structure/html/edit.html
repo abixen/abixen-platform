@@ -2,46 +2,48 @@
     <div class="row form-row">
 
         <div class="col-md-6">
-            <div class="form-group" show-errors>
-                <input-text model="structureDetails.entity.title"
-                            name="title"
-                            label="{{'structureDetails.title.label' | translate}}"
-                            placeholder="{{'structureDetails.title.placeholder' | translate}}"
-                            validators="structureDetails.validators">
-                </input-text>
+            <input-text model="structureDetails.entity.title"
+                        name="title"
+                        label="{{'structureDetails.title.label' | translate}}"
+                        placeholder="{{'structureDetails.title.placeholder' | translate}}"
+                        validators="structureDetails.validators">
+            </input-text>
 
-                <input-text-area model="structureDetails.entity.description"
-                            name="content"
-                            id="xmlcontent"
-                            label="{{'structureDetails.content.label' | translate}}"
-                            placeholder="{{'structureDetails.content.placeholder' | translate}}"
-                            validators="structureDetails.validators">
-                </input-text-area>
+            <input-text-area model="structureDetails.entity.content"
+                             name="content"
+                             id="xmlInput"
+                             label="{{'structureDetails.content.label' | translate}}"
+                             placeholder="{{'structureDetails.content.placeholder' | translate}}"
+                             validators="structureDetails.validators"
+                             rows="5">
+            </input-text-area>
 
-                <input-drop-down name="template"
-                                 id="templateInput"
-                                 ng-model="entity.template"
-                                 label="{{'structureDetails.template.label' | translate}}"
-                                 options="structureDetails.templates"
-                                 show-empty-value="true"
-                                 empty-value-label="{{'structureDetails.template.select' | translate}}"
-                                 key-as-value="false">
-                </input-drop-down>
-
-            </div>
-
+            <input-drop-down name="template"
+                             id="templateInput"
+                             ng-model="structureDetails.entity.template"
+                             ng-model-as-object="true"
+                             label="{{'structureDetails.template.label' | translate}}"
+                             options="structureDetails.templates"
+                             show-empty-value="true"
+                             value-key="id"
+                             value-label="name"
+                             empty-value-label="{{'structureDetails.template.select' | translate}}"
+                             key-as-value="false"
+                             validators="structureDetails.validators">
+            </input-drop-down>
         </div>
 
     </div>
 </form>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
-        <a class="btn save-button"
-           ng-click="structureDetails.beforeSaveForm()"><i
-                class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
-        </a>
-        <a class="btn cancel-button"
-           ng-click="structureDetails.goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
-        </a>
+        <button class="btn save-button"
+                ng-disabled="structureDetails.entityForm.$invalid"
+                ng-click="structureDetails.saveForm()">
+            <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
+        </button>
+        <button class="btn cancel-button"
+                ng-click="structureDetails.cancel()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+        </button>
     </div>
 </div>

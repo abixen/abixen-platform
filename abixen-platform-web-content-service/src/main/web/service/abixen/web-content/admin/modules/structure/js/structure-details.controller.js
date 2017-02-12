@@ -42,20 +42,18 @@
             }
         );
 
+        structureDetails.cancel = cancel;
+
+        
+        getTemplates();
+        initXmlEditor();
+
         function onSuccessSaveForm() {
             $state.go('application.webContentService.structure.list');
         }
 
-        function goToViewMode() {
+        function cancel() {
             $state.go('application.webContentService.structure.list');
-        }
-
-        function beforeSaveForm() {
-            $log.log('beforeSaveForm', structureDetails.entity);
-
-            structureDetails.entity.columns = [];
-            var columnPosition = 1;
-            structureDetails.saveForm();
         }
 
         function getValidators() {
@@ -79,25 +77,24 @@
             return validators;
         }
 
+        function getTemplates() {
+            Template.queryAll().$promise.then(onQueryResult);
 
-        Template.queryAll().$promise.then(onQueryResult);
-
-        function onQueryResult(templates) {
-            var templatesTemp = [];
-            templates.forEach(function (template) {
-                templatesTemp.push({key: template.id, value: template.name});
-            });
-            structureDetails.templates = templatesTemp;
+            function onQueryResult(templates) {
+                structureDetails.templates = templates;
+            }
         }
-
-        angular.element(document).ready(function () {
-            var editor = CodeMirror.fromTextArea(document.getElementById("contentInput"), {
-                lineNumbers: true,
-                lineWrapping: true,
-                mode: "text/html",
-                matchBrackets: true,
-                theme: 'default'
+        
+        function initXmlEditor(){
+            angular.element(document).ready(function () {
+                var editor = CodeMirror.fromTextArea(document.getElementById("contentInput"), {
+                    lineNumbers: true,
+                    lineWrapping: true,
+                    mode: "text/html",
+                    matchBrackets: true,
+                    theme: 'default'
+                });
             });
-        });
+        }
     }
 })();
