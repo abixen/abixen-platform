@@ -158,13 +158,14 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public org.springframework.data.domain.Page<Page> findAllPages(Pageable pageable, PageSearchForm pageSearchForm) {
-        log.debug("findAllPages() - pageable={}", pageable);
-        return pageRepository.findAll(pageable, pageSearchForm);
+        PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
+        User authorizedUser = userService.findUser(platformAuthorizedUser.getId());
+
+        return pageRepository.findAllSecured(pageable, pageSearchForm, authorizedUser, PermissionName.PAGE_VIEW);
     }
 
     @Override
     public List<Page> findAllPages() {
-        log.debug("findAllPages()");
         PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
         User authorizedUser = userService.findUser(platformAuthorizedUser.getId());
 

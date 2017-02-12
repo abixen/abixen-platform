@@ -14,16 +14,22 @@
 
 package com.abixen.platform.core.repository;
 
+import com.abixen.platform.core.form.PageSearchForm;
 import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 
 public interface PageRepository extends PlatformJpaRepository<Page, Long> {
+
+    default org.springframework.data.domain.Page<Page> findAllSecured(Pageable pageable, PageSearchForm pageSearchForm, User user, PermissionName permissionName) {
+        return findAll(pageable, pageSearchForm, user, AclClassName.PAGE, permissionName);
+    }
 
     default List<Page> findAllSecured(User user, PermissionName permissionName) {
         return findAll(user, AclClassName.PAGE, permissionName);
