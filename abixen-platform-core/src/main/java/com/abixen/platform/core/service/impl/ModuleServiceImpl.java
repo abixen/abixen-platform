@@ -1,5 +1,4 @@
 /**
-/**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -21,9 +20,11 @@ import com.abixen.platform.core.form.ModuleSearchForm;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.Page;
+import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.rabbitmq.message.RabbitMQMessage;
 import com.abixen.platform.core.rabbitmq.message.RabbitMQRemoveModuleMessage;
 import com.abixen.platform.core.repository.ModuleRepository;
+import com.abixen.platform.core.security.PlatformUser;
 import com.abixen.platform.core.service.*;
 import com.abixen.platform.core.util.ModuleBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -39,25 +40,26 @@ import java.util.stream.Collectors;
 @Service
 public class ModuleServiceImpl implements ModuleService {
 
+    private final SecurityService securityService;
+    private final UserService userService;
     private final ModuleRepository moduleRepository;
-
     private final ModuleTypeService moduleTypeService;
-
     private final DomainBuilderService domainBuilderService;
-
     private final AclService aclService;
-
     private final RabbitMQOperations rabbitMQOperations;
-
     private final CommentService commentService;
 
     @Autowired
-    public ModuleServiceImpl(ModuleRepository moduleRepository,
+    public ModuleServiceImpl(SecurityService securityService,
+                             UserService userService,
+                             ModuleRepository moduleRepository,
                              ModuleTypeService moduleTypeService,
                              DomainBuilderService domainBuilderService,
                              AclService aclService,
                              RabbitMQOperations rabbitMQOperations,
                              CommentService commentService) {
+        this.securityService = securityService;
+        this.userService = userService;
         this.moduleRepository = moduleRepository;
         this.moduleTypeService = moduleTypeService;
         this.domainBuilderService = domainBuilderService;
@@ -160,7 +162,9 @@ public class ModuleServiceImpl implements ModuleService {
     @Override
     public org.springframework.data.domain.Page<Module> findAllModules(Pageable pageable, ModuleSearchForm moduleSearchForm) {
         log.debug("findAllModules() - pageable: " + pageable);
-        return moduleRepository.findAll(pageable, moduleSearchForm);
-    }
+        PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
+        User authorizedUser = userService.findUser(platformAuthorizedUser.getId());
 
+        return moduleRepository.findAllSecured(pageable, moduleSearchForm, authorizedUser, PermissionName.MODULE_VIEW);
+    }
 }
