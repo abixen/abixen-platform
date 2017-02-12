@@ -14,17 +14,24 @@
 
 package com.abixen.platform.core.repository;
 
+import com.abixen.platform.core.form.LayoutSearchForm;
 import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.custom.PlatformJpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
 
 public interface LayoutRepository extends PlatformJpaRepository<Layout, Long>, JpaSpecificationExecutor<Layout> {
+
+    default Page<Layout> findAllSecured(Pageable pageable, LayoutSearchForm layoutSearchForm, User user, PermissionName permissionName) {
+        return findAll(pageable, layoutSearchForm, user, AclClassName.LAYOUT, permissionName);
+    }
 
     default List<Layout> findAllSecured(User user, PermissionName permissionName) {
         return findAll(user, AclClassName.LAYOUT, permissionName);
