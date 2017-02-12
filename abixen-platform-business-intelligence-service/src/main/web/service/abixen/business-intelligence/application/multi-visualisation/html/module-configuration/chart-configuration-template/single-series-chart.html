@@ -1,84 +1,104 @@
 <!-- content -->
 <div class="row wizard-chart-configuration-content">
-    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-init="configWizard.initDataSetSeries()">
-        <!--keys -->
-        <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-            <label class="header"><span class="">{{'module.multivisualisation.configuration.preview.headerKey.label' | translate}}</span></label>
-        </div>
-        <div class="axis-x-filter">
+    <form role="form" name="configWizard.entityForm" novalidate>
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-init="configWizard.initDataSetSeries()">
+            <!--keys -->
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                <select class="form-control" name="singleSelect" id="axisxColumn"
-                        ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn"
-                        ng-options="seriesColumn as seriesColumn.name for seriesColumn in configWizard.chartConfiguration.dataSource.columns track by seriesColumn.id">
-                </select>
+                <label class="header"><span class="">{{'module.multivisualisation.configuration.preview.headerKey.label' | translate}}</span></label>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
-                <select class="form-control" name="singleSelect" id="axisxFirstOperator" ng-options="c.name as c.name for c in configWizard.conditionsForFilter"
-                        ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.operator">
-                </select>
+            <div class="axis-x-filter">
+                <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+                    <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+                        <input-drop-down name="singleSelect"
+                                         class="wizard-select"
+                                         id="axisxColumn"
+                                         ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn"
+                                         ng-model-as-object="true"
+                                         label="{{'module.multivisualisation.configuration.headerKey.label' | translate}}"
+                                         options="configWizard.chartConfiguration.dataSource.columns"
+                                         show-empty-value="false"
+                                         value-key="id"
+                                         value-label="name"
+                                         key-as-value="false"
+                                         validators="configWizard.validators">
+                        </input-drop-down>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
+                    <select class="form-control" name="singleSelect" id="axisxFirstOperator"
+                            ng-options="c.name as c.name for c in configWizard.conditionsForFilter"
+                            ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.operator">
+                    </select>
 
-            </div>
-            <div class="col-lg-7 col-md-7 col-sm-7 no-padding value-padding">
-                <input placeholder="value" type="text" name="input"
-                       ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"
-                       ng-trim="true" class="form-control">
-            </div>
-            <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
-                <select class="form-control" name="singleSelect" id="axisxSecondOperator" ng-options="c.name as c.name for c in configWizard.conditionsForFilter"
-                        ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.operator">
-                </select>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 no-padding value-padding">
+                    <input placeholder="value" type="text" name="input"
+                           ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"
+                           ng-trim="true" class="form-control">
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
+                    <select class="form-control" name="singleSelect" id="axisxSecondOperator"
+                            ng-options="c.name as c.name for c in configWizard.conditionsForFilter"
+                            ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.operator">
+                    </select>
 
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 no-padding">
+                    <input placeholder="value" type="text" name="input"
+                           ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"
+                           ng-trim="true" class="form-control">
+                </div>
             </div>
-            <div class="col-lg-7 col-md-7 col-sm-7 no-padding">
-                <input placeholder="value" type="text" name="input"
-                       ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"
-                       ng-trim="true" class="form-control">
+            <button class="btn refresh-button pull-right"
+                    ng-show="configWizard.chartConfiguration.dataSetChart.dataSetSeries.length > 0"
+                    ng-click="configWizard.reloadPreviewData()">
+                <span class="hidden-xs">{{ 'module.multivisualisation.refreshPreviewData' | translate}}&nbsp;</span>
+                <i class="fa fa-refresh">
+                </i>
+            </button>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <div ng-show="configWizard.dataSetSeriesSelected != null">
+                <!--values -->
+
+                <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+                    <input-drop-down name="valueSelect"
+                                     id="axisYColumn"
+                                     ng-model="configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn"
+                                     ng-model-as-object="true"
+                                     label="{{'module.multivisualisation.configuration.valuesSelect.label' | translate}}"
+                                     options="configWizard.chartConfiguration.dataSource.columns"
+                                     on-change="configWizard.reloadPreviewData()"
+                                     show-empty-value="false"
+                                     value-key="id"
+                                     value-label="name"
+                                     key-as-value="false"
+                                     validators="configWizard.validators">
+                    </input-drop-down>
+                </div>
+
             </div>
         </div>
-        <button class="btn refresh-button pull-right"
-                ng-show="configWizard.chartConfiguration.dataSetChart.dataSetSeries.length > 0" ng-click="configWizard.reloadPreviewData()">
-            <span class="hidden-xs">{{ 'module.multivisualisation.refreshPreviewData' | translate}}&nbsp;</span>
-            <i class="fa fa-refresh">
-            </i>
-        </button>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-        <div ng-show="configWizard.dataSetSeriesSelected != null">
-            <!--values -->
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" ng-show="configWizard.dataSetSeriesSelected != null">
+            <!-- preview data-->
+            <div class="">
+                <label class="header"><span class="">{{'module.multivisualisation.configuration.preview.label' | translate}}</span></label>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>{{'module.multivisualisation.configuration.preview.headerKey.label' | translate}}</th>
+                        <th>{{'module.multivisualisation.configuration.preview.headerValue.label' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-            <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                <label class="header"><span class="">{{'module.multivisualisation.configuration.valuesSelect.label' | translate}}</span></label>
+                    <tr ng-repeat="data in configWizard.chart.seriesPreviewData">
+                        <td>{{data.x}}</td>
+                        <td>{{data.y}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                <select name="singleSelect" id="axisYColumn"
-                        class="form-control"
-                        ng-model="configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn"
-                        ng-options="seriesColumn as seriesColumn.name for seriesColumn in configWizard.chartConfiguration.dataSource.columns track by seriesColumn.id"
-                        ng-change="configWizard.reloadPreviewData()">
-                </select>
-            </div>
-
         </div>
-    </div>
-    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" ng-show="configWizard.dataSetSeriesSelected != null">
-        <!-- preview data-->
-        <div class="">
-            <label class="header"><span class="">{{'module.multivisualisation.configuration.preview.label' | translate}}</span></label>
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>{{'module.multivisualisation.configuration.preview.headerKey.label' | translate}}</th>
-                    <th>{{'module.multivisualisation.configuration.preview.headerValue.label' | translate}}</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <tr ng-repeat="data in configWizard.chart.seriesPreviewData">
-                    <td>{{data.x}}</td>
-                    <td>{{data.y}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </form>
 </div>
