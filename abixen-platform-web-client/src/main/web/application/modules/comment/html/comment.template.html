@@ -10,14 +10,16 @@
     <div class="commenter-image">
         <img ng-src="{{comment.avatarFullPath}}"/>
     </div>
+
     <div>
-        <strong>
-            &nbsp;&nbsp;{{comment.commentItem.user.firstName}}&nbsp;{{comment.commentItem.user.lastName}}&nbsp;</strong>
-        <span class="date sub-text">{{comment.commentItem.createdDate | date }}</span>
+        <strong>&nbsp;&nbsp;{{comment.commentItem.user.firstName}}&nbsp;{{comment.commentItem.user.lastName}}&nbsp;</strong>
+        <span class="date sub-text" am-time-ago="comment.commentItem.createdDate" data-toggle="tooltip" tooltip="{{comment.commentItem.createdDate | date}}"></span>
     </div>
+
     <ul class="comment-text">
         <p class="">{{comment.commentItem.message}}</p>
     </ul>
+
     <ul class="sub-text" id="reply-ref-{{comment.commentItem.id}}">
         <div style="display: inline">
             <a ng-href ng-click="comment.openReplyForm(comment.commentItem.id)" style="cursor: pointer">Reply</a> &nbsp;&nbsp;

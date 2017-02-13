@@ -149,7 +149,10 @@ function libsTask() {
     var ckeditor = gulp.src(config.libs.ckeditor)
         .pipe(gulp.dest(config.dest.ckeditor));
 
-    return merge(libs, fontawesome, roboto, glyphicons, ckeditor);
+    var moment = gulp.src(config.libs.moment)
+        .pipe(gulp.dest(config.dest.moment));
+
+    return merge(libs, fontawesome, roboto, glyphicons, ckeditor, moment);
 }
 
 function loginImagesTask() {

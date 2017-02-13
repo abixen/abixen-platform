@@ -18,7 +18,8 @@ module.exports = {
         fontawesome: 'src/main/resources/static/lib/fonts/fontawesome',
         roboto: 'src/main/resources/static/fonts/roboto',
         glyphicons: 'src/main/resources/static/fonts/bootstrap',
-        ckeditor: 'src/main/resources/static/lib/ckeditor'
+        ckeditor: 'src/main/resources/static/lib/ckeditor',
+        moment: 'src/main/resources/static/lib/moment'
     },
     images: {
         login: 'src/main/web/login/image/*',
@@ -57,13 +58,21 @@ module.exports = {
             'bower_components/angular-loading-bar/src/loading-bar.css',
             'bower_components/ng-scrollbar/dist/ng-scrollbar.min.js',
             'bower_components/ng-scrollbar/dist/ng-scrollbar.min.css',
+            'bower_components/moment/moment.js',
+            'bower_components/moment/locale/ru.js',
+            'bower_components/moment/locale/es.js',
+            'bower_components/moment/locale/pl.js',
+            'bower_components/moment/locale/uk.js',
+            'bower_components/moment/locale/en-gb.js',
+            'bower_components/angular-moment/angular-moment.js',
             'src/main/web/lib/show-errors.min.js',
             'src/main/web/lib/ng-storage.min.js'
         ],
         fontawesome: 'bower_components/fontawesome/fonts/*',
         roboto: 'bower_components/roboto-fontface/fonts/*',
         glyphicons: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
-        ckeditor: 'bower_components/ckeditor/**'
+        ckeditor: 'bower_components/ckeditor/**',
+        moment: 'bower_components/moment/**'
     },
     templates: {
         files: 'src/main/web/**/*.html',
