@@ -19,7 +19,7 @@
         .module('platformCommentModule')
         .directive('comment', commentDirective);
 
-    commentDirective.$inject = ['$log', '$http', '$compile', 'responseHandler', 'platformSecurity'];
+    commentDirective.$inject = ['$log', '$http', '$compile', 'responseHandler', 'platformSecurity', 'amMoment'];
 
     function commentDirective($log, $http, $compile, platformSecurity) {
         var counter = 0,
@@ -49,7 +49,7 @@
         }
     }
 
-    function CommentDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest, platformSecurity) {
+    function CommentDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest, platformSecurity, amMoment) {
         var comment = this;
         var addCommentForm;
         var replyClickCounter = 0;
@@ -76,6 +76,9 @@
         comment.deleteComment = deleteComment;
         comment.canEdit = canEdit();
         comment.avatarFullPath = getAvatarFullPath();
+        changeMomentLocale();
+
+        $scope.$watch(platformSecurity.getPlatformUser, onUserChange);
 
         function getAvatarFullPath() {
             var res = '';
@@ -174,6 +177,35 @@
                 var index = comment.roots.indexOf(commentItem);
                 comment.roots.splice(index, 1);
             });
+        }
+
+        function onUserChange() {
+            $log.info('User changed');
+            changeMomentLocale();
+        }
+
+        function changeMomentLocale() {
+            var lang = platformUser.selectedLanguage;
+            switch (lang) {
+                case 'ENGLISH':
+                    amMoment.changeLocale('en-gb');
+                    break;
+                case 'POLISH':
+                    amMoment.changeLocale('pl');
+                    break;
+                case 'RUSSIAN':
+                    amMoment.changeLocale('ru');
+                    break;
+                case 'UKRAINIAN':
+                    amMoment.changeLocale('uk');
+                    break;
+                case 'SPAIN':
+                    amMoment.changeLocale('sp');
+                    break;
+                default:
+                    amMoment.changeLocale('en-gb');
+
+            }
         }
     }
 })();

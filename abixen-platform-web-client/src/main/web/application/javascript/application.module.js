@@ -41,6 +41,7 @@
         'ui.bootstrap.showErrors',
         'platformFAModalSelection',
         'ngScrollbar',
+        'angularMoment',
         'platformCommentModule'];
 
     for (var i = 0; i < externalModules.length; i++) {

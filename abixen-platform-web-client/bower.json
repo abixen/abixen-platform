@@ -25,6 +25,7 @@
     "angular-ui-codemirror": "0.3.0",
     "angular-loading-bar":"0.9.0",
     "ng-scrollbar": "0.0.8",
-    "ckeditor": "4.5.7"
+    "ckeditor": "4.5.7",
+    "angular-moment": "1.0.1"
   }
 }

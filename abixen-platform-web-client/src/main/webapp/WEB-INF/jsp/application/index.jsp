@@ -49,6 +49,13 @@
 <script src="<c:url value='/lib/angular-cookies.min.js' />"></script>
 <script src="<c:url value='/lib/ui-grid.min.js' />"></script>
 <script src="<c:url value='/lib/ng-scrollbar.min.js' />"></script>
+<script src="<c:url value='/lib/moment/moment.js'/>"></script>
+<script src="<c:url value='/lib/moment/locale/en-gb.js'/>"></script>
+<script src="<c:url value='/lib/moment/locale/pl.js'/>"></script>
+<script src="<c:url value='/lib/moment/locale/es.js'/>"></script>
+<script src="<c:url value='/lib/moment/locale/ru.js'/>"></script>
+<script src="<c:url value='/lib/moment/locale/uk.js'/>"></script>
+<script src="<c:url value='/lib/angular-moment.js'/>"></script>
 <script src="<c:url value='/common/modules.min.js' />"></script>
 
 <c:forEach var="resource" items="${resources}">
