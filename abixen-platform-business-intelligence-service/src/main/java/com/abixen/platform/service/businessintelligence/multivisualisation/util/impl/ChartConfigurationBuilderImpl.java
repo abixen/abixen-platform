@@ -17,7 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.util
 import com.abixen.platform.core.util.EntityBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.ChartType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.*;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSetChartWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataSourceColumnRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.util.ChartConfigurationBuilder;
@@ -46,7 +46,7 @@ public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfigurat
     }
 
     @Override
-    public ChartConfigurationBuilder data(DataSetChartWeb dataSetChart, DatabaseDataSource databaseDataSource, DataSourceColumnRepository dataSourceColumnRepository) {
+    public ChartConfigurationBuilder data(DataSetChartWeb dataSetChart, DataSource dataSource, DataSourceColumnRepository dataSourceColumnRepository) {
 
         DataSetChart dataSetChartCreated = new DataSetChart();
 
@@ -89,7 +89,7 @@ public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfigurat
         dataSetChartCreated.setDataSetSeries(dataSetSeries);
 
         this.product.setDataSetChart(dataSetChartCreated);
-        this.product.setDataSource(databaseDataSource);
+        this.product.setDataSource(dataSource);
         return this;
     }
 
