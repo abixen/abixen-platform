@@ -17,7 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.util
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.ChartType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.ChartConfiguration;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSetChartWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataSourceColumnRepository;
 
@@ -28,7 +28,7 @@ public interface ChartConfigurationBuilder {
 
     ChartConfigurationBuilder basic(Long moduleId, ChartType chartType);
 
-    ChartConfigurationBuilder data(DataSetChartWeb dataSetChart, DatabaseDataSource databaseDataSource, DataSourceColumnRepository dataSourceColumnRepository);
+    ChartConfigurationBuilder data(DataSetChartWeb dataSetChart, DataSource dataSource, DataSourceColumnRepository dataSourceColumnRepository);
 
     ChartConfigurationBuilder axis(String axisXName, String axisYName);
 

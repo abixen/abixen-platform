@@ -26,9 +26,9 @@ import java.util.Map;
 import java.util.Set;
 
 
-public interface DatabaseDataSourceService {
+public interface DatabaseDataSourceService extends DataSourceService {
 
-    Page<DatabaseDataSource> getDataSources(String jsonCriteria, Pageable pageable);
+    Page<DatabaseDataSource> getDatabaseDataSources(String jsonCriteria, Pageable pageable);
 
     Page<DatabaseDataSource> findAllDataSources(Pageable pageable);
 

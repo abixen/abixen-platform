@@ -20,7 +20,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.repos
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataSourceColumnRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.ChartConfigurationDomainBuilderService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.ChartConfigurationService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseDataSourceService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataSourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     private ChartConfigurationDomainBuilderService chartConfigurationDomainBuilderService;
 
     @Autowired
-    private DatabaseDataSourceService databaseDataSourceService;
+    private DataSourceService dataSourceService;
 
     @Autowired
     private DataSourceColumnRepository dataSourceColumnRepository;
@@ -52,7 +52,7 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
         log.debug("buildChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
         return chartConfigurationDomainBuilderService.newChartConfigurationBuilderInstance()
                 .basic(chartConfigurationForm.getModuleId(), chartConfigurationForm.getChartType())
-                .data(chartConfigurationForm.getDataSetChart(), databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
+                .data(chartConfigurationForm.getDataSetChart(), dataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
                 .axis(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
                 .filter(chartConfigurationForm.getFilter())
                 .build();
@@ -71,7 +71,7 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
         ChartConfiguration chartConfiguration = findChartConfigurationByModuleId(chartConfigurationForm.getModuleId());
         ChartConfiguration chartConfigurationUpdated = chartConfigurationDomainBuilderService.newChartConfigurationBuilderForUpdateInstance(chartConfiguration)
                 .basic(chartConfigurationForm.getModuleId(), chartConfigurationForm.getChartType())
-                .data(chartConfigurationForm.getDataSetChart(), databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
+                .data(chartConfigurationForm.getDataSetChart(), dataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
                 .axis(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
                 .filter(chartConfigurationForm.getFilter())
                 .build();

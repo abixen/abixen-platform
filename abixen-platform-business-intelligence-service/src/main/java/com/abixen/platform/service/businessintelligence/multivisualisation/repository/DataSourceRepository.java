@@ -12,22 +12,12 @@
  * details.
  */
 
-(function () {
+package com.abixen.platform.service.businessintelligence.multivisualisation.repository;
 
-    'use strict';
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    angular
-        .module('platformChartModule')
-        .factory('ApplicationDatabaseDataSource', ApplicationDatabaseDataSource);
 
-    ApplicationDatabaseDataSource.$inject = ['$resource'];
+public interface DataSourceRepository extends JpaRepository<DataSource, Long> {
 
-    function ApplicationDatabaseDataSource($resource) {
-
-        return $resource('/service/abixen/business-intelligence/admin/multi-visualisation/data-sources', {}, {
-            query: {method: 'GET', isArray: false}
-        });
-
-    }
-
-})();
+}
