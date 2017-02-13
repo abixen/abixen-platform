@@ -49,7 +49,7 @@ public class DataFileController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<DataFile> getDataFile(@PageableDefault(size = 1, page = 0) Pageable pageable) {
-        log.debug("getDataSources()");
+        log.debug("getDatabaseDataSources()");
 
         Page<DataFile> dataSources = dataFileService.findAllDataFile(pageable);
 

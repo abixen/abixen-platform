@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class DatabaseDataSourceServiceImpl implements DatabaseDataSourceService {
+public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl implements DatabaseDataSourceService {
 
     @Resource
     private DatabaseDataSourceRepository databaseDataSourceRepository;
@@ -59,8 +59,7 @@ public class DatabaseDataSourceServiceImpl implements DatabaseDataSourceService 
     }
 
     @Deprecated
-    @Override
-    public Page<DatabaseDataSource> getDataSources(String jsonCriteria, Pageable pageable) {
+    public Page<DatabaseDataSource> getDatabaseDataSources(String jsonCriteria, Pageable pageable) {
         Page<DatabaseDataSource> result;
         //TODO - needs with criteria?
         //result = databaseDataSourceRepository.findAllByJsonCriteria(jsonCriteria, pageable);

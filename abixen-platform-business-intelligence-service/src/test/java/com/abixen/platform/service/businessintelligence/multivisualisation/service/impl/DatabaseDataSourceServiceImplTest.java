@@ -178,10 +178,10 @@ public class DatabaseDataSourceServiceImplTest {
 
     @Test
     /**
-     * Test method for getDataSources in DatabaseDataSourceServiceImpl
+     * Test method for getDatabaseDataSources in DatabaseDataSourceServiceImpl
      */
     public void getDataSources() {
-        Page<DatabaseDataSource> page = databaseDataSourceService.getDataSources(null, new PageRequest(0, 10));
+        Page<DatabaseDataSource> page = databaseDataSourceService.getDatabaseDataSources(null, new PageRequest(0, 10));
         assertTrue(page.getTotalElements() > 0);
         assertEquals(page.getTotalElements(),4);
     }

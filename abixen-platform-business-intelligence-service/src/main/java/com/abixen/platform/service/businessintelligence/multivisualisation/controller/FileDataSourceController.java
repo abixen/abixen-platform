@@ -49,7 +49,7 @@ public class FileDataSourceController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<FileDataSource> getDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
-        log.debug("getDataSources()");
+        log.debug("getDatabaseDataSources()");
 
         Page<FileDataSource> dataSources = fileDataSourceService.findAllDataSources(pageable);
 
