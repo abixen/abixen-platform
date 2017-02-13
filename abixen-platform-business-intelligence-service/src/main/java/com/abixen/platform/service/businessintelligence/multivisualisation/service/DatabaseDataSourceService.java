@@ -46,7 +46,7 @@ public interface DatabaseDataSourceService extends DataSourceService {
 
     DatabaseDataSource updateDataSource(DatabaseDataSource databaseDataSource);
 
-    DatabaseDataSource findDataSource(Long id);
+    DatabaseDataSource findDatabaseDataSource(Long id);
 
     List<Map<String, DataValueWeb>> getPreviewData(DatabaseDataSourceForm databaseDataSourceForm);
 }
