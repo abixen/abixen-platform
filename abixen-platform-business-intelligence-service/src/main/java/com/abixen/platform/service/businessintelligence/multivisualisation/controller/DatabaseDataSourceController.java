@@ -63,7 +63,7 @@ public class DatabaseDataSourceController {
     public DatabaseDataSourceWeb getDataSource(@PathVariable Long id) {
         log.debug("getDataSource() - id: " + id);
 
-        return databaseDataSourceService.findDataSource(id);
+        return databaseDataSourceService.findDatabaseDataSource(id);
     }
 
     @JsonView(WebModelJsonSerialize.class)

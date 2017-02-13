@@ -123,7 +123,7 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
     public DatabaseDataSourceForm updateDataSource(DatabaseDataSourceForm databaseDataSourceForm) {
         log.debug("updateDataSource() - databaseDataSourceForm: " + databaseDataSourceForm);
 
-        DatabaseDataSource databaseDataSource = findDataSource(databaseDataSourceForm.getId());
+        DatabaseDataSource databaseDataSource = findDatabaseDataSource(databaseDataSourceForm.getId());
         databaseDataSource.setName(databaseDataSourceForm.getName());
         databaseDataSource.setDatabaseConnection(databaseConnectionService.findDatabaseConnection(databaseDataSourceForm.getDatabaseConnection().getId()));
         databaseDataSource.setFilter(databaseDataSourceForm.getFilter());
@@ -169,7 +169,7 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
     }
 
     @Override
-    public DatabaseDataSource findDataSource(Long id) {
+    public DatabaseDataSource findDatabaseDataSource(Long id) {
         log.debug("findPage() - id: " + id);
         return databaseDataSourceRepository.findOne(id);
     }

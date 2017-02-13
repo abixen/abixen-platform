@@ -41,7 +41,7 @@ public class ChartDataServiceImpl implements ChartDataService {
 
     @Override
     public List<Map<String, DataValueWeb>> getChartData(ChartConfigurationForm chartConfigurationForm) {
-        DatabaseDataSource databaseDataSource = databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId());
+        DatabaseDataSource databaseDataSource = databaseDataSourceService.findDatabaseDataSource(chartConfigurationForm.getDataSource().getId());
         DatabaseConnection databaseConnection = databaseDataSource.getDatabaseConnection();
         DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnection);
@@ -51,7 +51,7 @@ public class ChartDataServiceImpl implements ChartDataService {
 
     @Override
     public List<Map<String, DataValueWeb>> getChartDataPreview(ChartConfigurationForm chartConfigurationForm, String seriesName) {
-        DatabaseDataSource databaseDataSource = databaseDataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId());
+        DatabaseDataSource databaseDataSource = databaseDataSourceService.findDatabaseDataSource(chartConfigurationForm.getDataSource().getId());
         DatabaseConnection databaseConnection = databaseDataSource.getDatabaseConnection();
         DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnection);

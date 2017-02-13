@@ -254,11 +254,11 @@ public class DatabaseDataSourceServiceImplTest {
     }
 
     /**
-     * Test method for findDataSource in DatabaseDataSourceServiceImpl
+     * Test method for findDatabaseDataSource in DatabaseDataSourceServiceImpl
      */
     @Test
     public void findDataSource()  {
-        DatabaseDataSource databaseDataSourceUpdate = databaseDataSourceService.findDataSource(databaseDataSourceAfterSave.getId());
+        DatabaseDataSource databaseDataSourceUpdate = databaseDataSourceService.findDatabaseDataSource(databaseDataSourceAfterSave.getId());
         assertTrue(databaseDataSourceUpdate.getId().equals(databaseDataSourceAfterSave.getId()));
     }
 
