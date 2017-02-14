@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
  *
@@ -13,7 +14,6 @@
  */
 
 package com.abixen.platform.eureka;
-
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

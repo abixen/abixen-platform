@@ -43,5 +43,3 @@ public class PlatformBusinessIntelligenceServiceApplication extends SpringBootSe
     }
 
 }
-
-

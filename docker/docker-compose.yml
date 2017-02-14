@@ -2,12 +2,15 @@ version: '2'
 
 services:
   # we need to have some image defined to limit repetition of logging parameters
+  # and 'hello-world' is one of the smallest
   base:
     image: hello-world
     logging:
       driver: gelf
       options:
         gelf-address: udp://localhost:12201
+    volumes:
+      - ./monitoring/jolokia-jvm-1.3.5-agent.jar:/jolokia-jvm-1.3.5-agent.jar:ro
 
   redis:
     image: redis:3.0
@@ -26,7 +29,7 @@ services:
 
   discovery:
     image: abixen-platform/abixen-platform-eureka
-    command: -Xmx512m -jar /app.jar
+    command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     ports:
       - "8761:8761"
     extends:
@@ -34,7 +37,7 @@ services:
 
   configuration:
     image: abixen-platform/abixen-platform-configuration
-    command: -Xmx512m -jar /app.jar
+    command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     depends_on:
       - discovery
     extends:
@@ -42,7 +45,7 @@ services:
 
   gateway:
     image: abixen-platform/abixen-platform-gateway
-    command: -Xmx512m -jar /app.jar
+    command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     depends_on:
       - discovery
       - configuration
@@ -56,7 +59,7 @@ services:
 
   business-intelligence-service:
     image: abixen-platform/abixen-platform-business-intelligence-service
-    command: -Xmx512m -jar /app.jar
+    command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     depends_on:
       - discovery
       - configuration
@@ -68,7 +71,7 @@ services:
 
   web-content-service:
     image: abixen-platform/abixen-platform-web-content-service
-    command: -Xmx1024m -jar /app.jar
+    command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx1024m -jar /app.jar
     depends_on:
       - discovery
       - configuration
@@ -80,7 +83,7 @@ services:
 
   core:
     image: abixen-platform/abixen-platform-core
-    command: -Xmx1024m -jar /app.jar
+    command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx1024m -jar /app.jar
     depends_on:
       - discovery
       - configuration
@@ -95,7 +98,7 @@ services:
 
   web-client:
     image: abixen-platform/abixen-platform-web-client
-    command: -Xmx512m -jar /app.war
+    command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.war
     depends_on:
      - discovery
      - configuration
@@ -106,10 +109,15 @@ services:
       - "traefik.port=8080"
       - "traefik.frontend.rule=Host:platform.abixen.devd.io"
       - "traefik.backend.loadbalancer.sticky=true"
+    ports:
+      - "9010:9010"
+      - "18080:8080"
+    extends:
+      service: base
 
   hystrix-dashboard:
     image: abixen-platform/abixen-platform-hystrix-dashboard
-    command: -Xmx512m -jar /app.jar
+    command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     ports:
       - "8989:8989"
     depends_on:
@@ -122,7 +130,7 @@ services:
 
   zipkin:
     image: abixen-platform/abixen-platform-zipkin
-    command: -Xmx512m -jar /app.jar
+    command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     ports:
       - "9411:9411"
     depends_on:

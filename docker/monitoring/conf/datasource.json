@@ -1,0 +1,9 @@
+{
+    "url" : "http://influxdb:8086",
+    "Access": "proxy",
+    "Name" : "influxdb",
+    "Type" : "influxdb",
+    "database" : "telegraf",
+    "isDefault" : true,
+    "id" : 1
+}
