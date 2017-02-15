@@ -21,7 +21,8 @@
             'webContentServiceStructureModule',
             'webContentServiceTemplateModule',
             'webContentServiceWebContentModule',
-            'ui.router'
+            'ui.router',
+            'templatecache'
         ]);
 })();
 
@@ -42,7 +43,7 @@
         $stateProvider
             .state('application.webContentService', {
                 url: '/web-content',
-                templateUrl: '/service/abixen/web-content/admin/html/index.html',
+                templateUrl: 'service/abixen/web-content/admin/html/index.html',
                 controller: 'WebContentServiceController',
                 controllerAs: 'webContentService'
             });

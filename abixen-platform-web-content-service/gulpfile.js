@@ -16,16 +16,19 @@ var gulp = require('gulp'),
     ignore = require('gulp-ignore'),
     del = require('del'),
     config = require('./build-config'),
+    templateCache = require('gulp-angular-templatecache'),
     devMode = true;
 
 gulp.task('clean', cleanTask);
 gulp.task('templates', templatesTask);
+gulp.task('templateCache', templateCacheTask);
 gulp.task('adminScripts', adminScriptsTask);
 gulp.task('adminStyles', adminStylesTask);
 gulp.task('build', buildTask);
 gulp.task('adminLibs', adminLibsTask);
 gulp.task('dev', ['build'], devTask);
 gulp.task('default', ['build']);
+gulp.task('angularTemplateCache', ['templateCache'], angularTemplateCacheTask)
 
 function cleanTask() {
 
@@ -40,6 +43,17 @@ function templatesTask() {
         .pipe(gulp.dest(config.dest.dir));
 }
 
+function templateCacheTask(){
+
+    return gulp.src(config.templates.files)
+        .pipe(templateCache('template-cache.js', {module : 'templatecache' }))
+        .pipe(gulp.dest(config.dest.templateCache));
+}
+
+function angularTemplateCacheTask(){
+
+    return genericScriptsTask(config.scripts.adminFiles, config.dest.adminScripts);
+}
 function adminScriptsTask() {
 
     return genericScriptsTask(config.scripts.adminFiles, config.dest.adminScripts);
@@ -80,9 +94,10 @@ function buildTask(callback) {
     runSequence('clean',
         'adminLibs',
         [
+            'angularTemplateCache',
             'adminScripts',
             'templates',
-            'adminStyles',
+            'adminStyles'
         ],
         callback);
 }

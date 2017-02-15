@@ -29,11 +29,11 @@
         $stateProvider
             .state('application.webContentService.webContent', {
                 url: '/web-content',
-                templateUrl: '/service/abixen/web-content/admin/modules/web-content/html/index.html'
+                templateUrl: 'service/abixen/web-content/admin/modules/web-content/html/index.html'
             })
             .state('application.webContentService.webContent.list', {
                 url: '/list',
-                templateUrl: '/service/abixen/web-content/admin/modules/web-content/html/list.html',
+                templateUrl: 'service/abixen/web-content/admin/modules/web-content/html/list.html',
                 controller: 'WebContentServiceWebContentController',
                 controllerAs: 'webContentList'
             });

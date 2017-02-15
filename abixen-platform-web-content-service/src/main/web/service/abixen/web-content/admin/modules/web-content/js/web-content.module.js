@@ -18,6 +18,7 @@
 
     angular
         .module('webContentServiceWebContentModule', [
-            'ui.router'
+            'ui.router',
+            'templatecache'
         ]);
 })();
