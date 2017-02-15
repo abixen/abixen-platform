@@ -137,5 +137,11 @@
             }
         });
 
+        layoutDetails.submitForm = function () {
+            if (layoutDetails.editor != null) {
+                layoutDetails.entity.content = layoutDetails.editor.getDoc().getValue();
+            }
+            layoutDetails.saveForm();
+         }
     }
 })();
