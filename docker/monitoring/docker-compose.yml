@@ -27,6 +27,18 @@ services:
       - "3000:3000"
     depends_on:
       - influxdb
+    environment:
+      GF_INSTALL_PLUGINS: grafana-piechart-panel,briangann-gauge-panel
+      GF_AUTH_ANONYMOUS_ENABLED: 'true'
+      GF_USERS_DEFAULT_THEME: 'light'
+
+  grafana-config:
+    build: conf/
+    command: sh /conf/grafana-configure.sh
+    volumes:
+      - ./conf/:/conf
+    depends_on:
+      - grafana
 
 networks:
   default:
