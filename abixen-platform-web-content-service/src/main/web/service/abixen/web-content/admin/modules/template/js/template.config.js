@@ -29,17 +29,17 @@
         $stateProvider
             .state('application.webContentService.template', {
                 url: '/template',
-                templateUrl: '/service/abixen/web-content/admin/modules/template/html/index.html'
+                templateUrl: 'service/abixen/web-content/admin/modules/template/html/index.html'
             })
             .state('application.webContentService.template.list', {
                 url: '/list',
-                templateUrl: '/service/abixen/web-content/admin/modules/template/html/list.html',
+                templateUrl: 'service/abixen/web-content/admin/modules/template/html/list.html',
                 controller: 'WebContentServiceTemplateListController',
                 controllerAs: 'templateList'
             })
             .state('application.webContentService.template.add', {
                 url: '/add',
-                templateUrl: '/service/abixen/web-content/admin/modules/template/html/details.html',
+                templateUrl: 'service/abixen/web-content/admin/modules/template/html/details.html',
                 controller: 'WebContentServiceTemplateDetailsController',
                 controllerAs: 'templateDetails'
             });

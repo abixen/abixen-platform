@@ -29,23 +29,23 @@
         $stateProvider
             .state('application.webContentService.structure', {
                 url: '/structure',
-                templateUrl: '/service/abixen/web-content/admin/modules/structure/html/index.html'
+                templateUrl: 'service/abixen/web-content/admin/modules/structure/html/index.html'
             })
             .state('application.webContentService.structure.list', {
                 url: '/list',
-                templateUrl: '/service/abixen/web-content/admin/modules/structure/html/list.html',
+                templateUrl: 'service/abixen/web-content/admin/modules/structure/html/list.html',
                 controller: 'WebContentServiceStructureListController',
                 controllerAs: 'structureList'
             })
             .state('application.webContentService.structure.add', {
                 url: '/add',
-                templateUrl: '/service/abixen/web-content/admin/modules/structure/html/edit.html',
+                templateUrl: 'service/abixen/web-content/admin/modules/structure/html/edit.html',
                 controller: 'WebContentDetailsController',
                 controllerAs: 'structureDetails'
             })
             .state('application.webContentService.structure.edit', {
                 url: '/edit/:id',
-                templateUrl: '/service/abixen/web-content/admin/modules/structure/html/edit.html',
+                templateUrl: 'service/abixen/web-content/admin/modules/structure/html/edit.html',
                 controller: 'WebContentDetailsController',
                 controllerAs: 'structureDetails'
             });

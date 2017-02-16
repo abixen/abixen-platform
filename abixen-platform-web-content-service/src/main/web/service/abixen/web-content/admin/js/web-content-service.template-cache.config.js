@@ -17,8 +17,6 @@
     'use strict';
 
     angular
-        .module('webContentServiceTemplateModule', [
-            'ui.router',
-            'templatecache'
-        ]);
+        .module('templatecache', []
+        );
 })();
