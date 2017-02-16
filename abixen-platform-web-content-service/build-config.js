@@ -6,7 +6,8 @@ module.exports = {
         files: 'src/main/resources/static/**',
         adminLibs: 'src/main/resources/static/service/abixen/web-content/admin/lib',
         adminScripts: 'service/abixen/web-content/admin/web-content.min.js',
-        adminStyles: 'service/abixen/web-content/admin/web-content.min.css'
+        adminStyles: 'service/abixen/web-content/admin/web-content.min.css',
+        templateCache: 'src/main/web/service/abixen/web-content/admin/js'
     },
     adminLibs: {
         files: [
@@ -32,6 +33,7 @@ module.exports = {
             'src/main/web/service/abixen/web-content/admin/**/*.js'
         ],
         concatOrder: [
+            'src/main/web/**/*template-cache.config.js',
             'src/main/web/**/*.module.js',
             'src/main/web/**/*.js'
         ]

@@ -23,3 +23,5 @@
 # Databases
 /data/db/
 
+# Angular Template Cache
+/abixen-platform-web-content-service/src/main/web/service/abixen/web-content/admin/js/template-cache.js
