@@ -48,8 +48,11 @@ public enum PermissionName {
 
     MODULE_TYPE_VIEW(Values.MODULE_TYPE_VIEW),
     MODULE_TYPE_ADD(Values.MODULE_TYPE_ADD),
-    MODULE_TYPE_PERMISSION(Values.MODULE_TYPE_PERMISSION);
+    MODULE_TYPE_PERMISSION(Values.MODULE_TYPE_PERMISSION),
 
+    COMMENT_VIEW(Values.COMMENT_VIEW),
+    COMMENT_ADD(Values.COMMENT_ADD),
+    COMMENT_EDIT(Values.COMMENT_EDIT);
 
     private final String name;
 
@@ -95,5 +98,9 @@ public enum PermissionName {
         public static final String MODULE_TYPE_VIEW = "MODULE_TYPE_VIEW";
         public static final String MODULE_TYPE_ADD = "MODULE_TYPE_ADD";
         public static final String MODULE_TYPE_PERMISSION = "MODULE_TYPE_PERMISSION";
+
+        public static final String COMMENT_VIEW = "COMMENT_VIEW";
+        public static final String COMMENT_ADD = "COMMENT_ADD";
+        public static final String COMMENT_EDIT = "COMMENT_EDIT";
     }
 }
