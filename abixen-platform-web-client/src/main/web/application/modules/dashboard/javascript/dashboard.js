@@ -97,7 +97,6 @@ angular.module('platformDashboardModule')
                 var counter = 0;
                 model.rows = angular.copy(JSON.parse(layout.content).rows);  // the parameter is JSON.parse(structure.contentAsJson).rows
                 // because of the structure passed from DB and to allow updating layout in DB
-                model.layoutTitle = layout.title;                              // assign new structure name
 
                 while (counter < columns.length) {
                     counter = fillLayout(model, columns, counter);
@@ -169,17 +168,13 @@ angular.module('platformDashboardModule')
                 restrict: 'EA',
                 transclude: false,
                 scope: {
-                    layoutTitle: '@',
                     name: '@',
                     model: '='
                 },
                 controller: function ($scope) {
 
-                    console.log('===========structure=======>', $scope.layoutTitle);
-
                     var model = {};
                     // var structure = {};
-                    var layoutTitle = {};
                     var name = $scope.name;
 
                     $scope.$on(platformParameters.events.ADF_WIDGET_DELETED_EVENT, function (event) {
