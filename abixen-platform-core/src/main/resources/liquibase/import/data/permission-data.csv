@@ -21,4 +21,8 @@ id;created_date;last_modified_date;description;permission_acl_class_category_id;
 
 18;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to view a module type on the available modules list.;6;1;MODULE_TYPE_VIEW;Module Type View;NULL;NULL
 19;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to add an instance of the module type.;6;1;MODULE_TYPE_ADD;Module Type Add;NULL;NULL
-20;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to change permissions to a module tyle.;6;1;MODULE_TYPE_PERMISSION;Module Type Permission;NULL;NULL
+20;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to change permissions to a module type.;6;1;MODULE_TYPE_PERMISSION;Module Type Permission;NULL;NULL
+
+21;2017-02-17 00:00:00;2017-01-08 00:00:00;Allows to view comments.;8;1;COMMENT_VIEW;Comments View;NULL;NULL
+22;2017-02-17 00:00:00;2017-01-08 00:00:00;Allows to add comments.;8;1;COMMENT_ADD;Comments Add;NULL;NULL
+23;2017-02-17 00:00:00;2017-01-08 00:00:00;Allows to edit comments.;8;1;COMMENT_EDIT;Comments Edit;NULL;NULL
