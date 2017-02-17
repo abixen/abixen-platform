@@ -30,7 +30,6 @@
         'ui.router',
         'ui.bootstrap',
         'ngAside',
-        'adf.provider',
         'ui.bootstrap.showErrors',
         'toaster',
         'xeditable',

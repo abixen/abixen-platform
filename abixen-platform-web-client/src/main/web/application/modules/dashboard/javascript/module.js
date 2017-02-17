@@ -24,14 +24,14 @@
 
 'use strict';
 
-angular.module('adf')
-    .directive('adfWidget', ['$log', '$uibModal', '$rootScope', 'dashboard', 'adfTemplatePath', 'modalWindow', function ($log, $uibModal, $rootScope, dashboard, adfTemplatePath, modalWindow) {
+angular.module('platformDashboardModule')
+    .directive('adfModule', ['$log', '$uibModal', '$rootScope', 'dashboardData', 'modalWindow', function ($log, $uibModal, $rootScope, dashboardData, modalWindow) {
 
         function preLink($scope) {
             var definition = $scope.definition;
 
             if (definition) {
-                var w = dashboard.widgets[definition.type];
+                var w = dashboardData.getModules()[definition.type];
                 if (w) {
                     // pass title
                     if (!definition.title) {
@@ -39,16 +39,16 @@ angular.module('adf')
                     }
 
                     if (!definition.titleTemplateUrl) {
-                        definition.titleTemplateUrl = adfTemplatePath + 'widget-title.html';
+                        definition.titleTemplateUrl = 'application/modules/dashboard/html/module-title.html';
                     }
 
                     // set id for sortable
                     if (!definition.wid) {
-                        definition.wid = dashboard.id();
+                        definition.wid = dashboardData.id();
                     }
 
-                    // pass copy of widget to scope
-                    $scope.widget = angular.copy(w);
+                    // pass copy of module to scope
+                    $scope.module = angular.copy(w);
 
                     // create config object
                     var config = definition.config;
@@ -63,32 +63,32 @@ angular.module('adf')
                     // pass config to scope
                     $scope.config = config;
 
-                    // collapse exposed $scope.widgetState property
-                    if (!$scope.widgetState) {
-                        $scope.widgetState = {};
-                        $scope.widgetState.isCollapsed = false;
-                        $scope.widgetState.isLoading = false;
-                        $scope.widgetState.permissionDenied = false;
-                        $scope.widgetState.chatShowing = false;
+                    // collapse exposed $scope.moduleState property
+                    if (!$scope.moduleState) {
+                        $scope.moduleState = {};
+                        $scope.moduleState.isCollapsed = false;
+                        $scope.moduleState.isLoading = false;
+                        $scope.moduleState.permissionDenied = false;
+                        $scope.moduleState.chatShowing = false;
                     }
 
                 } else {
-                    $log.warn('could not find widget ' + definition.type);
+                    $log.warn('could not find module ' + definition.type);
                 }
             } else {
-                $log.debug('definition not specified, widget was probably removed');
+                $log.debug('definition not specified, module was probably removed');
             }
         }
 
         function postLink($scope, $element) {
             if ($scope.definition) {
 
-                var removeWidget = function () {
+                var removeModule = function () {
                     var column = $scope.col;
                     if (column) {
-                        var index = column.widgets.indexOf($scope.definition);
+                        var index = column.modules.indexOf($scope.definition);
                         if (index >= 0) {
-                            column.widgets.splice(index, 1);
+                            column.modules.splice(index, 1);
                         }
                     }
                     $element.remove();
@@ -96,11 +96,11 @@ angular.module('adf')
                 };
 
                 $scope.remove = function () {
-                    modalWindow.openConfirmWindow('Delete module?', 'The module will be deleted permanently. Are you sure you want to perform this operation?', 'warning', removeWidget);
+                    modalWindow.openConfirmWindow('Delete module?', 'The module will be deleted permanently. Are you sure you want to perform this operation?', 'warning', removeModule);
                 };
 
                 $scope.reload = function () {
-                    $scope.$broadcast('widgetReload');
+                    $scope.$broadcast('moduleReload');
                 };
 
                 $scope.enableConfigureMode = function () {
@@ -115,7 +115,7 @@ angular.module('adf')
                     $scope.$broadcast(event);
                 };
             } else {
-                $log.debug('widget not found');
+                $log.debug('module not found');
             }
         }
 
@@ -123,67 +123,66 @@ angular.module('adf')
             replace: true,
             restrict: 'EA',
             transclude: false,
-            templateUrl: adfTemplatePath + 'widget.html',
+            templateUrl: 'application/modules/dashboard/html/module.html',
             scope: {
                 definition: '=',
                 col: '=column',
                 editMode: '=',
-                options: '=',
-                widgetState: '='
+                moduleState: '='
             },
 
             controller: function ($scope) {
                 var loaderCounter = 0;
 
                 $scope.$on("adfDashboardCollapseExapand", function (event, args) {
-                    $scope.widgetState.isCollapsed = args.collapseExpandStatus;
+                    $scope.moduleState.isCollapsed = args.collapseExpandStatus;
                 });
 
                 $scope.$on(platformParameters.events.SHOW_LOADER, function () {
                     loaderCounter++;
-                    $scope.widgetState.isLoading = true;
+                    $scope.moduleState.isLoading = true;
                 });
                 $scope.$on(platformParameters.events.HIDE_LOADER, function () {
                     if (--loaderCounter === 0) {
-                        $scope.widgetState.isLoading = false;
+                        $scope.moduleState.isLoading = false;
                     }
                 });
                 $scope.$on(platformParameters.events.SHOW_PERMISSION_DENIED_TO_MODULE, function () {
-                    $scope.widgetState.permissionDenied = true;
+                    $scope.moduleState.permissionDenied = true;
                 });
                 $scope.$on(platformParameters.events.SHOW_EXIT_CONFIGURATION_MODE_ICON, function () {
-                    $scope.widgetState.configurationMode = true;
+                    $scope.moduleState.configurationMode = true;
                 });
                 $scope.$on(platformParameters.events.SHOW_CONFIGURATION_MODE_ICON, function () {
-                    $scope.widgetState.configurationMode = false;
+                    $scope.moduleState.configurationMode = false;
                 });
                 $scope.$on(platformParameters.events.UPDATE_MODULE_CONTROL_ICONS, function (event, icons) {
-                    $scope.widgetState.moduleIcons = icons;
+                    $scope.moduleState.moduleIcons = icons;
                 });
 
                 $scope.toggleFullScreenMode = function () {
-                    $scope.widgetState.fullScreenMode = !$scope.widgetState.fullScreenMode;
-                    $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.widgetState.fullScreenMode);
+                    $scope.moduleState.fullScreenMode = !$scope.moduleState.fullScreenMode;
+                    $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.moduleState.fullScreenMode);
                 };
 
                 $scope.toggleChat = function () {
-                    $scope.widgetState.chatShowing = !$scope.widgetState.chatShowing;
+                    $scope.moduleState.chatShowing = !$scope.moduleState.chatShowing;
                 };
 
-                $scope.onWidgetTitleChanged = function () {
+                $scope.onModuleTitleChanged = function () {
                     $scope.$emit(platformParameters.events.ADF_WIDGET_TITLE_CHANGED_EVENT);
                 };
 
                 $scope.$on(platformParameters.events.MODULE_TEMPORARY_UNAVAILABLE, function (event, args) {
-                    $scope.widgetState.notAvailable = true;
+                    $scope.moduleState.notAvailable = true;
                 });
             },
 
             compile: function compile() {
 
                 /**
-                 * use pre link, because link of widget-content
-                 * is executed before post link widget
+                 * use pre link, because link of module-content
+                 * is executed before post link module
                  */
                 return {
                     pre: preLink,

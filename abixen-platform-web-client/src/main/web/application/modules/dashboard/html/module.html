@@ -1,21 +1,21 @@
-<div adf-id="{{definition.wid}}" id="module-{{definition.wid}}" adf-widget-type="{{definition.type}}" class="module">
+<div adf-id="{{definition.wid}}" id="module-{{definition.wid}}" adf-module-type="{{definition.type}}" class="module">
     <div id="module-content-{{definition.wid}}">
         <div class="module-header clearfix">
             <div ng-include src="definition.titleTemplateUrl"></div>
         </div>
-        <div class="module-body" uib-collapse="widgetState.isCollapsed">
-            <div ng-if="widgetState.permissionDenied" class="error-container">
+        <div class="module-body" uib-collapse="moduleState.isCollapsed">
+            <div ng-if="moduleState.permissionDenied" class="error-container">
                 <div class="error-message">
                     <i class="fa fa-exclamation-triangle"></i>&nbsp;You have no permission to this module.
                 </div>
             </div>
-            <div ng-if="widgetState.notAvailable" class="error-container">
+            <div ng-if="moduleState.notAvailable" class="error-container">
                 <div class="error-message">
                     <i class="fa fa-exclamation-triangle"></i>&nbsp;Module is temporary unavailable.
                 </div>
             </div>
-            <adf-widget-content ng-if="!widgetState.permissionDenied" ng-show="!widgetState.chatShowing" model="definition" content="widget"/>
-            <comments module-id="definition.id" ng-if="widgetState.chatShowing"></comments>
+            <adf-module-content ng-if="!moduleState.permissionDenied" ng-show="!moduleState.chatShowing" model="definition" content="module"/>
+            <comments module-id="definition.id" ng-if="moduleState.chatShowing"></comments>
         </div>
     </div>
 </div>

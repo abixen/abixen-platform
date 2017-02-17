@@ -4,18 +4,18 @@
 <div class="modal-body add-module-content" id="addModulePanelBody">
     <div class="form-container" id="form-container"
          window-resize header="addModulePanelHeader" body="addModulePanelBody" footer="addModulePanelFooter">
-        <div class="row module-row" ng-repeat="(key, widget) in widgets">
+        <div class="row module-row" ng-repeat="(key, module) in modules">
             <div class="col-xs-8">
-                <a href="" ng-click="addWidget(key, widget)">
-                    {{widget.title}}
+                <a href="" ng-click="addModule(key, module)">
+                    {{module.title}}
                 </a>
                 <div>
-                    {{widget.description}}
+                    {{module.description}}
                 </div>
             </div>
             <div class="col-xs-4">
                 <a class="btn save-button pull-right"
-                   ng-click="addWidget(key, widget)"><i class="fa fa-plus"></i><span>&nbsp;Add</span>
+                   ng-click="addModule(key, module)"><i class="fa fa-plus"></i><span>&nbsp;Add</span>
                 </a>
             </div>
         </div>

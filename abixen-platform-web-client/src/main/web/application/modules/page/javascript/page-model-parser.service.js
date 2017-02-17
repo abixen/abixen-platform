@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 (function () {
     'use strict';
 
@@ -10,27 +24,24 @@
         this.createModel = function (pageModelDto) {
             var model = JSON.parse(pageModelDto.page.layout.contentAsJson);
 
-            console.log('pageModelDto', pageModelDto);
-            console.log('model', model);
-
             model.description = pageModelDto.page.description;
             model.title = pageModelDto.page.title;
             model.structure = pageModelDto.page.layout.title;
 
-            //initialize widgets
+            //initialize modules
             for (var i = 0; i < model.rows.length; i++) {
                 var row = model.rows[i];
                 for (var j = 0; j < row.columns.length; j++) {
                     var column = row.columns[j];
-                    column.widgets = [];
+                    column.modules = [];
                 }
             }
 
-            //fill widgets
+            //fill modules
             for (var l = 0; l < pageModelDto.dashboardModuleDtos.length; l++) {
                 var dashboardModuleDto = pageModelDto.dashboardModuleDtos[l];
                 dashboardModuleDto.config = {};
-                model.rows[dashboardModuleDto.rowIndex].columns[dashboardModuleDto.columnIndex].widgets[dashboardModuleDto.orderIndex] = dashboardModuleDto;
+                model.rows[dashboardModuleDto.rowIndex].columns[dashboardModuleDto.columnIndex].modules[dashboardModuleDto.orderIndex] = dashboardModuleDto;
             }
 
             return model;
@@ -52,9 +63,9 @@
                     var column = row.columns[j];
                     orderIndex = 0;
 
-                    for (var k = 0; k < column.widgets.length; k++) {
+                    for (var k = 0; k < column.modules.length; k++) {
 
-                        var module = column.widgets[k];
+                        var module = column.modules[k];
                         module.rowIndex = rowIndex;
                         module.columnIndex = columnIndex;
                         module.orderIndex = orderIndex;
@@ -86,9 +97,9 @@
 
             for (var r = 0; r < model.rows.length; r++) {
                 for (var c = 0; c < model.rows[r].columns.length; c++) {
-                    for (var w = 0; w < model.rows[r].columns[c].widgets.length; w++) {
-                        if (model.rows[r].columns[c].widgets[w].id == null) {
-                            model.rows[r].columns[c].widgets[w].id = this.findModuleId(model.rows[r].columns[c].widgets[w].wid, dashboardModuleDtos);
+                    for (var w = 0; w < model.rows[r].columns[c].modules.length; w++) {
+                        if (model.rows[r].columns[c].modules[w].id == null) {
+                            model.rows[r].columns[c].modules[w].id = this.findModuleId(model.rows[r].columns[c].modules[w].wid, dashboardModuleDtos);
                         }
                     }
                 }

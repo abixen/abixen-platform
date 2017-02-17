@@ -47,7 +47,7 @@
                                            ng-required="true"/>
                                     <a class="thumbnail"
                                        ng-class="{'active': pageDetails.entity.page.layout.id==layoutObject.id}"
-                                       ng-click="pageDetails.entity.page.layout=layoutObject">
+                                       ng-click="pageDetails.changeLayout(layoutObject)">
                                         <img src="/api/images/{{layoutObject.iconFileName}}/" class="img-responsive"/>
                                         {{layoutObject.title}}
                                     </a>

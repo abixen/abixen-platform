@@ -24,37 +24,26 @@
 
 'use strict';
 
-angular.module('adf')
-    .directive('adfWidgetContent', ['$log', '$q', '$sce', '$http', '$templateCache', '$compile', '$controller', '$injector', '$rootScope', 'dashboard', '$timeout', '$stateParams',
-        function ($log, $q, $sce, $http, $templateCache, $compile, $controller, $injector, $rootScope, dashboard, $timeout, $stateParams) {
+angular.module('platformDashboardModule')
+    .directive('adfModuleContent', ['$q', '$sce', '$http', '$templateCache', '$compile', '$injector',
+        function ($q, $sce, $http, $templateCache, $compile, $injector) {
 
-            function parseUrl(url) {
-                var parsedUrl = url;
-                if (url.indexOf('{widgetsPath}') >= 0) {
-                    parsedUrl = url.replace('{widgetsPath}', dashboard.widgetsPath)
-                        .replace('//', '/');
-                    if (parsedUrl.indexOf('/') === 0) {
-                        parsedUrl = parsedUrl.substring(1);
-                    }
-                }
-                return parsedUrl;
-            }
-
-            function getTemplate(widget) {
+            function getTemplate(module) {
+                //TODO
                 var deferred = $q.defer();
-                if (widget.template) {
-                    deferred.resolve(widget.template);
-                } else if (widget.templateUrl) {
+                if (module.template) {
+                    deferred.resolve(module.template);
+                } else if (module.templateUrl) {
                     // try to fetch template from cache
-                    var tpl = $templateCache.get(widget.templateUrl);
+                    var tpl = $templateCache.get(module.templateUrl);
                     if (tpl) {
                         deferred.resolve(tpl);
                     } else {
-                        var url = $sce.getTrustedResourceUrl(parseUrl(widget.templateUrl));
+                        var url = $sce.getTrustedResourceUrl(module.templateUrl);
                         $http.get(url)
                             .success(function (response) {
                                 // put response to cache, with unmodified url as key
-                                $templateCache.put(widget.templateUrl, response);
+                                $templateCache.put(module.templateUrl, response);
                                 deferred.resolve(response);
                             })
                             .error(function () {
@@ -66,12 +55,11 @@ angular.module('adf')
                 return deferred.promise;
             }
 
-            function compileWidget($scope, $element, currentScope) {
+            function compileModule($scope, $element, currentScope) {
                 var model = $scope.model;
                 var content = $scope.content;
 
-                // display loading template
-                $element.html(dashboard.loadingTemplate);
+                $scope.$emit(platformParameters.events.SHOW_LOADER);
 
                 // create new scope
                 var templateScope = $scope.$new();
@@ -86,7 +74,7 @@ angular.module('adf')
                 // local injections
                 var base = {
                     $scope: templateScope,
-                    widget: model,
+                    module: model,
                     config: model.config
                 };
 
@@ -110,15 +98,11 @@ angular.module('adf')
                     // compile & render template
                     var template = locals.$tpl;
                     $element.html(template);
-                    if (content.controller) {
-                        var templateCtrl = $controller(content.controller, locals);
-                        if (content.controllerAs) {
-                            templateScope[content.controllerAs] = templateCtrl;
-                        }
-                        $element.children().data('$ngControllerController', templateCtrl);
-                    }
+                    $scope.$emit(platformParameters.events.HIDE_LOADER);
+
                     $compile($element.contents())(templateScope);
                 }, function (reason) {
+                    //TODO needed ?
                     $element.html('');
                     $scope.$emit(platformParameters.events.MODULE_TEMPORARY_UNAVAILABLE);
                 });
@@ -141,19 +125,19 @@ angular.module('adf')
                 },
                 link: function ($scope, $element) {
 
-                    var currentScope = compileWidget($scope, $element, null);
-                    $scope.$on('widgetConfigChanged', function () {
-                        currentScope = compileWidget($scope, $element, currentScope);
+                    var currentScope = compileModule($scope, $element, null);
+                    $scope.$on('moduleConfigChanged', function () {
+                        currentScope = compileModule($scope, $element, currentScope);
                     });
-                    $scope.$on('widgetReload', function () {
-                        currentScope = compileWidget($scope, $element, currentScope);
+                    $scope.$on('moduleReload', function () {
+                        currentScope = compileModule($scope, $element, currentScope);
                     });
 
                     $scope.$on(platformParameters.events.MODULE_READY, function () {
                         if ($scope.model.id == null) {
                             return;
                         }
-                        $scope.$broadcast(platformParameters.events.RELOAD_MODULE, $scope.model.id, $stateParams.mode);
+                        $scope.$broadcast(platformParameters.events.RELOAD_MODULE, $scope.model.id);
                     });
 
                     $scope.$on(platformParameters.events.MODULE_FORBIDDEN, function () {
@@ -182,7 +166,7 @@ angular.module('adf')
 
                     $scope.$watch('model.id', function (newId, oldId) {
                         if (oldId == null && newId != null) {
-                            $scope.$broadcast(platformParameters.events.RELOAD_MODULE, newId, $stateParams.mode);
+                            $scope.$broadcast(platformParameters.events.RELOAD_MODULE, newId);
                         }
                     }, true);
 

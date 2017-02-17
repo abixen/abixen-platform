@@ -56,10 +56,11 @@
         pageDetails.layouts = [];
         pageDetails.cancel = cancel;
         pageDetails.changeIcon = changeIcon;
+        pageDetails.changeLayout = changeLayout;
 
         readLayouts();
 
-        function onSuccessSaveForm(){
+        function onSuccessSaveForm() {
             $uibModalInstance.dismiss();
             var newSidebarItem = {
                 id: pageDetails.entity.page.id,
@@ -115,6 +116,10 @@
                 function () {
                     pageDetails.entity.page.icon = pageDetails.selectedIcon[0];
                 });
+        }
+
+        function changeLayout(layout) {
+            pageDetails.entity.page.layout = layout;
         }
     }
 })();

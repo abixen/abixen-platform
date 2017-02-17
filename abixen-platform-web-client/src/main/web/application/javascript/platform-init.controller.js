@@ -31,7 +31,7 @@
         '$aside',
         'Page',
         'ModuleType',
-        'dashboard',
+        'dashboardData',
         'toaster',
         'modalWindow',
         '$translate',
@@ -48,7 +48,7 @@
                                     $aside,
                                     Page,
                                     ModuleType,
-                                    dashboard,
+                                    dashboardData,
                                     toaster,
                                     modalWindow,
                                     $translate,
@@ -208,12 +208,12 @@
                 for (var i = 0; i < data.length; i++) {
                     var moduleType = data[i];
 
-                    dashboard.widget(moduleType.name, {
+                    dashboardData.addModule({
                         id: null,
                         serviceId: moduleType.serviceId,
                         title: moduleType.title, //'Chart Module',
                         description: moduleType.description,//'Displays a list of links',
-                        templateUrl: moduleType.initUrl!= null ? moduleType.initUrl : '/application/modules/dashboard/html/widget-permission-denied.html',
+                        templateUrl: moduleType.initUrl!= null ? moduleType.initUrl : '/application/modules/dashboard/html/module-permission-denied.html',
                         edit: {
                             reload: false
                         },

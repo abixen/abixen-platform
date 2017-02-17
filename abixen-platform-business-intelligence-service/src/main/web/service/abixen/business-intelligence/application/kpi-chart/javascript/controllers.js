@@ -7,11 +7,11 @@ platformKpiChartModuleControllers.controller('KpiChartModuleInitController', ['$
 
     $scope.showConfigurationWizard = function () {
         $scope.subview = 'configuration';
-    }
+    };
 
     $scope.showChart = function () {
         $scope.subview = 'chart';
-    }
+    };
 
     $scope.$on(platformParameters.events.RELOAD_MODULE, function (event, id) {
         $log.log('RELOAD MODULE EVENT', event, id);
@@ -34,13 +34,13 @@ platformKpiChartModuleControllers.controller('KpiChartModuleInitController', ['$
     });
 
     $scope.$on('CONFIGURATION_MODE', function (event, id) {
-        $log.log('CONFIGURATION_MODE EVENT', event, id)
+        $log.log('CONFIGURATION_MODE EVENT', event, id);
         $scope.subview = 'configuration';
         $scope.$emit(platformParameters.events.CONFIGURATION_MODE_READY);
     });
 
     $scope.$on('VIEW_MODE', function (event, id) {
-        $log.log('VIEW_MODE EVENT', event, id)
+        $log.log('VIEW_MODE EVENT', event, id);
         $scope.subview = 'chart';
         $scope.$emit(platformParameters.events.VIEW_MODE_READY);
     });
