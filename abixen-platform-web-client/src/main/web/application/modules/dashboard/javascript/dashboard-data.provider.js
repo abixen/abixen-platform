@@ -22,7 +22,6 @@
     function dashboardData() {
 
         var modules = {};
-        var layouts = {};
         var moduleId = 0;
 
         function addModule(module) {
@@ -34,20 +33,9 @@
             return modules;
         }
 
-        function addLayout(name, layout) {
-            layouts[name] = layout;
-            return this;
-        }
-
-        function getLayouts() {
-            return layouts;
-        }
-
         this.$get = function () {
             return {
                 modules: modules,
-                getLayouts: getLayouts,
-                addLayout: addLayout,
                 getModules: getModules,
                 addModule: addModule,
 

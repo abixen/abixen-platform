@@ -199,20 +199,6 @@ angular.module('platformDashboardModule')
                         // has model changed or is the model attribute not set
                         if (newVal !== null || (oldVal === null && newVal === null)) {
                             model = $scope.model;
-                            if (!model || !model.rows) {
-                                layoutTitle = $scope.layoutTitle;
-                                layoutTitle = dashboardData.getLayouts()[layoutTitle];
-                                if (layoutTitle) {
-                                    if (model) {
-                                        model.rows = angular.copy(layoutTitle).rows;
-                                    } else {
-                                        model = angular.copy(layoutTitle);
-                                    }
-                                    model.layoutTitle = layoutTitle;
-                                } else {
-                                    $log.error('could not find layoutTitle ' + layoutTitle);
-                                }
-                            }
 
                             if (model) {
                                 if (!model.title) {
@@ -247,7 +233,6 @@ angular.module('platformDashboardModule')
                     // edit dashboard settings
                     $scope.editDashboardDialog = function () {
                         var editDashboardScope = $scope.$new();
-                        console.log('=======0=======>', editDashboardScope.model.layoutTitle);
 
                         editDashboardScope.pageDetails = {
                             entity: {
@@ -259,7 +244,6 @@ angular.module('platformDashboardModule')
                                     }
                                 }
                             },
-                            layouts: dashboardData.getLayouts(),
                             saveForm: saveForm,
                             changeLayout: changeLayoutOnEditPage
                         };
@@ -269,12 +253,9 @@ angular.module('platformDashboardModule')
                             .then(onQueryResult);
 
                         function onQueryResult(layouts) {
-                            console.log('--layouts--->', layouts);
                             editDashboardScope.pageDetails.layouts = layouts;
                         }
 
-
-                        //editDashboardScope.structures = dashboard.structures;
                         var instance = $aside.open({
                             scope: editDashboardScope,
                             placement: 'left',
