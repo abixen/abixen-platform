@@ -23,8 +23,8 @@
  */
 
 angular.module('platformDashboardModule')
-    .directive('adfDashboard', ['$rootScope', '$log', 'dashboardData', '$aside', 'applicationNavigationItems', '$stateParams', 'Layout',
-        function ($rootScope, $log, dashboardData, $aside, applicationNavigationItems, $stateParams, Layout) {
+    .directive('adfDashboard', ['$rootScope', '$log', 'dashboardData', '$aside', 'applicationNavigationItems', '$stateParams', 'Layout', '$filter',
+        function ($rootScope, $log, dashboardData, $aside, applicationNavigationItems, $stateParams, Layout, $filter) {
             'use strict';
 
             function copyModules(source, target) {
@@ -238,10 +238,7 @@ angular.module('platformDashboardModule')
                             entity: {
                                 page: {
                                     title: model.title,
-                                    description: model.description,
-                                    layout: {
-                                        id: 2
-                                    }
+                                    description: model.description
                                 }
                             },
                             saveForm: saveForm,
@@ -254,6 +251,7 @@ angular.module('platformDashboardModule')
 
                         function onQueryResult(layouts) {
                             editDashboardScope.pageDetails.layouts = layouts;
+                            editDashboardScope.pageDetails.entity.page.layout =  $filter('filter')(layouts, {title: model.structure})[0];
                         }
 
                         var instance = $aside.open({
