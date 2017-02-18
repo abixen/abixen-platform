@@ -40,6 +40,7 @@ import java.util.List;
 @RequestMapping(value = "/service/abixen/business-intelligence/admin/multi-visualisation/file-data")
 public class DataFileController {
 
+    public static final int DEFAULT_PAGE_SIZE = 20;
     private final DataFileService dataFileService;
 
     @Autowired
@@ -48,7 +49,7 @@ public class DataFileController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<DataFile> getDataFile(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public Page<DataFile> getDataFile(@PageableDefault(size = DEFAULT_PAGE_SIZE, page = 0) Pageable pageable) {
         log.debug("getDatabaseDataSources()");
 
         Page<DataFile> dataSources = dataFileService.findAllDataFile(pageable);
