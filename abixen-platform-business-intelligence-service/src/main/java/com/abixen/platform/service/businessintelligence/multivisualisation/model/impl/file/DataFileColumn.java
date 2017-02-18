@@ -14,11 +14,13 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataFileColumnWeb;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @DiscriminatorValue("FILE")
@@ -29,11 +31,24 @@ public class DataFileColumn extends DataColumn implements DataFileColumnWeb {
     @JsonIgnore
     private DataFile dataFile;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "data_value_type")
+    @NotNull
+    private DataValueType dataValueType = DataValueType.STRING;
+
     public DataFile getDataFile() {
         return dataFile;
     }
 
     public void setDataFile(DataFile dataFile) {
         this.dataFile = dataFile;
+    }
+
+    public DataValueType getDataValueType() {
+        return dataValueType;
+    }
+
+    public void setDataValueType(DataValueType dataValueType) {
+        this.dataValueType = dataValueType;
     }
 }
