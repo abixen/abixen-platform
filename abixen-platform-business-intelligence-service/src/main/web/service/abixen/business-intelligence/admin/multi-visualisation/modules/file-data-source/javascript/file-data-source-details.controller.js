@@ -63,9 +63,9 @@
                 return;
             }
             $log.debug('fileData: ', fileData);
-            fileDataSourceDetails.fileColumns = [];
             FileData.columns({id: fileData.id}, function (data) {
                 $log.log('fileColumns data: ', data);
+                fileDataSourceDetails.fileColumns = [];
                 data.forEach(function (column, index) {
                     var selected = false;
                     if (fileDataSourceDetails.entity.columns != null && fileDataSourceDetails.entity.columns != undefined) {
