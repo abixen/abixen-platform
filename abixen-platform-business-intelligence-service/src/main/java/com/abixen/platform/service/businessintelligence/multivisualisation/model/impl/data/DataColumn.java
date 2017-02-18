@@ -36,7 +36,7 @@ public class DataColumn {
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "dataColumn", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dataColumn", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DataValue> values = new ArrayList<>();
 
     public Long getId() {
@@ -60,6 +60,25 @@ public class DataColumn {
     }
 
     public void setValues(List<DataValue> values) {
-        this.values = values;
+        if (this.values != null) {
+            this.values.clear();
+            this.values.addAll(values);
+        } else {
+            this.values = values;
+        }
+    }
+
+    public void addValues(List<DataValue> values) {
+        if (this.values != null) {
+            this.values.addAll(values);
+        } else {
+            this.values = values;
+        }
+    }
+
+    public void removeValues(List<DataValue> values) {
+        if (this.values != null) {
+            this.values.removeAll(values);
+        }
     }
 }

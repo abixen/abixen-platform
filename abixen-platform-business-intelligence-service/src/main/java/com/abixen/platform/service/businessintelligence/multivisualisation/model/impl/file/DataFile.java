@@ -40,7 +40,7 @@ public class DataFile implements DataFileWeb {
     @Column(name = "description", length = ModelKeys.NAME_MAX_LENGTH)
     private String description;
 
-    @OneToMany(mappedBy = "dataFile", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dataFile", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DataFileColumn> columns = new ArrayList<>();
 
     public Long getId() {
@@ -73,6 +73,25 @@ public class DataFile implements DataFileWeb {
     }
 
     public void setColumns(List<DataFileColumn> columns) {
-        this.columns = columns;
+        if (this.columns != null) {
+            this.columns.clear();
+            this.columns.addAll(columns);
+        } else {
+            this.columns = columns;
+        }
+    }
+
+    public void addColumns(List<DataFileColumn> columns) {
+        if (this.columns != null) {
+            this.columns.addAll(columns);
+        } else {
+            this.columns = columns;
+        }
+    }
+
+    public void removeColumns(List<DataFileColumn> columns) {
+        if (this.columns != null) {
+            this.columns.removeAll(columns);
+        }
     }
 }

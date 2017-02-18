@@ -158,6 +158,7 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
             dataSourceColumn.setName(dataSourceColumnWeb.getName());
             dataSourceColumn.setPosition(dataSourceColumnWeb.getPosition());
             dataSourceColumn.setDataSource(databaseDataSource);
+            dataSourceColumn.setDataValueType(dataSourceColumnWeb.getDataValueType());
             dataSourceColumns.add(dataSourceColumn);
         }
     }
