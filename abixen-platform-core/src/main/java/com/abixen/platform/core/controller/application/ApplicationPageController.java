@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.controller.application;
 
+import com.abixen.platform.core.controller.common.AbstractPageController;
 import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.model.web.PageWeb;
 import com.abixen.platform.core.service.LayoutService;
@@ -31,7 +32,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/application/pages")
-public class ApplicationPageController {
+public class ApplicationPageController extends AbstractPageController {
 
     private final PageService pageService;
     private final LayoutService layoutService;
@@ -39,6 +40,7 @@ public class ApplicationPageController {
     @Autowired
     public ApplicationPageController(PageService pageService,
                                      LayoutService layoutService) {
+        super(pageService);
         this.pageService = pageService;
         this.layoutService = layoutService;
     }
