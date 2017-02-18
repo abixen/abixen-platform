@@ -59,6 +59,9 @@
         }
 
         function getColumns(fileData) {
+            if (!fileData) {
+                return;
+            }
             $log.debug('fileData: ', fileData);
             fileDataSourceDetails.fileColumns = [];
             FileData.columns({id: fileData.id}, function (data) {

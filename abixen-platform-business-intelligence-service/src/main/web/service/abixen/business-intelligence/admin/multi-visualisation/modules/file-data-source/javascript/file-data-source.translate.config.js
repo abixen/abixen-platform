@@ -36,7 +36,8 @@
             'service.businessIntelligence.fileDataSource.save': 'Zapisz',
             'service.businessIntelligence.fileDataSource.cancel': 'Anuluj',
             'service.businessIntelligence.fileDataSource.column.header.name': 'Nazwa kolumny',
-            'service.businessIntelligence.fileDataSource.column.header.available': 'Dostępna'
+            'service.businessIntelligence.fileDataSource.column.header.available': 'Dostępna',
+            'service.businessIntelligence.fileDataSource.column.header.type': 'Typ kolumny'
         });
 
         $translateProvider.translations('ENGLISH', {
@@ -49,7 +50,8 @@
             'service.businessIntelligence.fileDataSource.save': 'Save',
             'service.businessIntelligence.fileDataSource.cancel': 'Cancel',
             'service.businessIntelligence.fileDataSource.column.header.name': 'Column name',
-            'service.businessIntelligence.fileDataSource.column.header.available': 'Available'
+            'service.businessIntelligence.fileDataSource.column.header.available': 'Available',
+            'service.businessIntelligence.fileDataSource.column.header.type': 'Column type'
         });
     }
 })();
