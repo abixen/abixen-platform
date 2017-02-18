@@ -16,6 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.serv
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DatabaseConnectionRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseConnectionService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseFactory;
@@ -120,7 +121,7 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     }
 
     @Override
-    public List<String> getTableColumns(Long databaseConnectionId, String table) {
+    public List<DataSourceColumnWeb> getTableColumns(Long databaseConnectionId, String table) {
         DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionId);
         DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnection);

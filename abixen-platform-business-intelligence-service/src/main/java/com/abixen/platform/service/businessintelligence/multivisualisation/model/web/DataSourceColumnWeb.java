@@ -15,10 +15,10 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.web;
 
 import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 
 @JsonDeserialize(as = DataSourceColumn.class)
 public interface DataSourceColumnWeb {
@@ -31,5 +31,8 @@ public interface DataSourceColumnWeb {
 
     @JsonView(WebModelJsonSerialize.class)
     Integer getPosition();
+
+    @JsonView(WebModelJsonSerialize.class)
+    DataValueType getDataValueType();
 
 }

@@ -20,6 +20,7 @@ import com.abixen.platform.core.util.ValidationUtil;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DatabaseConnectionWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseConnectionService;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -119,7 +120,7 @@ public class DatabaseConnectionController {
     }
 
     @RequestMapping(value = "/{id}/tables/{tableName}/columns", method = RequestMethod.GET)
-    public List<String> getTableColumns(@PathVariable("id") Long id, @PathVariable("tableName") String tableName) {
+    public List<DataSourceColumnWeb> getTableColumns(@PathVariable("id") Long id, @PathVariable("tableName") String tableName) {
         log.debug("getTableColumns()");
         return databaseConnectionService.getTableColumns(id, tableName);
     }

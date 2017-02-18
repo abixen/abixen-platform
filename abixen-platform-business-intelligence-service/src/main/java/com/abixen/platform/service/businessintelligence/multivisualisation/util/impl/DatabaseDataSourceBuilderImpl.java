@@ -64,6 +64,7 @@ public class DatabaseDataSourceBuilderImpl extends EntityBuilder<DatabaseDataSou
             DataSourceColumn dataSourceColumn = new DataSourceColumn();
             dataSourceColumn.setName(dataSourceColumnWeb.getName());
             dataSourceColumn.setPosition(dataSourceColumnWeb.getPosition());
+            dataSourceColumn.setDataValueType(dataSourceColumnWeb.getDataValueType());
             dataSourceColumn.setDataSource(this.product);
             dataSourceColumns.add(dataSourceColumn);
         }

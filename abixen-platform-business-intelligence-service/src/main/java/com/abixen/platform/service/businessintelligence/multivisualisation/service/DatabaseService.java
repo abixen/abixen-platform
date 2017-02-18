@@ -16,6 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.serv
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
@@ -31,7 +32,7 @@ public interface DatabaseService {
 
     Connection getConnection(DatabaseConnectionForm databaseConnectionForm);
 
-    List<String> getColumns(Connection connection, String tableName);
+    List<DataSourceColumnWeb> getColumns(Connection connection, String tableName);
 
     List<String> getTables(Connection connection);
 
