@@ -50,7 +50,8 @@
                     fileDataSourceDetails.entity.columns.push({
                         id: column.id,
                         name: column.name,
-                        position: column.position
+                        position: column.position,
+                        dataValueType: column.dataValueType
                     })
                 }
             });
@@ -60,8 +61,9 @@
         function getColumns(fileData) {
             $log.debug('fileData: ', fileData);
             fileDataSourceDetails.fileColumns = [];
-            if (fileData && fileData.columns) {
-                fileData.columns.forEach(function (column, index) {
+            FileData.columns({id: fileData.id}, function (data) {
+                $log.log('fileColumns data: ', data);
+                data.forEach(function (column, index) {
                     var selected = false;
                     if (fileDataSourceDetails.entity.columns != null && fileDataSourceDetails.entity.columns != undefined) {
                         fileDataSourceDetails.entity.columns.forEach(function (selectedColumn) {
@@ -71,14 +73,12 @@
                         })
                     }
 
-                    fileDataSourceDetails.fileColumns.push({
-                        name: column.name,
-                        position: index,
-                        selected: selected
-                    })
+                    column.selected = selected;
+                    fileDataSourceDetails.fileColumns.push(column);
                 })
-            }
+            })
         }
+
 
         function onSuccessSaveForm() {
             $state.go('application.multiVisualisation.modules.fileDataSource.list');

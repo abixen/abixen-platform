@@ -51,6 +51,7 @@ public class FileDataSourceBuilderImpl extends EntityBuilder<FileDataSource> imp
             dataSourceColumn.setName(column.getName());
             dataSourceColumn.setId(column.getId());
             dataSourceColumn.setPosition(column.getPosition());
+            dataSourceColumn.setDataValueType(column.getDataValueType());
             dataSourceColumn.setDataSource(this.product);
             dataSourceColumnSet.add(dataSourceColumn);
         });

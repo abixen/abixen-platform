@@ -21,6 +21,7 @@ import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataFileWeb;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataFileService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
@@ -95,6 +96,10 @@ public class DataFileController {
         return new FormValidationResultDto(fileDataSourceFormResult);
     }
 
-
+    @RequestMapping(value = "/{id}/columns", method = RequestMethod.GET)
+    public List<DataSourceColumnWeb> getTableColumns(@PathVariable("id") Long id) {
+        log.debug("getTableColumns()");
+        return dataFileService.getDataFileColumns(id);
+    }
 
 }

@@ -20,6 +20,7 @@
                                  ng-model-as-object="true"
                                  label="{{'service.businessIntelligence.fileDataSource.fileData.label' | translate}}"
                                  options="fileDataSourceDetails.fileDatas"
+                                 on-change="fileDataSourceDetails.getColumns(fileDataSourceDetails.entity.dataFile)"
                                  show-empty-value="true"
                                  value-key="id"
                                  value-label="name"

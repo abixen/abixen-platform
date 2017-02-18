@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.serv
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -30,7 +30,7 @@ public interface DataFileService {
 
     Page<DataFile> findAllDataFile(Pageable pageable);
 
-    List<DataFileColumn> getDataFileColumns(Long dataFileId);
+    List<DataSourceColumnWeb> getDataFileColumns(Long dataFileId);
 
     List<Map<String, Integer>> getAllColumns(Long dataFileId);
 

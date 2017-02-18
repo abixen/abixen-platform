@@ -26,7 +26,12 @@
 
         return $resource('/service/abixen/business-intelligence/admin/multi-visualisation/file-data/:id', {}, {
             query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'}
+            update: {method: 'PUT'},
+            columns: {
+                method: 'GET',
+                url: '/service/abixen/business-intelligence/admin/multi-visualisation/file-data/:id/columns',
+                isArray: true
+            }
         });
     }
 
