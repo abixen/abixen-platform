@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource;
 
 import com.abixen.platform.core.util.ModelKeys;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -52,6 +53,11 @@ public class DataSourceColumn implements DataSourceColumnWeb, Serializable {
     @Min(0)
     private Integer position;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "data_value_type")
+    @NotNull
+    private DataValueType dataValueType;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "data_source_id")
@@ -84,6 +90,15 @@ public class DataSourceColumn implements DataSourceColumnWeb, Serializable {
 
     public void setPosition(Integer position) {
         this.position = position;
+    }
+
+    @Override
+    public DataValueType getDataValueType() {
+        return dataValueType;
+    }
+
+    public void setDataValueType(DataValueType dataValueType) {
+        this.dataValueType = dataValueType;
     }
 
     public DataSource getDataSource() {

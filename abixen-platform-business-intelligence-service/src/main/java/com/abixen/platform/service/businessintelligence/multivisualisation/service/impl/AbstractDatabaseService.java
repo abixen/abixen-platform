@@ -38,9 +38,9 @@ public abstract class AbstractDatabaseService {
     @Autowired
     private JsonFilterService jsonFilterService;
 
-    public List<String> getColumns(Connection connection, String tableName) {
+    public List<DataSourceColumnWeb> getColumns(Connection connection, String tableName) {
 
-        List<String> columns = new ArrayList<>();
+        List<DataSourceColumnWeb> columns = new ArrayList<>();
 
         try {
             ResultSetMetaData rsmd = getDatabaseMetaData(connection, tableName);
@@ -49,7 +49,7 @@ public abstract class AbstractDatabaseService {
 
             IntStream.range(1, columnCount + 1).forEach(i -> {
                 try {
-                    columns.add(rsmd.getColumnName(i));
+                    columns.add(prepareDataSourceColumns(rsmd, i));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -60,6 +60,32 @@ public abstract class AbstractDatabaseService {
         }
 
         return columns;
+    }
+
+    private DataSourceColumnWeb prepareDataSourceColumns(ResultSetMetaData rsmd, int i) throws SQLException {
+        DataValueType dataValueType = DataValueType.valueOf(getValidColumnTypeName(i, rsmd));
+        String name = rsmd.getColumnName(i);
+        return new DataSourceColumnWeb() {
+            @Override
+            public Long getId() {
+                return null;
+            }
+
+            @Override
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public Integer getPosition() {
+                return null;
+            }
+
+            @Override
+            public DataValueType getDataValueType() {
+                return dataValueType;
+            }
+        };
     }
 
     private ResultSetMetaData getDatabaseMetaData(Connection connection, String tableName) throws SQLException {
@@ -210,20 +236,25 @@ public abstract class AbstractDatabaseService {
     private DataValueWeb getDataFromColumn(ResultSet row, String columnName) {
         try {
             ResultSetMetaData resultSetMetaData = row.getMetaData();
-            String columnTypeName = resultSetMetaData.getColumnTypeName(row.findColumn(columnName)).toUpperCase();
-            if ("BIGINT".equals(columnTypeName)) {
-                columnTypeName = "INTEGER";
-            }
-            if ("VARCHAR".equals(columnTypeName)) {
-                columnTypeName = "STRING";
-            }
-            if ("FLOAT8".equals(columnTypeName)) {
-                columnTypeName = "DOUBLE";
-            }
+            String columnTypeName = getValidColumnTypeName(row.findColumn(columnName), resultSetMetaData);
             return getValueAsDataSourceValue(row, columnName, DataValueType.valueOf(columnTypeName));
         } catch (SQLException e) {
             throw new DataSourceValueException("Error when getting value from column. " + e.getMessage());
         }
+    }
+
+    private String getValidColumnTypeName(Integer columnIndex, ResultSetMetaData resultSetMetaData) throws SQLException {
+        String columnTypeName = resultSetMetaData.getColumnTypeName(columnIndex).toUpperCase();
+        if ("BIGINT".equals(columnTypeName)) {
+            columnTypeName = "INTEGER";
+        }
+        if ("VARCHAR".equals(columnTypeName)) {
+            columnTypeName = "STRING";
+        }
+        if ("FLOAT8".equals(columnTypeName)) {
+            columnTypeName = "DOUBLE";
+        }
+        return columnTypeName;
     }
 
     private DataValueWeb getValueAsDataSourceValue(ResultSet row, String columnName, DataValueType columnTypeName) throws SQLException {

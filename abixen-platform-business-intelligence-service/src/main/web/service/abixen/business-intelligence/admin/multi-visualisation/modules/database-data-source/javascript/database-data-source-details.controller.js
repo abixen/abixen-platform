@@ -124,13 +124,13 @@
 
                     if (databaseDataSourceDetails.entity.columns != null) {
                         for (var j = 0; j < databaseDataSourceDetails.entity.columns.length; j++) {
-                            if (databaseDataSourceDetails.entity.columns[j].name.toUpperCase() == data[i].toUpperCase()) {
+                            if (databaseDataSourceDetails.entity.columns[j].name.toUpperCase() == data[i].name.toUpperCase()) {
                                 selected = true;
                             }
                         }
                     }
-
-                    tmpColumns.push({name: data[i], selected: selected});
+                    data[i].selected = selected;
+                    tmpColumns.push(data[i]);
                 }
 
                 databaseDataSourceDetails.fields = tmpColumns;
@@ -164,10 +164,7 @@
 
             for (var i = 0; i < databaseDataSourceDetails.databaseTableColumns.length; i++) {
                 if (databaseDataSourceDetails.databaseTableColumns[i].selected) {
-                    databaseDataSourceDetails.entity.columns.push({
-                        name: databaseDataSourceDetails.databaseTableColumns[i].name,
-                        position: columnPosition++
-                    });
+                    databaseDataSourceDetails.entity.columns.push(databaseDataSourceDetails.databaseTableColumns[i]);
                 }
             }
             databaseDataSourceDetails.saveForm();

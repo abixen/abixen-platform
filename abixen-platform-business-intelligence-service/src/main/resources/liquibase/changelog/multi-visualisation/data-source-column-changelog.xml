@@ -14,6 +14,9 @@
             <column name="name" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>
+            <column name="data_value_type" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
             <column name="position" type="integer"/>
             <column name="data_source_id" type="bigint">
                 <constraints nullable="false"/>
