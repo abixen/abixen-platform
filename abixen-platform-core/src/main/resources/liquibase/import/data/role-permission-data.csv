@@ -11,6 +11,8 @@ role_id;permission_id
 1;22
 #Allows to edit comments
 1;23
+#Allows to delete comments
+1;24
 #The Role Page Editor gets following permissions:
 #Allows to view a module
 3;7

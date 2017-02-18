@@ -52,7 +52,8 @@ public enum PermissionName {
 
     COMMENT_VIEW(Values.COMMENT_VIEW),
     COMMENT_ADD(Values.COMMENT_ADD),
-    COMMENT_EDIT(Values.COMMENT_EDIT);
+    COMMENT_EDIT(Values.COMMENT_EDIT),
+    COMMENT_DELETE(Values.COMMENT_DELETE);
 
     private final String name;
 
@@ -102,5 +103,6 @@ public enum PermissionName {
         public static final String COMMENT_VIEW = "COMMENT_VIEW";
         public static final String COMMENT_ADD = "COMMENT_ADD";
         public static final String COMMENT_EDIT = "COMMENT_EDIT";
+        public static final String COMMENT_DELETE = "COMMENT_DELETE";
     }
 }
