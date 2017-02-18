@@ -15,6 +15,8 @@
 package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.form.CommentForm;
+import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Comment;
 import com.abixen.platform.core.repository.CommentRepository;
 import com.abixen.platform.core.repository.ModuleRepository;
@@ -23,6 +25,7 @@ import com.abixen.platform.core.service.CommentService;
 import com.abixen.platform.core.service.CommentVoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -50,7 +53,8 @@ public class CommentServiceImpl implements CommentService {
         this.commentVoteService = commentVoteService;
     }
 
-    @Override
+    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_ADD + "') or " +
+            "hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_EDIT + "')")
     public CommentForm saveComment(CommentForm commentForm) {
         log.debug("saveComment() - commentForm={}", commentForm);
 
@@ -59,14 +63,14 @@ public class CommentServiceImpl implements CommentService {
         return new CommentForm(savedComment);
     }
 
-    @Override
+    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_VIEW + "')")
     public List<Comment> getAllComments(Long moduleId) {
         log.debug("getAllComments() - moduleId={}", moduleId);
 
         return commentRepository.getAllComments(moduleId);
     }
 
-    @Override
+    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_DELETE + "')")
     public Integer deleteComment(Long commentId) {
         Comment rootNode = commentRepository.findOne(commentId);
         List<Comment> allUnderlying = findAllUnderlying(rootNode, new ArrayList<>());
@@ -75,7 +79,7 @@ public class CommentServiceImpl implements CommentService {
         return allUnderlying.size();
     }
 
-    @Override
+    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_DELETE + "')")
     public void deleteCommentByModuleIds(List<Long> moduleIds) {
         log.debug("deleteCommentByModuleId() - moduleIds : {}", moduleIds);
 

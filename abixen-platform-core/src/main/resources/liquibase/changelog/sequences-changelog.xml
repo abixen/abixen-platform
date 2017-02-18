@@ -17,7 +17,7 @@
         <createSequence sequenceName="page_seq" startValue="8"/>
         <createSequence sequenceName="permission_acl_class_category_seq" startValue="9"/>
         <createSequence sequenceName="permission_general_category_seq" startValue="2"/>
-        <createSequence sequenceName="permission_seq" startValue="24"/>
+        <createSequence sequenceName="permission_seq" startValue="25"/>
         <createSequence sequenceName="resource_seq" startValue="17"/>
         <createSequence sequenceName="role_seq" startValue="4"/>
         <createSequence sequenceName="user_seq" startValue="4"/>
