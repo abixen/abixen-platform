@@ -112,6 +112,9 @@
         }
 
         function getDatabaseTableColumns(databaseConnection, tableName) {
+            if (!databaseConnection) {
+                return;
+            }
             DatabaseConnection.tableColumns({id: databaseConnection.id, tableName: tableName}, function (data) {
                 $log.log('databaseTableColumns data: ', data);
                 $log.log('databaseDataSourceDetails.entity.columns: ', databaseDataSourceDetails.entity.columns);
@@ -135,7 +138,6 @@
 
                 databaseDataSourceDetails.fields = tmpColumns;
                 databaseDataSourceDetails.databaseTableColumns = tmpColumns;
-
             });
         }
 

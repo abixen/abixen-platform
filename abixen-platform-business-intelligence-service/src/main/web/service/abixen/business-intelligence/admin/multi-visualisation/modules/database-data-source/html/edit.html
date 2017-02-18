@@ -53,12 +53,14 @@
                 <thead>
                 <tr>
                     <th>Column name</th>
+                    <th>Column type</th>
                     <th>Available</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="databaseTableColumn in databaseDataSourceDetails.databaseTableColumns">
                     <td>{{databaseTableColumn.name}}</td>
+                    <td>{{databaseTableColumn.dataValueType}}</td>
                     <td><input type="checkbox" ng-model="databaseTableColumn.selected"/></td>
                 </tr>
                 </tbody>
