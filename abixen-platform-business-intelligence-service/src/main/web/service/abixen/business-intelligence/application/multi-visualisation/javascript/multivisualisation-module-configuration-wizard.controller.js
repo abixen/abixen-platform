@@ -405,7 +405,9 @@
                         }
                     }
                 } else {
-                    buildObjFromJson(configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn, configWizard.chartConfiguration.filter);
+                    if (configWizard.chartConfiguration.dataSetChart) {
+                        buildObjFromJson(configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn, configWizard.chartConfiguration.filter);
+                    }
                 }
             }
         }
