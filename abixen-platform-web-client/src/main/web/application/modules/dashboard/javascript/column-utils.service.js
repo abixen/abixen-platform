@@ -1,51 +1,66 @@
-/*
- * The MIT License
- *
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
  * Copyright (c) 2015, Sebastian Sdorra
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  */
 
-/* global angular */
-angular.module('platformDashboardModule')
-    .directive('adfDashboardColumn', ['$log', 'dashboardData', function ($log, dashboardData) {
-        'use strict';
+(function () {
+    'use strict';
+
+    angular
+        .module('platformDashboardModule')
+        .service('columnUtils', columnUtils);
+
+    columnUtils.$inject = ['$log'];
+
+    function columnUtils($log) {
+        this.applySortable = applySortable;
+
 
         var moveCounter = 0;
         var addModuleToColumnFunction;
         var removeModuleFromColumnFunction;
 
-        /**
-         * moves a module in between a column
-         */
+        function applySortable($scope, $element, model, column) {
+            var el = $element[0].childNodes[0];
+            var sortable = Sortable.create(el, {
+                group: 'modules',
+                handle: '.adf-move',
+                ghostClass: 'placeholder',
+                animation: 150,
+                onAdd: function (evt) {
+                    addModuleToColumn($scope, model, column, evt);
+                },
+                onRemove: function (evt) {
+                    removeModuleFromColumn($scope, column, evt);
+                },
+                onUpdate: function (evt) {
+                    moveModuleInColumn($scope, column, evt);
+                }
+            });
+
+            $element.on('$destroy', function () {
+                sortable.destroy();
+            });
+        }
+
         function moveModuleInColumn($scope, column, evt) {
             var modules = column.modules;
-            // move module and apply to scope
             $scope.$apply(function () {
                 modules.splice(evt.newIndex, 0, modules.splice(evt.oldIndex, 1)[0]);
                 $scope.$emit(platformParameters.events.ADF_WIDGET_MOVED_EVENT);
             });
         }
 
-        /**
-         * finds a module by its id in the column
-         */
         function findModule(column, index) {
             var module = null;
             for (var i = 0; i < column.modules.length; i++) {
@@ -58,9 +73,6 @@ angular.module('platformDashboardModule')
             return module;
         }
 
-        /**
-         * finds a column by its id in the model
-         */
         function findColumn(model, index) {
             var column = null;
 
@@ -82,29 +94,21 @@ angular.module('platformDashboardModule')
             return column;
         }
 
-        /**
-         * get the adf id from an html element
-         */
         function getId(el) {
             var id = el.getAttribute('adf-id');
             return id ? parseInt(id) : -1;
         }
 
-        /**
-         * adds a module to a column
-         */
         function addModuleToColumn($scope, model, targetColumn, evt) {
             // find source column
             var cid = getId(evt.from);
             var sourceColumn = findColumn(model, cid);
 
             if (sourceColumn) {
-                // find moved module
                 var wid = getId(evt.item);
                 var module = findModule(sourceColumn, wid);
 
                 if (module) {
-                    // add new item and apply to scope
                     addModuleToColumnFunction = {
                         func: addModuleToColumnHandler,
                         params: [targetColumn.modules, evt.newIndex, module]
@@ -127,16 +131,12 @@ angular.module('platformDashboardModule')
             modules.splice(newIndex, 0, module);
         }
 
-        /**
-         * removes a module from a column
-         */
         function removeModuleFromColumn($scope, column, evt) {
-            // remove old item and apply to scope
-
             removeModuleFromColumnFunction = {
                 func: removeModuleFromColumnHandler,
                 params: [column.modules, evt.oldIndex]
             };
+
             moduleMovedNotify($scope);
         }
 
@@ -162,52 +162,5 @@ angular.module('platformDashboardModule')
         function removeModuleFromColumnHandler(modules, oldIndex) {
             modules.splice(oldIndex, 1);
         }
-
-        /**
-         * enable sortable
-         */
-        function applySortable($scope, $element, model, column) {
-            // enable drag and drop
-            var el = $element[0].childNodes[0];
-            var sortable = Sortable.create(el, {
-                group: 'modules',
-                handle: '.adf-move',
-                ghostClass: 'placeholder',
-                animation: 150,
-                onAdd: function (evt) {
-                    addModuleToColumn($scope, model, column, evt);
-                },
-                onRemove: function (evt) {
-                    removeModuleFromColumn($scope, column, evt);
-                },
-                onUpdate: function (evt) {
-                    moveModuleInColumn($scope, column, evt);
-                }
-            });
-
-            // destroy sortable on column destroy event
-            $element.on('$destroy', function () {
-                sortable.destroy();
-            });
-        }
-
-        return {
-            restrict: 'E',
-            replace: true,
-            scope: {
-                column: '=',
-                editMode: '=',
-                model: '='
-            },
-            templateUrl: 'application/modules/dashboard/html/dashboard-column.html',
-            link: function ($scope, $element) {
-                // set id
-                var col = $scope.column;
-                if (!col.cid) {
-                    col.cid = dashboardData.id();
-                }
-
-                applySortable($scope, $element, $scope.model, col);
-            }
-        };
-    }]);
+    }
+})();

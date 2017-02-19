@@ -44,7 +44,7 @@ angular.module('platformDashboardModule')
 
                     // set id for sortable
                     if (!definition.wid) {
-                        definition.wid = dashboardData.id();
+                        definition.wid = dashboardData.generateId();
                     }
 
                     // pass copy of module to scope

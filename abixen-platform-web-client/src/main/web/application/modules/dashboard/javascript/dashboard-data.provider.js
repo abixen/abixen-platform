@@ -39,7 +39,7 @@
                 getModules: getModules,
                 addModule: addModule,
 
-                id: function () {
+                generateId: function () {
                     return ++moduleId;
                 }
             };

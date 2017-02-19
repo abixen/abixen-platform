@@ -164,7 +164,7 @@
                             title: module.title,
                             moduleType: module.moduleType,
                             config: dashboardUtils.createConfiguration(moduleType),
-                            wid: dashboardData.id()
+                            wid: dashboardData.generateId()
                         };
                         dashboardUtils.addNewModuleToModel($scope.model, w);
                         $scope.$emit(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.model);
