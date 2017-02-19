@@ -63,7 +63,7 @@ public class CommentVoteServiceTest {
         CommentForm commentForm = new CommentForm();
         commentForm.setMessage("Test Comment parent");
         commentForm.setParentId(null);
-        commentFromDB = commentService.saveComment(commentForm);
+        commentFromDB = commentService.createComment(commentForm);
 
     }
 

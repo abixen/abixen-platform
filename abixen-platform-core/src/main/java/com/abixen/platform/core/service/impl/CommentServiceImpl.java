@@ -53,9 +53,17 @@ public class CommentServiceImpl implements CommentService {
         this.commentVoteService = commentVoteService;
     }
 
-    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_ADD + "') or " +
-            "hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_EDIT + "')")
-    public CommentForm saveComment(CommentForm commentForm) {
+    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_ADD + "')")
+    public CommentForm createComment(CommentForm commentForm) {
+        log.debug("saveComment() - commentForm={}", commentForm);
+
+        Comment comment = buildComment(commentForm);
+        Comment savedComment = commentRepository.save(comment);
+        return new CommentForm(savedComment);
+    }
+
+    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_EDIT + "')")
+    public CommentForm updateComment(CommentForm commentForm) {
         log.debug("saveComment() - commentForm={}", commentForm);
 
         Comment comment = buildComment(commentForm);

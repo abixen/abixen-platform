@@ -93,7 +93,7 @@ public class CommentController {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(commentForm, formErrors);
         }
-        CommentForm savedForm = commentService.saveComment(commentForm);
+        CommentForm savedForm = commentService.createComment(commentForm);
         return new FormValidationResultDto(savedForm);
     }
 
@@ -103,7 +103,7 @@ public class CommentController {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(commentForm, formErrors);
         }
-        CommentForm updatedForm = commentService.saveComment(commentForm);
+        CommentForm updatedForm = commentService.updateComment(commentForm);
         return new FormValidationResultDto(updatedForm);
     }
 
