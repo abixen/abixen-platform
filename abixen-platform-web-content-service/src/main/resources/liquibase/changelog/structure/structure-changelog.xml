@@ -7,7 +7,7 @@
         logicalFilePath="liquibase/changelog/structure/structure-changelog.xml">
 
     <changeSet id="structure-sequence-v1" author="AdamTurski">
-        <createSequence sequenceName="structure_seq"/>
+        <createSequence sequenceName="structure_seq" startValue="2"/>
     </changeSet>
 
     <changeSet id="structure-v1" author="AdamTurski">

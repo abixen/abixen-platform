@@ -7,7 +7,7 @@
         logicalFilePath="liquibase/changelog/template/template-changelog.xml">
 
     <changeSet id="template-sequence-v1" author="AdamTurski">
-        <createSequence sequenceName="template_seq"/>
+        <createSequence sequenceName="template_seq" startValue="2"/>
     </changeSet>
 
     <changeSet id="template-v1" author="AdamTurski">
