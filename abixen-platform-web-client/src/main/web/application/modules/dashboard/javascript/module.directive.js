@@ -1,57 +1,52 @@
-/*
- * The MIT License
- *
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
  * Copyright (c) 2015, Sebastian Sdorra
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  */
 
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('platformDashboardModule')
-    .directive('adfModule', ['$log', '$uibModal', '$rootScope', 'dashboardData', 'modalWindow', function ($log, $uibModal, $rootScope, dashboardData, modalWindow) {
+    angular
+        .module('platformDashboardModule')
+        .directive('platformModule', platformModule);
 
+    platformModule.$inject = [
+        '$log',
+        'dashboardData',
+        'modalWindow'
+    ];
+
+    function platformModule($log, dashboardData, modalWindow) {
         function preLink($scope) {
-            var definition = $scope.definition;
 
-            if (definition) {
-                var w = dashboardData.getModules()[definition.type];
-                if (w) {
-                    // pass title
-                    if (!definition.title) {
-                        definition.title = w.title;
+            if ($scope.definition) {
+                var module = dashboardData.getModules()[$scope.definition.type];
+                if (module) {
+                    if (!$scope.definition.title) {
+                        $scope.definition.title = module.title;
                     }
 
-                    if (!definition.titleTemplateUrl) {
-                        definition.titleTemplateUrl = 'application/modules/dashboard/html/module-title.html';
+                    if (!$scope.definition.titleTemplateUrl) {
+                        $scope.definition.titleTemplateUrl = 'application/modules/dashboard/html/module-title.html';
                     }
 
-                    // set id for sortable
-                    if (!definition.wid) {
-                        definition.wid = dashboardData.generateId();
+                    if (!$scope.definition.wid) {
+                        $scope.definition.wid = dashboardData.generateId();
                     }
 
-                    // pass copy of module to scope
-                    $scope.module = angular.copy(w);
+                    $scope.module = angular.copy(module);
 
-                    // create config object
-                    var config = definition.config;
+                    var config = $scope.definition.config;
                     if (config) {
                         if (angular.isString(config)) {
                             config = angular.fromJson(config);
@@ -60,10 +55,8 @@ angular.module('platformDashboardModule')
                         config = {};
                     }
 
-                    // pass config to scope
                     $scope.config = config;
 
-                    // collapse exposed $scope.moduleState property
                     if (!$scope.moduleState) {
                         $scope.moduleState = {};
                         $scope.moduleState.isCollapsed = false;
@@ -71,12 +64,11 @@ angular.module('platformDashboardModule')
                         $scope.moduleState.permissionDenied = false;
                         $scope.moduleState.chatShowing = false;
                     }
-
                 } else {
-                    $log.warn('could not find module ' + definition.type);
+                    $log.warn('Could not find module ' + $scope.definition.type);
                 }
             } else {
-                $log.debug('definition not specified, module was probably removed');
+                $log.debug('Definition not specified, module was probably removed');
             }
         }
 
@@ -115,7 +107,7 @@ angular.module('platformDashboardModule')
                     $scope.$broadcast(event);
                 };
             } else {
-                $log.debug('module not found');
+                $log.debug('Module not found');
             }
         }
 
@@ -179,16 +171,12 @@ angular.module('platformDashboardModule')
             },
 
             compile: function compile() {
-
-                /**
-                 * use pre link, because link of module-content
-                 * is executed before post link module
-                 */
                 return {
                     pre: preLink,
                     post: postLink
                 };
             }
         };
+    }
 
-    }]);
+})();

@@ -1,6 +1,6 @@
 <div class="column" ng-class="column.styleClass" ng-model="column.modules">
     <div id="wid_{{column.cid}}" adf-id="{{column.cid}}" class="custom-column-inner">
-        <adf-module ng-repeat="definition in column.modules"
+        <platform-module ng-repeat="definition in column.modules"
                 definition="definition"
                 column="column"
                 edit-mode="editMode"
