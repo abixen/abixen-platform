@@ -81,7 +81,8 @@
                             }
                         },
                         saveForm: saveForm,
-                        changeLayout: changeLayoutOnEditPage
+                        changeLayout: changeLayoutOnEditPage,
+                        validators: getValidators()
                     };
 
                     Layout.query()
@@ -125,6 +126,24 @@
                         applicationNavigationItems.editSidebarItem($stateParams.id, $scope.model.title);
                         $scope.$emit(platformParameters.events.PAGE_CHANGED_EVENT, $scope.name, $scope.model);
                     }
+
+                    function getValidators() {
+                        var validators = [];
+
+                        validators['title'] =
+                            [
+                                new NotNull(),
+                                new Length(1, 40)
+                            ];
+
+                        validators['description'] =
+                            [
+                                new Length(0, 255)
+                            ];
+
+                        return validators;
+                    }
+
 
                     editDashboardScope.cancelDialog = function () {
                         // close modal and destroy the scope

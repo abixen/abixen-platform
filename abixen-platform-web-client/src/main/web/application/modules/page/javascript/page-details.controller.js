@@ -24,7 +24,6 @@
         '$scope',
         '$rootScope',
         '$state',
-        '$parse',
         '$log',
         '$uibModalInstance',
         'PageModel',
@@ -35,7 +34,7 @@
         'FaSelectionModalWindowServices'
     ];
 
-    function PageDetailsController($scope, $rootScope, $state, $parse, $log, $uibModalInstance, PageModel, Layout, applicationNavigationItems, toaster, responseHandler, FaSelectionModalWindowServices) {
+    function PageDetailsController($scope, $rootScope, $state, $log, $uibModalInstance, PageModel, Layout, applicationNavigationItems, toaster, responseHandler, FaSelectionModalWindowServices) {
         $log.log('PageDetailsController');
 
         var pageDetails = this;
@@ -86,7 +85,6 @@
                 .then(onQueryResult);
 
             function onQueryResult(layouts) {
-                console.log('--layouts--->', layouts);
                 pageDetails.layouts = layouts;
             }
         }
