@@ -21,7 +21,9 @@ import java.util.List;
 
 public interface CommentService {
 
-    CommentForm saveComment(CommentForm commentForm);
+    CommentForm createComment(CommentForm commentForm);
+
+    CommentForm updateComment(CommentForm commentForm);
 
     List<Comment> getAllComments(Long moduleId);
 

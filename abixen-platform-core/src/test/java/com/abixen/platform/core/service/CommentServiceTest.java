@@ -95,7 +95,7 @@ public class CommentServiceTest {
         commentParent.setMessage("Test comment parent");
         commentParent.setParentId(null);
         commentParent.setModuleId(moduleDb.getId());
-        CommentForm commentParentDb = commentService.saveComment(commentParent);
+        CommentForm commentParentDb = commentService.createComment(commentParent);
 
         assertNotNull(commentParentDb);
         assertEquals(commentParent.getId(), commentParentDb.getId());
@@ -107,7 +107,7 @@ public class CommentServiceTest {
         commentChild.setMessage("Test comment child");
         commentChild.setParentId(commentParentDb.getId());
         commentChild.setModuleId(moduleDb.getId());
-        CommentForm childCommentFormDb = commentService.saveComment(commentChild);
+        CommentForm childCommentFormDb = commentService.createComment(commentChild);
 
         assertNotNull(childCommentFormDb);
         assertEquals(commentChild.getParentId(), childCommentFormDb.getParentId());
@@ -124,21 +124,21 @@ public class CommentServiceTest {
         parentForm.setMessage("I am parent comment");
         parentForm.setParentId(null);
         parentForm.setModuleId(moduleDb.getId());
-        CommentForm parentFormDb = commentService.saveComment(parentForm);
+        CommentForm parentFormDb = commentService.createComment(parentForm);
 
         CommentForm commentForm1 = new CommentForm();
         commentForm1.setId(2L);
         commentForm1.setMessage("Test commentForm1");
         commentForm1.setParentId(parentFormDb.getId());
         commentForm1.setModuleId(moduleDb.getId());
-        commentService.saveComment(commentForm1);
+        commentService.createComment(commentForm1);
 
         CommentForm commentForm2 = new CommentForm();
         commentForm2.setId(3L);
         commentForm2.setMessage("This is commentForm2");
         commentForm2.setParentId(parentFormDb.getId());
         commentForm2.setModuleId(moduleDb.getId());
-        commentService.saveComment(commentForm2);
+        commentService.createComment(commentForm2);
 
         List<CommentForm> commentFormList = new ArrayList<>();
         commentFormList.add(parentForm);
@@ -178,11 +178,11 @@ public class CommentServiceTest {
     @Test
     public void testDeleteComment() {
         CommentForm parentForm = CommentForm.builder().message("I am parent comment").moduleId(moduleDb.getId()).build();
-        CommentForm parentFormDb = commentService.saveComment(parentForm);
+        CommentForm parentFormDb = commentService.createComment(parentForm);
         CommentForm commentForm1 = CommentForm.builder().message("Test commentForm1").moduleId(moduleDb.getId()).parentId(parentFormDb.getId()).build();
-        commentService.saveComment(commentForm1);
+        commentService.createComment(commentForm1);
         CommentForm commentForm2 = CommentForm.builder().message("Test commentForm2").moduleId(moduleDb.getId()).parentId(parentFormDb.getId()).build();
-        commentService.saveComment(commentForm2);
+        commentService.createComment(commentForm2);
 
         Integer numOfDeleted = commentService.deleteComment(parentFormDb.getId());
         assertEquals(new Integer(3), numOfDeleted);

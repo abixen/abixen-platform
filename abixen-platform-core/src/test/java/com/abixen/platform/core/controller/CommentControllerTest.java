@@ -118,7 +118,7 @@ public class CommentControllerTest {
         CommentForm inputComment = new CommentForm();
         inputComment.setMessage("Test Comment Parent");
 
-        when(commentService.saveComment(any(CommentForm.class))).thenReturn(savedComment);
+        when(commentService.createComment(any(CommentForm.class))).thenReturn(savedComment);
 
         MvcResult commentsResponse = this.mockMvc.perform(post("/api/comments/")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -148,7 +148,7 @@ public class CommentControllerTest {
         inputComment.setId(10L);
         inputComment.setMessage("Test Text");
 
-        when(commentService.saveComment(any(CommentForm.class))).thenReturn(updatedComment);
+        when(commentService.updateComment(any(CommentForm.class))).thenReturn(updatedComment);
 
         MvcResult commentsResponse = this.mockMvc.perform(put("/api/comments/10")
                 .contentType(MediaType.APPLICATION_JSON)
