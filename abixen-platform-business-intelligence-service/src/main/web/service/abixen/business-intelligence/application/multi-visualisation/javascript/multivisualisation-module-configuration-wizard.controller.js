@@ -82,6 +82,7 @@
         configWizard.removeDataSetSeries = removeDataSetSeries;
         configWizard.setDataSetSeriesSelected = setDataSetSeriesSelected;
         configWizard.reloadPreviewData = reloadPreviewData;
+        configWizard.resetFilters = resetFilters;
         configWizard.isChart = $scope.isChart = chartTypeWizardStepIsChart;
         configWizard.setColumnSelected = setColumnSelected;
 
@@ -518,6 +519,20 @@
 
         function reloadPreviewData() {
             getSeriesData();
+        }
+
+        function resetFilters() {
+            var domainSeries = configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn;
+            if (!domainSeries.filterObj) {
+                domainSeries.filterObj = {};
+                domainSeries.filterObj.conditionOne = {};
+                domainSeries.filterObj.conditionTwo = {};
+            }
+            domainSeries.filterObj.conditionOne.operator = null;
+            domainSeries.filterObj.conditionOne.value = null;
+            domainSeries.filterObj.conditionTwo = {};
+            domainSeries.filterObj.conditionTwo.operator = null;
+            domainSeries.filterObj.conditionTwo.value = null;
         }
 
     }
