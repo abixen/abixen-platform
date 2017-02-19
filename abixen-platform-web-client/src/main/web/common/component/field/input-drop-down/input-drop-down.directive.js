@@ -40,7 +40,8 @@
                 emptyValueLabel: '@',
                 valueKeyType: '@',
                 keyAsValue: '=',
-                onChange: '&'
+                onChange: '&',
+                onChangeSkipInit: '='
             },
             link: link,
             controller: InputDropDownController,
@@ -50,8 +51,13 @@
 
         function link(scope, element, attrs, formCtrl) {
             if (scope.inputDropDown.onChange) {
+                var skipped = scope.inputDropDown.onChangeSkipInit === false || scope.inputDropDown.onChangeSkipInit === undefined ||  scope.inputDropDown.onChangeSkipInit === null;
                 scope.$watch('inputDropDown.ngModel', function () {
-                    scope.inputDropDown.onChange();
+                    if (skipped) {
+                        scope.inputDropDown.onChange();
+                    } else {
+                        skipped = true;
+                    }
                 });
             }
 

@@ -33,6 +33,8 @@
                                          ng-model-as-object="true"
                                          label="{{'module.multivisualisation.configuration.domainSelect.label' | translate}}"
                                          options="configWizard.chartConfiguration.dataSource.columns"
+                                         on-change="configWizard.resetFilters()"
+                                         on-change-skip-init="true"
                                          show-empty-value="false"
                                          value-key="id"
                                          value-label="name"
@@ -46,12 +48,15 @@
                             ng-options="c.name as c.name for c in configWizard.conditionsForFilter"
                             ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.operator">
                     </select>
-
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7 no-padding value-padding">
-                    <input placeholder="value" type="text" name="input"
+                    <input ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType != 'DATE'"
+                           placeholder="value" type="text" name="input"
                            ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"
                            ng-trim="true" class="form-control">
+                    <input-date ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'DATE'"
+                                name="inputDataCalender"
+                                model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"></input-date>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
                     <select class="form-control" name="singleSelect" id="axisxSecondOperator"
@@ -60,10 +65,14 @@
                     </select>
 
                 </div>
-                <div class="col-lg-7 col-md-7 col-sm-7 no-padding">
-                    <input placeholder="value" type="text" name="input"
+                <div class="col-lg-7 col-md-7 col-sm-7 no-padding value-padding">
+                    <input ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType != 'DATE'"
+                           placeholder="value" type="text" name="input"
                            ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"
                            ng-trim="true" class="form-control">
+                    <input-date ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'DATE'"
+                                name="inputDataCalender"
+                                model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"></input-date>
                 </div>
 
             </div>
