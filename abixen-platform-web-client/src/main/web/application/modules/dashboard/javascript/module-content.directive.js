@@ -17,11 +17,11 @@
 
     angular
         .module('platformDashboardModule')
-        .directive('platformModuleContent', platformModuleContent);
+        .directive('moduleContent', moduleContent);
 
-    platformModuleContent.$inject = ['moduleContentUtils'];
+    moduleContent.$inject = ['moduleContentUtils'];
 
-    function platformModuleContent(moduleContentUtils) {
+    function moduleContent(moduleContentUtils) {
         return {
             replace: true,
             restrict: 'EA',

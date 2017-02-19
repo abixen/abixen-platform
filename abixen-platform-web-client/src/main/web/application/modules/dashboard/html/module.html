@@ -14,7 +14,7 @@
                     <i class="fa fa-exclamation-triangle"></i>&nbsp;Module is temporary unavailable.
                 </div>
             </div>
-            <platform-module-content ng-if="!moduleState.permissionDenied" ng-show="!moduleState.chatShowing" model="definition" content="module"/>
+            <module-content ng-if="!moduleState.permissionDenied" ng-show="!moduleState.chatShowing" model="definition" content="module"/>
             <comments module-id="definition.id" ng-if="moduleState.chatShowing"></comments>
         </div>
     </div>

@@ -13,7 +13,7 @@
 
     <div>
         <strong>&nbsp;&nbsp;{{comment.commentItem.user.firstName}}&nbsp;{{comment.commentItem.user.lastName}}&nbsp;</strong>
-        <span class="date sub-text" am-time-ago="comment.commentItem.createdDate" data-toggle="tooltip" tooltip="{{comment.commentItem.createdDate | date}}"></span>
+        <span class="date sub-text" am-time-ago="comment.commentItem.createdDate" data-toggle="tooltip" uib-tooltip="{{comment.commentItem.createdDate | date}}"></span>
     </div>
 
     <ul class="comment-text">
