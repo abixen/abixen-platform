@@ -39,6 +39,12 @@
             var content, directive;
             content = element.contents().remove();
             return function (scope, element, attrs) {
+                scope.validators = [];
+                scope.validators['inputDataCalender'] =
+                    [
+                        new NotNull()
+                    ];
+
                 scope.operators = [
                     {name: 'AND'},
                     {name: 'OR'}
@@ -59,6 +65,20 @@
                         field: 'Firstname',
                         data: ''
                     });
+                };
+
+                scope.changeInputFild = function (rule) {
+                    if (!rule.field){
+                        return;
+                    }
+                    scope.fields.forEach(function(field){
+                        if (field.name === rule.field){
+                            rule.inputType = field.dataValueType;
+                        }
+                    });
+                    if (!rule.inputType){
+                        rule.inputType = "INTEGER";
+                    }
                 };
 
                 scope.removeCondition = function (index) {
