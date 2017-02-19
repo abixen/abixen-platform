@@ -27,6 +27,8 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
+            'module.page.modalWindow.title.add': 'Tworzenie nowej strony',
+            'module.page.modalWindow.title.edit': 'Edycja strony',
             'module.page.title.label': 'Tytuł',
             'module.page.title.placeholder': 'Np. Sprzedaż w sklepach',
             'module.page.description.label': 'Opis',
@@ -34,6 +36,8 @@
         });
 
         $translateProvider.translations('ENGLISH', {
+            'module.page.modalWindow.title.add': 'Create a new page',
+            'module.page.modalWindow.title.edit': 'Edit page',
             'module.page.title.label': 'Title',
             'module.page.title.placeholder': 'E.g. Sales in stores',
             'module.page.description.label': 'Description',

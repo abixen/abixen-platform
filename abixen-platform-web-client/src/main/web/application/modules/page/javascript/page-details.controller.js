@@ -52,6 +52,7 @@
             }
         );
 
+        pageDetails.mode = 'add';
         pageDetails.layouts = [];
         pageDetails.cancel = cancel;
         pageDetails.changeIcon = changeIcon;
