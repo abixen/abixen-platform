@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @EnableConfigurationProperties
-@Profile({PlatformProfiles.DEV, PlatformProfiles.CLOUD})
+@Profile({PlatformProfiles.DEV, PlatformProfiles.DOCKER})
 @ConfigurationProperties(prefix = "platform.businessintelligence.jdbc")
 public class PlatformModuleJdbcConfigurationProperties extends AbstractPlatformJdbcConfigurationProperties {
 

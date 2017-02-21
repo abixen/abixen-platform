@@ -27,11 +27,11 @@ import org.springframework.context.annotation.Profile;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.abixen.platform.core.util.PlatformProfiles.CLOUD;
+import static com.abixen.platform.core.util.PlatformProfiles.DOCKER;
 import static com.abixen.platform.core.util.PlatformProfiles.DEV;
 
 
-@Profile({DEV, CLOUD})
+@Profile({DEV, DOCKER})
 @Configuration
 public class PlatformRabbitMQConfiguration {
 

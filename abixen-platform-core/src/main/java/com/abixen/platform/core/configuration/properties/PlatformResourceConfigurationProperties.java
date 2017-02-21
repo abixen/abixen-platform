@@ -20,10 +20,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
-import static com.abixen.platform.core.util.PlatformProfiles.CLOUD;
+import static com.abixen.platform.core.util.PlatformProfiles.DOCKER;
 import static com.abixen.platform.core.util.PlatformProfiles.DEV;
 
-@Profile({DEV, CLOUD})
+@Profile({DEV, DOCKER})
 @Component
 @EnableConfigurationProperties(PlatformResourceConfigurationProperties.class)
 @ConfigurationProperties(prefix = "platform.core.resource", locations = {"bootstrap.yml"})

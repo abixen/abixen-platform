@@ -9,7 +9,7 @@ management:
 
 
 spring:
-  profiles: cloud
+  profiles: docker
 
 eureka:
   instance:

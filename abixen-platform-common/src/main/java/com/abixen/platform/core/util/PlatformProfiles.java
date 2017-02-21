@@ -19,5 +19,5 @@ public final class PlatformProfiles {
 
     public static final String DEV = "dev";
 
-    public static final String CLOUD = "cloud";
+    public static final String DOCKER = "docker";
 }
