@@ -53,7 +53,7 @@ public class CommentServiceImpl implements CommentService {
         this.commentVoteService = commentVoteService;
     }
 
-    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_ADD + "')")
+    @PreAuthorize("hasPermission('" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_COMMENT_ADD + "')")
     public CommentForm createComment(CommentForm commentForm) {
         log.debug("saveComment() - commentForm={}", commentForm);
 
@@ -62,7 +62,7 @@ public class CommentServiceImpl implements CommentService {
         return new CommentForm(savedComment);
     }
 
-    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_EDIT + "')")
+    @PreAuthorize("hasPermission('" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_COMMENT_EDIT + "')")
     public CommentForm updateComment(CommentForm commentForm) {
         log.debug("saveComment() - commentForm={}", commentForm);
 
@@ -71,14 +71,14 @@ public class CommentServiceImpl implements CommentService {
         return new CommentForm(savedComment);
     }
 
-    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_VIEW + "')")
+    @PreAuthorize("hasPermission('" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_COMMENT_VIEW + "')")
     public List<Comment> getAllComments(Long moduleId) {
         log.debug("getAllComments() - moduleId={}", moduleId);
 
         return commentRepository.getAllComments(moduleId);
     }
 
-    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_DELETE + "')")
+    @PreAuthorize("hasPermission('" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_COMMENT_DELETE + "')")
     public Integer deleteComment(Long commentId) {
         Comment rootNode = commentRepository.findOne(commentId);
         List<Comment> allUnderlying = findAllUnderlying(rootNode, new ArrayList<>());
@@ -87,7 +87,7 @@ public class CommentServiceImpl implements CommentService {
         return allUnderlying.size();
     }
 
-    @PreAuthorize("hasPermission('" + AclClassName.Values.COMMENT + "', '" + PermissionName.Values.COMMENT_DELETE + "')")
+    @PreAuthorize("hasPermission('" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_COMMENT_DELETE + "')")
     public void deleteCommentByModuleIds(List<Long> moduleIds) {
         log.debug("deleteCommentByModuleId() - moduleIds : {}", moduleIds);
 
