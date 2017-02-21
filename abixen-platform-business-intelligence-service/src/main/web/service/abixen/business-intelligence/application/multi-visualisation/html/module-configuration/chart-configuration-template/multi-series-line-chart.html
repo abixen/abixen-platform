@@ -12,13 +12,15 @@
             <input-text model="configWizard.chartConfiguration.axisXName"
                         name="axisXName"
                         label="{{'module.multivisualisation.configuration.domainAxis.label' | translate}}"
-                        placeholder="{{'module.multivisualisation.configuration.domainAxis.placeholder' | translate}}">
+                        placeholder="{{'module.multivisualisation.configuration.domainAxis.placeholder' | translate}}"
+                        validators="configWizard.validators">
             </input-text>
 
             <input-text model="configWizard.chartConfiguration.axisYName"
                         name="axisYName"
                         label="{{'module.multivisualisation.configuration.valuesAxis.label' | translate}}"
-                        placeholder="{{'module.multivisualisation.configuration.valuesAxis.placeholder' | translate}}">
+                        placeholder="{{'module.multivisualisation.configuration.valuesAxis.placeholder' | translate}}"
+                        validators="configWizard.validators">
             </input-text>
         </div>
     </div>
@@ -26,7 +28,7 @@
         <!--domain - axisX -->
         <div class="axis-x-filter">
             <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                <input-drop-down name="singleSelect"
+                <input-drop-down name="domainSelect"
                                  class="wizard-select"
                                  id="axisxColumn"
                                  ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn"
@@ -43,32 +45,41 @@
                 </input-drop-down>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
-                <select class="form-control" name="singleSelect" id="axisxFirstOperator"
-                        ng-options="c.name as c.name for c in configWizard.conditionsForFilter"
-                        ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.operator">
-                </select>
+                <input-drop-down name="axisxFirstOperator"
+                                 id="axisxFirstOperator"
+                                 ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.operator"
+                                 ng-model-as-object="false"
+                                 options="configWizard.conditionsForFilter"
+                                 show-empty-value="false"
+                                 value-key="name"
+                                 value-label="name"
+                                 validators="configWizard.validators">
+                </input-drop-down>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 no-padding value-padding">
-                <input ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType != 'DATE'"
+                <input-text ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType != 'DATE'"
                        placeholder="value" type="text" name="input"
-                       ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"
-                       ng-trim="true" class="form-control">
+                       model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"> </input-text>
                 <input-date ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'DATE'"
                             name="inputDataCalender"
                             model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"></input-date>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
-                <select class="form-control" name="singleSelect" id="axisxSecondOperator"
-                        ng-options="c.name as c.name for c in configWizard.conditionsForFilter"
-                        ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.operator">
-                </select>
-
+                <input-drop-down name="axisxSecondOperator"
+                                 id="axisxSecondOperator"
+                                 ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.operator"
+                                 ng-model-as-object="false"
+                                 options="configWizard.conditionsForFilter"
+                                 show-empty-value="false"
+                                 value-key="name"
+                                 value-label="name"
+                                 validators="configWizard.validators">
+                </input-drop-down>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 no-padding value-padding">
-                <input ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType != 'DATE'"
+                <input-text ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType != 'DATE'"
                        placeholder="value" type="text" name="input"
-                       ng-model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"
-                       ng-trim="true" class="form-control">
+                       model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"> </input-text>
                 <input-date ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'DATE'"
                             name="inputDataCalender"
                             model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"></input-date>
@@ -103,9 +114,10 @@
                     <label class="header"><span>{{'module.multivisualisation.configuration.seriesSelect.label' | translate}}</span> </label>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
-                    <input type="text" name="seriesSelectedName"
-                           ng-model="configWizard.dataSetSeriesSelected.name"
-                           ng-trim="false" class="form-control pull-left">
+                    <input-text type="text" name="seriesSelectedName"
+                           model="configWizard.dataSetSeriesSelected.name"
+                           class="pull-left"
+                           validators="configWizard.validators">
                 </div>
             </div>
 

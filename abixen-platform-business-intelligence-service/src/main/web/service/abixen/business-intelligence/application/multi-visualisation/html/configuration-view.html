@@ -28,17 +28,16 @@
     </div>
     <div class="row">
         <div class="col-sm-12 text-right bottom-prev-next">
-            <a class="btn nav-button pull-left" ng-disabled="configWizard.stepCurrent==0"
+            <button class="btn nav-button pull-left" ng-disabled="configWizard.stepCurrent==0"
                     ng-click="configWizard.prev()">
                 <i class="fa fa-chevron-circle-left">
                 </i><span class="hidden-xs">&nbsp;{{'module.multivisualisation.prev' | translate}}</span>
-            </a>
-
-            <a class="btn nav-button pull-right"
+            </button>
+            <button class="btn nav-button pull-right"
                     ng-disabled="!configWizard.canNext()" ng-click="configWizard.next()">
                 <span class="hidden-xs">{{configWizard.stepCurrent === configWizard.stepMax? 'module.multivisualisation.save': 'module.multivisualisation.next' | translate}}&nbsp;</span> <i class="fa fa-chevron-circle-right">
             </i>
-            </a>
+            </button>
 
         </div>
     </div>
