@@ -28,7 +28,7 @@ services:
       service: base
 
   discovery:
-    image: abixen-platform/abixen-platform-eureka
+    image: abixen/abixen-platform-eureka
     command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     ports:
       - "8761:8761"
@@ -36,7 +36,7 @@ services:
       service: base
 
   configuration:
-    image: abixen-platform/abixen-platform-configuration
+    image: abixen/abixen-platform-configuration
     command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     depends_on:
       - discovery
@@ -44,7 +44,7 @@ services:
       service: base
 
   gateway:
-    image: abixen-platform/abixen-platform-gateway
+    image: abixen/abixen-platform-gateway
     command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     depends_on:
       - discovery
@@ -58,7 +58,7 @@ services:
       service: base
 
   business-intelligence-service:
-    image: abixen-platform/abixen-platform-business-intelligence-service
+    image: abixen/abixen-platform-business-intelligence-service
     command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     depends_on:
       - discovery
@@ -70,7 +70,7 @@ services:
       service: base
 
   web-content-service:
-    image: abixen-platform/abixen-platform-web-content-service
+    image: abixen/abixen-platform-web-content-service
     command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx1024m -jar /app.jar
     depends_on:
       - discovery
@@ -82,7 +82,7 @@ services:
       service: base
 
   core:
-    image: abixen-platform/abixen-platform-core
+    image: abixen/abixen-platform-core
     command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx1024m -jar /app.jar
     depends_on:
       - discovery
@@ -97,7 +97,7 @@ services:
       service: base
 
   web-client:
-    image: abixen-platform/abixen-platform-web-client
+    image: abixen/abixen-platform-web-client
     command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.war
     depends_on:
      - discovery
@@ -116,7 +116,7 @@ services:
       service: base
 
   hystrix-dashboard:
-    image: abixen-platform/abixen-platform-hystrix-dashboard
+    image: abixen/abixen-platform-hystrix-dashboard
     command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     ports:
       - "8989:8989"
@@ -129,7 +129,7 @@ services:
       service: base
 
   zipkin:
-    image: abixen-platform/abixen-platform-zipkin
+    image: abixen/abixen-platform-zipkin
     command: -javaagent:/jolokia-jvm-1.3.5-agent.jar=port=7777,host=0.0.0.0,discoveryEnabled=false -Xmx512m -jar /app.jar
     ports:
       - "9411:9411"
@@ -140,7 +140,7 @@ services:
       service: base
 
   zipkin-web:
-    image: abixen-platform/zipkin-web
+    image: abixen/zipkin-web
     build: ../zipkin-web
     ports:
       - "9412:9412"
