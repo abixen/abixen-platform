@@ -37,12 +37,14 @@
 
         configWizard.stepCurrent = 0;
         configWizard.stepMax = 3;
+        configWizard.validators = getValidators();
 
         //TODO - check if needed
         $scope.chartConfiguration = configWizard.chartConfiguration = {
             id: null,
             moduleId: null
         };
+
 
         configWizard.chartTypes = multivisualisationWizardStep.getChartTypes();
         configWizard.dataSources = null;
@@ -92,7 +94,7 @@
 
 
         function chartTypeWizardStepValidate() {
-            return configWizard.chartConfiguration.chartType !== null;
+            return configWizard.chartConfiguration.chartType !== null && configWizard.chartConfiguration.chartType !== undefined;
         }
 
         function chartTypeWizardStepIsChart() {
@@ -207,10 +209,10 @@
 
             configWizard.chartConfiguration.dataSource.columns.sort(compare).forEach(function (column) {
                 var isActive = false;
-                if (configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn !== null) {
+                if (configWizard.chartConfiguration.dataSetChart && configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn !== null) {
                     isActive = configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name === column.name;
                 }
-                if (isActive === false && configWizard.chartConfiguration.dataSetChart.dataSetSeries !== null) {
+                if (isActive === false && configWizard.chartConfiguration.dataSetChart && configWizard.chartConfiguration.dataSetChart.dataSetSeries !== null) {
                     configWizard.chartConfiguration.dataSetChart.dataSetSeries.forEach(function (series) {
                         if (isActive === false && series.valueSeriesColumn.name === column.name) {
                             isActive = true;
@@ -230,6 +232,7 @@
 
         function moduleConfigurationWizardStepSelected() {
             $log.log('moduleConfigurationWizardStep selected');
+            configWizard.chartConfiguration.moduleId = $scope.moduleId;
             if (configWizard.stepCurrent === 2 && !chartTypeWizardStepIsChart()) {
                 refreshColumn();
             }
@@ -308,7 +311,25 @@
         }
 
         function dataSourceWizardStepValidate() {
-            return configWizard.chartConfiguration.dataSource !== null;
+            return configWizard.chartConfiguration.dataSource !== null && configWizard.chartConfiguration.dataSource !== undefined;
+        }
+
+        function dataConfigurationWizardStepValidate() {
+            if (configWizard.entityForm) {
+                if (configWizard.chartConfiguration.chartType === 'TABLE'){
+                    var isActive = false;
+                    configWizard.table.columns.forEach(function (column) {
+                        if (column.isActive === true) {
+                            isActive = true;
+                        }
+                    });
+                    return isActive;
+                }
+                else {
+                    return configWizard.entityForm.$valid;
+                }
+            }
+            return false;
         }
 
         function buildTableConfiguration() {
@@ -414,6 +435,12 @@
         }
 
         function initDataSetSeries() {
+            if (!configWizard.chartConfiguration.dataSetChart){
+                configWizard.chartConfiguration.dataSetChart = {};
+            }
+            if (!configWizard.chartConfiguration.dataSetChart.dataSetSeries){
+                configWizard.chartConfiguration.dataSetChart.dataSetSeries = [];
+            }
             if (configWizard.chartConfiguration.dataSetChart.dataSetSeries.length === 0) {
                 addDataSetSeries();
             } else {
@@ -500,6 +527,9 @@
                 validate = dataSourceWizardStepValidate();
                 return validate;
             }
+            if (configWizard.stepCurrent === 2) {
+                validate = dataConfigurationWizardStepValidate();
+            }
             return validate
         }
 
@@ -533,6 +563,36 @@
             domainSeries.filterObj.conditionTwo = {};
             domainSeries.filterObj.conditionTwo.operator = null;
             domainSeries.filterObj.conditionTwo.value = null;
+        }
+
+
+        function getValidators() {
+            var validators = [];
+
+            validators['axisXName'] =
+                [
+                    new NotNull(),
+                    new Length(1, 32)
+                ];
+
+            validators['axisYName'] =
+                [
+                    new NotNull(),
+                    new Length(1, 32)
+                ];
+
+            validators['singleSelect'] =
+                [
+                    new NotNull(),
+                    new Length(1, 32)
+                ];
+
+            validators['seriesSelectedName'] =
+                [
+                    new NotNull(),
+                    new Length(1, 32)
+                ];
+            return validators;
         }
 
     }
