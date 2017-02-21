@@ -109,18 +109,9 @@
                     }
 
                     function saveForm() {
-
-                        //if (!editDashboardScope.copy.title) {
-                        //   $log.log('Form is invalid and could not be saved.');
-                        //   editDashboardScope.$broadcast('show-errors-check-validity');
-                        //  return;
-                        //}
-                        // copy the new title back to the model
                         $scope.model.title = editDashboardScope.pageDetails.entity.page.title;
                         //FIXME - doesn't work
                         $scope.model.description = editDashboardScope.pageDetails.entity.page.description;
-
-                        // close modal and destroy the scope
                         instance.dismiss();
                         editDashboardScope.$destroy();
                         applicationNavigationItems.editSidebarItem($stateParams.id, $scope.model.title);
