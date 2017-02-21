@@ -23,7 +23,7 @@
         <abixen-platform-common.version>1.0-SNAPSHOT</abixen-platform-common.version>
         <start-class>com.abixen.platform.client.web.PlatformWebClientApplication</start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
-        <docker.image.prefix>abixen-platform</docker.image.prefix>
+        <docker.image.prefix>abixen</docker.image.prefix>
         <log4j2.version>2.5</log4j2.version>
         <log4j-slf4j-version>2.0.1</log4j-slf4j-version>
         <lombok-version>1.16.6</lombok-version>
@@ -227,6 +227,11 @@
                 <configuration>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <useConfigFile>true</useConfigFile>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
