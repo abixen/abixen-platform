@@ -1,7 +1,7 @@
 # Running abixen-platform using docker-compose
 This config allows you to run **ALL** abixen-platform components.
 
-![Docker infrastructure for Abixen components](../documentation-image/abixen-docker-infra.png "Docker infrastructure for Abixen components")
+![Docker infrastructure for Abixen components](../documentation-image/abixen-docker-infrastructure.png "Docker infrastructure for Abixen components")
 
 To run all components with central logging please run docker-compose:
 
