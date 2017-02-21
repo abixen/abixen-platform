@@ -5,13 +5,13 @@ role_id;permission_id
 1;9
 #Allows to view a module type on the available modules list.
 1;18
-#Allows to view comments
+#Allows to view module comments
 1;21
-#Allows to add comments
+#Allows to add module comments
 1;22
-#Allows to edit comments
+#Allows to edit module comments
 1;23
-#Allows to delete comments
+#Allows to delete module comments
 1;24
 #The Role Page Editor gets following permissions:
 #Allows to view a module

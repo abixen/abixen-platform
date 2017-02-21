@@ -50,10 +50,10 @@ public enum PermissionName {
     MODULE_TYPE_ADD(Values.MODULE_TYPE_ADD),
     MODULE_TYPE_PERMISSION(Values.MODULE_TYPE_PERMISSION),
 
-    COMMENT_VIEW(Values.COMMENT_VIEW),
-    COMMENT_ADD(Values.COMMENT_ADD),
-    COMMENT_EDIT(Values.COMMENT_EDIT),
-    COMMENT_DELETE(Values.COMMENT_DELETE);
+    MODULE_COMMENT_VIEW(Values.MODULE_COMMENT_VIEW),
+    MODULE_COMMENT_ADD(Values.MODULE_COMMENT_ADD),
+    MODULE_COMMENT_EDIT(Values.MODULE_COMMENT_EDIT),
+    MODULE_COMMENT_DELETE(Values.MODULE_COMMENT_DELETE);
 
     private final String name;
 
@@ -100,9 +100,9 @@ public enum PermissionName {
         public static final String MODULE_TYPE_ADD = "MODULE_TYPE_ADD";
         public static final String MODULE_TYPE_PERMISSION = "MODULE_TYPE_PERMISSION";
 
-        public static final String COMMENT_VIEW = "COMMENT_VIEW";
-        public static final String COMMENT_ADD = "COMMENT_ADD";
-        public static final String COMMENT_EDIT = "COMMENT_EDIT";
-        public static final String COMMENT_DELETE = "COMMENT_DELETE";
+        public static final String MODULE_COMMENT_VIEW = "MODULE_COMMENT_VIEW";
+        public static final String MODULE_COMMENT_ADD = "MODULE_COMMENT_ADD";
+        public static final String MODULE_COMMENT_EDIT = "MODULE_COMMENT_EDIT";
+        public static final String MODULE_COMMENT_DELETE = "MODULE_COMMENT_DELETE";
     }
 }
