@@ -54,7 +54,7 @@ hystrix:
 
 
 spring:
-  profiles: cloud
+  profiles: docker
   zipkin:
     baseUrl: http://zipkin:9411
 

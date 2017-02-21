@@ -22,11 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import static com.abixen.platform.core.util.PlatformProfiles.CLOUD;
+import static com.abixen.platform.core.util.PlatformProfiles.DOCKER;
 import static com.abixen.platform.core.util.PlatformProfiles.DEV;
 
 
-@Profile({DEV, CLOUD})
+@Profile({DEV, DOCKER})
 @Service
 public class RabbitMQOperationsImpl implements RabbitMQOperations {
 

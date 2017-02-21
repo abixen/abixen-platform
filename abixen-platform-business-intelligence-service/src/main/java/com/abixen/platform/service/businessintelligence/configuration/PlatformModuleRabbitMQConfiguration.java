@@ -22,11 +22,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import static com.abixen.platform.core.util.PlatformProfiles.CLOUD;
+import static com.abixen.platform.core.util.PlatformProfiles.DOCKER;
 import static com.abixen.platform.core.util.PlatformProfiles.DEV;
 
 
-@Profile({DEV, CLOUD})
+@Profile({DEV, DOCKER})
 @Slf4j
 @Configuration
 public class PlatformModuleRabbitMQConfiguration extends AbstractRabbitMQConfiguration {

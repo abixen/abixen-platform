@@ -6,7 +6,7 @@ server:
 
 
 spring:
-  profiles: platform-cloud
+  profiles: docker
   rabbitmq:
     host: rabbitmq
     port: 5672

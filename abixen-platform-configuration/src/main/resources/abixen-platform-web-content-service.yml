@@ -9,7 +9,7 @@ security:
 
 
 spring:
-  profiles: cloud
+  profiles: docker
   redis:
     host: redis
     port: 6379

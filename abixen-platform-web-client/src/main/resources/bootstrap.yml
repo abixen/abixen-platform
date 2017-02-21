@@ -15,7 +15,7 @@ logging:
 
 
 spring:
-  profiles: cloud
+  profiles: docker
   cloud:
     config:
       enabled: true
