@@ -20,8 +20,13 @@
         .service('PageModelParser', PageModelParser);
 
     function PageModelParser() {
+        this.createModel = createModel;
+        this.createPageModelDto = createPageModelDto;
+        this.findModuleId = findModuleId;
+        this.updateModelModulesNullIds = updateModelModulesNullIds;
 
-        this.createModel = function (pageModelDto) {
+
+        function createModel(pageModelDto) {
             var model = JSON.parse(pageModelDto.page.layout.contentAsJson);
 
             model.description = pageModelDto.page.description;
@@ -45,9 +50,9 @@
             }
 
             return model;
-        };
+        }
 
-        this.createPageModelDto = function (page, model) {
+        function createPageModelDto(page, model) {
             var rowIndex = 0;
             var columnIndex = 0;
             var orderIndex = 0;
@@ -82,18 +87,18 @@
             pageModelDto.page.title = model.title;
 
             return pageModelDto;
-        };
+        }
 
-        this.findModuleId = function (frontendId, dashboardModuleDtos) {
+        function findModuleId(frontendId, dashboardModuleDtos) {
             for (var i = 0; i < dashboardModuleDtos.length; i++) {
                 if (dashboardModuleDtos[i].frontendId == frontendId) {
                     return dashboardModuleDtos[i].id;
                 }
             }
             return null;
-        };
+        }
 
-        this.updateModelModulesNullIds = function (model, dashboardModuleDtos) {
+        function updateModelModulesNullIds(model, dashboardModuleDtos) {
 
             for (var r = 0; r < model.rows.length; r++) {
                 for (var c = 0; c < model.rows[r].columns.length; c++) {
@@ -106,6 +111,6 @@
             }
 
             return model;
-        };
+        }
     }
 })();
