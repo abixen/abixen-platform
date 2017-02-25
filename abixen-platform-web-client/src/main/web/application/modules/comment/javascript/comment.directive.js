@@ -54,7 +54,6 @@
         var addCommentForm;
         var replyClickCounter = 0;
         var action;
-        var platformUser = platformSecurity.getPlatformUser();
         var commentBeforeEdit;
 
         new AbstractDetailsController(comment, Comment, responseHandler, $scope,
@@ -92,7 +91,7 @@
             var res = angular.isDefined(comment.commentItem)
                 && angular.isDefined(comment.commentItem.user)
                 && comment.commentItem.user != null
-                && (platformUser.id === comment.commentItem.user.id);
+                && (platformSecurity.getPlatformUser().id === comment.commentItem.user.id);
             return res;
         }
 
@@ -180,12 +179,11 @@
         }
 
         function onUserChange() {
-            $log.info('User changed');
             changeMomentLocale();
         }
 
         function changeMomentLocale() {
-            switch (platformUser.selectedLanguage) {
+            switch (platformSecurity.getPlatformUser().selectedLanguage) {
                 case 'ENGLISH':
                     amMoment.changeLocale('en-gb');
                     break;
