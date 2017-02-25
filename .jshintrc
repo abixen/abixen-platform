@@ -53,6 +53,13 @@
   "globals": {
     "angular": false,
     "$": false,
-    "_": false
+    "_": false,
+    "AbstractListGridController": false,
+    "AbstractPermissionsController": false,
+    "AbstractDetailsController": false,
+    "NotNull": false,
+    "Length": false,
+    "ConfirmField": false,
+    "Email": false
   }
 }

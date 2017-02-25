@@ -29,7 +29,7 @@
         function link(scope, element, attrs, formCtrl) {
             formCtrl.$formatters.push(function (modelValue) {
                 return new Date(modelValue);
-            })
+            });
         }
     }
 })();

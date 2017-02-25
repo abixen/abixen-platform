@@ -80,8 +80,8 @@
             scope.$watch('options', onOptionsChanged);
             scope.$watch(platformSecurity.getPlatformUser, onUserChanged);
 
-            function onUserChanged(){
-                if(!reloadOptions){
+            function onUserChanged() {
+                if (!reloadOptions) {
                     reloadOptions = true;
                     return;
                 }

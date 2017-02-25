@@ -32,7 +32,7 @@
             },
             editSidebarItem: function (id, title) {
                 for (var i = 0; i < sidebarItems.length; i++) {
-                    if (id == sidebarItems[i].id) {
+                    if (id === sidebarItems[i].id) {
                         sidebarItems[i].title = title;
                     }
                 }
