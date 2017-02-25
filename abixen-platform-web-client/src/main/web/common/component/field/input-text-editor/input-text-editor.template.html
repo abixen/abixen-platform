@@ -1,0 +1,39 @@
+<div class="form-group"
+     ng-class="{'has-error': form[inputTextEditor.name].$invalid && !form[inputTextEditor.name].$pristine}">
+    <label ng-if="inputTextEditor.label" for="{{inputTextEditor.name}}Input"
+           class="control-label">{{inputTextEditor.label}}</label>
+    <textarea ng-model="inputTextEditor.model"
+              name="{{inputTextEditor.name}}"
+              class="form-control"
+              id="{{inputTextEditor.name}}Input"
+              rows="{{inputTextEditor.rows}}"
+              placeholder="{{inputTextEditor.placeholder}}"
+              ng-required="inputTextEditor.fieldValidators.notNull"
+              ng-minlength="inputTextEditor.fieldValidators.size.min"
+              ng-maxlength="inputTextEditor.fieldValidators.size.max"
+              confirm-field="{{inputTextEditor.fieldValidators.confirmField.fieldToCheck}}">
+    </textarea>
+
+    <p class="help-block"
+       ng-if="form[inputTextEditor.name].$error.minlength && !form[inputTextEditor.name].$pristine">
+        {{ 'application.validator.invalid.minlength' | translate:{min: inputTextEditor.fieldValidators.size.min, label:
+        inputTextEditor.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputTextEditor.name].$error.maxlength && !form[inputTextEditor.name].$pristine">
+        {{ 'application.validator.invalid.maxlength' | translate:{max: inputTextEditor.fieldValidators.size.max, label:
+        inputTextEditor.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputTextEditor.name].$error.required && !form[inputTextEditor.name].$pristine">
+        {{ 'application.validator.invalid.required' | translate:{label: inputTextEditor.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputTextEditor.name].$error.fieldMatch && !form[inputTextEditor.name].$pristine">
+        {{ inputTextEditor.fieldValidators.confirmField.errorMessageKey | translate }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputTextEditor.name].$error.serverMessage">
+        {{form[inputTextEditor.name].$error.serverMessage | translate}}</p>
+
+</div>
