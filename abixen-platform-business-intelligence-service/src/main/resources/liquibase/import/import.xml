@@ -8,6 +8,7 @@
 
     <property name="databaseConnectionFile" value="database-connection-h2" dbms="h2"/>
     <property name="databaseConnectionFile" value="database-connection-postgres" dbms="postgresql"/>
+    <property name="databaseConnectionFile" value="database-connection-mysql" dbms="mysql"/>
 
     <changeSet author="KonradWisniewski" id="import-v1" runAlways="false" runOnChange="true">
 
