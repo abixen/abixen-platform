@@ -28,23 +28,23 @@
         $stateProvider
             .state('application.multiVisualisation.modules.fileData', {
                 url: '/file-data',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data/html/index.html'
+                templateUrl: 'service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data/html/index.html'
             })
             .state('application.multiVisualisation.modules.fileData.list', {
                 url: '/list',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data/html/list.html',
+                templateUrl: 'service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data/html/list.html',
                 controller: 'FileDataListController',
                 controllerAs: 'fileDataList'
             })
             .state('application.multiVisualisation.modules.fileData.add', {
                 url: '/add',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data/html/edit.html',
+                templateUrl: 'service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data/html/edit.html',
                 controller: 'FileDataDetailController',
                 controllerAs: 'fileDataDetails'
             })
             .state('application.multiVisualisation.modules.fileData.edit', {
                 url: '/edit/:id',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data/html/edit.html',
+                templateUrl: 'service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data/html/edit.html',
                 controller: 'FileDataDetailController',
                 controllerAs: 'fileDataDetails'
             });

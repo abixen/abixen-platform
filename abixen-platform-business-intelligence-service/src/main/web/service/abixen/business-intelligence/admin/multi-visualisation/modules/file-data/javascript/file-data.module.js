@@ -18,5 +18,5 @@
     'use strict';
 
     angular
-        .module('platformFileDataModule', ['platformUploadFileModule']);
+        .module('platformFileDataModule', ['platformUploadFileModule', 'business.intelligence.templatecache']);
 })();

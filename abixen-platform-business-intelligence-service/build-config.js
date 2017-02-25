@@ -9,7 +9,9 @@ module.exports = {
         adminScripts: 'service/abixen/business-intelligence/admin/business-intelligence.min.js',
         applicationScripts: 'service/abixen/business-intelligence/application/business-intelligence.min.js',
         applicationStyles: 'service/abixen/business-intelligence/application/business-intelligence.min.css',
-        adminStyles: 'service/abixen/business-intelligence/admin/business-intelligence.min.css'
+        adminStyles: 'service/abixen/business-intelligence/admin/business-intelligence.min.css',
+        adminTemplateCache: 'src/main/web/service/abixen/business-intelligence/admin/multi-visualisation/javascript',
+        applicationTemplateCache: 'src/main/web/service/abixen/business-intelligence/application/multi-visualisation/javascript'
     },
     applicationLibs: {
         files: [
@@ -48,6 +50,7 @@ module.exports = {
             'src/main/web/service/abixen/business-intelligence/application/**/*.js'
         ],
         concatOrder: [
+            'src/main/web/**/*.template-cache.config.js',
             'src/main/web/**/*.module.js',
             'src/main/web/**/*.js'
         ]
