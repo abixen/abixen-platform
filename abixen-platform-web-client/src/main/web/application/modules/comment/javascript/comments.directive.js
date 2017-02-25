@@ -19,9 +19,7 @@
         .module('platformCommentModule')
         .directive('comments', commentsDirective);
 
-    commentsDirective.$inject = ['$log', '$http'];
-
-    function commentsDirective($log, $http) {
+    function commentsDirective() {
         return {
             restrict: 'E',
             templateUrl: '/application/modules/comment/html/comments.template.html',
@@ -33,6 +31,8 @@
             bindToController: true
         };
     }
+
+    CommentsDirectiveController.$inject = ['$log', 'Comment'];
 
     function CommentsDirectiveController($log, Comment) {
         var comments = this;

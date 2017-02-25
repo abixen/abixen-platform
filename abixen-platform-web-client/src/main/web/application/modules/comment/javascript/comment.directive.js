@@ -19,9 +19,7 @@
         .module('platformCommentModule')
         .directive('comment', commentDirective);
 
-    commentDirective.$inject = ['$log', '$http', '$compile', 'responseHandler', 'platformSecurity', 'amMoment'];
-
-    function commentDirective($log, $http, $compile, platformSecurity) {
+    function commentDirective() {
         var counter = 0,
             depth = null;
 
@@ -48,6 +46,8 @@
             depth == 'end' ? counter = 0 : counter++;
         }
     }
+
+    CommentDirectiveController.$inject = ['$scope', '$log', '$compile', 'Comment', 'responseHandler', '$templateRequest', 'platformSecurity', 'amMoment'];
 
     function CommentDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest, platformSecurity, amMoment) {
         var comment = this;
@@ -185,8 +185,7 @@
         }
 
         function changeMomentLocale() {
-            var lang = platformUser.selectedLanguage;
-            switch (lang) {
+            switch (platformUser.selectedLanguage) {
                 case 'ENGLISH':
                     amMoment.changeLocale('en-gb');
                     break;
