@@ -82,7 +82,7 @@
             onClick: function () {
                 $aside.open({
                     placement: 'left',
-                    templateUrl: '/application/modules/page/html/add.html',
+                    templateUrl: '/application/modules/page/html/edit.html',
                     size: 'md',
                     backdrop: false,
                     controller: 'PageDetailsController as pageDetails'
