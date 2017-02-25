@@ -30,6 +30,9 @@
     ];
 
     function platformNavigationDirective($state, applicationNavigationItems, $translate, $filter, platformSecurity, User) {
+
+        NavigationController.$inject = ['$scope'];
+
         return {
             restrict: 'E',
             transclude: true,
@@ -48,9 +51,7 @@
             bindToController: true
         };
 
-        NavigationController.$inject = ['$scope', 'fieldSize'];
-
-        function NavigationController($scope, fieldSize) {
+        function NavigationController($scope) {
             var navigation = this;
             var baseUserUrl = '/api/application/users/';
             var mobileView = 992;

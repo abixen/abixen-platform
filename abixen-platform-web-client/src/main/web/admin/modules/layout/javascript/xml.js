@@ -2,14 +2,14 @@
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function (mod) {
-    if (typeof exports == "object" && typeof module == "object") // CommonJS
-        mod(require("../../lib/codemirror"));
-    else if (typeof define == "function" && define.amd) // AMD
-        define(["../../lib/codemirror"], mod);
+    if (typeof exports == 'object' && typeof module == 'object') // CommonJS
+        mod(require('../../lib/codemirror'));
+    else if (typeof define == 'function' && define.amd) // AMD
+        define(['../../lib/codemirror'], mod);
     else // Plain browser env
         mod(CodeMirror);
 })(function (CodeMirror) {
-    "use strict";
+    'use strict';
 
     var htmlConfig = {
         autoSelfClosers: {
@@ -45,11 +45,11 @@
             'thead': {'tbody': true, 'tfoot': true},
             'tr': {'tr': true}
         },
-        doNotIndent: {"pre": true},
+        doNotIndent: {'pre': true},
         allowUnquoted: true,
         allowMissing: true,
         caseFold: true
-    }
+    };
 
     var xmlConfig = {
         autoSelfClosers: {},
@@ -59,14 +59,14 @@
         allowUnquoted: false,
         allowMissing: false,
         caseFold: false
-    }
+    };
 
-    CodeMirror.defineMode("xml", function (editorConf, config_) {
-        var indentUnit = editorConf.indentUnit
-        var config = {}
-        var defaults = config_.htmlMode ? htmlConfig : xmlConfig
-        for (var prop in defaults) config[prop] = defaults[prop]
-        for (var prop in config_) config[prop] = config_[prop]
+    CodeMirror.defineMode('xml', function (editorConf, config_) {
+        var indentUnit = editorConf.indentUnit;
+        var config = {};
+        var defaults = config_.htmlMode ? htmlConfig : xmlConfig;
+        for (var prop in defaults) config[prop] = defaults[prop];
+        for (var prop in config_) config[prop] = config_[prop];
 
         // Return variables for tokenizers
         var type, setStyle;
@@ -78,40 +78,40 @@
             }
 
             var ch = stream.next();
-            if (ch == "<") {
-                if (stream.eat("!")) {
-                    if (stream.eat("[")) {
-                        if (stream.match("CDATA[")) return chain(inBlock("atom", "]]>"));
+            if (ch == '<') {
+                if (stream.eat('!')) {
+                    if (stream.eat('[')) {
+                        if (stream.match('CDATA[')) return chain(inBlock('atom', ']]>'));
                         else return null;
-                    } else if (stream.match("--")) {
-                        return chain(inBlock("comment", "-->"));
-                    } else if (stream.match("DOCTYPE", true, true)) {
+                    } else if (stream.match('--')) {
+                        return chain(inBlock('comment', '-->'));
+                    } else if (stream.match('DOCTYPE', true, true)) {
                         stream.eatWhile(/[\w\._\-]/);
                         return chain(doctype(1));
                     } else {
                         return null;
                     }
-                } else if (stream.eat("?")) {
+                } else if (stream.eat('?')) {
                     stream.eatWhile(/[\w\._\-]/);
-                    state.tokenize = inBlock("meta", "?>");
-                    return "meta";
+                    state.tokenize = inBlock('meta', '?>');
+                    return 'meta';
                 } else {
-                    type = stream.eat("/") ? "closeTag" : "openTag";
+                    type = stream.eat('/') ? 'closeTag' : 'openTag';
                     state.tokenize = inTag;
-                    return "tag bracket";
+                    return 'tag bracket';
                 }
-            } else if (ch == "&") {
+            } else if (ch == '&') {
                 var ok;
-                if (stream.eat("#")) {
-                    if (stream.eat("x")) {
-                        ok = stream.eatWhile(/[a-fA-F\d]/) && stream.eat(";");
+                if (stream.eat('#')) {
+                    if (stream.eat('x')) {
+                        ok = stream.eatWhile(/[a-fA-F\d]/) && stream.eat(';');
                     } else {
-                        ok = stream.eatWhile(/[\d]/) && stream.eat(";");
+                        ok = stream.eatWhile(/[\d]/) && stream.eat(';');
                     }
                 } else {
-                    ok = stream.eatWhile(/[\w\.\-:]/) && stream.eat(";");
+                    ok = stream.eatWhile(/[\w\.\-:]/) && stream.eat(';');
                 }
-                return ok ? "atom" : "error";
+                return ok ? 'atom' : 'error';
             } else {
                 stream.eatWhile(/[^&<]/);
                 return null;
@@ -122,26 +122,26 @@
 
         function inTag(stream, state) {
             var ch = stream.next();
-            if (ch == ">" || (ch == "/" && stream.eat(">"))) {
+            if (ch == '>' || (ch == '/' && stream.eat('>'))) {
                 state.tokenize = inText;
-                type = ch == ">" ? "endTag" : "selfcloseTag";
-                return "tag bracket";
-            } else if (ch == "=") {
-                type = "equals";
+                type = ch == '>' ? 'endTag' : 'selfcloseTag';
+                return 'tag bracket';
+            } else if (ch == '=') {
+                type = 'equals';
                 return null;
-            } else if (ch == "<") {
+            } else if (ch == '<') {
                 state.tokenize = inText;
                 state.state = baseState;
                 state.tagName = state.tagStart = null;
                 var next = state.tokenize(stream, state);
-                return next ? next + " tag error" : "tag error";
-            } else if (/[\'\"]/.test(ch)) {
+                return next ? next + ' tag error' : 'tag error';
+            } else if (/[\'\']/.test(ch)) {
                 state.tokenize = inAttribute(ch);
                 state.stringStartCol = stream.column();
                 return state.tokenize(stream, state);
             } else {
-                stream.match(/^[^\s\u00a0=<>\"\']*[^\s\u00a0=<>\"\'\/]/);
-                return "word";
+                stream.match(/^[^\s\u00a0=<>\'\']*[^\s\u00a0=<>\'\'\/]/);
+                return 'word';
             }
         }
 
@@ -153,7 +153,7 @@
                         break;
                     }
                 }
-                return "string";
+                return 'string';
             };
             closure.isInAttribute = true;
             return closure;
@@ -176,10 +176,10 @@
             return function (stream, state) {
                 var ch;
                 while ((ch = stream.next()) != null) {
-                    if (ch == "<") {
+                    if (ch == '<') {
                         state.tokenize = doctype(depth + 1);
                         return state.tokenize(stream, state);
-                    } else if (ch == ">") {
+                    } else if (ch == '>') {
                         if (depth == 1) {
                             state.tokenize = inText;
                             break;
@@ -189,7 +189,7 @@
                         }
                     }
                 }
-                return "meta";
+                return 'meta';
             };
         }
 
@@ -221,10 +221,10 @@
         }
 
         function baseState(type, stream, state) {
-            if (type == "openTag") {
+            if (type == 'openTag') {
                 state.tagStart = stream.column();
                 return tagNameState;
-            } else if (type == "closeTag") {
+            } else if (type == 'closeTag') {
                 return closeTagNameState;
             } else {
                 return baseState;
@@ -232,38 +232,38 @@
         }
 
         function tagNameState(type, stream, state) {
-            if (type == "word") {
+            if (type == 'word') {
                 state.tagName = stream.current();
-                setStyle = "tag";
+                setStyle = 'tag';
                 return attrState;
             } else {
-                setStyle = "error";
+                setStyle = 'error';
                 return tagNameState;
             }
         }
 
         function closeTagNameState(type, stream, state) {
-            if (type == "word") {
+            if (type == 'word') {
                 var tagName = stream.current();
                 if (state.context && state.context.tagName != tagName &&
                     config.implicitlyClosed.hasOwnProperty(state.context.tagName))
                     popContext(state);
                 if ((state.context && state.context.tagName == tagName) || config.matchClosing === false) {
-                    setStyle = "tag";
+                    setStyle = 'tag';
                     return closeState;
                 } else {
-                    setStyle = "tag error";
+                    setStyle = 'tag error';
                     return closeStateErr;
                 }
             } else {
-                setStyle = "error";
+                setStyle = 'error';
                 return closeStateErr;
             }
         }
 
         function closeState(type, _stream, state) {
-            if (type != "endTag") {
-                setStyle = "error";
+            if (type != 'endTag') {
+                setStyle = 'error';
                 return closeState;
             }
             popContext(state);
@@ -271,18 +271,18 @@
         }
 
         function closeStateErr(type, stream, state) {
-            setStyle = "error";
+            setStyle = 'error';
             return closeState(type, stream, state);
         }
 
         function attrState(type, _stream, state) {
-            if (type == "word") {
-                setStyle = "attribute";
+            if (type == 'word') {
+                setStyle = 'attribute';
                 return attrEqState;
-            } else if (type == "endTag" || type == "selfcloseTag") {
+            } else if (type == 'endTag' || type == 'selfcloseTag') {
                 var tagName = state.tagName, tagStart = state.tagStart;
                 state.tagName = state.tagStart = null;
-                if (type == "selfcloseTag" ||
+                if (type == 'selfcloseTag' ||
                     config.autoSelfClosers.hasOwnProperty(tagName)) {
                     maybePopContext(state, tagName);
                 } else {
@@ -291,28 +291,28 @@
                 }
                 return baseState;
             }
-            setStyle = "error";
+            setStyle = 'error';
             return attrState;
         }
 
         function attrEqState(type, stream, state) {
-            if (type == "equals") return attrValueState;
-            if (!config.allowMissing) setStyle = "error";
+            if (type == 'equals') return attrValueState;
+            if (!config.allowMissing) setStyle = 'error';
             return attrState(type, stream, state);
         }
 
         function attrValueState(type, stream, state) {
-            if (type == "string") return attrContinuedState;
-            if (type == "word" && config.allowUnquoted) {
-                setStyle = "string";
+            if (type == 'string') return attrContinuedState;
+            if (type == 'word' && config.allowUnquoted) {
+                setStyle = 'string';
                 return attrState;
             }
-            setStyle = "error";
+            setStyle = 'error';
             return attrState(type, stream, state);
         }
 
         function attrContinuedState(type, stream, state) {
-            if (type == "string") return attrContinuedState;
+            if (type == 'string') return attrContinuedState;
             return attrState(type, stream, state);
         }
 
@@ -324,7 +324,7 @@
                     indented: baseIndent || 0,
                     tagName: null, tagStart: null,
                     context: null
-                }
+                };
                 if (baseIndent != null) state.baseIndent = baseIndent
                 return state
             },
@@ -336,11 +336,11 @@
                 if (stream.eatSpace()) return null;
                 type = null;
                 var style = state.tokenize(stream, state);
-                if ((style || type) && style != "comment") {
+                if ((style || type) && style != 'comment') {
                     setStyle = null;
                     state.state = state.state(type || style, stream, state);
                     if (setStyle)
-                        style = setStyle == "error" ? style + " error" : setStyle;
+                        style = setStyle == 'error' ? style + ' error' : setStyle;
                 }
                 return style;
             },
@@ -393,11 +393,11 @@
             },
 
             electricInput: /<\/[\s\w:]+>$/,
-            blockCommentStart: "<!--",
-            blockCommentEnd: "-->",
+            blockCommentStart: '<!--',
+            blockCommentEnd: '-->',
 
-            configuration: config.htmlMode ? "html" : "xml",
-            helperType: config.htmlMode ? "html" : "xml",
+            configuration: config.htmlMode ? 'html' : 'xml',
+            helperType: config.htmlMode ? 'html' : 'xml',
 
             skipAttribute: function (state) {
                 if (state.state == attrValueState)
@@ -406,9 +406,9 @@
         };
     });
 
-    CodeMirror.defineMIME("text/xml", "xml");
-    CodeMirror.defineMIME("application/xml", "xml");
-    if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
-        CodeMirror.defineMIME("text/html", {name: "xml", htmlMode: true});
+    CodeMirror.defineMIME('text/xml', 'xml');
+    CodeMirror.defineMIME('application/xml', 'xml');
+    if (!CodeMirror.mimeModes.hasOwnProperty('text/html'))
+        CodeMirror.defineMIME('text/html', {name: 'xml', htmlMode: true});
 
 });
