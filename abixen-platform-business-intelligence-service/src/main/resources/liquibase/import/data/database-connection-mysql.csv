@@ -1,0 +1,2 @@
+id;created_by_id;created_date;last_modified_by_id;last_modified_date;database_host;database_name;database_port;database_type;description;name;password;username
+1;NULL;NULL;NULL;NULL;localhost;abixen_platform_businessintelligence_service;3306;MYSQL;Connection to the mysql db; Sample connection to mysql db;;root

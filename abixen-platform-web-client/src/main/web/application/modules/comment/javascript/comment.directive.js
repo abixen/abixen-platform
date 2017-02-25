@@ -19,9 +19,7 @@
         .module('platformCommentModule')
         .directive('comment', commentDirective);
 
-    commentDirective.$inject = ['$log', '$http', '$compile', 'responseHandler', 'platformSecurity', 'amMoment'];
-
-    function commentDirective($log, $http, $compile, platformSecurity) {
+    function commentDirective() {
         var counter = 0,
             depth = null;
 
@@ -49,12 +47,13 @@
         }
     }
 
+    CommentDirectiveController.$inject = ['$scope', '$log', '$compile', 'Comment', 'responseHandler', '$templateRequest', 'platformSecurity', 'amMoment'];
+
     function CommentDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest, platformSecurity, amMoment) {
         var comment = this;
         var addCommentForm;
         var replyClickCounter = 0;
         var action;
-        var platformUser = platformSecurity.getPlatformUser();
         var commentBeforeEdit;
 
         new AbstractDetailsController(comment, Comment, responseHandler, $scope,
@@ -92,7 +91,7 @@
             var res = angular.isDefined(comment.commentItem)
                 && angular.isDefined(comment.commentItem.user)
                 && comment.commentItem.user != null
-                && (platformUser.id === comment.commentItem.user.id);
+                && (platformSecurity.getPlatformUser().id === comment.commentItem.user.id);
             return res;
         }
 
@@ -180,13 +179,11 @@
         }
 
         function onUserChange() {
-            $log.info('User changed');
             changeMomentLocale();
         }
 
         function changeMomentLocale() {
-            var lang = platformUser.selectedLanguage;
-            switch (lang) {
+            switch (platformSecurity.getPlatformUser().selectedLanguage) {
                 case 'ENGLISH':
                     amMoment.changeLocale('en-gb');
                     break;
@@ -199,7 +196,7 @@
                 case 'UKRAINIAN':
                     amMoment.changeLocale('uk');
                     break;
-                case 'SPAIN':
+                case 'SPANISH':
                     amMoment.changeLocale('sp');
                     break;
                 default:

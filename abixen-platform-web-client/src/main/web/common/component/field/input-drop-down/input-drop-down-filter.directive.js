@@ -20,9 +20,9 @@
         .module('platformField')
         .directive('inputDropDownFiller', inputDropDownFillerDirective);
 
-    inputDropDownFillerDirective.$inject = ['$compile', '$filter'];
+    inputDropDownFillerDirective.$inject = ['$compile', '$filter', 'platformSecurity'];
 
-    function inputDropDownFillerDirective($compile, $filter) {
+    function inputDropDownFillerDirective($compile, $filter, platformSecurity) {
 
         return {
             restrict: 'A',
@@ -40,6 +40,7 @@
         };
 
         function link(scope, element, attrs, ngModel) {
+            var reloadOptions = false;
             if (scope.valueKey === undefined || scope.valueKey === null) {
                 scope.valueKey = 'key';
             }
@@ -77,15 +78,25 @@
             });
 
             scope.$watch('options', onOptionsChanged);
+            scope.$watch(platformSecurity.getPlatformUser, onUserChanged);
 
-            function onOptionsChanged(newValue, oldValue) {
+            function onUserChanged() {
+                if (!reloadOptions) {
+                    reloadOptions = true;
+                    return;
+                }
+                onOptionsChanged();
+            }
+
+            function onOptionsChanged() {
+
                 var html = '';
 
                 if (scope.showEmptyValue) {
                     html = '<option value="">-- ' + scope.emptyValueLabel + ' --</option>';
                 }
 
-                angular.forEach(newValue, function (option, key) {
+                angular.forEach(scope.options, function (option, key) {
                     if (scope.keyAsValue) {
                         html += '<option value="' + option[scope.valueKey] + '">' +
                             option[scope.valueKey] + '</option>';

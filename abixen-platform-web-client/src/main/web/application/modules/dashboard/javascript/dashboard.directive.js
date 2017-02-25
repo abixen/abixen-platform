@@ -81,6 +81,7 @@
                             }
                         },
                         saveForm: saveForm,
+                        cancel: cancelDialog,
                         changeLayout: changeLayoutOnEditPage,
                         validators: getValidators()
                     };
@@ -97,7 +98,7 @@
                     var instance = $aside.open({
                         scope: editDashboardScope,
                         placement: 'left',
-                        templateUrl: '/application/modules/page/html/add.html',
+                        templateUrl: '/application/modules/page/html/edit.html',
                         size: 'md',
                         backdrop: 'static'
                     });
@@ -136,11 +137,11 @@
                     }
 
 
-                    editDashboardScope.cancelDialog = function () {
+                    function cancelDialog() {
                         // close modal and destroy the scope
                         instance.dismiss();
                         editDashboardScope.$destroy();
-                    };
+                    }
                 };
 
                 $scope.$on(platformParameters.events.ADF_EDIT_DASHBOARD_EVENT, function (event) {

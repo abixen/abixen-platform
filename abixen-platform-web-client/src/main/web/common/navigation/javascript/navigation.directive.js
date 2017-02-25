@@ -30,6 +30,9 @@
     ];
 
     function platformNavigationDirective($state, applicationNavigationItems, $translate, $filter, platformSecurity, User) {
+
+        NavigationController.$inject = ['$scope'];
+
         return {
             restrict: 'E',
             transclude: true,
@@ -48,9 +51,7 @@
             bindToController: true
         };
 
-        NavigationController.$inject = ['$scope', 'fieldSize'];
-
-        function NavigationController($scope, fieldSize) {
+        function NavigationController($scope) {
             var navigation = this;
             var baseUserUrl = '/api/application/users/';
             var mobileView = 992;
@@ -66,7 +67,7 @@
                 {title: 'English', img: '/common/navigation/image/united-states_flat.png', name: 'ENGLISH'},
                 {title: 'Polski', img: '/common/navigation/image/poland_flat.png', name: 'POLISH'},
                 {title: 'Russian', img: '/common/navigation/image/russia_flat.png', name: 'RUSSIAN'},
-                {title: 'Spanish', img: '/common/navigation/image/spain_flat.png', name: 'SPAIN'},
+                {title: 'Spanish', img: '/common/navigation/image/spain_flat.png', name: 'SPANISH'},
                 {title: 'Ukrainian', img: '/common/navigation/image/ukraine_flat.png', name: 'UKRAINIAN'}
             ];
 
@@ -94,6 +95,7 @@
                 function onSelectLanguage() {
                     navigation.selectedLocale = locale;
                     $translate.use(navigation.selectedLocale.name);
+                    platformSecurity.reloadPlatformUser();
                 }
             }
 
@@ -114,6 +116,7 @@
                 navigation.platformUser = platformSecurity.getPlatformUser();
                 navigation.avatarUrl = baseUserUrl + navigation.platformUser.id + '/avatar/' + navigation.platformUser.avatarFileName;
                 navigation.selectedLocale = $filter('filter')(navigation.locales, {name: navigation.platformUser.selectedLanguage})[0];
+                $translate.use(navigation.selectedLocale.name);
             }
 
             function onWidthChange(newValue) {
