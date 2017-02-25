@@ -196,7 +196,7 @@
                 case 'UKRAINIAN':
                     amMoment.changeLocale('uk');
                     break;
-                case 'SPAIN':
+                case 'SPANISH':
                     amMoment.changeLocale('sp');
                     break;
                 default:

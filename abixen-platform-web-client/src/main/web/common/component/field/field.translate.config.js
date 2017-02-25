@@ -53,7 +53,7 @@
             'application.validator.invalid.email': '{{label}} має невірний формат'
         });
 
-        $translateProvider.translations('SPAIN', {
+        $translateProvider.translations('SPANISH', {
             'application.validator.invalid.minlength': 'La longitud mínima del campo "{{label}}" es {{min}}',
             'application.validator.invalid.maxlength': 'La longitud máxima del campo "{{label}}" es {{max}}',
             'application.validator.invalid.required': '{{label}} es requerido(a)',
