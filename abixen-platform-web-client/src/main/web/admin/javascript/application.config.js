@@ -124,7 +124,6 @@
         platformSecurityResolver.$inject = ['platformSecurity'];
 
         function platformSecurityResolver(platformSecurity) {
-            console.log("platform security resolver");
             platformSecurity.reloadPlatformUser();
         }
     }

@@ -94,6 +94,7 @@
                 function onSelectLanguage() {
                     navigation.selectedLocale = locale;
                     $translate.use(navigation.selectedLocale.name);
+                    platformSecurity.reloadPlatformUser();
                 }
             }
 
@@ -114,6 +115,7 @@
                 navigation.platformUser = platformSecurity.getPlatformUser();
                 navigation.avatarUrl = baseUserUrl + navigation.platformUser.id + '/avatar/' + navigation.platformUser.avatarFileName;
                 navigation.selectedLocale = $filter('filter')(navigation.locales, {name: navigation.platformUser.selectedLanguage})[0];
+                $translate.use(navigation.selectedLocale.name);
             }
 
             function onWidthChange(newValue) {
