@@ -66,7 +66,7 @@
                 {title: 'English', img: '/common/navigation/image/united-states_flat.png', name: 'ENGLISH'},
                 {title: 'Polski', img: '/common/navigation/image/poland_flat.png', name: 'POLISH'},
                 {title: 'Russian', img: '/common/navigation/image/russia_flat.png', name: 'RUSSIAN'},
-                {title: 'Spanish', img: '/common/navigation/image/spain_flat.png', name: 'SPAIN'},
+                {title: 'Spanish', img: '/common/navigation/image/spain_flat.png', name: 'SPANISH'},
                 {title: 'Ukrainian', img: '/common/navigation/image/ukraine_flat.png', name: 'UKRAINIAN'}
             ];
 
