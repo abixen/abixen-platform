@@ -24,7 +24,7 @@
 
     function CharDataPreview($resource) {
 
-        return $resource('/service/abixen/business-intelligence/application/multi-visualisation/data-preview/:seriesName', {}, {
+        return $resource('/api/service/abixen/business-intelligence/application/multi-visualisation/data-preview/:seriesName', {}, {
             query: {method: 'POST', params: {seriesName: '@seriesName'}, isArray: true}
         });
 

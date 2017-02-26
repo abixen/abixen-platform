@@ -23,13 +23,13 @@
     Template.$inject = ['$resource'];
 
     function Template($resource) {
-        return $resource('/service/abixen/web-content/admin/templates/:id', {}, {
+        return $resource('/api/service/abixen/web-content/admin/templates/:id', {}, {
             query: {method: 'GET', isArray: false},
             update: {method: 'PUT'},
             queryAll: {
                 method: 'GET',
                 isArray: true,
-                url: '/service/abixen/web-content/admin/templates/all'
+                url: '/api/service/abixen/web-content/admin/templates/all'
             }
         });
     }

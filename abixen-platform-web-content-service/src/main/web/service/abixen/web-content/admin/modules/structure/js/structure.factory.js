@@ -23,7 +23,7 @@
     Structure.$inject = ['$resource'];
 
     function Structure($resource) {
-        return $resource('/service/abixen/web-content/admin/structures/:id', {}, {
+        return $resource('/api/service/abixen/web-content/admin/structures/:id', {}, {
             query: {method: 'GET', isArray: false},
             update: {method: 'PUT'}
         });

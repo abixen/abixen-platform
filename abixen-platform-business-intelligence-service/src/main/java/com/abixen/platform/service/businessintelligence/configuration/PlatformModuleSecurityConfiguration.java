@@ -29,8 +29,6 @@ public class PlatformModuleSecurityConfiguration extends WebSecurityConfigurerAd
         http
                 .authorizeRequests()
                 .antMatchers("/configuration").permitAll()
-                .antMatchers("/service/abixen/business-intelligence/application/**").permitAll()
-                .antMatchers("/service/abixen/business-intelligence/admin/**").permitAll()
                 .antMatchers("/hystrix.stream").permitAll()
                 .anyRequest().authenticated()
                 .and()

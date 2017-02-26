@@ -36,7 +36,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/service/abixen/business-intelligence/application/kpi-chart/configuration")
+@RequestMapping(value = "/api/service/abixen/business-intelligence/application/kpi-chart/configuration")
 public class KpiChartConfigurationController {
 
     @Autowired

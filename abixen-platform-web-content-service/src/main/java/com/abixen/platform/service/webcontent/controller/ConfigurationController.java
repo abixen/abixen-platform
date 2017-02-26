@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/configuration")
+@RequestMapping(value = "/api/configuration")
 public class ConfigurationController {
 
     private final WebContentServiceConfigurationProperties webContentServiceConfigurationProperties;
