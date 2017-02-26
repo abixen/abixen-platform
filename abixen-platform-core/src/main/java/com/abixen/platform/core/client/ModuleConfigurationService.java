@@ -18,7 +18,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@javax.ws.rs.Path("/configuration")
+@javax.ws.rs.Path("/api/configuration")
 public interface ModuleConfigurationService {
 
     @GET

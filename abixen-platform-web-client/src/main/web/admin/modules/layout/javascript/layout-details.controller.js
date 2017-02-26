@@ -48,6 +48,11 @@
                 onSuccessSaveForm: onSuccessSaveForm
             }
         );
+
+        if($state.current.name === 'application.layouts.add'){
+          layoutDetails.entity.content='';
+        }
+
         function getValidators() {
             var validators = [];
             validators['title'] =
@@ -120,28 +125,5 @@
                 layoutDetails.entity.iconFileName = '';
             }
         }
-
-        angular.element(document).ready(function () {
-            layoutDetails.editor = CodeMirror.fromTextArea(document.getElementById("contentInput"), {
-                lineNumbers: true,
-                lineWrapping: true,
-                mode: "text/html",
-                matchBrackets: true,
-                theme: 'default'
-            });
-        });
-
-        $scope.$watch('layoutDetails.entity.content', function () {
-            if (layoutDetails.entity.content != null) {
-                layoutDetails.editor.getDoc().setValue(layoutDetails.entity.content);
-            }
-        });
-
-        layoutDetails.submitForm = function () {
-            if (layoutDetails.editor != null) {
-                layoutDetails.entity.content = layoutDetails.editor.getDoc().getValue();
-            }
-            layoutDetails.saveForm();
-         }
     }
 })();

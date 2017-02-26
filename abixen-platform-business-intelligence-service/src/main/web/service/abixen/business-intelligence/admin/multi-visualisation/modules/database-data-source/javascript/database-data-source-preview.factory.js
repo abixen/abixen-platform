@@ -23,7 +23,7 @@
     DatabaseDataSourcePreviewData.$inject = ['$resource'];
 
     function DatabaseDataSourcePreviewData($resource) {
-        return $resource('/service/abixen/business-intelligence/admin/multi-visualisation/database-data-sources/preview/', {}, {
+        return $resource('/api/service/abixen/business-intelligence/admin/multi-visualisation/database-data-sources/preview/', {}, {
             query: {method: 'POST', isArray: true}
         });
     }

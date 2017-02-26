@@ -2,19 +2,19 @@ var platformMagicNumberModuleServices = angular.module('platformMagicNumberModul
 
 platformMagicNumberModuleServices.factory('MagicNumberModuleInit', ['$resource',
     function ($resource) {
-        return $resource('/service/abixen/business-intelligence/application/magic-number/init/:id', {}, {
+        return $resource('/api/service/abixen/business-intelligence/application/magic-number/init/:id', {}, {
         });
     }]);
 
 platformMagicNumberModuleServices.factory('MagicNumberModule', ['$resource',
     function ($resource) {
-        return $resource('/service/abixen/business-intelligence/application/magic-number/:id', {}, {
+        return $resource('/api/service/abixen/business-intelligence/application/magic-number/:id', {}, {
         });
     }]);
 
 platformMagicNumberModuleServices.factory('MagicNumberModuleConfiguration', ['$resource',
     function ($resource) {
-        return $resource('/service/abixen/business-intelligence/application/magic-number/configuration/:id', {}, {
+        return $resource('/api/service/abixen/business-intelligence/application/magic-number/configuration/:id', {}, {
             update: {method: 'PUT'}
         });
     }]);

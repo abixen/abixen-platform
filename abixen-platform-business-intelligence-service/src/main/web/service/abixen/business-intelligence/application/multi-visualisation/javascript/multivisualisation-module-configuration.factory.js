@@ -24,7 +24,7 @@
 
     function ChartModuleConfiguration($resource) {
 
-        return $resource('/service/abixen/business-intelligence/application/multi-visualisation/configuration/:id', {}, {
+        return $resource('/api/service/abixen/business-intelligence/application/multi-visualisation/configuration/:id', {}, {
             update: {method: 'PUT'}
         });
 

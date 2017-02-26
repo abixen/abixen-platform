@@ -9,7 +9,7 @@ spring:
         initialInterval: 2000
         multiplier: 1.2
         maxInterval: 5000
-        maxAttempts: 10
+        maxAttempts: 20
 
 
 ---

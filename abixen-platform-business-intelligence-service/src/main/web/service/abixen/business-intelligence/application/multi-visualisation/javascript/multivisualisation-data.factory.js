@@ -24,7 +24,7 @@
 
     function CharData($resource) {
 
-        return $resource('/service/abixen/business-intelligence/application/multi-visualisation/data', {}, {
+        return $resource('/api/service/abixen/business-intelligence/application/multi-visualisation/data', {}, {
             query: {method: 'POST', isArray: true}
         });
 

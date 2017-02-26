@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/service/abixen/business-intelligence/application/kpi-chart/init")
+@RequestMapping(value = "/api/service/abixen/business-intelligence/application/kpi-chart/init")
 public class KpiChartInitController {
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")

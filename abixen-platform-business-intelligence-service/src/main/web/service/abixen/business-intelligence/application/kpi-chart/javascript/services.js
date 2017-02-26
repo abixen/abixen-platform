@@ -2,19 +2,19 @@ var platformKpiChartModuleServices = angular.module('platformKpiChartModuleServi
 
 platformKpiChartModuleServices.factory('KpiChartModuleInit', ['$resource',
     function ($resource) {
-        return $resource('/service/abixen/business-intelligence/application/kpi-chart/init/:id', {}, {
+        return $resource('/api/service/abixen/business-intelligence/application/kpi-chart/init/:id', {}, {
         });
     }]);
 
 platformKpiChartModuleServices.factory('KpiChartModule', ['$resource',
     function ($resource) {
-        return $resource('/service/abixen/business-intelligence/application/kpi-chart/:id', {}, {
+        return $resource('/api/service/abixen/business-intelligence/application/kpi-chart/:id', {}, {
         });
     }]);
 
 platformKpiChartModuleServices.factory('KpiChartModuleConfiguration', ['$resource',
     function ($resource) {
-        return $resource('/service/abixen/business-intelligence/application/kpi-chart/configuration/:id', {}, {
+        return $resource('/api/service/abixen/business-intelligence/application/kpi-chart/configuration/:id', {}, {
             update: {method: 'PUT'}
         });
     }]);

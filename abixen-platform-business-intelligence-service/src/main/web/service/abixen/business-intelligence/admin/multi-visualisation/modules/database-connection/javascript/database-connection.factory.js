@@ -23,22 +23,22 @@
     DatabaseConnection.$inject = ['$resource'];
 
     function DatabaseConnection($resource) {
-        return $resource('/service/abixen/business-intelligence/admin/multi-visualisation/database-connections/:id', {}, {
+        return $resource('/api/service/abixen/business-intelligence/admin/multi-visualisation/database-connections/:id', {}, {
             query: {method: 'GET', isArray: false},
             update: {method: 'PUT'},
             test: {
                 method: 'POST',
-                url: '/service/abixen/business-intelligence/admin/multi-visualisation/database-connections/test',
+                url: '/api/service/abixen/business-intelligence/admin/multi-visualisation/database-connections/test',
                 isArray: false
             },
             tables: {
                 method: 'GET',
-                url: '/service/abixen/business-intelligence/admin/multi-visualisation/database-connections/:id/tables',
+                url: '/api/service/abixen/business-intelligence/admin/multi-visualisation/database-connections/:id/tables',
                 isArray: true
             },
             tableColumns: {
                 method: 'GET',
-                url: '/service/abixen/business-intelligence/admin/multi-visualisation/database-connections/:id/tables/:tableName/columns',
+                url: '/api/service/abixen/business-intelligence/admin/multi-visualisation/database-connections/:id/tables/:tableName/columns',
                 isArray: true
             }
         });
