@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" name="XMLConfigTest" packages="org.apache.logging.log4j.test">
+    <Properties>
+        <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss SSS} [%p] [c=%c{1}] %m%n</Property>
+        <Property name="logsPath">logs</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="STDOUT">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+        </Console>
+        <RollingFile name="webContentServiceAppLog" fileName="${logsPath}/abixen-platform-web-content-service-app.log"
+                     filePattern="${logsPath}/$${date:yyyy-MM}/abixen-platform-web-content-service-app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+            <pattern>${pattern}</pattern>
+        </PatternLayout>
+            <policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <RollingFile name="webContentServiceRootLog" fileName="${logsPath}/abixen-platform-web-content-service-root.log"
+                     filePattern="${logsPath}/$${date:yyyy-MM}/abixen-platform-web-content-service-root-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+            <policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+</Appenders>
+    <Loggers>
+        <Logger name="com.abixen.platform.client.web" level="debug" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="webContentServiceAppLog">
+            </AppenderRef>
+        </Logger>
+
+        <Logger name="org.springframework" level="warn" additivity="false">
+            <AppenderRef ref="webContentServiceAppLog">
+            </AppenderRef>
+            <AppenderRef ref="STDOUT" level="warn"/>
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="webContentServiceRootLog">
+            </AppenderRef>
+        </Root>
+    </Loggers>
+</Configuration>

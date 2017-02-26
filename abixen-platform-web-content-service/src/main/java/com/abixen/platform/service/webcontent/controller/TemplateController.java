@@ -92,6 +92,15 @@ public class TemplateController {
         return templateService.findTemplateById(id);
     }
 
+    @RequestMapping(value = "/{id}/variables", method = RequestMethod.GET)
+    public List<String> getTemplateVariables(@PathVariable Long id) {
+        log.debug("getTemplateVariables() - id: {}", id);
+
+        List<String> variables = templateService.getTemplateVariables(id);
+
+        return variables;
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<Template> getTemplates(@PageableDefault(size = 1) Pageable pageable) {
         log.debug("getTemplates() - pageable: {}", pageable);
