@@ -34,6 +34,4 @@ public interface TemplateService {
     Page<Template> findAllTemplates(Pageable pageable);
 
     List<Template> findAllTemplates();
-
-    List<String> getTemplateVariables(Long id);
 }

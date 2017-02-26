@@ -19,7 +19,6 @@ import com.abixen.platform.service.webcontent.form.TemplateForm;
 import com.abixen.platform.service.webcontent.model.impl.Template;
 import com.abixen.platform.service.webcontent.repository.TemplateRepository;
 import com.abixen.platform.service.webcontent.service.TemplateService;
-import com.abixen.platform.service.webcontent.util.ParserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,9 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @Transactional
@@ -83,17 +80,5 @@ public class TemplateServiceImpl implements TemplateService {
     public List<Template> findAllTemplates() {
         log.debug("findAllTemplates()");
         return templateRepository.findAll();
-    }
-
-    @Override
-    public List<String> getTemplateVariables(Long templateId) {
-        log.debug("findTemplateById() - templateId: {}", templateId);
-        Template template = templateRepository.findOne(templateId);
-        if (template == null) {
-            throw new PlatformServiceRuntimeException(String.format("Template with id=%d not found", templateId));
-        }
-        Set<String> templateVariablesSet = ParserUtil.evaluateEL(template.getContent());
-        List<String> templateVariables = new ArrayList<String>(templateVariablesSet);
-        return templateVariables;
     }
 }
