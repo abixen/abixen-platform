@@ -20,14 +20,15 @@
             <div class="form-group">
                 <div class="row form-row">
                     <div class="col-sm-9">
-                        <input-text-area model="layoutDetails.entity.content"
-                                         id="xmlInput"
-                                         name="content"
-                                         label="{{'module.layout.content.label' | translate}}"
-                                         placeholder="{{'module.layout.content.placeholder' | translate}}"
-                                         validators="layoutDetails.validators"
-                                         rows="5">
-                        </input-text-area>
+                        <input-text-editor model="layoutDetails.entity.content"
+                                           form="layoutDetails.entityForm"
+                                           id="xmlInput"
+                                           name="content"
+                                           label="{{'module.layout.content.label' | translate}}"
+                                           placeholder="{{'module.layout.content.placeholder' | translate}}"
+                                           validators="layoutDetails.validators"
+                                           rows="5">
+                        </input-text-editor>
                     </div>
                 </div>
             </div>
@@ -68,7 +69,7 @@
             <div class="row form-row">
                 <div class="row bottom-navigation ng-scope">
                     <div class="col-sm-offset-3 col-sm-6" ng-show="!layoutDetails.isUploadIcon">
-                        <a class="btn save-button ng-click-active"  ng-click="layoutDetails.submitForm()"
+                        <a class="btn save-button ng-click-active"  ng-click="layoutDetails.saveForm()"
                            ng-disabled="layoutDetails.entityForm.$invalid">
                             <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
                         <a class="btn cancel-button" ui-sref="application.layouts.list">
