@@ -42,11 +42,12 @@
             }
         );
 
-        structureDetails.cancel = cancel;
+        if($state.current.name === 'application.webContentService.structure.add'){
+            structureDetails.entity.content='';
+        }
 
-        
+        structureDetails.cancel = cancel;
         getTemplates();
-        initXmlEditor();
 
         function onSuccessSaveForm() {
             $state.go('application.webContentService.structure.list');
@@ -67,7 +68,8 @@
 
             validators['content'] =
                 [
-                    new Length(0, 1000)
+                    new NotNull(),
+                    new Length(1, 1000)
                 ];
 
             validators['template'] =
@@ -83,18 +85,6 @@
             function onQueryResult(templates) {
                 structureDetails.templates = templates;
             }
-        }
-        
-        function initXmlEditor(){
-            angular.element(document).ready(function () {
-                var editor = CodeMirror.fromTextArea(document.getElementById("contentInput"), {
-                    lineNumbers: true,
-                    lineWrapping: true,
-                    mode: "text/html",
-                    matchBrackets: true,
-                    theme: 'default'
-                });
-            });
         }
     }
 })();

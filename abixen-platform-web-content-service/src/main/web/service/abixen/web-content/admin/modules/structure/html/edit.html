@@ -9,14 +9,15 @@
                         validators="structureDetails.validators">
             </input-text>
 
-            <input-text-area model="structureDetails.entity.content"
+            <input-text-editor model="structureDetails.entity.content"
                              name="content"
                              id="xmlInput"
+                             form="structureDetails.entityForm"
                              label="{{'structureDetails.content.label' | translate}}"
                              placeholder="{{'structureDetails.content.placeholder' | translate}}"
                              validators="structureDetails.validators"
                              rows="5">
-            </input-text-area>
+            </input-text-editor>
 
             <input-drop-down name="template"
                              id="templateInput"
