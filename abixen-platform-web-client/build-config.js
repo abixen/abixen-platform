@@ -66,7 +66,8 @@ module.exports = {
             'bower_components/moment/locale/en-gb.js',
             'bower_components/angular-moment/angular-moment.js',
             'src/main/web/lib/show-errors.min.js',
-            'src/main/web/lib/ng-storage.min.js'
+            'src/main/web/lib/ng-storage.min.js',
+            'src/main/web/lib/code-mirror/xml.js'
         ],
         fontawesome: 'bower_components/fontawesome/fonts/*',
         roboto: 'bower_components/roboto-fontface/fonts/*',

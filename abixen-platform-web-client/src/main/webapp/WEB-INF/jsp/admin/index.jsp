@@ -50,6 +50,7 @@
 <script src="<c:url value='/lib/ng-scrollbar.min.js' />"></script>
 <script src="<c:url value='/lib/ckeditor/ckeditor.js' />"></script>
 <script src="<c:url value='/common/modules.min.js' />"></script>
+<script src="<c:url value='/lib/xml.js' />"></script>
 
 <c:forEach var="resource" items="${resources}">
     <c:if test="${resource.resourcePage == ResourcePage.ADMIN && resource.resourcePageLocation == ResourcePageLocation.BODY && resource.resourceType == ResourceType.JAVASCRIPT}">
