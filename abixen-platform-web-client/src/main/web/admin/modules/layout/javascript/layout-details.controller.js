@@ -48,6 +48,11 @@
                 onSuccessSaveForm: onSuccessSaveForm
             }
         );
+
+        if($state.current.name === 'application.layouts.add'){
+          layoutDetails.entity.content='';
+        }
+
         function getValidators() {
             var validators = [];
             validators['title'] =

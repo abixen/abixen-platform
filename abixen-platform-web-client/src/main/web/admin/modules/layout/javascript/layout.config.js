@@ -40,7 +40,8 @@
             .state('application.layouts.add', {
                 url: '/add',
                 templateUrl: '/admin/modules/layout/html/edit.html',
-                controller: 'LayoutDetailsController'
+                controller: 'LayoutDetailsController',
+                controllerAs: 'layoutDetails'
             })
             .state('application.layouts.edit', {
                 url: '/edit/:id',
