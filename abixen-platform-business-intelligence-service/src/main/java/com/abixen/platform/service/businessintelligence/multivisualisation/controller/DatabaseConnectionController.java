@@ -38,7 +38,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/service/abixen/business-intelligence/admin/multi-visualisation/database-connections")
+@RequestMapping(value = "/api/service/abixen/business-intelligence/admin/multi-visualisation/database-connections")
 public class DatabaseConnectionController {
 
     private final DatabaseConnectionService databaseConnectionService;

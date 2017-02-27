@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/service/abixen/business-intelligence/admin/multi-visualisation/data-sources")
+@RequestMapping(value = "/api/service/abixen/business-intelligence/admin/multi-visualisation/data-sources")
 public class DataSourceController {
 
     private final DataSourceService dataSourceService;

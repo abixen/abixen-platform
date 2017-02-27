@@ -30,7 +30,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/service/abixen/business-intelligence/application/multi-visualisation/data-preview")
+@RequestMapping(value = "/api/service/abixen/business-intelligence/application/multi-visualisation/data-preview")
 public class ChartDataPreviewController {
 
     private final ChartDataService chartDataService;

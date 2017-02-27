@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/service/abixen/business-intelligence/application/multi-visualisation/data")
+@RequestMapping(value = "/api/service/abixen/business-intelligence/application/multi-visualisation/data")
 public class ChartDataController {
 
     private final ChartDataService chartDataService;

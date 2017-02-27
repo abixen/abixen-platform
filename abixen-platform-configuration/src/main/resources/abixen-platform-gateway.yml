@@ -21,15 +21,6 @@ zuul:
     connect-timeout-millis: 10000
     socket-timeout-millis: 60000
   routes:
-    resource:
-      path: /resource/**
-      url: http://core:9000
-      sensitive-headers:
-    api:
-      path: /api/**
-      url: http://core:9000/api
-      sensitive-headers:
-
     # Begin of custom module microservices - add mapping relevant to your microservice
 
     # Begin of Business Intelligence microservice
@@ -71,7 +62,14 @@ zuul:
     # End of Web Content microservice
 
     # End of custom module microservices
-
+    resource:
+      path: /resource/**
+      url: http://core:9000
+      sensitive-headers:
+    api:
+      path: /api/**
+      url: http://core:9000/api
+      sensitive-headers:
 hystrix:
   command:
     default:
@@ -105,15 +103,6 @@ spring:
 
 zuul:
   routes:
-    resource:
-      path: /resource/**
-      url: http://localhost:9000
-      sensitive-headers:
-    api:
-      path: /api/**
-      url: http://localhost:9000/api
-      sensitive-headers:
-
     # Begin of custom module microservices - add mapping relevant to your microservice
 
     # Begin of Business Intelligence microservice
@@ -155,7 +144,14 @@ zuul:
     # End of Web Content microservice
 
     # End of custom module microservices
-
+    resource:
+      path: /resource/**
+      url: http://localhost:9000
+      sensitive-headers:
+    api:
+      path: /api/**
+      url: http://localhost:9000/api
+      sensitive-headers:
 hystrix:
   command:
     default:
