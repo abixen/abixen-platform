@@ -19,7 +19,9 @@ import com.abixen.platform.core.dto.FormValidationResultDto;
 import com.abixen.platform.core.util.ValidationUtil;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataFileWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataFileService;
@@ -31,6 +33,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -101,5 +104,12 @@ public class DataFileController {
         log.debug("getTableColumns()");
         return dataFileService.getDataFileColumns(id);
     }
+
+    @RequestMapping(value = "/parse")
+    public FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile uploadedFile) {
+        return dataFileService.uploadAndParseFile(uploadedFile);
+    }
+
+
 
 }
