@@ -33,7 +33,7 @@ module.exports = {
             'src/main/web/service/abixen/web-content/admin/**/*.js'
         ],
         concatOrder: [
-            'src/main/web/**/*template-cache.config.js',
+            'src/main/web/**/*templatecache.config.js',
             'src/main/web/**/*.module.js',
             'src/main/web/**/*.js'
         ]
