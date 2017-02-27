@@ -12,11 +12,11 @@
  * details.
  */
 
-
 (function () {
 
     'use strict';
 
     angular
-        .module('platformFileDataModule', ['platformUploadFileModule','businessIntelligenceServiceTemplatecache']);
+        .module('businessIntelligenceServiceTemplatecache', []
+        );
 })();
