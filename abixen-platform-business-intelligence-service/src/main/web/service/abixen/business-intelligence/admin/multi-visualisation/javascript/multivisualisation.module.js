@@ -20,6 +20,7 @@
     angular
         .module('multiVisualisationModule', [
             'platformDataSourceModule',
-            'platformSheetReaderModule'
+            'platformSheetReaderModule',
+            'business.intelligence.templatecache'
         ]);
 })();

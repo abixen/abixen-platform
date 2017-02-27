@@ -17,5 +17,6 @@
     'use strict';
 
     angular
-        .module('platformSheetReaderModule', ['business.intelligence.templatecache']);
+        .module('business.intelligence.templatecache', []);
 })();
+
