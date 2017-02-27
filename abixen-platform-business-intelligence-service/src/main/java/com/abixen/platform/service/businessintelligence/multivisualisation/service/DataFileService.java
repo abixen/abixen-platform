@@ -15,10 +15,13 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -45,4 +48,6 @@ public interface DataFileService {
     DataFile updateDataFile(DataFile dataFile);
 
     DataFile findDataFile(Long id);
+
+    FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile fileToParse);
 }
