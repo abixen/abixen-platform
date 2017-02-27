@@ -6,6 +6,7 @@
         .module('platformChartModule', [
             'nvd3',
             'platformModuleComponent',
-            'platformListGridModule'
+            'platformListGridModule',
+            'businessIntelligenceServiceTemplatecache'
         ]);
 })();
