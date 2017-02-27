@@ -12,11 +12,10 @@
  * details.
  */
 
-
 (function () {
 
     'use strict';
 
     angular
-        .module('platformDataSourceModule', [ 'platformFileDataModule', 'platformFileDataSourceModule', 'platformDatabaseDataSourceModule', 'platformDatabaseConnectionModule', 'ngResource', 'businessIntelligenceTemplatecache']);
+        .module('businessIntelligenceTemplatecache', []);
 })();

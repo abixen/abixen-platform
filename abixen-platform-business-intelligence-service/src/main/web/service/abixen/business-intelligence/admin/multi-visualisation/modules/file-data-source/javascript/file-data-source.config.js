@@ -28,23 +28,23 @@
         $stateProvider
             .state('application.multiVisualisation.modules.fileDataSource', {
                 url: '/file-data-source',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data-source/html/index.html'
+                templateUrl: 'service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data-source/html/index.html'
             })
             .state('application.multiVisualisation.modules.fileDataSource.list', {
                 url: '/list',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data-source/html/list.html',
+                templateUrl: 'service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data-source/html/list.html',
                 controller: 'FileDataSourceListController',
                 controllerAs: 'fileDataSourceList'
             })
             .state('application.multiVisualisation.modules.fileDataSource.add', {
                 url: '/add',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data-source/html/edit.html',
+                templateUrl: 'service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data-source/html/edit.html',
                 controller: 'FileDataSourceDetailController',
                 controllerAs: 'fileDataSourceDetails'
             })
             .state('application.multiVisualisation.modules.fileDataSource.edit', {
                 url: '/edit/:id',
-                templateUrl: '/service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data-source/html/edit.html',
+                templateUrl: 'service/abixen/business-intelligence/admin/multi-visualisation/modules/file-data-source/html/edit.html',
                 controller: 'FileDataSourceDetailController',
                 controllerAs: 'fileDataSourceDetails'
             });
