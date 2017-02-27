@@ -28,7 +28,7 @@ gulp.task('build', buildTask);
 gulp.task('adminLibs', adminLibsTask);
 gulp.task('dev', ['build'], devTask);
 gulp.task('default', ['build']);
-gulp.task('angularTemplateCache', ['templateCache'], angularTemplateCacheTask)
+gulp.task('angularTemplateCache', ['templateCache']);
 
 function cleanTask() {
 
@@ -46,14 +46,10 @@ function templatesTask() {
 function templateCacheTask(){
 
     return gulp.src(config.templates.files)
-        .pipe(templateCache('template-cache.js', {module : 'templatecache' }))
+        .pipe(templateCache('web-content-service.templatecache.js', {module : 'webContentServiceTemplatecache' }))
         .pipe(gulp.dest(config.dest.templateCache));
 }
 
-function angularTemplateCacheTask(){
-
-    return genericScriptsTask(config.scripts.adminFiles, config.dest.adminScripts);
-}
 function adminScriptsTask() {
 
     return genericScriptsTask(config.scripts.adminFiles, config.dest.adminScripts);
@@ -92,9 +88,9 @@ function genericStylesTask(sourceSassPath, destinationStylesPath) {
 function buildTask(callback) {
 
     runSequence('clean',
+        'angularTemplateCache',
         'adminLibs',
         [
-            'angularTemplateCache',
             'adminScripts',
             'templates',
             'adminStyles'
@@ -112,7 +108,7 @@ function devTask() {
 
     gulp.watch(config.scripts.adminFiles, ['adminScripts']);
 
-    gulp.watch(config.templates.files, ['templates']);
+    gulp.watch(config.templates.files, ['templates','angularTemplateCache']);
 
     gulp.watch(config.styles.adminWatch, ['adminStyles']);
 }
