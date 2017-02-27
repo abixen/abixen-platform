@@ -18,5 +18,5 @@
     'use strict';
 
     angular
-        .module('platformDatabaseConnectionModule', []);
+        .module('platformDatabaseConnectionModule', ['businessIntelligenceTemplatecache']);
 })();
