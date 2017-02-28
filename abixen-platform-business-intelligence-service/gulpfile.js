@@ -16,10 +16,13 @@ var gulp = require('gulp'),
     ignore = require('gulp-ignore'),
     del = require('del'),
     config = require('./build-config'),
+    templateCache = require('gulp-angular-templatecache'),
     devMode = true;
 
 gulp.task('clean', cleanTask);
 gulp.task('templates', templatesTask);
+gulp.task('adminTemplateCache', adminTemplateCacheTask);
+gulp.task('applicationTemplateCache', applicationTemplateCacheTask);
 gulp.task('adminScripts', adminScriptsTask);
 gulp.task('applicationScripts', applicationScriptsTask);
 gulp.task('adminStyles', adminStylesTask);
@@ -29,6 +32,8 @@ gulp.task('applicationLibs', applicationLibsTask);
 gulp.task('adminLibs', adminLibsTask);
 gulp.task('dev', ['build'], devTask);
 gulp.task('default', ['build']);
+gulp.task('angularTemplateCache', ['adminTemplateCache', 'applicationTemplateCache']);
+
 
 function cleanTask() {
 
@@ -41,6 +46,25 @@ function templatesTask() {
         .pipe(htmlMin(config.templates.minifyOpts))
         .on('error', gutil.log)
         .pipe(gulp.dest(config.dest.dir));
+}
+
+function genericTemplateCacheTask(sourceTemplatePath, destinationScriptPath){
+
+    return gulp.src(sourceTemplatePath)
+        .pipe(templateCache('business-intelligence-service.templatecache.js', {module : 'businessIntelligenceServiceTemplatecache' }))
+        .pipe(gulp.dest(destinationScriptPath));
+}
+
+function adminTemplateCacheTask(){
+
+    return genericTemplateCacheTask(config.templates.files, config.dest.adminTemplateCache);
+
+}
+
+function applicationTemplateCacheTask(){
+
+    return genericTemplateCacheTask(config.templates.files, config.dest.applicationTemplateCache);
+
 }
 
 function adminScriptsTask() {
@@ -91,6 +115,7 @@ function genericStylesTask(sourceSassPath, destinationStylesPath) {
 function buildTask(callback) {
 
     runSequence('clean',
+        'angularTemplateCache',
         'applicationLibs',
         'adminLibs',
         [
@@ -119,7 +144,7 @@ function devTask() {
     gulp.watch(config.scripts.adminFiles, ['adminScripts']);
     gulp.watch(config.scripts.applicationFiles, ['applicationScripts']);
 
-    gulp.watch(config.templates.files, ['templates']);
+    gulp.watch(config.templates.files, ['templates', 'angularTemplateCache']);
 
     gulp.watch(config.styles.adminWatch, ['adminStyles']);
     gulp.watch(config.styles.applicationWatch, ['applicationStyles']);

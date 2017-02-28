@@ -13,7 +13,7 @@
   "noarg": true,
   "noempty": true,
   "nonbsp": true,
-  "nonew": true,
+  "nonew": false,
   "plusplus": false,
   "quotmark": "single",
   "undef": true,
@@ -60,6 +60,7 @@
     "NotNull": false,
     "Length": false,
     "ConfirmField": false,
-    "Email": false
+    "Email": false,
+    "platformParameters": false
   }
 }

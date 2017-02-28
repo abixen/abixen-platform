@@ -18,5 +18,5 @@
     'use strict';
 
     angular
-        .module('platformDatabaseDataSourceModule', []);
+        .module('platformDatabaseDataSourceModule', ['businessIntelligenceServiceTemplatecache']);
 })();

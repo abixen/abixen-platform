@@ -24,7 +24,7 @@
         $log.log('UserAccountDetailsController');
 
         var userId = platformSecurity.getPlatformUser().id;
-        var userBaseUrl = "/api/application/users/";
+        var userBaseUrl = '/api/application/users/';
         var userAccountDetails = this;
 
         userAccountDetails.userDetails = {};
@@ -74,7 +74,7 @@
                     userAccountDetails.changePassword.saveForm();
                     break;
                 default:
-                    throw new Error('Unsupported a saveForm() operation.')
+                    throw new Error('Unsupported a saveForm() operation.');
             }
         }
 
@@ -98,11 +98,11 @@
         function creteUploder() {
             var uploader = new FileUploader({
                 url: userBaseUrl + userId + '/avatar',
-                method: "POST",
+                method: 'POST',
                 alias: 'avatarFile',
                 queueLimit: 1,
                 headers: {
-                    "X-XSRF-TOKEN": $cookies.get($http.defaults.xsrfCookieName)
+                    'X-XSRF-TOKEN': $cookies.get($http.defaults.xsrfCookieName)
                 }
             });
 

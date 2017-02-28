@@ -85,6 +85,7 @@
 
             var pageModelDto = {page: page, dashboardModuleDtos: dashboardModuleDtos};
             pageModelDto.page.title = model.title;
+            pageModelDto.page.description = model.description;
 
             return pageModelDto;
         }

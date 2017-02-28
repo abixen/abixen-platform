@@ -22,7 +22,7 @@
             'webContentServiceTemplateModule',
             'webContentServiceWebContentModule',
             'ui.router',
-            'templatecache'
+            'webContentServiceTemplatecache'
         ]);
 })();
 

@@ -81,7 +81,8 @@
 
         function getAvatarFullPath() {
             var res = '';
-            if (angular.isDefined(comment.commentItem) && comment.commentItem != null) {
+            if (angular.isDefined(comment.commentItem) && comment.commentItem !== null &&
+                angular.isDefined(comment.commentItem.user) && comment.commentItem.user !== null) {
                 res = '/api/application/users/' + comment.commentItem.user.id + '/avatar/' + comment.commentItem.user.avatarFileName;
             }
             return res;
@@ -96,7 +97,7 @@
         }
 
         function openReplyForm(commentId) {
-            var selector = '#reply-ref-' + commentId;
+            var selector = '#comments-post-div-' + comment.commentItem.moduleId;
             action = 'ADD';
             comment.entity = {};
             comment.entity.parentId = comment.commentItem.id;
@@ -105,7 +106,7 @@
         }
 
         function openEditForm(commentId) {
-            var selector = '#reply-ref-' + commentId;
+            var selector = '#comments-post-div-' + comment.commentItem.moduleId;
             commentBeforeEdit = angular.copy(comment.commentItem);
             comment.entity = comment.commentItem;
             action = 'EDIT';
@@ -113,7 +114,7 @@
         }
 
         function openAddForm() {
-            var selector = '#root-comment-ul-' + comment.moduleId;
+            var selector = '#comments-post-div-' + comment.moduleId;
             action = 'ADD_ROOT';
             comment.entity = {};
             comment.entity.parentId = null;

@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/service/abixen/business-intelligence/application/multi-visualisation")
+@RequestMapping(value = "/api/service/abixen/business-intelligence/application/multi-visualisation")
 public class ChartInitController {
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")

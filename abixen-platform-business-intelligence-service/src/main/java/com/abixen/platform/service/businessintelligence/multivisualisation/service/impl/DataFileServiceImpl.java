@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValue;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueDouble;
@@ -26,6 +27,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.model
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataFileRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataFileService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DomainBuilderService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileParserService;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -33,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -47,6 +50,9 @@ public class DataFileServiceImpl implements DataFileService {
 
     @Autowired
     private DomainBuilderService domainBuilderService;
+
+    @Autowired
+    private FileParserService fileParserService;
 
     @Override
     public Page<DataFile> getDataFile(String jsonCriteria, Pageable pageable) {
@@ -169,6 +175,11 @@ public class DataFileServiceImpl implements DataFileService {
         return result;
     }
 
+    @Override
+    public FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile multipartFile) {
+        return fileParserService.parseFile(multipartFile);
+    }
+
     private DataValue getObjForValue(String value) {
         DataValue dataValue;
         if (value == null) {
@@ -190,4 +201,5 @@ public class DataFileServiceImpl implements DataFileService {
         }
         return dataValue;
     }
+
 }
