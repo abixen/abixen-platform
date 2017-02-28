@@ -1,5 +1,5 @@
-<li ng-if="comment.commentItem == null">
-    <ul class="sub-text" id="root-comment-ul-{{comment.moduleId}}">
+<li class="without-list-style" ng-if="comment.commentItem == null">
+    <ul id="root-comment-ul-{{comment.moduleId}}">
         <div style="display: inline">
             <a ng-href ng-click="comment.openAddForm()" style="cursor: pointer">Add new comment</a>
         </div>
@@ -32,7 +32,7 @@
         </div>
     </ul>
 
-    <ul ng-repeat="child in comment.commentItem.children" class="without-list-style">
+    <ul ng-repeat="child in comment.commentItem.children" class="without-list-style" on-ng-repeat-render-finish="comments-scroll:rebuild">
         <comment depth="10" comment-item="child" roots="comment.commentItem.children"></comment>
     </ul>
 </li>
