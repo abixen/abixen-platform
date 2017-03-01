@@ -37,7 +37,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import java.util.*;
 
 
@@ -45,14 +44,18 @@ import java.util.*;
 @Service
 public class DataFileServiceImpl implements DataFileService {
 
-    @Resource
     private DataFileRepository dataFileRepository;
 
-    @Autowired
     private DomainBuilderService domainBuilderService;
 
+    private FileParserFactory fileParserFactory;
+
     @Autowired
-    private FileParserService fileParserService;
+    public DataFileServiceImpl(FileParserFactory fileParserFactory, DomainBuilderService domainBuilderService, DataFileRepository dataFileRepository) {
+        this.domainBuilderService = domainBuilderService;
+        this.fileParserFactory = fileParserFactory;
+        this.dataFileRepository = dataFileRepository;
+    }
 
     @Override
     public Page<DataFile> getDataFile(String jsonCriteria, Pageable pageable) {
@@ -177,6 +180,8 @@ public class DataFileServiceImpl implements DataFileService {
 
     @Override
     public FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile multipartFile) {
+        String fileName = multipartFile.getOriginalFilename();
+        FileParserService fileParserService = fileParserFactory.getParse(fileName.substring(fileName.lastIndexOf(".")));
         return fileParserService.parseFile(multipartFile);
     }
 

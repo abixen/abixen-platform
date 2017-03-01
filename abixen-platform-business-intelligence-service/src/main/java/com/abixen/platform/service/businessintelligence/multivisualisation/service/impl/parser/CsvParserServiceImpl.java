@@ -33,7 +33,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
-@Service
+@Service("csvParserService")
 public class CsvParserServiceImpl implements FileParserService {
     private final char separator = ';';
     private final Integer headerColumnIndex = 0;
