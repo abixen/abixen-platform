@@ -172,7 +172,7 @@ services:
       POSTGRES_USER: abixen
       POSTGRES_DB: abixen_platform_core
     volumes:
-      - ../data/db/postgresql/core:/var/lib/postgresql/data
+      - vol-core-db:/var/lib/postgresql/data
     extends:
       service: base
 
@@ -185,7 +185,7 @@ services:
       POSTGRES_USER: abixen
       POSTGRES_DB: abixen_platform_businessintelligence_service
     volumes:
-      - ../data/db/postgresql/businessintelligence:/var/lib/postgresql/data
+      - vol-businessintelligence-db:/var/lib/postgresql/data
     extends:
       service: base
 
@@ -198,7 +198,7 @@ services:
       POSTGRES_USER: abixen
       POSTGRES_DB: abixen_platform_web_content_service
     volumes:
-      - ../data/db/postgresql/web_content:/var/lib/postgresql/data
+      - vol-web-content-db:/var/lib/postgresql/data
     extends:
       service: base
 
@@ -234,3 +234,8 @@ services:
 
 networks:
   default:
+
+volumes:
+  vol-web-content-db:
+  vol-businessintelligence-db:
+  vol-core-db:
