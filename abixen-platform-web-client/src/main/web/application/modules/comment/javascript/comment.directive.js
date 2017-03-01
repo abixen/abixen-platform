@@ -124,7 +124,9 @@
 
         function cancelForm() {
             if (addCommentForm) {
-                angular.copy(commentBeforeEdit, comment.commentItem);
+                if (action === 'EDIT'){
+                    angular.copy(commentBeforeEdit, comment.commentItem);
+                }
                 addCommentForm.remove();
                 replyClickCounter = 0;
             }
