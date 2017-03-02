@@ -60,7 +60,6 @@ function AbstractListGridController(Resource, config) {
     abstractListGridController.deleteEntity = deleteEntity;
 
 
-
     function deleteEntity(entity) {
         Resource.delete({id: entity.id}, null, function () {
             search();

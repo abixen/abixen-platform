@@ -49,22 +49,8 @@
                 {field: 'id', name: 'Id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
                 {field: 'title', name: 'Title', pinnedLeft: true, width: 200},
                 {field: 'description', name: 'Description', pinnedLeft: true, width: 200},
-                {field: 'moduleType.title', name: 'Module type', pinnedLeft: true, width: 200},
-                {field: 'createdBy.username', name: 'Created By', width: 200},
-                {
-                    field: 'createdDate',
-                    name: 'Created Date',
-                    width: 200,
-                    cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
-                },
-                {field: 'lastModifiedBy.username', name: 'Last Modified By', width: 200},
-                {
-                    field: 'lastModifiedDate',
-                    name: 'Last Modified Date',
-                    width: 200,
-                    cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
-                }
-            ];
+                {field: 'moduleType.title', name: 'Module type', pinnedLeft: true, width: 200}
+            ].concat(getAuditingTableColumns());
         }
 
         function updateNavigation() {
