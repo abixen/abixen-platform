@@ -107,7 +107,7 @@ services:
      - zipkin
     labels:
       - "traefik.port=8080"
-      - "traefik.frontend.rule=Host:abixen-platform.example.com"
+      - "traefik.frontend.rule=Host:local.platform.abixen.com"
       - "traefik.backend.loadbalancer.sticky=true"
     ports:
       - "9010:9010"
