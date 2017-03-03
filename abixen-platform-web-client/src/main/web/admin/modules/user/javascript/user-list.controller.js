@@ -59,22 +59,8 @@
                 {field: 'firstName', name: 'First Name', width: 200},
                 {field: 'lastName', name: 'Last Name', width: 200},
                 {field: 'state', name: 'State', width: 100},
-                {field: 'registrationIp', name: 'Registration Ip', width: 200},
-                {field: 'createdBy.username', name: 'Created By', width: 200},
-                {
-                    field: 'createdDate',
-                    name: 'Created Date',
-                    width: 200,
-                    cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
-                },
-                {field: 'lastModifiedBy.username', name: 'Last Modified By', width: 200},
-                {
-                    field: 'lastModifiedDate',
-                    name: 'Last Modified Date',
-                    width: 200,
-                    cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
-                }
-            ];
+                {field: 'registrationIp', name: 'Registration Ip', width: 200}
+            ].concat(getAuditingTableColumns());
         }
 
         function createSearchFields() {

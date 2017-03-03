@@ -43,20 +43,8 @@
         function getTableColumns() {
             return [
                 {field: 'id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
-                {field: 'title', pinnedLeft: true, width: 200},
-                {field: 'createdBy.username', name: 'Created By', width: 200},
-                {
-                    field: 'createdDate',
-                    width: 200,
-                    cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
-                },
-                {field: 'lastModifiedBy.username', name: 'Last Modified By', width: 200},
-                {
-                    field: 'lastModifiedDate',
-                    width: 200,
-                    cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
-                }
-            ];
+                {field: 'title', pinnedLeft: true, width: 200}
+            ].concat(getAuditingTableColumns());
         }
 
         function updateNavigation() {

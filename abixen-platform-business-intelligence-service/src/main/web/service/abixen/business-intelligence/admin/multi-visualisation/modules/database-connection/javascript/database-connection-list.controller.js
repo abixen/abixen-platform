@@ -48,22 +48,8 @@
                 {field: 'databaseType', name: 'Database Type', pinnedLeft: true, width: 200},
                 {field: 'databaseHost', name: 'Database Host', width: 200},
                 {field: 'databasePort', name: 'Database Port', width: 200},
-                {field: 'databaseName', name: 'Database Name', width: 200},
-                {field: 'createdBy.username', name: 'Created By', width: 200},
-                {
-                    field: 'createdDate',
-                    name: 'Created Date',
-                    width: 200,
-                    cellFilter: 'date:\'' + platformParameters.formats.DATE_TIME_FORMAT + '\''
-                },
-                {field: 'lastModifiedBy.username', name: 'Last Modified By', width: 200},
-                {
-                    field: 'lastModifiedDate',
-                    name: 'Last Modified Date',
-                    width: 200,
-                    cellFilter: 'date:\'' + platformParameters.formats.DATE_TIME_FORMAT + '\''
-                }
-            ];
+                {field: 'databaseName', name: 'Database Name', width: 200}
+            ].concat(getAuditingTableColumns());
         }
 
         function updateNavigation() {

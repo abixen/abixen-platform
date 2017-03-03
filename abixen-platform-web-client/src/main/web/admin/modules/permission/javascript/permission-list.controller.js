@@ -50,22 +50,8 @@
                 {field: 'permissionGeneralCategory.title', name: 'General Category', pinnedLeft: true, width: 200},
                 {field: 'permissionAclClassCategory.title', name: 'ACL Category', pinnedLeft: true, width: 200},
                 {field: 'description', name: 'Description', enableSorting: false, width: 200/*, filter: {term: '(x1|x2)&(z1|z2)'}*/},
-                {field: 'permissionName', name: 'Permission Name', width: 200},
-                {field: 'createdBy.username', name: 'Created By', width: 200},
-                {
-                    field: 'createdDate',
-                    name: 'Created Date',
-                    width: 200,
-                    cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
-                },
-                {field: 'lastModifiedBy.username', name: 'Last Modified By', width: 200},
-                {
-                    field: 'lastModifiedDate',
-                    name: 'Last Modified Date',
-                    width: 200,
-                    cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
-                }
-            ];
+                {field: 'permissionName', name: 'Permission Name', width: 200}
+            ].concat(getAuditingTableColumns());
         }
 
         function updateNavigation() {

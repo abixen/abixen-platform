@@ -61,6 +61,7 @@
     "Length": false,
     "ConfirmField": false,
     "Email": false,
-    "platformParameters": false
+    "platformParameters": false,
+    "getAuditingTableColumns": false
   }
 }
