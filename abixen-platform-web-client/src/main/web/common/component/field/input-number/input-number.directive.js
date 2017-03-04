@@ -17,27 +17,25 @@
 
     angular
         .module('platformField')
-        .directive('inputText', inputText);
+        .directive('inputNumber', inputNumber);
 
-    inputText.$inject = ['validation'];
-    function inputText(validation) {
+    inputNumber.$inject = ['validation'];
+    function inputNumber(validation) {
 
         return {
             restrict: 'E',
             require: '^form',
-            templateUrl: '/common/component/field/input-text/input-text.template.html',
+            templateUrl: '/common/component/field/input-number/input-number.template.html',
             scope: {
                 model: '=',
                 validators: '=',
-                type: '@',
                 label: '@',
-                placeholder: '@',
                 name: '@',
                 size: '@'
             },
             link: link,
             controller: InputTextController,
-            controllerAs: 'inputText',
+            controllerAs: 'inputNumber',
             bindToController: true
         };
 
@@ -57,32 +55,24 @@
     InputTextController.$inject = ['fieldSize'];
 
     function InputTextController(fieldSize) {
-        var DEFAULT_TYPE = 'text';
-        var inputText = this;
+        var inputNumber = this;
 
         initValidators();
-        initType();
         initResponsiveClasses();
 
         function initValidators() {
-            if (!inputText.validators) {
+            if (!inputNumber.validators) {
                 return;
             }
 
-            inputText.fieldValidators = {};
-            angular.forEach(inputText.validators[inputText.name], function (validator) {
-                angular.extend(inputText.fieldValidators, validator);
+            inputNumber.fieldValidators = {};
+            angular.forEach(inputNumber.validators[inputNumber.name], function (validator) {
+                angular.extend(inputNumber.fieldValidators, validator);
             });
         }
 
-        function initType() {
-            if (inputText.type === undefined) {
-                inputText.type = DEFAULT_TYPE;
-            }
-        }
-
         function initResponsiveClasses() {
-            inputText.responsiveClasses = fieldSize.getClasses(inputText.size);
+            inputNumber.responsiveClasses = fieldSize.getClasses(inputNumber.size);
         }
     }
 })();

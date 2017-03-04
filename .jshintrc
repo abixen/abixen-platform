@@ -59,6 +59,7 @@
     "AbstractDetailsController": false,
     "NotNull": false,
     "Length": false,
+    "Size": false,
     "ConfirmField": false,
     "Email": false,
     "platformParameters": false,

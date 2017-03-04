@@ -1,0 +1,34 @@
+<div class="form-group"
+     show-errors>
+    <label for="{{inputNumber.name}}Input"
+           class="control-label">{{inputNumber.label}}</label>
+    <input ng-model="inputNumber.model"
+           type="number"
+           name="{{inputNumber.name}}"
+           class="form-control"
+           id="{{inputNumber.name}}Input"
+           ng-required="inputNumber.fieldValidators.notNull"
+           ng-min="inputNumber.fieldValidators.range.min"
+           ng-max="inputNumber.fieldValidators.range.max"
+           confirm-field="{{inputNumber.fieldValidators.confirmField.fieldToCheck}}"/>
+
+    <p class="help-block"
+       ng-if="form[inputNumber.name].$error.min && !form[inputNumber.name].$pristine">
+        {{ 'application.validator.invalid.min' | translate:{min: inputNumber.fieldValidators.range.min, label: inputNumber.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputNumber.name].$error.max && !form[inputNumber.name].$pristine">
+        {{ 'application.validator.invalid.max' | translate:{max: inputNumber.fieldValidators.range.max, label: inputNumber.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputNumber.name].$error.required && !form[inputNumber.name].$pristine">
+        {{ 'application.validator.invalid.required' | translate:{label: inputNumber.label} }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputNumber.name].$error.fieldMatch && !form[inputNumber.name].$pristine">
+        {{ inputNumber.fieldValidators.confirmField.errorMessageKey | translate }}</p>
+
+    <p class="help-block"
+       ng-if="form[inputNumber.name].$error.serverMessage">
+        {{form[inputNumber.name].$error.serverMessage | translate}}</p>
+</div>
