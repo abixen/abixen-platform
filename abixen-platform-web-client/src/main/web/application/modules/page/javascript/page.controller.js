@@ -71,7 +71,7 @@
             }
         }
 
-        $scope.$on(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, function (event, name, model) {
+        $scope.$on(platformParameters.events.DASHBOARD_DASHBOARD_CHANGED_EVENT, function (event, name, model) {
             var pageModelDto = PageModelParser.createPageModelDto($scope.pageModelDto.page, model);
             configurePage(pageModelDto);
         });
@@ -81,7 +81,7 @@
             savePage(pageModelDto);
         });
 
-        $scope.$on(platformParameters.events.ADF_STRUCTURE_CHANGED_EVENT, function (event, structure) {
+        $scope.$on(platformParameters.events.DASHBOARD_LAYOUT_CHANGED_EVENT, function (event, structure) {
             $scope.pageModelDto.page.layout = structure;
         });
 

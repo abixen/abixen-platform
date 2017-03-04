@@ -57,7 +57,7 @@
             var modules = column.modules;
             $scope.$apply(function () {
                 modules.splice(evt.newIndex, 0, modules.splice(evt.oldIndex, 1)[0]);
-                $scope.$emit(platformParameters.events.ADF_WIDGET_MOVED_EVENT);
+                $scope.$emit(platformParameters.events.DASHBOARD_MODULE_MOVED_EVENT);
             });
         }
 
@@ -147,13 +147,13 @@
                 $scope.$apply(function () {
                     removeModuleFromColumnFunction.func.apply(null, removeModuleFromColumnFunction.params);
                     if (++saveCounter === 2) {
-                        $scope.$emit(platformParameters.events.ADF_WIDGET_MOVED_EVENT);
+                        $scope.$emit(platformParameters.events.DASHBOARD_MODULE_MOVED_EVENT);
                     }
                 });
                 $scope.$apply(function () {
                     addModuleToColumnFunction.func.apply(null, addModuleToColumnFunction.params);
                     if (++saveCounter === 2) {
-                        $scope.$emit(platformParameters.events.ADF_WIDGET_MOVED_EVENT);
+                        $scope.$emit(platformParameters.events.DASHBOARD_MODULE_MOVED_EVENT);
                     }
                 });
             }

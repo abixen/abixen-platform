@@ -98,7 +98,7 @@
             faIcon: 'fa fa-pencil-square-o',
             title: 'Edit Mode',
             onClick: function () {
-                $scope.$broadcast(platformParameters.events.ADF_TOGGLE_EDIT_MODE_EVENT);
+                $scope.$broadcast(platformParameters.events.DASHBOARD_TOGGLE_EDIT_MODE_EVENT);
                 editPageButton.visible = !editPageButton.visible;
                 $scope.showDropdown = !$scope.showDropdown;
             },
@@ -114,7 +114,7 @@
             id: 1,
             title: 'Edit page',
             onClick: function () {
-                $scope.$broadcast(platformParameters.events.ADF_EDIT_DASHBOARD_EVENT);
+                $scope.$broadcast(platformParameters.events.DASHBOARD_EDIT_DASHBOARD_EVENT);
             },
             isSeparator: false
         };
@@ -157,7 +157,7 @@
             id: 4,
             title: 'Add Module',
             onClick: function () {
-                $scope.$broadcast(platformParameters.events.ADF_ADD_WIDGET_EVENT);
+                $scope.$broadcast(platformParameters.events.DASHBOARD_ADD_MODULE_EVENT);
             },
             isSeparator: false
         };
@@ -258,7 +258,7 @@
             });
         };
 
-        $scope.$on(platformParameters.events.ADF_TOGGLE_EDIT_MODE_RESPONSE_EVENT, function (event, editMode) {
+        $scope.$on(platformParameters.events.DASHBOARD_TOGGLE_EDIT_MODE_RESPONSE_EVENT, function (event, editMode) {
             $log.log('toggle edit mode invoked, editMode: ', editMode);
             $scope.editMode = editMode;
             editModeButton.title = $scope.editMode ? 'View Mode' : 'Edit Mode';

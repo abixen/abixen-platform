@@ -51,16 +51,16 @@
                 model: '='
             },
             controller: function ($scope) {
-                $scope.$on(platformParameters.events.ADF_WIDGET_DELETED_EVENT, function (event) {
-                    $scope.$emit(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.model);
+                $scope.$on(platformParameters.events.DASHBOARD_MODULE_DELETED_EVENT, function (event) {
+                    $scope.$emit(platformParameters.events.DASHBOARD_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.model);
                 });
 
-                $scope.$on(platformParameters.events.ADF_WIDGET_TITLE_CHANGED_EVENT, function (event) {
-                    $scope.$emit(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.model);
+                $scope.$on(platformParameters.events.DASHBOARD_MODULE_TITLE_CHANGED_EVENT, function (event) {
+                    $scope.$emit(platformParameters.events.DASHBOARD_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.model);
                 });
 
-                $scope.$on(platformParameters.events.ADF_WIDGET_MOVED_EVENT, function (event) {
-                    $scope.$emit(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.model);
+                $scope.$on(platformParameters.events.DASHBOARD_MODULE_MOVED_EVENT, function (event) {
+                    $scope.$emit(platformParameters.events.DASHBOARD_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.model);
                 });
 
                 // edit mode
@@ -74,9 +74,9 @@
                     }
                 };
 
-                $scope.$on(platformParameters.events.ADF_TOGGLE_EDIT_MODE_EVENT, function (event) {
+                $scope.$on(platformParameters.events.DASHBOARD_TOGGLE_EDIT_MODE_EVENT, function (event) {
                     $scope.toggleEditMode();
-                    $scope.$emit(platformParameters.events.ADF_TOGGLE_EDIT_MODE_RESPONSE_EVENT, $scope.editMode);
+                    $scope.$emit(platformParameters.events.DASHBOARD_TOGGLE_EDIT_MODE_RESPONSE_EVENT, $scope.editMode);
                 });
 
                 // edit dashboard settings
@@ -118,12 +118,11 @@
                     function changeLayoutOnEditPage(layout) {
                         $log.info('change layout to ', layout);
                         dashboardUtils.changeLayout($scope.model, layout);
-                        $rootScope.$broadcast(platformParameters.events.ADF_STRUCTURE_CHANGED_EVENT, layout);
+                        $rootScope.$broadcast(platformParameters.events.DASHBOARD_LAYOUT_CHANGED_EVENT, layout);
                     }
 
                     function saveForm() {
                         $scope.model.title = editDashboardScope.pageDetails.entity.page.title;
-                        //FIXME - doesn't work
                         $scope.model.description = editDashboardScope.pageDetails.entity.page.description;
                         $scope.model.icon = editDashboardScope.pageDetails.entity.page.icon;
                         instance.dismiss();
@@ -165,7 +164,7 @@
                     }
                 };
 
-                $scope.$on(platformParameters.events.ADF_EDIT_DASHBOARD_EVENT, function (event) {
+                $scope.$on(platformParameters.events.DASHBOARD_EDIT_DASHBOARD_EVENT, function (event) {
                     $scope.editDashboardDialog();
                 });
 
@@ -199,7 +198,7 @@
                             wid: dashboardData.generateId()
                         };
                         dashboardUtils.addNewModuleToModel($scope.model, w);
-                        $scope.$emit(platformParameters.events.ADF_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.model);
+                        $scope.$emit(platformParameters.events.DASHBOARD_DASHBOARD_CHANGED_EVENT, $scope.name, $scope.model);
                         // close and destroy
                         instance.dismiss();
                         addScope.$destroy();
@@ -211,11 +210,11 @@
                     };
                 };
 
-                $scope.$on(platformParameters.events.ADF_ADD_WIDGET_EVENT, function (event) {
+                $scope.$on(platformParameters.events.DASHBOARD_ADD_MODULE_EVENT, function (event) {
                     $scope.addModuleDialog();
                 });
             },
-            link: function ($scope, $element, $attr) {
+            link: function ($scope) {
 
                 $scope.$on('FULL_SCREEN_MODE', function (event, moduleId, fullScreenMode) {
                     var dashboardSubContainer = angular.element(document.getElementById('dashboard-sub-container'));

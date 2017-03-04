@@ -84,7 +84,7 @@
                         }
                     }
                     $element.remove();
-                    $scope.$emit(platformParameters.events.ADF_WIDGET_DELETED_EVENT);
+                    $scope.$emit(platformParameters.events.DASHBOARD_MODULE_DELETED_EVENT);
                 };
 
                 $scope.remove = function () {
@@ -162,7 +162,7 @@
                 };
 
                 $scope.onModuleTitleChanged = function () {
-                    $scope.$emit(platformParameters.events.ADF_WIDGET_TITLE_CHANGED_EVENT);
+                    $scope.$emit(platformParameters.events.DASHBOARD_MODULE_TITLE_CHANGED_EVENT);
                 };
 
                 $scope.$on(platformParameters.events.MODULE_TEMPORARY_UNAVAILABLE, function (event, args) {
