@@ -37,7 +37,7 @@
         function link(scope, element) {
             //TODO - do we need if?
             if (angular.isDefined(scope.row.columns) && angular.isArray(scope.row.columns)) {
-                $templateRequest("application/modules/dashboard/html/column-template.html").then(function (html) {
+                $templateRequest('application/modules/dashboard/html/column-template.html').then(function (html) {
                     var template = angular.element(html);
                     $compile(template)(scope, function (columnTemplate) {
                         element.append(columnTemplate);

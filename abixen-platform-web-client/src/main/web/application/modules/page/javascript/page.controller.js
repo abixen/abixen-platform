@@ -37,12 +37,13 @@
 
         if (!model) {
             // set default model to avoid js console errors, initializing with empty layout
+            //TODO - do we need it?
             model = {
-                title: "Sample dashboard",
-                structure: "1 (100)",
+                title: 'Sample dashboard',
+                structure: '1 (100)',
                 rows: [{
                     columns: [{
-                        styleClass: "col-md-12",
+                        styleClass: 'col-md-12',
                         modules: []
                     }]
                 }]

@@ -126,7 +126,7 @@
             controller: function ($scope) {
                 var loaderCounter = 0;
 
-                $scope.$on("adfDashboardCollapseExapand", function (event, args) {
+                $scope.$on('adfDashboardCollapseExapand', function (event, args) {
                     $scope.moduleState.isCollapsed = args.collapseExpandStatus;
                 });
 
