@@ -21,6 +21,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.repos
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseConnectionService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseFactory;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.util.DatabaseConnectionPasswordEncryption;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,6 +43,9 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     @Autowired
     private DatabaseFactory databaseFactory;
 
+    @Autowired
+    private DatabaseConnectionPasswordEncryption databaseConnectionPasswordEncryption;
+
     //@Autowired
     //KpiChartConfigurationDomainBuilderService kpiChartConfigurationDomainBuilderService;
 
@@ -52,7 +56,11 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
 
     @Override
     public DatabaseConnection findDatabaseConnection(Long id) {
-        return dataSourceConnectionRepository.getOne(id);
+
+       DatabaseConnection databaseConnection = dataSourceConnectionRepository.getOne(id);
+       String password = databaseConnectionPasswordEncryption.decryptPassword(databaseConnection.getPassword());
+       databaseConnection.setPassword(password);
+       return databaseConnection;
     }
 
     @Override
@@ -66,7 +74,7 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
         databaseConnection.setDatabasePort(databaseConnectionForm.getDatabasePort());
         databaseConnection.setDatabaseName(databaseConnectionForm.getDatabaseName());
         databaseConnection.setDescription(databaseConnectionForm.getDescription());
-        databaseConnection.setPassword(databaseConnectionForm.getPassword());
+        databaseConnection.setPassword(databaseConnectionPasswordEncryption.encryptPassword(databaseConnectionForm.getPassword()));
         databaseConnection.setUsername(databaseConnectionForm.getUsername());
 
         return databaseConnection;
@@ -89,7 +97,7 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
         databaseConnection.setDatabasePort(databaseConnectionForm.getDatabasePort());
         databaseConnection.setDatabaseName(databaseConnectionForm.getDatabaseName());
         databaseConnection.setDescription(databaseConnectionForm.getDescription());
-        databaseConnection.setPassword(databaseConnectionForm.getPassword());
+        databaseConnection.setPassword(databaseConnectionPasswordEncryption.encryptPassword(databaseConnectionForm.getPassword()));
         databaseConnection.setUsername(databaseConnectionForm.getUsername());
 
         return new DatabaseConnectionForm(updateDatabaseConnection(databaseConnection));
@@ -127,6 +135,5 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
         Connection connection = databaseService.getConnection(databaseConnection);
         return databaseService.getColumns(connection, table);
     }
-
 
 }
