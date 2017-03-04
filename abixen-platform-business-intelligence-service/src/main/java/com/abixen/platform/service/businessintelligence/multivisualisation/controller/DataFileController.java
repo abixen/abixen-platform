@@ -105,8 +105,8 @@ public class DataFileController {
         return dataFileService.getDataFileColumns(id);
     }
 
-    @RequestMapping(value = "/parse")
-    public FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile uploadedFile) {
+    @RequestMapping(value = "/parse", method = RequestMethod.POST)
+    public FileParserMessage<DataFileColumn> uploadAndParseFile(@RequestParam("file") MultipartFile uploadedFile) {
         return dataFileService.uploadAndParseFile(uploadedFile);
     }
 
