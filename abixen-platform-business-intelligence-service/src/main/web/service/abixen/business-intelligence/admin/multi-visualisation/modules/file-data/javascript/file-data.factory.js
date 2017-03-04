@@ -31,6 +31,13 @@
                 method: 'GET',
                 url: '/api/service/abixen/business-intelligence/admin/multi-visualisation/file-data/:id/columns',
                 isArray: true
+            },
+            parse: {
+                method: "POST",
+                headers : {
+                    'Content-Type' : undefined
+                },
+                url: '/service/abixen/business-intelligence/admin/multi-visualisation/file-data/parse'
             }
         });
     }
