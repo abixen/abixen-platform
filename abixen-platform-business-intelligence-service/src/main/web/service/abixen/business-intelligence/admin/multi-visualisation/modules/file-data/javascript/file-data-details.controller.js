@@ -31,6 +31,7 @@
 
         fileDataDetails.fileData = [];
         fileDataDetails.beforeSaveForm = beforeSaveForm;
+        fileDataDetails.onFileUpload = onFileUpload;
 
         $scope.$watch('fileDataDetails.fileData', function () {
             if (fileDataDetails.fileData !== undefined && fileDataDetails.fileData !== [] && fileDataDetails.fileData.length > 0) {
@@ -62,22 +63,36 @@
             $state.go('application.multiVisualisation.modules.fileData.list');
         }
 
-        function onSuccessGetEntity() {
-            if (fileDataDetails.entity.columns == null || fileDataDetails.entity.columns.length === 0 || fileDataDetails.entity.columns == undefined){
-                return;
-            }
+        function transformDataForTable(data) {
             var parsedData = [];
-
-            fileDataDetails.entity.columns[0].values.forEach(function (row, index) {
+            data[0].values.forEach(function (row, index) {
                 var parsedRow = [];
-                fileDataDetails.entity.columns.forEach(function (column, index1) {
+                data.forEach(function (column, index1) {
                     parsedRow['col' + index1] = column.values[index].value;
                 });
                 parsedData.push(parsedRow);
             });
             fileDataDetails.fileData = parsedData;
             $scope.$broadcast('GridDataUpdated', parsedData);
+        }
 
+        function onSuccessGetEntity() {
+            if (fileDataDetails.entity.columns == null || fileDataDetails.entity.columns.length === 0 || fileDataDetails.entity.columns == undefined){
+                return;
+            }
+            transformDataForTable(fileDataDetails.entity.columns);
+
+        }
+
+        function onFileUpload(file) {
+            $log.debug("UploadFile", file);
+            var fd = new FormData();
+            fd.append('file', file);
+            FileData.parse(fd, function (message) {
+                if (message.data.length > 0) {
+                    transformDataForTable(message.data);
+                }
+            });
         }
 
         function getValidators() {

@@ -24,6 +24,9 @@
 
     function platformUploadFileDirective($log) {
         return {
+            scope: {
+                onUpload: '&'
+            },
             link: link
         };
 
@@ -50,6 +53,13 @@
                 height: '100%',
                 opacity: '0',
                 cursor: 'pointer'
+            });
+
+            fileInput.on('change', function (changeEvent) {
+                if (scope.onUpload){
+                    console.log("file", changeEvent.target.files[0]);
+                    scope.onUpload()(changeEvent.target.files[0]);
+                }
             });
 
             el.append(fileInput)
