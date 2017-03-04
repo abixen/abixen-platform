@@ -28,10 +28,20 @@
         'applicationNavigationItems',
         '$stateParams',
         'Layout',
-        '$filter'
+        '$filter',
+        'FaSelectionModalWindowServices'
     ];
 
-    function platformDashboard($rootScope, $log, dashboardData, dashboardUtils, $aside, applicationNavigationItems, $stateParams, Layout, $filter) {
+    function platformDashboard($rootScope,
+                               $log,
+                               dashboardData,
+                               dashboardUtils,
+                               $aside,
+                               applicationNavigationItems,
+                               $stateParams,
+                               Layout,
+                               $filter,
+                               FaSelectionModalWindowServices) {
         return {
             replace: true,
             restrict: 'EA',
@@ -77,11 +87,13 @@
                         entity: {
                             page: {
                                 title: $scope.model.title,
-                                description: $scope.model.description
+                                description: $scope.model.description,
+                                icon: $scope.model.icon
                             }
                         },
                         saveForm: saveForm,
                         cancel: cancelDialog,
+                        changeIcon: changeIcon,
                         changeLayout: changeLayoutOnEditPage,
                         validators: getValidators()
                     };
@@ -113,10 +125,19 @@
                         $scope.model.title = editDashboardScope.pageDetails.entity.page.title;
                         //FIXME - doesn't work
                         $scope.model.description = editDashboardScope.pageDetails.entity.page.description;
+                        $scope.model.icon = editDashboardScope.pageDetails.entity.page.icon;
                         instance.dismiss();
                         editDashboardScope.$destroy();
                         applicationNavigationItems.editSidebarItem($stateParams.id, $scope.model.title);
                         $scope.$emit(platformParameters.events.PAGE_CHANGED_EVENT, $scope.name, $scope.model);
+                    }
+
+                    function changeIcon() {
+                        var selectedIcons = new Array();
+                        FaSelectionModalWindowServices.openSelectionDialog('Select Icon', selectedIcons, platformParameters.modalSelectionType.SINGLE, 'app-modal-window',
+                            function () {
+                                editDashboardScope.pageDetails.entity.page.icon = selectedIcons[0];
+                            });
                     }
 
                     function getValidators() {

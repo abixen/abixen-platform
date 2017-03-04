@@ -112,6 +112,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
         page.setDescription(pageConfigurationForm.getPage().getDescription());
         page.setName(pageConfigurationForm.getPage().getName());
         page.setTitle(pageConfigurationForm.getPage().getTitle());
+        page.setIcon(pageConfigurationForm.getPage().getIcon());
         page.setLayout(layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId()));
         pageService.updatePage(page);
 

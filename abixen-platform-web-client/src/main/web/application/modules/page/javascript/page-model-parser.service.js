@@ -31,6 +31,7 @@
 
             model.description = pageModelDto.page.description;
             model.title = pageModelDto.page.title;
+            model.icon = pageModelDto.page.icon;
             model.structure = pageModelDto.page.layout.title;
 
             //initialize modules
@@ -86,6 +87,7 @@
             var pageModelDto = {page: page, dashboardModuleDtos: dashboardModuleDtos};
             pageModelDto.page.title = model.title;
             pageModelDto.page.description = model.description;
+            pageModelDto.page.icon = model.icon;
 
             return pageModelDto;
         }
