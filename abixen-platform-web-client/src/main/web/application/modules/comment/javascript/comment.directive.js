@@ -52,7 +52,6 @@
     function CommentDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest, platformSecurity, amMoment) {
         var comment = this;
         var addCommentForm;
-        var replyClickCounter = 0;
         var action;
         var commentBeforeEdit;
 
@@ -128,7 +127,6 @@
                     angular.copy(commentBeforeEdit, comment.commentItem);
                 }
                 addCommentForm.remove();
-                replyClickCounter = 0;
             }
         }
 
@@ -144,7 +142,6 @@
 
         function onSuccessSaveForm() {
             addCommentForm.remove();
-            replyClickCounter = 0;
 
             if (action === 'ADD') {
                 var curChildren = comment.commentItem.children;
@@ -160,16 +157,20 @@
         }
 
         function appendAndShowCommentForm(selector) {
-            if (replyClickCounter === 0) {
-                var targetElement = angular.element(document.querySelector(selector));
-                $templateRequest("/application/modules/comment/html/add-comment.template.html", false)
-                    .then(function (html) {
-                        addCommentForm = angular.element(html);
-                        targetElement.append(addCommentForm);
-                        $compile(addCommentForm)($scope);
-                        replyClickCounter++;
-                    });
+            var existingForm = angular.element(document.querySelector('#comment-input-form'));
+            if (angular.isDefined(existingForm) && existingForm !== null &&
+                angular.isDefined(existingForm[0]) && existingForm[0].tagName === 'FORM') {
+                $log.info(existingForm[0].tagName);
+                existingForm.remove();
             }
+
+            var targetElement = angular.element(document.querySelector(selector));
+            $templateRequest("/application/modules/comment/html/add-comment.template.html", false)
+                .then(function (html) {
+                    addCommentForm = angular.element(html);
+                    targetElement.append(addCommentForm);
+                    $compile(addCommentForm)($scope);
+                });
         }
 
         function deleteComment(commentItem) {
