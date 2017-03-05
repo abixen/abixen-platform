@@ -21,8 +21,7 @@ public enum AclClassName {
     PAGE(Values.PAGE),
     ROLE(Values.ROLE),
     USER(Values.USER),
-    MODULE_TYPE(Values.MODULE_TYPE),
-    THEME(Values.THEME);
+    MODULE_TYPE(Values.MODULE_TYPE);
 
     private final String name;
 
@@ -51,6 +50,5 @@ public enum AclClassName {
         public static final String ROLE = "com.abixen.platform.core.model.impl.Role";
         public static final String USER = "com.abixen.platform.core.model.impl.User";
         public static final String MODULE_TYPE = "com.abixen.platform.core.model.impl.ModuleType";
-        public static final String THEME = "com.abixen.platform.core.model.impl.Theme";
     }
 }

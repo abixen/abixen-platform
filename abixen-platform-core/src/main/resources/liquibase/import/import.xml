@@ -25,7 +25,6 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM layout</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM page</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM module</sqlCheck>
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM theme</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM comment</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM comment_vote</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM admin_sidebar_item</sqlCheck>
@@ -112,11 +111,6 @@
                   tableName="module">
         </loadData>
         
-        <loadData file="liquibase/import/data/theme-data.csv"
-                  separator=";"
-                  tableName="theme">
-        </loadData>
-
         <loadData file="liquibase/import/data/comment-data.csv"
                   separator=";"
                   tableName="comment">

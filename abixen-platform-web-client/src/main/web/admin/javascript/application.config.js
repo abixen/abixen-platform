@@ -105,16 +105,9 @@
                 orderIndex: 6,
                 id: 6,
                 iconClass: 'fa fa-columns'
-            })
-            .addSidebarItem({
-                title: 'Themes',
-                state: 'application.themes.list',
-                orderIndex: 7,
-                id: 7,
-                iconClass: 'fa fa-clone'
             });
 
-        var nextId = 8;
+        var nextId = 7;
 
         for (var i = 0; i < externalAdminSidebarItems.length; i++) {
             externalAdminSidebarItems[i].id = nextId++;
