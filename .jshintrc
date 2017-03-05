@@ -63,6 +63,8 @@
     "ConfirmField": false,
     "Email": false,
     "platformParameters": false,
-    "getAuditingTableColumns": false
+    "getAuditingTableColumns": false,
+    "externalAdminSidebarItems": false,
+    "externalModules": false
   }
 }

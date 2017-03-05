@@ -22,18 +22,18 @@
 
     ModalSelectionWindowService.$inject = ['$uibModal'];
 
- 	function ModalSelectionWindowService($uibModal) {
- 		
-    var okButtonClass = '';
-    var cancelButtonClass = '';
-    var windowClass = '';
+    function ModalSelectionWindowService($uibModal) {
+
+        var okButtonClass = '';
+        var cancelButtonClass = '';
+        var windowClass = '';
 
         return ({
             getOkButtonClass: getOkButtonClass,
             setOkButtonClass: setOkButtonClass,
             getCancelButtonClass: getCancelButtonClass,
             setCancelButtonClass: setCancelButtonClass,
-            openSelectionDialog:openSelectionDialog
+            openSelectionDialog: openSelectionDialog
         });
 
         function getOkButtonClass() {
@@ -64,17 +64,31 @@
                 windowClass: 'modal-selection-dialog',
                 size: 'md', // medium by default
                 resolve: {
-                    title: function () {return title;},
-                    variable: function() {return variable;},
-                    data: function() {return data;},
-                    selectionType:function() {return selectionType;},
-                    acceptFunction: function () {return callback;},
-                    okButtonClass: function () {return getOkButtonClass();},
-                    cancelButtonClass: function () {return getCancelButtonClass();}
+                    title: function () {
+                        return title;
+                    },
+                    variable: function () {
+                        return variable;
+                    },
+                    data: function () {
+                        return data;
+                    },
+                    selectionType: function () {
+                        return selectionType;
+                    },
+                    acceptFunction: function () {
+                        return callback;
+                    },
+                    okButtonClass: function () {
+                        return getOkButtonClass();
+                    },
+                    cancelButtonClass: function () {
+                        return getCancelButtonClass();
+                    }
                 }
             });
-            
-		}
-	}
-    
+
+        }
+    }
+
 })();
