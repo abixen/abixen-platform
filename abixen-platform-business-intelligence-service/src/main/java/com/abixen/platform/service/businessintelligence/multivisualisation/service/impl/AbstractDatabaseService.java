@@ -169,7 +169,7 @@ public abstract class AbstractDatabaseService {
         }
         //FixMe
         List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm);
-        return data.subList(0, chartLimit);
+        return data.subList(0, data.size() < chartLimit ? data.size() : chartLimit);
     }
 
     public List<Map<String, DataValueWeb>> getDataSourcePreview(Connection connection, DatabaseDataSource databaseDataSource) {
