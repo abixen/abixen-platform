@@ -32,7 +32,7 @@ import java.util.stream.IntStream;
 
 public abstract class AbstractDatabaseService {
 
-    private final int chartLimit = 10;
+    private final int chartLimit = 8;
     private final int datasourceLimit = 20;
 
     @Autowired
@@ -169,7 +169,7 @@ public abstract class AbstractDatabaseService {
         }
         //FixMe
         List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm);
-        return data.subList(0, data.size() < chartLimit ? data.size() : chartLimit);
+        return data.subList(0, chartLimit);
     }
 
     public List<Map<String, DataValueWeb>> getDataSourcePreview(Connection connection, DatabaseDataSource databaseDataSource) {
