@@ -1,1 +1,0 @@
-var platformKpiChartModule = angular.module('platformKpiChartModule', ['platformKpiChartModuleServices', 'platformKpiChartModuleControllers', 'angular-svg-round-progress']);

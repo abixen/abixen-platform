@@ -86,26 +86,3 @@ abixen:
             resourcePageLocation: BODY
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT
-      -
-        name: kpi-chart
-        angularJsNameApplication: platformKpiChartModule
-        angularJsNameAdmin: TBD
-        title: KPI Chart
-        description: This is a KPI chart module
-        relativeInitUrl: /service/abixen/application/business-intelligence/kpi-chart/html/index.html
-        staticResources:
-          -
-            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.css
-            resourcePageLocation: HEADER
-            resourcePage: APPLICATION
-            resourceType: CSS
-          -
-            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.js
-            resourcePageLocation: BODY
-            resourcePage: APPLICATION
-            resourceType: JAVASCRIPT
-          -
-            relativeUrl: /service/abixen/application/business-intelligence/lib/roundProgress.min.js
-            resourcePageLocation: BODY
-            resourcePage: APPLICATION
-            resourceType: JAVASCRIPT

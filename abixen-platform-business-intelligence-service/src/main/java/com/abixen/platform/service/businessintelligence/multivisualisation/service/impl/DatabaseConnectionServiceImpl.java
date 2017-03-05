@@ -46,9 +46,6 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     @Autowired
     private DatabaseConnectionPasswordEncryption databaseConnectionPasswordEncryption;
 
-    //@Autowired
-    //KpiChartConfigurationDomainBuilderService kpiChartConfigurationDomainBuilderService;
-
     @Override
     public Page<DatabaseConnection> findAllDatabaseConnections(Pageable pageable) {
         return dataSourceConnectionRepository.findAll(pageable);
