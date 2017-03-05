@@ -50,6 +50,9 @@
                 }else {
                     fileDataTable.renderTable = true;
                 }
+            } else {
+                fileDataTable.fileColumns = [];
+                fileDataTable.listGridConfig.setData([]);
             }
         });
 

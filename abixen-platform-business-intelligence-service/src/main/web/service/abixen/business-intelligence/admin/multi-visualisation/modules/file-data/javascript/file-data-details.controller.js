@@ -13,10 +13,11 @@
         '$stateParams',
         '$log',
         'FileData',
-        'responseHandler'
+        'responseHandler',
+        'toaster'
     ];
 
-    function FileDataDetailController($scope, $http, $state, $stateParams, $log, FileData, responseHandler) {
+    function FileDataDetailController($scope, $http, $state, $stateParams, $log, FileData, responseHandler, toaster) {
         $log.log('FileDataDetailController');
         var fileDataDetails = this;
 
@@ -91,6 +92,12 @@
             FileData.parse(fd, function (message) {
                 if (message.data.length > 0) {
                     transformDataForTable(message.data);
+                } else {
+                    message.fileParseErrors.forEach(function (element){
+                        toaster.pop('error', 'parsed', element.errorMsg);
+                        fileDataDetails.fileData = [];
+                        $scope.$broadcast('GridDataUpdated', []);
+                    })
                 }
             });
         }
