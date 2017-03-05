@@ -32,7 +32,7 @@ import java.util.stream.IntStream;
 
 public abstract class AbstractDatabaseService {
 
-    private final int chartLimit = 10;
+    private final int chartLimit = 8;
     private final int datasourceLimit = 20;
 
     @Autowired
