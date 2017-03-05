@@ -8,7 +8,5 @@ id;module_type_id;relative_url;resource_page_location;resource_page;resource_typ
 7;1;/service/abixen/business-intelligence/application/lib/nv.d3.min.css;HEADER;APPLICATION;CSS;NULL;NULL;NULL;NULL
 8;1;/service/abixen/business-intelligence/application/lib/angular-nvd3.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL
 9;1;/service/abixen/business-intelligence/admin/lib/xlsx.full.min.js;BODY;ADMIN;JAVASCRIPT;NULL;NULL;NULL;NULL
-10;2;/service/abixen/business-intelligence/application/business-intelligence.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL
-11;2;/service/abixen/business-intelligence/application/business-intelligence.min.css;HEADER;APPLICATION;CSS;NULL;NULL;NULL;NULL
 15;4;/service/abixen/web-content/admin/web-content.min.js;BODY;ADMIN;JAVASCRIPT;NULL;NULL;NULL;NULL
 16;4;/service/abixen/web-content/admin/web-content.min.css;HEADER;ADMIN;CSS;NULL;NULL;NULL;NULL

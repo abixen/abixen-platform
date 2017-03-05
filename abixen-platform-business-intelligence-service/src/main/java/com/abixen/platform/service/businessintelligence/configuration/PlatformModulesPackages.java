@@ -31,14 +31,8 @@ public class PlatformModulesPackages {
 
     public static final String CHART = MAIN + ".multivisualisation";
 
-    public static final String MAGIC_NUMBER = MAIN + ".magicnumber";
-
     public static final String CHART_DOMAIN = CHART + ".model";
 
-    public static final String MAGIC_NUMBER_DOMAIN = MAGIC_NUMBER + ".model";
-
     public static final String CHART_REPOSITORY = CHART + ".repository";
-
-    public static final String MAGIC_NUMBER_REPOSITORY = MAGIC_NUMBER + ".repository";
 
 }

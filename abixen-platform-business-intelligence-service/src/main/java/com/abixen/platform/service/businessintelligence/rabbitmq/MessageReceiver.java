@@ -16,7 +16,6 @@ package com.abixen.platform.service.businessintelligence.rabbitmq;
 
 import com.abixen.platform.core.rabbitmq.message.RabbitMQRemoveModuleMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.ChartConfigurationService;
-import com.abixen.platform.service.businessintelligence.magicnumber.service.MagicNumberModuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -30,12 +29,8 @@ public class MessageReceiver {
 
     private final ChartConfigurationService chartConfigurationService;
 
-    private final MagicNumberModuleService magicNumberModuleService;
-
-    public MessageReceiver(ChartConfigurationService chartConfigurationService,
-                           MagicNumberModuleService magicNumberModuleService) {
+    public MessageReceiver(ChartConfigurationService chartConfigurationService) {
         this.chartConfigurationService = chartConfigurationService;
-        this.magicNumberModuleService = magicNumberModuleService;
     }
 
     public void receiveMessage(RabbitMQRemoveModuleMessage message) {
@@ -44,9 +39,6 @@ public class MessageReceiver {
         switch (message.getModuleTypeName()) {
             case "multi-visualisation":
                 chartConfigurationService.removeChartConfiguration(message.getModuleId());
-                break;
-            case "magic-number":
-                magicNumberModuleService.removeMagicNumberModule(message.getModuleId());
                 break;
             default:
                 throw new RuntimeException("Wrong moduleTypeName: " + message.getModuleTypeName());

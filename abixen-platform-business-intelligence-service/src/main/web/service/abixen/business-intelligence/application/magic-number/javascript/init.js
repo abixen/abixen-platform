@@ -1,1 +1,0 @@
-var platformMagicNumberModule = angular.module('platformMagicNumberModule', ['platformMagicNumberModuleServices', 'platformMagicNumberModuleControllers']);

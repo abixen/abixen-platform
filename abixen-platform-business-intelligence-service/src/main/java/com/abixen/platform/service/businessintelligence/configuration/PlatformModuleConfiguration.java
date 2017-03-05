@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@ComponentScan(basePackages = {PlatformModulesPackages.CONFIG, PlatformModulesPackages.CONTROLLER, PlatformModulesPackages.CHART,  PlatformModulesPackages.MAGIC_NUMBER})
+@ComponentScan(basePackages = {PlatformModulesPackages.CONFIG, PlatformModulesPackages.CONTROLLER, PlatformModulesPackages.CHART})
 public class PlatformModuleConfiguration {
 
 }

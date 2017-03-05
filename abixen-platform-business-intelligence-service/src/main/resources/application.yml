@@ -68,21 +68,3 @@ abixen:
             resourcePageLocation: BODY
             resourcePage: ADMIN
             resourceType: JAVASCRIPT
-      -
-        name: magic-number
-        angularJsNameApplication: platformMagicNumberModule
-        angularJsNameAdmin: TBD
-        title: Magic Number
-        description: This is a magic number module
-        relativeInitUrl: /service/abixen/application/business-intelligence/magic-number/html/index.html
-        staticResources:
-          -
-            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.css
-            resourcePageLocation: HEADER
-            resourcePage: APPLICATION
-            resourceType: CSS
-          -
-            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.js
-            resourcePageLocation: BODY
-            resourcePage: APPLICATION
-            resourceType: JAVASCRIPT

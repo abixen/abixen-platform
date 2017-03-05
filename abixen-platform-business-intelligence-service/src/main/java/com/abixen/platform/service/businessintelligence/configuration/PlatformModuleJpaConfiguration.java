@@ -32,12 +32,12 @@ import javax.sql.DataSource;
 @Import(PlatformModuleDataSourceConfiguration.class)
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "platformAuditorAware")
-@EnableJpaRepositories(basePackages = {PlatformModulesPackages.CHART_REPOSITORY, PlatformModulesPackages.MAGIC_NUMBER_REPOSITORY})
+@EnableJpaRepositories(basePackages = {PlatformModulesPackages.CHART_REPOSITORY})
 public class PlatformModuleJpaConfiguration extends AbstractJapConfiguration {
 
     @Autowired
     public PlatformModuleJpaConfiguration(DataSource dataSource, AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration) {
-        super(dataSource, platformJdbcConfiguration, new String[]{PlatformModulesPackages.CHART_DOMAIN, PlatformModulesPackages.MAGIC_NUMBER_DOMAIN});
+        super(dataSource, platformJdbcConfiguration, new String[]{PlatformModulesPackages.CHART_DOMAIN});
     }
 
     public AuditorAware platformAuditorAware() {
