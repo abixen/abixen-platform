@@ -18,6 +18,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.messa
 import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValue;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueDate;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueDouble;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueString;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
@@ -36,8 +37,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType.DATE;
 import static com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType.DOUBLE;
 import static com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType.STRING;
+import static org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted;
 
 @Service("excelParserService")
 public class ExcelParserServiceImpl implements FileParserService {
@@ -96,9 +99,17 @@ public class ExcelParserServiceImpl implements FileParserService {
                 return parseAsDouble(cell);
             case STRING:
                 return parseAsString(cell);
+            case DATE:
+                return parseAsDate(cell);
             default:
                 return null;
         }
+    }
+
+    private DataValue parseAsDate(Cell cell) {
+        DataValueDate dataValueDate = new DataValueDate();
+        dataValueDate.setValue(cell.getDateCellValue());
+        return dataValueDate;
     }
 
     private DataValue parseAsString(Cell cell) {
@@ -138,7 +149,7 @@ public class ExcelParserServiceImpl implements FileParserService {
     private DataValueType getColumnTypeAsDataValueType(Cell cell, int i) {
         switch (cell.getCellTypeEnum()) {
             case NUMERIC:
-                return DOUBLE;
+                return isCellDateFormatted(cell) ? DATE : DOUBLE;
             case STRING:
                 return STRING;
             default:
