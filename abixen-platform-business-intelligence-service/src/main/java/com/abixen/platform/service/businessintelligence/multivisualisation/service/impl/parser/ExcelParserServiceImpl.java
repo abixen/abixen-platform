@@ -128,7 +128,7 @@ public class ExcelParserServiceImpl implements FileParserService {
         for (int i = 0; i < headerRow.getPhysicalNumberOfCells(); i++) {
             Cell columnCell = sheet.getRow(headerRowIndex + 1).getCell(i);
             if (columnCell == null) {
-                msg.addFileParseError(new FileParseError(1, "[Line %d, column %d] Cell is empty. Column don't be validated"));
+                msg.addFileParseError(new FileParseError(1, String.format("[Line %d, column %d] Cell is empty. Column can't be validated", headerRowIndex + 1, i)));
             } else {
                 DataValueType columnType = getColumnTypeAsDataValueType(columnCell, i);
                 for (int j = 1; j < sheet.getPhysicalNumberOfRows(); j++) {
