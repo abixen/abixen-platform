@@ -41,7 +41,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/service/abixen/business-intelligence/admin/multi-visualisation/file-data")
+@RequestMapping(value = "/api/service/abixen/business-intelligence/control-panel/multi-visualisation/file-data")
 public class DataFileController {
 
     public static final int DEFAULT_PAGE_SIZE = 20;

@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface SecurityClient {
 
     @RequestMapping(method = RequestMethod.GET,
-            value = "/api/admin/securities/has-permission/{username}/{securableObjectId}/{aclClassName}/{permissionName}")
+            value = "/api/control-panel/securities/has-permission/{username}/{securableObjectId}/{aclClassName}/{permissionName}")
     Boolean hasPermission(@PathVariable("username") String username,
                           @PathVariable("securableObjectId") Long securableObjectId,
                           @PathVariable("aclClassName") AclClassName aclClassName,

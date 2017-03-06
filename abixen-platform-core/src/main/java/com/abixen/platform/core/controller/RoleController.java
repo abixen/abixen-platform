@@ -40,7 +40,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/admin/roles")
+@RequestMapping(value = "/api/control-panel/roles")
 public class RoleController {
 
 

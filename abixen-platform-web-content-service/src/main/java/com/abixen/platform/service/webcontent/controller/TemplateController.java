@@ -36,7 +36,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/service/abixen/web-content/admin/templates")
+@RequestMapping(value = "/api/service/abixen/web-content/control-panel/templates")
 public class TemplateController {
 
     private final TemplateService templateService;

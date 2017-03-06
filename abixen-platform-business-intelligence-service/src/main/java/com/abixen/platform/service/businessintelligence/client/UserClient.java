@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient("abixen-platform-core")
 public interface UserClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/admin/users/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/control-panel/users/{id}")
     User getUserById(@PathVariable("id") Long id);
 
 

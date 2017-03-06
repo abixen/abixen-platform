@@ -76,7 +76,7 @@ public class PlatformAuthenticationSuccessHandler implements AuthenticationSucce
         if (isUser) {
             return "/";
         } else if (isAdmin) {
-            return "/admin";
+            return "/control-panel";
         } else {
             throw new IllegalStateException();
         }

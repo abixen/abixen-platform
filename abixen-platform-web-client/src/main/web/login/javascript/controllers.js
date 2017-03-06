@@ -11,7 +11,7 @@ platformLoginControllers.controller('PlatformAuthenticateController', [
             $scope.credentials = {};
 
             var applicationUrl = '/';
-            var applicationAdminUrl = '/admin#/users/list';
+            var applicationAdminUrl = '/control-panel#/users/list';
 
             var authenticate = function (credentials, callback) {
 

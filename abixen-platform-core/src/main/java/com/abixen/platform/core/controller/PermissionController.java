@@ -30,7 +30,7 @@ import java.io.IOException;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/admin/permissions")
+@RequestMapping(value = "/api/control-panel/permissions")
 public class PermissionController {
 
     @Autowired

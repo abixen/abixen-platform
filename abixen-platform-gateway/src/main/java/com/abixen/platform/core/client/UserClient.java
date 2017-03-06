@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient("abixen-platform-core")
 public interface UserClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/admin/users/custom/username/{username}/")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/control-panel/users/custom/username/{username}/")
     User getUserByUsername(@PathVariable("username") String username);
 
 

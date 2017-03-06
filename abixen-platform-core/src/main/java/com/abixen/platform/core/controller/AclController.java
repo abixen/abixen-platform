@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/admin/acls")
+@RequestMapping(value = "/api/control-panel/acls")
 public class AclController {
 
     @Autowired

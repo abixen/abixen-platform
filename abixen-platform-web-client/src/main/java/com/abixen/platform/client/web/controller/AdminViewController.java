@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/control-panel")
 public class AdminViewController extends BaseController {
 
     @Autowired
@@ -60,7 +60,7 @@ public class AdminViewController extends BaseController {
         List<AdminSidebarItem> uniqueAdminSidebarItems = adminSidebarItems.stream().filter(distinctByKey(adminSidebarItem -> adminSidebarItem.getTitle())).collect(Collectors.toList());
         uniqueAdminSidebarItems.forEach(adminSidebarItem -> log.debug("adminSidebarItem: {}", adminSidebarItem));
 
-        ModelAndView modelAndView = new ModelAndView("admin/index");
+        ModelAndView modelAndView = new ModelAndView("control-panel/index");
         modelAndView.addObject("resources", uniqueResources);
         modelAndView.addObject("angularJsModules", angularJsModules);
         modelAndView.addObject("adminSidebarItems", uniqueAdminSidebarItems);

@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Slf4j
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/control-panel")
 public class AdminApplicationController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String renderIndex() {
         log.debug("renderIndex()");
 
-        return "admin/index";
+        return "control-panel/index";
     }
 }

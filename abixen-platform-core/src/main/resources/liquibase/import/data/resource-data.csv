@@ -1,12 +1,12 @@
 id;module_type_id;relative_url;resource_page_location;resource_page;resource_type;created_date;last_modified_date;created_by_id;last_modified_by_id
 1;1;/service/abixen/business-intelligence/application/business-intelligence.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL
 2;1;/service/abixen/business-intelligence/application/business-intelligence.min.css;HEADER;APPLICATION;CSS;NULL;NULL;NULL;NULL
-3;1;/service/abixen/business-intelligence/admin/business-intelligence.min.js;BODY;ADMIN;JAVASCRIPT;NULL;NULL;NULL;NULL
-4;1;/service/abixen/business-intelligence/admin/business-intelligence.min.css;HEADER;ADMIN;CSS;NULL;NULL;NULL;NULL
+3;1;/service/abixen/business-intelligence/control-panel/business-intelligence.min.js;BODY;ADMIN;JAVASCRIPT;NULL;NULL;NULL;NULL
+4;1;/service/abixen/business-intelligence/control-panel/business-intelligence.min.css;HEADER;ADMIN;CSS;NULL;NULL;NULL;NULL
 5;1;/service/abixen/business-intelligence/application/lib/d3.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL
 6;1;/service/abixen/business-intelligence/application/lib/nv.d3.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL
 7;1;/service/abixen/business-intelligence/application/lib/nv.d3.min.css;HEADER;APPLICATION;CSS;NULL;NULL;NULL;NULL
 8;1;/service/abixen/business-intelligence/application/lib/angular-nvd3.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL
-9;1;/service/abixen/business-intelligence/admin/lib/xlsx.full.min.js;BODY;ADMIN;JAVASCRIPT;NULL;NULL;NULL;NULL
-15;4;/service/abixen/web-content/admin/web-content.min.js;BODY;ADMIN;JAVASCRIPT;NULL;NULL;NULL;NULL
-16;4;/service/abixen/web-content/admin/web-content.min.css;HEADER;ADMIN;CSS;NULL;NULL;NULL;NULL
+9;1;/service/abixen/business-intelligence/control-panel/lib/xlsx.full.min.js;BODY;ADMIN;JAVASCRIPT;NULL;NULL;NULL;NULL
+15;4;/service/abixen/web-content/control-panel/web-content.min.js;BODY;ADMIN;JAVASCRIPT;NULL;NULL;NULL;NULL
+16;4;/service/abixen/web-content/control-panel/web-content.min.css;HEADER;ADMIN;CSS;NULL;NULL;NULL;NULL

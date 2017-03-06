@@ -41,7 +41,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/admin/layouts")
+@RequestMapping(value = "/api/control-panel/layouts")
 public class AdminLayoutController {
 
     private final LayoutService layoutService;
@@ -71,7 +71,7 @@ public class AdminLayoutController {
         return layoutService.findLayout(id);
     }
 
-    @RequestMapping(value = "/api/admin/layouts", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/control-panel/layouts", method = RequestMethod.POST)
     public Layout createLayout(@RequestBody Layout layout) {
         log.debug("save() - layout: " + layout);
         return layoutService.createLayout(layout);

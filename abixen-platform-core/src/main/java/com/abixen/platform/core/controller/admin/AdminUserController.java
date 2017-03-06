@@ -40,7 +40,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/admin/users")
+@RequestMapping(value = "/api/control-panel/users")
 public class AdminUserController extends AbstractUserController {
 
     private final UserService userService;

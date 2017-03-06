@@ -57,7 +57,7 @@
         $log.log('PlatformInitController');
 
         var applicationLoginUrl = '/login';
-        var applicationAdminUrl = '/admin';
+        var applicationAdminUrl = '/control-panel';
 
         $scope.logout = function () {
             $http.get('/user', {

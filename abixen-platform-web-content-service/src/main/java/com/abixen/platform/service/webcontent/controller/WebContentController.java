@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/service/abixen/web-content/admin/web-contents")
+@RequestMapping(value = "/api/service/abixen/web-content/control-panel/web-contents")
 public class WebContentController {
 
     private final WebContentService webContentService;

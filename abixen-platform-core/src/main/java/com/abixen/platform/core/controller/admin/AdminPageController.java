@@ -39,7 +39,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/admin/pages")
+@RequestMapping(value = "/api/control-panel/pages")
 public class AdminPageController extends AbstractPageController {
 
     private static final int PAGEABLE_DEFAULT_PAGE_SIZE = 100;

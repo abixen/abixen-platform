@@ -25,7 +25,7 @@ import java.util.List;
 @FeignClient("abixen-platform-core")
 public interface ModuleTypeClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/admin/module-types/all")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/control-panel/module-types/all")
     List<ModuleType> getAllModuleTypes();
 
 

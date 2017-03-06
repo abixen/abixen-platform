@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/admin/module-types")
+@RequestMapping(value = "/api/control-panel/module-types")
 public class AdminResourceController {
 
     private final ResourceService resourceService;

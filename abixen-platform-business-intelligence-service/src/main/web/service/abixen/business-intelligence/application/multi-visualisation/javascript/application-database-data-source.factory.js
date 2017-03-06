@@ -24,7 +24,7 @@
 
     function ApplicationDatabaseDataSource($resource) {
 
-        return $resource('/api/service/abixen/business-intelligence/admin/multi-visualisation/data-sources', {}, {
+        return $resource('/api/service/abixen/business-intelligence/control-panel/multi-visualisation/data-sources', {}, {
             query: {method: 'GET', isArray: false}
         });
 

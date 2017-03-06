@@ -33,12 +33,12 @@ zuul:
       url: http://business-intelligence-service:9091/api/service/abixen/business-intelligence/application
       sensitive-headers:
     businessIntelligenceAdmin:
-      path: /service/abixen/business-intelligence/admin/**
-      url: http://business-intelligence-service:9091/service/abixen/business-intelligence/admin
+      path: /service/abixen/business-intelligence/control-panel/**
+      url: http://business-intelligence-service:9091/service/abixen/business-intelligence/control-panel
       sensitive-headers:
     businessIntelligenceAdminApi:
-      path: /api/service/abixen/business-intelligence/admin/**
-      url: http://business-intelligence-service:9091/api/service/abixen/business-intelligence/admin
+      path: /api/service/abixen/business-intelligence/control-panel/**
+      url: http://business-intelligence-service:9091/api/service/abixen/business-intelligence/control-panel
       sensitive-headers:
     # End of Business Intelligence microservice
 
@@ -52,12 +52,12 @@ zuul:
       url: http://web-content-service:9092/api/service/abixen/web-content/application
       sensitive-headers:
     webContentAdmin:
-      path: /service/abixen/web-content/admin/**
-      url: http://web-content-service:9092/service/abixen/web-content/admin
+      path: /service/abixen/web-content/control-panel/**
+      url: http://web-content-service:9092/service/abixen/web-content/control-panel
       sensitive-headers:
     webContentAdminApi:
-      path: /api/service/abixen/web-content/admin/**
-      url: http://web-content-service:9092/api/service/abixen/web-content/admin
+      path: /api/service/abixen/web-content/control-panel/**
+      url: http://web-content-service:9092/api/service/abixen/web-content/control-panel
       sensitive-headers:
     # End of Web Content microservice
 
@@ -115,12 +115,12 @@ zuul:
       url: http://localhost:9091/api/service/abixen/business-intelligence/application
       sensitive-headers:
     businessIntelligenceAdmin:
-      path: /service/abixen/business-intelligence/admin/**
-      url: http://localhost:9091/service/abixen/business-intelligence/admin
+      path: /service/abixen/business-intelligence/control-panel/**
+      url: http://localhost:9091/service/abixen/business-intelligence/control-panel
       sensitive-headers:
     businessIntelligenceAdminApi:
-      path: /api/service/abixen/business-intelligence/admin/**
-      url: http://localhost:9091/api/service/abixen/business-intelligence/admin
+      path: /api/service/abixen/business-intelligence/control-panel/**
+      url: http://localhost:9091/api/service/abixen/business-intelligence/control-panel
       sensitive-headers:
     # End of Business Intelligence microservice
 
@@ -134,12 +134,12 @@ zuul:
       url: http://localhost:9092/api/service/abixen/web-content/application
       sensitive-headers:
     webContentAdmin:
-      path: /service/abixen/web-content/admin/**
-      url: http://localhost:9092/service/abixen/web-content/admin/
+      path: /service/abixen/web-content/control-panel/**
+      url: http://localhost:9092/service/abixen/web-content/control-panel/
       sensitive-headers:
     webContentAdminApi:
-      path: /api/service/abixen/web-content/admin/**
-      url: http://localhost:9092/api/service/abixen/web-content/admin/
+      path: /api/service/abixen/web-content/control-panel/**
+      url: http://localhost:9092/api/service/abixen/web-content/control-panel/
       sensitive-headers:
     # End of Web Content microservice
 

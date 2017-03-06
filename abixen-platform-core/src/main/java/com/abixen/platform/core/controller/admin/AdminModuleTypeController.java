@@ -33,7 +33,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/admin/module-types")
+@RequestMapping(value = "/api/control-panel/module-types")
 public class AdminModuleTypeController {
 
     @Autowired

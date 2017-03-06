@@ -5,12 +5,12 @@ module.exports = {
         dir: 'src/main/resources/static',
         files: 'src/main/resources/static/**',
         applicationLibs: 'src/main/resources/static/service/abixen/business-intelligence/application/lib',
-        adminLibs: 'src/main/resources/static/service/abixen/business-intelligence/admin/lib',
-        adminScripts: 'service/abixen/business-intelligence/admin/business-intelligence.min.js',
+        adminLibs: 'src/main/resources/static/service/abixen/business-intelligence/control-panel/lib',
+        adminScripts: 'service/abixen/business-intelligence/control-panel/business-intelligence.min.js',
         applicationScripts: 'service/abixen/business-intelligence/application/business-intelligence.min.js',
         applicationStyles: 'service/abixen/business-intelligence/application/business-intelligence.min.css',
-        adminStyles: 'service/abixen/business-intelligence/admin/business-intelligence.min.css',
-        adminTemplateCache: 'src/main/web/service/abixen/business-intelligence/admin/multi-visualisation/javascript',
+        adminStyles: 'service/abixen/business-intelligence/control-panel/business-intelligence.min.css',
+        adminTemplateCache: 'src/main/web/service/abixen/business-intelligence/control-panel/multi-visualisation/javascript',
         applicationTemplateCache: 'src/main/web/service/abixen/business-intelligence/application/multi-visualisation/javascript'
     },
     applicationLibs: {
@@ -44,7 +44,7 @@ module.exports = {
     },
     scripts: {
         adminFiles: [
-            'src/main/web/service/abixen/business-intelligence/admin/**/*.js'
+            'src/main/web/service/abixen/business-intelligence/control-panel/**/*.js'
         ],
         applicationFiles: [
             'src/main/web/service/abixen/business-intelligence/application/**/*.js'
@@ -57,10 +57,10 @@ module.exports = {
     },
     styles: {
         adminWatch: [
-            'src/main/web/service/abixen/business-intelligence/admin/**/*.scss'
+            'src/main/web/service/abixen/business-intelligence/control-panel/**/*.scss'
         ],
         adminSass: [
-            'src/main/web/service/abixen/business-intelligence/admin/scss/businessintelligence.scss'
+            'src/main/web/service/abixen/business-intelligence/control-panel/scss/businessintelligence.scss'
         ],
 
         applicationWatch: [

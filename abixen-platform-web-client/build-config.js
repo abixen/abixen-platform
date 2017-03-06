@@ -6,12 +6,12 @@ module.exports = {
         files: 'src/main/resources/static/**',
         libs: 'src/main/resources/static/lib',
         loginScripts: 'login/application.min.js',
-        adminScripts: 'admin/application.min.js',
+        adminScripts: 'control-panel/application.min.js',
         applicationScripts: 'application/application.min.js',
         commonScripts: 'common/modules.min.js',
         loginStyles: 'login/application.min.css',
         applicationStyles: 'application/application.min.css',
-        adminStyles: 'admin/application.min.css',
+        adminStyles: 'control-panel/application.min.css',
         loginImages: 'src/main/resources/static/login/image',
         commonNavigationImages: 'src/main/resources/static/common/navigation/image',
         libStyles: 'lib/lib.min.css',
@@ -95,7 +95,7 @@ module.exports = {
             'src/main/web/login/**/*.js'
         ],
         adminFiles: [
-            'src/main/web/admin/**/*.js'
+            'src/main/web/control-panel/**/*.js'
         ],
         applicationFiles: [
             'src/main/web/application/**/*.js'
@@ -120,7 +120,7 @@ module.exports = {
             'src/main/web/**/*.scss'
         ],
         adminSass: [
-            'src/main/web/admin/scss/application.scss'
+            'src/main/web/control-panel/scss/application.scss'
         ],
 
         applicationWatch: [

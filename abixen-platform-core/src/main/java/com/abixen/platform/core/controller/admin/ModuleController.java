@@ -37,7 +37,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/admin/modules")
+@RequestMapping(value = "/api/control-panel/modules")
 public class ModuleController {
 
     @Autowired

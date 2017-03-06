@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "/api/admin/securities")
+@RequestMapping(value = "/api/control-panel/securities")
 public class SecurityController {
 
     private final SecurityService securityService;
