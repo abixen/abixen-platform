@@ -54,11 +54,6 @@ abixen:
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT
           -
-            relativeUrl: /service/abixen/control-panel/business-intelligence/lib/xlsx.full.min.js
-            resourcePageLocation: BODY
-            resourcePage: ADMIN
-            resourceType: JAVASCRIPT
-          -
             relativeUrl: /service/abixen/control-panel/business-intelligence/business-intelligence.min.css
             resourcePageLocation: HEADER
             resourcePage: ADMIN
