@@ -43,7 +43,7 @@
             .state('application', {
                 abstract: true,
                 controller: 'ApplicationController',
-                templateUrl: '/admin/html/application.html',
+                templateUrl: 'admin/html/application.html',
                 resolve: {
                     platformSecurityResolver: platformSecurityResolver
                 }
@@ -51,7 +51,7 @@
             .state('application.search', {
                 url: '/search?query',
                 controller: 'SearchController',
-                templateUrl: '/admin/html/search.html'
+                templateUrl: 'admin/html/search.html'
             });
 
 

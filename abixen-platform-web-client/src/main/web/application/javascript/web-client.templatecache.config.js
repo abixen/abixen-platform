@@ -17,10 +17,5 @@
     'use strict';
 
     angular
-        .module('platformPageModule', [
-            'ui.router',
-            'platformDashboardModule',
-            'platformLayoutModule',
-            'webClientTemplatecache'
-        ]);
+        .module('webClientTemplatecache', []);
 })();

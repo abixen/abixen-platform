@@ -29,29 +29,29 @@
         $stateProvider
             .state('application.roles', {
                 url: '/roles',
-                templateUrl: '/admin/modules/role/html/index.html'
+                templateUrl: 'admin/modules/role/html/index.html'
             })
             .state('application.roles.list', {
                 url: '/list',
-                templateUrl: '/admin/modules/role/html/list.html',
+                templateUrl: 'admin/modules/role/html/list.html',
                 controller: 'RoleListController',
                 controllerAs: 'roleList'
             })
             .state('application.roles.add', {
                 url: '/add',
-                templateUrl: '/admin/modules/role/html/edit.html',
+                templateUrl: 'admin/modules/role/html/edit.html',
                 controller: 'RoleDetailsController',
                 controllerAs: 'roleDetails'
             })
             .state('application.roles.edit', {
                 url: '/edit/:id',
-                templateUrl: '/admin/modules/role/html/edit.html',
+                templateUrl: 'admin/modules/role/html/edit.html',
                 controller: 'RoleDetailsController',
                 controllerAs: 'roleDetails'
             })
             .state('application.roles.permissions', {
                 url: '/permissions/:id',
-                templateUrl: '/admin/modules/role/html/permissions.html',
+                templateUrl: 'admin/modules/role/html/permissions.html',
                 controller: 'RoleDefinePermissionsController',
                 controllerAs: 'roleDefinePermissions'
             });

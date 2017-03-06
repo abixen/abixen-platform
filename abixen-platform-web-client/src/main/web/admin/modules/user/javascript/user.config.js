@@ -29,40 +29,40 @@
         $stateProvider
             .state('application.users', {
                 url: '/users',
-                templateUrl: '/admin/modules/user/html/index.html'
+                templateUrl: 'admin/modules/user/html/index.html'
             })
             .state('application.users.list', {
                 url: '/list',
-                templateUrl: '/admin/modules/user/html/list.html',
+                templateUrl: 'admin/modules/user/html/list.html',
                 controller: 'UserListController',
                 controllerAs: 'userList'
             })
             .state('application.users.add', {
                 url: '/add',
-                templateUrl: '/admin/modules/user/html/edit/details.html',
+                templateUrl: 'admin/modules/user/html/edit/details.html',
                 controller: 'UserDetailsController',
                 controllerAs: 'userDetails'
             })
             .state('application.users.edit', {
                 url: '/edit/:id',
                 abstract: true,
-                templateUrl: '/admin/modules/user/html/edit.html'
+                templateUrl: 'admin/modules/user/html/edit.html'
             })
             .state('application.users.edit.details', {
                 url: '',
-                templateUrl: '/admin/modules/user/html/edit/details.html',
+                templateUrl: 'admin/modules/user/html/edit/details.html',
                 controller: 'UserDetailsController',
                 controllerAs: 'userDetails'
             })
             .state('application.users.edit.avatar', {
                 url: '/avatar',
-                templateUrl: '/admin/modules/user/html/edit/avatar.html',
+                templateUrl: 'admin/modules/user/html/edit/avatar.html',
                 controller: 'UserAvatarChangeController',
                 controllerAs: 'userAvatarChange'
             })
             .state('application.users.roles', {
                 url: '/roles/:id',
-                templateUrl: '/admin/modules/user/html/roles.html',
+                templateUrl: 'admin/modules/user/html/roles.html',
                 controller: 'UserAssignRolesController'
             });
     }

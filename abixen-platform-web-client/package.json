@@ -31,7 +31,8 @@
     "gulp-usemin": "0.3.12",
     "gulp-util": "^3.0.4",
     "gulp-webserver": "~0.9.1",
-    "gulp-ignore": "~2.0.2"
+    "gulp-ignore": "~2.0.2",
+    "gulp-angular-templatecache": "^2.0.0"
   },
   "config": {
     "registry": "http://registry.npmjs.org/"

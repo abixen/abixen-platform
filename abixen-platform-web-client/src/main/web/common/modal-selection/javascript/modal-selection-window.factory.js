@@ -59,7 +59,7 @@
         function openSelectionDialog(title, variable, data, selectionType, windowClass, callback) {
             return $uibModal.open({
                 animation: true,
-                templateUrl: '/common/modal-selection/html/modal-selection.html',
+                templateUrl: 'common/modal-selection/html/modal-selection.html',
                 controller: 'ModalSelectionWindowController',
                 windowClass: 'modal-selection-dialog',
                 size: 'md', // medium by default

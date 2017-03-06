@@ -1,4 +1,4 @@
-var platformLoginApp = angular.module('platformLoginApp', ['platformLoginControllers', 'ngRoute', 'ui.router', 'toaster']);
+var platformLoginApp = angular.module('platformLoginApp', ['platformLoginControllers', 'ngRoute', 'ui.router', 'toaster','webClientTemplatecache']);
 
 platformLoginApp.config(
     ['$httpProvider', '$stateProvider', '$urlRouterProvider', function ($httpProvider, $stateProvider, $urlRouterProvider) {
@@ -9,13 +9,13 @@ platformLoginApp.config(
         $stateProvider
             .state('application', {
                 abstract: true,
-                templateUrl: '/login/html/application.html',
+                templateUrl: 'login/html/application.html',
                 url: '/'
             })
             .state('application.login', {
                 url: '?activation-key',
                 controller: 'PlatformAuthenticateController',
-                templateUrl: '/login/html/login.html'
+                templateUrl: 'login/html/login.html'
             });
     }]
 );

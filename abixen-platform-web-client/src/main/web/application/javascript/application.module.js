@@ -41,6 +41,7 @@
         'platformFAModalSelection',
         'ngScrollbar',
         'angularMoment',
+        'webClientTemplatecache',
         'platformCommentModule'];
 
     for (var i = 0; i < externalModules.length; i++) {

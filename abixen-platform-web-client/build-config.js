@@ -19,7 +19,10 @@ module.exports = {
         roboto: 'src/main/resources/static/fonts/roboto',
         glyphicons: 'src/main/resources/static/fonts/bootstrap',
         ckeditor: 'src/main/resources/static/lib/ckeditor',
-        moment: 'src/main/resources/static/lib/moment'
+        moment: 'src/main/resources/static/lib/moment',
+        adminTemplateCache: 'src/main/web/admin/javascript',
+        applicationTemplateCache: 'src/main/web/application/javascript',
+        loginTemplateCache:'src/main/web/login/javascript'
     },
     images: {
         login: 'src/main/web/login/image/*',
@@ -77,6 +80,9 @@ module.exports = {
     },
     templates: {
         files: 'src/main/web/**/*.html',
+        admin: 'src/main/web/admin/**/*.html',
+        application: 'src/main/web/application/**/*.html',
+        login: 'src/main/web/login/**/*.html',
         minifyOpts: {
             removeComments: true,
             removeCommentsFromCDATA: true,
@@ -104,6 +110,7 @@ module.exports = {
             'src/main/web/common/**/*.js'
         ],
         concatOrder: [
+            'src/main/web/**/*.templatecache.config.js',
             'src/main/web/**/*.module.js',
             'src/main/web/**/*.js'
         ]

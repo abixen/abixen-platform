@@ -82,7 +82,7 @@
             onClick: function () {
                 $aside.open({
                     placement: 'left',
-                    templateUrl: '/application/modules/page/html/edit.html',
+                    templateUrl: 'application/modules/page/html/edit.html',
                     size: 'md',
                     backdrop: false,
                     controller: 'PageDetailsController as pageDetails'
@@ -213,7 +213,7 @@
                         serviceId: moduleType.serviceId,
                         title: moduleType.title, //'Chart Module',
                         description: moduleType.description,//'Displays a list of links',
-                        templateUrl: moduleType.initUrl!= null ? moduleType.initUrl : '/application/modules/dashboard/html/module-permission-denied.html',
+                        templateUrl: moduleType.initUrl!= null ? moduleType.initUrl : 'application/modules/dashboard/html/module-permission-denied.html',
                         edit: {
                             reload: false
                         },
@@ -251,7 +251,7 @@
         $scope.editUser = function () {
             $aside.open({
                 placement: 'left',
-                templateUrl: '/application/modules/user/html/edit.html',
+                templateUrl: 'application/modules/user/html/edit.html',
                 size: 'md',
                 backdrop: false,
                 controller: 'UserAccountDetailsController as userAccountDetails'

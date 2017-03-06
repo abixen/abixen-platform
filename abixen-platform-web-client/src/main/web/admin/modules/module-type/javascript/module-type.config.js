@@ -29,22 +29,22 @@
         $stateProvider
             .state('application.moduleTypes', {
                 url: '/module-types',
-                templateUrl: '/admin/modules/module-type/html/index.html'
+                templateUrl: 'admin/modules/module-type/html/index.html'
             })
             .state('application.moduleTypes.list', {
                 url: '/list',
-                templateUrl: '/admin/modules/module-type/html/list.html',
+                templateUrl: 'admin/modules/module-type/html/list.html',
                 controller: 'ModuleTypeListController',
                 controllerAs: 'moduleTypeList'
             })
             .state('application.moduleTypes.permissions', {
                 url: '/permissions/:id',
-                templateUrl: '/admin/modules/common/html/permissions.html',
+                templateUrl: 'admin/modules/common/html/permissions.html',
                 controller: 'ModuleTypePermissionsController'
             })
             .state('application.moduleTypes.resources', {
                 url: '/:id/resources/list',
-                templateUrl: '/admin/modules/common/html/resources.html',
+                templateUrl: 'admin/modules/common/html/resources.html',
                 controller: 'ModuleTypeResourcesListController',
                 controllerAs : 'moduleTypeResourceList'
             });

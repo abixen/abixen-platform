@@ -25,7 +25,7 @@
         return {
             restrict: 'E',
             require: '^form',
-            templateUrl: '/common/component/field/input-drop-down/input-drop-down.template.html',
+            templateUrl: 'common/component/field/input-drop-down/input-drop-down.template.html',
             scope: {
                 ngModel: '=',
                 ngModelAsObject: '=',
