@@ -88,7 +88,7 @@
         configWizard.isChart = $scope.isChart = chartTypeWizardStepIsChart;
         configWizard.setColumnSelected = setColumnSelected;
 
-
+        
         getChartConfiguration($scope.moduleId);
         changeWizardView();
 
