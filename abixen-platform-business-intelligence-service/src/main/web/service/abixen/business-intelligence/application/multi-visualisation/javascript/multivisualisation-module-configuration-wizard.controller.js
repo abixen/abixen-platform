@@ -429,10 +429,13 @@
                 } else {
                     if (configWizard.chartConfiguration.dataSetChart) {
                         buildObjFromJson(configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn, configWizard.chartConfiguration.filter);
+                        if (configWizard.chartConfiguration.dataSetChart.dataSetSeries.length > 0){
+                            setDataSetSeriesSelected(configWizard.chartConfiguration.dataSetChart.dataSetSeries[0]);
+                        }
                     }
                 }
             }
-        }
+    }
 
         function initDataSetSeries() {
             if (!configWizard.chartConfiguration.dataSetChart){
