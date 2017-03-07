@@ -1,15 +1,15 @@
 <div class="row form-row">
-    <form class="form-horizontal" role="form" name="entityForm" novalidate>
+    <form class="form-horizontal" role="form" name="pageDetails.entityForm" novalidate>
         <div class="col-md-6">
 
-            <input-text model="pageDetails.entity.page.title"
+            <input-text model="pageDetails.entity.title"
                         name="title"
                         label="{{'module.page.title.label' | translate}}"
                         placeholder="{{'module.page.title.placeholder' | translate}}"
                         validators="pageDetails.validators">
             </input-text>
 
-            <input-text-area model="pageDetails.entity.page.description"
+            <input-text-area model="pageDetails.entity.description"
                              name="description"
                              label="{{'module.page.description.label' | translate}}"
                              placeholder="{{'module.page.description.placeholder' | translate}}"
@@ -22,11 +22,11 @@
                 <div class="row form-group" ng-class="{ 'has-error': entityForm.layout.$invalid}">
                     <div class="col-xs-4 col-sm-3 col-md-6 col-lg-3 " ng-repeat="layoutObject in pageDetails.layouts">
                         <label>
-                            <input style="display:none;" ng-model="entity.layout" type="radio"
+                            <input style="display:none;" ng-model="pageDetails.entity.layout" type="radio"
                                    dynamic-name="layout" ng-value="layoutObject" class="form-control"
                                    ng-required="true"/>
                             <a class="thumbnail" style="text-align:center; font-size:75%"
-                               ng-class="{'active': entity.layout.id==layoutObject.id}"
+                               ng-class="{'active': pageDetails.entity.layout.id==layoutObject.id}"
                                ng-click="entity.layout=layoutObject">
                                 <img src="/api/images/{{layoutObject.iconFileName}}/" class="img-responsive"/>
                                 {{layoutObject.title}}
@@ -47,7 +47,7 @@
 </div>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
-        <a class="btn save-button" ng-click="saveForm()"><i class="fa fa-floppy-o"></i><span>Save</span>
+        <a class="btn save-button" ng-click="pageDetails.saveForm()"><i class="fa fa-floppy-o"></i><span>Save</span>
         </a>
         <a class="btn cancel-button" ><i class="fa fa-times"></i><span>Cancel</span>
         </a>

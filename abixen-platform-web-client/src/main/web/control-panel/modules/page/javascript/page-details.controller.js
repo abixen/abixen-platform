@@ -23,6 +23,7 @@
     PageDetailsController.$inject = [
         '$scope',
         '$state',
+        '$stateParams',
         '$log',
         'Page',
         'Layout',
@@ -30,13 +31,14 @@
         'applicationNavigationItems'
     ];
 
-    function PageDetailsController($scope, $state, $log, Page, Layout, responseHandler, applicationNavigationItems) {
+    function PageDetailsController($scope, $state, $stateParams, $log, Page, Layout, responseHandler, applicationNavigationItems) {
         $log.log('PageDetailsController');
 
         var pageDetails = this;
 
         new AbstractDetailsController(pageDetails, Page, responseHandler, $scope,
             {
+                entityId: $stateParams.id,
                 getValidators: getValidators,
                 onSuccessSaveForm: onSuccessSaveForm
             }
