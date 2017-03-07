@@ -128,7 +128,15 @@ public abstract class AbstractDatabaseService {
         return true;
     }
 
-    public List<Map<String, DataValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm) {
+    public List<Map<String, DataValueWeb>> getChartData(Connection connection,
+                                                        DatabaseDataSource databaseDataSource,
+                                                        ChartConfigurationForm chartConfigurationForm,
+                                                        String seriesName) {
+        return seriesName != null ? getChartDataPreview(connection, databaseDataSource, chartConfigurationForm, seriesName)
+                : getChartData(connection, databaseDataSource, chartConfigurationForm);
+    }
+
+    private List<Map<String, DataValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm) {
         Set<String> chartColumnsSet = getDomainColumn(chartConfigurationForm);
 
         chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
@@ -155,7 +163,7 @@ public abstract class AbstractDatabaseService {
         return chartColumnsSet;
     }
 
-    public List<Map<String, DataValueWeb>> getChartDataPreview(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+    private List<Map<String, DataValueWeb>> getChartDataPreview(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         Set<String> chartColumnsSet = getDomainColumn(chartConfigurationForm);
 
         chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {

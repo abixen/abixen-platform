@@ -25,11 +25,11 @@
         '$log',
         'ApplicationDatabaseDataSource',
         'ChartModuleConfiguration',
-        'CharDataPreview',
+        'CharData',
         'multivisualisationWizardStep'
     ];
 
-    function ChartModuleConfigurationWizardController($scope, $log, ApplicationDatabaseDataSource, ChartModuleConfiguration, CharDataPreview, multivisualisationWizardStep) {
+    function ChartModuleConfigurationWizardController($scope, $log, ApplicationDatabaseDataSource, ChartModuleConfiguration, CharData, multivisualisationWizardStep) {
         $log.log('ChartModuleConfigurationWizardController');
 
         var configWizard = this;
@@ -241,13 +241,13 @@
         function getColumnData(idx) {
             configWizard.table.columnPreviewData = [];
             if (configWizard.table.columnSelected.name != undefined && configWizard.table.columnSelected.name !== '') {
-                CharDataPreview.query({seriesName: configWizard.table.columnSelected.name}, buildTableConfiguration())
+                CharData.query({seriesName: configWizard.table.columnSelected.name}, buildTableConfiguration())
                     .$promise
                     .then(onQueryResult)
             }
 
             function onQueryResult(data) {
-                $log.log('CharDataPreview.query: ', data);
+                $log.log('CharData.query: ', data);
                 data.forEach(function (el) {
                     configWizard.table.columnPreviewData.push({
                         value: el[configWizard.table.columnSelected.name].value
@@ -261,14 +261,14 @@
             if (configWizard.dataSetSeriesSelected) {
                 if (configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn !== null && configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== undefined && configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name !== '') {
                     configWizard.chartConfiguration = prepareFilterForDomain(configWizard.chartConfiguration);
-                    CharDataPreview.query({seriesName: configWizard.dataSetSeriesSelected.name}, configWizard.chartConfiguration)
+                    CharData.query({seriesName: configWizard.dataSetSeriesSelected.name}, configWizard.chartConfiguration)
                         .$promise
                         .then(onQueryResult);
                 }
             }
 
             function onQueryResult(data) {
-                $log.log('CharDataPreview.query: ', data);
+                $log.log('CharData.query: ', data);
                 data.forEach(function (el) {
                     configWizard.chart.seriesPreviewData.push({
                         x: el[configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value,
