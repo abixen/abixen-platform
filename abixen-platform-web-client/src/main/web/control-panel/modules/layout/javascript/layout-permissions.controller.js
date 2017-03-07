@@ -21,18 +21,17 @@
         .controller('LayoutPermissionsController', LayoutPermissionsController);
 
     LayoutPermissionsController.$inject = [
-        '$scope',
         '$stateParams',
         '$log',
         '$state',
         'AclRolesPermissions'
     ];
 
-    function LayoutPermissionsController($scope, $stateParams, $log, $state, AclRolesPermissions) {
+    function LayoutPermissionsController($stateParams, $log, $state, AclRolesPermissions) {
         $log.log('LayoutPermissionsController');
 
-        angular.extend(this, new AbstractPermissionsController($scope, $stateParams, $log, $state, AclRolesPermissions, 'layout', $stateParams.id, 'application.layouts'));
+        var permissions = this;
 
-        $scope.get();
+        new AbstractPermissionsController(permissions, $state, AclRolesPermissions, 'layout', $stateParams.id, 'application.layouts');
     }
 })();

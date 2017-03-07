@@ -6,11 +6,11 @@
                     <thead>
                     <tr>
                         <th>Role name</th>
-                        <th ng-repeat="permission in aclRolesPermissionsDto.permissions">{{permission.title}}</th>
+                        <th ng-repeat="permission in permissions.aclRolesPermissionsDto.permissions">{{permission.title}}</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="aclRolePermissionsDto in aclRolesPermissionsDto.aclRolePermissionsDtos">
+                    <tr ng-repeat="aclRolePermissionsDto in permissions.aclRolesPermissionsDto.aclRolePermissionsDtos">
                         <td>{{aclRolePermissionsDto.role!= null ? aclRolePermissionsDto.role.name : 'Owner'}}</td>
                         <td ng-repeat="aclPermissionDto in aclRolePermissionsDto.aclPermissionDtos"><input
                                 type="checkbox" ng-model="aclPermissionDto.selected"
@@ -22,8 +22,8 @@
 
             <div class="form-group last">
                 <div class="col-sm-offset-3 col-sm-9">
-                    <a class="btn save-button" ng-click="saveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
-                    <a class="btn cancel-button" ng-click="goBack()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
+                    <a class="btn save-button" ng-click="permissions.saveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
+                    <a class="btn cancel-button" ng-click="permissions.goBack()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
                 </div>
             </div>
         </form>

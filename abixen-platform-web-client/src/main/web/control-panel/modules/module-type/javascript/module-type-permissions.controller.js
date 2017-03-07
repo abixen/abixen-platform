@@ -21,18 +21,17 @@
         .controller('ModuleTypePermissionsController', ModuleTypePermissionsController);
 
     ModuleTypePermissionsController.$inject = [
-        '$scope',
         '$stateParams',
         '$log',
         '$state',
         'AclRolesPermissions'
     ];
 
-    function ModuleTypePermissionsController($scope, $stateParams, $log, $state, AclRolesPermissions) {
+    function ModuleTypePermissionsController($stateParams, $log, $state, AclRolesPermissions) {
         $log.log('ModuleTypePermissionsController');
 
-        angular.extend(this, new AbstractPermissionsController($scope, $stateParams, $log, $state, AclRolesPermissions, 'moduleType', $stateParams.id, 'application.moduleTypes'));
+        var permissions = this;
 
-        $scope.get();
+        new AbstractPermissionsController(permissions, $state, AclRolesPermissions, 'moduleType', $stateParams.id, 'application.moduleTypes');
     }
 })();

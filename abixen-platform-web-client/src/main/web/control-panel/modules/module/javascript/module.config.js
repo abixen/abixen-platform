@@ -51,8 +51,9 @@
             })
             .state('application.modules.permissions', {
                 url: '/permissions/:id',
-                templateUrl: '/control-panel/modules/common/html/permissions.html',
-                controller: 'ModulePermissionsController'
+                templateUrl: '/common/permission/permissions.html',
+                controller: 'ModulePermissionsController',
+                controllerAs: 'permissions'
             });
     }
 })();

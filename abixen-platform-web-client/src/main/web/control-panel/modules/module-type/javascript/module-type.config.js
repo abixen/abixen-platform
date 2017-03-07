@@ -39,8 +39,9 @@
             })
             .state('application.moduleTypes.permissions', {
                 url: '/permissions/:id',
-                templateUrl: '/control-panel/modules/common/html/permissions.html',
-                controller: 'ModuleTypePermissionsController'
+                templateUrl: '/common/permission/permissions.html',
+                controller: 'ModuleTypePermissionsController',
+                controllerAs: 'permissions'
             })
             .state('application.moduleTypes.resources', {
                 url: '/:id/resources/list',

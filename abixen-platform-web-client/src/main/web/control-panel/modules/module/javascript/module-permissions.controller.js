@@ -31,8 +31,8 @@
     function ModulePermissionsController($scope, $stateParams, $log, $state, AclRolesPermissions) {
         $log.log('ModulePermissionsController');
 
-        angular.extend(this, new AbstractPermissionsController($scope, $stateParams, $log, $state, AclRolesPermissions, 'module', $stateParams.id, 'application.modules'));
+        var permissions = this;
 
-        $scope.get();
+        new AbstractPermissionsController(permissions, $state, AclRolesPermissions, 'module', $stateParams.id, 'application.modules');
     }
 })();
