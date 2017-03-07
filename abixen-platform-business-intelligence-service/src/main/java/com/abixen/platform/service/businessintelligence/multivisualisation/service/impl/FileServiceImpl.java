@@ -33,15 +33,19 @@ public class FileServiceImpl implements FileService {
     private static final int PREVIEW_LIST_SIZE = 10;
 
     @Override
-    public List<Map<String, DataValueWeb>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm) {
+    public List<Map<String, DataValueWeb>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+        return seriesName != null ? getChartDataPreview(fileDataSource, chartConfigurationForm, seriesName)
+                : getChartData(fileDataSource, chartConfigurationForm);
+    }
+
+    private List<Map<String, DataValueWeb>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm) {
         DataFile dataFile = fileDataSource.getDataFile();
         int size = dataFile.getColumns().get(INDEX_OF_FIRST_ELEMENT).getValues().size();
         List<String> columnNames = getColumnNames(chartConfigurationForm);
         return getData(dataFile, size, columnNames);
     }
 
-    @Override
-    public List<Map<String, DataValueWeb>> getChartDataPreview(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+    private List<Map<String, DataValueWeb>> getChartDataPreview(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         return getData(fileDataSource.getDataFile(), PREVIEW_LIST_SIZE, getColumnNames(chartConfigurationForm, seriesName));
     }
 

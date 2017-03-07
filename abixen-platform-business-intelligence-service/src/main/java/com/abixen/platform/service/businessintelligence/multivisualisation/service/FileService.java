@@ -23,8 +23,7 @@ import java.util.Map;
 
 public interface FileService {
 
-    List<Map<String, DataValueWeb>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm);
+    List<Map<String, DataValueWeb>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName);
 
-    List<Map<String, DataValueWeb>> getChartDataPreview(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName);
 
 }

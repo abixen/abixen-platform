@@ -43,44 +43,24 @@ public class ChartDataServiceImpl implements ChartDataService {
     private DataSourceService dataSourceService;
 
     @Override
-    public List<Map<String, DataValueWeb>> getChartData(ChartConfigurationForm chartConfigurationForm) {
+    public List<Map<String, DataValueWeb>> getChartData(ChartConfigurationForm chartConfigurationForm, String seriesName) {
         DataSource dataSource = dataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId());
         switch (dataSource.getDataSourceType()) {
-            case DB : return getChartDataFromDatabaseDataSource(dataSource, chartConfigurationForm);
-            case FILE: return getChartDataFromFileDataSource(dataSource, chartConfigurationForm);
+            case DB : return getChartDataFromDatabaseDataSource(dataSource, chartConfigurationForm, seriesName);
+            case FILE: return getChartDataFromFileDataSource(dataSource, chartConfigurationForm, seriesName);
             default: throw new NotImplementedException();
         }
     }
 
-    @Override
-    public List<Map<String, DataValueWeb>> getChartDataPreview(ChartConfigurationForm chartConfigurationForm, String seriesName) {
-        DataSource dataSource = dataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId());
-        switch (dataSource.getDataSourceType()) {
-            case DB : return getChartDataPreviewFromDatabaseDataSource(dataSource, chartConfigurationForm, seriesName);
-            case FILE: return getChartDataPreviewFromFileDataSource(dataSource, chartConfigurationForm, seriesName);
-            default: throw new NotImplementedException();
-        }
-    }
-
-    private List<Map<String, DataValueWeb>> getChartDataFromDatabaseDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm) {
+    private List<Map<String, DataValueWeb>> getChartDataFromDatabaseDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         DatabaseConnection databaseConnection = ((DatabaseDataSource) dataSource).getDatabaseConnection();
         DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnection);
-        return databaseService.getChartData(connection, ((DatabaseDataSource) dataSource), chartConfigurationForm);
+        return databaseService.getChartData(connection, ((DatabaseDataSource) dataSource), chartConfigurationForm, seriesName);
     }
 
-    private List<Map<String, DataValueWeb>> getChartDataPreviewFromDatabaseDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
-        DatabaseConnection databaseConnection = ((DatabaseDataSource) dataSource).getDatabaseConnection();
-        DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
-        Connection connection = databaseService.getConnection(databaseConnection);
-        return databaseService.getChartDataPreview(connection, (DatabaseDataSource) dataSource, chartConfigurationForm, seriesName);
-    }
-
-    private List<Map<String, DataValueWeb>> getChartDataPreviewFromFileDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
-        return fileService.getChartDataPreview(((FileDataSource) dataSource), chartConfigurationForm, seriesName);
-    }
-    private List<Map<String, DataValueWeb>> getChartDataFromFileDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm) {
-        return fileService.getChartData(((FileDataSource) dataSource), chartConfigurationForm);
+    private List<Map<String, DataValueWeb>> getChartDataFromFileDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+        return fileService.getChartData(((FileDataSource) dataSource), chartConfigurationForm, seriesName);
     }
 
 }
