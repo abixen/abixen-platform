@@ -51,20 +51,8 @@ In relation to issues, there will be worth to talk about them once refactor and 
 
 #Release plan
 
-Before release the first version of Abixen Platform we have to finish several features, such as:
-
-* Improve the security model
-* Finish the Business Intelligence Service
-* Finish the Web Content Service
-* Solve major issues
-* Perform refactor described above
-
-We are going to release the first version in February 2017. 
-
-The next known plans take into account inter alia:
-
-* Migrate microservices to Docker
-* Test and adjust to Amazon Web Services
+Before release the first version of Abixen Platform we have to finish several features.
+We are going to release the first version in April 2017. 
 
 #Get it started
 The documentation is available under https://github.com/abixen/abixen-platform/wiki page.
