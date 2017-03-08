@@ -22,6 +22,7 @@ import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.context.ServletContextAware;
@@ -54,6 +55,7 @@ public class MailServiceImpl implements MailService, ServletContextAware {
         this.servletContext = servletContext;
     }
 
+    @Async
     @Override
     public void sendMail(String to, Map<String, String> parameters, String template, String subject) {
         log.debug("sendMail() - to: " + to);
