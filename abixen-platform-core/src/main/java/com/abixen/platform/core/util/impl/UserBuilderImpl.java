@@ -46,7 +46,7 @@ public class UserBuilderImpl extends EntityBuilder<User> implements UserBuilder 
         this.product.setUsername(username);
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         this.product.setPassword(encoder.encode(password));
-        this.product.setHashKey(encoder.encode(username + password + new Date()));
+        this.product.setHashKey(encoder.encode(username + password + new Date()).replace("/", "."));
         this.product.setState(UserState.CREATED);
         return this;
     }
