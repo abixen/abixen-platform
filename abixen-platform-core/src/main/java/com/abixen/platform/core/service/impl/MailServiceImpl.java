@@ -40,15 +40,16 @@ import java.util.Map;
 @Service
 public class MailServiceImpl implements MailService, ServletContextAware {
 
-    @Autowired
-    private JavaMailSender mailSender;
-
     private ServletContext servletContext;
-
+    private final JavaMailSender mailSender;
+    private final AbstractPlatformMailConfigurationProperties platformMailConfigurationProperties;
 
     @Autowired
-    private AbstractPlatformMailConfigurationProperties platformMailConfigurationProperties;
-
+    public MailServiceImpl(JavaMailSender mailSender,
+                           AbstractPlatformMailConfigurationProperties platformMailConfigurationProperties) {
+        this.mailSender = mailSender;
+        this.platformMailConfigurationProperties = platformMailConfigurationProperties;
+    }
 
     @Override
     public void setServletContext(ServletContext servletContext) {
@@ -61,9 +62,7 @@ public class MailServiceImpl implements MailService, ServletContextAware {
         log.debug("sendMail() - to: " + to);
         MimeMessage message = mailSender.createMimeMessage();
         try {
-            //String context = servletContext.getRealPath("../resources/templates/freemarker");
             String stringDir = MailServiceImpl.class.getResource("/templates/freemarker").getPath();
-            //context.replaceAll("\\\\", "/");
             Configuration cfg = new Configuration(Configuration.VERSION_2_3_22);
             cfg.setDefaultEncoding("UTF-8");
 
@@ -92,5 +91,4 @@ public class MailServiceImpl implements MailService, ServletContextAware {
             e.printStackTrace();
         }
     }
-
 }
