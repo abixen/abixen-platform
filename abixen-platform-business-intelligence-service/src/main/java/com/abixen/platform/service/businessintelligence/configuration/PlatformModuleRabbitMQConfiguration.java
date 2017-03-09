@@ -31,7 +31,7 @@ import static com.abixen.platform.core.util.PlatformProfiles.DEV;
 @Configuration
 public class PlatformModuleRabbitMQConfiguration extends AbstractRabbitMQConfiguration {
 
-    private static final String QUEUE_NAME = "abixen-platform-modules";
+    private static final String QUEUE_NAME = "abixen-platform-business-intelligence-service";
 
 
     public PlatformModuleRabbitMQConfiguration() {
