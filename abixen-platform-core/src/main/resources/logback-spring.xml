@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <appender name="stash" class="net.logstash.logback.appender.LogstashAccessTcpSocketAppender">
+      <destination>logstash:4560</destination>
+
+      <!-- encoder is required -->
+      <encoder class="net.logstash.logback.encoder.LogstashAccessEncoder" />
+  </appender>
+
+  <appender-ref ref="stash" />
+</configuration>

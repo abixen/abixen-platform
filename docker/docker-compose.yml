@@ -205,7 +205,7 @@ services:
 # Logging components
 
   elasticsearch:
-    image: elasticsearch:5-alpine
+    image: elasticsearch:5.2-alpine
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -213,18 +213,21 @@ services:
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
 
   logstash:
-    image: logstash:5-alpine
-    command: logstash -e 'input { gelf { } } filter { } output { elasticsearch { hosts => "elasticsearch:9200" } }'
+    image: logstash:5.2-alpine
+    command: logstash -f /logging/logstash.conf 
     # uncomment to enable output of all incoming messages to stdout of logstash container
     # command: logstash -e 'input { gelf { } } filter { } output { elasticsearch { hosts => "elasticsearch:9200" } stdout { codec => rubydebug } }'
 
     ports:
       - "12201:12201/udp"
+      - "4260:4260/tcp"
+    volumes:
+      - ./logging/:/logging/
     depends_on:
       - elasticsearch
 
   kibana:
-    image: kibana:5
+    image: kibana:5.2
     ports:
       - "5601:5601"
     depends_on:
