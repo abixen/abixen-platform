@@ -6,3 +6,6 @@ spring:
       write-dates-as-timestamps: false
   jpa:
     generate-ddl: true
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
