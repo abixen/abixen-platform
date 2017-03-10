@@ -21,6 +21,7 @@ import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,7 +35,8 @@ public class ApplicationUserController extends AbstractUserController {
                                      MailService mailService,
                                      RoleService roleService,
                                      SecurityService securityService,
-                                     AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
-        super(userService, mailService, roleService, securityService, platformResourceConfigurationProperties);
+                                     AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
+                                     MessageSource messageSource) {
+        super(userService, mailService, roleService, securityService, platformResourceConfigurationProperties, messageSource);
     }
 }

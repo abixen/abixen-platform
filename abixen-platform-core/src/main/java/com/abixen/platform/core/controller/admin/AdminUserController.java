@@ -28,6 +28,7 @@ import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -46,8 +47,13 @@ public class AdminUserController extends AbstractUserController {
     private final UserService userService;
 
     @Autowired
-    public AdminUserController(UserService userService, MailService mailService, RoleService roleService, SecurityService securityService, AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
-        super(userService, mailService, roleService, securityService, platformResourceConfigurationProperties);
+    public AdminUserController(UserService userService,
+                               MailService mailService,
+                               RoleService roleService,
+                               SecurityService securityService,
+                               AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
+                               MessageSource messageSource) {
+        super(userService, mailService, roleService, securityService, platformResourceConfigurationProperties, messageSource);
         this.userService = userService;
     }
 

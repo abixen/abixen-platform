@@ -32,6 +32,8 @@ import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.LocaleUtils;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -46,32 +48,33 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Slf4j
 public abstract class AbstractUserController {
 
     private final UserService userService;
-
     private final MailService mailService;
-
     private final RoleService roleService;
-
     private final SecurityService securityService;
+    private final MessageSource messageSource;
 
 
     private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
-    public AbstractUserController(UserService userService, MailService mailService, RoleService roleService, SecurityService securityService, AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
+    public AbstractUserController(UserService userService,
+                                  MailService mailService,
+                                  RoleService roleService,
+                                  SecurityService securityService,
+                                  AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
+                                  MessageSource messageSource) {
         this.userService = userService;
         this.mailService = mailService;
         this.roleService = roleService;
         this.securityService = securityService;
         this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
+        this.messageSource = messageSource;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -102,8 +105,10 @@ public abstract class AbstractUserController {
         params.put("lastName", user.getLastName());
         params.put("accountActivationUrl", "http://localhost:8080/login#/?activation-key=" + user.getHashKey());
 
+        String subject = messageSource.getMessage("email.userAccountActivation.subject", null, LocaleUtils.toLocale(userForm.getSelectedLanguage().getSelectedLanguage().toLowerCase()));
+
         //TODO
-        mailService.sendMail(user.getUsername(), params, MailService.USER_ACCOUNT_ACTIVATION_MAIL, "activationMessageSubject");
+        mailService.sendMail(user.getUsername(), params, MailService.USER_ACCOUNT_ACTIVATION_MAIL, subject);
 
         return new FormValidationResultDto(userForm);
     }
