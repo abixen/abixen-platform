@@ -18,6 +18,7 @@ import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.service.LayoutService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,12 +38,13 @@ public class ApplicationLayoutController {
         this.layoutService = layoutService;
     }
 
+    @Cacheable(value = "dashboardlayout")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Layout> getDashboardLayouts() {
         log.debug("getLayouts()");
 
         List<Layout> layouts = layoutService.findAllLayouts();
-
+        log.debug("getLayouts() count" + (layouts != null ? layouts.size() : 0));
         for (Layout layout : layouts) {
             log.debug("layout: " + layout);
 
