@@ -66,14 +66,14 @@ public class AdminLayoutController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Layout getLayout(@PathVariable Long id) {
-        log.debug("getLayout() - id: " + id);
+        log.debug("getLayout() - id: {}", id);
 
         return layoutService.findLayout(id);
     }
 
-    @RequestMapping(value = "/api/control-panel/layouts", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Layout createLayout(@RequestBody Layout layout) {
-        log.debug("save() - layout: " + layout);
+        log.debug("save() - layout: {}", layout);
         return layoutService.createLayout(layout);
     }
 
@@ -91,7 +91,7 @@ public class AdminLayoutController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteLayout(@PathVariable("id") long id) {
-        log.debug("delete() - id: " + id);
+        log.debug("delete() - id: {}", id);
         layoutService.deleteLayout(id);
         return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
     }
