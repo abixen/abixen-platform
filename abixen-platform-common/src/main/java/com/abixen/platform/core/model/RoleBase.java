@@ -19,11 +19,7 @@ import java.util.Set;
 
 public interface RoleBase<Permission extends PermissionBase> extends SimpleRoleBase {
 
-    //FIXME - what is name?
-     int NAME_MAX_LENGTH = 300;
-
-    public static final int ROLE_NAME_MIN_LENGTH = 5;
-    public static final int ROLE_NAME_MAX_LENGTH = 20;
+    public static final int ROLE_NAME_MAX_LENGTH = 300;
 
     Set<Permission> getPermissions();
 

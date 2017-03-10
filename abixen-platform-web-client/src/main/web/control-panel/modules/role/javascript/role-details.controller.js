@@ -52,7 +52,7 @@
             validators['name'] =
                 [
                     new NotNull(),
-                    new Length(3, 10)
+                    new Length(1, 300)
                 ];
 
             return validators;

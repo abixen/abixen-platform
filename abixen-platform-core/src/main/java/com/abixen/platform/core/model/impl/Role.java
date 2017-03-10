@@ -45,7 +45,7 @@ public class Role extends AuditingModel implements RoleBase<Permission>, RoleWeb
     @Column(name = "role_type", nullable = false)
     private RoleType roleType;
 
-    @Column(name = "name", unique = true, length = NAME_MAX_LENGTH, nullable = false)
+    @Column(name = "name", unique = true, length = ROLE_NAME_MAX_LENGTH, nullable = false)
     private String name;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

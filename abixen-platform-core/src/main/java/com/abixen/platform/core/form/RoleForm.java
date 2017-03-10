@@ -26,7 +26,7 @@ public class RoleForm implements Form {
     private Long id;
 
     @NotNull
-    @Length(min = RoleBase.ROLE_NAME_MIN_LENGTH, max = RoleBase.ROLE_NAME_MAX_LENGTH)
+    @Length(max = RoleBase.ROLE_NAME_MAX_LENGTH)
     private String name;
 
     public RoleForm() {
