@@ -33,6 +33,11 @@ import java.util.Set;
 @SequenceGenerator(sequenceName = "user_seq", name = "user_seq", allocationSize = 1)
 public class User extends AuditingModel implements UserBase<Role>, UserWeb {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1247915331100609524L;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "user_seq", strategy = GenerationType.SEQUENCE)
