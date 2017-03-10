@@ -71,7 +71,7 @@ public class MailServiceImpl implements MailService, ServletContextAware {
             cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_22));
 
             StringBuffer content = new StringBuffer();
-            Template temp = cfg.getTemplate(template);
+            Template temp = cfg.getTemplate(template + ".ftl");
             content.append(FreeMarkerTemplateUtils.processTemplateIntoString(temp, parameters));
 
             MimeBodyPart messageBodyPart = new MimeBodyPart();

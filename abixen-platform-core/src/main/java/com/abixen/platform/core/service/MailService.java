@@ -19,9 +19,9 @@ import java.util.Map;
 
 public interface MailService {
 
-    String USER_ACCOUNT_ACTIVATION_MAIL = "userAccountActivationMail.ftl";
+    String USER_ACCOUNT_ACTIVATION_MAIL = "userAccountActivationMail";
 
-    String USER_PASSWORD_CHANGE_MAIL = "userPasswordChangeMail.ftl";
+    String USER_PASSWORD_CHANGE_MAIL = "userPasswordChangeMail";
 
     void sendMail(String to, Map<String, String> parameters, String template, String subject);
 
