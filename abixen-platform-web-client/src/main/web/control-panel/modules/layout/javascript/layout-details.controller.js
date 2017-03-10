@@ -58,17 +58,17 @@
             validators['title'] =
                 [
                     new NotNull(),
-                    new Length(6, 40)
+                    new Length(1, 40)
                 ];
             validators['content'] =
                 [
                     new NotNull(),
-                    new Length(10, 4000)
+                    new Length(1, 4000)
                 ];
             validators['iconFileName'] =
                 [
                     new NotNull(),
-                    new Length(6, 100)
+                    new Length(1, 100)
                 ];
 
             return validators;

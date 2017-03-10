@@ -31,12 +31,12 @@ public class LayoutForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    @Length(min = LayoutBase.LAYOUT_TITLE_MIN_LENGTH, max = LayoutBase.LAYOUT_TITLE_MAX_LENGTH)
+    @Length(max = LayoutBase.LAYOUT_TITLE_MAX_LENGTH)
     private String title;
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    @Length(min = LayoutBase.LAYOUT_CONTENT_MIN_LENGTH, max = LayoutBase.LAYOUT_CONTENT_MAX_LENGTH)
+    @Length(max = LayoutBase.LAYOUT_CONTENT_MAX_LENGTH)
     private String content;
 
     @Length(max = LayoutBase.LAYOUT_ICON_FILE_NAME_MAX_LENGTH)
