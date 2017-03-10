@@ -38,7 +38,7 @@ public class ApplicationLayoutController {
         this.layoutService = layoutService;
     }
 
-    @Cacheable(value = "dashboardlayout")
+    @Cacheable(value = "APPLICATION_LAYOUTS")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Layout> getDashboardLayouts() {
         log.debug("getLayouts()");

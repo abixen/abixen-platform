@@ -2,7 +2,7 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="ehcache.xsd"
          updateCheck="true" monitoring="autodetect" dynamicConfig="true">
-    <cache name="dashboardlayout"
+    <cache name="APPLICATION_LAYOUTS"
            maxEntriesLocalHeap="5000"
            maxEntriesLocalDisk="1000"
            eternal="false"
