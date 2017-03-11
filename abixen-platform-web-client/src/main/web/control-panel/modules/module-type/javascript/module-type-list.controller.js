@@ -55,22 +55,8 @@
                 {field: 'title', name: 'Title', pinnedLeft: true, width: 200},
                 {field: 'serviceId', name: 'Service Id', pinnedLeft: true, width: 200},
                 {field: 'initUrl', name: 'Init Url', width: 400},
-                {field: 'description', name: 'Description', width: 400},
-                {field: 'createdBy.username', name: 'Created By', width: 200},
-                {
-                    field: 'createdDate',
-                    name: 'Created Date',
-                    width: 200,
-                    cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
-                },
-                {field: 'lastModifiedBy.username', name: 'Last Modified By', width: 200},
-                {
-                    field: 'lastModifiedDate',
-                    name: 'Last Modified Date',
-                    width: 200,
-                    cellFilter: "date:'" + platformParameters.formats.DATE_TIME_FORMAT + "'"
-                }
-            ];
+                {field: 'description', name: 'Description', width: 400}
+            ].concat(getAuditingTableColumns());
         }
 
         function reload() {

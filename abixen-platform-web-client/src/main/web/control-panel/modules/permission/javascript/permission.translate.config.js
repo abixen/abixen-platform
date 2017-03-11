@@ -27,12 +27,12 @@
 
         $translateProvider.translations('POLISH',{
             'module.permission.title.label' : 'Tytuł',
-            'module.permission.description.label' : 'Opis',
+            'module.permission.description.label' : 'Opis'
         });
 
         $translateProvider.translations('ENGLISH',{
             'module.permission.title.label' : 'Title',
-            'module.permission.description.label' : 'Description',
+            'module.permission.description.label' : 'Description'
             }
         );
     }
