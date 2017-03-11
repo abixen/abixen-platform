@@ -37,7 +37,7 @@
                 headers : {
                     'Content-Type' : undefined
                 },
-                url: '/service/abixen/business-intelligence/control-panel/multi-visualisation/file-data/parse'
+                url: '/api/service/abixen/business-intelligence/control-panel/multi-visualisation/file-data/parse'
             }
         });
     }
