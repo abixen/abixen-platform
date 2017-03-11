@@ -204,7 +204,9 @@ public abstract class AbstractUserController {
 
         String subject = messageSource.getMessage("email.userPasswordChanged.subject", null, LocaleUtils.toLocale(user.getSelectedLanguage().getSelectedLanguage().toLowerCase()));
 
-        mailService.sendMail(user.getUsername(), params, MailService.USER_PASSWORD_CHANGE_MAIL, subject);
+        log.info("============>{}", MailService.USER_PASSWORD_CHANGE_MAIL + "_" + user.getSelectedLanguage().getSelectedLanguage().toLowerCase());
+
+        mailService.sendMail(user.getUsername(), params, MailService.USER_PASSWORD_CHANGE_MAIL + "_" + user.getSelectedLanguage().getSelectedLanguage().toLowerCase(), subject);
 
         return new FormValidationResultDto(userChangePasswordFormResult);
     }
