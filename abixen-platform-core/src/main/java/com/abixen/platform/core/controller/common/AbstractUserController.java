@@ -198,13 +198,11 @@ public abstract class AbstractUserController {
 
         Map<String, String> params = new HashMap<>();
         params.put("email", user.getUsername());
-        params.put("password", user.getPassword());
+        params.put("password", userChangePasswordForm.getNewPassword());
         params.put("firstName", user.getFirstName());
         params.put("lastName", user.getLastName());
 
         String subject = messageSource.getMessage("email.userPasswordChanged.subject", null, LocaleUtils.toLocale(user.getSelectedLanguage().getSelectedLanguage().toLowerCase()));
-
-        log.info("============>{}", MailService.USER_PASSWORD_CHANGE_MAIL + "_" + user.getSelectedLanguage().getSelectedLanguage().toLowerCase());
 
         mailService.sendMail(user.getUsername(), params, MailService.USER_PASSWORD_CHANGE_MAIL + "_" + user.getSelectedLanguage().getSelectedLanguage().toLowerCase(), subject);
 
