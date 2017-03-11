@@ -17,12 +17,12 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.serv
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.ChartConfiguration;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.ChartConfigurationRepository;
+import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataSetRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataSourceColumnRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.ChartConfigurationDomainBuilderService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.ChartConfigurationService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataSourceService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +46,9 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
 
     @Autowired
     private DataSourceColumnRepository dataSourceColumnRepository;
+
+    @Autowired
+    private DataSetRepository dataSetRepository;
 
     @Override
     public ChartConfiguration buildChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
@@ -104,6 +107,9 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
 
     @Override
     public void removeChartConfiguration(Long moduleId) {
-        throw new NotImplementedException("Method removeChartConfiguration(Long moduleId) is not implemented yet!");
+        log.debug("removeChartConfiguration - moduleId", moduleId);
+        ChartConfiguration chartConfiguration = chartConfigurationRepository.findByModuleId(moduleId);
+        chartConfigurationRepository.delete(chartConfiguration);
+
     }
 }
