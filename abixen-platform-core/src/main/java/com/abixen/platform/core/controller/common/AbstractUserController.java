@@ -202,7 +202,9 @@ public abstract class AbstractUserController {
         params.put("firstName", user.getFirstName());
         params.put("lastName", user.getLastName());
 
-        mailService.sendMail(user.getUsername(), params, MailService.USER_PASSWORD_CHANGE_MAIL, "Password has been changed");
+        String subject = messageSource.getMessage("email.userPasswordChanged.subject", null, LocaleUtils.toLocale(user.getSelectedLanguage().getSelectedLanguage().toLowerCase()));
+
+        mailService.sendMail(user.getUsername(), params, MailService.USER_PASSWORD_CHANGE_MAIL, subject);
 
         return new FormValidationResultDto(userChangePasswordFormResult);
     }
