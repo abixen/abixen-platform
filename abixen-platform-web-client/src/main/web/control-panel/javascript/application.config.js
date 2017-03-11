@@ -47,11 +47,6 @@
                 resolve: {
                     platformSecurityResolver: platformSecurityResolver
                 }
-            })
-            .state('application.search', {
-                url: '/search?query',
-                controller: 'SearchController',
-                templateUrl: '/control-panel/html/search.html'
             });
 
 
