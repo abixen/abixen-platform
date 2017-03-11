@@ -40,10 +40,6 @@
         var SHOW_SUBVIEW_CHART_EVENT = 'SHOW_SUBVIEW_CHART_EVENT';
         var SHOW_SUBVIEW_TABLE_EVENT = 'SHOW_SUBVIEW_TABLE_EVENT';
 
-
-
-
-
         var SUBVIEW_CONFIGURATION_ICONS = [];
 
         $scope.moduleId = null;

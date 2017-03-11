@@ -39,6 +39,10 @@
         multivisualisationModuleViewTable.data = undefined;
         multivisualisationModuleViewTable.renderTable = false;
 
+        if (multivisualisationModuleViewTable.chartConfiguration){
+            registerSubviewTableIcons(chartConfiguration.chartType);
+        }
+
         var SHOW_SUBVIEW_CHART_EVENT = 'SHOW_SUBVIEW_CHART_EVENT';
 
         if ($scope.moduleId) {
@@ -68,47 +72,22 @@
         }
 
         function registerSubviewTableIcons(chartType) {
-            if (isChartViewAvailable(chartType)) {
+            if (chartType !== 'TABLE') {
                 var icons = [
                     {
-                        iconClass: 'fa fa-line-chart',
+                        iconClass: 'fa fa-area-chart',
                         event: SHOW_SUBVIEW_CHART_EVENT,
                         title: 'Show chart view'
                     }
                 ];
                 registerSubviewTableIconsHelper(icons);
-            } else {
+            }else {
                 registerSubviewTableIconsHelper([]);
             }
         }
 
         function registerSubviewTableIconsHelper(icons) {
             $scope.$emit(platformParameters.events.REGISTER_MODULE_CONTROL_ICONS, icons);
-        }
-
-        function isChartViewAvailable(chartType) {
-            switch (chartType) {
-                case 'LINE_TABLE':
-                    return true;
-                case 'PIE_TABLE':
-                    return true;
-                case 'MULTI_BAR_TABLE':
-                    return true;
-                case 'MULTI_COLUMN_TABLE':
-                    return true;
-                case 'STACKED_AREA_TABLE':
-                    return true;
-                case 'DONUT_TABLE':
-                    return true;
-                case 'DISCRETE_COLUMN_TABLE':
-                    return true;
-                case 'HISTORICAL_COLUMN_TABLE':
-                    return true;
-                case 'CUMULATIVE_LINE_TABLE':
-                    return true;
-                default:
-                    return false;
-            }
         }
     }
 })();

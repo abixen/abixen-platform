@@ -39,6 +39,7 @@
         multivisualisationModuleChart.data = undefined;
 
         var SHOW_SUBVIEW_TABLE_EVENT = 'SHOW_SUBVIEW_TABLE_EVENT';
+        var SHOW_SUBVIEW_CHART_EVENT = 'SHOW_SUBVIEW_CHART_EVENT';
 
         if ($scope.moduleId) {
             $scope.$emit(platformParameters.events.START_REQUEST);
@@ -50,7 +51,7 @@
 
         function onGetResult(moduleConfiguration) {
             if (moduleConfiguration.chartType === 'TABLE') {
-                $scope.$emit('SHOW_SUBVIEW_TABLE_EVENT');
+                $scope.$emit(SHOW_SUBVIEW_TABLE_EVENT);
             } else {
                 CharData.query({}, moduleConfiguration)
                     .$promise
