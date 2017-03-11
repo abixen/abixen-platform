@@ -17,12 +17,12 @@
     'use strict';
 
     angular
-        .module('platformApplication')
-        .factory('platformHttpInterceptor', platformApplicationHttpInterceptor);
+        .module('platformHttp')
+        .factory('platformHttpInterceptor', platformHttpInterceptor);
 
-    platformApplicationHttpInterceptor.$inject = ['$q', '$injector'];
+    platformHttpInterceptor.$inject = ['$q', '$injector'];
 
-    function platformApplicationHttpInterceptor($q, $injector) {
+    function platformHttpInterceptor($q, $injector) {
 
         return {
             responseError: onResponseError

@@ -19,6 +19,7 @@
     var platformApplicationModules = [
         'ngResource',
         'pascalprecht.translate',
+        'platformHttp',
         'platformComponent',
         'platformUserModule',
         'platformNavigationModule',
