@@ -42,7 +42,7 @@
 </form>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
-        <a class="btn save-button " ng-disabled="fileDataDetails.entityForm.$invalid"
+        <a class="btn save-button " ng-disabled="fileDataDetails.entityForm.$invalid || !fileDataDetails.fileData || fileDataDetails.fileData.length == 0"
            ng-click="fileDataDetails.beforeSaveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
         </a>
         <a class="btn cancel-button"
