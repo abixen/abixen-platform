@@ -43,7 +43,7 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
     @Column(name = "chart_type", nullable = false)
     private ChartType chartType;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "data_set_chart_id", nullable = false)
     private DataSetChart dataSetChart;
 
