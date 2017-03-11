@@ -51,7 +51,7 @@
                                     {{navigation.platformUser.firstname}} {{navigation.platformUser.lastname}}
                                 </li>
                                 <li class="divider"></li>
-                                <li class="link">
+                                <li class="link" ng-if="navigation.showEditUser">
                                     <a ng-click="navigation.editUser()">
                                         My Account
                                     </a>

@@ -43,6 +43,7 @@
                 logout: '&logout',
                 selectedItem: '=selectedItem',
                 showDropdown: '=showDropdown',
+                showEditUser: '=showEditUser',
                 editUser: '&editUser'
             },
             link: link,
