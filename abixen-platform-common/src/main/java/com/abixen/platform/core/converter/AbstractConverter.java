@@ -30,6 +30,18 @@ public abstract class AbstractConverter<Source, Target> {
         return convertToList(sources, Collections.emptyMap());
     }
 
+    public final Set<Target> convertToSet(Collection<Source> sources, Map<String, Object> parameters) {
+        Set<Target> targets = new HashSet<Target>(sources.size());
+        for (Source source : sources) {
+            targets.add(convert(source, parameters));
+        }
+        return targets;
+    }
+
+    public Set<Target> convertToSet(Collection<Source> sources) {
+        return convertToSet(sources, Collections.emptyMap());
+    }
+
     public Target convert(Source source) {
         return convert(source, Collections.emptyMap());
     }
