@@ -63,10 +63,6 @@ public class PlatformUserDetailsService implements UserDetailsService {
         boolean accountNonLocked = true;
 
         Collection<? extends GrantedAuthority> authorities = getAuthorities(user);
-
-        log.debug("authorities: " + authorities);
-
-        //FIXME
         boolean admin = isAdmin(authorities);
 
         PlatformUser platformUser = new PlatformUser(user.getUsername(),

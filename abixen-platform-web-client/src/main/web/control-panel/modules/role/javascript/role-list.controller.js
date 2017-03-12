@@ -82,8 +82,7 @@
                     type: 'input-drop-down',
                     options: [
                         {key: 'ROLE_ADMIN'},
-                        {key: 'ROLE_USER'},
-                        {key: 'ROLE_PAGE_EDITOR'}
+                        {key: 'ROLE_USER'}
                     ],
                     showEmptyValue: true,
                     emptyValueLabel: 'module.role.type.select',

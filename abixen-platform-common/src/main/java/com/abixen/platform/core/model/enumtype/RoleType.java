@@ -17,7 +17,7 @@ package com.abixen.platform.core.model.enumtype;
 
 public enum RoleType {
 
-    ROLE_ADMIN("ROLE_ADMIN"), ROLE_COMPANY_ADMIN("ROLE_COMPANY_ADMIN"), ROLE_USER("ROLE_USER"), ROLE_PAGE_EDITOR("ROLE_PAGE_EDITOR");
+    ROLE_ADMIN("ROLE_ADMIN"), ROLE_USER("ROLE_USER");
 
     private final String name;
 
