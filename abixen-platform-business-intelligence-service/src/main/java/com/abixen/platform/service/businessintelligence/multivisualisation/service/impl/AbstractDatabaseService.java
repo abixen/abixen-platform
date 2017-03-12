@@ -256,10 +256,10 @@ public abstract class AbstractDatabaseService {
         if ("BIGINT".equals(columnTypeName)) {
             columnTypeName = "INTEGER";
         }
-        if ("VARCHAR".equals(columnTypeName)) {
+        if ("VARCHAR".equals(columnTypeName) || "VARCHAR2".equals(columnTypeName)) {
             columnTypeName = "STRING";
         }
-        if ("FLOAT8".equals(columnTypeName)) {
+        if ("FLOAT8".equals(columnTypeName) || "NUMBER".equals(columnTypeName)) {
             columnTypeName = "DOUBLE";
         }
         return columnTypeName;
