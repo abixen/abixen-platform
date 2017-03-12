@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.controller;
+package com.abixen.platform.core.controller.admin;
 
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
