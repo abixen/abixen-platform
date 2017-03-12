@@ -18,9 +18,11 @@
                                     class="form-control" required></select>
                             <select style="margin-left: 5px" ng-options="c.name as c.name for c in conditions"
                                     ng-model="rule.condition" class="form-control"></select>
-                            <input ng-if="rule.inputType != 'DATE'" style="margin-left: 5px" type="text" name="dataInput" ng-model="rule.data"
+                            <input ng-if="rule.inputType == 'STRING'" style="margin-left: 5px" type="text" name="dataInput" ng-model="rule.data"
                                    class="form-control" required/>
                             <input-date ng-if="rule.inputType == 'DATE'" style="margin-left: 5px" name="inputDataCalender" model="rule.data" validators="validators"></input-date>
+                            <input-number ng-if="rule.inputType == 'INTEGER'" style="margin-left: 5px" name="inputDataInteger" model="rule.data" validators="validators"></input-number>
+                            <input-number ng-if="rule.inputType == 'DOUBLE'" style="margin-left: 5px" name="inputDataDouble" model="rule.data" validators="validators"></input-number>
                             <a style="margin-left: 5px" class="btn btn-default platform-warning-button"
                                ng-click="removeCondition($index)"><i class="fa fa-trash-o"></i><span>Remove Condition</span></a>
                             <p class="help-block"
