@@ -44,6 +44,16 @@
                     [
                         new NotNull()
                     ];
+                scope.validators['inputDataInteger'] =
+                    [
+                        new NotNull(),
+                        new Size(-2147483648, 2147483648)
+                    ];
+                scope.validators['inputDataDouble'] =
+                    [
+                        new NotNull(),
+                        new Size(-2147483648, 2147483648)
+                    ];
 
                 scope.operators = [
                     {name: 'AND'},
