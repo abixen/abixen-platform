@@ -19,6 +19,7 @@ import com.abixen.platform.core.model.enumtype.UserGender;
 import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.enumtype.UserState;
 import com.abixen.platform.core.model.web.UserWeb;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -87,7 +88,7 @@ public class User extends AuditingModel implements UserBase<Role>, UserWeb {
     @Column(name = "hash_key", length = HASH_KEY_MAX_LENGTH)
     private String hashKey;
 
-    //@JsonIgnore
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "role_id", nullable = false, updatable = false)})
     private Set<Role> roles = new HashSet<>();
