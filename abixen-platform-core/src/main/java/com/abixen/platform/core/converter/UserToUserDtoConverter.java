@@ -39,6 +39,7 @@ public class UserToUserDtoConverter extends AbstractConverter<User, UserDto> {
         userDto
                 .setId(user.getId())
                 .setUsername(user.getUsername())
+                .setPassword(user.getPassword())
                 .setScreenName(user.getScreenName())
                 .setFirstName(user.getFirstName())
                 .setMiddleName(user.getMiddleName())
