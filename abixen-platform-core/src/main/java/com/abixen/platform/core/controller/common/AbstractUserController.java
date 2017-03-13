@@ -15,9 +15,11 @@
 package com.abixen.platform.core.controller.common;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import com.abixen.platform.core.converter.RoleToRoleDtoConverter;
 import com.abixen.platform.core.converter.UserToUserDtoConverter;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.RoleDto;
 import com.abixen.platform.core.dto.UserDto;
 import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.form.UserForm;
@@ -62,6 +64,7 @@ public abstract class AbstractUserController {
     private final SecurityService securityService;
     private final MessageSource messageSource;
     private final UserToUserDtoConverter userToUserDtoConverter;
+    private final RoleToRoleDtoConverter roleToRoleDtoConverter;
 
 
     private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
@@ -72,7 +75,8 @@ public abstract class AbstractUserController {
                                   SecurityService securityService,
                                   AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
                                   MessageSource messageSource,
-                                  UserToUserDtoConverter userToUserDtoConverter) {
+                                  UserToUserDtoConverter userToUserDtoConverter,
+                                  RoleToRoleDtoConverter roleToRoleDtoConverter) {
         this.userService = userService;
         this.mailService = mailService;
         this.roleService = roleService;
@@ -80,6 +84,7 @@ public abstract class AbstractUserController {
         this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
         this.messageSource = messageSource;
         this.userToUserDtoConverter = userToUserDtoConverter;
+        this.roleToRoleDtoConverter = roleToRoleDtoConverter;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -171,7 +176,10 @@ public abstract class AbstractUserController {
         User user = userService.findUser(id);
         List<Role> allRoles = roleService.findAllRoles();
 
-        UserRolesForm userRolesForm = new UserRolesForm(user, allRoles);
+        UserDto userDto = userToUserDtoConverter.convert(user);
+        List<RoleDto> allRolesDto = roleToRoleDtoConverter.convertToList(allRoles);
+
+        UserRolesForm userRolesForm = new UserRolesForm(userDto, allRolesDto);
 
         return userRolesForm;
     }
