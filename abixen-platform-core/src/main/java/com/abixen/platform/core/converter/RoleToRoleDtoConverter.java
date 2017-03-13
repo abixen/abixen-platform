@@ -26,10 +26,13 @@ import java.util.Map;
 public class RoleToRoleDtoConverter extends AbstractConverter<Role, RoleDto> {
 
     private final PermissionToPermissionDtoConverter permissionToPermissionDtoConverter;
+    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
 
     @Autowired
-    public RoleToRoleDtoConverter(PermissionToPermissionDtoConverter permissionToPermissionDtoConverter) {
+    public RoleToRoleDtoConverter(PermissionToPermissionDtoConverter permissionToPermissionDtoConverter,
+                                  AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
         this.permissionToPermissionDtoConverter = permissionToPermissionDtoConverter;
+        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
     }
 
     @Override
@@ -42,6 +45,7 @@ public class RoleToRoleDtoConverter extends AbstractConverter<Role, RoleDto> {
                 .setName(role.getName())
                 .setPermissions(permissionToPermissionDtoConverter.convertToSet(role.getPermissions()));
 
+        auditingModelToAuditingDtoConverter.convert(role, roleDto);
         return roleDto;
     }
 }

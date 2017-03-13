@@ -27,7 +27,7 @@ import java.util.Set;
 @Setter
 @Accessors(chain = true)
 @ToString
-public class RoleDto {
+public class RoleDto extends AuditingDto {
 
     private Long id;
     private RoleType roleType;
