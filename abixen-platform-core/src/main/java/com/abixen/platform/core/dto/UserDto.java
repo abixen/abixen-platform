@@ -30,7 +30,7 @@ import java.util.Set;
 @Setter
 @Accessors(chain = true)
 @ToString
-public class UserDto {
+public class UserDto extends AuditingDto {
 
     private Long id;
     private String username;
