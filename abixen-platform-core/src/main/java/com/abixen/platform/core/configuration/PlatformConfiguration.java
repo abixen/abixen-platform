@@ -21,7 +21,7 @@ import static com.abixen.platform.core.configuration.PlatformPackages.*;
 
 
 @Configuration
-@ComponentScan(basePackages = {CONFIG, INTEGRATION, REPOSITORY, SERVICE, CONTROLLER})
+@ComponentScan(basePackages = {CONFIG, INTEGRATION, REPOSITORY, SERVICE, CONVERTER, CONTROLLER})
 public class PlatformConfiguration {
 
 }

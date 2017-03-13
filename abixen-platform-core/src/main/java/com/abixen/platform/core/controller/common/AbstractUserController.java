@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -15,8 +15,10 @@
 package com.abixen.platform.core.controller.common;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import com.abixen.platform.core.converter.UserToUserDtoConverter;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.UserDto;
 import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.form.UserForm;
 import com.abixen.platform.core.form.UserRolesForm;
@@ -59,6 +61,7 @@ public abstract class AbstractUserController {
     private final RoleService roleService;
     private final SecurityService securityService;
     private final MessageSource messageSource;
+    private final UserToUserDtoConverter userToUserDtoConverter;
 
 
     private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
@@ -68,21 +71,24 @@ public abstract class AbstractUserController {
                                   RoleService roleService,
                                   SecurityService securityService,
                                   AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
-                                  MessageSource messageSource) {
+                                  MessageSource messageSource,
+                                  UserToUserDtoConverter userToUserDtoConverter) {
         this.userService = userService;
         this.mailService = mailService;
         this.roleService = roleService;
         this.securityService = securityService;
         this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
         this.messageSource = messageSource;
+        this.userToUserDtoConverter = userToUserDtoConverter;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable Long id) {
+    public UserDto getUser(@PathVariable Long id) {
         log.debug("getUser() - id: " + id);
 
         User user = userService.findUser(id);
-        return user;
+        UserDto userDto = userToUserDtoConverter.convert(user);
+        return userDto;
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
