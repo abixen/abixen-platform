@@ -14,6 +14,11 @@
 
 package com.abixen.platform.core.converter;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import java.util.*;
 
 public abstract class AbstractConverter<Source, Target> {
@@ -31,7 +36,7 @@ public abstract class AbstractConverter<Source, Target> {
     }
 
     public final Set<Target> convertToSet(Collection<Source> sources, Map<String, Object> parameters) {
-        Set<Target> targets = new HashSet<Target>(sources.size());
+        Set<Target> targets = new HashSet<>(sources.size());
         for (Source source : sources) {
             targets.add(convert(source, parameters));
         }
@@ -40,6 +45,21 @@ public abstract class AbstractConverter<Source, Target> {
 
     public Set<Target> convertToSet(Collection<Source> sources) {
         return convertToSet(sources, Collections.emptyMap());
+    }
+
+    public final Page<Target> convertToPage(Page<Source> sourcePage, Map<String, Object> parameters) {
+        List<Target> targets = new ArrayList(sourcePage.getContent().size());
+        for (Source source : sourcePage) {
+            targets.add(convert(source, parameters));
+        }
+
+        Pageable pageable = new PageRequest(sourcePage.getNumber(), sourcePage.getSize(), sourcePage.getSort());
+        Page<Target> targetPage = new PageImpl(targets, pageable, sourcePage.getTotalElements());
+        return targetPage;
+    }
+
+    public Page<Target> convertToPage(Page<Source> sourcePage) {
+        return convertToPage(sourcePage, Collections.emptyMap());
     }
 
     public Target convert(Source source) {

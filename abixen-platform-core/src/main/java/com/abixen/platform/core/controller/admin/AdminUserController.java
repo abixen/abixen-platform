@@ -63,15 +63,13 @@ public class AdminUserController extends AbstractUserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<User> getUsers(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
+    public Page<UserDto> getUsers(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
         log.debug("getUsers()");
 
         Page<User> users = userService.findAllUsers(pageable, userSearchForm);
-        for (User user : users) {
-            log.debug("user: " + user);
-        }
+        Page<UserDto> userDtos = userToUserDtoConverter.convertToPage(users);
 
-        return users;
+        return userDtos;
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.PUT)
