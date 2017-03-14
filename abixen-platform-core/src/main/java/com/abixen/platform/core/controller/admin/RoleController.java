@@ -14,8 +14,10 @@
 
 package com.abixen.platform.core.controller.admin;
 
+import com.abixen.platform.core.converter.RoleToRoleDtoConverter;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.RoleDto;
 import com.abixen.platform.core.form.RoleForm;
 import com.abixen.platform.core.form.RolePermissionsForm;
 import com.abixen.platform.core.form.RoleSearchForm;
@@ -43,23 +45,27 @@ import java.util.List;
 @RequestMapping(value = "/api/control-panel/roles")
 public class RoleController {
 
+    private final RoleService roleService;
+    private final PermissionService permissionService;
+    private final RoleToRoleDtoConverter roleToRoleDtoConverter;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private PermissionService permissionService;
+    public RoleController(RoleService roleService,
+                          PermissionService permissionService,
+                          RoleToRoleDtoConverter roleToRoleDtoConverter) {
+        this.roleService = roleService;
+        this.permissionService = permissionService;
+        this.roleToRoleDtoConverter = roleToRoleDtoConverter;
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<Role> getRoles(@PageableDefault(size = 1, page = 0) Pageable pageable, RoleSearchForm roleSearchForm) {
+    public Page<RoleDto> getRoles(@PageableDefault(size = 1, page = 0) Pageable pageable, RoleSearchForm roleSearchForm) {
         log.debug("getRoles()");
 
         Page<Role> roles = roleService.findAllRoles(pageable, roleSearchForm);
-        for (Role role : roles) {
-            log.debug("role: " + role);
-        }
+        Page<RoleDto> roleDtos = roleToRoleDtoConverter.convertToPage(roles);
 
-        return roles;
+        return roleDtos;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
