@@ -106,7 +106,8 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     public void removeChartConfiguration(Long moduleId) {
         log.debug("removeChartConfiguration - moduleId", moduleId);
         ChartConfiguration chartConfiguration = chartConfigurationRepository.findByModuleId(moduleId);
-        chartConfigurationRepository.delete(chartConfiguration);
-
+        if (chartConfiguration != null) {
+            chartConfigurationRepository.delete(chartConfiguration);
+        }
     }
 }
