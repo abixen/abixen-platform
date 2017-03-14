@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
+import com.abixen.platform.core.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataParsingException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataSourceValueException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
@@ -51,12 +52,12 @@ public abstract class AbstractDatabaseService {
                 try {
                     columns.add(prepareDataSourceColumns(rsmd, i));
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    throw new PlatformRuntimeException(e);
                 }
             });
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PlatformRuntimeException(e);
         }
 
         return columns;
@@ -114,7 +115,7 @@ public abstract class AbstractDatabaseService {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new PlatformRuntimeException(e);
         }
         return tables;
     }
@@ -215,7 +216,6 @@ public abstract class AbstractDatabaseService {
                 data.add(rowMap);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DataParsingException("Error when parsing data from db. " + e.getMessage());
         }
         return data;
