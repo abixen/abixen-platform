@@ -70,6 +70,9 @@ public abstract class Model implements Serializable {
             return false;
         }
         Model baseModel = (Model) o;
+        if (!(getClass().equals(baseModel.getClass()))) {
+            return false;
+        }
         if (!(getId().equals(baseModel.getId()))) {
             return false;
         }

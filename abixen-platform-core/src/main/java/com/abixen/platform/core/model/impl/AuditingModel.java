@@ -77,10 +77,14 @@ public abstract class AuditingModel extends Model implements AuditingModelBase<U
     }
 
     public User getLastModifiedBy() {
-        if (!this.equals(lastModifiedBy)) {
-            return lastModifiedBy;
+        if (this instanceof User) {
+            if (!this.equals(lastModifiedBy)) {
+                return lastModifiedBy;
+            } else {
+                return null;
+            }
         }
-        return null;
+        return createdBy;
     }
 
     public void setLastModifiedBy(User lastModifiedBy) {
