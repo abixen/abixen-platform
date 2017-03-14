@@ -23,6 +23,7 @@ import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,7 @@ public class ApplicationPageController extends AbstractPageController {
         this.layoutService = layoutService;
     }
 
+    @Cacheable(value = "APPLICATION_PAGES")
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<PageWeb> getPages() {

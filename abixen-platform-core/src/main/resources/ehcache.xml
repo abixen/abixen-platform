@@ -13,4 +13,15 @@
            transactionalMode="off" logging="true">
         <persistence strategy="localTempSwap"/>
     </cache>
+    <cache name="APPLICATION_PAGES"
+           maxEntriesLocalHeap="5000"
+           maxEntriesLocalDisk="1000"
+           eternal="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="200"
+           timeToLiveSeconds="500"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off" logging="true">
+        <persistence strategy="localTempSwap"/>
+    </cache>
 </ehcache>
