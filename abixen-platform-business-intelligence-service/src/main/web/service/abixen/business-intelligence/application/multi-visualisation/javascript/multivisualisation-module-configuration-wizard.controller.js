@@ -595,6 +595,14 @@
                     new NotNull(),
                     new Length(1, 32)
                 ];
+            validators['inputDataInteger'] =
+                [
+                    new Size(-2147483648, 2147483648)
+                ];
+            validators['inputDataDouble'] =
+                [
+                    new Size(-2147483648, 2147483648)
+                ];
             return validators;
         }
 
