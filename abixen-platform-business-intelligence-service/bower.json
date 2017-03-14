@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "angular-svg-round-progressbar": "0.3.8",
-    "nvd3": "1.8.1",
-    "angular-nvd3": "1.0.5"
+    "nvd3": "1.8.5",
+    "angular-nvd3": "1.0.9"
   }
 }
