@@ -253,17 +253,30 @@ public abstract class AbstractDatabaseService {
 
     private String getValidColumnTypeName(Integer columnIndex, ResultSetMetaData resultSetMetaData) throws SQLException {
         String columnTypeName = resultSetMetaData.getColumnTypeName(columnIndex).toUpperCase();
-        if ("BIGINT".equals(columnTypeName)) {
-            columnTypeName = "INTEGER";
-        }
-        if ("VARCHAR".equals(columnTypeName) || "VARCHAR2".equals(columnTypeName)) {
-            columnTypeName = "STRING";
-        }
-        if ("FLOAT8".equals(columnTypeName) || "NUMBER".equals(columnTypeName)) {
-            columnTypeName = "DOUBLE";
+        Map<String, String> databaseTypeOnApplicationType = buildDatabaseTypeOnApplicationType();
+        String mappedColumnType = databaseTypeOnApplicationType.get(columnTypeName);
+        if (mappedColumnType != null) {
+            return mappedColumnType;
         }
         return columnTypeName;
     }
+
+    private Map<String, String> buildDatabaseTypeOnApplicationType() {
+        return getSpecyficTypeMapping(getStandardTypeMapping());
+    }
+
+    protected Map<String, String> getSpecyficTypeMapping(Map<String, String> databaseTypeOnApplicationType) {
+        return databaseTypeOnApplicationType;
+    }
+
+    private Map<String, String> getStandardTypeMapping() {
+        Map<String, String> databaseTypeOnApplicationType = new HashMap<>();
+        databaseTypeOnApplicationType.put("BIGINT", DataValueType.INTEGER.getName());
+        databaseTypeOnApplicationType.put("VARCHAR", DataValueType.STRING.getName());
+        databaseTypeOnApplicationType.put("FLOAT8", DataValueType.DOUBLE.getName());
+        return databaseTypeOnApplicationType;
+    }
+
 
     private DataValueWeb getValueAsDataSourceValue(ResultSet row, String columnName, DataValueType columnTypeName) throws SQLException {
         switch (columnTypeName) {
