@@ -16,7 +16,6 @@ package com.abixen.platform.core.model.impl;
 
 import com.abixen.platform.core.model.PageBase;
 import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.web.PageWeb;
 
 import javax.persistence.*;
 
@@ -24,7 +23,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "page")
 @SequenceGenerator(sequenceName = "page_seq", name = "page_seq", allocationSize = 1)
-public class Page extends AuditingModel implements PageBase<Layout>, PageWeb, SecurableModel<User> {
+public class Page extends AuditingModel implements PageBase<Layout>, SecurableModel<User> {
 
     @Id
     @Column(name = "id")

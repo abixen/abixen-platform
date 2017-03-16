@@ -15,12 +15,11 @@
 package com.abixen.platform.core.controller.application;
 
 import com.abixen.platform.core.controller.common.AbstractPageController;
+import com.abixen.platform.core.converter.PageToPageDtoConverter;
+import com.abixen.platform.core.dto.PageDto;
 import com.abixen.platform.core.model.impl.Page;
-import com.abixen.platform.core.model.web.PageWeb;
 import com.abixen.platform.core.service.LayoutService;
 import com.abixen.platform.core.service.PageService;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -37,19 +36,21 @@ public class ApplicationPageController extends AbstractPageController {
 
     private final PageService pageService;
     private final LayoutService layoutService;
+    private final PageToPageDtoConverter pageToPageDtoConverter;
 
     @Autowired
     public ApplicationPageController(PageService pageService,
-                                     LayoutService layoutService) {
+                                     LayoutService layoutService,
+                                     PageToPageDtoConverter pageToPageDtoConverter) {
         super(pageService);
         this.pageService = pageService;
         this.layoutService = layoutService;
+        this.pageToPageDtoConverter = pageToPageDtoConverter;
     }
 
     @Cacheable(value = "APPLICATION_PAGES")
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<PageWeb> getPages() {
+    public List<PageDto> getPages() {
         log.debug("getPages()");
 
         List<Page> pages = pageService.findAllPages();
@@ -59,7 +60,7 @@ public class ApplicationPageController extends AbstractPageController {
             layoutService.convertPageLayoutToJson(page);
         });
 
-        return (List<PageWeb>) (List<?>) pages;
+        return pageToPageDtoConverter.convertToList(pages);
     }
 
 }

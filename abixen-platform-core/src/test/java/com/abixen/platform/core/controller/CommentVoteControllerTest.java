@@ -15,10 +15,10 @@
 package com.abixen.platform.core.controller;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
+import com.abixen.platform.core.dto.CommentDto;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.form.CommentVoteForm;
 import com.abixen.platform.core.model.enumtype.CommentVoteType;
-import com.abixen.platform.core.model.impl.Comment;
 import com.abixen.platform.core.service.CommentVoteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
@@ -77,7 +77,7 @@ public class CommentVoteControllerTest {
     @Test
     public void testCreateCommentVote() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        Comment savedComment = new Comment();
+        CommentDto savedComment = new CommentDto();
         savedComment.setId(10L);
         savedComment.setMessage("Test Comment Parent");
         CommentVoteForm savedCommentVoteForm = new CommentVoteForm();
@@ -85,7 +85,7 @@ public class CommentVoteControllerTest {
         savedCommentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
         savedCommentVoteForm.setId(10L);
 
-        Comment inputComment = new Comment();
+        CommentDto inputComment = new CommentDto();
         inputComment.setMessage("Test Comment Parent");
         CommentVoteForm inputCommentVoteForm = new CommentVoteForm();
         inputCommentVoteForm.setComment(inputComment);
@@ -113,14 +113,14 @@ public class CommentVoteControllerTest {
     @Test
     public void testUpdateCommentVote() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        Comment savedComment = new Comment();
+        CommentDto savedComment = new CommentDto();
         savedComment.setId(10L);
         savedComment.setMessage("Test Comment Parent");
         CommentVoteForm savedCommentVoteForm = new CommentVoteForm();
         savedCommentVoteForm.setComment(savedComment);
         savedCommentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
         savedCommentVoteForm.setId(10L);
-        Comment inputComment = new Comment();
+        CommentDto inputComment = new CommentDto();
         inputComment.setId(10L);
         inputComment.setMessage("Test Comment Parent");
         CommentVoteForm inputCommentVoteForm = new CommentVoteForm();

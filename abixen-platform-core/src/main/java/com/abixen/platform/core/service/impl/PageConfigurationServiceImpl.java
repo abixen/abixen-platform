@@ -14,7 +14,9 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.dto.DashboardModuleDto;
+import com.abixen.platform.core.dto.PageDto;
 import com.abixen.platform.core.dto.PageModelDto;
 import com.abixen.platform.core.exception.PlatformCoreException;
 import com.abixen.platform.core.form.PageConfigurationForm;
@@ -41,15 +43,17 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
     private final PageService pageService;
     private final ModuleService moduleService;
     private final LayoutService layoutService;
+    private final PageToPageDtoConverter pageToPageDtoConverter;
 
     @Autowired
     public PageConfigurationServiceImpl(PageService pageService,
                                         ModuleService moduleService,
-                                        LayoutService layoutService) {
+                                        LayoutService layoutService,
+                                        PageToPageDtoConverter pageToPageDtoConverter) {
         this.pageService = pageService;
         this.moduleService = moduleService;
         this.layoutService = layoutService;
-
+        this.pageToPageDtoConverter = pageToPageDtoConverter;
     }
 
     @Override
@@ -78,14 +82,16 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                 );
 
         layoutService.convertPageLayoutToJson(page);
-        return new PageModelDto(page, dashboardModuleDtos);
+        PageDto pageDto = pageToPageDtoConverter.convert(page);
+        return new PageModelDto(pageDto, dashboardModuleDtos);
     }
 
     @Override
     public PageConfigurationForm createPageConfiguration(PageConfigurationForm pageConfigurationForm) {
         Page page = pageService.createPage(pageConfigurationForm);
         layoutService.convertPageLayoutToJson(page);
-        return new PageConfigurationForm(page);
+        PageDto pageDto = pageToPageDtoConverter.convert(page);
+        return new PageConfigurationForm(pageDto);
     }
 
     @Override

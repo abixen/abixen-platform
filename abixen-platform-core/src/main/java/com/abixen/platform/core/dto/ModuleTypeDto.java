@@ -14,14 +14,17 @@
 
 package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.model.impl.ModuleType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 
-
-public class ModuleTypeDto implements Serializable {
-
-    private final long serialVersionUID = -7437477767496577712L;
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+public class ModuleTypeDto extends AuditingDto {
 
     private Long id;
     private String name;
@@ -29,43 +32,5 @@ public class ModuleTypeDto implements Serializable {
     private String description;
     private String initUrl;
     private String serviceId;
-
-    public ModuleTypeDto(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public ModuleTypeDto(ModuleType moduleType) {
-        this.id = moduleType.getId();
-        this.name = moduleType.getName();
-        this.title = moduleType.getTitle();
-        this.description = moduleType.getDescription();
-        this.initUrl = moduleType.getInitUrl();
-        this.serviceId = moduleType.getServiceId();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getInitUrl() {
-        return initUrl;
-    }
-
-    public String getServiceId() {
-        return serviceId;
-    }
 
 }

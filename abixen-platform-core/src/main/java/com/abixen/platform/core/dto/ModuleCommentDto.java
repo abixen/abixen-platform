@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.model.web.CommentWeb;
+import com.abixen.platform.core.model.impl.Comment;
 import com.abixen.platform.core.model.web.UserWeb;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -57,15 +57,15 @@ public class ModuleCommentDto {
     public ModuleCommentDto() {
     }
 
-    public ModuleCommentDto(CommentWeb commentWeb) {
+    public ModuleCommentDto(Comment comment) {
 
-        this.id = commentWeb.getId();
-        this.message = commentWeb.getMessage();
-        this.moduleId = commentWeb.getModule().getId();
-        this.user = commentWeb.getCreatedBy();
-        this.createdDate = commentWeb.getCreatedDate();
-        if (commentWeb.getParent() != null) {
-            this.parentId = commentWeb.getParent().getId();
+        this.id = comment.getId();
+        this.message = comment.getMessage();
+        this.moduleId = comment.getModule().getId();
+        this.user = comment.getCreatedBy();
+        this.createdDate = comment.getCreatedDate();
+        if (comment.getParent() != null) {
+            this.parentId = comment.getParent().getId();
         } else {
             this.parentId = 0L; //cannot use null here
         }

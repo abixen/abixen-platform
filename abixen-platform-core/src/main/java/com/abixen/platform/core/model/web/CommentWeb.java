@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.model.web;
 
+import com.abixen.platform.core.dto.ModuleDto;
 import com.abixen.platform.core.model.impl.Comment;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -34,7 +35,7 @@ public interface CommentWeb {
     CommentWeb getParent();
 
     @JsonView(WebModelJsonSerialize.class)
-    ModuleWeb getModule();
+    ModuleDto getModule();
 
     @JsonView(WebModelJsonSerialize.class)
     UserWeb getCreatedBy();

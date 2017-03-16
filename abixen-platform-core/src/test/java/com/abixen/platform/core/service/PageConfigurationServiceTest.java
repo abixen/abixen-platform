@@ -14,6 +14,7 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
+import com.abixen.platform.core.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.dto.PageModelDto;
 import com.abixen.platform.core.form.PageForm;
 import com.abixen.platform.core.model.impl.Layout;
@@ -25,12 +26,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
+@Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
 @Slf4j
@@ -41,6 +44,9 @@ public class PageConfigurationServiceTest {
 
     @Autowired
     private PageService pageService;
+
+    @Autowired
+    private PageToPageDtoConverter pageToPageDtoConverter;
 
     private PageForm samplePageForm;
     private Page samplePage;
@@ -60,7 +66,7 @@ public class PageConfigurationServiceTest {
         samplePage = pageService.createPage(samplePage);
 
         dto = new PageModelDto();
-        dto.setPage(samplePage);
+        dto.setPage(pageToPageDtoConverter.convert(samplePage));
 
     }
 

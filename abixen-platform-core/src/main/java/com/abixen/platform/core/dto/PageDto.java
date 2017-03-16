@@ -20,11 +20,13 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @Accessors(chain = true)
 @ToString
-public class PageDto extends AuditingDto {
+public class PageDto extends AuditingDto implements Serializable {
 
     private Long id;
     private String name;

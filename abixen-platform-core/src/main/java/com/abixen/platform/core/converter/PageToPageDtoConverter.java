@@ -16,6 +16,7 @@ package com.abixen.platform.core.converter;
 
 
 import com.abixen.platform.core.dto.PageDto;
+import com.abixen.platform.core.model.impl.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,7 @@ import java.util.Map;
 
 
 @Component
-public class PageToPageDtoConverter extends AbstractConverter<com.abixen.platform.core.model.impl.Page, PageDto> {
+public class PageToPageDtoConverter extends AbstractConverter<Page, PageDto> {
 
     private final LayoutToLayoutDtoConverter layoutToLayoutDtoConverter;
     private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
@@ -36,7 +37,7 @@ public class PageToPageDtoConverter extends AbstractConverter<com.abixen.platfor
     }
 
     @Override
-    public PageDto convert(com.abixen.platform.core.model.impl.Page page, Map<String, Object> parameters) {
+    public PageDto convert(Page page, Map<String, Object> parameters) {
         PageDto pageDto = new PageDto();
 
         pageDto
