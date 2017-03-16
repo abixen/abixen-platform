@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.model.impl.Page;
-import com.abixen.platform.core.model.web.LayoutWeb;
+import com.abixen.platform.core.dto.LayoutDto;
+import com.abixen.platform.core.dto.PageDto;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -40,7 +40,7 @@ public class PageForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    private LayoutWeb layout;
+    private LayoutDto layout;
 
     public String getIcon() {
         return icon;
@@ -53,7 +53,7 @@ public class PageForm implements Form {
     public PageForm() {
     }
 
-    public PageForm(Page page) {
+    public PageForm(PageDto page) {
         this.layout = page.getLayout();
         this.id = page.getId();
         this.title = page.getTitle();
@@ -85,13 +85,12 @@ public class PageForm implements Form {
         this.description = description;
     }
 
-    public LayoutWeb getLayout() {
+    public LayoutDto getLayout() {
         return layout;
     }
 
-    public void setLayout(LayoutWeb layout) {
+    public void setLayout(LayoutDto layout) {
         this.layout = layout;
     }
-
 
 }

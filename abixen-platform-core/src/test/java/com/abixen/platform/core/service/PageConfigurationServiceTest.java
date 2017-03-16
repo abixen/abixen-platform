@@ -15,9 +15,9 @@ package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.converter.PageToPageDtoConverter;
+import com.abixen.platform.core.dto.LayoutDto;
 import com.abixen.platform.core.dto.PageModelDto;
 import com.abixen.platform.core.form.PageForm;
-import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.model.impl.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -28,9 +28,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 @Transactional
@@ -58,9 +56,9 @@ public class PageConfigurationServiceTest {
         samplePageForm.setTitle("Sample page");
         samplePageForm.setDescription("Sample page to validate PageModel");
         samplePageForm.setIcon("fa fa-file-text-o");
-        Layout layoutWeb = new Layout();
-        layoutWeb.setId(7L);
-        samplePageForm.setLayout(layoutWeb);
+        LayoutDto layout = new LayoutDto();
+        layout.setId(7L);
+        samplePageForm.setLayout(layout);
 
         samplePage = pageService.buildPage(samplePageForm);
         samplePage = pageService.createPage(samplePage);
