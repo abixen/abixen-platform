@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.converter.ModuleTypeToModuleTypeDtoConverter;
 import com.abixen.platform.core.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.dto.DashboardModuleDto;
 import com.abixen.platform.core.dto.PageDto;
@@ -44,16 +45,19 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
     private final ModuleService moduleService;
     private final LayoutService layoutService;
     private final PageToPageDtoConverter pageToPageDtoConverter;
+    private final ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter;
 
     @Autowired
     public PageConfigurationServiceImpl(PageService pageService,
                                         ModuleService moduleService,
                                         LayoutService layoutService,
-                                        PageToPageDtoConverter pageToPageDtoConverter) {
+                                        PageToPageDtoConverter pageToPageDtoConverter,
+                                        ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter) {
         this.pageService = pageService;
         this.moduleService = moduleService;
         this.layoutService = layoutService;
         this.pageToPageDtoConverter = pageToPageDtoConverter;
+        this.moduleTypeToModuleTypeDtoConverter = moduleTypeToModuleTypeDtoConverter;
     }
 
     @Override
@@ -73,7 +77,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                                 module.getId(),
                                 module.getDescription(),
                                 module.getModuleType().getName(),
-                                module.getModuleType(),
+                                moduleTypeToModuleTypeDtoConverter.convert(module.getModuleType()),
                                 module.getTitle(),
                                 module.getRowIndex(),
                                 module.getColumnIndex(),
