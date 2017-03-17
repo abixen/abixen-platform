@@ -50,9 +50,9 @@ public class DatabaseConnectionPasswordEncryptionImpl implements DatabaseConnect
             secretKey = new SecretKeySpec(key, "AES");
 
         } catch (NoSuchAlgorithmException e) {
-            throw new PlatformRuntimeException("No such algorithm found. " + e.getMessage());
+            throw new PlatformRuntimeException(e);
         } catch (UnsupportedEncodingException e) {
-            throw new PlatformRuntimeException("Encoding not supported. " + e.getMessage());
+            throw new PlatformRuntimeException(e);
         }
     }
 
@@ -65,9 +65,8 @@ public class DatabaseConnectionPasswordEncryptionImpl implements DatabaseConnect
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(iv.getBytes("UTF-8")));
             return Base64.getEncoder().encodeToString(cipher.doFinal(databaseConnectionPassword.getBytes("UTF-8")));
         } catch (Exception e) {
-            log.error("Error occured while encrypting: " + e.getMessage());
+           throw new PlatformRuntimeException(e);
         }
-        return null;
     }
 
     @Override
@@ -79,8 +78,7 @@ public class DatabaseConnectionPasswordEncryptionImpl implements DatabaseConnect
             cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv.getBytes("UTF-8")));
             return new String(cipher.doFinal(Base64.getDecoder().decode(databaseConnectionEncryptedPassword)));
         } catch (Exception e) {
-            log.error("Error occured while decrypting: " + e.getMessage());
+            throw new PlatformRuntimeException(e);
         }
-        return null;
     }
 }
