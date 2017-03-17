@@ -3,5 +3,5 @@
     'use strict';
 
     angular
-        .module('platformLayoutModule', []);
+        .module('platformLayoutModule', ['webClientTemplatecache']);
 })();

@@ -17,6 +17,6 @@
     'use strict';
 
     angular
-        .module('platformDashboardModule', ['ui.bootstrap']);
+        .module('platformDashboardModule', ['ui.bootstrap','webClientTemplatecache']);
 
 })();

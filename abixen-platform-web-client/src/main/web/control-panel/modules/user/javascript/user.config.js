@@ -29,40 +29,40 @@
         $stateProvider
             .state('application.users', {
                 url: '/users',
-                templateUrl: '/control-panel/modules/user/html/index.html'
+                templateUrl: 'control-panel/modules/user/html/index.html'
             })
             .state('application.users.list', {
                 url: '/list',
-                templateUrl: '/control-panel/modules/user/html/list.html',
+                templateUrl: 'control-panel/modules/user/html/list.html',
                 controller: 'UserListController',
                 controllerAs: 'userList'
             })
             .state('application.users.add', {
                 url: '/add',
-                templateUrl: '/control-panel/modules/user/html/edit/details.html',
+                templateUrl: 'control-panel/modules/user/html/edit/details.html',
                 controller: 'UserDetailsController',
                 controllerAs: 'userDetails'
             })
             .state('application.users.edit', {
                 url: '/edit/:id',
                 abstract: true,
-                templateUrl: '/control-panel/modules/user/html/edit.html'
+                templateUrl: 'control-panel/modules/user/html/edit.html'
             })
             .state('application.users.edit.details', {
                 url: '',
-                templateUrl: '/control-panel/modules/user/html/edit/details.html',
+                templateUrl: 'control-panel/modules/user/html/edit/details.html',
                 controller: 'UserDetailsController',
                 controllerAs: 'userDetails'
             })
             .state('application.users.edit.avatar', {
                 url: '/avatar',
-                templateUrl: '/control-panel/modules/user/html/edit/avatar.html',
+                templateUrl: 'control-panel/modules/user/html/edit/avatar.html',
                 controller: 'UserAvatarChangeController',
                 controllerAs: 'userAvatarChange'
             })
             .state('application.users.roles', {
                 url: '/roles/:id',
-                templateUrl: '/control-panel/modules/user/html/roles.html',
+                templateUrl: 'control-panel/modules/user/html/roles.html',
                 controller: 'UserAssignRolesController'
             });
     }

@@ -20,6 +20,7 @@
         .module('platformPageModule', [
             'ui.router',
             'platformDashboardModule',
-            'platformLayoutModule'
+            'platformLayoutModule',
+            'webClientTemplatecache'
         ]);
 })();

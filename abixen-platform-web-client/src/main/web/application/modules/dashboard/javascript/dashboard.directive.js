@@ -110,7 +110,7 @@
                     var instance = $aside.open({
                         scope: editDashboardScope,
                         placement: 'left',
-                        templateUrl: '/application/modules/page/html/edit.html',
+                        templateUrl: 'application/modules/page/html/edit.html',
                         size: 'md',
                         backdrop: 'static'
                     });

@@ -18,5 +18,6 @@
 
     angular
         .module('platformCommentModule', [
+            'webClientTemplatecache'
         ]);
 })();

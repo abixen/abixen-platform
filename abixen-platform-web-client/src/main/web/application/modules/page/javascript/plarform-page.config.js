@@ -29,12 +29,12 @@
         $stateProvider
             .state('application.welcome', {
                 url: '/welcome',
-                templateUrl: '/application/modules/page/html/index.html',
+                templateUrl: 'application/modules/page/html/index.html',
                 controller: 'PageController'
             })
             .state('application.page', {
                 url: '/:id',
-                templateUrl: '/application/modules/page/html/model.html',
+                templateUrl: 'application/modules/page/html/model.html',
                 controller: 'PageController'
             });
     }

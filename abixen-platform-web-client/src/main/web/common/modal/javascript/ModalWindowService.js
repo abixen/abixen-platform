@@ -1,4 +1,4 @@
-var commonModalWindowServices = angular.module('commonModalWindowServices', []);
+var commonModalWindowServices = angular.module('commonModalWindowServices', ['webClientTemplatecache']);
 
 commonModalWindowServices.provider('modalWindow',
     function ModalWindow() {
@@ -49,7 +49,7 @@ commonModalWindowServices.provider('modalWindow',
             function openConfirmWindow(title, message, windowType, callback) {
                 $uibModal.open({
                     animation: true,
-                    templateUrl: '/common/modal/html/confirm-window.html',
+                    templateUrl: 'common/modal/html/confirm-window.html',
                     controller: 'ModalWindowController',
                     resolve: {
                         acceptFunction: function () {

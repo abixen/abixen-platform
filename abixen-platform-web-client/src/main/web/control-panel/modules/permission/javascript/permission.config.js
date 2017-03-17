@@ -29,11 +29,11 @@
         $stateProvider
             .state('application.permissions', {
                 url: '/permissions',
-                templateUrl: '/control-panel/modules/permission/html/index.html'
+                templateUrl: 'control-panel/modules/permission/html/index.html'
             })
             .state('application.permissions.list', {
                 url: '/list',
-                templateUrl: '/control-panel/modules/permission/html/list.html',
+                templateUrl: 'control-panel/modules/permission/html/list.html',
                 controller: 'PermissionListController',
                 controllerAs: 'permissionList'
             });

@@ -1,7 +1,8 @@
 {
   "excludeFiles": [
     "node_modules/**",
-    "bower_components/**"
+    "bower_components/**",
+    "**/*.templatecache.js"
   ],
   "requireCurlyBraces": [
     "if",

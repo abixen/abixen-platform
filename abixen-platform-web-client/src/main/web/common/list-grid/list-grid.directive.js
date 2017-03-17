@@ -31,7 +31,7 @@
                 loadAllRecords: '=',
                 title: '@'
             },
-            templateUrl: '/common/list-grid/html/list-grid.template.html',
+            templateUrl: 'common/list-grid/html/list-grid.template.html',
             link: link,
             controller: ListGridController,
             controllerAs: 'listGrid',

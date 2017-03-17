@@ -29,29 +29,29 @@
         $stateProvider
             .state('application.pages', {
                 url: '/pages',
-                templateUrl: '/control-panel/modules/page/html/index.html'
+                templateUrl: 'control-panel/modules/page/html/index.html'
             })
             .state('application.pages.list', {
                 url: '/list',
-                templateUrl: '/control-panel/modules/page/html/list.html',
+                templateUrl: 'control-panel/modules/page/html/list.html',
                 controller: 'PageListController',
                 controllerAs: 'pageList'
             })
             .state('application.pages.add', {
                 url: '/add',
-                templateUrl: '/control-panel/modules/page/html/edit.html',
+                templateUrl: 'control-panel/modules/page/html/edit.html',
                 controller: 'PageDetailsController',
                 controllerAs: 'pageDetails'
             })
             .state('application.pages.edit', {
                 url: '/edit/:id',
-                templateUrl: '/control-panel/modules/page/html/edit.html',
+                templateUrl: 'control-panel/modules/page/html/edit.html',
                 controller: 'PageDetailsController',
                 controllerAs: 'pageDetails'
             })
             .state('application.pages.permissions', {
                 url: '/permissions/:id',
-                templateUrl: '/common/permission/permissions.html',
+                templateUrl: 'common/permission/permissions.html',
                 controller: 'PagePermissionsController',
                 controllerAs: 'permissions'
             });
