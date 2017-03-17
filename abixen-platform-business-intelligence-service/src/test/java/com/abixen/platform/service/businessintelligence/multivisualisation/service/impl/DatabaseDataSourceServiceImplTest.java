@@ -29,6 +29,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.servi
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseDataSourceService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DomainBuilderService;
 import com.abixen.platform.service.businessintelligence.configuration.PlatformModuleConfiguration;
+import com.abixen.platform.service.businessintelligence.multivisualisation.util.DatabaseConnectionPasswordEncryption;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +74,9 @@ public class DatabaseDataSourceServiceImplTest {
     @Autowired
     private DatabaseConnectionService databaseConnectionService;
 
+    @Autowired
+    private DatabaseConnectionPasswordEncryption databaseConnectionPasswordEncryption;
+
     @Resource
     private DatabaseConnectionRepository dataSourceConnectionRepository;
 
@@ -105,7 +109,7 @@ public class DatabaseDataSourceServiceImplTest {
         databaseConnection.setDatabasePort(1122);
         databaseConnection.setDatabaseName("abixen_bi");
         databaseConnection.setUsername("system");
-        databaseConnection.setPassword("passowrd");
+        databaseConnection.setPassword(databaseConnectionPasswordEncryption.encryptPassword("passowrd"));
         databaseDataSource.setFilter("Tet1");
         databaseDataSource.setTable("EMPLOYEE");
         DataSourceColumn dataSourceColumn = new DataSourceColumn();

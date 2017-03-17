@@ -22,6 +22,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.model
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DatabaseDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.*;
+import com.abixen.platform.service.businessintelligence.multivisualisation.util.DatabaseConnectionPasswordEncryption;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,6 +50,9 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
 
     @Autowired
     private DatabaseFactory databaseFactory;
+
+    @Autowired
+    private DatabaseConnectionPasswordEncryption databaseConnectionPasswordEncryption;
 
     @Override
     public Set<DataSourceColumn> getDataSourceColumns(Long dataSourceId) {
@@ -91,9 +95,11 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
     @Override
     public DatabaseDataSource buildDataSource(DatabaseDataSourceForm databaseDataSourceForm) {
         log.debug("buildDataSource() - databaseDataSourceForm: " + databaseDataSourceForm);
+        DatabaseConnection databaseConnection = databaseConnectionService.findDatabaseConnection(databaseDataSourceForm.getDatabaseConnection().getId());
+        databaseConnection.setPassword(databaseConnectionPasswordEncryption.encryptPassword(databaseConnection.getPassword()));
         return domainBuilderService.newDatabaseDataSourceBuilderInstance()
                 .base(databaseDataSourceForm.getName(), databaseDataSourceForm.getDescription())
-                .connection(databaseConnectionService.findDatabaseConnection(databaseDataSourceForm.getDatabaseConnection().getId()))
+                .connection(databaseConnection)
                 .data(databaseDataSourceForm.getTable(), databaseDataSourceForm.getFilter())
                 .columns(databaseDataSourceForm.getColumns())
                 .build();
