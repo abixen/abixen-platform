@@ -84,4 +84,11 @@ public class DatabaseOracleServiceImpl extends AbstractDatabaseService implement
         databaseTypeOnApplicationType.put("NUMBER", DataValueType.DOUBLE.getName());
         return databaseTypeOnApplicationType;
     }
+
+    @Override
+    protected StringBuilder setLimitConditionForCharDataQuery(StringBuilder stringBuilder, Integer limit) {
+        stringBuilder.append(" AND ROWNUM <= ");
+        stringBuilder.append(limit);
+        return stringBuilder;
+    }
 }

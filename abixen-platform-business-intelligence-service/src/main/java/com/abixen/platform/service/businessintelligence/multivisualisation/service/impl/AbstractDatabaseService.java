@@ -149,7 +149,7 @@ public abstract class AbstractDatabaseService {
         if (chartColumnsSet.isEmpty()) {
             return new ArrayList<>();
         }
-        return getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm);
+        return getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm, null);
     }
 
     private Set<String> getDomainColumn(ChartConfigurationForm chartConfigurationForm) {
@@ -177,8 +177,8 @@ public abstract class AbstractDatabaseService {
             return new ArrayList<>();
         }
         //FixMe
-        List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm);
-        return data.subList(0, data.size() < chartLimit ? data.size() : chartLimit);
+        List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm, chartLimit);
+        return data;
     }
 
     public List<Map<String, DataValueWeb>> getDataSourcePreview(Connection connection, DatabaseDataSource databaseDataSource) {
@@ -192,20 +192,20 @@ public abstract class AbstractDatabaseService {
             return new ArrayList<>();
         }
         //FixMe
-        List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, dataSourceColumnsSet, null);
-        return data.subList(0, data.size() < datasourceLimit ? data.size() : datasourceLimit);
+        List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, dataSourceColumnsSet, null, datasourceLimit);
+        return data;
     }
 
-    private List<Map<String, DataValueWeb>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ChartConfigurationForm chartConfigurationForm) {
+    private List<Map<String, DataValueWeb>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ChartConfigurationForm chartConfigurationForm, Integer limit) {
         ResultSet rs;
         List<Map<String, DataValueWeb>> data = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
             ResultSetMetaData resultSetMetaData = getDatabaseMetaData(connection, databaseDataSource.getTable());
             if (chartConfigurationForm != null) {
-                rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet, resultSetMetaData, chartConfigurationForm));
+                rs = statement.executeQuery(buildQueryForChartData(databaseDataSource, chartColumnsSet, resultSetMetaData, chartConfigurationForm, limit));
             } else {
-                rs = statement.executeQuery(buildQueryForDataSourceData(databaseDataSource, chartColumnsSet, resultSetMetaData).toString());
+                rs = statement.executeQuery(buildQueryForDataSourceData(databaseDataSource, chartColumnsSet, resultSetMetaData, limit).toString());
             }
             while (rs.next()) {
                 final ResultSet row = rs;
@@ -221,23 +221,29 @@ public abstract class AbstractDatabaseService {
         return data;
     }
 
-    private String buildQueryForChartData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData, ChartConfigurationForm chartConfigurationForm) throws SQLException {
+    private String buildQueryForChartData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData, ChartConfigurationForm chartConfigurationForm, Integer limit) throws SQLException {
         StringBuilder outerSelect = new StringBuilder("SELECT ");
         outerSelect.append("subQueryResult." + chartColumnsSet.toString().substring(1, chartColumnsSet.toString().length() - 1));
         outerSelect.append(" FROM (");
-        outerSelect.append(buildQueryForDataSourceData(databaseDataSource, chartColumnsSet, resultSetMetaData));
+        outerSelect.append(buildQueryForDataSourceData(databaseDataSource, chartColumnsSet, resultSetMetaData, limit));
         outerSelect.append(") subQueryResult WHERE ");
         outerSelect.append(jsonFilterService.convertJsonToJpql(chartConfigurationForm.getFilter(), resultSetMetaData));
         return outerSelect.toString();
     }
 
-    private StringBuilder buildQueryForDataSourceData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData) throws SQLException {
+    private StringBuilder buildQueryForDataSourceData(DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ResultSetMetaData resultSetMetaData, Integer limit) throws SQLException {
         StringBuilder stringBuilder = new StringBuilder("SELECT ");
         stringBuilder.append(chartColumnsSet.toString().substring(1, chartColumnsSet.toString().length() - 1));
         stringBuilder.append(" FROM ");
         stringBuilder.append(databaseDataSource.getTable());
         stringBuilder.append(" WHERE ");
         stringBuilder.append(jsonFilterService.convertJsonToJpql(databaseDataSource.getFilter(), resultSetMetaData));
+        return limit != null ? setLimitConditionForCharDataQuery(stringBuilder, limit) : stringBuilder;
+    }
+
+    protected StringBuilder setLimitConditionForCharDataQuery(StringBuilder stringBuilder, Integer limit) {
+        stringBuilder.append(" LIMIT ");
+        stringBuilder.append(limit + " ");
         return stringBuilder;
     }
 
