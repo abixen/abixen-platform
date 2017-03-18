@@ -23,8 +23,6 @@ import com.abixen.platform.core.form.ModuleSearchForm;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.service.ModuleService;
 import com.abixen.platform.core.util.ValidationUtil;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -67,7 +65,6 @@ public class ModuleController {
         return moduleToModuleDtoConverter.convert(module);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateModule(@PathVariable("id") Long id, @RequestBody @Valid ModuleForm moduleForm, BindingResult bindingResult) {
         log.debug("updateModule() - id: " + id + ", moduleForm: " + moduleForm);

@@ -24,8 +24,6 @@ import com.abixen.platform.core.form.PageSearchForm;
 import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.service.PageService;
 import com.abixen.platform.core.util.ValidationUtil;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -64,7 +62,6 @@ public class AdminPageController extends AbstractPageController {
         return pageToPageDtoConverter.convert(page);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updatePage(@PathVariable("id") Long id, @RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("updatePage() - id: " + id + ", pageForm: " + pageForm);
@@ -91,7 +88,6 @@ public class AdminPageController extends AbstractPageController {
 
 
     @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.model.impl.Page', 'PAGE_ADD')")
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createPage(@RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("createPage() - pageForm: " + pageForm);

@@ -32,8 +32,6 @@ import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
 import com.abixen.platform.core.util.ValidationUtil;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.LocaleUtils;
@@ -52,7 +50,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -131,7 +132,6 @@ public abstract class AbstractUserController {
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateUser(@PathVariable Long id, @RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
         log.debug("update() - id: " + id + ", userForm: " + userForm);

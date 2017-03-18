@@ -16,29 +16,22 @@ package com.abixen.platform.core.form;
 
 import com.abixen.platform.core.dto.LayoutDto;
 import com.abixen.platform.core.dto.PageDto;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
 
 
 public class PageForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private String title;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private String icon;
 
-    @JsonView(WebModelJsonSerialize.class)
     private String description;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private LayoutDto layout;
 

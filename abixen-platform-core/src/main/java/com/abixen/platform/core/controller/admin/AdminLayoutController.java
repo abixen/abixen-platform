@@ -22,10 +22,8 @@ import com.abixen.platform.core.form.LayoutForm;
 import com.abixen.platform.core.form.LayoutSearchForm;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.service.LayoutService;
-import lombok.extern.slf4j.Slf4j;
 import com.abixen.platform.core.util.ValidationUtil;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -87,7 +85,6 @@ public class AdminLayoutController {
         return layoutToLayoutDtoConverter.convert(createdLayout);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     FormValidationResultDto updateLayout(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

@@ -16,8 +16,6 @@ package com.abixen.platform.core.form;
 
 import com.abixen.platform.core.dto.CommentDto;
 import com.abixen.platform.core.dto.UserDto;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,25 +33,19 @@ import static com.abixen.platform.core.model.CommentBase.COMMENT_MESSAGE_MAX_LEN
 @AllArgsConstructor
 public class CommentForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Length(max = COMMENT_MESSAGE_MAX_LENGTH)
     private String message;
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long parentId;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private Long moduleId;
 
-    @JsonView(WebModelJsonSerialize.class)
     private UserDto user;
 
-    @JsonView(WebModelJsonSerialize.class)
     private Date createdDate;
 
     public CommentForm() {

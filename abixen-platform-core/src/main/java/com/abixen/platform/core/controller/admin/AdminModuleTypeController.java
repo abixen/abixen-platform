@@ -17,8 +17,6 @@ package com.abixen.platform.core.controller.admin;
 import com.abixen.platform.core.form.ModuleTypeSearchForm;
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.service.ModuleTypeService;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -53,7 +51,6 @@ public class AdminModuleTypeController {
         return moduleTypeService.findModuleTypes();
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}/reload", method = RequestMethod.PUT)
     public void reload(@PathVariable Long id) {
         log.debug("reload() - id: " + id);
@@ -61,7 +58,6 @@ public class AdminModuleTypeController {
         moduleTypeService.reload(id);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/reload-all", method = RequestMethod.PUT)
     public void reloadAll() {
         log.debug("reloadAll()");

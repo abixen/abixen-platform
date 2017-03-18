@@ -14,8 +14,6 @@
 
 package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,29 +25,21 @@ import java.util.List;
 @Setter
 public class
 ModuleCommentDto {
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private String message;
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long parentId;
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long moduleId;
 
-    @JsonView(WebModelJsonSerialize.class)
     private UserDto user;
 
-    @JsonView(WebModelJsonSerialize.class)
     private List<ModuleCommentDto> children;
 
-    @JsonView(WebModelJsonSerialize.class)
     private Date createdDate;
 
-    @JsonView(WebModelJsonSerialize.class)
     private Integer depth;
 
 
