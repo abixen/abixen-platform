@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service;
 
+import com.abixen.platform.core.dto.ModuleCommentDto;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
 
@@ -26,6 +27,8 @@ public interface CommentService {
     CommentForm updateComment(CommentForm commentForm);
 
     List<Comment> getAllComments(Long moduleId);
+
+    List<ModuleCommentDto> findComments(Long moduleId);
 
     Integer deleteComment(Long commentId);
 

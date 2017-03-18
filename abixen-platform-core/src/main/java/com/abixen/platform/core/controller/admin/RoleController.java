@@ -14,9 +14,11 @@
 
 package com.abixen.platform.core.controller.admin;
 
+import com.abixen.platform.core.converter.PermissionToPermissionDtoConverter;
 import com.abixen.platform.core.converter.RoleToRoleDtoConverter;
 import com.abixen.platform.core.dto.FormErrorDto;
 import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.PermissionDto;
 import com.abixen.platform.core.dto.RoleDto;
 import com.abixen.platform.core.form.RoleForm;
 import com.abixen.platform.core.form.RolePermissionsForm;
@@ -48,14 +50,17 @@ public class RoleController {
     private final RoleService roleService;
     private final PermissionService permissionService;
     private final RoleToRoleDtoConverter roleToRoleDtoConverter;
+    private final PermissionToPermissionDtoConverter permissionToPermissionDtoConverter;
 
     @Autowired
     public RoleController(RoleService roleService,
                           PermissionService permissionService,
-                          RoleToRoleDtoConverter roleToRoleDtoConverter) {
+                          RoleToRoleDtoConverter roleToRoleDtoConverter,
+                          PermissionToPermissionDtoConverter permissionToPermissionDtoConverter) {
         this.roleService = roleService;
         this.permissionService = permissionService;
         this.roleToRoleDtoConverter = roleToRoleDtoConverter;
+        this.permissionToPermissionDtoConverter = permissionToPermissionDtoConverter;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -120,7 +125,9 @@ public class RoleController {
         Role role = roleService.findRole(id);
         List<Permission> allPermissions = permissionService.findAllPermissions();
 
-        RolePermissionsForm rolePermissionsForm = new RolePermissionsForm(role, allPermissions);
+        RoleDto roleDto = roleToRoleDtoConverter.convert(role);
+        List<PermissionDto> allPermissionDtos = permissionToPermissionDtoConverter.convertToList(allPermissions);
+        RolePermissionsForm rolePermissionsForm = new RolePermissionsForm(roleDto, allPermissionDtos);
 
         return rolePermissionsForm;
     }

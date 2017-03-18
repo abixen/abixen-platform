@@ -14,10 +14,9 @@
 
 package com.abixen.platform.core.form;
 
+import com.abixen.platform.core.dto.PermissionDto;
+import com.abixen.platform.core.dto.RoleDto;
 import com.abixen.platform.core.dto.RolePermissionDto;
-import com.abixen.platform.core.model.impl.Permission;
-import com.abixen.platform.core.model.impl.Role;
-import com.abixen.platform.core.model.web.RoleWeb;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import java.util.List;
 public class RolePermissionsForm implements Form {
 
     @NotNull
-    private RoleWeb role;
+    private RoleDto role;
 
     @NotNull
     private List<RolePermissionDto> rolePermissions = new ArrayList<>();
@@ -35,10 +34,10 @@ public class RolePermissionsForm implements Form {
     public RolePermissionsForm() {
     }
 
-    public RolePermissionsForm(Role role, List<Permission> allPermissions) {
+    public RolePermissionsForm(RoleDto role, List<PermissionDto> allPermissions) {
         this.role = role;
 
-        for (Permission permission : allPermissions) {
+        for (PermissionDto permission : allPermissions) {
             Boolean selected = false;
 
             if (role.getPermissions().contains(permission)) {
@@ -48,11 +47,11 @@ public class RolePermissionsForm implements Form {
         }
     }
 
-    public RoleWeb getRole() {
+    public RoleDto getRole() {
         return role;
     }
 
-    public void setRole(RoleWeb role) {
+    public void setRole(RoleDto role) {
         this.role = role;
     }
 

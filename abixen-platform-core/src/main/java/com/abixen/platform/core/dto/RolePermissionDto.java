@@ -14,9 +14,6 @@
 
 package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.model.impl.Permission;
-import com.abixen.platform.core.model.web.PermissionWeb;
-
 import java.io.Serializable;
 
 
@@ -24,7 +21,7 @@ public class RolePermissionDto implements Serializable {
 
     private static final long serialVersionUID = -7430477767491597712L;
 
-    private PermissionWeb permission;
+    private PermissionDto permission;
 
     private Boolean selected;
 
@@ -32,16 +29,16 @@ public class RolePermissionDto implements Serializable {
 
     }
 
-    public RolePermissionDto(Permission permission, Boolean selected) {
+    public RolePermissionDto(PermissionDto permission, Boolean selected) {
         this.permission = permission;
         this.selected = selected;
     }
 
-    public PermissionWeb getPermission() {
+    public PermissionDto getPermission() {
         return permission;
     }
 
-    public void setPermission(PermissionWeb permission) {
+    public void setPermission(PermissionDto permission) {
         this.permission = permission;
     }
 

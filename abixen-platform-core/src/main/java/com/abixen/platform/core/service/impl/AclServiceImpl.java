@@ -14,9 +14,12 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.converter.PermissionToPermissionDtoConverter;
+import com.abixen.platform.core.converter.RoleToRoleDtoConverter;
 import com.abixen.platform.core.dto.AclPermissionDto;
 import com.abixen.platform.core.dto.AclRolePermissionsDto;
 import com.abixen.platform.core.dto.AclRolesPermissionsDto;
+import com.abixen.platform.core.dto.PermissionDto;
 import com.abixen.platform.core.model.SecurableModel;
 import com.abixen.platform.core.model.enumtype.AclClassName;
 import com.abixen.platform.core.model.enumtype.AclSidType;
@@ -47,6 +50,8 @@ public class AclServiceImpl implements AclService {
     private final AclObjectIdentityRepository aclObjectIdentityRepository;
     private final PermissionAclClassCategoryRepository permissionAclClassCategoryRepository;
     private final AclSidRepository aclSidRepository;
+    private final RoleToRoleDtoConverter roleToRoleDtoConverter;
+    private final PermissionToPermissionDtoConverter permissionToPermissionDtoConverter;
 
     @Autowired
     public AclServiceImpl(RoleService roleService,
@@ -56,7 +61,9 @@ public class AclServiceImpl implements AclService {
                           AclClassRepository aclClassRepository,
                           AclObjectIdentityRepository aclObjectIdentityRepository,
                           PermissionAclClassCategoryRepository permissionAclClassCategoryRepository,
-                          AclSidRepository aclSidRepository) {
+                          AclSidRepository aclSidRepository,
+                          RoleToRoleDtoConverter roleToRoleDtoConverter,
+                          PermissionToPermissionDtoConverter permissionToPermissionDtoConverter) {
         this.roleService = roleService;
         this.permissionService = permissionService;
         this.permissionRepository = permissionRepository;
@@ -65,6 +72,8 @@ public class AclServiceImpl implements AclService {
         this.aclObjectIdentityRepository = aclObjectIdentityRepository;
         this.permissionAclClassCategoryRepository = permissionAclClassCategoryRepository;
         this.aclSidRepository = aclSidRepository;
+        this.roleToRoleDtoConverter = roleToRoleDtoConverter;
+        this.permissionToPermissionDtoConverter = permissionToPermissionDtoConverter;
     }
 
     @Override
@@ -105,11 +114,12 @@ public class AclServiceImpl implements AclService {
 
         for (Role role : roles) {
             AclRolePermissionsDto aclRolePermissionsDto = new AclRolePermissionsDto();
-            aclRolePermissionsDto.setRole(role);
+            aclRolePermissionsDto.setRole(roleToRoleDtoConverter.convert(role));
             for (Permission permission : permissions) {
                 boolean roleHasPermission = role.getPermissions().contains(permission);
                 boolean permissionCanBeOverriddenByAcl = !roleHasPermission;
-                AclPermissionDto aclPermissionDto = new AclPermissionDto(permission, roleHasPermission, permissionCanBeOverriddenByAcl);
+                PermissionDto permissionDto = permissionToPermissionDtoConverter.convert(permission);
+                AclPermissionDto aclPermissionDto = new AclPermissionDto(permissionDto, roleHasPermission, permissionCanBeOverriddenByAcl);
                 aclRolePermissionsDto.getAclPermissionDtos().add(aclPermissionDto);
             }
             aclRolePermissionsDtos.add(aclRolePermissionsDto);
@@ -124,7 +134,8 @@ public class AclServiceImpl implements AclService {
         for (Permission permission : permissions) {
             // boolean ownerHasPermission = aclEntriesContainPermissionForOwner(aclEntries, permission);
             //boolean permissionCanBeOverriddenByAcl = true;
-            AclPermissionDto aclPermissionDto = new AclPermissionDto(permission, false, true);
+            PermissionDto permissionDto = permissionToPermissionDtoConverter.convert(permission);
+            AclPermissionDto aclPermissionDto = new AclPermissionDto(permissionDto, false, true);
             aclRoleOwnerPermissionsDto.getAclPermissionDtos().add(aclPermissionDto);
         }
         aclRolePermissionsDtos.add(aclRoleOwnerPermissionsDto);
@@ -144,7 +155,8 @@ public class AclServiceImpl implements AclService {
             }
         }
 
-        AclRolesPermissionsDto aclRolesPermissionsDto = new AclRolesPermissionsDto(aclRolePermissionsDtos, permissions);
+        List<PermissionDto> permissionDtos = permissionToPermissionDtoConverter.convertToList(permissions);
+        AclRolesPermissionsDto aclRolesPermissionsDto = new AclRolesPermissionsDto(aclRolePermissionsDtos, permissionDtos);
         return aclRolesPermissionsDto;
     }
 

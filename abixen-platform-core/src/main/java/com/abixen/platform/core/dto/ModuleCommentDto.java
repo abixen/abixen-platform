@@ -14,8 +14,6 @@
 
 package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.model.impl.Comment;
-import com.abixen.platform.core.model.web.UserWeb;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
@@ -27,7 +25,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ModuleCommentDto {
+public class
+ModuleCommentDto {
     @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
@@ -42,7 +41,7 @@ public class ModuleCommentDto {
     private Long moduleId;
 
     @JsonView(WebModelJsonSerialize.class)
-    private UserWeb user;
+    private UserDto user;
 
     @JsonView(WebModelJsonSerialize.class)
     private List<ModuleCommentDto> children;
@@ -57,7 +56,7 @@ public class ModuleCommentDto {
     public ModuleCommentDto() {
     }
 
-    public ModuleCommentDto(Comment comment) {
+    public ModuleCommentDto(CommentDto comment) {
 
         this.id = comment.getId();
         this.message = comment.getMessage();

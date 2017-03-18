@@ -18,7 +18,6 @@ import com.abixen.platform.core.model.UserBase;
 import com.abixen.platform.core.model.enumtype.UserGender;
 import com.abixen.platform.core.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.enumtype.UserState;
-import com.abixen.platform.core.model.web.UserWeb;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -32,7 +31,7 @@ import java.util.Set;
 @Entity
 @Table(name = "user_")
 @SequenceGenerator(sequenceName = "user_seq", name = "user_seq", allocationSize = 1)
-public class User extends AuditingModel implements UserBase<Role>, UserWeb {
+public class User extends AuditingModel implements UserBase<Role> {
 
     /**
      *

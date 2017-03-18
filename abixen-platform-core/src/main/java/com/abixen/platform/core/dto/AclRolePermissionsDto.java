@@ -14,7 +14,6 @@
 
 package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.model.web.RoleWeb;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,24 +27,24 @@ public class AclRolePermissionsDto implements Serializable {
     /**
      * Null means that this is the owner
      */
-    private RoleWeb role;
+    private RoleDto role;
 
     private List<AclPermissionDto> aclPermissionDtos = new ArrayList<>();
 
     public AclRolePermissionsDto() {
     }
 
-    public AclRolePermissionsDto(RoleWeb roleWeb, List<AclPermissionDto> aclPermissionDtos) {
-        this.role = roleWeb;
+    public AclRolePermissionsDto(RoleDto role, List<AclPermissionDto> aclPermissionDtos) {
+        this.role = role;
         this.aclPermissionDtos = aclPermissionDtos;
     }
 
-    public RoleWeb getRole() {
+    public RoleDto getRole() {
         return role;
     }
 
-    public void setRole(RoleWeb roleWeb) {
-        this.role = roleWeb;
+    public void setRole(RoleDto role) {
+        this.role = role;
     }
 
     public List<AclPermissionDto> getAclPermissionDtos() {

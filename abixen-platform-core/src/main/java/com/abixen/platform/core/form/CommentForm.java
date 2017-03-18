@@ -14,12 +14,16 @@
 
 package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.model.impl.Comment;
-import com.abixen.platform.core.model.web.UserWeb;
+import com.abixen.platform.core.dto.CommentDto;
+import com.abixen.platform.core.dto.UserDto;
 import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -47,7 +51,7 @@ public class CommentForm implements Form {
     private Long moduleId;
 
     @JsonView(WebModelJsonSerialize.class)
-    private UserWeb user;
+    private UserDto user;
 
     @JsonView(WebModelJsonSerialize.class)
     private Date createdDate;
@@ -55,7 +59,7 @@ public class CommentForm implements Form {
     public CommentForm() {
     }
 
-    public CommentForm(Comment comment) {
+    public CommentForm(CommentDto comment) {
         this.id = comment.getId();
         this.message = comment.getMessage();
         if (comment.getParent() != null) {
