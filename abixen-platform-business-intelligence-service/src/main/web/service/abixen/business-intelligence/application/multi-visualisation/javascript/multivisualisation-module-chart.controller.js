@@ -41,7 +41,7 @@
         var SHOW_SUBVIEW_TABLE_EVENT = 'SHOW_SUBVIEW_TABLE_EVENT';
         var SHOW_SUBVIEW_CHART_EVENT = 'SHOW_SUBVIEW_CHART_EVENT';
 
-        $scope.$on('MODULE_RESIZED', onModuleResize);
+        $scope.$on(platformParameters.events.REDRAW_MODULE, onRedrawModule);
 
         if ($scope.moduleId) {
             $scope.$emit(platformParameters.events.START_REQUEST);
@@ -81,10 +81,8 @@
             moduleResponseErrorHandler.handle(error, $scope);
         }
 
-        function onModuleResize(moduleId) {
-            if ($scope.moduleId === moduleId){
-                multivisualisationModuleChart.api.update();
-            }
+        function onRedrawModule() {
+            multivisualisationModuleChart.api.update();
         }
 
         function registerSubviewChartIcons(chartType) {

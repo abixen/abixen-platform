@@ -151,10 +151,16 @@
                 $scope.$on(platformParameters.events.UPDATE_MODULE_CONTROL_ICONS, function (event, icons) {
                     $scope.moduleState.moduleIcons = icons;
                 });
-
                 $scope.toggleFullScreenMode = function () {
                     $scope.moduleState.fullScreenMode = !$scope.moduleState.fullScreenMode;
-                    $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.moduleState.fullScreenMode);
+
+                    var control = {onModeChanged: onModeChanged};
+
+                    function onModeChanged(){
+                        $scope.$broadcast(platformParameters.events.REDRAW_MODULE);
+                    }
+
+                    $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.moduleState.fullScreenMode, control);
                 };
 
                 $scope.toggleChat = function () {
