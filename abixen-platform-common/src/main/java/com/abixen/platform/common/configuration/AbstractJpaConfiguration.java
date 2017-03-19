@@ -31,14 +31,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-public abstract class AbstractJapConfiguration {
+public abstract class AbstractJpaConfiguration {
 
     private final DataSource dataSource;
     private final AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
     private final String[] packagesToScan;
 
     @Autowired
-    public AbstractJapConfiguration(DataSource dataSource,
+    public AbstractJpaConfiguration(DataSource dataSource,
                                     AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration,
                                     String... packagesToScan) {
         this.dataSource = dataSource;
