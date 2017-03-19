@@ -18,6 +18,7 @@
 
     angular
         .module('platformModuleModule', [
-            'ui.router'
+            'ui.router',
+            'webClientTemplatecache'
         ]);
 })();

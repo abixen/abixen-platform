@@ -25,7 +25,7 @@
         return {
             restrict: 'E',
             require: '^form',
-            templateUrl: '/common/component/field/input-ckeditor/input-ckeditor.template.html',
+            templateUrl: 'common/component/field/input-ckeditor/input-ckeditor.template.html',
             scope: {
                 model: '=',
                 validators: '=',

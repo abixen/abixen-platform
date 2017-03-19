@@ -24,6 +24,7 @@
             'ui.grid.pinning',
             'ui.grid.resizeColumns',
             'ui.grid.moveColumns',
-            'ui.grid.autoResize'
+            'ui.grid.autoResize',
+            'webClientTemplatecache'
         ]);
 })();

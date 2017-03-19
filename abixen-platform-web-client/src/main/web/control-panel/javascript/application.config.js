@@ -43,7 +43,7 @@
             .state('application', {
                 abstract: true,
                 controller: 'ApplicationController',
-                templateUrl: '/control-panel/html/application.html',
+                templateUrl: 'control-panel/html/application.html',
                 resolve: {
                     platformSecurityResolver: platformSecurityResolver
                 }

@@ -18,6 +18,7 @@
 
     angular
         .module('platformComponent', [
-            'platformField'
+            'platformField',
+            'webClientTemplatecache'
         ]);
 })();

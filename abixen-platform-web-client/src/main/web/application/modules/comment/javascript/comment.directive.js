@@ -25,7 +25,7 @@
 
         return {
             restrict: 'E',
-            templateUrl: '/application/modules/comment/html/comment.template.html',
+            templateUrl: 'application/modules/comment/html/comment.template.html',
             scope: {
                 commentItem: '=',
                 moduleId: '=',

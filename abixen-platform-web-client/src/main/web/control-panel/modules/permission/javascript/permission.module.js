@@ -18,6 +18,7 @@
 
     angular
         .module('platformPermissionModule', [
-            'ui.router'
+            'ui.router',
+            'webClientTemplatecache'
         ]);
 })();

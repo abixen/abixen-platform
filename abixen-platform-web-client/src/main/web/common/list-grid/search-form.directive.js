@@ -30,7 +30,7 @@
                 filter: '=',
                 onSearch: '='
             },
-            templateUrl: '/common/list-grid/html/search-form.template.html',
+            templateUrl: 'common/list-grid/html/search-form.template.html',
             link: link,
             controller: SearchFormController,
             controllerAs: 'searchForm',

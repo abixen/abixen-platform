@@ -22,7 +22,7 @@
     function commentsDirective() {
         return {
             restrict: 'E',
-            templateUrl: '/application/modules/comment/html/comments.template.html',
+            templateUrl: 'application/modules/comment/html/comments.template.html',
             scope: {
                 moduleId: '='
             },

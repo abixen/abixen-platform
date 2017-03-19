@@ -36,7 +36,7 @@
         return {
             restrict: 'E',
             transclude: true,
-            templateUrl: '/common/navigation/html/platform-navigation.html',
+            templateUrl: 'common/navigation/html/platform-navigation.html',
             scope: {
                 addNewModule: '&addNewModule',
                 addNewPage: '&addNewPage',

@@ -17,5 +17,5 @@
     'use strict';
 
     angular
-        .module('platformNavigationModule', []);
+        .module('platformNavigationModule', ['webClientTemplatecache']);
 })();
