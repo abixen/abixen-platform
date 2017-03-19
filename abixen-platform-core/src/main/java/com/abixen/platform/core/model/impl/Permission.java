@@ -15,8 +15,8 @@
 package com.abixen.platform.core.model.impl;
 
 
-import com.abixen.platform.core.model.PermissionBase;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.PermissionBase;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;

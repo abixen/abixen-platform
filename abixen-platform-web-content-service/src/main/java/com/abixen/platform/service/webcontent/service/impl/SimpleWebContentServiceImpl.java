@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.service.impl;
 
-import com.abixen.platform.core.exception.PlatformServiceRuntimeException;
+import com.abixen.platform.common.exception.PlatformServiceRuntimeException;
 import com.abixen.platform.service.webcontent.form.SimpleWebContentForm;
 import com.abixen.platform.service.webcontent.model.impl.SimpleWebContent;
 import com.abixen.platform.service.webcontent.repository.SimpleWebContentRepository;

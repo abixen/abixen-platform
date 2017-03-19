@@ -15,6 +15,7 @@
 package com.abixen.platform.core.converter;
 
 
+import com.abixen.platform.common.converter.AbstractConverter;
 import com.abixen.platform.core.dto.PageDto;
 import com.abixen.platform.core.model.impl.Page;
 import org.springframework.beans.factory.annotation.Autowired;

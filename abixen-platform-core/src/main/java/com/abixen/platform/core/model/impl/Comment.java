@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.CommentBase;
+import com.abixen.platform.common.model.CommentBase;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

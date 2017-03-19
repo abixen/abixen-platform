@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.service;
 
-import com.abixen.platform.core.rabbitmq.message.RabbitMQMessage;
+import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
 import org.springframework.amqp.AmqpException;
 
 

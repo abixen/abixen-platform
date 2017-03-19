@@ -16,7 +16,7 @@ package com.abixen.platform.core.util.impl;
 
 import com.abixen.platform.core.model.impl.AdminSidebarItem;
 import com.abixen.platform.core.model.impl.ModuleType;
-import com.abixen.platform.core.util.EntityBuilder;
+import com.abixen.platform.common.util.EntityBuilder;
 import com.abixen.platform.core.util.ModuleTypeBuilder;
 
 import java.util.List;

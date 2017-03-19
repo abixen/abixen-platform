@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.util
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.util.DataSourceColumnBuilder;
-import com.abixen.platform.core.util.EntityBuilder;
+import com.abixen.platform.common.util.EntityBuilder;
 
 
 public class DataSourceColumnBuilderImpl extends EntityBuilder<DataSourceColumn> implements DataSourceColumnBuilder {

@@ -14,7 +14,8 @@
 
 package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.model.UserBase;
+import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.model.UserBase;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 

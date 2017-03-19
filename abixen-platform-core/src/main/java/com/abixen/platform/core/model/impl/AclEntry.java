@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.AclEntryBase;
+import com.abixen.platform.common.model.AclEntryBase;
 
 import javax.persistence.*;
 

@@ -17,7 +17,7 @@ import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.dto.CommentDto;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.form.CommentVoteForm;
-import com.abixen.platform.core.model.enumtype.CommentVoteType;
+import com.abixen.platform.common.model.enumtype.CommentVoteType;
 import com.abixen.platform.core.repository.CommentRepository;
 import com.abixen.platform.core.repository.CommentVoteRepository;
 import lombok.extern.slf4j.Slf4j;

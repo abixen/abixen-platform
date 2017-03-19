@@ -14,10 +14,10 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.UserBase;
-import com.abixen.platform.core.model.enumtype.UserGender;
-import com.abixen.platform.core.model.enumtype.UserLanguage;
-import com.abixen.platform.core.model.enumtype.UserState;
+import com.abixen.platform.common.model.UserBase;
+import com.abixen.platform.common.model.enumtype.UserGender;
+import com.abixen.platform.common.model.enumtype.UserLanguage;
+import com.abixen.platform.common.model.enumtype.UserState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

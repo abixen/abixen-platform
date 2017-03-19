@@ -16,14 +16,14 @@ package com.abixen.platform.core.controller.admin;
 
 import com.abixen.platform.core.controller.common.AbstractPageController;
 import com.abixen.platform.core.converter.PageToPageDtoConverter;
-import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.core.dto.PageDto;
 import com.abixen.platform.core.form.PageForm;
 import com.abixen.platform.core.form.PageSearchForm;
 import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.service.PageService;
-import com.abixen.platform.core.util.ValidationUtil;
+import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

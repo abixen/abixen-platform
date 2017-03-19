@@ -17,7 +17,7 @@ package com.abixen.platform.core.util.impl;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.model.impl.Page;
-import com.abixen.platform.core.util.EntityBuilder;
+import com.abixen.platform.common.util.EntityBuilder;
 import com.abixen.platform.core.util.ModuleBuilder;
 
 

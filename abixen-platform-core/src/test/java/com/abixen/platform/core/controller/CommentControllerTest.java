@@ -15,7 +15,7 @@
 package com.abixen.platform.core.controller;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
-import com.abixen.platform.core.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.core.dto.ModuleCommentDto;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;

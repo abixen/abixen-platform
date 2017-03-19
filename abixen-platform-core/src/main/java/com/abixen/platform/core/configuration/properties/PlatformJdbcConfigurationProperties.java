@@ -14,13 +14,14 @@
 
 package com.abixen.platform.core.configuration.properties;
 
+import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import static com.abixen.platform.core.util.PlatformProfiles.DEV;
-import static com.abixen.platform.core.util.PlatformProfiles.DOCKER;
+import static com.abixen.platform.common.util.PlatformProfiles.DEV;
+import static com.abixen.platform.common.util.PlatformProfiles.DOCKER;
 
 @Profile({DEV, DOCKER})
 @Component

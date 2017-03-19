@@ -14,9 +14,9 @@
 
 package com.abixen.platform.core.repository.custom;
 
-import com.abixen.platform.core.form.search.SearchForm;
-import com.abixen.platform.core.model.enumtype.AclClassName;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.form.search.SearchForm;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

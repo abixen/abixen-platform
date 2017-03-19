@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.LayoutBase;
-import com.abixen.platform.core.model.SecurableModel;
+import com.abixen.platform.common.model.LayoutBase;
+import com.abixen.platform.common.model.SecurableModel;
 
 import javax.persistence.*;
 

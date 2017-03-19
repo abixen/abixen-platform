@@ -15,8 +15,8 @@
 package com.abixen.platform.core.model.impl;
 
 
-import com.abixen.platform.core.model.RoleBase;
-import com.abixen.platform.core.model.enumtype.RoleType;
+import com.abixen.platform.common.model.RoleBase;
+import com.abixen.platform.common.model.enumtype.RoleType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;

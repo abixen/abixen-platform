@@ -14,7 +14,8 @@
 
 package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.model.RoleBase;
+import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.model.RoleBase;
 import com.abixen.platform.core.model.impl.Role;
 import org.hibernate.validator.constraints.Length;
 

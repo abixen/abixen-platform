@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.client;
 
-import com.abixen.platform.core.configuration.properties.AbstractModulesConfigurationProperties;
+import com.abixen.platform.common.configuration.properties.AbstractModulesConfigurationProperties;
 
 public class ModulesConfigurationProperties extends AbstractModulesConfigurationProperties {
 }

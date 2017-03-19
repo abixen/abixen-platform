@@ -15,9 +15,9 @@
 package com.abixen.platform.core.repository.custom.impl.specification;
 
 
-import com.abixen.platform.core.model.enumtype.AclClassName;
-import com.abixen.platform.core.model.enumtype.AclSidType;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.AclSidType;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.AclEntry;
 import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.model.impl.Role;

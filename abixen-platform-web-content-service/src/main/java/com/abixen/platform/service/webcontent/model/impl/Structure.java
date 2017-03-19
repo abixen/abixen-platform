@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.model.impl;
 
-import com.abixen.platform.core.model.audit.AuditingModel;
+import com.abixen.platform.common.model.audit.AuditingModel;
 import com.abixen.platform.service.webcontent.model.web.StructureWeb;
 
 import javax.persistence.*;

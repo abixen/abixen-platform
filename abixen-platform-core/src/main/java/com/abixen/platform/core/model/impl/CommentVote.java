@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.CommentVoteBase;
-import com.abixen.platform.core.model.enumtype.CommentVoteType;
+import com.abixen.platform.common.model.CommentVoteBase;
+import com.abixen.platform.common.model.enumtype.CommentVoteType;
 import javax.persistence.*;
 
 @Entity

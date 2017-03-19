@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.util;
 
-import com.abixen.platform.core.exception.PlatformRuntimeException;
-import com.abixen.platform.core.model.Model;
+import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.common.model.Model;
 
 import java.lang.reflect.Field;
 

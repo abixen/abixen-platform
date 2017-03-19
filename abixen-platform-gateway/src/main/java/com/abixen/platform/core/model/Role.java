@@ -14,7 +14,9 @@
 
 package com.abixen.platform.core.model;
 
-import com.abixen.platform.core.model.enumtype.RoleType;
+import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.model.SimpleRoleBase;
+import com.abixen.platform.common.model.enumtype.RoleType;
 
 
 public class Role extends Model implements SimpleRoleBase {

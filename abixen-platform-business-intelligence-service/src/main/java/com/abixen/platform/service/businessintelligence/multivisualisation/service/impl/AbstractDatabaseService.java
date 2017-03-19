@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
-import com.abixen.platform.core.exception.PlatformRuntimeException;
+import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataParsingException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataSourceValueException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;

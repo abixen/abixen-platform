@@ -14,8 +14,8 @@
 
 package com.abixen.platform.client.web.model;
 
-import com.abixen.platform.core.model.Model;
-import com.abixen.platform.core.model.ModuleTypeBase;
+import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.model.ModuleTypeBase;
 
 import java.util.List;
 

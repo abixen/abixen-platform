@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.configuration;
 
-import com.abixen.platform.core.configuration.AbstractSleuthConfiguration;
+import com.abixen.platform.common.configuration.AbstractSleuthConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration

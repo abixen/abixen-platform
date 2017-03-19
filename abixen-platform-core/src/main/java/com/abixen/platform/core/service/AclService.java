@@ -15,8 +15,8 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.dto.AclRolesPermissionsDto;
-import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.SecurableModel;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.PermissionAclClassCategory;
 
 import java.util.List;

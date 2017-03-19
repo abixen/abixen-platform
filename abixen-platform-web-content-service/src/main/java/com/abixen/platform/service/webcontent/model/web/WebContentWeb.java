@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.model.web;
 
-import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

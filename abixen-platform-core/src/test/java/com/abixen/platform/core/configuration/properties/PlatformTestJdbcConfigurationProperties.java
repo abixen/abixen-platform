@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.configuration.properties;
 
+import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 

@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.configuration;
 
+import com.abixen.platform.common.configuration.AbstractLiquibaseConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 

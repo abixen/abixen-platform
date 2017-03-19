@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.security;
 
-import com.abixen.platform.core.model.enumtype.AclClassName;
-import com.abixen.platform.core.security.PlatformUser;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.service.businessintelligence.integration.SecurityIntegrationClient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.NotImplementedException;

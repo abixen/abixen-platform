@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.integration;
 
-import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.service.businessintelligence.client.SecurityClient;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;

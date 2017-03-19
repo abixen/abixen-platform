@@ -15,8 +15,8 @@
 package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.exception.PlatformCoreException;
-import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.SecurableModel;
+import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.core.repository.LayoutRepository;
 import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.repository.PageRepository;

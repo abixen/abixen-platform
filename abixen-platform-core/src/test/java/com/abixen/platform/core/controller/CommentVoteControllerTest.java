@@ -16,9 +16,9 @@ package com.abixen.platform.core.controller;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.dto.CommentDto;
-import com.abixen.platform.core.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.core.form.CommentVoteForm;
-import com.abixen.platform.core.model.enumtype.CommentVoteType;
+import com.abixen.platform.common.model.enumtype.CommentVoteType;
 import com.abixen.platform.core.service.CommentVoteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;

@@ -15,11 +15,11 @@
 package com.abixen.platform.core.controller;
 
 
-import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.core.form.CommentVoteForm;
 import com.abixen.platform.core.service.CommentVoteService;
-import com.abixen.platform.core.util.ValidationUtil;
+import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;

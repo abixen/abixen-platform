@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.web;
 
-import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.DataSet;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.DataSetSeries;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.DataSetSeriesColumn;

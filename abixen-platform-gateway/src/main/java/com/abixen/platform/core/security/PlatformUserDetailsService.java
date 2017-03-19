@@ -14,10 +14,11 @@
 
 package com.abixen.platform.core.security;
 
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.integration.UserIntegrationClient;
 import com.abixen.platform.core.model.Role;
 import com.abixen.platform.core.model.User;
-import com.abixen.platform.core.model.enumtype.UserState;
+import com.abixen.platform.common.model.enumtype.UserState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

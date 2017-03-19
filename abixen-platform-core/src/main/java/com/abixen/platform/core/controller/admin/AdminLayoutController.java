@@ -15,14 +15,14 @@
 package com.abixen.platform.core.controller.admin;
 
 import com.abixen.platform.core.converter.LayoutToLayoutDtoConverter;
-import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.core.dto.LayoutDto;
 import com.abixen.platform.core.form.LayoutForm;
 import com.abixen.platform.core.form.LayoutSearchForm;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.service.LayoutService;
-import com.abixen.platform.core.util.ValidationUtil;
+import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

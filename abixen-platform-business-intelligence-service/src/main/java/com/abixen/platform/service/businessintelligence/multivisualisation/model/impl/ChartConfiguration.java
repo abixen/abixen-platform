@@ -17,7 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.mode
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.ChartType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.ChartConfigurationWeb;
-import com.abixen.platform.core.model.audit.AuditingModel;
+import com.abixen.platform.common.model.audit.AuditingModel;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;

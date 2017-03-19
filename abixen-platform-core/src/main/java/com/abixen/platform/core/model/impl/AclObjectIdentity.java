@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.AclObjectIdentityBase;
-import com.abixen.platform.core.model.Model;
+import com.abixen.platform.common.model.AclObjectIdentityBase;
+import com.abixen.platform.common.model.Model;
 
 import javax.persistence.*;
 

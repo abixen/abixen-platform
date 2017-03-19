@@ -15,7 +15,7 @@
 package com.abixen.platform.core.dto;
 
 
-import com.abixen.platform.core.model.enumtype.RoleType;
+import com.abixen.platform.common.model.enumtype.RoleType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

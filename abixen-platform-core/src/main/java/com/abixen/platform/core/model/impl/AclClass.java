@@ -14,9 +14,9 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.AclClassBase;
-import com.abixen.platform.core.model.Model;
-import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.AclClassBase;
+import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.model.enumtype.AclClassName;
 
 import javax.persistence.*;
 

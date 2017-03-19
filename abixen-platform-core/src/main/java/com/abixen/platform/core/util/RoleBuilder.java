@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.util;
 
-import com.abixen.platform.core.model.enumtype.RoleType;
+import com.abixen.platform.common.model.enumtype.RoleType;
 import com.abixen.platform.core.model.impl.Role;
 
 

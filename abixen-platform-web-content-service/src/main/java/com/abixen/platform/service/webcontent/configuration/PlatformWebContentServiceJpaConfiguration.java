@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.webcontent.configuration;
 
-import com.abixen.platform.core.configuration.AbstractJapConfiguration;
-import com.abixen.platform.core.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
+import com.abixen.platform.common.configuration.AbstractJapConfiguration;
+import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import com.abixen.platform.service.webcontent.security.PlatformAuditorAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

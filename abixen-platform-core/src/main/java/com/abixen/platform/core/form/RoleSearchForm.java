@@ -14,9 +14,9 @@
 
 package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.form.search.SearchField;
-import com.abixen.platform.core.form.search.SearchForm;
-import com.abixen.platform.core.model.enumtype.RoleType;
+import com.abixen.platform.common.form.search.SearchField;
+import com.abixen.platform.common.form.search.SearchForm;
+import com.abixen.platform.common.model.enumtype.RoleType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

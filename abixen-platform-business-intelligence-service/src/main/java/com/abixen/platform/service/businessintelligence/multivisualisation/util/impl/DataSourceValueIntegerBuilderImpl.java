@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.util.impl;
 
-import com.abixen.platform.core.util.EntityBuilder;
+import com.abixen.platform.common.util.EntityBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueInteger;
 import com.abixen.platform.service.businessintelligence.multivisualisation.util.DataSourceValueBuilder;
 

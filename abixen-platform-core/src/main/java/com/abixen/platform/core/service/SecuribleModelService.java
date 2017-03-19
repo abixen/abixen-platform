@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.service;
 
-import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.SecurableModel;
+import com.abixen.platform.common.model.enumtype.AclClassName;
 
 
 public interface SecuribleModelService {

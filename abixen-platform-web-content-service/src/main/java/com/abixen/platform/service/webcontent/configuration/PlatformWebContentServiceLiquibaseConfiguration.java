@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.configuration;
 
-import com.abixen.platform.core.configuration.AbstractLiquibaseConfiguration;
+import com.abixen.platform.common.configuration.AbstractLiquibaseConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 

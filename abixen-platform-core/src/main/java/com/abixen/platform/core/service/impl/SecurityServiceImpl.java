@@ -14,16 +14,16 @@
 
 package com.abixen.platform.core.service.impl;
 
-import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.enumtype.AclClassName;
-import com.abixen.platform.core.model.enumtype.AclSidType;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.SecurableModel;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.AclSidType;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.AclEntry;
 import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.AclEntryRepository;
-import com.abixen.platform.core.security.PlatformUser;
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
 import lombok.extern.slf4j.Slf4j;

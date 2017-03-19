@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.form;
 
-import com.abixen.platform.core.form.Form;
+import com.abixen.platform.common.form.Form;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
 
 public class FileDataSourceForm extends DataSourceForm implements Form {

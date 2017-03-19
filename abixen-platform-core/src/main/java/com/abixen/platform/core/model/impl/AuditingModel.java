@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.AuditingModelBase;
-import com.abixen.platform.core.model.Model;
+import com.abixen.platform.common.model.AuditingModelBase;
+import com.abixen.platform.common.model.Model;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;

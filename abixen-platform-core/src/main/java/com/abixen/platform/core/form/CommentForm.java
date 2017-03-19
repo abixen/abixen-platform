@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.form;
 
+import com.abixen.platform.common.form.Form;
 import com.abixen.platform.core.dto.CommentDto;
 import com.abixen.platform.core.dto.UserDto;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-import static com.abixen.platform.core.model.CommentBase.COMMENT_MESSAGE_MAX_LENGTH;
+import static com.abixen.platform.common.model.CommentBase.COMMENT_MESSAGE_MAX_LENGTH;
 
 @Getter
 @Setter

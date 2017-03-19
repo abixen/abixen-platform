@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl;
 
-import com.abixen.platform.core.model.Model;
+import com.abixen.platform.common.model.Model;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSetWeb;
 
 import javax.persistence.*;

@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.form;
 
+import com.abixen.platform.common.form.Form;
 import com.abixen.platform.core.model.impl.Module;
 
 import javax.validation.constraints.NotNull;

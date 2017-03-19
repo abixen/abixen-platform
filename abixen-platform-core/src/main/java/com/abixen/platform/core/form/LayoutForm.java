@@ -15,7 +15,8 @@
 package com.abixen.platform.core.form;
 
 
-import com.abixen.platform.core.model.LayoutBase;
+import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.model.LayoutBase;
 import com.abixen.platform.core.model.impl.Layout;
 import org.hibernate.validator.constraints.Length;
 

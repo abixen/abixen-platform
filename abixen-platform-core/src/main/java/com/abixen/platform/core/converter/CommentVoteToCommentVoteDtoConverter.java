@@ -15,6 +15,7 @@
 package com.abixen.platform.core.converter;
 
 
+import com.abixen.platform.common.converter.AbstractConverter;
 import com.abixen.platform.core.dto.CommentVoteDto;
 import com.abixen.platform.core.model.impl.CommentVote;
 import org.springframework.beans.factory.annotation.Autowired;

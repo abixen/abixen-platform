@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.util.impl;
 
-import com.abixen.platform.core.exception.PlatformRuntimeException;
+import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.util.DatabaseConnectionPasswordEncryption;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
