@@ -39,7 +39,7 @@ public class CommentVoteController {
     @Autowired
     private CommentVoteService commentVoteService;
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createCommentVote(@RequestBody @Valid CommentVoteForm commentVoteForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);

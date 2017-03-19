@@ -38,6 +38,8 @@ ModuleCommentDto {
 
     private List<ModuleCommentDto> children;
 
+    private List<CommentVoteDto> voteDtos;
+
     private Date createdDate;
 
     private Integer depth;
@@ -52,6 +54,7 @@ ModuleCommentDto {
         this.message = comment.getMessage();
         this.moduleId = comment.getModule().getId();
         this.user = comment.getCreatedBy();
+        this.voteDtos = comment.getVotes();
         this.createdDate = comment.getCreatedDate();
         if (comment.getParent() != null) {
             this.parentId = comment.getParent().getId();

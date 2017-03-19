@@ -12,23 +12,19 @@
  * details.
  */
 
-package com.abixen.platform.core.dto;
+(function () {
+    'use strict';
 
+    angular
+        .module('platformCommentModule')
+        .factory('CommentVote', CommentVote);
 
-import com.abixen.platform.common.model.enumtype.CommentVoteType;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
+    CommentVote.$inject = ['$resource'];
 
-@Getter
-@Setter
-@Accessors(chain = true)
-@ToString
-public class CommentVoteDto extends AuditingDto {
+    function CommentVote($resource) {
+        return $resource('/api/comment-votes/:id', {}, {
+            update: {method: 'PUT'}
+        });
+    }
 
-    private Long id;
-    private Long commentId;
-    private CommentVoteType commentVoteType;
-
-}
+})();

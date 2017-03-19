@@ -27,4 +27,8 @@ public interface CommentVoteRepository  extends JpaRepository<CommentVote, Long>
     @Modifying(clearAutomatically = true)
     @Query("DELETE FROM CommentVote cv WHERE cv.comment.id IN (:commentIds)")
     void deleteByCommentId(@Param("commentIds") List<Long> commentIds);
+
+    @Query("FROM CommentVote v WHERE v.comment.id = :commentId")
+    List<CommentVote> findVotesForComment(@Param("commentId") Long commentId);
+
 }

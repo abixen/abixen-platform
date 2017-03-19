@@ -68,7 +68,7 @@ public class CommentServiceImpl implements CommentService {
 
     @PreAuthorize("hasPermission('" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_COMMENT_ADD + "')")
     public CommentForm createComment(CommentForm commentForm) {
-        log.debug("saveComment() - commentForm={}", commentForm);
+        log.debug("createComment() - commentForm={}", commentForm);
 
         Comment comment = buildComment(commentForm);
         Comment savedComment = commentRepository.save(comment);
@@ -79,7 +79,7 @@ public class CommentServiceImpl implements CommentService {
 
     @PreAuthorize("hasPermission('" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_COMMENT_EDIT + "')")
     public CommentForm updateComment(CommentForm commentForm) {
-        log.debug("saveComment() - commentForm={}", commentForm);
+        log.debug("updateComment() - commentForm={}", commentForm);
 
         Comment comment = buildComment(commentForm);
         Comment savedComment = commentRepository.save(comment);
@@ -99,6 +99,7 @@ public class CommentServiceImpl implements CommentService {
     public List<ModuleCommentDto> findComments(Long moduleId) {
         List<Comment> comments = getAllComments(moduleId);
         List<CommentDto> commentDtos = commentToCommentDtoConverter.convertToList(comments);
+        populateCommentsWithVotes(commentDtos);
         List<ModuleCommentDto> moduleCommentDtos = commentDtos.stream().map(ModuleCommentDto::new).collect(toList());
         Map<Long, List<ModuleCommentDto>> groupByParent = moduleCommentDtos.stream().collect(Collectors.groupingBy(ModuleCommentDto::getParentId));
         List<ModuleCommentDto> rootComments = groupByParent.get(0L);
@@ -180,5 +181,11 @@ public class CommentServiceImpl implements CommentService {
                 populateChildren(dto.getChildren(), groupByParent);
             }
         }
+    }
+
+    private void populateCommentsWithVotes(List<CommentDto> comments) {
+        comments.forEach(comment ->
+            comment.setVotes(commentVoteService.findVotes(comment.getId()))
+        );
     }
 }

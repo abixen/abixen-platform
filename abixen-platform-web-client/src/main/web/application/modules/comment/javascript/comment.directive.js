@@ -47,9 +47,9 @@
         }
     }
 
-    CommentDirectiveController.$inject = ['$scope', '$log', '$compile', 'Comment', 'responseHandler', '$templateRequest', 'platformSecurity', 'amMoment'];
+    CommentDirectiveController.$inject = ['$scope', '$log', '$compile', 'Comment', 'responseHandler', '$templateRequest', 'platformSecurity', 'amMoment', 'CommentVote'];
 
-    function CommentDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest, platformSecurity, amMoment) {
+    function CommentDirectiveController($scope, $log, $compile, Comment, responseHandler, $templateRequest, platformSecurity, amMoment, CommentVote) {
         var comment = this;
         var addCommentForm;
         var action;
@@ -72,8 +72,11 @@
         comment.openAddForm = openAddForm;
         comment.cancelForm = cancelForm;
         comment.deleteComment = deleteComment;
+        comment.vote = vote;
+        comment.unvote = unvote;
         comment.canEdit = canEdit();
         comment.avatarFullPath = getAvatarFullPath();
+        prepareVotes();
         changeMomentLocale();
 
         $scope.$watch(platformSecurity.getPlatformUser, onUserChange);
@@ -180,6 +183,43 @@
                 var index = comment.roots.indexOf(commentItem);
                 comment.roots.splice(index, 1);
             });
+        }
+
+        function vote(commentItem) {
+            $log.info('vote comment with id ' + commentItem.id);
+            var newVote = {commentVoteType: 'POSITIVE', commentId: commentItem.id};
+            CommentVote.save(newVote)
+                .$promise.then(function (data) {
+                comment.commentItem.votePos = comment.commentItem.votePos + 1;
+            });
+
+
+        }
+
+        function unvote(commentItem) {
+            $log.info('unvote comment with id ' + commentItem.id);
+            var newVote = {commentVoteType: 'NEGATIVE', commentId: commentItem.id};
+            CommentVote.save(newVote)
+                .$promise.then(function (data) {
+                comment.commentItem.voteNeg = comment.commentItem.voteNeg + 1;
+            });
+        }
+
+        function prepareVotes() {
+            if (angular.isDefined(comment.commentItem)) {
+                comment.commentItem.votePos = 0;
+                comment.commentItem.voteNeg = 0;
+                if (angular.isDefined(comment.commentItem.voteDtos)
+                    && comment.commentItem.voteDtos !== null) {
+                    angular.forEach(comment.commentItem.voteDtos, function (value, key) {
+                        if (value.commentVoteType === 'POSITIVE') {
+                            comment.commentItem.votePos = comment.commentItem.votePos + 1;
+                        } else {
+                            comment.commentItem.voteNeg = comment.commentItem.voteNeg + 1;
+                        }
+                    });
+                }
+            }
         }
 
         function onUserChange() {
