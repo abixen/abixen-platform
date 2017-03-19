@@ -12,12 +12,12 @@
  * details.
  */
 
-package com.abixen.platform.core.security;
+package com.abixen.platform.gateway.security;
 
 import com.abixen.platform.common.security.PlatformUser;
-import com.abixen.platform.core.integration.UserIntegrationClient;
-import com.abixen.platform.core.model.Role;
-import com.abixen.platform.core.model.User;
+import com.abixen.platform.gateway.integration.UserIntegrationClient;
+import com.abixen.platform.gateway.model.Role;
+import com.abixen.platform.gateway.model.User;
 import com.abixen.platform.common.model.enumtype.UserState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

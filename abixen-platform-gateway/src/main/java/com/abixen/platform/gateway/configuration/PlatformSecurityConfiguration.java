@@ -12,11 +12,11 @@
  * details.
  */
 
-package com.abixen.platform.core.configuration;
+package com.abixen.platform.gateway.configuration;
 
-import com.abixen.platform.core.security.CsrfHeaderFilter;
-import com.abixen.platform.core.security.PlatformAuthenticationSuccessHandler;
-import com.abixen.platform.core.security.PlatformUserDetailsService;
+import com.abixen.platform.gateway.security.CsrfHeaderFilter;
+import com.abixen.platform.gateway.security.PlatformAuthenticationSuccessHandler;
+import com.abixen.platform.gateway.security.PlatformUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core;
+package com.abixen.platform.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

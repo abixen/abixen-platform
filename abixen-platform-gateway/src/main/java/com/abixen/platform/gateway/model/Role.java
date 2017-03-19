@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.model;
+package com.abixen.platform.gateway.model;
 
 import com.abixen.platform.common.model.Model;
 import com.abixen.platform.common.model.SimpleRoleBase;

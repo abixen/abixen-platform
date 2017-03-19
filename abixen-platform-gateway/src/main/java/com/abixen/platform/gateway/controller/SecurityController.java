@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.controller;
+package com.abixen.platform.gateway.controller;
 
 import com.abixen.platform.common.security.PlatformWebUser;
 import lombok.extern.slf4j.Slf4j;

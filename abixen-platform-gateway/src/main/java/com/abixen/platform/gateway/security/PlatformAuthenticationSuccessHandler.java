@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.security;
+package com.abixen.platform.gateway.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

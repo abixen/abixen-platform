@@ -12,12 +12,21 @@
  * details.
  */
 
-package com.abixen.platform.core.configuration;
+package com.abixen.platform.gateway.client;
 
-import com.abixen.platform.common.configuration.AbstractSleuthConfiguration;
-import org.springframework.context.annotation.Configuration;
+import com.abixen.platform.gateway.model.User;
+import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@Configuration
-public class PlatformSleuthConfiguration extends AbstractSleuthConfiguration {
+
+@FeignClient("abixen-platform-core")
+public interface UserClient {
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/control-panel/users/custom/username/{username}/")
+    User getUserByUsername(@PathVariable("username") String username);
+
 
 }
+
