@@ -37,7 +37,7 @@ public class Page extends AuditingModel implements PageBase<Layout>, SecurableMo
     private String title;
 
     @Column(name = "icon", length = PAGE_ICON_MAX_LENGTH, nullable = false)
-    private String icon = "fa fa-file-text-o";
+    private String icon;
 
     @Column(name = "description", length = PAGE_DESCRIPTION_MAX_LENGTH)
     private String description;
@@ -68,8 +68,7 @@ public class Page extends AuditingModel implements PageBase<Layout>, SecurableMo
 
     @Override
     public String getName() {
-        return name;
-    }
+        return name; }
 
     @Override
     public void setName(String name) {
