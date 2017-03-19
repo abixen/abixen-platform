@@ -16,10 +16,13 @@ var gulp = require('gulp'),
     ignore = require('gulp-ignore'),
     del = require('del'),
     config = require('./build-config'),
+    templateCache = require('gulp-angular-templatecache'),
     devMode = true;
 
 gulp.task('clean', cleanTask);
 gulp.task('templates', templatesTask);
+gulp.task('applicationTemplateCache', applicationTemplateCacheTask);
+gulp.task('controlPanelTemplateCache', controlPanelTemplateCacheTask);
 gulp.task('loginScripts', loginScriptsTask);
 gulp.task('adminScripts', adminScriptsTask);
 gulp.task('applicationScripts', applicationScriptsTask);
@@ -34,6 +37,7 @@ gulp.task('build', buildTask);
 gulp.task('libs', libsTask);
 gulp.task('dev', ['build'], devTask);
 gulp.task('default', ['build']);
+gulp.task('angularTemplateCache', ['applicationTemplateCache','controlPanelTemplateCache']);
 
 function cleanTask() {
 
@@ -46,6 +50,25 @@ function templatesTask() {
         .pipe(htmlMin(config.templates.minifyOpts))
         .on('error', gutil.log)
         .pipe(gulp.dest(config.dest.dir));
+}
+
+function genericTemplateCacheTask(sourceTemplatePath, destinationScriptPath){
+
+    return gulp.src(sourceTemplatePath)
+        .pipe(templateCache('web-client.templatecache.js', {module : 'webClientTemplatecache' }))
+        .pipe(gulp.dest(destinationScriptPath));
+}
+
+function controlPanelTemplateCacheTask(){
+
+    return genericTemplateCacheTask(config.templates.files, config.dest.controlPanelTemplateCache);
+
+}
+
+function applicationTemplateCacheTask(){
+
+    return genericTemplateCacheTask(config.templates.files, config.dest.applicationTemplateCache);
+
 }
 
 function loginScriptsTask() {
@@ -116,6 +139,7 @@ function genericStylesTask(sourceSassPath, destinationStylesPath) {
 function buildTask(callback) {
 
     runSequence('clean',
+        'angularTemplateCache',
         'libs',
         [
             'loginScripts',
@@ -173,7 +197,7 @@ function devTask() {
     gulp.watch(config.scripts.applicationFiles, ['applicationScripts']);
     gulp.watch(config.scripts.commonFiles, ['commonScripts']);
 
-    gulp.watch(config.templates.files, ['templates']);
+    gulp.watch(config.templates.files, ['templates','angularTemplateCache']);
 
     gulp.watch(config.styles.loginWatch, ['loginStyles']);
     gulp.watch(config.styles.adminWatch, ['adminStyles']);

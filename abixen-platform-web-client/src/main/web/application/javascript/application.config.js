@@ -47,7 +47,7 @@
             .state('application', {
                 abstract: true,
                 controller: 'PlatformInitController',
-                templateUrl: '/application/html/index.html',
+                templateUrl: 'application/html/index.html',
                 resolve: {
                     platformSecurityResolver: platformSecurityResolver
                 }

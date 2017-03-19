@@ -82,7 +82,7 @@
             onClick: function () {
                 $aside.open({
                     placement: 'left',
-                    templateUrl: '/application/modules/page/html/edit.html',
+                    templateUrl: 'application/modules/page/html/edit.html',
                     size: 'md',
                     backdrop: false,
                     controller: 'PageDetailsController as pageDetails'
@@ -251,7 +251,7 @@
         $scope.editUser = function () {
             $aside.open({
                 placement: 'left',
-                templateUrl: '/application/modules/user/html/edit.html',
+                templateUrl: 'application/modules/user/html/edit.html',
                 size: 'md',
                 backdrop: false,
                 controller: 'UserAccountDetailsController as userAccountDetails'

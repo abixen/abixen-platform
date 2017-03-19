@@ -40,7 +40,9 @@
         'toaster',
         'ui.bootstrap.showErrors',
         'ngScrollbar',
-        'platformUploadFileModule'];
+        'platformUploadFileModule',
+        'webClientTemplatecache'
+    ];
 
     for (var i = 0; i < externalModules.length; i++) {
         if (testIfModuleExists(externalModules[i])) {

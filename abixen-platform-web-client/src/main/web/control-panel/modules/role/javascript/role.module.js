@@ -19,6 +19,7 @@
 
     angular
         .module('platformRoleModule', [
-            'ui.router'
+            'ui.router',
+            'webClientTemplatecache'
         ]);
 })();
