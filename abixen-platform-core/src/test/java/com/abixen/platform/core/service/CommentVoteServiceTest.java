@@ -77,7 +77,7 @@ public class CommentVoteServiceTest {
         CommentDto comment = new CommentDto();
         comment.setId(commentFromDB.getId());
         comment.setMessage(commentFromDB.getMessage());
-        commentVoteForm.setComment(comment);
+        commentVoteForm.setCommentId(comment.getId());
         commentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
         commentVoteFormSaved = commentVoteService.saveCommentVote(commentVoteForm);
         assertNotNull(commentVoteFormSaved.getId());
@@ -91,7 +91,7 @@ public class CommentVoteServiceTest {
         CommentDto comment = new CommentDto();
         comment.setId(commentFromDB.getId());
         comment.setMessage(commentFromDB.getMessage());
-        commentVoteForm.setComment(comment);
+        commentVoteForm.setCommentId(comment.getId());
         commentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
         commentVoteFormSaved = commentVoteService.saveCommentVote(commentVoteForm);
         commentVoteFormSaved.setCommentVoteType(CommentVoteType.NEGATIVE);

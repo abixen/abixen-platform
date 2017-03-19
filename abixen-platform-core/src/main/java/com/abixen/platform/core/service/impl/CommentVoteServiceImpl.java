@@ -15,7 +15,6 @@
 package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.converter.CommentVoteToCommentVoteDtoConverter;
-import com.abixen.platform.core.dto.CommentDto;
 import com.abixen.platform.core.dto.CommentVoteDto;
 import com.abixen.platform.core.form.CommentVoteForm;
 import com.abixen.platform.core.model.impl.CommentVote;
@@ -28,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Transactional
@@ -74,12 +74,18 @@ public class CommentVoteServiceImpl implements CommentVoteService {
         commentVoteRepository.deleteByCommentId(commentIds);
     }
 
+    @Override
+    public List<CommentVoteDto> findVotes(Long commentId) {
+        List<CommentVote> votes = commentVoteRepository.findVotesForComment(commentId);
+        List<CommentVoteDto> votesDto = votes.stream().map(commentVoteToCommentVoteDtoConverter::convert).collect(Collectors.toList());
+        return votesDto;
+    }
+
     private CommentVote buildCommentVote(CommentVoteForm commentVoteForm) {
         CommentVote commentVote = new CommentVote();
         commentVote.setId(commentVoteForm.getId());
         commentVote.setCommentVoteType(commentVoteForm.getCommentVoteType());
-        CommentDto comment = commentVoteForm.getComment();
-        Long commentId = comment != null ? comment.getId() : null;
+        Long commentId = commentVoteForm.getCommentId();
         commentVote.setComment(commentId != null ? commentRepository.findOne(commentId) : null);
         return commentVote;
     }

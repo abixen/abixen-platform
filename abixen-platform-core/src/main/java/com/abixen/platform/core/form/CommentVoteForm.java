@@ -15,9 +15,8 @@
 package com.abixen.platform.core.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.core.dto.CommentDto;
-import com.abixen.platform.core.dto.CommentVoteDto;
 import com.abixen.platform.common.model.enumtype.CommentVoteType;
+import com.abixen.platform.core.dto.CommentVoteDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,14 +31,14 @@ public class CommentVoteForm implements Form {
     @NotNull
     private CommentVoteType commentVoteType;
 
-    private CommentDto comment;
+    private Long commentId;
 
     public CommentVoteForm() {
     }
 
     public CommentVoteForm(CommentVoteDto commentVote) {
         this.id = commentVote.getId();
-        this.comment = commentVote.getComment();
+        this.commentId = commentVote.getCommentId();
         this.commentVoteType = commentVote.getCommentVoteType();
     }
 

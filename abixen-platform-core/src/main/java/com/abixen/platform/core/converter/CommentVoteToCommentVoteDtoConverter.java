@@ -43,7 +43,7 @@ public class CommentVoteToCommentVoteDtoConverter extends AbstractConverter<Comm
 
         commentVoteDto
                 .setId(commentVote.getId())
-                .setComment(commentToCommentDtoConverter.convert(commentVote.getComment()))
+                .setCommentId(commentVote.getComment().getId())
                 .setCommentVoteType(commentVote.getCommentVoteType());
 
 

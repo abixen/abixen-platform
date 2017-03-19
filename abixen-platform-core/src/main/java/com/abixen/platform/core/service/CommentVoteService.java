@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.service;
 
+import com.abixen.platform.core.dto.CommentVoteDto;
 import com.abixen.platform.core.form.CommentVoteForm;
 
 import java.util.List;
@@ -25,4 +26,7 @@ public interface CommentVoteService {
     CommentVoteForm updateCommentVote(CommentVoteForm commentVoteForm);
 
     void deleteByCommentIds(List<Long> commentIds);
+
+    List<CommentVoteDto> findVotes(Long commentId);
+
 }

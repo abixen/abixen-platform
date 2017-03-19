@@ -81,14 +81,14 @@ public class CommentVoteControllerTest {
         savedComment.setId(10L);
         savedComment.setMessage("Test Comment Parent");
         CommentVoteForm savedCommentVoteForm = new CommentVoteForm();
-        savedCommentVoteForm.setComment(savedComment);
+        savedCommentVoteForm.setCommentId(savedComment.getId());
         savedCommentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
         savedCommentVoteForm.setId(10L);
 
         CommentDto inputComment = new CommentDto();
         inputComment.setMessage("Test Comment Parent");
         CommentVoteForm inputCommentVoteForm = new CommentVoteForm();
-        inputCommentVoteForm.setComment(inputComment);
+        inputCommentVoteForm.setCommentId(inputComment.getId());
         inputCommentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
 
         when(commentVoteService.saveCommentVote(any(CommentVoteForm.class))).thenReturn(savedCommentVoteForm);
@@ -117,7 +117,7 @@ public class CommentVoteControllerTest {
         savedComment.setId(10L);
         savedComment.setMessage("Test Comment Parent");
         CommentVoteForm savedCommentVoteForm = new CommentVoteForm();
-        savedCommentVoteForm.setComment(savedComment);
+        savedCommentVoteForm.setCommentId(savedComment.getId());
         savedCommentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
         savedCommentVoteForm.setId(10L);
         CommentDto inputComment = new CommentDto();
@@ -125,7 +125,7 @@ public class CommentVoteControllerTest {
         inputComment.setMessage("Test Comment Parent");
         CommentVoteForm inputCommentVoteForm = new CommentVoteForm();
         inputCommentVoteForm.setId(10L);
-        inputCommentVoteForm.setComment(inputComment);
+        inputCommentVoteForm.setCommentId(inputComment.getId());
         inputCommentVoteForm.setCommentVoteType(CommentVoteType.NEGATIVE);
 
         when(commentVoteService.updateCommentVote(any(CommentVoteForm.class))).thenReturn(savedCommentVoteForm);
