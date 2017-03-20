@@ -5,6 +5,7 @@
             <div class="" ng-if="userAvatarChange.uploader.queue[0] != undefined"
                  platform-thumb="{ file: userAvatarChange.uploader.queue[0]._file, height: 150 }"></div>
         </div>
+
         <div class="well my-drop-zone">
 
         </div>
@@ -25,7 +26,7 @@
     <div class="col-sx-12 bottom-navigation-content">
         <button class="btn save-button" ng-click="userAvatarChange.uploader.uploadAll()"
                 ng-disabled="!userAvatarChange.uploader.getNotUploadedItems().length">
-            <i class="fa fa-floppy-o"></i><span>&nbsp;Upload</span>
+            <i class="fa fa-upload"></i><span>&nbsp;Upload</span>
         </button>
         <button class="btn cancel-button"
                 ng-click="userAvatarChange.cancelAll()">
