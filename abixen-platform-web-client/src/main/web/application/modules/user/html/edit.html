@@ -80,7 +80,7 @@
                     </form>
                     <div class="col-xs-12 uploader" ng-show="userAccountDetails.userDetails.isUploadAvatar">
                         <h2>Avatar uploader</h2>
-                        <div ng-show="uploader.isHTML5">
+                        <div ng-show="userAccountDetails.userDetails.uploader.isHTML5">
                             <div class="" ng-if="userAccountDetails.userDetails.uploader.queue[0] != undefined"
                                  platform-thumb="{ file: userAccountDetails.userDetails.uploader.queue[0]._file, height: 150 }"></div>
                         </div>
