@@ -28,7 +28,10 @@
 
         function link(scope, element, attrs, formCtrl) {
             formCtrl.$formatters.push(function (modelValue) {
-                return new Date(modelValue);
+                if (modelValue) {
+                    return new Date(modelValue);
+                }
+                return null;
             });
         }
     }
