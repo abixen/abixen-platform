@@ -32,14 +32,14 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group" ng-show="layoutDetails.isUploadLayoutIcon()">
+            <div class="form-group" >
                 <div class="row form-row">
                     <label class="control-label">Icon</label>
                 </div>
                 <div class="row form-row">
                     <div class="col-sm-9">
-                        <img src="/api/images/{{layoutDetails.entity.iconFileName}}/" class="layout-icon">
-                        <a ng-href="" ng-click="layoutDetails.showUploadLayoutIcon()">
+                        <img src="/api/images/layout/{{layoutDetails.entity.iconFileName}}/" class="layout-icon">
+                        <a ng-href="" ng-click="layoutDetails.showUploadLayoutIcon()" ng-show="!layoutDetails.isUploadLayoutIcon">
                             <i class="fa fa-pencil-square-o"></i>Change
                         </a>
                     </div>
@@ -69,7 +69,7 @@
             <div class="row form-row">
                 <div class="row bottom-navigation ng-scope">
                     <div class="col-sm-offset-3 col-sm-6" ng-show="!layoutDetails.isUploadIcon">
-                        <a class="btn save-button ng-click-active"  ng-click="layoutDetails.saveForm()"
+                        <a class="btn save-button ng-click-active"  ng-click="layoutDetails.beforeSaveForm()"
                            ng-disabled="layoutDetails.entityForm.$invalid">
                             <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></a>
                         <a class="btn cancel-button" ui-sref="application.layouts.list">
@@ -78,9 +78,9 @@
                     <div class="col-sm-offset-3 col-sm-9" ng-show="layoutDetails.isUploadIcon">
                         <a class="btn save-button" ng-click="layoutIconChange.uploader.uploadAll()"
                            ng-disabled="!layoutIconChange.uploader.getNotUploadedItems().length"><i
-                                class="fa fa-floppy-o"></i><span>&nbsp;Upload</span></a>
+                                class="fa fa-upload"></i><span>&nbsp;Upload</span></a>
                         <a class="btn cancel-button" ng-click="layoutIconChange.cancelAll()"><i
-                                class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
+                                class="fa fa-times"></i><span>&nbsp;Back</span></a>
                     </div>
                 </div>
             </div>

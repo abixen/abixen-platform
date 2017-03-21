@@ -58,7 +58,10 @@
                 url: '/avatar',
                 templateUrl: 'control-panel/modules/user/html/edit/avatar.html',
                 controller: 'UserAvatarChangeController',
-                controllerAs: 'userAvatarChange'
+                controllerAs: 'userAvatarChange',
+                params: {
+                    isNewUser: false
+                }
             })
             .state('application.users.roles', {
                 url: '/roles/:id',

@@ -49,7 +49,7 @@
                 </input-drop-down>
             </div>
             <div class="col-xs-6">
-                <div class="form-group avatar">
+                <div ng-if="userDetails.entity.id" class="form-group avatar">
                     <div>
                         <img ng-src="{{userDetails.avatarUrl}}" ></div>
                     <div>

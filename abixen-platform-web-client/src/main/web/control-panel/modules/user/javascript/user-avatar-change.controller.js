@@ -37,6 +37,7 @@
 
         userAvatarChange.userBaseUrl = '/api/application/users/';
         userAvatarChange.xsrfToken = $cookies.get($http.defaults.xsrfCookieName);
+        userAvatarChange.isNewUser = $stateParams.isNewUser;
 
         new AbstractUploaderController(userAvatarChange, FileUploader, userAvatarChange.xsrfToken,
             {
@@ -52,12 +53,20 @@
         userAvatarChange.cancelAll = cancelAll;
 
         function onCompleteAll() {
-            $state.go('application.users.edit.details', {id: $stateParams.id});
+            if (userAvatarChange.isNewUser) {
+                $state.go('application.users.list');
+            }else {
+                $state.go('application.users.edit.details', {id: $stateParams.id});
+            }
         }
 
         function cancelAll() {
             userAvatarChange.uploader.cancelAll();
-            $state.go('application.users.edit.details', {id: $stateParams.id});
+            if (userAvatarChange.isNewUser) {
+                $state.go('application.users.list');
+            }else {
+                $state.go('application.users.edit.details', {id: $stateParams.id});
+            }
         }
     }
 })();
