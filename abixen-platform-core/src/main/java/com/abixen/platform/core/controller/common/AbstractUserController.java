@@ -108,7 +108,8 @@ public abstract class AbstractUserController {
 
         String userPassword = userService.generateUserPassword();
         User user = userService.buildUser(userForm, userPassword);
-        userService.createUser(user);
+        User savedUser = userService.createUser(user);
+        userForm.setId(savedUser.getId());
 
         Map<String, String> params = new HashMap<>();
         params.put("email", user.getUsername());

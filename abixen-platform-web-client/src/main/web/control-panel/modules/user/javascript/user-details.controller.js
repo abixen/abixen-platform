@@ -53,6 +53,7 @@
         userDetails.genderTypes = [{key: 'MALE'}, {key: 'FEMALE'}];
         userDetails.userBaseUrl = "/api/application/users/";
         userDetails.avatarUrl = userDetails.userBaseUrl + ' ';
+        userDetails.isNewUser = true;
 
         userDetails.today = today;
         userDetails.clear = clear;
@@ -67,10 +68,15 @@
         }
 
         function onSuccessSaveForm() {
-            $state.go('application.users.list');
+            if (!userDetails.isNewUser) {
+                $state.go('application.users.list');
+            }else {
+                $state.go('application.users.edit.avatar', {id:userDetails.entity.id, isNewUser: true});
+            }
         }
 
         function onSuccessGetEntity() {
+            userDetails.isNewUser = userDetails.entity.id == undefined || userDetails.entity.id == null;
             userDetails.avatarUrl = userDetails.userBaseUrl + userDetails.entity.id + '/avatar/' + userDetails.entity.avatarFileName
         }
 

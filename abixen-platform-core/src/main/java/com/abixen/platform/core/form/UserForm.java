@@ -63,6 +63,7 @@ public class UserForm implements Form {
     }
 
     public UserForm(User user) {
+        this.id = user.getId();
         this.username = user.getUsername();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
