@@ -15,6 +15,7 @@
 package com.abixen.platform.core.form;
 
 import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.dto.PermissionDto;
 import com.abixen.platform.core.dto.RoleDto;
 import com.abixen.platform.core.dto.RolePermissionDto;
@@ -22,6 +23,7 @@ import com.abixen.platform.core.dto.RolePermissionDto;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class RolePermissionsForm implements Form {
@@ -38,10 +40,14 @@ public class RolePermissionsForm implements Form {
     public RolePermissionsForm(RoleDto role, List<PermissionDto> allPermissions) {
         this.role = role;
 
+        List<PermissionName> rolePermissionsName = role.getPermissions().stream()
+                .map(permissionDto -> permissionDto.getPermissionName())
+                .collect(Collectors.toList());
+
         for (PermissionDto permission : allPermissions) {
             Boolean selected = false;
 
-            if (role.getPermissions().contains(permission)) {
+            if (rolePermissionsName.contains(permission.getPermissionName())) {
                 selected = true;
             }
             rolePermissions.add(new RolePermissionDto(permission, selected));
