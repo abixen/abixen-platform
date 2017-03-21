@@ -40,14 +40,17 @@
         $log.log('LayoutDetailsController');
 
         var layoutDetails = this;
+        layoutDetails.beforeSaveForm = beforeSaveForm;
 
         new AbstractDetailsController(layoutDetails, Layout, responseHandler, $scope,
             {
                 entityId: $stateParams.id,
                 getValidators: getValidators,
-                onSuccessSaveForm: onSuccessSaveForm
+                onSuccessSaveForm: onSuccessSaveForm,
             }
         );
+
+        layoutDetails.entity.iconFileName = "default-layout-icon.png";
 
         if($state.current.name === 'application.layouts.add'){
           layoutDetails.entity.content='';
@@ -76,6 +79,10 @@
 
         function onSuccessSaveForm() {
             $state.go('application.layouts.list');
+        }
+
+        function beforeSaveForm() {
+            layoutDetails.saveForm();
         }
 
         layoutDetails.isUploadIcon = false;

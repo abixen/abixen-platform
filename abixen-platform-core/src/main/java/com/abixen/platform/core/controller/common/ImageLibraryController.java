@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -38,13 +39,17 @@ public class ImageLibraryController {
     @Autowired
     private AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
-    @RequestMapping(value = "/{fileName}/", method = RequestMethod.GET)
+    @RequestMapping(value = "layout/{fileName}/", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImage(@PathVariable String fileName) throws IOException {
 
         log.debug("fileName: " + fileName);
 
-        InputStream in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/layout-miniature/" + fileName);
-
+        InputStream in;
+        try {
+            in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/layout-miniature/" + fileName);
+        } catch (FileNotFoundException e) {
+            in = new FileInputStream(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/layout-miniature/default-layout-icon.png");
+        }
         byte[] b = IOUtils.toByteArray(in);
 
         in.close();
