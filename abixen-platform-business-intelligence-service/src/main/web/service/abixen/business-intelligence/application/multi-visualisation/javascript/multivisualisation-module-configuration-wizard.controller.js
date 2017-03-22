@@ -137,8 +137,6 @@
         function buildJsonFromObj(domainSeries) {
             if (domainSeries.filterObj === null || domainSeries.filterObj === undefined) {
                 domainSeries.filterObj = {};
-                domainSeries.filterObj.conditionOne = [];
-                domainSeries.filterObj.conditionTwo = [];
             }
             var filter = {
                 group: {

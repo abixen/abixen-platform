@@ -43,9 +43,9 @@
                     height: 450,
                     margin: {
                         top: 20,
-                        right: 45,
-                        bottom: 40,
-                        left: 80
+                        right: 55,
+                        bottom: 45,
+                        left: 100
                     },
                     x: function (d) {
                         return d.x;
@@ -62,8 +62,9 @@
                     },
                     yAxis: {
                         axisLabel: 'DefaultAxisLabel',
+                        axisLabelDistance: 30,
                         tickFormat: function (d) {
-                            return d;
+                            return d3.format('.02f')(d);
                         }
                     },
                     callback: function (chart) {
@@ -79,11 +80,20 @@
             chartConfig.chart.type = chartType;
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
-                return findXLabel(preparedChartData[0].values, d);
+                var label = findXLabel(preparedChartData[0].values, d);
+                if (isDate(label) && isNaN(preparedChartData[0].values[0].xLabel)){
+                    return d3.time.format('%d-%m-%Y')(new Date(label))
+                } else {
+                    return label;
+                }
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
-                return d;
+                return d3.format('.02f')(d);
             };
+            if (preparedChartData[0].values[0] && isNaN(preparedChartData[0].values[0].xLabel)){
+                chartConfig.chart.xAxis.rotateLabels = 45;
+                chartConfig.chart.margin.bottom += 50;
+            }
             chartConfig.chart.yAxis.axisLabel = configurationData.axisYName;
             $log.debug('buildChartOptions for ' + chartType + 'Adapter ended');
             return chartConfig;
@@ -330,6 +340,10 @@
             };
             $log.debug('convertToChart ended. Chart : ', chart);
             return chart;
+        }
+
+        function isDate(date) {
+            return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
         }
 
         function convertTo(configurationData, data) {
