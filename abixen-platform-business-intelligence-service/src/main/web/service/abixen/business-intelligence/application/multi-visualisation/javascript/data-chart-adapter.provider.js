@@ -44,8 +44,8 @@
                     margin: {
                         top: 20,
                         right: 45,
-                        bottom: 40,
-                        left: 80
+                        bottom: 45,
+                        left: 100
                     },
                     x: function (d) {
                         return d.x;
@@ -62,6 +62,7 @@
                     },
                     yAxis: {
                         axisLabel: 'DefaultAxisLabel',
+                        axisLabelDistance: 30,
                         tickFormat: function (d) {
                             return d;
                         }
