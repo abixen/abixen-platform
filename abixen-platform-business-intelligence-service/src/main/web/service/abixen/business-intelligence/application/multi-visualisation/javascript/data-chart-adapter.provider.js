@@ -64,7 +64,7 @@
                         axisLabel: 'DefaultAxisLabel',
                         axisLabelDistance: 30,
                         tickFormat: function (d) {
-                            return d;
+                            return d3.format('.02f')(d);
                         }
                     },
                     callback: function (chart) {
@@ -83,7 +83,7 @@
                 return findXLabel(preparedChartData[0].values, d);
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
-                return d;
+                return d3.format('.02f')(d);
             };
             chartConfig.chart.yAxis.axisLabel = configurationData.axisYName;
             $log.debug('buildChartOptions for ' + chartType + 'Adapter ended');
