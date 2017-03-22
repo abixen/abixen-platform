@@ -80,7 +80,12 @@
             chartConfig.chart.type = chartType;
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
-                return findXLabel(preparedChartData[0].values, d);
+                var label = findXLabel(preparedChartData[0].values, d);
+                if (isDate(label)){
+                    return d3.time.format('%d-%m-%Y')(new Date(label))
+                } else {
+                    return label;
+                }
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
                 return d3.format('.02f')(d);
@@ -335,6 +340,10 @@
             };
             $log.debug('convertToChart ended. Chart : ', chart);
             return chart;
+        }
+
+        function isDate(date) {
+            return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
         }
 
         function convertTo(configurationData, data) {
