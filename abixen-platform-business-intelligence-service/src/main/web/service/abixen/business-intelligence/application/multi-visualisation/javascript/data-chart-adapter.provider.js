@@ -43,7 +43,7 @@
                     height: 450,
                     margin: {
                         top: 20,
-                        right: 45,
+                        right: 55,
                         bottom: 45,
                         left: 100
                     },
@@ -81,7 +81,7 @@
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
                 var label = findXLabel(preparedChartData[0].values, d);
-                if (isDate(label)){
+                if (isDate(label) && isNaN(preparedChartData[0].values[0].xLabel)){
                     return d3.time.format('%d-%m-%Y')(new Date(label))
                 } else {
                     return label;
