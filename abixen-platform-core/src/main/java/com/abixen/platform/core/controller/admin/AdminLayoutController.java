@@ -79,10 +79,10 @@ public class AdminLayoutController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public LayoutDto createLayout(@RequestBody Layout layout) {
+    public FormValidationResultDto createLayout(@RequestBody Layout layout) {
         log.debug("save() - layout: {}", layout);
         Layout createdLayout = layoutService.createLayout(layout);
-        return layoutToLayoutDtoConverter.convert(createdLayout);
+        return new FormValidationResultDto(new LayoutForm(createdLayout));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

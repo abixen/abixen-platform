@@ -148,17 +148,24 @@
                 filter.group.rules.push({
                     condition: domainSeries.filterObj.conditionOne.operator,
                     field: domainSeries.dataSourceColumn.name,
-                    data: domainSeries.filterObj.conditionOne.value
+                    data: getValueAsText(domainSeries.filterObj.conditionOne.value)
                 })
             }
             if (domainSeries.filterObj.conditionTwo && domainSeries.filterObj.conditionTwo.value !== null){
                 filter.group.rules.push({
                     condition: domainSeries.filterObj.conditionTwo.operator,
                     field: domainSeries.dataSourceColumn.name,
-                    data: domainSeries.filterObj.conditionTwo.value
+                    data: getValueAsText(domainSeries.filterObj.conditionTwo.value)
                 })
             }
             return filter;
+        }
+
+        function getValueAsText(value) {
+            if (isDate(value)){
+                return new Date(value).toISOString().slice(0,10);
+            }
+            return value;
         }
 
         function buildObjFromJson(domainSeries, json) {
@@ -566,6 +573,9 @@
             domainSeries.filterObj.conditionTwo.value = null;
         }
 
+        function isDate(date) {
+            return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
+        }
 
         function getValidators() {
             var validators = [];
