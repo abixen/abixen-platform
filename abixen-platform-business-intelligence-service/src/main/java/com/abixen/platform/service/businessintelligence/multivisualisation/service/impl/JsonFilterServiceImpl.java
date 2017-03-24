@@ -71,7 +71,7 @@ public class JsonFilterServiceImpl implements JsonFilterService {
                                     if (typeMapping == null) {
                                         query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + criteriaMap.get("data") + " ";
                                     } else {
-                                        String fieldTypeName = typeMapping.get(criteriaMap.get("field").toString());
+                                        String fieldTypeName = typeMapping.get(criteriaMap.get("field").toString().toUpperCase());
                                         String data = "";
                                         if (fieldTypeName == null) {
                                             data = criteriaMap.get("data").toString();
