@@ -29,29 +29,29 @@
         $stateProvider
             .state('application.layouts', {
                 url: '/layouts',
-                templateUrl: '/control-panel/modules/layout/html/index.html'
+                templateUrl: 'control-panel/modules/layout/html/index.html'
             })
             .state('application.layouts.list', {
                 url: '/list',
-                templateUrl: '/control-panel/modules/layout/html/list.html',
+                templateUrl: 'control-panel/modules/layout/html/list.html',
                 controller: 'LayoutListController',
                 controllerAs: 'layoutList'
             })
             .state('application.layouts.add', {
                 url: '/add',
-                templateUrl: '/control-panel/modules/layout/html/edit.html',
+                templateUrl: 'control-panel/modules/layout/html/edit.html',
                 controller: 'LayoutDetailsController',
                 controllerAs: 'layoutDetails'
             })
             .state('application.layouts.edit', {
                 url: '/edit/:id',
-                templateUrl: '/control-panel/modules/layout/html/edit.html',
+                templateUrl: 'control-panel/modules/layout/html/edit.html',
                 controller: 'LayoutDetailsController',
                 controllerAs: 'layoutDetails'
             })
             .state('application.layouts.permissions', {
                 url: '/permissions/:id',
-                templateUrl: '/common/permission/permissions.html',
+                templateUrl: 'common/permission/permissions.html',
                 controller: 'LayoutPermissionsController',
                 controllerAs: 'permissions'
             });
