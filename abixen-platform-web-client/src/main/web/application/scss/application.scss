@@ -127,15 +127,25 @@ body {
 }
 
 .avatar-container {
-  width: 100%;
-  padding-top: 100%;
+  &.navigation-avatar-container {
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+  }
+
+  &.details-avatar-container {
+    width: 100%;
+    height: 100%;
+    padding-top: 100%;
+  }
+
   position: relative;
 
-  .avatar-border{
+  .avatar-border {
     position: absolute;
     top: 0;
 
-    border: solid 2px $base-color-darker;
+    border: solid 1px $base-color-darker;
     border-radius: 50%;
     padding: 3px;
     width: 100%;
@@ -147,5 +157,3 @@ body {
     }
   }
 }
-
-
