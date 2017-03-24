@@ -49,9 +49,11 @@
                 </input-drop-down>
             </div>
             <div class="col-xs-6">
-                <div ng-if="userDetails.entity.id" class="form-group avatar">
-                    <div>
-                        <img ng-src="{{userDetails.avatarUrl}}" ></div>
+                <div ng-if="userDetails.entity.id" class="form-group">
+                    <div class="avatar-container">
+                        <div class="avatar-border">
+                            <img class="avatar" ng-src="{{userDetails.avatarUrl}}" ></div>
+                        </div>
                     <div>
                         <button ui-sref="application.users.edit.avatar"><i class="fa fa-pencil-square-o"></i>Change</button>
                     </div>

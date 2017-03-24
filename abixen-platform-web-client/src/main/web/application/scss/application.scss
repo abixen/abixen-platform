@@ -126,4 +126,26 @@ body {
   padding-right: 20px;
 }
 
+.avatar-container {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+
+  .avatar-border{
+    position: absolute;
+    top: 0;
+
+    border: solid 2px $base-color-darker;
+    border-radius: 50%;
+    padding: 3px;
+    width: 100%;
+    height: 100%;
+    .avatar {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
 

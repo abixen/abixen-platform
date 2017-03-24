@@ -49,11 +49,13 @@
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <div>
-                                    <img class="avatar" ng-src="{{userAccountDetails.userDetails.avatarUrl}}">
-                                    <div>
-                                        <a href="#" ng-click="userAccountDetails.userDetails.showUploadContent()"><i class="fa fa-pencil-square-o"></i>Change</a>
+                                <div class="avatar-container">
+                                    <div class="avatar-border">
+                                        <img class="avatar" ng-src="{{userAccountDetails.userDetails.avatarUrl}}">
                                     </div>
+                                </div>
+                                <div>
+                                    <a href="#" ng-click="userAccountDetails.userDetails.showUploadContent()"><i class="fa fa-pencil-square-o"></i>Change</a>
                                 </div>
                                 <div class="form-group user-id">
                                     <label for="userId">User ID</label>

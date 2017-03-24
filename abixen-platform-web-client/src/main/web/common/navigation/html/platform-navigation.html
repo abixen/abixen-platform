@@ -44,7 +44,11 @@
                     <div class="user pull-right">
                         <div class="item dropdown" uib-dropdown>
                             <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
-                                <img ng-src="{{navigation.avatarUrl}}">
+                                <div class="avatar-container">
+                                    <div class="avatar-border">
+                                        <img class="avatar" ng-src="{{navigation.avatarUrl}}">
+                                    </div>
+                                </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
                                 <li class="dropdown-header">
