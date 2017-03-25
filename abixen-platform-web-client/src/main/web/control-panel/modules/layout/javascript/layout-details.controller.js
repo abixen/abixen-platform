@@ -41,12 +41,14 @@
 
         var layoutDetails = this;
         layoutDetails.beforeSaveForm = beforeSaveForm;
+        layoutDetails.isNew = true;
 
         new AbstractDetailsController(layoutDetails, Layout, responseHandler, $scope,
             {
                 entityId: $stateParams.id,
                 getValidators: getValidators,
-                onSuccessSaveForm: onSuccessSaveForm,
+                onSuccessGetEntity: onSuccessGetEntity,
+                onSuccessSaveForm: onSuccessSaveForm
             }
         );
 
@@ -55,6 +57,32 @@
         if($state.current.name === 'application.layouts.add'){
           layoutDetails.entity.content='';
         }
+
+        function onSuccessGetEntity() {
+            layoutDetails.isNew = layoutDetails.entity.id === null || layoutDetails.entity.id === undefined;
+        }
+
+        function onSuccessSaveForm() {
+            if (layoutDetails.isNew){
+                $state.go('application.layouts.edit.icon', {id: layoutDetails.entity.id, isNew:true});
+            } else {
+                $state.go('application.layouts.list');
+            }
+        }
+
+        function beforeSaveForm() {
+            layoutDetails.saveForm();
+        }
+
+        layoutDetails.isUploadIcon = false;
+
+        layoutDetails.isUploadLayoutIcon = function () {
+            return $state.current.name === 'application.layouts.edit'
+        };
+
+        layoutDetails.showUploadLayoutIcon = function () {
+            layoutDetails.isUploadIcon = true;
+        };
 
         function getValidators() {
             var validators = [];
@@ -75,62 +103,6 @@
                 ];
 
             return validators;
-        }
-
-        function onSuccessSaveForm() {
-            $state.go('application.layouts.list');
-        }
-
-        function beforeSaveForm() {
-            layoutDetails.saveForm();
-        }
-
-        layoutDetails.isUploadIcon = false;
-        layoutDetails.isUploadLayoutIcon = function () {
-            return $state.current.name === 'application.layouts.edit'
-        };
-
-        var layoutIconChange = $scope.layoutIconChange = this;
-        layoutIconChange.userBaseUrl = '/api/control-panel/layouts/';
-        layoutIconChange.xsrfToken = $cookies.get($http.defaults.xsrfCookieName);
-
-        new AbstractUploaderController(layoutIconChange, FileUploader, layoutIconChange.xsrfToken,
-            {
-                uploaderUrl: layoutIconChange.userBaseUrl + $stateParams.id + '/icon',
-                uploaderAlias: 'iconFile',
-                uploaderMethod: 'POST',
-                uploaderFunctionConfig: function (controller) {
-                    controller.onCompleteAll = onCompleteAll;
-                }
-            }
-        );
-        layoutIconChange.cancelAll = cancelAll;
-
-        function onCompleteAll() {
-            if (layoutDetails.isUploadIcon) {
-                layoutDetails.isUploadIcon = false;
-                layoutIconChange.uploader.clearQueue();
-                getLayoutIcon($stateParams.id);
-            }
-        }
-
-        function cancelAll() {
-            layoutIconChange.uploader.cancelAll();
-            layoutDetails.isUploadIcon = false;
-        }
-
-        layoutDetails.showUploadLayoutIcon = function () {
-            layoutDetails.isUploadIcon = true;
-        };
-
-        function getLayoutIcon(id) {
-            if (id) {
-                Layout.get({id: id}, function (data) {
-                    layoutDetails.entity.iconFileName = data.iconFileName;
-                });
-            } else {
-                layoutDetails.entity.iconFileName = '';
-            }
         }
     }
 })();
