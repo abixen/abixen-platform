@@ -79,7 +79,7 @@ public class JsonFilterServiceTest {
                 "            {\n" +
                 "              \"condition\": \"=\",\n" +
                 "              \"field\": \"SALES_DAY\",\n" +
-                "              \"data\": \"04-05-2016\",\n" +
+                "              \"data\": \"2016-10-02T232\",\n" +
                 "              \"$$hashKey\": \"object:476\"\n" +
                 "            }\n" +
                 "          ]\n" +
@@ -98,7 +98,7 @@ public class JsonFilterServiceTest {
         when(resultSetMetaData.getColumnTypeName(1)).thenReturn("BIGINT");
         when(resultSetMetaData.getColumnTypeName(2)).thenReturn("DOUBLE");
         when(resultSetMetaData.getColumnTypeName(3)).thenReturn("DATE");
-        String manualyConvertedCriteria = "(REVENUE_GROSS = 23 AND ID = 4 AND (REVENUE_NET = 22 AND SALES_DAY = '04-05-2016'))";
+        String manualyConvertedCriteria = "(REVENUE_GROSS = 23 AND ID = 4 AND (REVENUE_NET = 22 AND SALES_DAY = '2016-10-02'))";
         String convertedCriteria = jsonFilterService.convertJsonToJpql(jsonCriteria, resultSetMetaData);
         assertEquals(manualyConvertedCriteria, convertedCriteria);
     }

@@ -90,7 +90,7 @@
             chartConfig.chart.yAxis.tickFormat = function (d) {
                 return d3.format('.02f')(d);
             };
-            if (preparedChartData[0].values[0] && isNaN(preparedChartData[0].values[0].xLabel)){
+            if (preparedChartData[0].values && preparedChartData[0].values[0] && isNaN(preparedChartData[0].values[0].xLabel)){
                 chartConfig.chart.xAxis.rotateLabels = 45;
                 chartConfig.chart.margin.bottom += 50;
             }
