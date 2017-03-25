@@ -24,6 +24,9 @@ import java.util.*;
 public abstract class AbstractConverter<Source, Target> {
 
     public final List<Target> convertToList(Collection<Source> sources, Map<String, Object> parameters) {
+        if(sources == null) {
+            return null;
+        }
         List<Target> targets = new ArrayList<>(sources.size());
         for (Source source : sources) {
             targets.add(convert(source, parameters));
