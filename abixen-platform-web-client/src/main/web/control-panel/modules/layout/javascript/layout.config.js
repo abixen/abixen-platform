@@ -39,15 +39,29 @@
             })
             .state('application.layouts.add', {
                 url: '/add',
-                templateUrl: '/control-panel/modules/layout/html/edit.html',
+                templateUrl: '/control-panel/modules/layout/html/edit/details.html',
                 controller: 'LayoutDetailsController',
                 controllerAs: 'layoutDetails'
             })
             .state('application.layouts.edit', {
                 url: '/edit/:id',
                 templateUrl: '/control-panel/modules/layout/html/edit.html',
+                abstract:true
+            })
+            .state('application.layouts.edit.details', {
+                url: '',
+                templateUrl: '/control-panel/modules/layout/html/edit/details.html',
                 controller: 'LayoutDetailsController',
                 controllerAs: 'layoutDetails'
+            })
+            .state('application.layouts.edit.icon', {
+                url: '/icon',
+                templateUrl: '/control-panel/modules/layout/html/edit/icon.html',
+                controller: 'LayoutIconChangeController',
+                controllerAs: 'layoutIconChange',
+                params: {
+                    isNew: false
+                }
             })
             .state('application.layouts.permissions', {
                 url: '/permissions/:id',
