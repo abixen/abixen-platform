@@ -26,10 +26,16 @@ import java.util.Map;
 @Component
 public class ModuleTypeToModuleTypeDtoConverter extends AbstractConverter<ModuleType, ModuleTypeDto> {
 
+    private final ResourceToResourceDtoConverter resourceToResourceDtoConverter;
+    private final AdminSidebarItemToAdminSidebarItemDtoConverter adminSidebarItemToAdminSidebarItemDtoConverter;
     private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
 
     @Autowired
-    public ModuleTypeToModuleTypeDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+    public ModuleTypeToModuleTypeDtoConverter(ResourceToResourceDtoConverter resourceToResourceDtoConverter,
+                                              AdminSidebarItemToAdminSidebarItemDtoConverter adminSidebarItemToAdminSidebarItemDtoConverter,
+                                              AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+        this.resourceToResourceDtoConverter = resourceToResourceDtoConverter;
+        this.adminSidebarItemToAdminSidebarItemDtoConverter = adminSidebarItemToAdminSidebarItemDtoConverter;
         this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
     }
 
@@ -43,7 +49,9 @@ public class ModuleTypeToModuleTypeDtoConverter extends AbstractConverter<Module
                 .setTitle(moduleType.getTitle())
                 .setDescription(moduleType.getDescription())
                 .setInitUrl(moduleType.getInitUrl())
-                .setServiceId(moduleType.getServiceId());
+                .setServiceId(moduleType.getServiceId())
+                .setResources(resourceToResourceDtoConverter.convertToList(moduleType.getResources()))
+                .setAdminSidebarItems(adminSidebarItemToAdminSidebarItemDtoConverter.convertToList(moduleType.getAdminSidebarItems()));
 
         auditingModelToAuditingDtoConverter.convert(moduleType, moduleTypeDto);
 
