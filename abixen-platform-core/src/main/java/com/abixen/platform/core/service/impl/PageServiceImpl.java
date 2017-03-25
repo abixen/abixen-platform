@@ -30,6 +30,7 @@ import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -98,6 +99,7 @@ public class PageServiceImpl implements PageService {
                 .build();
     }
 
+    @CacheEvict(value = "APPLICATION_PAGES", allEntries = true)
     @Override
     public Page createPage(Page page) {
         log.debug("createPage() - page={} ", page);
@@ -114,6 +116,7 @@ public class PageServiceImpl implements PageService {
         return createdPage;
     }
 
+    @CacheEvict(value = "APPLICATION_PAGES", allEntries = true)
     @Override
     public PageForm createPage(PageForm pageForm) {
         log.debug("updatePage() - pageForm={}", pageForm);
@@ -125,6 +128,7 @@ public class PageServiceImpl implements PageService {
         return new PageForm(createdPageDto);
     }
 
+    @CacheEvict(value = "APPLICATION_PAGES", allEntries = true)
     @PreAuthorize("hasPermission('" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
     @Override
     public Page createPage(PageConfigurationForm pageConfigurationForm) {
@@ -132,6 +136,7 @@ public class PageServiceImpl implements PageService {
         return createPage(page);
     }
 
+    @CacheEvict(value = "APPLICATION_PAGES", allEntries = true)
     @PreAuthorize("hasPermission(#pageForm.id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
     @Override
     public PageForm updatePage(PageForm pageForm) {
@@ -149,6 +154,7 @@ public class PageServiceImpl implements PageService {
         return new PageForm(updatedPageDto);
     }
 
+    @CacheEvict(value = "APPLICATION_PAGES", allEntries = true)
     @PreAuthorize("hasPermission(#page.id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
     @Override
     public Page updatePage(Page page) {
@@ -156,6 +162,7 @@ public class PageServiceImpl implements PageService {
         return pageRepository.saveAndFlush(page);
     }
 
+    @CacheEvict(value = "APPLICATION_PAGES", allEntries = true)
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_DELETE + "')")
     @Override
     @Transactional
