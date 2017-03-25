@@ -19,6 +19,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -32,5 +34,6 @@ public class ModuleTypeDto extends AuditingDto {
     private String description;
     private String initUrl;
     private String serviceId;
-
+    private List<ResourceDto> resources;
+    private List<AdminSidebarItemDto> adminSidebarItems;
 }
