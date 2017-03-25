@@ -23,15 +23,16 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.IntStream;
 
 
 @Service
 public class JsonFilterServiceImpl implements JsonFilterService {
+
+    private static final int DATA_END_INDEX = 10;
+    private static final int DATA_BEGIN_INDEX = 0;
 
     @Override
     public String convertJsonToJpql(String jsonCriteria, ResultSetMetaData rsmd) throws SQLException {
@@ -100,7 +101,7 @@ public class JsonFilterServiceImpl implements JsonFilterService {
             case DOUBLE:
                 return data;
             case DATE:
-                return "'" + data + "'";
+                return "'" + LocalDate.parse(data.substring(DATA_BEGIN_INDEX, DATA_END_INDEX)) + "'";
             case INTEGER:
                 return data;
             case STRING:
