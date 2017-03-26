@@ -30,11 +30,19 @@
         <div ng-show="comment.canEdit" style="display: inline">
             <a ng-href ng-click="comment.deleteComment(comment.commentItem)" style="cursor: pointer">Delete</a> &nbsp;&nbsp;
         </div>
-        <div style="display: inline">
-            <a title="Like" ng-click="comment.vote(comment.commentItem)" style="cursor: pointer"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;<span class="badge">{{comment.commentItem.votePos}}</span></a> &nbsp;&nbsp;
+        <div  style="display: inline">
+            <a ng-if="comment.canVote" title="Like"
+               ng-click="comment.vote(comment.commentItem)" style="cursor: pointer">
+                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;<span class="badge">{{comment.commentItem.votePos}}</span></a>
+            <a ng-if="!comment.canVote" title="You already voted this comment">
+                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;<span class="badge">{{comment.commentItem.votePos}}</span></a> &nbsp;&nbsp;
         </div>
         <div style="display: inline">
-            <a title="Dislike" ng-click="comment.unvote(comment.commentItem)" style="cursor: pointer"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>&nbsp;<span class="badge">{{comment.commentItem.voteNeg}}</span></a>
+            <a ng-if="comment.canVote" title="Dislike"
+               ng-click="comment.unvote(comment.commentItem)" style="cursor: pointer">
+                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>&nbsp;<span class="badge">{{comment.commentItem.voteNeg}}</span></a>
+            <a ng-if="!comment.canVote" title="You already voted this comment">
+                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>&nbsp;<span class="badge">{{comment.commentItem.voteNeg}}</span></a>
         </div>
     </ul>
 

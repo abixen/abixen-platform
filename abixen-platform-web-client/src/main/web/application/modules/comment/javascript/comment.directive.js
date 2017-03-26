@@ -76,8 +76,10 @@
         comment.unvote = unvote;
         comment.canEdit = canEdit();
         comment.avatarFullPath = getAvatarFullPath();
+        comment.canVote = true;
         prepareVotes();
         changeMomentLocale();
+        checkForVote();
 
         $scope.$watch(platformSecurity.getPlatformUser, onUserChange);
 
@@ -96,6 +98,17 @@
                 && comment.commentItem.user != null
                 && (platformSecurity.getPlatformUser().id === comment.commentItem.user.id);
             return res;
+        }
+
+        function checkForVote() {
+            if (angular.isDefined(comment.commentItem) && angular.isDefined(comment.commentItem.voteDtos)
+                && comment.commentItem.voteDtos !== null) {
+                angular.forEach(comment.commentItem.voteDtos, function (value, key) {
+                    if (angular.isDefined(comment.commentItem.voteDtos) && value.createdBy.id === platformSecurity.getPlatformUser().id) {
+                        comment.canVote = false;
+                    }
+                });
+            }
         }
 
         function openReplyForm(commentId) {
@@ -190,7 +203,13 @@
             var newVote = {commentVoteType: 'POSITIVE', commentId: commentItem.id};
             CommentVote.save(newVote)
                 .$promise.then(function (data) {
-                comment.commentItem.votePos = comment.commentItem.votePos + 1;
+                    if (angular.isUndefined(comment.commentItem.voteDtos) || comment.commentItem.voteDtos === null) {
+                        comment.commentItem.voteDtos = [data.form];
+                    } else {
+                        comment.commentItem.voteDtos.push(data.form);
+                    }
+                    comment.commentItem.votePos = comment.commentItem.votePos + 1;
+                    comment.canVote = false;
             });
 
 
@@ -201,7 +220,13 @@
             var newVote = {commentVoteType: 'NEGATIVE', commentId: commentItem.id};
             CommentVote.save(newVote)
                 .$promise.then(function (data) {
-                comment.commentItem.voteNeg = comment.commentItem.voteNeg + 1;
+                    if (angular.isUndefined(comment.commentItem.voteDtos) || comment.commentItem.voteDtos === null) {
+                        comment.commentItem.voteDtos = [data.form];
+                    } else {
+                        comment.commentItem.voteDtos.push(data.form);
+                    }
+                    comment.commentItem.voteNeg = comment.commentItem.voteNeg + 1;
+                    comment.canVote = false;
             });
         }
 
