@@ -32,14 +32,14 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group" >
+            <div ng-if="!layoutDetails.isNew" class="form-group" >
                 <div class="row form-row">
                     <label class="control-label">Icon</label>
                 </div>
                 <div class="row form-row">
                     <div class="col-sm-9">
                         <img src="/api/images/layout/{{layoutDetails.entity.iconFileName}}/" class="layout-icon">
-                        <button ng-if="!layoutDetails.isNew" ui-sref="application.layouts.edit.icon"><i class="fa fa-pencil-square-o"></i>Change</button>
+                        <button ui-sref="application.layouts.edit.icon"><i class="fa fa-pencil-square-o"></i>Change</button>
                     </div>
                 </div>
             </div>
