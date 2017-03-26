@@ -45,10 +45,12 @@ public class AdminModuleTypeController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<ModuleType> getModuleTypes(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm) {
+    public Page<ModuleTypeDto> getModuleTypes(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm) {
         log.debug("getModuleTypes()");
 
-        return moduleTypeService.findModuleTypes(pageable, moduleTypeSearchForm);
+        Page<ModuleType> moduleTypes = moduleTypeService.findModuleTypes(pageable, moduleTypeSearchForm);
+        Page<ModuleTypeDto> moduleTypeDtos = moduleTypeToModuleTypeDtoConverter.convertToPage(moduleTypes);
+        return moduleTypeDtos;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
