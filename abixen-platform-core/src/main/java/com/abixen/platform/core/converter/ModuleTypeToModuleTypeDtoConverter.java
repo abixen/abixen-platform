@@ -47,6 +47,8 @@ public class ModuleTypeToModuleTypeDtoConverter extends AbstractConverter<Module
                 .setId(moduleType.getId())
                 .setName(moduleType.getName())
                 .setTitle(moduleType.getTitle())
+                .setAngularJsNameAdmin(moduleType.getAngularJsNameAdmin())
+                .setAngularJsNameApplication(moduleType.getAngularJsNameApplication())
                 .setDescription(moduleType.getDescription())
                 .setInitUrl(moduleType.getInitUrl())
                 .setServiceId(moduleType.getServiceId())

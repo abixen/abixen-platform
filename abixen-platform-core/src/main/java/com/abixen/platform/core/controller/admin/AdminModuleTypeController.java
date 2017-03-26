@@ -14,11 +14,12 @@
 
 package com.abixen.platform.core.controller.admin;
 
+import com.abixen.platform.core.converter.ModuleTypeToModuleTypeDtoConverter;
+import com.abixen.platform.core.dto.ModuleTypeDto;
 import com.abixen.platform.core.form.ModuleTypeSearchForm;
 import com.abixen.platform.core.model.impl.ModuleType;
 import com.abixen.platform.core.service.ModuleTypeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,8 +35,14 @@ import java.util.List;
 @RequestMapping(value = "/api/control-panel/module-types")
 public class AdminModuleTypeController {
 
-    @Autowired
-    private ModuleTypeService moduleTypeService;
+    private final ModuleTypeService moduleTypeService;
+    private final ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter;
+
+    public AdminModuleTypeController(ModuleTypeService moduleTypeService,
+                                     ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter) {
+        this.moduleTypeService = moduleTypeService;
+        this.moduleTypeToModuleTypeDtoConverter = moduleTypeToModuleTypeDtoConverter;
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<ModuleType> getModuleTypes(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm) {
@@ -45,10 +52,12 @@ public class AdminModuleTypeController {
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<ModuleType> getModuleTypes() {
+    public List<ModuleTypeDto> getModuleTypes() {
         log.debug("getModuleTypes()");
 
-        return moduleTypeService.findModuleTypes();
+        List<ModuleType> moduleTypes = moduleTypeService.findModuleTypes();
+        List<ModuleTypeDto> moduleTypeDtos = moduleTypeToModuleTypeDtoConverter.convertToList(moduleTypes);
+        return moduleTypeDtos;
     }
 
     @RequestMapping(value = "/{id}/reload", method = RequestMethod.PUT)

@@ -30,6 +30,8 @@ public class ModuleTypeDto extends AuditingDto {
 
     private Long id;
     private String name;
+    private String angularJsNameApplication;
+    private String angularJsNameAdmin;
     private String title;
     private String description;
     private String initUrl;
