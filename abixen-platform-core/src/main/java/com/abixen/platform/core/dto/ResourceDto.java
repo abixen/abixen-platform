@@ -15,19 +15,14 @@
 package com.abixen.platform.core.dto;
 
 
+import com.abixen.platform.common.model.ResourceBase;
 import com.abixen.platform.common.model.enumtype.ResourcePage;
 import com.abixen.platform.common.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.common.model.enumtype.ResourceType;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 
-@Getter
-@Setter
-@Accessors(chain = true)
 @ToString
-public class ResourceDto extends AuditingDto {
+public class ResourceDto extends AuditingDto implements ResourceBase<ModuleTypeDto> {
 
     private Long id;
     private String relativeUrl;
@@ -35,4 +30,64 @@ public class ResourceDto extends AuditingDto {
     private ResourcePage resourcePage;
     private ResourceType resourceType;
     private ModuleTypeDto moduleType;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getRelativeUrl() {
+        return relativeUrl;
+    }
+
+    @Override
+    public void setRelativeUrl(String relativeUrl) {
+        this.relativeUrl = relativeUrl;
+    }
+
+    @Override
+    public ResourcePageLocation getResourcePageLocation() {
+        return resourcePageLocation;
+    }
+
+    @Override
+    public void setResourcePageLocation(ResourcePageLocation resourcePageLocation) {
+        this.resourcePageLocation = resourcePageLocation;
+    }
+
+    @Override
+    public ResourcePage getResourcePage() {
+        return resourcePage;
+    }
+
+    @Override
+    public void setResourcePage(ResourcePage resourcePage) {
+        this.resourcePage = resourcePage;
+    }
+
+    @Override
+    public ResourceType getResourceType() {
+        return resourceType;
+    }
+
+    @Override
+    public void setResourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    @Override
+    public ModuleTypeDto getModuleType() {
+        return moduleType;
+    }
+
+    @Override
+    public void setModuleType(ModuleTypeDto moduleType) {
+        this.moduleType = moduleType;
+    }
 }

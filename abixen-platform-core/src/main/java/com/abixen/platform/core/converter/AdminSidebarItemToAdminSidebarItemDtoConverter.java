@@ -38,12 +38,11 @@ public class AdminSidebarItemToAdminSidebarItemDtoConverter extends AbstractConv
     public AdminSidebarItemDto convert(AdminSidebarItem adminSidebarItem, Map<String, Object> parameters) {
         AdminSidebarItemDto adminSidebarItemDto = new AdminSidebarItemDto();
 
-        adminSidebarItemDto
-                .setId(adminSidebarItem.getId())
-                .setTitle(adminSidebarItem.getTitle())
-                .setAngularJsState(adminSidebarItem.getAngularJsState())
-                .setOrderIndex(adminSidebarItem.getOrderIndex())
-                .setIconClass(adminSidebarItem.getIconClass());
+        adminSidebarItemDto.setId(adminSidebarItem.getId());
+        adminSidebarItemDto.setTitle(adminSidebarItem.getTitle());
+        adminSidebarItemDto.setAngularJsState(adminSidebarItem.getAngularJsState());
+        adminSidebarItemDto.setOrderIndex(adminSidebarItem.getOrderIndex());
+        adminSidebarItemDto.setIconClass(adminSidebarItem.getIconClass());
 
         auditingModelToAuditingDtoConverter.convert(adminSidebarItem, adminSidebarItemDto);
 

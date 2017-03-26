@@ -43,17 +43,16 @@ public class ModuleTypeToModuleTypeDtoConverter extends AbstractConverter<Module
     public ModuleTypeDto convert(ModuleType moduleType, Map<String, Object> parameters) {
         ModuleTypeDto moduleTypeDto = new ModuleTypeDto();
 
-        moduleTypeDto
-                .setId(moduleType.getId())
-                .setName(moduleType.getName())
-                .setTitle(moduleType.getTitle())
-                .setAngularJsNameAdmin(moduleType.getAngularJsNameAdmin())
-                .setAngularJsNameApplication(moduleType.getAngularJsNameApplication())
-                .setDescription(moduleType.getDescription())
-                .setInitUrl(moduleType.getInitUrl())
-                .setServiceId(moduleType.getServiceId())
-                .setResources(resourceToResourceDtoConverter.convertToList(moduleType.getResources()))
-                .setAdminSidebarItems(adminSidebarItemToAdminSidebarItemDtoConverter.convertToList(moduleType.getAdminSidebarItems()));
+        moduleTypeDto.setId(moduleType.getId());
+        moduleTypeDto.setName(moduleType.getName());
+        moduleTypeDto.setTitle(moduleType.getTitle());
+        moduleTypeDto.setAngularJsNameAdmin(moduleType.getAngularJsNameAdmin());
+        moduleTypeDto.setAngularJsNameApplication(moduleType.getAngularJsNameApplication());
+        moduleTypeDto.setDescription(moduleType.getDescription());
+        moduleTypeDto.setInitUrl(moduleType.getInitUrl());
+        moduleTypeDto.setServiceId(moduleType.getServiceId());
+        moduleTypeDto.setResources(resourceToResourceDtoConverter.convertToList(moduleType.getResources()));
+        moduleTypeDto.setAdminSidebarItems(adminSidebarItemToAdminSidebarItemDtoConverter.convertToList(moduleType.getAdminSidebarItems()));
 
         auditingModelToAuditingDtoConverter.convert(moduleType, moduleTypeDto);
 

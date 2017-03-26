@@ -38,12 +38,11 @@ public class ResourceToResourceDtoConverter extends AbstractConverter<Resource, 
     public ResourceDto convert(Resource resource, Map<String, Object> parameters) {
         ResourceDto resourceDto = new ResourceDto();
 
-        resourceDto
-                .setId(resource.getId())
-                .setRelativeUrl(resource.getRelativeUrl())
-                .setResourcePageLocation(resource.getResourcePageLocation())
-                .setResourcePage(resource.getResourcePage())
-                .setResourceType(resource.getResourceType());
+        resourceDto.setId(resource.getId());
+        resourceDto.setRelativeUrl(resource.getRelativeUrl());
+        resourceDto.setResourcePageLocation(resource.getResourcePageLocation());
+        resourceDto.setResourcePage(resource.getResourcePage());
+        resourceDto.setResourceType(resource.getResourceType());
 
         auditingModelToAuditingDtoConverter.convert(resource, resourceDto);
 
