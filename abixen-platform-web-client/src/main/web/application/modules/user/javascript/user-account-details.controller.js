@@ -65,7 +65,6 @@
 
 
         function saveForm(){
-            console.log('saveForm: ' + userAccountDetails.selectedTab);
             switch (userAccountDetails.selectedTab){
                 case 'userDetails':
                     userAccountDetails.userDetails.saveForm();
@@ -87,7 +86,6 @@
         }
 
         function selectChangePassword() {
-            console.log('selectChangePassword');
             userAccountDetails.selectedTab = 'changePassword';
         }
 
