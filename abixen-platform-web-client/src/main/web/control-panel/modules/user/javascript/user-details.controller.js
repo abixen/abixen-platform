@@ -26,10 +26,11 @@
         '$stateParams',
         '$log',
         'User',
-        'responseHandler'
+        'responseHandler',
+        'toaster'
     ];
 
-    function UserDetailsController($scope, $state, $stateParams, $log, User, responseHandler) {
+    function UserDetailsController($scope, $state, $stateParams, $log, User, responseHandler, toaster) {
         $log.log('UserDetailController');
 
         var userDetails = this;
@@ -71,6 +72,7 @@
             if (!userDetails.isNewUser) {
                 $state.go('application.users.list');
             }else {
+                toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Created', 'New user has been created. Now you can upload his avatar.');
                 $state.go('application.users.edit.avatar', {id:userDetails.entity.id, isNewUser: true});
             }
         }
