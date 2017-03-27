@@ -148,7 +148,7 @@ public class AclServiceImpl implements AclService {
             List<AclEntry> filteredAclEntries = filterAclEntriesByRoleName(aclEntries, roleId);
             for (AclPermissionDto aclPermissionDto : aclRolePermissionsDto.getAclPermissionDtos()) {
                 for (AclEntry aclEntry : filteredAclEntries) {
-                    if (aclPermissionDto.getPermission().equals(aclEntry.getPermission())) {
+                    if (aclPermissionDto.getPermission().getId().equals(aclEntry.getPermission().getId())) {
                         aclPermissionDto.setSelected(true);
                     }
                 }
@@ -195,7 +195,7 @@ public class AclServiceImpl implements AclService {
             for (Role role : roles) {
 
                 if (aclRolePermissionsDto.getRole() != null) {
-                    if (role.getId() == aclRolePermissionsDto.getRole().getId()) {
+                    if (role.getId().equals(aclRolePermissionsDto.getRole().getId())) {
                         checkedRole = role;
                     }
                 }
