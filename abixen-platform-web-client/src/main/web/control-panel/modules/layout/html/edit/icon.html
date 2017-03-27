@@ -3,18 +3,11 @@
         <div class="alert alert-danger" ng-show="error">
             Error.
         </div>
-        <div ng-if="layoutIconChange.isNewLayout" class="text-success">
-            <h3>
-                New layout has been created. Now you can upload his icon.
-            </h3>
-        </div>
         <div class="row form-row">
             <h2>Layout Icon uploader</h2>
             <div ng-show="layoutIconChange.uploader.isHTML5">
                 <div class="" ng-if="layoutIconChange.uploader.queue[0] != undefined"
                      platform-thumb="{ file: layoutIconChange.uploader.queue[0]._file, height: 150 }"></div>
-            </div>
-            <div class="well my-drop-zone">
             </div>
             <div>
                 <input type="file" nv-file-select="" uploader="layoutIconChange.uploader"/><br/>
