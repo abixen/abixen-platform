@@ -33,6 +33,8 @@
 
         var permissions = this;
 
-        new AbstractPermissionsController(permissions, $state, AclRolesPermissions, 'module', $stateParams.id, 'application.modules');
+        var skipPermissions = ['MODULE_ADD'];
+
+        new AbstractPermissionsController(permissions, $state, AclRolesPermissions, 'module', $stateParams.id, 'application.modules', skipPermissions);
     }
 })();
