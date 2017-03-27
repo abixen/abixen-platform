@@ -14,7 +14,7 @@
 
 'use strict';
 
-function AbstractPermissionsController(extendedController, $state, AclRolesPermissions, permissionAclClassCategoryName, objectId, stateParent) {
+function AbstractPermissionsController(extendedController, $state, AclRolesPermissions, permissionAclClassCategoryName, objectId, stateParent, skipPermissions) {
     var abstractDetailsController = extendedController;
 
     abstractDetailsController.aclRolesPermissionsDto = null;
@@ -34,6 +34,28 @@ function AbstractPermissionsController(extendedController, $state, AclRolesPermi
 
         function onGetResult(data) {
             abstractDetailsController.aclRolesPermissionsDto = data;
+
+            if (skipPermissions) {
+                var permissions = [];
+                for (var i = 0; i < abstractDetailsController.aclRolesPermissionsDto.permissions.length; i++) {
+                    if (skipPermissions.indexOf(abstractDetailsController.aclRolesPermissionsDto.permissions[i].permissionName) === -1) {
+                        permissions.push(abstractDetailsController.aclRolesPermissionsDto.permissions[i]);
+                    }
+                }
+                abstractDetailsController.aclRolesPermissionsDto.permissions = permissions;
+
+                for (var i = 0; i < abstractDetailsController.aclRolesPermissionsDto.aclRolePermissionsDtos.length; i++) {
+                    var aclRolesPermissionsDtos = abstractDetailsController.aclRolesPermissionsDto.aclRolePermissionsDtos[i];
+                    var aclPermissionDtosTmp = [];
+
+                    for (var j = 0; j < aclRolesPermissionsDtos.aclPermissionDtos.length; j++) {
+                        if (skipPermissions.indexOf(aclRolesPermissionsDtos.aclPermissionDtos[j].permission.permissionName) === -1) {
+                            aclPermissionDtosTmp.push(aclRolesPermissionsDtos.aclPermissionDtos[j]);
+                        }
+                    }
+                    abstractDetailsController.aclRolesPermissionsDto.aclRolePermissionsDtos[i].aclPermissionDtos = aclPermissionDtosTmp;
+                }
+            }
         }
     }
 

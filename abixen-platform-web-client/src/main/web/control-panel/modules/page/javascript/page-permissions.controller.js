@@ -33,6 +33,8 @@
 
         var permissions = this;
 
-        new AbstractPermissionsController(permissions, $state, AclRolesPermissions, 'page', $stateParams.id, 'application.pages');
+        var skipPermissions = ['PAGE_ADD'];
+
+        new AbstractPermissionsController(permissions, $state, AclRolesPermissions, 'page', $stateParams.id, 'application.pages', skipPermissions);
     }
 })();
