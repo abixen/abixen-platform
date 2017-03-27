@@ -1,6 +1,6 @@
 <div class="row form-row user-avatar-change">
     <div class="col-md-6 col-md-offset-3">
-        <div ng-if="userAvatarChange.isNewUser"><h2>New user created. Now you can upload avatar for him</h2></div>
+        <div class="text-success" ng-if="userAvatarChange.isNewUser"><h3>New user has been created. Now you can upload his avatar.</h3></div>
         <h2>Avatar uploader</h2>
         <div ng-show="userAvatarChange.uploader.isHTML5">
             <div class="" ng-if="userAvatarChange.uploader.queue[0] != undefined"

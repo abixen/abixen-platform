@@ -3,9 +3,10 @@
         <div class="alert alert-danger" ng-show="error">
             Error.
         </div>
-        <div>
-            Layout created. Upload individual icon or cancel.
-
+        <div ng-if="layoutIconChange.isNewLayout" class="text-success">
+            <h3>
+                New layout has been created. Now you can upload his icon.
+            </h3>
         </div>
         <div class="row form-row">
             <h2>Layout Icon uploader</h2>
