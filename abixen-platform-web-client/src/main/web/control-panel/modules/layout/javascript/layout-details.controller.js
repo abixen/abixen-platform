@@ -33,10 +33,11 @@
         'Layout',
         'FileUploader',
         '$cookies',
-        'responseHandler'
+        'responseHandler',
+        'toaster'
     ];
 
-    function LayoutDetailsController($scope, $http, $state, $stateParams, $log, Layout, FileUploader, $cookies, responseHandler) {
+    function LayoutDetailsController($scope, $http, $state, $stateParams, $log, Layout, FileUploader, $cookies, responseHandler, toaster) {
         $log.log('LayoutDetailsController');
 
         var layoutDetails = this;
@@ -64,6 +65,7 @@
 
         function onSuccessSaveForm() {
             if (layoutDetails.isNew){
+                toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Created', 'New layout has been created. Now you can upload his icon.');
                 $state.go('application.layouts.edit.icon', {id: layoutDetails.entity.id, isNew:true});
             } else {
                 $state.go('application.layouts.list');

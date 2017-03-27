@@ -180,10 +180,12 @@
 
         function getValues(data, dataSetSeriesElement, dataSetChart) {
             var values = [];
-            data.forEach(function (dataElement, iterator) {
-                var valuesElement = getPointData(dataElement, dataSetSeriesElement, iterator, dataSetChart);
-                if (valuesElement != null && domainIsNotDuplicated(values, valuesElement)) {
+            var index = 0;
+            data.forEach(function (dataElement) {
+                var valuesElement = getPointData(dataElement, dataSetSeriesElement, index, dataSetChart);
+                if (valuesElement && domainIsNotDuplicated(values, valuesElement)) {
                     values.push(valuesElement);
+                    index++;
                 }
             });
             return values;
