@@ -1,0 +1,51 @@
+<div class="form-group"
+     ng-class="{'has-error': form[visualEditor.name].$invalid && !form[visualEditor.name].$pristine}">
+    <label ng-if="visualEditor.label" for="{{visualEditor.name}}Input"
+           class="control-label">{{visualEditor.label}}</label>
+    <div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button"
+                                    class="btn btn-default"
+                                    ng-click="visualEditor.visual.addRow()">
+                                <a style="text-decoration: none;">
+                                    <span class="menu-icon fa fa-plus"></span>
+                                    Add Row
+                                </a>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="table-responsive" style="width:100%;overflow:auto; max-height:400px;">
+            <table class="table table-striped table-hover table-bordered">
+                <tr ng-repeat="row in visualEditor.visual.rows.row">
+                    <td>{{row.fieldset.rowId+1}}</td>
+                    <td>
+                        <input class="form-control" ng-model="row.fieldset.name"
+                               ng-change="visualEditor.transformToXml()"/>
+                    </td>
+                    <td>
+                        <select class="form-control"
+                                ng-change="visualEditor.transformToXml()"
+                                ng-model="row.fieldset.selectedFieldType">
+                            <option ng-repeat="fieldType in row.fieldset.fieldTypes" value="{{fieldType.value}}">
+                                {{fieldType.name}}
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <a ng-click="visualEditor.visual.removeRow(row.fieldset.rowId)" style=" cursor: pointer;">
+                            <span class="fa fa-trash-o"></span>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
