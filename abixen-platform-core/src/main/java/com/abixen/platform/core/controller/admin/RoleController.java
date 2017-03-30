@@ -23,7 +23,6 @@ import com.abixen.platform.core.dto.RoleDto;
 import com.abixen.platform.core.form.RoleForm;
 import com.abixen.platform.core.form.RolePermissionsForm;
 import com.abixen.platform.core.form.RoleSearchForm;
-import com.abixen.platform.common.model.enumtype.RoleType;
 import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.service.PermissionService;
@@ -93,7 +92,7 @@ public class RoleController {
 
         Role role = roleService.buildRole(roleForm);
         //TODO
-        role.setRoleType(RoleType.ROLE_USER);
+        //role.setRoleType(RoleType.ROLE_USER);
         roleService.createRole(role);
 
         return new FormValidationResultDto(roleForm);
