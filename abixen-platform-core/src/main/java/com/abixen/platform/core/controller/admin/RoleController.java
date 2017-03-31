@@ -73,12 +73,13 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Role getRole(@PathVariable Long id) {
+    public RoleDto getRole(@PathVariable Long id) {
         log.debug("getRole() - id: " + id);
 
         Role role = roleService.findRole(id);
+        RoleDto roleDto = roleToRoleDtoConverter.convert(role);
 
-        return role;
+        return roleDto;
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -91,8 +92,6 @@ public class RoleController {
         }
 
         Role role = roleService.buildRole(roleForm);
-        //TODO
-        //role.setRoleType(RoleType.ROLE_USER);
         roleService.createRole(role);
 
         return new FormValidationResultDto(roleForm);
