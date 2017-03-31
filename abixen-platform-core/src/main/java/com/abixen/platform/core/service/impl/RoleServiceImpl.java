@@ -63,6 +63,7 @@ public class RoleServiceImpl implements RoleService {
         log.debug("updateRole() - roleForm: {}", roleForm);
         Role role = roleRepository.findOne(roleForm.getId());
         role.setName(roleForm.getName());
+        role.setRoleType(roleForm.getRoleType());
         return new RoleForm(roleRepository.save(role));
     }
 
