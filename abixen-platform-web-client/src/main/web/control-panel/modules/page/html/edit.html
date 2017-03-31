@@ -19,6 +19,7 @@
         </div>
         <div class="col-md-6">
             <div>
+                Changing of layout is disabled in the Control Panel.
                 <div class="row form-group" ng-class="{ 'has-error': entityForm.layout.$invalid}">
                     <div class="col-xs-4 col-sm-3 col-md-6 col-lg-3 " ng-repeat="layoutObject in pageDetails.layouts">
                         <label>
@@ -26,8 +27,7 @@
                                    dynamic-name="layout" ng-value="layoutObject" class="form-control"
                                    ng-required="true"/>
                             <a class="thumbnail" style="text-align:center; font-size:75%"
-                               ng-class="{'active': pageDetails.entity.layout.id==layoutObject.id}"
-                               ng-click="pageDetails.entity.layout=layoutObject">
+                               ng-class="{'active': pageDetails.entity.layout.id==layoutObject.id}">
                                 <img src="/api/images/layout/{{layoutObject.iconFileName}}/" class="img-responsive"/>
                                 {{layoutObject.title}}
                             </a>
