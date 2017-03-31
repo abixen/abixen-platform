@@ -8,16 +8,26 @@
                         validators="roleDetails.validators">
             </input-text>
 
+            <input-drop-down ng-model="roleDetails.entity.roleType"
+                             name="roleType"
+                             label="{{'module.role.type.label' | translate}}"
+                             validators="roleDetails.validators"
+                             options="roleDetails.roles"
+                             show-empty-value="true"
+                             empty-value-label="{{'module.role.type.select' | translate}}"
+                             key-as-value="true">
+            </input-drop-down>
+
             <div class="row bottom-navigation ng-scope">
                 <div class="col-xs-12">
                     <div class="form-group last">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button type="submit" class="btn save-button" ng-disabled="entityForm.$invalid"
+                            <button type="submit" class="btn save-button" ng-disabled="roleDetails.entityForm.$invalid"
                                     ng-click="roleDetails.saveForm()">
                                 <i class="fa fa-floppy-o"></i>
                                 <span>&nbsp;Save</span>
                             </button>
-                            <button type="reset" class="btn cancel-button">
+                            <button type="reset" class="btn cancel-button" ui-sref="application.roles.list">
                                 <i class="fa fa-times"></i>
                                 <span>&nbsp;Cancel</span>
                             </button>

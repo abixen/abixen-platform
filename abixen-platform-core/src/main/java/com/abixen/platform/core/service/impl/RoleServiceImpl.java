@@ -90,6 +90,7 @@ public class RoleServiceImpl implements RoleService {
 
         RoleBuilder roleBuilder = domainBuilderService.newRoleBuilderInstance();
         roleBuilder.name(roleForm.getName());
+        roleBuilder.type(roleForm.getRoleType());
         return roleBuilder.build();
     }
 

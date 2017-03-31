@@ -31,7 +31,7 @@
         var removeModuleFromColumnFunction;
 
         function applySortable($scope, $element, model, column) {
-            var el = $element[0].childNodes[0];
+            var el = $element[0].childNodes[1];
             var sortable = Sortable.create(el, {
                 group: 'modules',
                 handle: '.adf-move',
