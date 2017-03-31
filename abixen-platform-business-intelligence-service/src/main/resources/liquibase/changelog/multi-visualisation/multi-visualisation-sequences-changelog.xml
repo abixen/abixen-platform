@@ -12,9 +12,9 @@
         <createSequence sequenceName="data_set_seq" startValue="13"/>
         <createSequence sequenceName="data_set_series_column_seq" startValue="36"/>
         <createSequence sequenceName="data_set_series_seq" startValue="24"/>
-        <createSequence sequenceName="data_source_column_seq" startValue="11"/>
+        <createSequence sequenceName="data_source_column_seq" startValue="18"/>
         <createSequence sequenceName="data_source_column_file_seq" startValue="1"/>
-        <createSequence sequenceName="data_source_seq" startValue="3"/>
+        <createSequence sequenceName="data_source_seq" startValue="4"/>
         <createSequence sequenceName="data_source_row_seq" startValue="1"/>
         <createSequence sequenceName="data_column_seq" startValue="1"/>
         <createSequence sequenceName="data_file_seq" startValue="1"/>
