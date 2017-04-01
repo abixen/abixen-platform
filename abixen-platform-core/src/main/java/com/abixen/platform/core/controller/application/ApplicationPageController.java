@@ -22,7 +22,6 @@ import com.abixen.platform.core.service.LayoutService;
 import com.abixen.platform.core.service.PageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +47,6 @@ public class ApplicationPageController extends AbstractPageController {
         this.pageToPageDtoConverter = pageToPageDtoConverter;
     }
 
-    @Cacheable(value = "APPLICATION_PAGES")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<PageDto> getPages() {
         log.debug("getPages()");

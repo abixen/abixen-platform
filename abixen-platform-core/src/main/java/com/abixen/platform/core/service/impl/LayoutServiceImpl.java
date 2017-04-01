@@ -14,15 +14,15 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.form.LayoutForm;
 import com.abixen.platform.core.form.LayoutSearchForm;
-import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.LayoutRepository;
-import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.service.LayoutService;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
@@ -36,7 +36,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -74,7 +73,6 @@ public class LayoutServiceImpl implements LayoutService {
         this.layoutRepository = layoutRepository;
     }
 
-    @CacheEvict(value = "APPLICATION_LAYOUTS", allEntries = true)
     @PreAuthorize("hasPermission('" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_ADD + "')")
     @Override
     public Layout createLayout(Layout layout) {
@@ -82,7 +80,6 @@ public class LayoutServiceImpl implements LayoutService {
         return layoutRepository.save(layout);
     }
 
-    @CacheEvict(value = "APPLICATION_LAYOUTS", allEntries = true)
     @PreAuthorize("hasPermission(#layout.id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_EDIT + "')")
     @Override
     public Layout updateLayout(Layout layout) {
@@ -90,7 +87,6 @@ public class LayoutServiceImpl implements LayoutService {
         return layoutRepository.save(layout);
     }
 
-    @CacheEvict(value = "APPLICATION_LAYOUTS", allEntries = true)
     @PreAuthorize("hasPermission(#layoutForm.id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_EDIT + "')")
     @Override
     public LayoutForm updateLayout(LayoutForm layoutForm) {
@@ -102,7 +98,6 @@ public class LayoutServiceImpl implements LayoutService {
         return new LayoutForm(updateLayout(layout));
     }
 
-    @CacheEvict(value = "APPLICATION_LAYOUTS", allEntries = true)
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_DELETE + "')")
     @Override
     public void deleteLayout(Long id) {
@@ -159,7 +154,6 @@ public class LayoutServiceImpl implements LayoutService {
         return layoutRepository.findOne(id);
     }
 
-    @CacheEvict(value = "APPLICATION_LAYOUTS", allEntries = true)
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.LAYOUT + "', '" + PermissionName.Values.LAYOUT_EDIT + "')")
     @Override
     public Layout changeIcon(Long id, MultipartFile iconFile) throws IOException {
