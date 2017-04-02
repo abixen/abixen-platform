@@ -3,6 +3,8 @@ role_id;permission_id
 1;2
 1;8
 1;9
+#Allows to view layouts
+1;13
 #Allows to view a module type on the available modules list.
 1;18
 #Allows to view module comments
