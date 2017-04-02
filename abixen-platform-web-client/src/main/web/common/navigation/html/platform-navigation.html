@@ -60,7 +60,7 @@
                                         My Account
                                     </a>
                                 </li>
-                                <li class="link">
+                                <li class="link" ng-if="navigation.platformUser.admin">
                                     <a ng-click="navigation.redirectAction.onClick()">
                                         {{navigation.redirectAction.title}}
                                     </a>
