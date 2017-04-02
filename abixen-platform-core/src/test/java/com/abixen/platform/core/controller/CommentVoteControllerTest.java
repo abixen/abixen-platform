@@ -17,6 +17,7 @@ package com.abixen.platform.core.controller;
 import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.dto.CommentDto;
 import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.core.dto.CommentVoteDto;
 import com.abixen.platform.core.form.CommentVoteForm;
 import com.abixen.platform.common.model.enumtype.CommentVoteType;
 import com.abixen.platform.core.service.CommentVoteService;
@@ -80,10 +81,10 @@ public class CommentVoteControllerTest {
         CommentDto savedComment = new CommentDto();
         savedComment.setId(10L);
         savedComment.setMessage("Test Comment Parent");
-        CommentVoteForm savedCommentVoteForm = new CommentVoteForm();
-        savedCommentVoteForm.setCommentId(savedComment.getId());
-        savedCommentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
-        savedCommentVoteForm.setId(10L);
+        CommentVoteDto savedCommentVoteDto = new CommentVoteDto();
+        savedCommentVoteDto.setCommentId(savedComment.getId());
+        savedCommentVoteDto.setCommentVoteType(CommentVoteType.POSITIVE);
+        savedCommentVoteDto.setId(10L);
 
         CommentDto inputComment = new CommentDto();
         inputComment.setMessage("Test Comment Parent");
@@ -91,7 +92,7 @@ public class CommentVoteControllerTest {
         inputCommentVoteForm.setCommentId(inputComment.getId());
         inputCommentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
 
-        when(commentVoteService.saveCommentVote(any(CommentVoteForm.class))).thenReturn(savedCommentVoteForm);
+        when(commentVoteService.saveCommentVote(any(CommentVoteForm.class))).thenReturn(savedCommentVoteDto);
 
         MvcResult commentsResponse = this.mockMvc.perform(post("/api/comment-votes/")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -102,11 +103,8 @@ public class CommentVoteControllerTest {
                 .andReturn();
         JSONObject jsonObject = new JSONObject(commentsResponse.getResponse().getContentAsString());
 
-        CommentVoteForm resForm = mapper.readValue(jsonObject.get("form").toString(), CommentVoteForm.class);
-        List<FormErrorDto> validErrors = mapper.readValue(jsonObject.get("formErrors").toString(),
-                mapper.getTypeFactory().constructCollectionType(ArrayList.class, FormErrorDto.class));
+        CommentVoteDto resForm = mapper.readValue(jsonObject.toString(), CommentVoteDto.class);
         assertNotNull(resForm);
-        assertTrue(validErrors.isEmpty());
         assertTrue(resForm.getId() == 10);
     }
 

@@ -17,16 +17,14 @@ package com.abixen.platform.core.controller;
 
 import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.CommentVoteDto;
 import com.abixen.platform.core.form.CommentVoteForm;
 import com.abixen.platform.core.service.CommentVoteService;
 import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -40,15 +38,12 @@ public class CommentVoteController {
     private CommentVoteService commentVoteService;
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto createCommentVote(@RequestBody @Valid CommentVoteForm commentVoteForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(commentVoteForm, formErrors);
-        }
-        CommentVoteForm savedForm = commentVoteService.saveCommentVote(commentVoteForm);
-        return new FormValidationResultDto(savedForm);
+    public CommentVoteDto createCommentVote(@RequestBody @Valid CommentVoteForm commentVoteForm) {
+        CommentVoteDto savedVoteDto = commentVoteService.saveCommentVote(commentVoteForm);
+        return savedVoteDto;
     }
 
+    //FixME not sure we really need this method
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateCommentVote(@RequestBody @Valid CommentVoteForm commentVoteForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -59,5 +54,10 @@ public class CommentVoteController {
         return new FormValidationResultDto(updatedForm);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteCommentVote(@PathVariable("id") Long id) {
+        commentVoteService.deleteById(id);
+        return;
+    }
 
 }

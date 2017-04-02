@@ -74,9 +74,12 @@
         comment.deleteComment = deleteComment;
         comment.vote = vote;
         comment.unvote = unvote;
+        comment.rejectVote = rejectVote;
         comment.canEdit = canEdit();
         comment.avatarFullPath = getAvatarFullPath();
         comment.canVote = true;
+        comment.canRejectVote = false;
+        comment.canRejectUnvote = false;
         prepareVotes();
         changeMomentLocale();
         checkForVote();
@@ -106,6 +109,11 @@
                 angular.forEach(comment.commentItem.voteDtos, function (value, key) {
                     if (angular.isDefined(comment.commentItem.voteDtos) && value.createdBy.id === platformSecurity.getPlatformUser().id) {
                         comment.canVote = false;
+                        if (value.commentVoteType === 'POSITIVE') {
+                            comment.canRejectVote = true;
+                        } else {
+                            comment.canRejectUnvote = true;
+                        }
                     }
                 });
             }
@@ -204,15 +212,14 @@
             CommentVote.save(newVote)
                 .$promise.then(function (data) {
                     if (angular.isUndefined(comment.commentItem.voteDtos) || comment.commentItem.voteDtos === null) {
-                        comment.commentItem.voteDtos = [data.form];
+                        comment.commentItem.voteDtos = [data];
                     } else {
-                        comment.commentItem.voteDtos.push(data.form);
+                        comment.commentItem.voteDtos.push(data);
                     }
                     comment.commentItem.votePos = comment.commentItem.votePos + 1;
                     comment.canVote = false;
+                    comment.canRejectVote = true;
             });
-
-
         }
 
         function unvote(commentItem) {
@@ -221,12 +228,36 @@
             CommentVote.save(newVote)
                 .$promise.then(function (data) {
                     if (angular.isUndefined(comment.commentItem.voteDtos) || comment.commentItem.voteDtos === null) {
-                        comment.commentItem.voteDtos = [data.form];
+                        comment.commentItem.voteDtos = [data];
                     } else {
-                        comment.commentItem.voteDtos.push(data.form);
+                        comment.commentItem.voteDtos.push(data);
                     }
                     comment.commentItem.voteNeg = comment.commentItem.voteNeg + 1;
                     comment.canVote = false;
+                    comment.canRejectUnvote = true;
+            });
+        }
+
+        function rejectVote(commentItem) {
+            $log.info('rejectVote comment with id ' + commentItem.id);
+            angular.forEach(comment.commentItem.voteDtos, function (value, key) {
+                if (value.createdBy.id === platformSecurity.getPlatformUser().id) {
+                    CommentVote.delete(value)
+                        .$promise.then(function (data) {
+
+                        var index = comment.commentItem.voteDtos.indexOf(value);
+                        comment.commentItem.voteDtos.splice(index, 1);
+
+                        if (value.commentVoteType === 'POSITIVE') {
+                            comment.commentItem.votePos = comment.commentItem.votePos - 1;
+                            comment.canRejectVote = false;
+                        } else {
+                            comment.commentItem.voteNeg = comment.commentItem.voteNeg - 1;
+                            comment.canRejectUnvote = false;
+                        }
+                        comment.canVote = true;
+                    });
+                }
             });
         }
 
