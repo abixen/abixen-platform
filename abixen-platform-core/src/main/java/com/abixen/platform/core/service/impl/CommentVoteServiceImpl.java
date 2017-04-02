@@ -48,14 +48,13 @@ public class CommentVoteServiceImpl implements CommentVoteService {
     }
 
     @Override
-    public CommentVoteForm saveCommentVote(CommentVoteForm commentVoteForm) {
+    public CommentVoteDto saveCommentVote(CommentVoteForm commentVoteForm) {
         log.debug("saveCommentVote() - commentVoteForm={}", commentVoteForm);
         CommentVote commentVote = buildCommentVote(commentVoteForm);
         CommentVote savedCommentVote = commentVoteRepository.save(commentVote);
 
         CommentVoteDto savedCommentVoteDto = commentVoteToCommentVoteDtoConverter.convert(savedCommentVote);
-
-        return new CommentVoteForm(savedCommentVoteDto);
+        return savedCommentVoteDto;
     }
 
     @Override
@@ -66,6 +65,13 @@ public class CommentVoteServiceImpl implements CommentVoteService {
         //FIXME
         CommentVote updatedComment = commentVoteRepository.save(commentVote);
         return commentVoteForm;
+    }
+
+    @Override
+    public void deleteById(Long voteId) {
+        log.debug("deleteById() - voteId = {}", voteId);
+        commentVoteRepository.delete(voteId);
+        return;
     }
 
     @Override

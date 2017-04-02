@@ -34,15 +34,31 @@
             <a ng-if="comment.canVote" title="Like"
                ng-click="comment.vote(comment.commentItem)" style="cursor: pointer">
                 <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;<span class="badge">{{comment.commentItem.votePos}}</span></a>
-            <a ng-if="!comment.canVote" title="You already voted this comment">
-                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;<span class="badge">{{comment.commentItem.votePos}}</span></a> &nbsp;&nbsp;
+
+            <a ng-if="!comment.canVote && comment.canRejectVote" title="You already voted this comment, would You like to reject your vote?"
+               ng-click="comment.rejectVote(comment.commentItem)" style="cursor: pointer">
+                <i ng-if="comment.canRejectVote" class="fa fa-times" aria-hidden="true"></i>
+                <i ng-if="!comment.canRejectVote" class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                <span class="badge">{{comment.commentItem.votePos}}</span></a>
+            <a ng-if="!comment.canVote && !comment.canRejectVote" title="You already voted this comment, would You like to reject your vote?">
+                <i ng-if="comment.canRejectVote" class="fa fa-times" aria-hidden="true"></i>
+                <i ng-if="!comment.canRejectVote" class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                <span class="badge">{{comment.commentItem.votePos}}</span></a> &nbsp;&nbsp;
         </div>
         <div style="display: inline">
             <a ng-if="comment.canVote" title="Dislike"
                ng-click="comment.unvote(comment.commentItem)" style="cursor: pointer">
                 <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>&nbsp;<span class="badge">{{comment.commentItem.voteNeg}}</span></a>
-            <a ng-if="!comment.canVote" title="You already voted this comment">
-                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>&nbsp;<span class="badge">{{comment.commentItem.voteNeg}}</span></a>
+
+            <a ng-if="!comment.canVote && comment.canRejectUnvote" title="You already voted this comment, would You like to reject your vote?"
+               ng-click="comment.rejectVote(comment.commentItem)" style="cursor: pointer">
+                <i ng-if="comment.canRejectUnvote" class="fa fa-times" aria-hidden="true"></i>
+                <i ng-if="!comment.canRejectUnvote" class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                <span class="badge">{{comment.commentItem.voteNeg}}</span></a>
+            <a ng-if="!comment.canVote && !comment.canRejectUnvote" title="You already voted this comment, would You like to reject your vote?">
+                <i ng-if="comment.canRejectUnvote" class="fa fa-times" aria-hidden="true"></i>
+                <i ng-if="!comment.canRejectUnvote" class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                <span class="badge">{{comment.commentItem.voteNeg}}</span></a>
         </div>
     </ul>
 
