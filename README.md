@@ -48,15 +48,22 @@ We are going to release the first version at the turn of April and May 2017.
 ## Version 1.1
 We are going to finish Web Content microservice in 1.1 version. 
 Also add a support to loading data in Business Intelligence microservice from MongoDB.
-Very important for us is a feedback from Abixen Platform's Community. 
+Very important for us is a feedback from the Abixen Platform's Community. 
 That's why we would like to improve the application having remarks based on the first version.
 The release is planned in June 2017.
 
 ## Version 1.2
 This version will bring support for Angular 2. 
-Developers will get an opportunity to develop their custom functional microservices using Angular 2.
+Developers will get an opportunity to develop their custom functional microservices using Angular 2. 
 Also next part of improvements and bug fixes.
 The release is planned for the Q3 2017.
+
+## Version 1.3
+The plan for the 1.3 version is an empower of custom permissions creation for microservices. 
+The release is planned for the Q3 2017.
+
+## Next version
+All depends on the Community feedback and needs.
 
 # Get it started
 The documentation is available under https://github.com/abixen/abixen-platform/wiki page.
