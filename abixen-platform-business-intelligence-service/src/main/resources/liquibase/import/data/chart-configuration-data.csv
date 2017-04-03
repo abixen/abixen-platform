@@ -3,7 +3,7 @@ id;module_id;axis_x_name;axis_y_name;chart_type;data_set_chart_id;data_source_id
 2;4;Axis X; Axis Y;PIE;2;1;1;2;Null;Null
 3;5;Date; Sales;CUMULATIVE_LINE;3;1;1;2;Null;Null
 4;6;Axis X; Axis Y;STACKED_AREA;4;1;1;2;Null;Null
-5;7;Axis X; Axis Y;MULTI_COLUMN;5;1;1;2;Null;Null
+5;7;Axis X; Axis Y;MULTI_COLUMN;5;3;1;2;Null;Null
 6;8;Axis X; Axis Y;DISCRETE_COLUMN;6;1;1;2;Null;Null
 7;9;Axis X; Axis Y;HISTORICAL_COLUMN;7;1;1;2;Null;Null
 8;10;Axis X; Axis Y;MULTI_BAR;8;1;1;2;Null;Null

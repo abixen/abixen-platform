@@ -15,4 +15,4 @@ id;name;data_value_type;position;data_source_id
 14;evening;DOUBLE;4;3
 15;midnight;DOUBLE;5;3
 16;night;DOUBLE;6;3
-17;date;DATE;7;3
+17;sales_day;DATE;7;3

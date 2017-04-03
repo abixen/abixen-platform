@@ -5,8 +5,8 @@ id;name;data_set_id;value_column_id
 4; Series 1;3;7
 5; Series 1;4;9
 6; Series 1;4;10
-7; Series 1;5;12
-8; Series 1;5;13
+7; Morning;5;12
+8; Noon;5;13
 9; Series 1;6;15
 10; Series 1;6;16
 11; Series 1;7;18
@@ -22,3 +22,6 @@ id;name;data_set_id;value_column_id
 21; Series 1;12;33
 22; Series 1;12;34
 23; Series 1;12;35
+24; Afternoon;5;36
+25; Evening;5;37
+26; Midnight;5;38
