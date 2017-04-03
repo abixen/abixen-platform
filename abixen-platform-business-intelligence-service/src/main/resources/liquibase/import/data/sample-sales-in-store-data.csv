@@ -1,4 +1,4 @@
-id;morning;noon;afternoon;evening;midnight;night;date
+id;morning;noon;afternoon;evening;midnight;night;sales_day
 1;800;600;1000;1200;400;200;2013-11-20
 2;900;700;1100;1300;500;200;2013-11-21
 3;500;400;800;900;100;200;2013-11-21

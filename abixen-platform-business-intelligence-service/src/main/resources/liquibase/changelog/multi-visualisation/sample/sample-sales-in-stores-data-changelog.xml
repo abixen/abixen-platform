@@ -17,7 +17,7 @@
             <column name="evening" type="double"/>
             <column name="midnight" type="double"/>
             <column name="night" type="double"/>
-            <column name="date" type="date"/>
+            <column name="sales_day" type="date"/>
 
         </createTable>
 
