@@ -1,2 +1,2 @@
 id;created_by_id;created_date;last_modified_by_id;last_modified_date;database_host;database_name;database_port;database_type;description;name;password;username
-1;NULL;NULL;NULL;NULL;business-intelligence-service-postgres-database;abixen_platform_businessintelligence_service;5432;POSTGRES;Connection to the postgres db; Sample connection to postgres db;fy2Lkxw201sV;abixen
+1;NULL;NULL;NULL;NULL;business-intelligence-service-postgres-database;abixen_platform_businessintelligence_service;5432;POSTGRES;Connection to the postgres db; Sample connection to postgres db;X1Ocah/n5NU60qEMYXZ0GQ==;abixen
