@@ -43,7 +43,9 @@
             {
                 entityId: null,
                 initEntity: {
-                    page: {},
+                    page: {
+                        icon: 'fa fa-file-text-o'
+                    },
                     dashboardModuleDtos: []
                 },
                 entitySubObject: 'page',
