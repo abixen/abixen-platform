@@ -162,6 +162,11 @@
             <artifactId>ojdbc6</artifactId>
             <version>12.1.0.1-atlassian-hosted</version>
         </dependency>
+        <dependency>
+            <groupId>com.microsoft</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>3.0</version>
+        </dependency>
 
         <!-- JSON utils -->
         <dependency>
@@ -349,6 +354,11 @@
         <repository>
             <id>oracle-jdbc</id>
             <url>https://maven.atlassian.com/3rdparty/</url>
+        </repository>
+        <repository>
+            <id>Clojars</id>
+            <name>Clojars Repository</name>
+            <url>http://clojars.org/repo/</url>
         </repository>
     </repositories>
 

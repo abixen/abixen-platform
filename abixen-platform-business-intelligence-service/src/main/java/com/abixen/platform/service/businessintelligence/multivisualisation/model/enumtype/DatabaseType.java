@@ -18,6 +18,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.mode
 public enum DatabaseType {
     POSTGRES,
     MYSQL,
+    MSSQL,
     ORACLE,
     H2
 }

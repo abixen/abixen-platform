@@ -280,6 +280,7 @@ public abstract class AbstractDatabaseService {
         databaseTypeOnApplicationType.put("BIGINT", DataValueType.INTEGER.getName());
         databaseTypeOnApplicationType.put("VARCHAR", DataValueType.STRING.getName());
         databaseTypeOnApplicationType.put("FLOAT8", DataValueType.DOUBLE.getName());
+        databaseTypeOnApplicationType.put("DECIMAL", DataValueType.DOUBLE.getName());
         return databaseTypeOnApplicationType;
     }
 
