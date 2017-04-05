@@ -41,6 +41,10 @@ public class DatabaseFactoryImpl implements DatabaseFactory {
     @Qualifier("databaseOracleService")
     private DatabaseService databaseOracleService;
 
+    @Autowired
+    @Qualifier("databaseMSSQLService")
+    private DatabaseService databaseMSSQLService;
+
     @Override
     public DatabaseService getDatabaseService(DatabaseType databaseType) {
         switch (databaseType) {
@@ -52,6 +56,8 @@ public class DatabaseFactoryImpl implements DatabaseFactory {
                 return databaseMySQLService;
             case ORACLE:
                 return databaseOracleService;
+            case MSSQL:
+                return databaseMSSQLService;
             default: throw new DatabaseConnectionException("Invalid database type");
         }
     }
