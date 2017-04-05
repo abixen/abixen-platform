@@ -12,9 +12,8 @@ id;name;type;data_source_column_id
 11;Axis X;0;17
 12;Axis Y;1;11
 13;Axis Y;2;12
-14;Axis X;0;5
-15;Axis Y;1;2
-16;Axis Y;2;3
+14;Axis X;0;18
+15;Axis Y;1;19
 17;Axis X;0;5
 18;Axis Y;1;2
 19;Axis Y;2;3

@@ -7,8 +7,7 @@ id;name;data_set_id;value_column_id
 6; Series 1;4;10
 7; Morning;5;12
 8; Noon;5;13
-9; Series 1;6;15
-10; Series 1;6;16
+9; Sales;6;15
 11; Series 1;7;18
 12; Series 1;7;19
 13; Series 1;8;21

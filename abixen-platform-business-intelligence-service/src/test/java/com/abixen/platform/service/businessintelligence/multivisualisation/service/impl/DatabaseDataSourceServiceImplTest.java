@@ -53,7 +53,7 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
- @Slf4j
+@Slf4j
 @Service
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -185,7 +185,7 @@ public class DatabaseDataSourceServiceImplTest {
     public void getDataSources() {
         Page<DatabaseDataSource> page = databaseDataSourceService.getDatabaseDataSources(null, new PageRequest(0, 10));
         assertTrue(page.getTotalElements() > 0);
-        assertEquals(page.getTotalElements(),5);
+        assertEquals(page.getTotalElements(),6);
     }
 
     /**
@@ -195,7 +195,7 @@ public class DatabaseDataSourceServiceImplTest {
     public void findAllDataSources()  {
         Page<DatabaseDataSource> page = databaseDataSourceService.findAllDataSources(new PageRequest(0, 10));
         assertTrue(page.getTotalElements() > 0);
-        assertEquals(page.getTotalElements(),5);
+        assertEquals(page.getTotalElements(),6);
     }
 
     /**

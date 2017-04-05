@@ -16,3 +16,5 @@ id;name;data_value_type;position;data_source_id
 15;midnight;DOUBLE;5;3
 16;night;DOUBLE;6;3
 17;sales_day;DATE;7;3
+18;group_;STRING;1;4
+19;value;DOUBLE;2;4
