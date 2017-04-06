@@ -104,6 +104,7 @@
                 $log.log('page updated');
                 $scope.pageModelDto = {page: data.form.page, dashboardModuleDtos: data.form.dashboardModuleDtos};
                 $scope.model = PageModelParser.updateModelModulesNullIds($scope.model, data.form.dashboardModuleDtos);
+                applicationNavigationItems.editSidebarItem($scope.pageModelDto.page.id, $scope.pageModelDto.page.title);
                 toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Updated', 'The page has been updated successfully.');
             })
         };
