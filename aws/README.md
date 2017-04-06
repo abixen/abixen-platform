@@ -2,7 +2,7 @@
 
 ![Abixen Platform on AWS cloud](../documentation-image/abixen-platform-on-aws.png "Abixen Platform on AWS cloud")
 
-Abixen Platform is fully compatible with AWS cloud and utilizez the following services:
+Abixen Platform is fully compatible with AWS cloud and utilizes the following services:
 
    * **EC2** - used as a base for hosts running docker in ECS Cluster
    * **ALB** - modern version of load balancer aligned with microservices architecture topology

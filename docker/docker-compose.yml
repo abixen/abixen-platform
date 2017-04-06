@@ -17,6 +17,9 @@ services:
     hostname: redis
     extends:
       service: base
+    labels:
+      com.abixen.service: "redis"
+      com.abixen.service.type: "utils"
 
   rabbitmq:
     image: rabbitmq:3.6.6-management
@@ -26,6 +29,9 @@ services:
       - "15672:15672"
     extends:
       service: base
+    labels:
+      com.abixen.service: "rabbitmq"
+      com.abixen.service.type: "utils"
 
   discovery:
     image: abixen/abixen-platform-eureka
@@ -34,6 +40,9 @@ services:
       - "8761:8761"
     extends:
       service: base
+    labels:
+      com.abixen.service: "eureka"
+      com.abixen.service.type: "utils"
 
   configuration:
     image: abixen/abixen-platform-configuration
@@ -42,6 +51,9 @@ services:
       - discovery
     extends:
       service: base
+    labels:
+      com.abixen.service: "configuration"
+      com.abixen.service.type: "abixen"
 
   gateway:
     image: abixen/abixen-platform-gateway
@@ -56,6 +68,9 @@ services:
       - zipkin
     extends:
       service: base
+    labels:
+      com.abixen.service: "gateway"
+      com.abixen.service.type: "abixen"
 
   business-intelligence-service:
     image: abixen/abixen-platform-business-intelligence-service
@@ -68,6 +83,9 @@ services:
       - zipkin
     extends:
       service: base
+    labels:
+      com.abixen.service: "business-intelligence"
+      com.abixen.service.type: "abixen"
 
   web-content-service:
     image: abixen/abixen-platform-web-content-service
@@ -80,6 +98,9 @@ services:
       - zipkin
     extends:
       service: base
+    labels:
+      com.abixen.service: "web-content"
+      com.abixen.service.type: "abixen"
 
   core:
     image: abixen/abixen-platform-core
@@ -95,6 +116,9 @@ services:
       - ../data/image-library:/data/image-library
     extends:
       service: base
+    labels:
+      com.abixen.service: "core"
+      com.abixen.service.type: "abixen"
 
   web-client:
     image: abixen/abixen-platform-web-client
@@ -105,15 +129,14 @@ services:
      - gateway
      - core
      - zipkin
-    labels:
-      - "traefik.port=8080"
-      - "traefik.frontend.rule=Host:local.platform.abixen.com"
-      - "traefik.backend.loadbalancer.sticky=true"
-    ports:
-      - "9010:9010"
-      - "18080:8080"
     extends:
       service: base
+    labels:
+      traefik.port: "8080"
+      traefik.frontend.rule: "Host:local.platform.abixen.com"
+      traefik.backend.loadbalancer.sticky: "true"
+      com.abixen.service: "web-client"
+      com.abixen.service.type: "abixen"
 
   hystrix-dashboard:
     image: abixen/abixen-platform-hystrix-dashboard
@@ -127,6 +150,9 @@ services:
      - web-content-service
     extends:
       service: base
+    labels:
+      com.abixen.service: "hystrix-dashboard"
+      com.abixen.service.type: "abixen"
 
   zipkin:
     image: abixen/abixen-platform-zipkin
@@ -138,6 +164,9 @@ services:
      - configuration
     extends:
       service: base
+    labels:
+      com.abixen.service: "zipkin"
+      com.abixen.service.type: "abixen"
 
   zipkin-web:
     image: abixen/zipkin-web
@@ -148,6 +177,9 @@ services:
      - zipkin
     extends:
       service: base
+    labels:
+      com.abixen.service: "zipkin-web"
+      com.abixen.service.type: "abixen"
 
   load-balancer:
     image: traefik:v1.1.2-alpine
@@ -162,11 +194,12 @@ services:
       - web-client
     extends:
       service: base
+    labels:
+      com.abixen.service: "loadbalancer"
+      com.abixen.service.type: "utils"
 
   core-postgres-database:
     image: postgres:9.4
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_PASSWORD: fy2Lkxw201sV
       POSTGRES_USER: abixen
@@ -175,11 +208,12 @@ services:
       - vol-core-db:/var/lib/postgresql/data
     extends:
       service: base
+    labels:
+      com.abixen.service: "db-core"
+      com.abixen.service.type: "db"
 
   business-intelligence-service-postgres-database:
     image: postgres:9.4
-    ports:
-      - "5433:5432"
     environment:
       POSTGRES_PASSWORD: fy2Lkxw201sV
       POSTGRES_USER: abixen
@@ -188,6 +222,9 @@ services:
       - vol-businessintelligence-db:/var/lib/postgresql/data
     extends:
       service: base
+    labels:
+      com.abixen.service: "db-business-intelligence"
+      com.abixen.service.type: "db"
 
   web-content-service-postgres-database:
     image: postgres:9.4
@@ -201,6 +238,9 @@ services:
       - vol-web-content-db:/var/lib/postgresql/data
     extends:
       service: base
+    labels:
+      com.abixen.service: "db-web-content"
+      com.abixen.service.type: "db"
 
 # Logging components
 
@@ -211,6 +251,9 @@ services:
       - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    labels:
+      com.abixen.service: "elasticsearch"
+      com.abixen.service.type: "logging"
 
   logstash:
     image: logstash:5.2-alpine
@@ -225,6 +268,9 @@ services:
       - ./logging/:/logging/
     depends_on:
       - elasticsearch
+    labels:
+      com.abixen.service: "logstash"
+      com.abixen.service.type: "logging"
 
   kibana:
     image: kibana:5.2
@@ -234,6 +280,9 @@ services:
       - elasticsearch
     environment:
       ELASTICSEARCH_URL: "http://elasticsearch:9200"
+    labels:
+      com.abixen.service: "kibana"
+      com.abixen.service.type: "logging"
 
 networks:
   default:

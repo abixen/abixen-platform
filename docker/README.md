@@ -48,3 +48,18 @@ Grafana is available at [http://localhost:3000](http://localhost:3000). Select *
   * Password: admin
 
 
+# Scaling
+
+Some services can be scaled to increase capacity to process load spikes. New service will register itself in Eureka service registry and be available for other components.
+The following list of components are compatible with scaling capability:
+
+  * gateway
+  * business-intelligence-service
+  * web-content-service 
+  * web-client
+
+In order to scale particular service you need to use *scale* command of docker-compose. E.g.
+
+```
+docker-compose scale web-client=2
+```
