@@ -43,7 +43,6 @@ public class PageToPageDtoConverter extends AbstractConverter<Page, PageDto> {
 
         pageDto
                 .setId(page.getId())
-                .setName(page.getName())
                 .setTitle(page.getTitle())
                 .setIcon(page.getIcon())
                 .setDescription(page.getDescription())

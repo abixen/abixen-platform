@@ -29,7 +29,6 @@ import java.io.Serializable;
 public class PageDto extends AuditingDto implements Serializable {
 
     private Long id;
-    private String name;
     private String title;
     private String icon;
     private String description;

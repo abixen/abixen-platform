@@ -120,7 +120,6 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
         }
 
         page.setDescription(pageConfigurationForm.getPage().getDescription());
-        page.setName(pageConfigurationForm.getPage().getName());
         page.setTitle(pageConfigurationForm.getPage().getTitle());
         page.setIcon(pageConfigurationForm.getPage().getIcon());
         page.setLayout(layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId()));
@@ -184,8 +183,6 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
         if (page.getDescription() == null && pageConfigurationForm.getPage().getDescription() != null) {
             validationFailed = true;
         } else if (page.getDescription() != null && !page.getDescription().equals(pageConfigurationForm.getPage().getDescription())) {
-            validationFailed = true;
-        } else if (!page.getName().equals(pageConfigurationForm.getPage().getName())) {
             validationFailed = true;
         } else if (!page.getTitle().equals(pageConfigurationForm.getPage().getTitle())) {
             validationFailed = true;

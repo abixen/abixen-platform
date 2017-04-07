@@ -30,9 +30,6 @@ public class Page extends AuditingModel implements PageBase<Layout>, SecurableMo
     @GeneratedValue(generator = "page_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "name", length = PAGE_NAME_MAX_LENGTH, nullable = false)
-    private String name;
-
     @Column(name = "title", length = PAGE_TITLE_MAX_LENGTH, nullable = false)
     private String title;
 
@@ -64,15 +61,6 @@ public class Page extends AuditingModel implements PageBase<Layout>, SecurableMo
     @Override
     public void setIcon(String icon) {
         this.icon = icon;
-    }
-
-    @Override
-    public String getName() {
-        return name; }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

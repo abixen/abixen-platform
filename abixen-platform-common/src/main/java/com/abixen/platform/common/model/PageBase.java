@@ -17,7 +17,6 @@ package com.abixen.platform.common.model;
 
 public interface PageBase<Layout extends LayoutBase> {
 
-    int PAGE_NAME_MAX_LENGTH = 40;
     int PAGE_TITLE_MAX_LENGTH = 40;
     int PAGE_ICON_MAX_LENGTH = 40;
     int PAGE_DESCRIPTION_MAX_LENGTH = 255;
@@ -26,10 +25,6 @@ public interface PageBase<Layout extends LayoutBase> {
     Long getId();
 
     void setId(Long id);
-
-    String getName();
-
-    void setName(String name);
 
     String getTitle();
 
