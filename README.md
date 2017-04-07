@@ -21,6 +21,21 @@ Mentioned serivces provide mainly visualisation functionalities, such as charts,
 However opportunities to develop data entry modules are still opened!
 ![Abixen Platform Microservices Architecture](documentation-image/abixen-platform-microservices-architecture.png "Abixen Platform Microservices Architecture")
 
+## AWS compatible
+Abixen Platform is fully compatible with AWS cloud and utilizes the following services:
+
+   * **EC2** - used as a base for hosts running docker in ECS Cluster
+   * **ALB** - modern version of load balancer aligned with microservices architecture topology
+   * **ECS** - container orchestrator and scheduler for all services running as docker containers
+   * **ECR** - private container registry for docker images
+   * **Route53** - allows to use internal dns names for communication between microservices
+   * **CloudWatch** - used as a central monitoring and logging
+   * **Elasticache** - used internally by Abixen Platform components
+   * **RDS** - database store for all components
+   * **SES** - used for email communication
+   
+![Abixen Platform AWS Deployment diagram](documentation-image/abixen-platform-on-aws.png "Abixen Platform AWS Deployment diagram")
+
 ## Logging and monitoring
 All containers from Abixen Platform send logs to [Elasticsearch](https://www.elastic.co) via [Logstash](https://www.elastic.co/products/logstash). You can use [Kibana's](https://www.elastic.co/products/kibana) interface as well.
 All metrics are exposed on each component with [Jolokia](http://jolokia.org) and fetched from there using [Telegraf](https://influxdata.com/telegraf-correlate-log-metrics-data-performance-bottlenecks/). They are sent to [InfluxDB](https://influxdata.com/) and are accessible on [Grafana](https://grafana.net) dashboards
