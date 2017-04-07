@@ -27,6 +27,8 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
+            'application.button.add': 'Dodaj',
+            'application.button.cancel': 'Anuluj',
             'application.button.addPage': 'Dodaj Stronę',
             'application.button.viewMode': 'Tryb Odczytu',
             'application.button.editMode': 'Tryb Edycji',
@@ -37,6 +39,8 @@
         });
 
         $translateProvider.translations('ENGLISH', {
+            'application.button.add': 'Add',
+            'application.button.cancel': 'Cancel',
             'application.button.addPage': 'Add Page',
             'application.button.viewMode': 'View Mode',
             'application.button.editMode': 'Edit Mode',
