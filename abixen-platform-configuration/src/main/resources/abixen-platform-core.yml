@@ -88,7 +88,7 @@ platform:
     jdbc:
       driverClassName: org.h2.Driver
       dialect: org.hibernate.dialect.H2Dialect
-      databaseUrl: jdbc:h2:file:../data/db/h2/abixen-platform-h2-db
+      databaseUrl: jdbc:h2:file:../data/db/h2/abixen-platform-core-h2-db
       username: sa
       password:
     mail:
