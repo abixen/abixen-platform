@@ -9,9 +9,13 @@ services:
       - "8099:8099"
     environment:
       INFLUXDB_DATA_ENGINE: tsm1
+    labels:
+      com.abixen.service: "influxdb"
+      com.abixen.service.type: "monitoring"
 
   telegraf:
-    image: telegraf:1.2-alpine
+    build:
+      context: telegraf/
     volumes:
       - ./conf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -20,6 +24,9 @@ services:
     depends_on:
       - influxdb
       - grafana
+    labels:
+      com.abixen.service: "telegraf"
+      com.abixen.service.type: "monitoring"
 
   grafana:
     image: grafana/grafana:4.1.1
@@ -31,6 +38,9 @@ services:
       GF_INSTALL_PLUGINS: grafana-piechart-panel,briangann-gauge-panel
       GF_AUTH_ANONYMOUS_ENABLED: 'true'
       GF_USERS_DEFAULT_THEME: 'light'
+    labels:
+      com.abixen.service: "grafana"
+      com.abixen.service.type: "monitoring"
 
   grafana-config:
     build: conf/
@@ -39,6 +49,10 @@ services:
       - ./conf/:/conf
     depends_on:
       - grafana
+    labels:
+      com.abixen.service: "grafana"
+      com.abixen.service.type: "monitoring"
+
 
 networks:
   default:
