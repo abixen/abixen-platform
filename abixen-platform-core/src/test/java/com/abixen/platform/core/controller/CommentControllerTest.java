@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.controller;
 
-import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.core.configuration.PlatformConfiguration;
 import com.abixen.platform.core.dto.ModuleCommentDto;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.model.impl.Comment;
@@ -29,7 +29,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -37,7 +36,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,9 +52,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
 public class CommentControllerTest {
-
-    @Autowired
-    private WebApplicationContext wac;
 
     private MockMvc mockMvc;
 
