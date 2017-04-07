@@ -78,7 +78,7 @@
             id: 1,
             styleClass: 'btn add-new-page-button',
             faIcon: 'fa fa-plus',
-            title: 'Add Page',
+            title: 'application.button.addPage',
             onClick: function () {
                 $aside.open({
                     placement: 'left',
@@ -112,7 +112,7 @@
 
         var editPageButton = {
             id: 1,
-            title: 'Edit page',
+            title: 'application.button.action.editPage',
             onClick: function () {
                 $scope.$broadcast(platformParameters.events.DASHBOARD_EDIT_DASHBOARD_EVENT);
             },
@@ -121,7 +121,7 @@
 
         var deletePageButton = {
             id: 2,
-            title: 'Delete Page',
+            title: 'application.button.action.deletePage',
             onClick: function () {
                 var deletePage = function () {
                     Page.delete({id: $state.params.id}, function (data) {
@@ -155,7 +155,7 @@
 
         var newModuleButton = {
             id: 4,
-            title: 'Add Module',
+            title: 'application.button.action.addModule',
             onClick: function () {
                 $scope.$broadcast(platformParameters.events.DASHBOARD_ADD_MODULE_EVENT);
             },
@@ -261,7 +261,7 @@
         $scope.$on(platformParameters.events.DASHBOARD_TOGGLE_EDIT_MODE_RESPONSE_EVENT, function (event, editMode) {
             $log.log('toggle edit mode invoked, editMode: ', editMode);
             $scope.editMode = editMode;
-            editModeButton.title = $scope.editMode ? 'View Mode' : 'Edit Mode';
+            editModeButton.title = $scope.editMode ? 'application.button.viewMode' : 'application.button.editMode';
         });
     }
 })();
