@@ -61,5 +61,17 @@
             'application.button.action.deletePage': 'Удалить Страницу',
             'application.button.action.addModule': 'Добавить Модуль'
         });
+
+        $translateProvider.translations('UKRAINIAN', {
+            'application.button.add': 'Додати',
+            'application.button.cancel': 'Відміна',
+            'application.button.addPage': 'Додати Сторінку',
+            'application.button.viewMode': 'Перегляд',
+            'application.button.editMode': 'Редагування',
+            'application.button.action': 'Дія',
+            'application.button.action.editPage': 'Редагувати Сторінку',
+            'application.button.action.deletePage': 'Видалити Сторінку',
+            'application.button.action.addModule': 'Додати Модуль'
+        });
     }
 })();
