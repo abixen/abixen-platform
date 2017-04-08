@@ -82,8 +82,7 @@ public class SecurityServiceImpl implements SecurityService {
             return true;
         }
 
-        //TODO - make sure if !=null condition is required
-        if (securableModel.getCreatedBy() != null && securableModel.getCreatedBy().equals(user)) {
+        if (securableModel.getCreatedBy() != null && securableModel.getCreatedBy().getId().equals(user.getId())) {
             List<AclEntry> ownerAclEntries = aclEntryRepository.findAll(permissionName, AclSidType.OWNER, 0L, AclClassName.getByName(securableModel.getClass().getCanonicalName()), securableModel.getId());
             if (ownerAclEntries.size() > 0) {
                 if (log.isDebugEnabled()) {
