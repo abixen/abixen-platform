@@ -27,11 +27,17 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
-            'dashboard.label.createNewModule': 'Utwórz nowy moduł'
+            'dashboard.label.createNewModule': 'Utwórz nowy moduł',
+            'dashboard.module.message.permissionDenied': 'Nie posiadasz uprawnień do tego modułu.',
+            'dashboard.module.message.temporarilyUnavailable': 'Moduł jest tymczasowo niedostępny.',
+            'dashboard.module.message.notConfigured': 'Moduł nie został jeszcze skonfigurowany.'
         });
 
         $translateProvider.translations('ENGLISH', {
-            'dashboard.label.createNewModule': 'Create new module'
+            'dashboard.label.createNewModule': 'Create new module',
+            'dashboard.module.message.permissionDenied': 'You have no permission to this module.',
+            'dashboard.module.message.temporarilyUnavailable': 'Module is temporarily unavailable.',
+            'dashboard.module.message.notConfigured': 'Module has not yet been configured.'
         });
     }
 })();
