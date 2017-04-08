@@ -14,6 +14,11 @@
                     <i class="fa fa-exclamation-triangle"></i>&nbsp;Module is temporary unavailable.
                 </div>
             </div>
+            <div ng-if="moduleState.configurationMissing" class="error-container">
+                <div class="error-message">
+                    <i class="fa fa-exclamation-triangle"></i>&nbsp;This module has not yet been configured.
+                </div>
+            </div>
             <module-content ng-if="!moduleState.permissionDenied" ng-show="!moduleState.chatShowing" model="definition" content="module"/>
             <comments module-id="definition.id" ng-if="moduleState.chatShowing"></comments>
         </div>

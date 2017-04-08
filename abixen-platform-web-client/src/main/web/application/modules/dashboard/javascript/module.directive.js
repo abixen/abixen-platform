@@ -62,6 +62,7 @@
                         $scope.moduleState.isCollapsed = false;
                         $scope.moduleState.isLoading = false;
                         $scope.moduleState.permissionDenied = false;
+                        $scope.moduleState.configurationMissing = false;
                         $scope.moduleState.chatShowing = false;
                     }
                 } else {
@@ -141,6 +142,9 @@
                 });
                 $scope.$on(platformParameters.events.SHOW_PERMISSION_DENIED_TO_MODULE, function () {
                     $scope.moduleState.permissionDenied = true;
+                });
+                $scope.$on(platformParameters.events.SHOW_MODULE_CONFIGURATION_MISSING, function () {
+                    $scope.moduleState.configurationMissing = true;
                 });
                 $scope.$on(platformParameters.events.SHOW_EXIT_CONFIGURATION_MODE_ICON, function () {
                     $scope.moduleState.configurationMode = true;

@@ -52,6 +52,12 @@
         }
 
         function onGetResult(moduleConfiguration) {
+            if(!moduleConfiguration.id){
+                $scope.$emit(platformParameters.events.STOP_REQUEST);
+                $scope.$emit(platformParameters.events.MODULE_CONFIGURATION_MISSING);
+                return;
+            }
+
             if (moduleConfiguration.chartType === 'TABLE') {
                 $scope.$emit(SHOW_SUBVIEW_TABLE_EVENT);
             } else {
