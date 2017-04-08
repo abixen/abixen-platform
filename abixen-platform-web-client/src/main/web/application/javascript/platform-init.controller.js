@@ -96,7 +96,7 @@
             id: 2,
             styleClass: 'btn edit-mode-button',
             faIcon: 'fa fa-pencil-square-o',
-            title: 'Edit Mode',
+            title: 'application.button.editMode',
             onClick: function () {
                 $scope.$broadcast(platformParameters.events.DASHBOARD_TOGGLE_EDIT_MODE_EVENT);
                 editPageButton.visible = !editPageButton.visible;
