@@ -229,7 +229,7 @@
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $scope.editMode = false;
-            editModeButton.title = 'Edit Mode';
+            editModeButton.title = 'application.button.editMode';
             if (toState.name == 'application.welcome') {
                 editModeButton.visible = false;
             } else if (toState.name == 'application.page') {
