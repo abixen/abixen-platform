@@ -48,9 +48,8 @@
         function getTableColumns() {
             return [
                 {field: 'id', name: 'Id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
-                {field: 'name', name: 'Name', pinnedLeft: true, width: 200},
-                {field: 'title', name: 'Title', pinnedLeft: true, width: 200},
-                {field: 'description', name: 'Description', pinnedLeft: true, width: 200}
+                {field: 'title', name: 'Title', width: 200},
+                {field: 'description', name: 'Description', width: 200}
             ].concat(getAuditingTableColumns());
         }
 
