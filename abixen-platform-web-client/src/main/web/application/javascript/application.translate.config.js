@@ -49,5 +49,29 @@
             'application.button.action.deletePage': 'Delete Page',
             'application.button.action.addModule': 'Add Module'
         });
+
+        $translateProvider.translations('RUSSIAN', {
+            'application.button.add': 'Добавить',
+            'application.button.cancel': 'Отмена',
+            'application.button.addPage': 'Добавить Страницу',
+            'application.button.viewMode': 'Просмотр',
+            'application.button.editMode': 'Редактирование',
+            'application.button.action': 'Действие',
+            'application.button.action.editPage': 'Редактировать Страницу',
+            'application.button.action.deletePage': 'Удалить Страницу',
+            'application.button.action.addModule': 'Добавить Модуль'
+        });
+
+        $translateProvider.translations('UKRAINIAN', {
+            'application.button.add': 'Додати',
+            'application.button.cancel': 'Відміна',
+            'application.button.addPage': 'Додати Сторінку',
+            'application.button.viewMode': 'Перегляд',
+            'application.button.editMode': 'Редагування',
+            'application.button.action': 'Дія',
+            'application.button.action.editPage': 'Редагувати Сторінку',
+            'application.button.action.deletePage': 'Видалити Сторінку',
+            'application.button.action.addModule': 'Додати Модуль'
+        });
     }
 })();
