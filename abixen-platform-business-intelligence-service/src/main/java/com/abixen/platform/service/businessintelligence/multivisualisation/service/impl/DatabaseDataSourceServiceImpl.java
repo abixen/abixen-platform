@@ -177,6 +177,11 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
     }
 
     @Override
+    public void delateDataBaseDataSource(Long id) {
+        databaseDataSourceRepository.delete(id);
+    }
+
+    @Override
     public List<Map<String, DataValueWeb>> getPreviewData(DatabaseDataSourceForm databaseDataSourceForm) {
         DatabaseConnection databaseConnection = databaseConnectionService.findDatabaseConnection(databaseDataSourceForm.getDatabaseConnection().getId());
         DatabaseService databaseService = databaseFactory.getDatabaseService(databaseDataSourceForm.getDatabaseConnection().getDatabaseType());

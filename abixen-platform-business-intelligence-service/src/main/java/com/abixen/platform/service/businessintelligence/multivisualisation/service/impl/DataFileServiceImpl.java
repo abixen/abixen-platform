@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
+import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
@@ -21,10 +22,12 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.model
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueDouble;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueInteger;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueString;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataFileRepository;
+import com.abixen.platform.service.businessintelligence.multivisualisation.repository.FileDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataFileService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DomainBuilderService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileParserService;
@@ -46,12 +49,15 @@ public class DataFileServiceImpl implements DataFileService {
 
     private DataFileRepository dataFileRepository;
 
+    private FileDataSourceRepository fileDataSourceRepository;
+
     private DomainBuilderService domainBuilderService;
 
     private FileParserFactory fileParserFactory;
 
     @Autowired
-    public DataFileServiceImpl(FileParserFactory fileParserFactory, DomainBuilderService domainBuilderService, DataFileRepository dataFileRepository) {
+    public DataFileServiceImpl(FileDataSourceRepository fileDataSourceRepository, FileParserFactory fileParserFactory, DomainBuilderService domainBuilderService, DataFileRepository dataFileRepository) {
+        this.fileDataSourceRepository = fileDataSourceRepository;
         this.domainBuilderService = domainBuilderService;
         this.fileParserFactory = fileParserFactory;
         this.dataFileRepository = dataFileRepository;
@@ -161,6 +167,15 @@ public class DataFileServiceImpl implements DataFileService {
         return dataFileRepository.findOne(id);
     }
 
+    @Override
+    public void delateFileData(Long id) {
+        List<FileDataSource> relatedFileDataSources = fileDataSourceRepository.findByDataFile(dataFileRepository.getOne(id));
+        if (relatedFileDataSources.isEmpty()) {
+            dataFileRepository.delete(id);
+        } else {
+            throw new PlatformRuntimeException("You need to remove all data sources related to this data file");
+        }
+    }
 
     @Override
     public List<Map<String, Integer>> getAllColumns(Long dataFileId) {

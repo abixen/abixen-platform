@@ -49,5 +49,7 @@ public interface DataFileService {
 
     DataFile findDataFile(Long id);
 
+    void delateFileData(Long id);
+
     FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile fileToParse);
 }

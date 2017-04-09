@@ -15,10 +15,15 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.repository;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 
 public interface FileDataSourceRepository extends JpaRepository<FileDataSource, Long> {
 
     FileDataSource findByName(String name);
+
+    List<FileDataSource> findByDataFile(DataFile dataFile);
 }

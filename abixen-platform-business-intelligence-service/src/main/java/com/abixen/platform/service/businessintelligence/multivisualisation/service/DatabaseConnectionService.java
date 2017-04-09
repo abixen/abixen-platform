@@ -29,6 +29,8 @@ public interface DatabaseConnectionService {
 
     DatabaseConnection findDatabaseConnection(Long id);
 
+    void deleteDatabaseConnection(Long id);
+
     DatabaseConnection buildDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
 
     DatabaseConnectionForm createDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);

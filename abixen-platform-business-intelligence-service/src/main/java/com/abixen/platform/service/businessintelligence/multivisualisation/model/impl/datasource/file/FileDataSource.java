@@ -38,7 +38,7 @@ public class FileDataSource extends DataSource implements FileDataSourceWeb, Ser
     @Valid
     private DataFile dataFile;
 
-    @OneToMany(mappedBy = "fileDataSource", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "fileDataSource", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FileDataSourceRow> rows = new HashSet<>();
 
     @Override

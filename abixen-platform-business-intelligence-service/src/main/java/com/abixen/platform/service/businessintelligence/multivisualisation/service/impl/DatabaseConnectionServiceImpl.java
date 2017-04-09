@@ -53,6 +53,11 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     }
 
     @Override
+    public void deleteDatabaseConnection(Long id) {
+        dataSourceConnectionRepository.delete(id);
+    }
+
+    @Override
     public DatabaseConnection buildDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
         log.debug("buildDatabaseConnection() - databaseConnectionForm: " + databaseConnectionForm);
 
