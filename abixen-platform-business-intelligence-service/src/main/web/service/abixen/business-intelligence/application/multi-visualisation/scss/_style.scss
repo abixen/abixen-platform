@@ -147,6 +147,15 @@
       display: block;
     }
 
+    input-date {
+      .form-group {
+        .input-group {
+          width: 70%;
+          table-layout: fixed;
+        }
+      }
+    }
+
     .axis-x-filter {
       div {
         padding-left: 0;
