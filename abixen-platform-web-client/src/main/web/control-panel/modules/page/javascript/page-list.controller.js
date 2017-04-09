@@ -54,19 +54,7 @@
         }
 
         function updateNavigation() {
-            var addPageButton = {
-                id: 1,
-                styleClass: 'btn add-new-object-button',
-                faIcon: 'fa fa-plus',
-                title: 'Add Page',
-                onClick: function () {
-                    $state.go('application.pages.add');
-                },
-                visible: true,
-                disabled: false
-            };
-
-            applicationNavigationItems.setTopbarItem(addPageButton);
+            applicationNavigationItems.clearTopbarItems();
         }
 
         function createSearchFields() {
