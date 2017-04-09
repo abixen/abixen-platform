@@ -185,7 +185,7 @@ public class DatabaseDataSourceServiceImplTest {
     public void getDataSources() {
         Page<DatabaseDataSource> page = databaseDataSourceService.getDatabaseDataSources(null, new PageRequest(0, 10));
         assertTrue(page.getTotalElements() > 0);
-        assertEquals(page.getTotalElements(),6);
+        assertEquals(page.getTotalElements(),7);
     }
 
     /**
@@ -195,7 +195,7 @@ public class DatabaseDataSourceServiceImplTest {
     public void findAllDataSources()  {
         Page<DatabaseDataSource> page = databaseDataSourceService.findAllDataSources(new PageRequest(0, 10));
         assertTrue(page.getTotalElements() > 0);
-        assertEquals(page.getTotalElements(),6);
+        assertEquals(page.getTotalElements(),7);
     }
 
     /**

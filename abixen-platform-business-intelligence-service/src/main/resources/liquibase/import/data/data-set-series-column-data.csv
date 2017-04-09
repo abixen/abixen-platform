@@ -6,9 +6,9 @@ id;name;type;data_source_column_id
 5;Axis X;0;5
 6;Axis Y;1;2
 7;Axis Y;2;3
-8;Axis X;0;5
-9;Axis Y;1;2
-10;Axis Y;2;3
+8;Axis X;0;26
+9;Axis Y;1;20
+10;Axis Y;2;21
 11;Axis X;0;17
 12;Axis Y;1;11
 13;Axis Y;2;12
@@ -38,3 +38,7 @@ id;name;type;data_source_column_id
 38;Axis Y;2;15
 39;Axis Y;2;13
 40;Axis Y;2;15
+41;Axis Y;2;22
+42;Axis Y;2;23
+43;Axis Y;2;24
+44;Axis Y;2;25

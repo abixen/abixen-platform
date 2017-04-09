@@ -3,3 +3,4 @@ id;created_by_id;created_date;last_modified_by_id;last_modified_date;type;descri
 2;NULL;NULL;NULL;NULL;DB;For the presentation of sample cash flow data;{"group": {"operator": "AND","rules": []}};Cash flow DS sample
 3;NULL;NULL;NULL;NULL;DB;For the presentation of sample sales in stores data;{"group": {"operator": "AND","rules": []}};Sales in store data DS sample
 4;NULL;NULL;NULL;NULL;DB;For the presentation of sample visualisation data;{"group": {"operator": "AND","rules": []}};Visualisation data sample
+5;NULL;NULL;NULL;NULL;DB;For the presentation of sample sales in stores global data;{"group": {"operator": "AND","rules": []}};Sales in store global data DS sample
