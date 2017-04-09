@@ -1,7 +1,7 @@
 <div class="wizard-chart-configuration-preview" ng-controller="ChartModulePreviewController as chartModulePreview">
     <div class="chart-module-preview-type-switch">
-        <i class="fa fa fa-line-chart" aria-hidden="true" ng-if="chartModulePreview.previewType == 'TABLE'" ng-click="chartModulePreview.setPreviewType('CHART')"></i>
-        <i class="fa fa-table" aria-hidden="true" ng-if="chartModulePreview.previewType == 'CHART'" ng-click="chartModulePreview.setPreviewType('TABLE')"></i>
+        <i class="fa fa fa-line-chart" aria-hidden="true" ng-if="chartModulePreview.previewType == 'TABLE' && chartModulePreview.isChartViewAvailable(chartModulePreview.scope.chartConfiguration.chartType)" ng-click="chartModulePreview.setPreviewType('CHART')"></i>
+        <i class="fa fa-table" aria-hidden="true" ng-if="chartModulePreview.previewType == 'CHART' && chartModulePreview.isTableViewAvailable(chartModulePreview.scope.chartConfiguration.chartType)" ng-click="chartModulePreview.setPreviewType('TABLE')"></i>
     </div>
     <div ng-switch="chartModulePreview.previewType">
         <div ng-switch-when="TABLE">

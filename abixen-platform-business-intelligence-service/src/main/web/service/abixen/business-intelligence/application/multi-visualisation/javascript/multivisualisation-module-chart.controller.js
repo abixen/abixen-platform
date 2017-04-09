@@ -26,10 +26,11 @@
         'ChartModuleConfiguration',
         'CharData',
         'dataChartAdapter',
-        'moduleResponseErrorHandler'
+        'moduleResponseErrorHandler',
+        'multivisualisationDisplayingDataRules'
     ];
 
-    function MultivisualisationModuleChartController($scope, $log, ChartModuleConfiguration, CharData, dataChartAdapter, moduleResponseErrorHandler) {
+    function MultivisualisationModuleChartController($scope, $log, ChartModuleConfiguration, CharData, dataChartAdapter, moduleResponseErrorHandler, multivisualisationDisplayingDataRules) {
         $log.log('MultivisualisationModuleController');
 
         $log.log('$scope.moduleId: ' + $scope.moduleId);
@@ -92,7 +93,7 @@
         }
 
         function registerSubviewChartIcons(chartType) {
-            if (isTableViewAvailable(chartType)) {
+            if (multivisualisationDisplayingDataRules.isTableViewAvailable(chartType)) {
                 var icons = [
                     {
                         iconClass: 'fa fa-table',
@@ -110,29 +111,5 @@
             $scope.$emit(platformParameters.events.REGISTER_MODULE_CONTROL_ICONS, icons);
         }
 
-        function isTableViewAvailable(chartType) {
-            switch (chartType) {
-                case 'LINE':
-                    return true;
-                case 'PIE':
-                    return true;
-                case 'MULTI_BAR':
-                    return true;
-                case 'MULTI_COLUMN':
-                    return true;
-                case 'STACKED_AREA':
-                    return true;
-                case 'DONUT':
-                    return true;
-                case 'DISCRETE_COLUMN':
-                    return true;
-                case 'HISTORICAL_COLUMN':
-                    return true;
-                case 'CUMULATIVE_LINE':
-                    return true;
-                default:
-                    return false;
-            }
-        }
     }
 })();
