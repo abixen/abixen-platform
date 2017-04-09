@@ -18,3 +18,10 @@ id;name;data_value_type;position;data_source_id
 17;sales_day;DATE;7;3
 18;group_;STRING;1;4
 19;value;DOUBLE;2;4
+20;morning;DOUBLE;1;5
+21;noon;DOUBLE;2;5
+22;afternoon;DOUBLE;3;5
+23;evening;DOUBLE;4;5
+24;midnight;DOUBLE;5;5
+25;night;DOUBLE;6;5
+26;sales_day;DATE;7;5
