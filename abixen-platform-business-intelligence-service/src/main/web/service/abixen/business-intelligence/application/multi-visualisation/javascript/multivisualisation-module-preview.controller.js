@@ -25,10 +25,11 @@
         '$log',
         'dataChartAdapter',
         'CharData',
-        'moduleResponseErrorHandler'
+        'moduleResponseErrorHandler',
+        'multivisualisationDisplayingDataRules'
     ];
 
-    function ChartModulePreviewController($scope, $log, dataChartAdapter, CharData, moduleResponseErrorHandler) {
+    function ChartModulePreviewController($scope, $log, dataChartAdapter, CharData, moduleResponseErrorHandler, multivisualisationDisplayingDataRules) {
         $log.log('ChartModulePreviewController');
 
         $log.log('$scope.moduleId: ' + $scope.moduleId);
@@ -38,6 +39,9 @@
         chartModulePreview.data = undefined;
         chartModulePreview.previewType = $scope.isChart() ? 'CHART' : 'TABLE';
         chartModulePreview.setPreviewType = setPreviewType;
+        chartModulePreview.isTableViewAvailable = multivisualisationDisplayingDataRules.isTableViewAvailable;
+        chartModulePreview.isChartViewAvailable = multivisualisationDisplayingDataRules.isChartViewAvailable;
+        chartModulePreview.scope = $scope;
 
         $scope.$emit(platformParameters.events.START_REQUEST);
         CharData.query({}, $scope.chartConfiguration)
