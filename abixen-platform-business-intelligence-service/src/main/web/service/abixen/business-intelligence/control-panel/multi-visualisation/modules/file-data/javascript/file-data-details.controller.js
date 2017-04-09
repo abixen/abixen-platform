@@ -36,22 +36,20 @@
 
         $scope.$watch('fileDataDetails.fileData', function () {
             if (fileDataDetails.fileData !== undefined && fileDataDetails.fileData !== [] && fileDataDetails.fileData.length > 0) {
-                $scope.$broadcast('GridDataUpdated', fileDataDetails.fileData);
+                $scope.$broadcast('GridDataUpdated', transformDataForTable(fileDataDetails.fileData));
             }
         }, true);
 
         function beforeSaveForm() {
             fileDataDetails.entity.columns = [];
-            if (fileDataDetails.fileData[0] != null) {
-                Object.keys(fileDataDetails.fileData[0]).forEach(function (column) {
+            if (fileDataDetails.fileData != null) {
+                fileDataDetails.fileData.forEach(function (column, index) {
                     if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
-                        var values = [];
-                        fileDataDetails.fileData.forEach(function (row) {
-                            values.push({value: row[column]})
-                        });
+                        $log.debug("column: ", column);
                         fileDataDetails.entity.columns.push({
-                            name: column,
-                            values: values
+                            name: column.name ? column.name : ("col"+index),
+                            dataValueType: column.dataValueType,
+                            values: column.values
                         });
                     }
                 });
@@ -73,7 +71,6 @@
                 });
                 parsedData.push(parsedRow);
             });
-            fileDataDetails.fileData = parsedData;
             $scope.$broadcast('GridDataUpdated', parsedData);
         }
 
@@ -81,8 +78,7 @@
             if (fileDataDetails.entity.columns == null || fileDataDetails.entity.columns.length === 0 || fileDataDetails.entity.columns == undefined){
                 return;
             }
-            transformDataForTable(fileDataDetails.entity.columns);
-
+            fileDataDetails.fileData = fileDataDetails.entity.columns;
         }
 
         function onFileUpload(file) {
@@ -91,7 +87,7 @@
             fd.append('file', file);
             FileData.parse(fd, function (message) {
                 if (message.data.length > 0) {
-                    transformDataForTable(message.data);
+                    fileDataDetails.fileData = message.data;
                 } else {
                     message.fileParseErrors.forEach(function (element){
                         toaster.pop('error', 'parsed', element.errorMsg);

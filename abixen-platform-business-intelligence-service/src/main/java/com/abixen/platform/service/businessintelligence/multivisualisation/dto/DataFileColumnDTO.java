@@ -14,12 +14,16 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.dto;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataFileColumnDTO {
 
     private String name;
+
+    private DataValueType dataValueType;
 
     private List<DataFileColumnValueDTO> values = new ArrayList<>();
 
@@ -33,6 +37,14 @@ public class DataFileColumnDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public DataValueType getDataValueType() {
+        return dataValueType;
+    }
+
+    public void setDataValueType(DataValueType dataValueType) {
+        this.dataValueType = dataValueType;
     }
 
     public List<DataFileColumnValueDTO> getValues() {
