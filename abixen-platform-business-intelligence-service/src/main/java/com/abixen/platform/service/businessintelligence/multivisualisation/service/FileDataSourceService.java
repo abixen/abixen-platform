@@ -46,4 +46,6 @@ public interface FileDataSourceService {
     FileDataSource updateDataSource(FileDataSource fileDataSource);
 
     FileDataSource findDataSource(Long id);
+
+    void delateFileDataSource(Long id);
 }
