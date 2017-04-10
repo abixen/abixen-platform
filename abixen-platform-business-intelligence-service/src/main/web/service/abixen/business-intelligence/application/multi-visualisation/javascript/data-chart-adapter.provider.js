@@ -326,6 +326,24 @@
             return chartBuilder.build();
         }
 
+        function multiBarHorizontalChartAdapter() {
+            var chartBuilder = new ChartBuilder();
+            chartBuilder.setBuildChartOptions(function (configurationData, preparedChartData) {
+                var chartConfig = buildDefaultChartOption('multiBarHorizontalChart', configurationData, preparedChartData);
+                chartConfig.chart.xAxis.axisLabelDistance = chartConfig.chart.yAxis.axisLabelDistance;
+                chartConfig.chart.yAxis.axisLabelDistance = 0;
+                $log.debug('Added additional setting for multiBarHorizontalChart');
+                return chartConfig;
+            });
+
+            chartBuilder.setBuildChartData(
+                function (configurationData, data) {
+                    var chartData = buildMultiSeriesChartData('multiBarHorizontalChart', configurationData, data)
+                    return chartData;
+                });
+            return chartBuilder.build();
+        }
+
         function genericChartAdapter(chartType) {
             var chartBuilder = new ChartBuilder();
             chartBuilder.setDefaultChartBuilderFunction(chartType);
@@ -362,7 +380,7 @@
                 return convertToChart(configurationData, data, pieChartAdapter());
             }
             if (chartType === 'MULTI_BAR' || chartType === 'MULTI_BAR_TABLE') {
-                return convertToChart(configurationData, data, genericChartAdapter('multiBarHorizontalChart'));
+                return convertToChart(configurationData, data, multiBarHorizontalChartAdapter());
             }
             if (chartType === 'MULTI_COLUMN' || chartType === 'MULTI_COLUMN_TABLE') {
                 return convertToChart(configurationData, data, genericChartAdapter('multiBarChart'));
