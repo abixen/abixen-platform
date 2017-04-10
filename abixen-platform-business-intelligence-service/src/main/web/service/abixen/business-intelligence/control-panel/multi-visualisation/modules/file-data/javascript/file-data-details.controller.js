@@ -33,10 +33,11 @@
         fileDataDetails.fileData = [];
         fileDataDetails.beforeSaveForm = beforeSaveForm;
         fileDataDetails.onFileUpload = onFileUpload;
+        fileDataDetails.readFirstRowAsColumnName = true;
 
         $scope.$watch('fileDataDetails.fileData', function () {
             if (fileDataDetails.fileData !== undefined && fileDataDetails.fileData !== [] && fileDataDetails.fileData.length > 0) {
-                $scope.$broadcast('GridDataUpdated', transformDataForTable(fileDataDetails.fileData));
+                transformDataForTable(fileDataDetails.fileData);
             }
         }, true);
 
@@ -67,7 +68,11 @@
             data[0].values.forEach(function (row, index) {
                 var parsedRow = [];
                 data.forEach(function (column, index1) {
-                    parsedRow['col' + index1] = column.values[index].value;
+                    if (column.name){
+                        parsedRow[column.name] = column.values[index].value;
+                    } else {
+                        parsedRow['col' + index1] = column.values[index].value;
+                    }
                 });
                 parsedData.push(parsedRow);
             });
@@ -85,7 +90,7 @@
             $log.debug("UploadFile", file);
             var fd = new FormData();
             fd.append('file', file);
-            FileData.parse(fd, function (message) {
+            FileData.parse({readFirstColumnAsColumnName:fileDataDetails.readFirstRowAsColumnName}, fd, function (message) {
                 if (message.data.length > 0) {
                     fileDataDetails.fileData = message.data;
                 } else {

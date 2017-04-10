@@ -16,6 +16,8 @@
                             validators="fileDataDetails.validators">
                 </input-text>
 
+                <input type="checkbox" ng-model="fileDataDetails.readFirstRowAsColumnName"> Read column names from the first row of the file.
+
                 <div class="upload">
                     <div class="btn upload-btn" platform-upload-file on-upload="fileDataDetails.onFileUpload">
                         <span class="upload-btn-text"> Upload File </span>

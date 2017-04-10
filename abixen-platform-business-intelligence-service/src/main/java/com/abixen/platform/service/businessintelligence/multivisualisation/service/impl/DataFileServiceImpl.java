@@ -194,10 +194,10 @@ public class DataFileServiceImpl implements DataFileService {
     }
 
     @Override
-    public FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile multipartFile) {
+    public FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile multipartFile, Boolean readFirstColumnAsColumnName) {
         String fileName = multipartFile.getOriginalFilename();
         FileParserService fileParserService = fileParserFactory.getParse(fileName.substring(fileName.lastIndexOf(".")));
-        return fileParserService.parseFile(multipartFile);
+        return fileParserService.parseFile(multipartFile, readFirstColumnAsColumnName);
     }
 
     private DataValue getObjForValue(String value) {

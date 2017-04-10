@@ -107,9 +107,9 @@ public class DataFileController {
         return dataFileService.getDataFileColumns(id);
     }
 
-    @RequestMapping(value = "/parse", method = RequestMethod.POST)
-    public FileParserMessage<DataFileColumn> uploadAndParseFile(@RequestParam("file") MultipartFile uploadedFile) {
-        return dataFileService.uploadAndParseFile(uploadedFile);
+    @RequestMapping(value = "/parse/{readFirstColumnAsColumnName}", method = RequestMethod.POST)
+    public FileParserMessage<DataFileColumn> uploadAndParseFile(@PathVariable("readFirstColumnAsColumnName") Boolean readFirstColumnAsColumnName, @RequestParam("file") MultipartFile uploadedFile) {
+        return dataFileService.uploadAndParseFile(uploadedFile, readFirstColumnAsColumnName);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

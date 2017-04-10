@@ -49,7 +49,7 @@ public class CsvParserServiceImpl implements FileParserService {
 
 
     @Override
-    public FileParserMessage<DataFileColumn> parseFile(MultipartFile multipartFile) {
+    public FileParserMessage<DataFileColumn> parseFile(MultipartFile multipartFile, Boolean readFirstColumnAsColumnName) {
         FileParserMessage<DataFileColumn> msg = new FileParserMessage<>();
         try {
             CSVReader csvReader = new CSVReader(new InputStreamReader(multipartFile.getInputStream()), separator);
