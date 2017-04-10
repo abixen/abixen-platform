@@ -8,13 +8,13 @@
 
     <changeSet author="MariuszKumor" id="sequences-v1">
         <createSequence sequenceName="acl_class_seq" startValue="7"/>
-        <createSequence sequenceName="acl_entry_seq" startValue="16"/>
+        <createSequence sequenceName="acl_entry_seq" startValue="17"/>
         <createSequence sequenceName="acl_object_identity_seq" startValue="21"/>
         <createSequence sequenceName="acl_sid_seq" startValue="5"/>
         <createSequence sequenceName="layout_seq" startValue="16"/>
-        <createSequence sequenceName="module_seq" startValue="15"/>
+        <createSequence sequenceName="module_seq" startValue="16"/>
         <createSequence sequenceName="module_type_seq" startValue="4"/>
-        <createSequence sequenceName="page_seq" startValue="8"/>
+        <createSequence sequenceName="page_seq" startValue="7"/>
         <createSequence sequenceName="permission_acl_class_category_seq" startValue="7"/>
         <createSequence sequenceName="permission_general_category_seq" startValue="2"/>
         <createSequence sequenceName="permission_seq" startValue="25"/>

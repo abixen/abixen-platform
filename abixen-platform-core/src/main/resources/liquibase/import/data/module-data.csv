@@ -16,3 +16,5 @@ id;created_date;last_modified_date;description;title;module_type_id;page_id;row_
 12;NULL;NULL;This is chart sample instance visualisation module #2;Chart sample visualisation;1;5;0;0;0;2;2
 13;NULL;NULL;This is chart sample instance visualisation module #2;Chart sample visualisation;1;5;1;0;0;2;2
 14;NULL;NULL;This is chart sample instance visualisation module #2;Chart sample visualisation;1;5;1;1;0;2;2
+
+15;NULL;NULL;This is chart sample instance visualisation module #2;Chart sample visualisation;1;6;1;1;0;2;2
