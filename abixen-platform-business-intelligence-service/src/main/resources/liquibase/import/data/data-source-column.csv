@@ -25,3 +25,5 @@ id;name;data_value_type;position;data_source_id
 24;midnight;DOUBLE;5;5
 25;night;DOUBLE;6;5
 26;sales_day;DATE;7;5
+27;sales_qty;INTEGER;1;6
+28;employers_name;STRING;2;6

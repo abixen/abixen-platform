@@ -33,5 +33,6 @@
     <include file="liquibase/changelog/multi-visualisation/sample-multi-visualisation-data-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/sample-visualisation-data-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/chart-sample-visualisation-data-changelog.xml"/>
+    <include file="liquibase/changelog/multi-visualisation/sample/sample-sales-per-employers-changelog.xml"/>
 
 </databaseChangeLog>
