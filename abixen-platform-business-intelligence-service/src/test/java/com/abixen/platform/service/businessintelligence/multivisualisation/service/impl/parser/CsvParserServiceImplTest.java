@@ -45,7 +45,7 @@ public class CsvParserServiceImplTest {
         File testCSV = new File("src/test/resource/CsvCorrect.csv");
         MockMultipartFile mockMultipartFile = new MockMultipartFile("test.csv", Files.readAllBytes(Paths.get(testCSV.getPath())));
         //when
-        FileParserMessage<DataFileColumn> result = csvParserService.parseFile(mockMultipartFile);
+        FileParserMessage<DataFileColumn> result = csvParserService.parseFile(mockMultipartFile, true);
         //then
         assert result.getFileParseErrors().isEmpty() && !result.getData().isEmpty();
     }
@@ -56,7 +56,7 @@ public class CsvParserServiceImplTest {
         File testCSV = new File("src/test/resource/CsvWithoutColumnType.csv");
         MockMultipartFile mockMultipartFile = new MockMultipartFile("test.csv", Files.readAllBytes(Paths.get(testCSV.getPath())));
         //when
-        FileParserMessage<DataFileColumn> result = csvParserService.parseFile(mockMultipartFile);
+        FileParserMessage<DataFileColumn> result = csvParserService.parseFile(mockMultipartFile, true);
         //then
         assert !result.getFileParseErrors().isEmpty() && result.getData().isEmpty();
     }
@@ -67,7 +67,7 @@ public class CsvParserServiceImplTest {
         File testCSV = new File("src/test/resource/CsvWithoutColumnName.csv");
         MockMultipartFile mockMultipartFile = new MockMultipartFile("test.csv", Files.readAllBytes(Paths.get(testCSV.getPath())));
         //when
-        FileParserMessage<DataFileColumn> result = csvParserService.parseFile(mockMultipartFile);
+        FileParserMessage<DataFileColumn> result = csvParserService.parseFile(mockMultipartFile, true);
         //then
         assert !result.getFileParseErrors().isEmpty() && result.getData().isEmpty();
     }
@@ -78,7 +78,7 @@ public class CsvParserServiceImplTest {
         File testCSV = new File("src/test/resource/CsvWithIncorrectValueInColumn.csv");
         MockMultipartFile mockMultipartFile = new MockMultipartFile("test.csv", Files.readAllBytes(Paths.get(testCSV.getPath())));
         //when
-        FileParserMessage<DataFileColumn> result = csvParserService.parseFile(mockMultipartFile);
+        FileParserMessage<DataFileColumn> result = csvParserService.parseFile(mockMultipartFile, true);
         //then
         assert !result.getFileParseErrors().isEmpty() && result.getData().isEmpty();
     }

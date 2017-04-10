@@ -51,5 +51,5 @@ public interface DataFileService {
 
     void delateFileData(Long id);
 
-    FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile fileToParse);
+    FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile fileToParse, Boolean readFirstColumnAsColumnName);
 }
