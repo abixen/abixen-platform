@@ -37,10 +37,8 @@ import java.util.regex.Pattern;
 public class CsvParserServiceImpl implements FileParserService {
     private final char separator = ';';
     private final Integer headerColumnIndex = 0;
-    private final Integer typeColumnIndex = 1;
-    private final Integer startDataIndex = 2;
     private static final Pattern INTEGER_PATTERN = Pattern.compile("[0-9]*+");
-    private static final Pattern DOUBLE_PATTERN = Pattern.compile("[-+]?[0-9]*\\\\.?[0-9]+([eE][-+]?[0-9]+)?");
+    private static final Pattern DOUBLE_PATTERN = Pattern.compile("[-+]?[0-9]*[\\\\.\\\\,]?[0-9]+([eE][-+]?[0-9]+)?");
     private static final List<Pattern> DATE_PATTERN_LIST = Arrays.asList(
             Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$"),
             Pattern.compile("^\\d{2}-\\d{2}-\\d{4}$"),
@@ -53,18 +51,22 @@ public class CsvParserServiceImpl implements FileParserService {
         FileParserMessage<DataFileColumn> msg = new FileParserMessage<>();
         try {
             CSVReader csvReader = new CSVReader(new InputStreamReader(multipartFile.getInputStream()), separator);
-            parseFile(msg, csvReader);
+            parseFile(msg, csvReader, readFirstColumnAsColumnName);
         } catch (IOException e) {
             msg.addFileParseError(new FileParseError("Can't read file."));
         }
         return msg;
     }
 
-    private void parseFile(FileParserMessage<DataFileColumn> msg, CSVReader csvReader) throws IOException {
+    private void parseFile(FileParserMessage<DataFileColumn> msg, CSVReader csvReader, Boolean readFirstColumnAsColumnName) throws IOException {
         List<String[]> allDataInFile = csvReader.readAll();
-        String[] header = getSeparatedValue(allDataInFile.get(headerColumnIndex));
+        String[] header = null;
+        Integer typeColumnIndex = readFirstColumnAsColumnName ? headerColumnIndex + 1 : 0;
+        if (readFirstColumnAsColumnName) {
+            header = getSeparatedValue(allDataInFile.get(headerColumnIndex));
+        }
         String[] columnType = getSeparatedValue(allDataInFile.get(typeColumnIndex));
-        List<String[]> data = allDataInFile.subList(startDataIndex, allDataInFile.size());
+        List<String[]> data = allDataInFile.subList(typeColumnIndex + 1, allDataInFile.size());
         if (validate(msg, columnType, data)) {
             msg.setData(prepareData(msg, header, columnType, data));
         }
@@ -151,6 +153,9 @@ public class CsvParserServiceImpl implements FileParserService {
         List<DataFileColumn> dataFileColumns = new ArrayList<>();
         for (int i = 0; i < columnTypes.size(); i++) {
             DataFileColumn dataFileColumn = new DataFileColumn();
+            if (header != null) {
+                dataFileColumn.setName(header[i]);
+            }
             dataFileColumn.setDataValueType(columnTypes.get(i));
             List<DataValue> dataValues = new ArrayList<>();
             for (int j = 0; j < data.size(); j++) {
@@ -193,7 +198,7 @@ public class CsvParserServiceImpl implements FileParserService {
 
     private DataValueDouble parseAsDouble(String element) {
         DataValueDouble dataValueDouble = new DataValueDouble();
-        dataValueDouble.setValue(Double.valueOf(element));
+        dataValueDouble.setValue(Double.valueOf(element.replace(",", ".")));
         return dataValueDouble;
     }
 }
