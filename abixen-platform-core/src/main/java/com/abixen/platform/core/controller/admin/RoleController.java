@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.controller.admin;
 
+import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.core.converter.PermissionToPermissionDtoConverter;
 import com.abixen.platform.core.converter.RoleToRoleDtoConverter;
 import com.abixen.platform.common.dto.FormErrorDto;
@@ -29,6 +30,7 @@ import com.abixen.platform.core.service.PermissionService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -112,7 +114,16 @@ public class RoleController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteRole(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
-        roleService.deleteRole(id);
+        try {
+            roleService.deleteRole(id);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            if (e.getCause() instanceof ConstraintViolationException) {
+                throw new PlatformRuntimeException("The role you want to remove is assigned to users.");
+            } else {
+                throw e;
+            }
+        }
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
