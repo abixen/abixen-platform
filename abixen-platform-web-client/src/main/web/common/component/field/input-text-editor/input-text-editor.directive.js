@@ -31,9 +31,7 @@
                 validators: '=',
                 label: '@',
                 placeholder: '@',
-                name: '@',
-                size: '@',
-                rows: '@'
+                name: '@'
             },
             link: link,
             controller: inputTextEditorController,
