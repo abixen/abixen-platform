@@ -23,7 +23,7 @@
             <column name="row_index" type="integer">
                 <constraints nullable="false"/>
             </column>
-            <column name="title" type="varchar(40)">
+            <column name="title" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>
             <column name="created_by_id" type="bigint"/>

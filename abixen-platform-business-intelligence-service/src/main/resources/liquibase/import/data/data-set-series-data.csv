@@ -7,19 +7,19 @@ id;name;data_set_id;value_column_id
 7; Morning;5;12
 8; Noon;5;13
 9; Sales;6;15
-11; Series 1;7;18
-12; Series 1;7;19
+11; North Europe;7;18
+12; West Europe;7;19
 13; Series 1;8;21
-14; Series 1;8;22
-15; Series 1;9;24
-16; Series 1;9;25
-17; Series 1;10;27
-18; Series 1;11;29
-19; Series 1;11;30
-20; Series 1;11;31
-21; Series 1;12;33
-22; Series 1;12;34
-23; Series 1;12;35
+14; People 40+;8;22
+15; People 40-;9;24
+16; Men;9;25
+17; Women;10;27
+18; German;11;29
+19; Spain;11;30
+20; Poland;11;31
+21; Sales value;12;33
+22; Sales count;12;34
+23; Unique products;12;35
 24; Afternoon;5;36
 25; Evening;5;37
 26; Midnight;5;38
