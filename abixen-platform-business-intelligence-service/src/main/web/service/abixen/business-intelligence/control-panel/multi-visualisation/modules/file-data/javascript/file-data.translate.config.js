@@ -30,14 +30,16 @@
             'service.businessIntelligence.fileData.name.label': 'Nazwa',
             'service.businessIntelligence.fileData.name.placeholder': 'Np. Sprzedaż w Q3',
             'service.businessIntelligence.fileData.description.label': 'Opis',
-            'service.businessIntelligence.fileData.description.placeholder': 'Np. Plik zawiera dane z trzeciego kwartału'
+            'service.businessIntelligence.fileData.description.placeholder': 'Np. Plik zawiera dane z trzeciego kwartału',
+            'service.businessIntelligence.fileData.readFirstColumnAsHeader.label': 'Przeczytaj nazwy kolumn z pierwszego wiersza (Każda zmiana wymaga przeładowania pliku)'
         });
 
         $translateProvider.translations('ENGLISH', {
             'service.businessIntelligence.fileData.name.label': 'Name',
             'service.businessIntelligence.fileData.name.placeholder': 'E.g. Selling Q3 Data',
             'service.businessIntelligence.fileData.description.label': 'Description',
-            'service.businessIntelligence.fileData.description.placeholder': 'E.g. The file contains data from the third quarter'
+            'service.businessIntelligence.fileData.description.placeholder': 'E.g. The file contains data from the third quarter',
+            'service.businessIntelligence.fileData.readFirstColumnAsHeader.label': 'Read column names from the first row of the file (After each change, reload the file to see the result).'
         });
     }
 })();
