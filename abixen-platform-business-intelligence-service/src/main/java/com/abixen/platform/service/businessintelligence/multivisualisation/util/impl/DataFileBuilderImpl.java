@@ -51,6 +51,7 @@ public class DataFileBuilderImpl extends EntityBuilder<DataFile> implements Data
         dataColumn.forEach(entity -> {
             DataFileColumn dataFileColumn = new DataFileColumn();
             dataFileColumn.setName(entity.getName());
+            dataFileColumn.setPosition(entity.getPosition());
             dataFileColumn.setDataValueType(entity.getDataValueType());
             List<DataValue> values = new ArrayList<>();
             entity.getValues().forEach(child -> {

@@ -25,6 +25,8 @@ public class DataFileColumnDTO {
 
     private DataValueType dataValueType;
 
+    private Integer position;
+
     private List<DataFileColumnValueDTO> values = new ArrayList<>();
 
     public DataFileColumnDTO() {
@@ -45,6 +47,14 @@ public class DataFileColumnDTO {
 
     public void setDataValueType(DataValueType dataValueType) {
         this.dataValueType = dataValueType;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
     public List<DataFileColumnValueDTO> getValues() {

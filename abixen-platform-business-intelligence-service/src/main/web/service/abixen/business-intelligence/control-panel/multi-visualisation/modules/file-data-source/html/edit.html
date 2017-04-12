@@ -55,7 +55,7 @@
                     <ul class="columns-section-content" ng-scrollbar rebuild-on-resize
                         rebuild-on="content-scroll:rebuild">
                         <li class="columns-section-content-row" on-ng-repeat-render-finish="content-scroll:rebuild"
-                            ng-repeat="fileColumn in fileDataSourceDetails.fileColumns">
+                            ng-repeat="fileColumn in fileDataSourceDetails.fileColumns | orderBy:'position'" >
                                 <span class="col-xs-6 col-sm-6 col-md-6 col-lg-6 no-padding-left">
                                     {{fileColumn.name}}
                                 </span>

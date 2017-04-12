@@ -36,6 +36,9 @@ public class DataColumn {
     @Column(name = "name", length = ModelKeys.NAME_MAX_LENGTH, nullable = false)
     private String name;
 
+    @Column(name = "position", nullable = false)
+    private Integer position;
+
     @OneToMany(mappedBy = "dataColumn", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DataValue> values = new ArrayList<>();
 
@@ -53,6 +56,14 @@ public class DataColumn {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
     public List<DataValue> getValues() {

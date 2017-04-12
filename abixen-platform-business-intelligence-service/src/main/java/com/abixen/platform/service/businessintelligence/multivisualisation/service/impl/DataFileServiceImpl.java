@@ -93,7 +93,7 @@ public class DataFileServiceImpl implements DataFileService {
 
                 @Override
                 public Integer getPosition() {
-                    return null;
+                    return dataFileColumn.getPosition();
                 }
 
                 @Override

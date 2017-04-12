@@ -79,6 +79,7 @@ public class ExcelParserServiceImpl implements FileParserService {
             int firstDataRow = readFirstColumnAsColumnName ? headerRowIndex + 1 : headerRowIndex;
             DataValueType columnType = getColumnTypeAsDataValueType(sheet.getRow(firstDataRow).getCell(i), i);
             dataFileColumn.setDataValueType(columnType);
+            dataFileColumn.setPosition(i);
             dataFileColumn.setName(getColumnNames(sheet, i, readFirstColumnAsColumnName));
             dataFileColumn.setValues(getValues(sheet, i, columnType, firstDataRow));
             dataFileColumns.add(dataFileColumn);
