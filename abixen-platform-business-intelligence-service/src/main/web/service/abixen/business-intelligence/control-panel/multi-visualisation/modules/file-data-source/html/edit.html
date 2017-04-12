@@ -87,11 +87,11 @@
 </form>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
-        <a class="btn save-button" ng-disabled="fileDataSourceDetails.entityForm.$invalid"
+        <button class="btn save-button" ng-disabled="fileDataSourceDetails.entityForm.$invalid"
            ng-click="fileDataSourceDetails.beforeSaveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;{{'service.businessIntelligence.fileDataSource.save' | translate}}</span>
-        </a>
-        <a class="btn cancel-button"
+        </button>
+        <button class="btn cancel-button"
            ng-click="fileDataSourceDetails.goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;{{'service.businessIntelligence.fileDataSource.cancel' | translate}}</span>
-        </a>
+        </button>
     </div>
 </div>

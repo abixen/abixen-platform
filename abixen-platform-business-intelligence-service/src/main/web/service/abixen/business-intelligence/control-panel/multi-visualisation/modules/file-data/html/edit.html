@@ -44,11 +44,11 @@
 </form>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
-        <a class="btn save-button " ng-disabled="fileDataDetails.entityForm.$invalid || !fileDataDetails.fileData || fileDataDetails.fileData.length == 0"
+        <button class="btn save-button " ng-disabled="fileDataDetails.entityForm.$invalid || !fileDataDetails.fileData || fileDataDetails.fileData.length == 0"
            ng-click="fileDataDetails.beforeSaveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
-        </a>
-        <a class="btn cancel-button"
+        </button>
+        <button class="btn cancel-button"
            ng-click="goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
-        </a>
+        </button>
     </div>
 </div>
