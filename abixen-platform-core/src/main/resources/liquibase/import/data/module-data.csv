@@ -2,7 +2,7 @@ id;created_date;last_modified_date;description;title;module_type_id;page_id;row_
 2;NULL;NULL;This is chart sample instance visualisation module #2;Secrete sample data.;1;1;1;1;0;2;2
 
 3;NULL;NULL;This is chart sample instance visualisation module #2;Sales by social media distribution channel.;1;2;0;0;0;2;2
-4;NULL;NULL;This is chart sample instance visualisation module #2;Sales by social media distribution per a salesman.n;1;2;0;1;0;2;2
+4;NULL;NULL;This is chart sample instance visualisation module #2;Ranking of sales.;1;2;0;1;0;2;2
 
 5;NULL;NULL;This is chart sample instance visualisation module #2;Sales ratio FYTD.;1;3;0;0;0;2;2
 6;NULL;NULL;This is chart sample instance visualisation module #2;Global sales of goods during of the day.;1;3;1;0;0;2;2
