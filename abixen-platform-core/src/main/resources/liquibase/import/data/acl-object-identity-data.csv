@@ -42,3 +42,5 @@ id;acl_class_id;object_id
 19;3;4
 #Page instance with id equals 5
 20;3;5
+#Module instance with id equals 14
+21;2;14

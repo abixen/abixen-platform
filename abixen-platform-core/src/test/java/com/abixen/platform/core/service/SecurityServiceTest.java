@@ -119,7 +119,7 @@ public class SecurityServiceTest {
         User admin = userRepository.findOne(1L);
         Module module = moduleRepository.findOne(2L);
         Boolean hasPermission = securityService.hasUserPermissionToObject(admin, PermissionName.MODULE_DELETE, module);
-        assertFalse(hasPermission);
+        assertTrue(hasPermission);
     }
 
     /**
