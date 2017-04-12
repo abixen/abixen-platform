@@ -58,7 +58,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="databaseTableColumn in databaseDataSourceDetails.databaseTableColumns">
+                <tr ng-repeat="databaseTableColumn in databaseDataSourceDetails.databaseTableColumns  | orderBy:'position'">
                     <td>{{databaseTableColumn.name}}</td>
                     <td>{{databaseTableColumn.dataValueType}}</td>
                     <td><input type="checkbox" ng-model="databaseTableColumn.selected"/></td>

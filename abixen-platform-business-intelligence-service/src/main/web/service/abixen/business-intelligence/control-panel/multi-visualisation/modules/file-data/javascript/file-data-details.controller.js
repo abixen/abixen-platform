@@ -50,6 +50,7 @@
                         fileDataDetails.entity.columns.push({
                             name: column.name ? column.name : ("col"+index),
                             dataValueType: column.dataValueType,
+                            position: column.position,
                             values: column.values
                         });
                     }
