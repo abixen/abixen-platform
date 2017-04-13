@@ -54,6 +54,11 @@ As well Mariusz Kumor decided to begin further development.
 The great motivation were flattering words of his friends, 
 also some companies about the project and its ideas.
 
+# Known issues
+* Not all security parts have yet been implemented
+* Not all translations are done
+* Multi Visualisation Service needs some user interface improvement and optimization. Also needs more tests.
+
 # Release plan
 
 ## Version 1.0
