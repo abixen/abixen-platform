@@ -563,7 +563,11 @@
             var domainSeries = configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn;
             if (!domainSeries.filterObj) {
                 domainSeries.filterObj = {};
+            }
+            if (!domainSeries.filterObj.conditionOne) {
                 domainSeries.filterObj.conditionOne = {};
+            }
+            if (!domainSeries.filterObj.conditionTwo) {
                 domainSeries.filterObj.conditionTwo = {};
             }
             domainSeries.filterObj.conditionOne.operator = null;
