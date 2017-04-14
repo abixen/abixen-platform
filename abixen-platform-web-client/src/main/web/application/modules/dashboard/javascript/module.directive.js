@@ -148,6 +148,7 @@
                 });
                 $scope.$on(platformParameters.events.SHOW_EXIT_CONFIGURATION_MODE_ICON, function () {
                     $scope.moduleState.configurationMode = true;
+                    $scope.moduleState.configurationMissing = false;
                 });
                 $scope.$on(platformParameters.events.SHOW_CONFIGURATION_MODE_ICON, function () {
                     $scope.moduleState.configurationMode = false;
