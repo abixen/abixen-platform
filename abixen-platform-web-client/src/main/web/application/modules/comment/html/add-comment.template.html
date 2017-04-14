@@ -1,24 +1,19 @@
 <div class="col-sm-12 add-comment-box">
     <form id="comment-input-form" name="comment.entityForm">
         <div class="row">
-            <div class="col-sm-8 col-md-10 col-lg-9">
+            <div class="col-xs-8 col-sm-8 col-md-6">
                 <div class="form-group">
-                    <input-text-area model="comment.entity.message" id="message" name="message" placeholder="Your comments" validators="" rows="1"></input-text-area>
+                    <input-text-area model="comment.entity.message" id="message" name="message"
+                                     placeholder="Your comments" validators="" rows="1"></input-text-area>
                 </div>
             </div>
-            <div class="col-sm-4 col-md-2 col-lg-2">
-                <div class="form-group">
-                    <table>
-                        <tr>
-                            <td>
-                                <button ng-click="comment.saveForm()" class="btn btn-warning" type="button">Post</button>
-                            </td>
-                            <td>
-                                <button ng-click="comment.cancelForm()" class="btn btn-default" type="button">Cancel</button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+            <div class="col-xs-4 col-sm-4 col-md-6">
+                <a ng-click="comment.saveForm()" class="btn btn-success" style="margin-right: 10px;">
+                    <i class="fa fa-floppy-o"></i>
+                </a>
+                <a ng-click="comment.cancelForm()" class="btn btn-default">
+                    <i class="fa fa-times"></i>
+                </a>
             </div>
         </div>
     </form>
