@@ -163,7 +163,7 @@
 
         function getValueAsText(value) {
             if (isDate(value)){
-                return new Date(value).toISOString().slice(0,10);
+                return new Date(new Date(value) - (new Date()).getTimezoneOffset() * 60000).toISOString().slice(0,10);
             }
             return value;
         }
@@ -563,7 +563,11 @@
             var domainSeries = configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn;
             if (!domainSeries.filterObj) {
                 domainSeries.filterObj = {};
+            }
+            if (!domainSeries.filterObj.conditionOne) {
                 domainSeries.filterObj.conditionOne = {};
+            }
+            if (!domainSeries.filterObj.conditionTwo) {
                 domainSeries.filterObj.conditionTwo = {};
             }
             domainSeries.filterObj.conditionOne.operator = null;

@@ -118,14 +118,17 @@ public class JsonFilterServiceImpl implements JsonFilterService {
         IntStream.range(1, columnCount + 1).forEach(i -> {
             try {
                 String columnTypeName = rsmd.getColumnTypeName(i);
-                if ("BIGINT".equals(columnTypeName)) {
+                if ("BIGINT".equalsIgnoreCase(columnTypeName)) {
                     columnTypeName = "INTEGER";
                 }
-                if ("VARCHAR".equals(columnTypeName)) {
+                if ("VARCHAR".equalsIgnoreCase(columnTypeName)) {
                     columnTypeName = "STRING";
                 }
-                if ("FLOAT8".equals(columnTypeName)) {
+                if ("FLOAT8".equalsIgnoreCase(columnTypeName)) {
                     columnTypeName = "DOUBLE";
+                }
+                if ("INT8".equalsIgnoreCase(columnTypeName)) {
+                    columnTypeName = "INTEGER";
                 }
                 columnTypeMapping.put(rsmd.getColumnName(i).toUpperCase(), columnTypeName.toUpperCase());
             } catch (SQLException e) {

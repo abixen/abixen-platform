@@ -120,8 +120,10 @@ public class ModuleServiceImpl implements ModuleService {
         List<Module> modules = moduleRepository.findAllExcept(page, ids);
 
         List<Long> moduleIds = modules.stream().map(module -> module.getId()).collect(Collectors.toList());
-        commentService.deleteCommentByModuleIds(moduleIds);
 
+        if (!moduleIds.isEmpty()) {
+            commentService.deleteCommentByModuleIds(moduleIds);
+        }
         moduleRepository.removeAllExcept(page, ids);
 
         modules.forEach(module -> {

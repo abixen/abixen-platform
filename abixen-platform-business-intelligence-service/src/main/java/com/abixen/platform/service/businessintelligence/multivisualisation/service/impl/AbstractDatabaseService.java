@@ -109,7 +109,7 @@ public abstract class AbstractDatabaseService {
             while (rs.next()) {
                 if ("TABLE".equals(rs.getString(objectTypeIndex)) || "VIEW".equals(rs.getString(objectTypeIndex))) {
                     if (isAllowedTable(rs.getString(objectNameIndex))) {
-                        tables.add(rs.getString(objectNameIndex));
+                        tables.add(rs.getString(objectNameIndex).toUpperCase());
                     }
                 }
             }
