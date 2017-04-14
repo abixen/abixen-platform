@@ -163,7 +163,7 @@
 
         function getValueAsText(value) {
             if (isDate(value)){
-                return new Date(value).toISOString().slice(0,10);
+                return new Date(new Date(value) - (new Date()).getTimezoneOffset() * 60000).toISOString().slice(0,10);
             }
             return value;
         }
