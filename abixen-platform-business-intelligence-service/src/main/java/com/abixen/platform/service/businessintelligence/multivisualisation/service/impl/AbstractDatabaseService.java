@@ -36,6 +36,29 @@ public abstract class AbstractDatabaseService {
     private final int chartLimit = 8;
     private final int datasourceLimit = 20;
 
+    public static final List<String> APPLICATION_TABLE_LIST = new ArrayList<>(Arrays.asList(
+            "chart_configuration",
+            "data_column",
+            "data_file",
+            "data_set",
+            "data_set_chart",
+            "data_set_series",
+            "data_set_series_column",
+            "data_source",
+            "data_source_column",
+            "data_value",
+            "data_value_date",
+            "data_value_double",
+            "data_value_integer",
+            "data_value_string",
+            "database_connection",
+            "database_data_source",
+            "databasechangelog",
+            "databasechangeloglock",
+            "file_data_source",
+            "file_data_source_row"));
+
+
     @Autowired
     private JsonFilterService jsonFilterService;
 

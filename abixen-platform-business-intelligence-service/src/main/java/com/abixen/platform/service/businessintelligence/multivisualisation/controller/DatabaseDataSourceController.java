@@ -16,6 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.cont
 
 import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseDataSourceForm;
@@ -25,6 +26,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.model
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseDataSourceService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -92,8 +94,17 @@ public class DatabaseDataSourceController {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(databaseDataSourceForm, formErrors);
         }
-
-        DatabaseDataSourceForm databaseDataSourceFormResult = databaseDataSourceService.updateDataSource(databaseDataSourceForm);
+        DatabaseDataSourceForm databaseDataSourceFormResult = null;
+        try {
+            databaseDataSourceFormResult = databaseDataSourceService.updateDataSource(databaseDataSourceForm);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+            if (e.getCause() instanceof ConstraintViolationException) {
+                throw new PlatformRuntimeException("Data source can not be updated. If you want to change available columns then you need to detach they from charts firstly.");
+            } else {
+                throw e;
+            }
+        }
 
         return new FormValidationResultDto(databaseDataSourceFormResult);
     }
