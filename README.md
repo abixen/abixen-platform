@@ -58,6 +58,7 @@ also some companies about the project and its ideas.
 * Not all security parts have yet been implemented
 * Not all translations are done
 * Multi Visualisation Service needs some user interface improvement and optimization. Also needs more tests.
+* Web Content Service has yet been finished
 
 # Release plan
 
@@ -83,7 +84,7 @@ The plan for the 1.3 version is an empower of custom permissions creation for mi
 The release is planned for the Q3 2017.
 
 ## Next version
-All depends on the Community feedback and needs.
+All depends on the Community feedback and needs. But we are going to extend Business Intelligence Service moving it into Big Data analysis.
 
 # Get it started
 The documentation is available under https://github.com/abixen/abixen-platform/wiki page.
