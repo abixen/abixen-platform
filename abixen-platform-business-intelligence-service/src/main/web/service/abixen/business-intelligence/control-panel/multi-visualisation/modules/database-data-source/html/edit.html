@@ -2,50 +2,46 @@
     <div class="row form-row">
 
         <div class="col-md-6">
+            <input-text model="databaseDataSourceDetails.entity.name"
+                        name="name"
+                        label="{{'service.businessIntelligence.databaseDataSourceDetails.name.label' | translate}}"
+                        placeholder="{{'service.businessIntelligence.databaseDataSourceDetails.name.placeholder' | translate}}"
+                        validators="databaseDataSourceDetails.validators">
+            </input-text>
 
-            <div class="form-group" show-errors>
-                <input-text model="databaseDataSourceDetails.entity.name"
-                            name="name"
-                            label="{{'service.businessIntelligence.databaseDataSourceDetails.name.label' | translate}}"
-                            placeholder="{{'service.businessIntelligence.databaseDataSourceDetails.name.placeholder' | translate}}"
-                            validators="databaseDataSourceDetails.validators">
-                </input-text>
+            <input-text model="databaseDataSourceDetails.entity.description"
+                        name="description"
+                        label="{{'service.businessIntelligence.databaseDataSourceDetails.description.label' | translate}}"
+                        placeholder="{{'service.businessIntelligence.databaseDataSourceDetails.description.placeholder' | translate}}"
+                        validators="databaseDataSourceDetails.validators">
+            </input-text>
 
-                <input-text model="databaseDataSourceDetails.entity.description"
-                            name="description"
-                            label="{{'service.businessIntelligence.databaseDataSourceDetails.description.label' | translate}}"
-                            placeholder="{{'service.businessIntelligence.databaseDataSourceDetails.description.placeholder' | translate}}"
-                            validators="databaseDataSourceDetails.validators">
-                </input-text>
+            <input-drop-down name="databaseConnection"
+                             id="databaseConnectionInput"
+                             ng-model="databaseDataSourceDetails.entity.databaseConnection"
+                             ng-model-as-object="true"
+                             label="{{'service.businessIntelligence.databaseDataSourceDetails.databaseConnection.label' | translate}}"
+                             options="databaseDataSourceDetails.databaseConnections"
+                             on-change="databaseDataSourceDetails.getDatabaseTables(databaseDataSourceDetails.entity.databaseConnection)"
+                             show-empty-value="true"
+                             value-key="id"
+                             value-label="name"
+                             empty-value-label="{{'service.businessIntelligence.databaseDataSourceDetails.databaseConnection.select' | translate}}"
+                             key-as-value="false"
+                             validators="databaseDataSourceDetails.validators">
+            </input-drop-down>
 
-                <input-drop-down name="databaseConnection"
-                                 id="databaseConnectionInput"
-                                 ng-model="databaseDataSourceDetails.entity.databaseConnection"
-                                 ng-model-as-object="true"
-                                 label="{{'service.businessIntelligence.databaseDataSourceDetails.databaseConnection.label' | translate}}"
-                                 options="databaseDataSourceDetails.databaseConnections"
-                                 on-change="databaseDataSourceDetails.getDatabaseTables(databaseDataSourceDetails.entity.databaseConnection)"
-                                 show-empty-value="true"
-                                 value-key="id"
-                                 value-label="name"
-                                 empty-value-label="{{'service.businessIntelligence.databaseDataSourceDetails.databaseConnection.select' | translate}}"
-                                 key-as-value="false"
-                                 validators="databaseDataSourceDetails.validators">
-                </input-drop-down>
-
-                <input-drop-down name="databaseTable"
-                                 id="databaseTableInput"
-                                 ng-model="databaseDataSourceDetails.entity.table"
-                                 label="{{'service.businessIntelligence.databaseDataSourceDetails.table.label' | translate}}"
-                                 options="databaseDataSourceDetails.databaseTables"
-                                 on-change="databaseDataSourceDetails.getDatabaseTableColumns(databaseDataSourceDetails.entity.databaseConnection, databaseDataSourceDetails.entity.table)"
-                                 show-empty-value="true"
-                                 empty-value-label="{{'service.businessIntelligence.databaseDataSourceDetails.table.select' | translate}}"
-                                 key-as-value="true"
-                                 validators="databaseDataSourceDetails.validators">
-                </input-drop-down>
-            </div>
-
+            <input-drop-down name="databaseTable"
+                             id="databaseTableInput"
+                             ng-model="databaseDataSourceDetails.entity.table"
+                             label="{{'service.businessIntelligence.databaseDataSourceDetails.table.label' | translate}}"
+                             options="databaseDataSourceDetails.databaseTables"
+                             on-change="databaseDataSourceDetails.getDatabaseTableColumns(databaseDataSourceDetails.entity.databaseConnection, databaseDataSourceDetails.entity.table)"
+                             show-empty-value="true"
+                             empty-value-label="{{'service.businessIntelligence.databaseDataSourceDetails.table.select' | translate}}"
+                             key-as-value="true"
+                             validators="databaseDataSourceDetails.validators">
+            </input-drop-down>
         </div>
         <div class="col-md-6">
             <input type="hidden" ng-model="databaseDataSourceDetails.entity.columns" name="columns">
@@ -61,7 +57,7 @@
                 <tr ng-repeat="databaseTableColumn in databaseDataSourceDetails.databaseTableColumns  | orderBy:'position'">
                     <td>{{databaseTableColumn.name}}</td>
                     <td>{{databaseTableColumn.dataValueType}}</td>
-                    <td><input type="checkbox" ng-model="databaseTableColumn.selected"/></td>
+                    <td><input name='{{databaseTableColumn.name+"checkbox"}}' type="checkbox" ng-model="databaseTableColumn.selected"/></td>
                 </tr>
                 </tbody>
             </table>
