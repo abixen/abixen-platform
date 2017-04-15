@@ -82,4 +82,9 @@ public class DatabasePostgresServiceImpl extends AbstractDatabaseService impleme
         databaseTypeOnApplicationType.put("INT8", "INTEGER");
         return databaseTypeOnApplicationType;
     }
+
+    @Override
+    protected boolean isAllowedTable(String tableName) {
+        return !APPLICATION_TABLE_LIST.contains(tableName.toLowerCase());
+    }
 }
