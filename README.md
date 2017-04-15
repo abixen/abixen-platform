@@ -99,7 +99,7 @@ Are you good at Java and / or frontend technologies like AngularJS, CSS, HTML?
 Would you like to join geek guys? 
 If so, we are ready to do short but powerful training for you from Abixen Platform.
 After the training you will be able to develop together with us the amazing Abixen Platform.
-Just mail us **info@abixen.com**. In a message please let us know, why would you like to contribute and what could you bring to the project.
+Just mail us **info@platform.abixen.com**. In a message please let us know, why would you like to contribute and what could you bring to the project.
 
 # How to contribute to the repository
 Contributors wanted to join Abixen Platform project have to comply with a few rules: 
