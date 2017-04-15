@@ -55,10 +55,15 @@ The great motivation were flattering words of his friends,
 also some companies about the project and its ideas.
 
 # Known issues
+
+There are some known issues. We work on fixes and improvements.
+
 * Not all security parts have yet been implemented
 * Not all translations are done
 * Multi Visualisation Service needs some user interface improvement and optimization. Also needs more tests.
 * Web Content Service has yet been finished
+* In some places CSS is not perfect
+* There is a small technical debt (not functional issue)
 
 # Release plan
 
