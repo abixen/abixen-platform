@@ -63,7 +63,7 @@ There are some known issues. We work on fixes and improvements.
 * Multi Visualisation Service needs some user interface improvement and optimization. Also needs more tests.
 * Web Content Service has yet been finished
 * In some places CSS is not perfect
-* There is a small technical debt (not functional issue)
+* There is a small technical debt (non functional issue)
 
 # Release plan
 
