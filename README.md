@@ -95,7 +95,8 @@ All depends on the Community feedback and needs. But we are going to extend Busi
 The documentation is available under https://github.com/abixen/abixen-platform/wiki page.
 
 # We are looking for experienced Contributors
-Are you good at Java and / or frontend technologies like AngularJS, CSS, HTML? 
+Are you good at Java and / or frontend technologies like AngularJS, CSS, HTML?
+Or maybe are you an UI/UX expert and you are willing to enhance Abixen Platform's design?
 Would you like to join geek guys? 
 If so, we are ready to do short but powerful training for you from Abixen Platform.
 After the training you will be able to develop together with us the amazing Abixen Platform.
