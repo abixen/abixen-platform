@@ -6,6 +6,45 @@
 Abixen Platform is a microservices based software platform for building enterprise applications. 
 The main goal of the project is a creation of functionalities through creating particular microservices and integrating by provided CMS.
 
+All you have to do in order to create an entirely new functionality is to implement a new, separated microservice.
+Now you can register it in Abixen Platform and start using by delivered configuration wizards and CMS.
+There is also an Abixen Platform API, which allows you to accelerate the process of new microservices creation.
+
+Abixen Platform's organizational division consists of pages and modules. 
+User with appropriate privileges can create any page and select a layout. 
+Finally, add to the page instances of modules deployed on Abixen Platform. 
+Each of the modules can have many instances, configured by different parameters.
+
+One of the most important mechanisms built-in into Abixen Platform is own security system, which
+ensures a full control access to pages, modules and even the data displayed and used by the modules.
+		
+Abixen Platform delivers out of the box functional microservices. 
+		
+**Business Intelligence Service is one of the delivered functional modules.**
+
+This module allows to do reporting charts and tables. A business administrator can create the charts and feed it by a following flow:
+* Create a database connection to one of supported databases (H2, MySQL, PostgreSQL, Oracle, MSSQL). Instead of database connection, there is an opportunity to use an excel or CSV file
+* Create a data source using above database connection or file.
+* Add a new business intelligence instance on a page
+* Configure a chart series selecting a data source
+* Set permissions for particular users' roles
+
+**Web Content Service is another one of the delivered functional modules.**
+
+This module allows to do articles. A business administrator can create articles in two ways:
+* Simple Web Content (just fill out a simple form with rich text editor)
+* Advanced Web Content (using structures and templates)
+		
+The spectrum of possible modules developer can create is unlimited. 
+There can be e.g. modules showing data in a tabular way, modules of data entry, 
+where users enter data, edit and present.
+		
+The main architectural emphasis was placed on the rapid creation of new modules. 
+Therefore, an original architecture has been implemented based on microservices, which
+allows to create modules functionally independent of the other elements. 
+When programmer creates a module, compiles only his module and his microservice. 
+This provides a tremendous time saving comparing to monolithic systems.
+
 ## Technology stack
 ![Abixen Platform Microservices Technology Stack](documentation-image/abixen-platform-microservices-technology-stack.png "Abixen Platform Microservices Technology Stack")
 
