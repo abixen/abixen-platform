@@ -118,9 +118,9 @@ That's why we would like to improve the application having remarks based on the 
 The release is planned in June 2017.
 
 ## Version 1.2
-This version will bring support for Angular 2. 
+This version will bring a support for Angular 2. 
 Developers will get an opportunity to develop their custom functional microservices using Angular 2. 
-Also next part of improvements and bug fixes.
+Also a next part of improvements and bug fixes.
 The release is planned for the Q3 2017.
 
 ## Version 1.3
