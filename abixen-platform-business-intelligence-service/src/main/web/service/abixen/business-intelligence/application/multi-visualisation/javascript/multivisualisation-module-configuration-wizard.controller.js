@@ -188,14 +188,21 @@
             return JSON.stringify(jsonObj);
         }
 
+        function getIndexInTableForColumnIdx(columns, idx) {
+            return columns.findIndex(function (element) {
+                return element.idx == idx;
+            })
+        }
+
         function setColumnSelected(idx) {
             $log.log('moduleConfigurationWizardStep setSelected ', idx);
-
-            configWizard.table.columnSelected = configWizard.table.columns[idx - 1];
-            configWizard.table.columns[idx - 1].isActive = !configWizard.table.columns[idx - 1].isActive;
-            if (configWizard.table.columns[idx - 1].isActive === true) {
-                getColumnData(idx - 1);
+            idx = getIndexInTableForColumnIdx(configWizard.table.columns, idx);
+            configWizard.table.columnSelected = configWizard.table.columns[idx];
+            configWizard.table.columns[idx].isActive = !configWizard.table.columns[idx].isActive;
+            if (configWizard.table.columns[idx].isActive === true) {
+                getColumnData(idx);
             } else {
+                configWizard.table.columnPreviewData = [];
                 buildTableConfiguration();
             }
         }
@@ -380,6 +387,7 @@
                     }
                 }
             });
+            $scope.tableConfiguration = tableConfiguration;
             return tableConfiguration
         }
 
