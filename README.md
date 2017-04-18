@@ -56,7 +56,7 @@ Then, implementing necessary interfaces achieves opportunity to integrate the ne
 Finally, a business administrator may use it over the platform.
 Abixen Platform supplies out of the box a few functional modules closed in the Business Intelligence Service and in the Web Content Service.
 This is a good example, how to create the own microservice.
-Mentioned serivces provide mainly visualisation functionalities, such as charts, micro charts, KPIs. As well as a web content management, such as templates, structures, articles.
+Mentioned services provide mainly visualisation functionalities, such as charts, micro charts, KPIs. As well as a web content management, such as templates, structures, articles.
 However opportunities to develop data entry modules are still opened!
 ![Abixen Platform Microservices Architecture](documentation-image/abixen-platform-microservices-architecture.png "Abixen Platform Microservices Architecture")
 
