@@ -77,7 +77,9 @@ public class CommentVoteServiceImpl implements CommentVoteService {
     @Override
     public void deleteByCommentIds(List<Long> commentIds) {
         log.debug("deleteCommentVoteByCommentId() - commentIds = {}", commentIds);
-        commentVoteRepository.deleteByCommentId(commentIds);
+        if (!commentIds.isEmpty()) {
+            commentVoteRepository.deleteByCommentId(commentIds);
+        }
     }
 
     @Override
