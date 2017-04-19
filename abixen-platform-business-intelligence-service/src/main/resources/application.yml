@@ -18,48 +18,48 @@ abixen:
         angularJsNameAdmin: TBD
         title: Multi Visualisation
         description: This is a multi visualisation module
-        relativeInitUrl: /service/abixen/application/business-intelligence/multi-visualisation/html/index.html
+        relativeInitUrl: /service/abixen/business-intelligence/application/multi-visualisation/html/index.html
         adminSidebarItems:
           -
             name: data-source-sidebar-item
         staticResources:
           -
-            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.css
+            relativeUrl: /service/abixen/business-intelligence/application/business-intelligence.min.css
             resourcePageLocation: HEADER
             resourcePage: APPLICATION
             resourceType: CSS
           -
-            relativeUrl: /service/abixen/application/business-intelligence/business-intelligence.min.js
+            relativeUrl: /service/abixen/business-intelligence/application/business-intelligence.min.js
             resourcePageLocation: BODY
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT
           -
-            relativeUrl: /service/abixen/application/business-intelligence/lib/d3.min.js
+            relativeUrl: /service/abixen/business-intelligence/application/lib/d3.min.js
             resourcePageLocation: BODY
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT
           -
-            relativeUrl: /service/abixen/application/business-intelligence/lib/nv.d3.min.js
+            relativeUrl: /service/abixen/business-intelligence/application/lib/nv.d3.min.js
             resourcePageLocation: BODY
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT
           -
-            relativeUrl: /service/abixen/application/business-intelligence/lib/nv.d3.min.css
+            relativeUrl: /service/abixen/business-intelligence/application/lib/nv.d3.min.css
             resourcePageLocation: HEADER
             resourcePage: APPLICATION
             resourceType: CSS
           -
-            relativeUrl: /service/abixen/application/business-intelligence/lib/angular-nvd3.min.js
+            relativeUrl: /service/abixen/business-intelligence/application/lib/angular-nvd3.min.js
             resourcePageLocation: BODY
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT
           -
-            relativeUrl: /service/abixen/control-panel/business-intelligence/business-intelligence.min.css
+            relativeUrl: /service/abixen/business-intelligence/control-panel/business-intelligence.min.css
             resourcePageLocation: HEADER
             resourcePage: ADMIN
             resourceType: CSS
           -
-            relativeUrl: /service/abixen/control-panel/business-intelligence/business-intelligence.min.js
+            relativeUrl: /service/abixen/business-intelligence/control-panel/business-intelligence.min.js
             resourcePageLocation: BODY
             resourcePage: ADMIN
             resourceType: JAVASCRIPT
