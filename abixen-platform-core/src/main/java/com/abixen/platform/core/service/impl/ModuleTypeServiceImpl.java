@@ -131,7 +131,7 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
 
         List<Resource> newResources = generateResources(moduleType, module);
         resourceService.updateResource(moduleType, newResources);
-        moduleType.setAdminSidebarItems(generateAdminSidebarItem(module));
+        moduleType.setAdminSidebarItems(generateAdminSidebarItem(modulesConfigurationProperties));
         moduleTypeRepository.save(moduleType);
     }
 
@@ -155,13 +155,13 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
                             angular(module.getAngularJsNameApplication(), module.getAngularJsNameAdmin()).
                             initUrl(module.getRelativeInitUrl()).
                             serviceId(service.getServiceId()).
-                            adminSidebarItems(generateAdminSidebarItem(module)).build();
+                            adminSidebarItems(generateAdminSidebarItem(modulesConfigurationProperties)).build();
                     moduleTypeRepository.save(moduleType);
                 } else {
                     moduleType.setDescription(module.getDescription());
                     moduleType.setTitle(module.getTitle());
                     moduleType.setInitUrl(module.getRelativeInitUrl());
-                    moduleType.setAdminSidebarItems(generateAdminSidebarItem(module));
+                    moduleType.setAdminSidebarItems(generateAdminSidebarItem(modulesConfigurationProperties));
                     moduleTypeRepository.save(moduleType);
                 }
 
@@ -190,10 +190,10 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
         return newResources;
     }
 
-    private List<AdminSidebarItem> generateAdminSidebarItem(ModulesConfigurationProperties.Module module) {
+    private List<AdminSidebarItem> generateAdminSidebarItem(ModulesConfigurationProperties modulesConfigurationProperties) {
         List<AdminSidebarItem> newAdminSidebarItems = new ArrayList<>();
 
-        module.getAdminSidebarItems().forEach(asi -> {
+        modulesConfigurationProperties.getAdminSidebarItems().forEach(asi -> {
             AdminSidebarItem adminSidebarItem = new AdminSidebarItem();
 
             adminSidebarItem.setTitle(asi.getTitle());

@@ -15,13 +15,13 @@
 package com.abixen.platform.common.configuration.properties;
 
 
-import javax.validation.constraints.NotNull;
-
 import com.abixen.platform.common.model.enumtype.ResourcePage;
 import com.abixen.platform.common.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.common.model.enumtype.ResourceType;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +31,9 @@ public abstract class AbstractModulesConfigurationProperties {
 
     @NotNull
     private List<Module> modules = new ArrayList<>();
+
+    @NotNull
+    private List<Module.AdminSidebarItem> adminSidebarItems = new ArrayList<>();
 
     @Getter
     @Setter
@@ -51,9 +54,6 @@ public abstract class AbstractModulesConfigurationProperties {
 
         @NotNull
         private String relativeInitUrl;
-
-        @NotNull
-        private List<AdminSidebarItem> adminSidebarItems = new ArrayList<>();
 
         @NotNull
         private List<StaticResource> staticResources = new ArrayList<>();
