@@ -28,7 +28,7 @@ public class PlatformWebContentServiceSecurityConfiguration extends WebSecurityC
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/configuration").permitAll()
+                .antMatchers("/api/configuration").permitAll()
                 .antMatchers("/service/abixen/web-content/application/**").permitAll()
                 .antMatchers("/service/abixen/web-content/control-panel/**").permitAll()
                 .anyRequest().authenticated()
