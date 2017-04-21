@@ -68,7 +68,7 @@
                         }
                     },
                     callback: function (chart) {
-                        console.log('!!! lineChart callback !!!');
+                        $log.log('lineChart callback');
                     }
                 }
             }
