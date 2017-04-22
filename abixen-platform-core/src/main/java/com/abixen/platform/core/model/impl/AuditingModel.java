@@ -150,19 +150,19 @@ public abstract class AuditingModel extends Model implements AuditingModelBase<U
             }
         }
 
-        result.append("    createdBy: ");
+        result.append("\tcreatedBy:");
         result.append(getCreatedBy() != null ? getCreatedBy().getUsername() : null);
         result.append(newLine);
 
-        result.append("    createdDate: ");
+        result.append("\tcreatedDate:");
         result.append(getCreatedDate());
         result.append(newLine);
 
-        result.append("    lastModifiedBy: ");
+        result.append("\tlastModifiedBy:");
         result.append(getLastModifiedBy() != null ? getLastModifiedBy().getUsername() : null);
         result.append(newLine);
 
-        result.append("    lastModifiedDate: ");
+        result.append("\tlastModifiedDate:");
         result.append(getLastModifiedDate());
         result.append(newLine);
 
