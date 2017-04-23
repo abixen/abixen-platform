@@ -23,7 +23,7 @@
     WebContent.$inject = ['$resource'];
 
     function WebContent($resource) {
-        return $resource('/api/service/abixen/web-content/control-panel/web-contents/:id', {}, {
+        return $resource('/api/service/abixen/web-content/control-panel/simple-web-contents/:id', {}, {
             query: {method: 'GET', isArray: false},
             update: {method: 'PUT'}
         });

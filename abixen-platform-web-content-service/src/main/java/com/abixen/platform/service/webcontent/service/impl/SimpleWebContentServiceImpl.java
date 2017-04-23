@@ -16,6 +16,7 @@ package com.abixen.platform.service.webcontent.service.impl;
 
 import com.abixen.platform.common.exception.PlatformServiceRuntimeException;
 import com.abixen.platform.service.webcontent.form.SimpleWebContentForm;
+import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
 import com.abixen.platform.service.webcontent.model.impl.SimpleWebContent;
 import com.abixen.platform.service.webcontent.repository.SimpleWebContentRepository;
 import com.abixen.platform.service.webcontent.service.SimpleWebContentService;
@@ -39,7 +40,9 @@ public class SimpleWebContentServiceImpl implements SimpleWebContentService {
     public SimpleWebContent createSimpleWebContent(SimpleWebContentForm simpleWebContentForm) {
         log.debug("createSimpleWebContent() - simpleWebContentForm: {}", simpleWebContentForm);
         SimpleWebContent simpleWebContent = new SimpleWebContent();
+        simpleWebContent.setTitle(simpleWebContentForm.getTitle());
         simpleWebContent.setContent(simpleWebContentForm.getContent());
+        simpleWebContent.setType(WebContentType.SIMPLE);
         return simpleWebContentRepository.save(simpleWebContent);
     }
 
