@@ -10,3 +10,4 @@ id;module_type_id;relative_url;resource_page_location;resource_page;resource_typ
 9;1;/service/abixen/business-intelligence/control-panel/lib/xlsx.full.min.js;BODY;ADMIN;JAVASCRIPT;NULL;NULL;NULL;NULL
 15;4;/service/abixen/web-content/control-panel/web-content.min.js;BODY;ADMIN;JAVASCRIPT;NULL;NULL;NULL;NULL
 16;4;/service/abixen/web-content/control-panel/web-content.min.css;HEADER;ADMIN;CSS;NULL;NULL;NULL;NULL
+17;4;/service/abixen/web-content/application/web-content.min.js;BODY;APPLICATION;JAVASCRIPT;NULL;NULL;NULL;NULL

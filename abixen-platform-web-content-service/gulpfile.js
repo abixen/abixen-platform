@@ -22,8 +22,10 @@ var gulp = require('gulp'),
 gulp.task('clean', cleanTask);
 gulp.task('templates', templatesTask);
 gulp.task('templateCache', templateCacheTask);
+gulp.task('applicationTemplateCache', applicationTemplateCacheTask);
 gulp.task('adminScripts', adminScriptsTask);
 gulp.task('adminStyles', adminStylesTask);
+gulp.task('applicationScripts', applicationScriptsTask);
 gulp.task('build', buildTask);
 gulp.task('adminLibs', adminLibsTask);
 gulp.task('dev', ['build'], devTask);
@@ -50,10 +52,22 @@ function templateCacheTask(){
         .pipe(gulp.dest(config.dest.templateCache));
 }
 
+function applicationTemplateCacheTask(){
+
+    return genericTemplateCacheTask(config.templates.files, config.dest.applicationTemplateCache);
+
+}
+
 function adminScriptsTask() {
 
     return genericScriptsTask(config.scripts.adminFiles, config.dest.adminScripts);
 }
+
+function applicationScriptsTask() {
+
+    return genericScriptsTask(config.scripts.applicationFiles, config.dest.applicationScripts);
+}
+
 
 function genericScriptsTask(sourceScriptsPath, destinationScriptsPath) {
 
@@ -94,6 +108,9 @@ function buildTask(callback) {
             'adminScripts',
             'templates',
             'adminStyles'
+        ],
+        [
+            'applicationScripts'
         ],
         callback);
 }
