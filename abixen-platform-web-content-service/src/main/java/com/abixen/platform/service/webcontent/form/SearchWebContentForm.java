@@ -12,17 +12,19 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.service;
+package com.abixen.platform.service.webcontent.form;
 
-import com.abixen.platform.service.webcontent.form.SearchWebContentForm;
-import com.abixen.platform.service.webcontent.model.impl.WebContent;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.abixen.platform.common.form.search.SearchField;
+import com.abixen.platform.common.form.search.SearchForm;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-public interface WebContentService {
+@Getter
+@Setter
+@ToString
+public class SearchWebContentForm implements SearchForm {
 
-    Page<WebContent> getWebContents(Pageable pageable);
-
-    Page<WebContent> getWebContents(Pageable pageable, SearchWebContentForm searchWebContentForm);
-
+    @SearchField
+    private String title;
 }

@@ -19,6 +19,7 @@
     angular
         .module('webContentService', [
             'platformModuleComponent',
-            'platformListGridModule'
+            'platformListGridModule',
+            'webContentConfigurationModule'
         ]);
 })();

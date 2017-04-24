@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.webcontent.service.impl;
 
+import com.abixen.platform.service.webcontent.form.SearchWebContentForm;
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
 import com.abixen.platform.service.webcontent.repository.WebContentRepository;
 import com.abixen.platform.service.webcontent.service.WebContentService;
@@ -38,6 +39,12 @@ public class WebContentServiceImpl implements WebContentService {
 
     @Override
     public Page<WebContent> getWebContents(Pageable pageable) {
+        log.debug("getWebContents() - pageable: {}", pageable);
+        return webContentRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<WebContent> getWebContents(Pageable pageable, SearchWebContentForm searchWebContentForm) {
         log.debug("getWebContents() - pageable: {}", pageable);
         return webContentRepository.findAll(pageable);
     }
