@@ -25,7 +25,6 @@ import java.io.Serializable;
 @Table(name = "web_content")
 @SequenceGenerator(sequenceName = "web_content_seq", name = "web_content_seq", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "type")
 public class WebContent extends AuditingModel implements WebContentWeb, Serializable {
 
     private static final long serialVersionUID = 994392175080662107L;

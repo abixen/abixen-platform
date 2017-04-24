@@ -16,7 +16,6 @@ package com.abixen.platform.service.webcontent.repository;
 
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface WebContentRepository extends JpaRepository<WebContent, Long>, JpaSpecificationExecutor<WebContent> {
+public interface WebContentRepository extends JpaRepository<WebContent, Long> {
 }
