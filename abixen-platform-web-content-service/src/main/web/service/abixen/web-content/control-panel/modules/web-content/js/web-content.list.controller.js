@@ -35,19 +35,19 @@
         updateNavigation();
 
         function updateNavigation() {
-            var newWebContentButton = {
+            var newSimpleWebContentButton = {
                 id: 1,
                 styleClass: 'btn add-new-object-button',
                 faIcon: 'fa fa-plus',
-                title: 'New Web Content',
+                title: 'New Simple Web Content',
                 onClick: function () {
-                    $state.go('application.webContentService.webContent.add');
+                    $state.go('application.webContentService.webContent.addSimple');
                 },
                 visible: true,
                 disabled: false
             };
 
-            applicationNavigationItems.setTopbarItem(newWebContentButton);
+            applicationNavigationItems.setTopbarItem(newSimpleWebContentButton);
         }
 
         function getTableColumns() {

@@ -1,21 +1,21 @@
 <div class="row form-row template-details">
     <div class="col-md-12">
-        <form class="form form-instance" role="form" name="webContentDetails.entityForm" novalidate>
+        <form class="form form-instance" role="form" name="simpleWebContentDetails.entityForm" novalidate>
             <div class="col-xs-12">
-                <input-text model="webContentDetails.entity.title"
+                <input-text model="simpleWebContentDetails.entity.title"
                             name="name"
                             label="{{'webContentService.webContent.title.label' | translate}}"
                             placeholder="{{'webContentService.webContent.title.placeholder' | translate}}"
-                            validators="webContentDetails.validators">
+                            validators="simpleWebContentDetails.validators">
                 </input-text>
                 <input-ckeditor id="contentInput"
-                                model="webContentDetails.entity.content"
+                                model="simpleWebContentDetails.entity.content"
                                 name="content"
                                 label="{{'webContentService.webContent.content.label' | translate}}"
                                 placeholder="{{'webContentService.webContent.content.placeholder' | translate}}"
-                                validators="webContentDetails.validators"
+                                validators="simpleWebContentDetails.validators"
                                 rows="5"
-                                options="webContentDetails.ckeditorOptions">
+                                options="simpleWebContentDetails.ckeditorOptions">
                 </input-ckeditor>
             </div>
         </form>
@@ -23,8 +23,8 @@
 </div>
 <div class="row bottom-navigation">
     <div class="col-sx-12 bottom-navigation-content">
-        <button class="btn save-button" ng-click="webContentDetails.onSuccessSaveForm()"
-                ng-disabled="webContentDetails.entityForm.$invalid">
+        <button class="btn save-button" ng-click="simpleWebContentDetails.saveForm()"
+                ng-disabled="simpleWebContentDetails.entityForm.$invalid">
             <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
         </button>
         <button ui-sref="application.webContentService.webContent.list" class="btn cancel-button">

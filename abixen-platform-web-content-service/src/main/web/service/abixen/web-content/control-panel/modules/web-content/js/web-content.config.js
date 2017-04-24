@@ -37,11 +37,11 @@
                 controller: 'WebContentServiceWebContentController',
                 controllerAs: 'webContentList'
             })
-            .state('application.webContentService.webContent.add', {
+            .state('application.webContentService.webContent.addSimple', {
                     url: '/add',
-                    templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/details.html',
-                    controller: 'WebContentServiceWebContentDetailsController',
-                    controllerAs: 'webContentDetails'
+                    templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/simple-details.html',
+                    controller: 'WebContentServiceSimpleWebContentDetailsController',
+                    controllerAs: 'simpleWebContentDetails'
             });
     }
 })();

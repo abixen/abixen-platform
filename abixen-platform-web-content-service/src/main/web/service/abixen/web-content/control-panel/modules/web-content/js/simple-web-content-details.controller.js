@@ -18,23 +18,23 @@
 
     angular
         .module('webContentServiceWebContentModule')
-        .controller('WebContentServiceWebContentDetailsController', WebContentServiceWebContentDetailsController);
+        .controller('WebContentServiceSimpleWebContentDetailsController', WebContentServiceSimpleWebContentDetailsController);
 
-    WebContentServiceWebContentDetailsController.$inject = [
+    WebContentServiceSimpleWebContentDetailsController.$inject = [
         '$scope',
         '$state',
         '$stateParams',
         '$log',
-        'WebContent',
+        'SimpleWebContent',
         'responseHandler'
     ];
 
-    function WebContentServiceWebContentDetailsController($scope, $state, $stateParams, $log, WebContent, responseHandler) {
+    function WebContentServiceSimpleWebContentDetailsController($scope, $state, $stateParams, $log, SimpleWebContent, responseHandler) {
 
-        var webContentDetails = this;
-        webContentDetails.entity=null;
-        webContentDetails.onSuccessSaveForm=onSuccessSaveForm;
-        new AbstractDetailsController(webContentDetails, WebContent, responseHandler, $scope,
+        var simpleWebContentDetails = this;
+        simpleWebContentDetails.entity = null;
+        simpleWebContentDetails.onSuccessSaveForm = onSuccessSaveForm;
+        new AbstractDetailsController(simpleWebContentDetails, SimpleWebContent, responseHandler, $scope,
             {
                 entityId: $stateParams.id,
                 getValidators: getValidators,
@@ -42,7 +42,7 @@
             }
         );
 
-        webContentDetails.ckeditorOptions = {
+        simpleWebContentDetails.ckeditorOptions = {
             language: 'en',
             allowedContent: true,
             entities: false
@@ -50,12 +50,9 @@
 
 
         function onSuccessSaveForm() {
-
-            WebContent.update({id: $stateParams.id}, webContentDetails.entity, function () {
-                $log.log('WebContent added has been updated: ', webContentDetails.entity);
-                $state.go('application.webContentService.webContent.list');
-            });
+            $state.go('application.webContentService.webContent.list');
         }
+
         function getValidators() {
             var validators = [];
 

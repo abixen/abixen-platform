@@ -18,13 +18,14 @@
 
     angular
         .module('webContentServiceWebContentModule')
-        .factory('WebContent', WebContent);
+        .factory('SimpleWebContent', SimpleWebContent);
 
-    WebContent.$inject = ['$resource'];
+    SimpleWebContent.$inject = ['$resource'];
 
-    function WebContent($resource) {
-        return $resource('/api/service/abixen/web-content/control-panel/web-contents/:id', {}, {
-            query: {method: 'GET', isArray: false}
+    function SimpleWebContent($resource) {
+        return $resource('/api/service/abixen/web-content/control-panel/simple-web-contents/:id', {}, {
+            query: {method: 'GET', isArray: false},
+            update: {method: 'PUT'}
         });
     }
 
