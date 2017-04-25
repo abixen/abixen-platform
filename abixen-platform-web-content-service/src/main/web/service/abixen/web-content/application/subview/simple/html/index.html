@@ -1,1 +1,10 @@
-<div> simple web content</div>
+<div ng-controller="PreviewSimpleController as previewSimple">
+    <div class="web-content-view">
+        <div class="web-content-title">
+            {{previewSimple.entity.title}}
+        </div>
+        <div class="web-content-content">
+            {{previewSimple.entity.content}}
+        </div>
+    </div>
+</div>
