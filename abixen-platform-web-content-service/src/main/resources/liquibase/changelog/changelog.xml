@@ -9,5 +9,6 @@
     <include file="liquibase/changelog/template/changelog.xml"/>
     <include file="liquibase/changelog/structure/changelog.xml"/>
     <include file="liquibase/changelog/web-content-changelog.xml"/>
+    <include file="liquibase/changelog/web-content-config-changelog.xml"/>
 
 </databaseChangeLog>

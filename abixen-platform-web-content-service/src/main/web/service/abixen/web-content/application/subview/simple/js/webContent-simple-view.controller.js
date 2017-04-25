@@ -24,10 +24,11 @@
         '$scope',
         '$log',
         'WebContentView',
+        'WebContentConfig',
         'moduleResponseErrorHandler'
     ];
 
-    function WebContentSimpleViewController($scope, $log, WebContentView, moduleResponseErrorHandler) {
+    function WebContentSimpleViewController($scope, $log, WebContentView, WebContentConfig, moduleResponseErrorHandler) {
         $log.log('PreviewSimpleController');
 
         var webContentSimpleView = this;
@@ -50,7 +51,7 @@
             }
         }
 
-        getSimpleWebContent(1)
+        getSimpleWebContent(WebContentConfig.getConfig().contentId)
 
 
     }

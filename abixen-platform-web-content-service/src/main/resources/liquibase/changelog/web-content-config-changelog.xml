@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/web-content-changelog.xml">
+
+    <changeSet id="web-content-module-config-sequence-v1" author="KonradWisniewski">
+        <createSequence sequenceName="web_content_module_config_seq" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="web-content-module-config-v1" author="KonradWisniewski">
+        <createTable tableName="web_content_module_config">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="module_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by_id" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__web_content_module_config__id" tableName="web_content_module_config"/>
+
+        <addForeignKeyConstraint baseColumnNames="content_id" baseTableName="web_content_module_config"
+                                 constraintName="fk__web_content__web_content_module_config__id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="web_content"/>
+    </changeSet>
+
+</databaseChangeLog>

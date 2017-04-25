@@ -23,20 +23,22 @@
     ConfigurationWizardController.$inject = [
         '$scope',
         '$log',
+        'WebContentConfig',
+        'WebContentConfigData',
         'moduleResponseErrorHandler'
     ];
 
-    function ConfigurationWizardController($scope, $log, moduleResponseErrorHandler) {
+    function ConfigurationWizardController($scope, $log, WebContentConfig, WebContentConfigData, moduleResponseErrorHandler) {
         $log.log('WebContentConfigurationWizardController');
 
         var webContentConfigurationWizard = this;
 
         webContentConfigurationWizard.stepCurrent = 0;
         webContentConfigurationWizard.stepMax = 1;
+        webContentConfigurationWizard.moduleId = null;
         webContentConfigurationWizard.prev = prev;
         webContentConfigurationWizard.next = next;
         webContentConfigurationWizard.canNext = canNext;
-        
         
         function prev() {
             if (webContentConfigurationWizard.stepCurrent > 0) {
@@ -47,12 +49,16 @@
         function next() {
             if (webContentConfigurationWizard.stepCurrent < webContentConfigurationWizard.stepMax) {
                 webContentConfigurationWizard.stepCurrent++;
+            } else if (webContentConfigurationWizard.stepCurrent === webContentConfigurationWizard.stepMax) {
+                WebContentConfigData.save(WebContentConfig.getConfig());
+                $scope.$emit('VIEW_MODE');
             }
-            
         }
         
         function canNext() {
             if (webContentConfigurationWizard.stepCurrent < webContentConfigurationWizard.stepMax) {
+                return true;
+            } else if (webContentConfigurationWizard.stepCurrent === webContentConfigurationWizard.stepMax) {
                 return true;
             }
             return false
