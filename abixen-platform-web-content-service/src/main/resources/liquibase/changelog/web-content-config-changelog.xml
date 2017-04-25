@@ -28,6 +28,11 @@
         </createTable>
 
         <addPrimaryKey columnNames="id" constraintName="pk__web_content_module_config__id" tableName="web_content_module_config"/>
+
+        <addForeignKeyConstraint baseColumnNames="content_id" baseTableName="web_content_module_config"
+                                 constraintName="fk__web_content__web_content_module_config__id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="web_content"/>
     </changeSet>
 
 </databaseChangeLog>
