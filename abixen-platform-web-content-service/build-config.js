@@ -57,7 +57,7 @@ module.exports = {
             'src/main/web/service/abixen/web-content/application/**/*.scss'
         ],
         applicationSass: [
-            'src/main/web/service/abixen/web-content/application/scss/businessintelligence.scss'
+            'src/main/web/service/abixen/web-content/application/scss/web-content.scss'
         ]
     }
 };
