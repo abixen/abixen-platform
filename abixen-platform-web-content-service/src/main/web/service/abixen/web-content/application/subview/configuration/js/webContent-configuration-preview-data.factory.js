@@ -12,20 +12,21 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.service;
+(function () {
 
-import com.abixen.platform.service.webcontent.form.SearchWebContentForm;
-import com.abixen.platform.service.webcontent.form.WebContentForm;
-import com.abixen.platform.service.webcontent.model.impl.WebContent;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+    'use strict';
 
-public interface WebContentService {
+    angular
+        .module('webContentConfigurationModule')
+        .factory('WebContentPreview', WebContentPreview);
 
-    Page<WebContent> getWebContents(Pageable pageable);
+    WebContentPreview.$inject = ['$resource'];
 
-    Page<WebContent> getWebContents(Pageable pageable, SearchWebContentForm searchWebContentForm);
+    function WebContentPreview($resource) {
 
-    WebContentForm getWebContent(Long id);
+        return $resource('/api/service/abixen/web-content/control-panel/web-contents/:id', {}, {
+            query: {method: 'GET', isArray: false}
+        });
+    }
 
-}
+})();

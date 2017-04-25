@@ -26,6 +26,7 @@ gulp.task('applicationTemplateCache', applicationTemplateCacheTask);
 gulp.task('adminScripts', adminScriptsTask);
 gulp.task('adminStyles', adminStylesTask);
 gulp.task('applicationScripts', applicationScriptsTask);
+gulp.task('applicationStyles', applicationStylesTask);
 gulp.task('build', buildTask);
 gulp.task('adminLibs', adminLibsTask);
 gulp.task('dev', ['build'], devTask);
@@ -90,6 +91,11 @@ function adminStylesTask() {
     return genericStylesTask(config.styles.adminSass, config.dest.adminStyles);
 }
 
+function applicationStylesTask() {
+
+    return genericStylesTask(config.styles.applicationSass, config.dest.applicationStyles);
+}
+
 function genericStylesTask(sourceSassPath, destinationStylesPath) {
 
     return gulp.src(sourceSassPath)
@@ -110,7 +116,8 @@ function buildTask(callback) {
             'adminStyles'
         ],
         [
-            'applicationScripts'
+            'applicationScripts',
+            'applicationStyles'
         ],
         callback);
 }
