@@ -49,44 +49,51 @@ public class ExcelParserServiceImpl implements FileParserService {
     private final int firstSheetIndex = 0;
 
     @Override
-    public FileParserMessage<DataFileColumn> parseFile(MultipartFile multipartFile) {
+    public FileParserMessage<DataFileColumn> parseFile(MultipartFile multipartFile, Boolean readFirstColumnAsColumnName) {
         FileParserMessage<DataFileColumn> msg = new FileParserMessage<>();
         try {
             Workbook workbook = openFileAsWorkBook(multipartFile, msg);
-            parseWorkbook(workbook.getSheetAt(firstSheetIndex), msg);
+            parseWorkbook(workbook.getSheetAt(firstSheetIndex), msg, readFirstColumnAsColumnName);
         } catch (IOException e) {
             msg.addFileParseError(new FileParseError("Can't read file."));
         }
         return msg;
     }
 
-    private void parseWorkbook(Sheet sheet, FileParserMessage<DataFileColumn> msg) {
+    private void parseWorkbook(Sheet sheet, FileParserMessage<DataFileColumn> msg, Boolean readFirstColumnAsColumnName) {
         Row headerRow = sheet.getRow(headerRowIndex);
-        if (validate(msg, headerRow, sheet)) {
-            msg.setData(prepareData(msg, headerRow, sheet));
+        if (validate(msg, headerRow, sheet, readFirstColumnAsColumnName)) {
+            msg.setData(prepareData(msg, headerRow, sheet, readFirstColumnAsColumnName));
         }
 
     }
 
-    private List<DataFileColumn> prepareData(FileParserMessage<DataFileColumn> msg, Row headerRow, Sheet sheet) {
-        return getColumns(headerRow, sheet);
+    private List<DataFileColumn> prepareData(FileParserMessage<DataFileColumn> msg, Row headerRow, Sheet sheet, Boolean readFirstColumnAsColumnName) {
+        return getColumns(headerRow, sheet, readFirstColumnAsColumnName);
     }
 
-    private List<DataFileColumn> getColumns(Row headerRow, Sheet sheet) {
+    private List<DataFileColumn> getColumns(Row headerRow, Sheet sheet, Boolean readFirstColumnAsColumnName) {
         List<DataFileColumn> dataFileColumns = new ArrayList<>();
         for (int i = 0; i < headerRow.getPhysicalNumberOfCells(); i++) {
             DataFileColumn dataFileColumn = new DataFileColumn();
-            DataValueType columnType = getColumnTypeAsDataValueType(sheet.getRow(headerRowIndex + 1).getCell(i), i);
+            int firstDataRow = readFirstColumnAsColumnName ? headerRowIndex + 1 : headerRowIndex;
+            DataValueType columnType = getColumnTypeAsDataValueType(sheet.getRow(firstDataRow).getCell(i), i);
             dataFileColumn.setDataValueType(columnType);
-            dataFileColumn.setValues(getValues(sheet, i, columnType));
+            dataFileColumn.setPosition(i);
+            dataFileColumn.setName(getColumnNames(sheet, i, readFirstColumnAsColumnName));
+            dataFileColumn.setValues(getValues(sheet, i, columnType, firstDataRow));
             dataFileColumns.add(dataFileColumn);
         }
         return dataFileColumns;
     }
 
-    private List<DataValue> getValues(Sheet sheet, int i, DataValueType columnType) {
+    private String getColumnNames(Sheet sheet, int i, Boolean readFirstColumnAsColumnName) {
+        return readFirstColumnAsColumnName ? sheet.getRow(headerRowIndex).getCell(i).getStringCellValue() : null;
+    }
+
+    private List<DataValue> getValues(Sheet sheet, int i, DataValueType columnType, int firstDataRow) {
         List<DataValue> values = new ArrayList<>();
-        for (int j = 1; j < sheet.getPhysicalNumberOfRows(); j++) {
+        for (int j = firstDataRow; j < sheet.getPhysicalNumberOfRows(); j++) {
             Cell cell = sheet.getRow(j).getCell(i);
             values.add(getValueAsDataValue(cell, columnType));
         }
@@ -124,14 +131,15 @@ public class ExcelParserServiceImpl implements FileParserService {
         return dataValueDouble;
     }
 
-    private boolean validate(FileParserMessage<DataFileColumn> msg, Row headerRow, Sheet sheet) {
+    private boolean validate(FileParserMessage<DataFileColumn> msg, Row headerRow, Sheet sheet, Boolean readFirstColumnAsColumnName) {
         for (int i = 0; i < headerRow.getPhysicalNumberOfCells(); i++) {
-            Cell columnCell = sheet.getRow(headerRowIndex + 1).getCell(i);
+            int firstDataRow = readFirstColumnAsColumnName ? headerRowIndex + 1 : headerRowIndex;
+            Cell columnCell = sheet.getRow(firstDataRow).getCell(i);
             if (columnCell == null) {
                 msg.addFileParseError(new FileParseError(1, String.format("[Line %d, column %d] Cell is empty. Column can't be validated", headerRowIndex + 1, i)));
             } else {
                 DataValueType columnType = getColumnTypeAsDataValueType(columnCell, i);
-                for (int j = 1; j < sheet.getPhysicalNumberOfRows(); j++) {
+                for (int j = firstDataRow; j < sheet.getPhysicalNumberOfRows(); j++) {
                     Cell cell = sheet.getRow(j).getCell(i);
                     if (cell == null) {
                         msg.addFileParseError(new FileParseError(1, String.format("[Line %d, column %d] Cell is empty", j, i)));

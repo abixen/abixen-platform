@@ -102,8 +102,12 @@
   a {
     text-decoration: none !important;
   }
+
+  .add-comment-box {
+    float: inherit;
+  }
 }
 
 .comments-content{
-  height: 500px;
+  height: 421px;
 }

@@ -44,7 +44,11 @@
                     <div class="user pull-right">
                         <div class="item dropdown" uib-dropdown>
                             <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
-                                <img ng-src="{{navigation.avatarUrl}}">
+                                <div class="avatar-container navigation-avatar-container">
+                                    <div class="avatar-border">
+                                        <img class="avatar" ng-src="{{navigation.avatarUrl}}">
+                                    </div>
+                                </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
                                 <li class="dropdown-header">
@@ -56,7 +60,7 @@
                                         My Account
                                     </a>
                                 </li>
-                                <li class="link">
+                                <li class="link" ng-if="navigation.platformUser.admin">
                                     <a ng-click="navigation.redirectAction.onClick()">
                                         {{navigation.redirectAction.title}}
                                     </a>
@@ -75,17 +79,17 @@
                         <a ng-repeat="topbarItem in navigation.topbarItems | orderBy: 'id'" class="{{topbarItem.styleClass}}"
                            ng-click="topbarItem.onClick()" ng-if="topbarItem.visible" ng-disabled="topbarItem.disabled">
                             <i class="{{topbarItem.faIcon}}"></i><span
-                                class="hidden-xs hidden-sm hidden-md">&nbsp;{{topbarItem.title}}</span>
+                                class="hidden-xs hidden-sm hidden-md">&nbsp;{{topbarItem.title | translate}}</span>
                         </a>
                         <div class="{{navigation.dropdownStyleClass}}" uib-dropdown ng-if="navigation.showDropdown">
                             <button type="button" class="btn btn-primary main-button" uib-dropdown-toggle>
-                                <i class="fa fa-tasks"></i><span class="hidden-xs hidden-sm hidden-md">&nbsp;Action&nbsp;</span><span
+                                <i class="fa fa-tasks"></i><span class="hidden-xs hidden-sm hidden-md">&nbsp;{{'application.button.action' | translate}}&nbsp;</span><span
                                     class="caret hidden-xs hidden-sm hidden-md"></span></button>
                             <ul class="dropdown-menu dropdown-menu-right main-menu" uib-dropdown-menu>
                                 <li class="dropdown-header"></li>
                                 <li ng-repeat="dropdownItem in navigation.topbarDropdownItems | orderBy: 'id'" role="menuitem"
                                     ng-class="{'divider': dropdownItem.isSeparator == true}">
-                                    <a ng-click="dropdownItem.onClick()">{{dropdownItem.title}}</a></li>
+                                    <a ng-click="dropdownItem.onClick()">{{dropdownItem.title | translate}}</a></li>
                             </ul>
                         </div>
                     </div>

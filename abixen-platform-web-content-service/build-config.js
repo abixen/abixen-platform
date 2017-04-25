@@ -7,7 +7,12 @@ module.exports = {
         adminLibs: 'src/main/resources/static/service/abixen/web-content/control-panel/lib',
         adminScripts: 'service/abixen/web-content/control-panel/web-content.min.js',
         adminStyles: 'service/abixen/web-content/control-panel/web-content.min.css',
-        templateCache: 'src/main/web/service/abixen/web-content/control-panel/js'
+        templateCache: 'src/main/web/service/abixen/web-content/control-panel/js',
+        applicationScripts: 'service/abixen/web-content/application/web-content.min.js',
+        applicationStyles: 'service/abixen/web-content/application/web-content.min.css',
+        applicationTemplateCache: 'src/main/web/service/abixen/web-content/application/javascript',
+        applicationLibs: 'src/main/resources/static/service/abixen/web-content/application/lib'
+
     },
     adminLibs: {
         files: [
@@ -32,6 +37,9 @@ module.exports = {
         adminFiles: [
             'src/main/web/service/abixen/web-content/control-panel/**/*.js'
         ],
+        applicationFiles: [
+            'src/main/web/service/abixen/web-content/application/**/*.js'
+        ],
         concatOrder: [
             'src/main/web/**/*templatecache.config.js',
             'src/main/web/**/*.module.js',
@@ -44,6 +52,12 @@ module.exports = {
         ],
         adminSass: [
             'src/main/web/service/abixen/web-content/control-panel/scss/web-content.scss'
+        ],
+        applicationWatch: [
+            'src/main/web/service/abixen/web-content/application/**/*.scss'
+        ],
+        applicationSass: [
+            'src/main/web/service/abixen/web-content/application/scss/web-content.scss'
         ]
     }
 };

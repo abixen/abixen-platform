@@ -22,14 +22,13 @@
 
     UserAssignRolesController.$inject = [
         '$scope',
-        '$http',
-        '$state',
         '$stateParams',
         '$log',
-        'UserRole'
+        'UserRole',
+        'toaster'
     ];
 
-    function UserAssignRolesController($scope, $http, $state, $stateParams, $log, UserRole) {
+    function UserAssignRolesController($scope, $stateParams, $log, UserRole, toaster) {
         $log.log('UserAssignRolesController');
 
         $scope.userRole = null;
@@ -52,7 +51,7 @@
             $log.log('update() - userRole: ', $scope.userRole);
             UserRole.update({id: $stateParams.id}, $scope.userRole, function () {
                 $log.log('uUserRole has been updated: ', $scope.userRole);
-                //$state.go(stateParent + '.list')
+                toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Saved', 'User\'s roles have been updated.');
             });
         };
 

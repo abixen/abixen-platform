@@ -14,17 +14,19 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.converter.PageToPageDtoConverter;
+import com.abixen.platform.core.dto.PageDto;
 import com.abixen.platform.core.form.PageConfigurationForm;
 import com.abixen.platform.core.form.PageForm;
 import com.abixen.platform.core.form.PageSearchForm;
-import com.abixen.platform.core.model.enumtype.AclClassName;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.ModuleRepository;
 import com.abixen.platform.core.repository.PageRepository;
-import com.abixen.platform.core.security.PlatformUser;
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,7 @@ public class PageServiceImpl implements PageService {
     private final UserService userService;
     private final PageRepository pageRepository;
     private final ModuleRepository moduleRepository;
+    private final PageToPageDtoConverter pageToPageDtoConverter;
 
     @Autowired
     public PageServiceImpl(AclService aclService,
@@ -60,7 +63,8 @@ public class PageServiceImpl implements PageService {
                            SecurityService securityService,
                            UserService userService,
                            PageRepository pageRepository,
-                           ModuleRepository moduleRepository) {
+                           ModuleRepository moduleRepository,
+                           PageToPageDtoConverter pageToPageDtoConverter) {
         this.aclService = aclService;
         this.domainBuilderService = domainBuilderService;
         this.layoutService = layoutService;
@@ -69,6 +73,7 @@ public class PageServiceImpl implements PageService {
         this.userService = userService;
         this.pageRepository = pageRepository;
         this.moduleRepository = moduleRepository;
+        this.pageToPageDtoConverter = pageToPageDtoConverter;
     }
 
     @Override
@@ -114,8 +119,10 @@ public class PageServiceImpl implements PageService {
         log.debug("updatePage() - pageForm={}", pageForm);
 
         Page page = buildPage(pageForm);
+        Page createdPage = createPage(page);
+        PageDto createdPageDto = pageToPageDtoConverter.convert(createdPage);
 
-        return new PageForm(createPage(page));
+        return new PageForm(createdPageDto);
     }
 
     @PreAuthorize("hasPermission('" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
@@ -136,7 +143,10 @@ public class PageServiceImpl implements PageService {
         page.setIcon(pageForm.getIcon());
         page.setLayout(layoutService.findLayout(pageForm.getLayout().getId()));
 
-        return new PageForm(updatePage(page));
+        Page updatedPage = updatePage(page);
+        PageDto updatedPageDto = pageToPageDtoConverter.convert(updatedPage);
+
+        return new PageForm(updatedPageDto);
     }
 
     @PreAuthorize("hasPermission(#page.id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")

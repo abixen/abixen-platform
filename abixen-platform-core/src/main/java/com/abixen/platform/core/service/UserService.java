@@ -18,7 +18,7 @@ import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.form.UserForm;
 import com.abixen.platform.core.form.UserRolesForm;
 import com.abixen.platform.core.form.UserSearchForm;
-import com.abixen.platform.core.model.enumtype.UserLanguage;
+import com.abixen.platform.common.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

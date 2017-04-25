@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -15,21 +15,23 @@
 package com.abixen.platform.core.controller.common;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
-import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.converter.RoleToRoleDtoConverter;
+import com.abixen.platform.core.converter.UserToUserDtoConverter;
+import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.RoleDto;
+import com.abixen.platform.core.dto.UserDto;
 import com.abixen.platform.core.form.UserChangePasswordForm;
 import com.abixen.platform.core.form.UserForm;
 import com.abixen.platform.core.form.UserRolesForm;
-import com.abixen.platform.core.model.enumtype.UserLanguage;
+import com.abixen.platform.common.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.service.MailService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
-import com.abixen.platform.core.util.ValidationUtil;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.LocaleUtils;
@@ -48,7 +50,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -59,6 +64,8 @@ public abstract class AbstractUserController {
     private final RoleService roleService;
     private final SecurityService securityService;
     private final MessageSource messageSource;
+    private final UserToUserDtoConverter userToUserDtoConverter;
+    private final RoleToRoleDtoConverter roleToRoleDtoConverter;
 
 
     private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
@@ -68,21 +75,26 @@ public abstract class AbstractUserController {
                                   RoleService roleService,
                                   SecurityService securityService,
                                   AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
-                                  MessageSource messageSource) {
+                                  MessageSource messageSource,
+                                  UserToUserDtoConverter userToUserDtoConverter,
+                                  RoleToRoleDtoConverter roleToRoleDtoConverter) {
         this.userService = userService;
         this.mailService = mailService;
         this.roleService = roleService;
         this.securityService = securityService;
         this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
         this.messageSource = messageSource;
+        this.userToUserDtoConverter = userToUserDtoConverter;
+        this.roleToRoleDtoConverter = roleToRoleDtoConverter;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable Long id) {
+    public UserDto getUser(@PathVariable Long id) {
         log.debug("getUser() - id: " + id);
 
         User user = userService.findUser(id);
-        return user;
+        UserDto userDto = userToUserDtoConverter.convert(user);
+        return userDto;
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -96,7 +108,8 @@ public abstract class AbstractUserController {
 
         String userPassword = userService.generateUserPassword();
         User user = userService.buildUser(userForm, userPassword);
-        userService.createUser(user);
+        User savedUser = userService.createUser(user);
+        userForm.setId(savedUser.getId());
 
         Map<String, String> params = new HashMap<>();
         params.put("email", user.getUsername());
@@ -120,7 +133,6 @@ public abstract class AbstractUserController {
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateUser(@PathVariable Long id, @RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
         log.debug("update() - id: " + id + ", userForm: " + userForm);
@@ -165,7 +177,10 @@ public abstract class AbstractUserController {
         User user = userService.findUser(id);
         List<Role> allRoles = roleService.findAllRoles();
 
-        UserRolesForm userRolesForm = new UserRolesForm(user, allRoles);
+        UserDto userDto = userToUserDtoConverter.convert(user);
+        List<RoleDto> allRolesDto = roleToRoleDtoConverter.convertToList(allRoles);
+
+        UserRolesForm userRolesForm = new UserRolesForm(userDto, allRolesDto);
 
         return userRolesForm;
     }

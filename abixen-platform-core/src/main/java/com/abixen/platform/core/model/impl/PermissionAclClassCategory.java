@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.Model;
-import com.abixen.platform.core.model.PermissionAclClassCategoryBase;
+import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.model.PermissionAclClassCategoryBase;
 
 import javax.persistence.*;
 

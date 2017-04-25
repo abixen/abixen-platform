@@ -30,10 +30,11 @@
                 sidebarItems.push(page);
                 return this;
             },
-            editSidebarItem: function (id, title) {
+            editSidebarItem: function (id, title, icon) {
                 for (var i = 0; i < sidebarItems.length; i++) {
                     if (id === sidebarItems[i].id) {
                         sidebarItems[i].title = title;
+                        sidebarItems[i].iconClass = icon;
                     }
                 }
                 return this;

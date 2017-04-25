@@ -15,7 +15,7 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.ModuleRepository;
@@ -119,7 +119,7 @@ public class SecurityServiceTest {
         User admin = userRepository.findOne(1L);
         Module module = moduleRepository.findOne(2L);
         Boolean hasPermission = securityService.hasUserPermissionToObject(admin, PermissionName.MODULE_DELETE, module);
-        assertFalse(hasPermission);
+        assertTrue(hasPermission);
     }
 
     /**

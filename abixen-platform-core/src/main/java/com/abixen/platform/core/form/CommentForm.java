@@ -14,16 +14,19 @@
 
 package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.model.impl.Comment;
-import com.abixen.platform.core.model.web.UserWeb;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
-import lombok.*;
+import com.abixen.platform.common.form.Form;
+import com.abixen.platform.core.dto.CommentDto;
+import com.abixen.platform.core.dto.UserDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-import static com.abixen.platform.core.model.CommentBase.COMMENT_MESSAGE_MAX_LENGTH;
+import static com.abixen.platform.common.model.CommentBase.COMMENT_MESSAGE_MAX_LENGTH;
 
 @Getter
 @Setter
@@ -31,31 +34,25 @@ import static com.abixen.platform.core.model.CommentBase.COMMENT_MESSAGE_MAX_LEN
 @AllArgsConstructor
 public class CommentForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Length(max = COMMENT_MESSAGE_MAX_LENGTH)
     private String message;
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long parentId;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private Long moduleId;
 
-    @JsonView(WebModelJsonSerialize.class)
-    private UserWeb user;
+    private UserDto user;
 
-    @JsonView(WebModelJsonSerialize.class)
     private Date createdDate;
 
     public CommentForm() {
     }
 
-    public CommentForm(Comment comment) {
+    public CommentForm(CommentDto comment) {
         this.id = comment.getId();
         this.message = comment.getMessage();
         if (comment.getParent() != null) {

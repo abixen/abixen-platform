@@ -62,6 +62,7 @@
                         $scope.moduleState.isCollapsed = false;
                         $scope.moduleState.isLoading = false;
                         $scope.moduleState.permissionDenied = false;
+                        $scope.moduleState.configurationMissing = false;
                         $scope.moduleState.chatShowing = false;
                     }
                 } else {
@@ -142,8 +143,12 @@
                 $scope.$on(platformParameters.events.SHOW_PERMISSION_DENIED_TO_MODULE, function () {
                     $scope.moduleState.permissionDenied = true;
                 });
+                $scope.$on(platformParameters.events.SHOW_MODULE_CONFIGURATION_MISSING, function () {
+                    $scope.moduleState.configurationMissing = true;
+                });
                 $scope.$on(platformParameters.events.SHOW_EXIT_CONFIGURATION_MODE_ICON, function () {
                     $scope.moduleState.configurationMode = true;
+                    $scope.moduleState.configurationMissing = false;
                 });
                 $scope.$on(platformParameters.events.SHOW_CONFIGURATION_MODE_ICON, function () {
                     $scope.moduleState.configurationMode = false;
@@ -151,10 +156,14 @@
                 $scope.$on(platformParameters.events.UPDATE_MODULE_CONTROL_ICONS, function (event, icons) {
                     $scope.moduleState.moduleIcons = icons;
                 });
-
                 $scope.toggleFullScreenMode = function () {
                     $scope.moduleState.fullScreenMode = !$scope.moduleState.fullScreenMode;
-                    $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.moduleState.fullScreenMode);
+
+                    function onModeChanged(){
+                        $scope.$broadcast(platformParameters.events.REDRAW_MODULE);
+                    }
+
+                    $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.moduleState.fullScreenMode, onModeChanged);
                 };
 
                 $scope.toggleChat = function () {

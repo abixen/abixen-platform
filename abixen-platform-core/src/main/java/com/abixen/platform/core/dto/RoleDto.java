@@ -15,7 +15,8 @@
 package com.abixen.platform.core.dto;
 
 
-import com.abixen.platform.core.model.enumtype.RoleType;
+import com.abixen.platform.common.model.enumtype.RoleType;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,10 +28,13 @@ import java.util.Set;
 @Setter
 @Accessors(chain = true)
 @ToString
-public class RoleDto {
+@EqualsAndHashCode(of = "name")
+public class RoleDto extends AuditingDto {
 
     private Long id;
     private RoleType roleType;
     private String name;
     private Set<PermissionDto> permissions;
+
+
 }

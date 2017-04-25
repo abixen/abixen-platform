@@ -150,6 +150,11 @@ public class FileDataSourceServiceImpl implements FileDataSourceService {
         return fileDataSourceRepository.findOne(id);
     }
 
+    @Override
+    public void delateFileDataSource(Long id) {
+        fileDataSourceRepository.delete(id);
+    }
+
     private void convertDataSourceColumnWebToDataSourceColumn(FileDataSource databaseDataSource, Set<DataSourceColumn> dataSourceColumns, List<DataSourceColumnWeb> toAdd) {
         for (DataSourceColumnWeb dataSourceColumnWeb : toAdd) {
             DataSourceColumn dataSourceColumn = new DataSourceColumn();

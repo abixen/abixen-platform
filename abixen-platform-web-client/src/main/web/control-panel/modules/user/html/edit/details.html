@@ -39,7 +39,7 @@
                             validators="userDetails.validators">
                 </input-text>
                 <input-drop-down ng-model="userDetails.entity.selectedLanguage"
-                                 name="language"
+                                 name="selectedLanguage"
                                  label="{{'module.user.language.label' | translate}}"
                                  validators="userDetails.validators"
                                  options="userDetails.languageTypes"
@@ -49,9 +49,11 @@
                 </input-drop-down>
             </div>
             <div class="col-xs-6">
-                <div class="form-group avatar">
-                    <div>
-                        <img ng-src="{{userDetails.avatarUrl}}" ></div>
+                <div ng-if="userDetails.entity.id" class="form-group">
+                    <div class="avatar-container details-avatar-container">
+                        <div class="avatar-border">
+                            <img class="avatar" ng-src="{{userDetails.avatarUrl}}" ></div>
+                        </div>
                     <div>
                         <button ui-sref="application.users.edit.avatar"><i class="fa fa-pencil-square-o"></i>Change</button>
                     </div>

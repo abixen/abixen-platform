@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/multi-visualisation/sample/sample-selling-data-changelog.xml">
+
+    <changeSet author="KonradWisniewski" id="sample-sales-in-stores-global-data-v1">
+        <createTable tableName="sample_sales_in_stores_global_data">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="morning" type="double"/>
+            <column name="noon" type="double"/>
+            <column name="afternoon" type="double"/>
+            <column name="evening" type="double"/>
+            <column name="midnight" type="double"/>
+            <column name="night" type="double"/>
+            <column name="sales_day" type="date"/>
+
+        </createTable>
+
+        <addPrimaryKey columnNames="id" constraintName="pk__sample_sales_in_stores_global_data__id" tableName="sample_sales_in_stores_global_data"/>
+
+    </changeSet>
+
+</databaseChangeLog>

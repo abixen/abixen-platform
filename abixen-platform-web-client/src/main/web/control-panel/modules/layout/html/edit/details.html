@@ -1,0 +1,61 @@
+<div class="row form-row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="alert alert-danger" ng-show="error">
+            Error.
+        </div>
+        <form class="form-horizontal" role="form" ng-submit="login()"
+              name="layoutDetails.entityForm" novalidate>
+            <div class="form-group">
+                <div class="row form-row">
+                    <div class="col-sm-9">
+                        <input-text model="layoutDetails.entity.title"
+                                    name="title"
+                                    label="{{'module.layout.title.label' | translate}}"
+                                    placeholder="{{'module.layout.title.placeholder' | translate}}"
+                                    validators="layoutDetails.validators">
+                        </input-text>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row form-row">
+                    <div class="col-sm-9">
+                        <input-text-editor model="layoutDetails.entity.content"
+                                           form="layoutDetails.entityForm"
+                                           id="xmlInput"
+                                           name="content"
+                                           label="{{'module.layout.content.label' | translate}}"
+                                           placeholder="{{'module.layout.content.placeholder' | translate}}"
+                                           validators="layoutDetails.validators"
+                                           rows="5">
+                        </input-text-editor>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="!layoutDetails.isNew" class="form-group" >
+                <div class="row form-row">
+                    <label class="control-label">Icon</label>
+                </div>
+                <div class="row form-row">
+                    <div class="col-sm-9">
+                        <img src="/api/images/layout/{{layoutDetails.entity.iconFileName}}/" class="layout-icon">
+                        <button ui-sref="application.layouts.edit.icon"><i class="fa fa-pencil-square-o"></i>Change</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="form-group">
+            <div class="row form-row">
+                <div class="row bottom-navigation ng-scope">
+                    <div class="col-sm-9">
+                        <button class="btn save-button ng-click-active"  ng-click="layoutDetails.beforeSaveForm()"
+                           ng-disabled="layoutDetails.entityForm.$invalid">
+                            <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span></button>
+                        <button class="btn cancel-button" ui-sref="application.layouts.list">
+                            <i class="fa fa-times"></i><span>&nbsp;Cancel</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

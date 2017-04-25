@@ -14,10 +14,10 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.ResourceBase;
-import com.abixen.platform.core.model.enumtype.ResourcePage;
-import com.abixen.platform.core.model.enumtype.ResourcePageLocation;
-import com.abixen.platform.core.model.enumtype.ResourceType;
+import com.abixen.platform.common.model.ResourceBase;
+import com.abixen.platform.common.model.enumtype.ResourcePage;
+import com.abixen.platform.common.model.enumtype.ResourcePageLocation;
+import com.abixen.platform.common.model.enumtype.ResourceType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

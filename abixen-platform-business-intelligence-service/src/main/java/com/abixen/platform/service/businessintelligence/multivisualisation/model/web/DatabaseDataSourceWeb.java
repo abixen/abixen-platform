@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.web;
 
-import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

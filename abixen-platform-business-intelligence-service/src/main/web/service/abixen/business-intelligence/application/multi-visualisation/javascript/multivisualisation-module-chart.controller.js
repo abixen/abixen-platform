@@ -26,10 +26,11 @@
         'ChartModuleConfiguration',
         'CharData',
         'dataChartAdapter',
-        'moduleResponseErrorHandler'
+        'moduleResponseErrorHandler',
+        'multivisualisationDisplayingDataRules'
     ];
 
-    function MultivisualisationModuleChartController($scope, $log, ChartModuleConfiguration, CharData, dataChartAdapter, moduleResponseErrorHandler) {
+    function MultivisualisationModuleChartController($scope, $log, ChartModuleConfiguration, CharData, dataChartAdapter, moduleResponseErrorHandler, multivisualisationDisplayingDataRules) {
         $log.log('MultivisualisationModuleController');
 
         $log.log('$scope.moduleId: ' + $scope.moduleId);
@@ -41,6 +42,8 @@
         var SHOW_SUBVIEW_TABLE_EVENT = 'SHOW_SUBVIEW_TABLE_EVENT';
         var SHOW_SUBVIEW_CHART_EVENT = 'SHOW_SUBVIEW_CHART_EVENT';
 
+        $scope.$on(platformParameters.events.REDRAW_MODULE, onRedrawModule);
+
         if ($scope.moduleId) {
             $scope.$emit(platformParameters.events.START_REQUEST);
 
@@ -50,6 +53,12 @@
         }
 
         function onGetResult(moduleConfiguration) {
+            if(!moduleConfiguration.id){
+                $scope.$emit(platformParameters.events.STOP_REQUEST);
+                $scope.$emit(platformParameters.events.MODULE_CONFIGURATION_MISSING);
+                return;
+            }
+
             if (moduleConfiguration.chartType === 'TABLE') {
                 $scope.$emit(SHOW_SUBVIEW_TABLE_EVENT);
             } else {
@@ -79,8 +88,12 @@
             moduleResponseErrorHandler.handle(error, $scope);
         }
 
+        function onRedrawModule() {
+            multivisualisationModuleChart.api.update();
+        }
+
         function registerSubviewChartIcons(chartType) {
-            if (isTableViewAvailable(chartType)) {
+            if (multivisualisationDisplayingDataRules.isTableViewAvailable(chartType)) {
                 var icons = [
                     {
                         iconClass: 'fa fa-table',
@@ -98,29 +111,5 @@
             $scope.$emit(platformParameters.events.REGISTER_MODULE_CONTROL_ICONS, icons);
         }
 
-        function isTableViewAvailable(chartType) {
-            switch (chartType) {
-                case 'LINE':
-                    return true;
-                case 'PIE':
-                    return true;
-                case 'MULTI_BAR':
-                    return true;
-                case 'MULTI_COLUMN':
-                    return true;
-                case 'STACKED_AREA':
-                    return true;
-                case 'DONUT':
-                    return true;
-                case 'DISCRETE_COLUMN':
-                    return true;
-                case 'HISTORICAL_COLUMN':
-                    return true;
-                case 'CUMULATIVE_LINE':
-                    return true;
-                default:
-                    return false;
-            }
-        }
     }
 })();

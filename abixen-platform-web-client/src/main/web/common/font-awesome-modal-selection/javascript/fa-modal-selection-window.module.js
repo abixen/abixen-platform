@@ -17,5 +17,5 @@
     'use strict';
 
     angular
-        .module('platformFAModalSelection', []);
+        .module('platformFAModalSelection', ['webClientTemplatecache']);
 })();

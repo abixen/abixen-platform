@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.form;
 
-import com.abixen.platform.core.form.Form;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
+import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.fasterxml.jackson.annotation.JsonView;
 

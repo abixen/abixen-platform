@@ -1,6 +1,7 @@
-id;created_date;last_modified_date;description;name;title;icon;layout_id;created_by_id;last_modified_by_id
-1;NULL;NULL;This is sample dashboard page #2;dashboard2;Sample forbidden;fa fa-file-text-o;15;2;2
-2;NULL;NULL;This is sample dashboard page with chart;dashboard2;Social media activity;fa fa-file-text-o;4;2;2
-3;NULL;NULL;This is sample dashboard page with chart;dashboard2;Sales in stores;fa fa-file-text-o;8;2;2
-4;NULL;NULL;This is sample dashboard page with chart;dashboard2;Customers;fa fa-file-text-o;7;2;2
-5;NULL;NULL;This is sample dashboard page with chart;dashboard2;Europe market;fa fa-file-text-o;14;2;2
+id;created_date;last_modified_date;description;title;icon;layout_id;created_by_id;last_modified_by_id
+1;NULL;NULL;This is sample forbidden page #2;Sample forbidden;fa fa-lock;15;2;2
+2;NULL;NULL;This is sample social media activity page;Social media activity;fa fa-facebook-square;4;2;2
+3;NULL;NULL;This is sample sales in stores page;Sales in stores;fa fa-shopping-cart;14;2;2
+4;NULL;NULL;This is sample customers page;Customers;fa fa-user;7;2;2
+5;NULL;NULL;This is sample Europe market page;Europe market;fa fa-eur;14;2;2
+6;NULL;NULL;This is sample of not configured module;Sample not configured;fa fa-cogs;15;2;2

@@ -32,6 +32,8 @@
 
         var permissions = this;
 
-        new AbstractPermissionsController(permissions, $state, AclRolesPermissions, 'layout', $stateParams.id, 'application.layouts');
+        var skipPermissions = ['LAYOUT_ADD'];
+
+        new AbstractPermissionsController(permissions, $state, AclRolesPermissions, 'layout', $stateParams.id, 'application.layouts', skipPermissions);
     }
 })();

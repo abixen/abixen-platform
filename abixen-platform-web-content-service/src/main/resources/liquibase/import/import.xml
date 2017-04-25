@@ -9,12 +9,17 @@
 
         <preConditions onFail="HALT">
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM web_content</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM simple_web_content</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM template</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM structure</sqlCheck>
         </preConditions>
         <loadData file="liquibase/import/data/web-content-data.csv"
                   separator=";"
                   tableName="web_content">
+        </loadData>
+        <loadData file="liquibase/import/data/simple-web-content-data.csv"
+                  separator=";"
+                  tableName="simple_web_content">
         </loadData>
         <loadData file="liquibase/import/data/template-data.csv"
                   separator=";"

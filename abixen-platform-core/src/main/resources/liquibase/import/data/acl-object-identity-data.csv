@@ -31,5 +31,16 @@ id;acl_class_id;object_id
 #Module instance with id equals 13
 15;2;13
 
-#Module instance with id equals 13
-16;6;1
+#Module instance with id equals 15
+16;2;15
+
+#Page instance with id equals 2
+17;3;2
+#Page instance with id equals 3
+18;3;3
+#Page instance with id equals 4
+19;3;4
+#Page instance with id equals 5
+20;3;5
+#Module instance with id equals 14
+21;2;14

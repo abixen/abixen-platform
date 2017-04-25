@@ -7,7 +7,7 @@
         logicalFilePath="liquibase/changelog/web-content-changelog.xml">
 
     <changeSet id="web-content-sequence-v1" author="AdamTurski">
-        <createSequence sequenceName="web_content_seq"/>
+        <createSequence sequenceName="web_content_seq" startValue="3"/>
     </changeSet>
 
     <changeSet id="web-content-v1" author="AdamTurski">
@@ -42,6 +42,10 @@
 
         <addPrimaryKey columnNames="id" constraintName="pk__simple_web_content__id" tableName="simple_web_content"/>
 
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="simple_web_content"
+                                 constraintName="fk__simple_web_content__id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="web_content"/>
     </changeSet>
 
     <changeSet id="advanced-web-content-v1" author="AdamTurski">

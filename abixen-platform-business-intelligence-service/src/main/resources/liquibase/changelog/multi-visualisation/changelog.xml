@@ -26,10 +26,13 @@
     <include file="liquibase/changelog/multi-visualisation/data-value-string-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/chart-configuration-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/sample/sample-selling-data-changelog.xml"/>
+    <include file="liquibase/changelog/multi-visualisation/sample/sample-sales-in-stores-data-changelog.xml"/>
+    <include file="liquibase/changelog/multi-visualisation/sample/sample-sales-in-stores-global-data-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/sample/sample-cash-flow-data-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/sample-something-data-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/sample-multi-visualisation-data-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/sample-visualisation-data-changelog.xml"/>
     <include file="liquibase/changelog/multi-visualisation/chart-sample-visualisation-data-changelog.xml"/>
+    <include file="liquibase/changelog/multi-visualisation/sample/sample-sales-per-employers-changelog.xml"/>
 
 </databaseChangeLog>

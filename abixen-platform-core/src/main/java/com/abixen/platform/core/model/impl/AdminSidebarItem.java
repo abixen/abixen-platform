@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.AdminSidebarItemBase;
+import com.abixen.platform.common.model.AdminSidebarItemBase;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;

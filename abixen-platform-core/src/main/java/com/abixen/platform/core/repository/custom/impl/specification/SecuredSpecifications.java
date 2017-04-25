@@ -15,9 +15,9 @@
 package com.abixen.platform.core.repository.custom.impl.specification;
 
 
-import com.abixen.platform.core.model.enumtype.AclClassName;
-import com.abixen.platform.core.model.enumtype.AclSidType;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.AclSidType;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.AclEntry;
 import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.model.impl.Role;
@@ -41,6 +41,7 @@ public class SecuredSpecifications {
         final String rolesField = "roles";
         final String permissionsField = "permissions";
         final String idField = "id";
+        final String createdByField = "createdBy";
         final String permissionNameField = "permissionName";
         final String permissionField = "permission";
         final String aclSidField = "aclSid";
@@ -87,6 +88,7 @@ public class SecuredSpecifications {
             parametersAclEntryOwnerCheck.add(aclEntryOwnerRoot.get(aclSidField).get(sidIdField).in(ownerId));
             parametersAclEntryOwnerCheck.add(cb.equal(aclEntryOwnerRoot.get(aclObjectIdentityField).get(aclClassField).get(aclClassNameField), aclClassName));
             parametersAclEntryOwnerCheck.add(cb.equal(aclEntryOwnerRoot.get(aclObjectIdentityField).get(objectIdField), candidateRoot.get(idField)));
+            parametersAclEntryOwnerCheck.add(cb.equal(candidateRoot.get(createdByField), user));
             subqueryAclEntryOwnerCheck
                     .select(cb.count(aclEntryOwnerRoot))
                     .where(cb.and(parametersAclEntryOwnerCheck.toArray(new Predicate[parametersAclEntryOwnerCheck.size()])));

@@ -14,9 +14,9 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.AclSidBase;
-import com.abixen.platform.core.model.Model;
-import com.abixen.platform.core.model.enumtype.AclSidType;
+import com.abixen.platform.common.model.AclSidBase;
+import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.model.enumtype.AclSidType;
 
 import javax.persistence.*;
 

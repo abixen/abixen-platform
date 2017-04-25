@@ -14,9 +14,9 @@
 
 package com.abixen.platform.core.security;
 
-import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.enumtype.AclClassName;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.SecurableModel;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.service.SecuribleModelService;
 import com.abixen.platform.core.service.SecurityService;

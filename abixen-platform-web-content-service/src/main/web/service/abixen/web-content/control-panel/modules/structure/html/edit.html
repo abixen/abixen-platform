@@ -9,14 +9,33 @@
                         validators="structureDetails.validators">
             </input-text>
 
+            <button type="button"
+                    class="btn btn-default">
+                <a ng-click="structureDetails.toggleEditor()"
+                   class="ng-click-active"
+                   style="text-decoration: none;">
+                    Content Editor
+                    <span class="menu-icon fa fa-toggle-off"
+                          ng-class="!structureDetails.isVisualEditor ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"
+                          style="">
+                     </span>
+                </a>
+            </button>
+
+            <visual-editor model="structureDetails.entity.content"
+                           id="visualInput"
+                           label="{{'structureDetails.content.label' | translate}}"
+                           ng-if="structureDetails.isVisualEditor">
+            </visual-editor>
+
             <input-text-editor model="structureDetails.entity.content"
-                             name="content"
-                             id="xmlInput"
-                             form="structureDetails.entityForm"
-                             label="{{'structureDetails.content.label' | translate}}"
-                             placeholder="{{'structureDetails.content.placeholder' | translate}}"
-                             validators="structureDetails.validators"
-                             rows="5">
+                               name="content"
+                               id="xmlInput"
+                               form="structureDetails.entityForm"
+                               label="{{'structureDetails.content.label' | translate}}"
+                               placeholder="{{'structureDetails.content.placeholder' | translate}}"
+                               validators="structureDetails.validators"
+                               ng-if="!structureDetails.isVisualEditor">
             </input-text-editor>
 
             <input-drop-down name="template"

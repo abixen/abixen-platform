@@ -13,13 +13,13 @@
  */
 package com.abixen.platform.service.webcontent.configuration.properties;
 
-import com.abixen.platform.core.configuration.properties.AbstractModulesConfigurationProperties;
+import com.abixen.platform.common.configuration.properties.AbstractModulesConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
 @EnableConfigurationProperties
-@ConfigurationProperties(prefix = "platform.webcontent")
+@ConfigurationProperties(prefix = "abixen.platform")
 public class WebContentServiceConfigurationProperties extends AbstractModulesConfigurationProperties {
 }

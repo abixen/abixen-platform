@@ -14,7 +14,10 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.core.converter.ModuleTypeToModuleTypeDtoConverter;
+import com.abixen.platform.core.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.dto.DashboardModuleDto;
+import com.abixen.platform.core.dto.PageDto;
 import com.abixen.platform.core.dto.PageModelDto;
 import com.abixen.platform.core.exception.PlatformCoreException;
 import com.abixen.platform.core.form.PageConfigurationForm;
@@ -41,15 +44,20 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
     private final PageService pageService;
     private final ModuleService moduleService;
     private final LayoutService layoutService;
+    private final PageToPageDtoConverter pageToPageDtoConverter;
+    private final ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter;
 
     @Autowired
     public PageConfigurationServiceImpl(PageService pageService,
                                         ModuleService moduleService,
-                                        LayoutService layoutService) {
+                                        LayoutService layoutService,
+                                        PageToPageDtoConverter pageToPageDtoConverter,
+                                        ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter) {
         this.pageService = pageService;
         this.moduleService = moduleService;
         this.layoutService = layoutService;
-
+        this.pageToPageDtoConverter = pageToPageDtoConverter;
+        this.moduleTypeToModuleTypeDtoConverter = moduleTypeToModuleTypeDtoConverter;
     }
 
     @Override
@@ -69,7 +77,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                                 module.getId(),
                                 module.getDescription(),
                                 module.getModuleType().getName(),
-                                module.getModuleType(),
+                                moduleTypeToModuleTypeDtoConverter.convert(module.getModuleType()),
                                 module.getTitle(),
                                 module.getRowIndex(),
                                 module.getColumnIndex(),
@@ -78,14 +86,16 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                 );
 
         layoutService.convertPageLayoutToJson(page);
-        return new PageModelDto(page, dashboardModuleDtos);
+        PageDto pageDto = pageToPageDtoConverter.convert(page);
+        return new PageModelDto(pageDto, dashboardModuleDtos);
     }
 
     @Override
     public PageConfigurationForm createPageConfiguration(PageConfigurationForm pageConfigurationForm) {
         Page page = pageService.createPage(pageConfigurationForm);
         layoutService.convertPageLayoutToJson(page);
-        return new PageConfigurationForm(page);
+        PageDto pageDto = pageToPageDtoConverter.convert(page);
+        return new PageConfigurationForm(pageDto);
     }
 
     @Override
@@ -110,7 +120,6 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
         }
 
         page.setDescription(pageConfigurationForm.getPage().getDescription());
-        page.setName(pageConfigurationForm.getPage().getName());
         page.setTitle(pageConfigurationForm.getPage().getTitle());
         page.setIcon(pageConfigurationForm.getPage().getIcon());
         page.setLayout(layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId()));
@@ -174,8 +183,6 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
         if (page.getDescription() == null && pageConfigurationForm.getPage().getDescription() != null) {
             validationFailed = true;
         } else if (page.getDescription() != null && !page.getDescription().equals(pageConfigurationForm.getPage().getDescription())) {
-            validationFailed = true;
-        } else if (!page.getName().equals(pageConfigurationForm.getPage().getName())) {
             validationFailed = true;
         } else if (!page.getTitle().equals(pageConfigurationForm.getPage().getTitle())) {
             validationFailed = true;

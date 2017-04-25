@@ -36,7 +36,11 @@
         multivisualisationModuleTable.options = undefined;
         multivisualisationModuleTable.data = undefined;
         if ($scope.tableConfiguration) {
-            $scope.chartConfiguration = $scope.initWizardStep.isChart() ? $scope.chartConfiguration : $scope.tableConfiguration;
+            if ($scope.initWizardStep) {
+                $scope.chartConfiguration = $scope.initWizardStep.isChart() ? $scope.chartConfiguration : $scope.tableConfiguration;
+            } else {
+                $scope.chartConfiguration = $scope.tableConfiguration.chartType === 'TABLE' ? $scope.tableConfiguration : $scope.chartConfiguration;
+            }
         }
 
         if ($scope.chartConfiguration) {

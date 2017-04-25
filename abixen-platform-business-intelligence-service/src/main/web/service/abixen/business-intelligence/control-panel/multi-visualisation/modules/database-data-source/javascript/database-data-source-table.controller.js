@@ -50,6 +50,10 @@
                 }else {
                     dataBaseDataSourceTable.renderTable = true;
                 }
+            } else {
+                if (dataBaseDataSourceTable.renderTable !== false) {
+                    dataBaseDataSourceTable.listGridConfig.setData([]);
+                }
             }
         });
 

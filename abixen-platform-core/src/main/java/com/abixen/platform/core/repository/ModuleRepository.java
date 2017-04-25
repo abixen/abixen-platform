@@ -15,8 +15,8 @@
 package com.abixen.platform.core.repository;
 
 import com.abixen.platform.core.form.ModuleSearchForm;
-import com.abixen.platform.core.model.enumtype.AclClassName;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.model.impl.User;

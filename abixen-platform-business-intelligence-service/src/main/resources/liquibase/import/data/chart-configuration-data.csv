@@ -1,13 +1,13 @@
 id;module_id;axis_x_name;axis_y_name;chart_type;data_set_chart_id;data_source_id;created_by_id;last_modified_by_id;created_date;last_modified_date
-1;3;Axis X; Axis Y;LINE;1;1;1;2;Null;Null
-2;4;Axis X; Axis Y;PIE;2;1;1;2;Null;Null
-3;5;Axis X; Axis Y;CUMULATIVE_LINE;3;1;1;2;Null;Null
-4;6;Axis X; Axis Y;STACKED_AREA;4;1;1;2;Null;Null
-5;7;Axis X; Axis Y;MULTI_COLUMN;5;1;1;2;Null;Null
-6;8;Axis X; Axis Y;DISCRETE_COLUMN;6;1;1;2;Null;Null
-7;9;Axis X; Axis Y;HISTORICAL_COLUMN;7;1;1;2;Null;Null
-8;10;Axis X; Axis Y;MULTI_BAR;8;1;1;2;Null;Null
-9;11;Axis X; Axis Y;SCATTER;9;1;1;2;Null;Null
+1;3;Date; Sales [$];LINE;1;3;1;2;Null;Null
+2;4;Axis X; Axis Y;PIE;2;6;1;2;Null;Null
+3;8;Date; Sales;CUMULATIVE_LINE_TABLE;3;1;1;2;Null;Null
+4;6;Date; Sales[Qty];STACKED_AREA_TABLE;4;5;1;2;Null;Null
+5;7;Date; Sales [$];MULTI_COLUMN_TABLE;5;3;1;2;Null;Null
+6;5;Customer type; Sales [QR];DISCRETE_COLUMN_TABLE;6;4;1;2;Null;Null
+7;9;Date; Average number of transactions;HISTORICAL_COLUMN;7;1;1;2;Null;Null
+8;10;Date; Average amount spent;MULTI_BAR;8;1;1;2;Null;Null
+9;11;Date; Money spend;SCATTER;9;1;1;2;Null;Null
 10;12;Axis X; Axis Y;DONUT;10;1;1;2;Null;Null
-11;13;Axis X; Axis Y;LINE_WITH_FOCUS_CHART;11;1;1;2;Null;Null
-12;14;Axis X; Axis Y;LINE_AND_BAR_WITH_FOCUS_CHART;12;1;1;2;Null;Null
+11;13;Date; Sales in markets;LINE_WITH_FOCUS_CHART;11;1;1;2;Null;Null
+12;14;Date; Sales in markets and shops;LINE_AND_BAR_WITH_FOCUS_CHART;12;1;1;2;Null;Null

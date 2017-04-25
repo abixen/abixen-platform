@@ -18,18 +18,18 @@ abixen:
         angularJsNameAdmin: TBD
         title: Web content
         description: Web content service
-        relativeInitUrl: /service/abixen/web-content/admin/html/index.html
+        relativeInitUrl: /service/abixen/web-content/application/html/index.html
         adminSidebarItems:
           -
             name: web-content-sidebar-item
         staticResources:
           -
-            relativeUrl: /service/abixen/web-content/admin/web-content.min.js
+            relativeUrl: /service/abixen/web-content/application/web-content.min.js
             resourcePageLocation: BODY
             resourcePage: APPLICATION
             resourceType: JAVASCRIPT
           -
-            relativeUrl: /service/abixen/web-content/admin/web-content.min.css
+            relativeUrl: /service/abixen/web-content/application/web-content.min.css
             resourcePageLocation: HEADER
             resourcePage: APPLICATION
             resourceType: CSS

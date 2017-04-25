@@ -36,6 +36,12 @@
                 templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/list.html',
                 controller: 'WebContentServiceWebContentController',
                 controllerAs: 'webContentList'
+            })
+            .state('application.webContentService.webContent.addSimple', {
+                    url: '/add',
+                    templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/simple-details.html',
+                    controller: 'WebContentServiceSimpleWebContentDetailsController',
+                    controllerAs: 'simpleWebContentDetails'
             });
     }
 })();

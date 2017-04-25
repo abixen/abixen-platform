@@ -23,15 +23,16 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.IntStream;
 
 
 @Service
 public class JsonFilterServiceImpl implements JsonFilterService {
+
+    private static final int DATA_END_INDEX = 10;
+    private static final int DATA_BEGIN_INDEX = 0;
 
     @Override
     public String convertJsonToJpql(String jsonCriteria, ResultSetMetaData rsmd) throws SQLException {
@@ -71,7 +72,7 @@ public class JsonFilterServiceImpl implements JsonFilterService {
                                     if (typeMapping == null) {
                                         query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + criteriaMap.get("data") + " ";
                                     } else {
-                                        String fieldTypeName = typeMapping.get(criteriaMap.get("field").toString());
+                                        String fieldTypeName = typeMapping.get(criteriaMap.get("field").toString().toUpperCase());
                                         String data = "";
                                         if (fieldTypeName == null) {
                                             data = criteriaMap.get("data").toString();
@@ -100,7 +101,7 @@ public class JsonFilterServiceImpl implements JsonFilterService {
             case DOUBLE:
                 return data;
             case DATE:
-                return "'" + data + "'";
+                return "'" + LocalDate.parse(data.substring(DATA_BEGIN_INDEX, DATA_END_INDEX)) + "'";
             case INTEGER:
                 return data;
             case STRING:
@@ -117,14 +118,17 @@ public class JsonFilterServiceImpl implements JsonFilterService {
         IntStream.range(1, columnCount + 1).forEach(i -> {
             try {
                 String columnTypeName = rsmd.getColumnTypeName(i);
-                if ("BIGINT".equals(columnTypeName)) {
+                if ("BIGINT".equalsIgnoreCase(columnTypeName)) {
                     columnTypeName = "INTEGER";
                 }
-                if ("VARCHAR".equals(columnTypeName)) {
+                if ("VARCHAR".equalsIgnoreCase(columnTypeName)) {
                     columnTypeName = "STRING";
                 }
-                if ("FLOAT8".equals(columnTypeName)) {
+                if ("FLOAT8".equalsIgnoreCase(columnTypeName)) {
                     columnTypeName = "DOUBLE";
+                }
+                if ("INT8".equalsIgnoreCase(columnTypeName)) {
+                    columnTypeName = "INTEGER";
                 }
                 columnTypeMapping.put(rsmd.getColumnName(i).toUpperCase(), columnTypeName.toUpperCase());
             } catch (SQLException e) {

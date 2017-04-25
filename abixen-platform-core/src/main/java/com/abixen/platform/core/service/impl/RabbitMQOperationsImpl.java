@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.service.impl;
 
-import com.abixen.platform.core.rabbitmq.message.RabbitMQMessage;
+import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
 import com.abixen.platform.core.service.RabbitMQOperations;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -22,8 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import static com.abixen.platform.core.util.PlatformProfiles.DOCKER;
-import static com.abixen.platform.core.util.PlatformProfiles.DEV;
+import static com.abixen.platform.common.util.PlatformProfiles.DOCKER;
+import static com.abixen.platform.common.util.PlatformProfiles.DEV;
 
 
 @Profile({DEV, DOCKER})

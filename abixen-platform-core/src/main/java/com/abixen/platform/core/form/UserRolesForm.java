@@ -14,10 +14,10 @@
 
 package com.abixen.platform.core.form;
 
+import com.abixen.platform.common.form.Form;
+import com.abixen.platform.core.dto.RoleDto;
+import com.abixen.platform.core.dto.UserDto;
 import com.abixen.platform.core.dto.UserRoleDto;
-import com.abixen.platform.core.model.impl.Role;
-import com.abixen.platform.core.model.impl.User;
-import com.abixen.platform.core.model.web.UserWeb;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.List;
 public class UserRolesForm implements Form {
 
     @NotNull
-    private UserWeb user;
+    private UserDto user;
 
     @NotNull
     private List<UserRoleDto> userRoles = new ArrayList<>();
@@ -35,10 +35,10 @@ public class UserRolesForm implements Form {
     public UserRolesForm() {
     }
 
-    public UserRolesForm(User user, List<Role> allRoles) {
+    public UserRolesForm(UserDto user, List<RoleDto> allRoles) {
         this.user = user;
 
-        for (Role role : allRoles) {
+        for (RoleDto role : allRoles) {
             Boolean selected = false;
 
             if (user.getRoles().contains(role)) {
@@ -48,11 +48,11 @@ public class UserRolesForm implements Form {
         }
     }
 
-    public UserWeb getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(UserWeb user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 

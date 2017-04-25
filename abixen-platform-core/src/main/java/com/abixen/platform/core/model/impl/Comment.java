@@ -14,8 +14,7 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.CommentBase;
-import com.abixen.platform.core.model.web.CommentWeb;
+import com.abixen.platform.common.model.CommentBase;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -30,7 +29,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Table(name = "comment")
 @SequenceGenerator(sequenceName = "comment_seq", name = "comment_seq", allocationSize = 1)
-public class Comment extends AuditingModel implements CommentBase<Comment, Module>, CommentWeb {
+public class Comment extends AuditingModel implements CommentBase<Comment, Module> {
 
     @Id
     @Column(name = "id")

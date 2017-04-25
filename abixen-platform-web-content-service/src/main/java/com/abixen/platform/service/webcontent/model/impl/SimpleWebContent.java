@@ -14,17 +14,14 @@
 
 package com.abixen.platform.service.webcontent.model.impl;
 
-import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
 import com.abixen.platform.service.webcontent.model.web.SimpleWebContentWeb;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "simple_web_content")
-@DiscriminatorValue(value = WebContentType.Values.SIMPLE)
 public class SimpleWebContent extends WebContent implements SimpleWebContentWeb, Serializable {
 
     private static final long serialVersionUID = -5253029007016137717L;

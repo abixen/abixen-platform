@@ -14,11 +14,9 @@
 
 package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.model.enumtype.CommentVoteType;
-import com.abixen.platform.core.model.web.CommentVoteWeb;
-import com.abixen.platform.core.model.web.CommentWeb;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.model.enumtype.CommentVoteType;
+import com.abixen.platform.core.dto.CommentVoteDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,23 +26,20 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class CommentVoteForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private CommentVoteType commentVoteType;
 
-    @JsonView(WebModelJsonSerialize.class)
-    private CommentWeb comment;
+    private Long commentId;
 
     public CommentVoteForm() {
     }
 
-    public CommentVoteForm(CommentVoteWeb commentVoteWeb) {
-        this.id = commentVoteWeb.getId();
-        this.comment = commentVoteWeb.getComment();
-        this.commentVoteType = commentVoteWeb.getCommentVoteType();
+    public CommentVoteForm(CommentVoteDto commentVote) {
+        this.id = commentVote.getId();
+        this.commentId = commentVote.getCommentId();
+        this.commentVoteType = commentVote.getCommentVoteType();
     }
 
 }

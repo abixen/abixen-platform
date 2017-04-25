@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.util.impl;
 
-import com.abixen.platform.core.util.EntityBuilder;
+import com.abixen.platform.common.util.EntityBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileColumnDTO;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValue;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueDouble;
@@ -51,6 +51,8 @@ public class DataFileBuilderImpl extends EntityBuilder<DataFile> implements Data
         dataColumn.forEach(entity -> {
             DataFileColumn dataFileColumn = new DataFileColumn();
             dataFileColumn.setName(entity.getName());
+            dataFileColumn.setPosition(entity.getPosition());
+            dataFileColumn.setDataValueType(entity.getDataValueType());
             List<DataValue> values = new ArrayList<>();
             entity.getValues().forEach(child -> {
                 if (child != null && child.getValue() != null) {

@@ -1,0 +1,37 @@
+<div class="row form-row" nv-file-drop="" uploader="layoutIconChange.uploader">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="alert alert-danger" ng-show="error">
+            Error.
+        </div>
+        <div class="row form-row">
+            <h2>Layout Icon uploader</h2>
+            <div ng-show="layoutIconChange.uploader.isHTML5">
+                <div class="" ng-if="layoutIconChange.uploader.queue[0] != undefined"
+                     platform-thumb="{ file: layoutIconChange.uploader.queue[0]._file, height: 150 }"></div>
+            </div>
+            <div>
+                <input type="file" nv-file-select="" uploader="layoutIconChange.uploader"/><br/>
+                <div>
+                    Upload progress:
+                    <div class="progress" style="">
+                        <div class="progress-bar" role="progressbar"
+                             ng-style="{ 'width': layoutIconChange.uploader.progress + '%' }"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row form-row">
+                <div class="row bottom-navigation ng-scope">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button class="btn save-button" ng-click="layoutIconChange.uploader.uploadAll()"
+                           ng-disabled="!layoutIconChange.uploader.getNotUploadedItems().length"><i
+                                class="fa fa-upload"></i><span>&nbsp;Upload</span></button>
+                        <button class="btn cancel-button" ng-click="layoutIconChange.cancelAll()"><i
+                                class="fa fa-times"></i><span>&nbsp;Back</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.configuration;
 
-import com.abixen.platform.core.configuration.AbstractPlatformDataSourceConfiguration;
+import com.abixen.platform.common.configuration.AbstractPlatformDataSourceConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 

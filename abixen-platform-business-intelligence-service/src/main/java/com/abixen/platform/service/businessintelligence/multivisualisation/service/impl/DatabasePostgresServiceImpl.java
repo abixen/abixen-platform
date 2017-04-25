@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Map;
 
 
 @Slf4j
@@ -76,4 +77,14 @@ public class DatabasePostgresServiceImpl extends AbstractDatabaseService impleme
         return connection;
     }
 
+    @Override
+    protected Map<String, String> getSpecyficTypeMapping(Map<String, String> databaseTypeOnApplicationType) {
+        databaseTypeOnApplicationType.put("INT8", "INTEGER");
+        return databaseTypeOnApplicationType;
+    }
+
+    @Override
+    protected boolean isAllowedTable(String tableName) {
+        return !APPLICATION_TABLE_LIST.contains(tableName.toLowerCase());
+    }
 }

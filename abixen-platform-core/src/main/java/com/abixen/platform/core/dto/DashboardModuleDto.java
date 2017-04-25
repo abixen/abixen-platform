@@ -14,7 +14,6 @@
 
 package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.model.web.ModuleTypeWeb;
 
 import javax.validation.constraints.NotNull;
 
@@ -29,7 +28,7 @@ public class DashboardModuleDto {
     private String type;
 
     @NotNull
-    private ModuleTypeWeb moduleType;
+    private ModuleTypeDto moduleType;
 
     @NotNull
     private String title;
@@ -49,7 +48,7 @@ public class DashboardModuleDto {
     public DashboardModuleDto() {
     }
 
-    public DashboardModuleDto(Long id, String description, String type, ModuleTypeWeb moduleType, String title, Integer rowIndex, Integer columnIndex, Integer orderIndex) {
+    public DashboardModuleDto(Long id, String description, String type, ModuleTypeDto moduleType, String title, Integer rowIndex, Integer columnIndex, Integer orderIndex) {
         this.id = id;
         this.description = description;
         this.type = type;
@@ -84,11 +83,11 @@ public class DashboardModuleDto {
         this.type = type;
     }
 
-    public ModuleTypeWeb getModuleType() {
+    public ModuleTypeDto getModuleType() {
         return moduleType;
     }
 
-    public void setModuleType(ModuleTypeWeb moduleType) {
+    public void setModuleType(ModuleTypeDto moduleType) {
         this.moduleType = moduleType;
     }
 

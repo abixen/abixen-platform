@@ -43,9 +43,9 @@
                     height: 450,
                     margin: {
                         top: 20,
-                        right: 45,
-                        bottom: 40,
-                        left: 80
+                        right: 55,
+                        bottom: 45,
+                        left: 100
                     },
                     x: function (d) {
                         return d.x;
@@ -62,12 +62,13 @@
                     },
                     yAxis: {
                         axisLabel: 'DefaultAxisLabel',
+                        axisLabelDistance: 30,
                         tickFormat: function (d) {
-                            return d;
+                            return d3.format('.02f')(d);
                         }
                     },
                     callback: function (chart) {
-                        console.log('!!! lineChart callback !!!');
+                        $log.log('lineChart callback');
                     }
                 }
             }
@@ -79,11 +80,20 @@
             chartConfig.chart.type = chartType;
             chartConfig.chart.xAxis.axisLabel = configurationData.axisXName;
             chartConfig.chart.xAxis.tickFormat = function (d) {
-                return findXLabel(preparedChartData[0].values, d);
+                var label = findXLabel(preparedChartData[0].values, d);
+                if (isDate(label) && isNaN(preparedChartData[0].values[0].xLabel)){
+                    return d3.time.format('%d-%m-%Y')(new Date(label))
+                } else {
+                    return label;
+                }
             };
             chartConfig.chart.yAxis.tickFormat = function (d) {
-                return d;
+                return d3.format('.02f')(d);
             };
+            if (preparedChartData[0].values && preparedChartData[0].values[0] && isNaN(preparedChartData[0].values[0].xLabel)){
+                chartConfig.chart.xAxis.rotateLabels = 45;
+                chartConfig.chart.margin.bottom += 50;
+            }
             chartConfig.chart.yAxis.axisLabel = configurationData.axisYName;
             $log.debug('buildChartOptions for ' + chartType + 'Adapter ended');
             return chartConfig;
@@ -170,10 +180,12 @@
 
         function getValues(data, dataSetSeriesElement, dataSetChart) {
             var values = [];
-            data.forEach(function (dataElement, iterator) {
-                var valuesElement = getPointData(dataElement, dataSetSeriesElement, iterator, dataSetChart);
-                if (valuesElement != null && domainIsNotDuplicated(values, valuesElement)) {
+            var index = 0;
+            data.forEach(function (dataElement) {
+                var valuesElement = getPointData(dataElement, dataSetSeriesElement, index, dataSetChart);
+                if (valuesElement && domainIsNotDuplicated(values, valuesElement)) {
                     values.push(valuesElement);
+                    index++;
                 }
             });
             return values;
@@ -314,6 +326,24 @@
             return chartBuilder.build();
         }
 
+        function multiBarHorizontalChartAdapter() {
+            var chartBuilder = new ChartBuilder();
+            chartBuilder.setBuildChartOptions(function (configurationData, preparedChartData) {
+                var chartConfig = buildDefaultChartOption('multiBarHorizontalChart', configurationData, preparedChartData);
+                chartConfig.chart.xAxis.axisLabelDistance = chartConfig.chart.yAxis.axisLabelDistance;
+                chartConfig.chart.yAxis.axisLabelDistance = 0;
+                $log.debug('Added additional setting for multiBarHorizontalChart');
+                return chartConfig;
+            });
+
+            chartBuilder.setBuildChartData(
+                function (configurationData, data) {
+                    var chartData = buildMultiSeriesChartData('multiBarHorizontalChart', configurationData, data)
+                    return chartData;
+                });
+            return chartBuilder.build();
+        }
+
         function genericChartAdapter(chartType) {
             var chartBuilder = new ChartBuilder();
             chartBuilder.setDefaultChartBuilderFunction(chartType);
@@ -332,6 +362,10 @@
             return chart;
         }
 
+        function isDate(date) {
+            return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
+        }
+
         function convertTo(configurationData, data) {
             var chartType = configurationData.chartType;
             $log.debug('convertTo chartType: ' + chartType);
@@ -346,7 +380,7 @@
                 return convertToChart(configurationData, data, pieChartAdapter());
             }
             if (chartType === 'MULTI_BAR' || chartType === 'MULTI_BAR_TABLE') {
-                return convertToChart(configurationData, data, genericChartAdapter('multiBarHorizontalChart'));
+                return convertToChart(configurationData, data, multiBarHorizontalChartAdapter());
             }
             if (chartType === 'MULTI_COLUMN' || chartType === 'MULTI_COLUMN_TABLE') {
                 return convertToChart(configurationData, data, genericChartAdapter('multiBarChart'));

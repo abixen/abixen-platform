@@ -17,7 +17,7 @@ package com.abixen.platform.core.util.impl;
 
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.model.impl.Page;
-import com.abixen.platform.core.util.EntityBuilder;
+import com.abixen.platform.common.util.EntityBuilder;
 import com.abixen.platform.core.util.PageBuilder;
 
 
@@ -35,7 +35,6 @@ public class PageBuilderImpl extends EntityBuilder<Page> implements PageBuilder 
 
     public PageBuilder init(String title, Layout layout) {
         this.product.setTitle(title);
-        this.product.setName(title.toLowerCase().replace(" ", "_"));
         this.product.setLayout(layout);
         return this;
     }

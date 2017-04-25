@@ -26,10 +26,11 @@
         '$stateParams',
         '$log',
         'User',
-        'responseHandler'
+        'responseHandler',
+        'toaster'
     ];
 
-    function UserDetailsController($scope, $state, $stateParams, $log, User, responseHandler) {
+    function UserDetailsController($scope, $state, $stateParams, $log, User, responseHandler, toaster) {
         $log.log('UserDetailController');
 
         var userDetails = this;
@@ -38,7 +39,8 @@
             {
                 entityId: $stateParams.id,
                 getValidators: getValidators,
-                onSuccessSaveForm: onSuccessSaveForm
+                onSuccessSaveForm: onSuccessSaveForm,
+                onSuccessGetEntity: onSuccessGetEntity
             }
         );
 
@@ -51,12 +53,12 @@
         ];
         userDetails.genderTypes = [{key: 'MALE'}, {key: 'FEMALE'}];
         userDetails.userBaseUrl = "/api/application/users/";
-        userDetails.avatarUrl = '';
+        userDetails.avatarUrl = userDetails.userBaseUrl + ' ';
+        userDetails.isNewUser = true;
 
         userDetails.today = today;
         userDetails.clear = clear;
 
-        getUserAvatarUrl($stateParams.id);
 
         function clear() {
             $scope.entity.birthday = null;
@@ -67,19 +69,17 @@
         }
 
         function onSuccessSaveForm() {
-            $state.go('application.users.list');
+            if (!userDetails.isNewUser) {
+                $state.go('application.users.list');
+            }else {
+                toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Created', 'New user has been created. Now you can upload his avatar.');
+                $state.go('application.users.edit.avatar', {id:userDetails.entity.id, isNewUser: true});
+            }
         }
 
-        function getUserAvatarUrl(id) {
-            if (userDetails.avatarUrl === '') {
-                if (id) {
-                    User.get({id: id}, function (data) {
-                        userDetails.avatarUrl = userDetails.userBaseUrl + id + '/avatar/' + data.avatarFileName;
-                    });
-                } else {
-                    userDetails.avatarUrl = '';
-                }
-            }
+        function onSuccessGetEntity() {
+            userDetails.isNewUser = userDetails.entity.id == undefined || userDetails.entity.id == null;
+            userDetails.avatarUrl = userDetails.userBaseUrl + userDetails.entity.id + '/avatar/' + userDetails.entity.avatarFileName
         }
 
         function getValidators() {

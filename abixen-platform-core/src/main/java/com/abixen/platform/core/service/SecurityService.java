@@ -14,11 +14,11 @@
 
 package com.abixen.platform.core.service;
 
-import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.SecurableModel;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.model.impl.User;
-import com.abixen.platform.core.security.PlatformUser;
+import com.abixen.platform.common.security.PlatformUser;
 
 
 public interface SecurityService {

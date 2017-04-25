@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.client;
 
-import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.AclClassName;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

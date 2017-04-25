@@ -14,12 +14,14 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.common.model.enumtype.AclSidType;
 import com.abixen.platform.core.dto.RolePermissionDto;
 import com.abixen.platform.core.form.RoleForm;
 import com.abixen.platform.core.form.RolePermissionsForm;
 import com.abixen.platform.core.form.RoleSearchForm;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.repository.RoleRepository;
+import com.abixen.platform.core.service.AclSidService;
 import com.abixen.platform.core.service.DomainBuilderService;
 import com.abixen.platform.core.service.PermissionService;
 import com.abixen.platform.core.service.RoleService;
@@ -29,27 +31,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
+@Transactional
 @Slf4j
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    @Resource
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
+    private final PermissionService permissionService;
+    private final DomainBuilderService domainBuilderService;
+    private final AclSidService aclSidService;
 
     @Autowired
-    private PermissionService permissionService;
-
-    @Autowired
-    private DomainBuilderService domainBuilderService;
+    public RoleServiceImpl(RoleRepository roleRepository,
+                           PermissionService permissionService,
+                           DomainBuilderService domainBuilderService,
+                           AclSidService aclSidService) {
+        this.roleRepository = roleRepository;
+        this.permissionService = permissionService;
+        this.domainBuilderService = domainBuilderService;
+        this.aclSidService = aclSidService;
+    }
 
     @Override
     public Role createRole(Role role) {
         log.debug("createRole() - role: " + role);
-        return roleRepository.save(role);
+        Role createdRole = roleRepository.save(role);
+        aclSidService.createAclSid(AclSidType.ROLE, createdRole.getId());
+        return createdRole;
     }
 
     @Override
@@ -63,6 +75,7 @@ public class RoleServiceImpl implements RoleService {
         log.debug("updateRole() - roleForm: {}", roleForm);
         Role role = roleRepository.findOne(roleForm.getId());
         role.setName(roleForm.getName());
+        role.setRoleType(roleForm.getRoleType());
         return new RoleForm(roleRepository.save(role));
     }
 
@@ -90,6 +103,7 @@ public class RoleServiceImpl implements RoleService {
 
         RoleBuilder roleBuilder = domainBuilderService.newRoleBuilderInstance();
         roleBuilder.name(roleForm.getName());
+        roleBuilder.type(roleForm.getRoleType());
         return roleBuilder.build();
     }
 

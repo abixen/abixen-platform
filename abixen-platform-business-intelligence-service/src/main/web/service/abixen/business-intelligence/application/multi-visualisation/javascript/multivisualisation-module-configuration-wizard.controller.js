@@ -137,8 +137,6 @@
         function buildJsonFromObj(domainSeries) {
             if (domainSeries.filterObj === null || domainSeries.filterObj === undefined) {
                 domainSeries.filterObj = {};
-                domainSeries.filterObj.conditionOne = [];
-                domainSeries.filterObj.conditionTwo = [];
             }
             var filter = {
                 group: {
@@ -150,17 +148,24 @@
                 filter.group.rules.push({
                     condition: domainSeries.filterObj.conditionOne.operator,
                     field: domainSeries.dataSourceColumn.name,
-                    data: domainSeries.filterObj.conditionOne.value
+                    data: getValueAsText(domainSeries.filterObj.conditionOne.value)
                 })
             }
             if (domainSeries.filterObj.conditionTwo && domainSeries.filterObj.conditionTwo.value !== null){
                 filter.group.rules.push({
                     condition: domainSeries.filterObj.conditionTwo.operator,
                     field: domainSeries.dataSourceColumn.name,
-                    data: domainSeries.filterObj.conditionTwo.value
+                    data: getValueAsText(domainSeries.filterObj.conditionTwo.value)
                 })
             }
             return filter;
+        }
+
+        function getValueAsText(value) {
+            if (isDate(value)){
+                return new Date(new Date(value) - (new Date()).getTimezoneOffset() * 60000).toISOString().slice(0,10);
+            }
+            return value;
         }
 
         function buildObjFromJson(domainSeries, json) {
@@ -183,14 +188,21 @@
             return JSON.stringify(jsonObj);
         }
 
+        function getIndexInTableForColumnIdx(columns, idx) {
+            return columns.findIndex(function (element) {
+                return element.idx == idx;
+            })
+        }
+
         function setColumnSelected(idx) {
             $log.log('moduleConfigurationWizardStep setSelected ', idx);
-
-            configWizard.table.columnSelected = configWizard.table.columns[idx - 1];
-            configWizard.table.columns[idx - 1].isActive = !configWizard.table.columns[idx - 1].isActive;
-            if (configWizard.table.columns[idx - 1].isActive === true) {
-                getColumnData(idx - 1);
+            idx = getIndexInTableForColumnIdx(configWizard.table.columns, idx);
+            configWizard.table.columnSelected = configWizard.table.columns[idx];
+            configWizard.table.columns[idx].isActive = !configWizard.table.columns[idx].isActive;
+            if (configWizard.table.columns[idx].isActive === true) {
+                getColumnData(idx);
             } else {
+                configWizard.table.columnPreviewData = [];
                 buildTableConfiguration();
             }
         }
@@ -375,6 +387,7 @@
                     }
                 }
             });
+            $scope.tableConfiguration = tableConfiguration;
             return tableConfiguration
         }
 
@@ -558,7 +571,11 @@
             var domainSeries = configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn;
             if (!domainSeries.filterObj) {
                 domainSeries.filterObj = {};
+            }
+            if (!domainSeries.filterObj.conditionOne) {
                 domainSeries.filterObj.conditionOne = {};
+            }
+            if (!domainSeries.filterObj.conditionTwo) {
                 domainSeries.filterObj.conditionTwo = {};
             }
             domainSeries.filterObj.conditionOne.operator = null;
@@ -568,6 +585,9 @@
             domainSeries.filterObj.conditionTwo.value = null;
         }
 
+        function isDate(date) {
+            return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
+        }
 
         function getValidators() {
             var validators = [];
@@ -594,6 +614,14 @@
                 [
                     new NotNull(),
                     new Length(1, 32)
+                ];
+            validators['inputDataInteger'] =
+                [
+                    new Size(-2147483648, 2147483648)
+                ];
+            validators['inputDataDouble'] =
+                [
+                    new Size(-2147483648, 2147483648)
                 ];
             return validators;
         }

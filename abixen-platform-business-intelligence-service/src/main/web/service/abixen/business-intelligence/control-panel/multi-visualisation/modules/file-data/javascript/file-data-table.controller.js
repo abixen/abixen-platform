@@ -36,7 +36,6 @@
         fileDataTable.gridData = [];
 
         $scope.$on('GridDataUpdated', function (event, data) {
-            $log.debug('GridDataUpdated - data: ', data.length);
             if (data !== undefined && data !== [] && data.length > 0) {
                 fileDataTable.gridData = data;
                 fileDataTable.fileColumns = [];
@@ -52,7 +51,9 @@
                 }
             } else {
                 fileDataTable.fileColumns = [];
-                fileDataTable.listGridConfig.setData([]);
+                if (fileDataTable.listGridConfig.tableReady) {
+                    fileDataTable.listGridConfig.setData([]);
+                }
             }
         });
 

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.service.impl;
 
-import com.abixen.platform.core.rabbitmq.message.RabbitMQMessage;
+import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
 import com.abixen.platform.core.service.RabbitMQOperations;
 
 import lombok.extern.slf4j.Slf4j;

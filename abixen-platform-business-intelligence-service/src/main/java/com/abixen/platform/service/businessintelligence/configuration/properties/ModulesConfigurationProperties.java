@@ -13,7 +13,7 @@
  */
 package com.abixen.platform.service.businessintelligence.configuration.properties;
 
-import com.abixen.platform.core.configuration.properties.AbstractModulesConfigurationProperties;
+import com.abixen.platform.common.configuration.properties.AbstractModulesConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;

@@ -14,9 +14,8 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.ModuleBase;
-import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.web.ModuleWeb;
+import com.abixen.platform.common.model.ModuleBase;
+import com.abixen.platform.common.model.SecurableModel;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -26,7 +25,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "module")
 @SequenceGenerator(sequenceName = "module_seq", name = "module_seq", allocationSize = 1)
-public class Module extends AuditingModel implements ModuleBase<ModuleType, Page>, ModuleWeb, SecurableModel<User> {
+public class Module extends AuditingModel implements ModuleBase<ModuleType, Page>, SecurableModel<User> {
 
     @Id
     @Column(name = "id")

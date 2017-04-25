@@ -15,8 +15,8 @@
 package com.abixen.platform.core.controller;
 
 
-import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.SecurableModel;
+import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.core.service.SecuribleModelService;
 import com.abixen.platform.core.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;

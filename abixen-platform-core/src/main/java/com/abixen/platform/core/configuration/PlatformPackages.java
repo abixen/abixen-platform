@@ -35,6 +35,8 @@ public class PlatformPackages {
 
     static final String SERVICE = MAIN + ".service.impl";
 
+    static final String CONVERTER = MAIN + ".converter";
+
     static final String REPOSITORY = MAIN + ".repository";
 
 }

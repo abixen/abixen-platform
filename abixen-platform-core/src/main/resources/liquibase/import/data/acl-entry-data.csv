@@ -38,3 +38,12 @@ id;permission_id;acl_object_identity_id;acl_sid_id
 
 #Allows to view a module with id equals 14 for users with role Admin.
 15;7;14;2
+
+#Allows to view a module with id equals 15 for users with role Admin.
+16;7;16;2
+
+#Allows to view a module with id equals 15 for users with role Admin.
+17;7;15;2
+
+#Allows to view a module with id equals 21 for users with role Admin.
+18;7;21;2

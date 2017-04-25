@@ -15,7 +15,7 @@
 package com.abixen.platform.core.dto;
 
 
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.PermissionAclClassCategory;
 import com.abixen.platform.core.model.impl.PermissionGeneralCategory;
 import lombok.Getter;

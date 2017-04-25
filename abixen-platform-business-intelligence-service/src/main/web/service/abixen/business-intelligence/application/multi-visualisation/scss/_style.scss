@@ -143,8 +143,19 @@
   }
 
   .wizard-chart-configuration-content, .wizard-table-configuration-content {
+    height: 450px;
+
     label{
       display: block;
+    }
+
+    input-date {
+      .form-group {
+        .input-group {
+          width: 70%;
+          table-layout: fixed;
+        }
+      }
     }
 
     .axis-x-filter {

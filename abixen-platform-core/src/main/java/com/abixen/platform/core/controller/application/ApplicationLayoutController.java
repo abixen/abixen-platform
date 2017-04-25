@@ -14,11 +14,12 @@
 
 package com.abixen.platform.core.controller.application;
 
+import com.abixen.platform.core.converter.LayoutToLayoutDtoConverter;
+import com.abixen.platform.core.dto.LayoutDto;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.service.LayoutService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,25 +33,28 @@ import java.util.List;
 public class ApplicationLayoutController {
 
     private final LayoutService layoutService;
+    private final LayoutToLayoutDtoConverter layoutToLayoutDtoConverter;
 
     @Autowired
-    public ApplicationLayoutController(LayoutService layoutService) {
+    public ApplicationLayoutController(LayoutService layoutService,
+                                       LayoutToLayoutDtoConverter layoutToLayoutDtoConverter) {
         this.layoutService = layoutService;
+        this.layoutToLayoutDtoConverter = layoutToLayoutDtoConverter;
     }
 
-    @Cacheable(value = "APPLICATION_LAYOUTS")
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Layout> getDashboardLayouts() {
+    public List<LayoutDto> getDashboardLayouts() {
         log.debug("getLayouts()");
 
         List<Layout> layouts = layoutService.findAllLayouts();
+        List<LayoutDto> layoutDtos = layoutToLayoutDtoConverter.convertToList(layouts);
         log.debug("getLayouts() count" + (layouts != null ? layouts.size() : 0));
-        for (Layout layout : layouts) {
+        for (LayoutDto layout : layoutDtos) {
             log.debug("layout: " + layout);
 
             String html = layout.getContent();
             layout.setContent(layoutService.htmlLayoutToJson(html));
         }
-        return layouts;
+        return layoutDtos;
     }
 }

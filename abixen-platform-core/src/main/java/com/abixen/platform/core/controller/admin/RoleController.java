@@ -14,18 +14,23 @@
 
 package com.abixen.platform.core.controller.admin;
 
-import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.core.converter.PermissionToPermissionDtoConverter;
+import com.abixen.platform.core.converter.RoleToRoleDtoConverter;
+import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.PermissionDto;
+import com.abixen.platform.core.dto.RoleDto;
 import com.abixen.platform.core.form.RoleForm;
 import com.abixen.platform.core.form.RolePermissionsForm;
 import com.abixen.platform.core.form.RoleSearchForm;
-import com.abixen.platform.core.model.enumtype.RoleType;
 import com.abixen.platform.core.model.impl.Permission;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.service.PermissionService;
 import com.abixen.platform.core.service.RoleService;
-import com.abixen.platform.core.util.ValidationUtil;
+import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,32 +48,40 @@ import java.util.List;
 @RequestMapping(value = "/api/control-panel/roles")
 public class RoleController {
 
+    private final RoleService roleService;
+    private final PermissionService permissionService;
+    private final RoleToRoleDtoConverter roleToRoleDtoConverter;
+    private final PermissionToPermissionDtoConverter permissionToPermissionDtoConverter;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private PermissionService permissionService;
+    public RoleController(RoleService roleService,
+                          PermissionService permissionService,
+                          RoleToRoleDtoConverter roleToRoleDtoConverter,
+                          PermissionToPermissionDtoConverter permissionToPermissionDtoConverter) {
+        this.roleService = roleService;
+        this.permissionService = permissionService;
+        this.roleToRoleDtoConverter = roleToRoleDtoConverter;
+        this.permissionToPermissionDtoConverter = permissionToPermissionDtoConverter;
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<Role> getRoles(@PageableDefault(size = 1, page = 0) Pageable pageable, RoleSearchForm roleSearchForm) {
+    public Page<RoleDto> getRoles(@PageableDefault(size = 1, page = 0) Pageable pageable, RoleSearchForm roleSearchForm) {
         log.debug("getRoles()");
 
         Page<Role> roles = roleService.findAllRoles(pageable, roleSearchForm);
-        for (Role role : roles) {
-            log.debug("role: " + role);
-        }
+        Page<RoleDto> roleDtos = roleToRoleDtoConverter.convertToPage(roles);
 
-        return roles;
+        return roleDtos;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Role getRole(@PathVariable Long id) {
+    public RoleDto getRole(@PathVariable Long id) {
         log.debug("getRole() - id: " + id);
 
         Role role = roleService.findRole(id);
+        RoleDto roleDto = roleToRoleDtoConverter.convert(role);
 
-        return role;
+        return roleDto;
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -81,8 +94,6 @@ public class RoleController {
         }
 
         Role role = roleService.buildRole(roleForm);
-        //TODO
-        role.setRoleType(RoleType.ROLE_USER);
         roleService.createRole(role);
 
         return new FormValidationResultDto(roleForm);
@@ -103,7 +114,16 @@ public class RoleController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteRole(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
-        roleService.deleteRole(id);
+        try {
+            roleService.deleteRole(id);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            if (e.getCause() instanceof ConstraintViolationException) {
+                throw new PlatformRuntimeException("The role you want to remove is assigned to users.");
+            } else {
+                throw e;
+            }
+        }
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
@@ -114,7 +134,9 @@ public class RoleController {
         Role role = roleService.findRole(id);
         List<Permission> allPermissions = permissionService.findAllPermissions();
 
-        RolePermissionsForm rolePermissionsForm = new RolePermissionsForm(role, allPermissions);
+        RoleDto roleDto = roleToRoleDtoConverter.convert(role);
+        List<PermissionDto> allPermissionDtos = permissionToPermissionDtoConverter.convertToList(allPermissions);
+        RolePermissionsForm rolePermissionsForm = new RolePermissionsForm(roleDto, allPermissionDtos);
 
         return rolePermissionsForm;
     }

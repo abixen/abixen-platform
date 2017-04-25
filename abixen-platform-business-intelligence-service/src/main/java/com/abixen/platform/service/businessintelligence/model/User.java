@@ -14,11 +14,11 @@
 
 package com.abixen.platform.service.businessintelligence.model;
 
-import com.abixen.platform.core.model.Model;
-import com.abixen.platform.core.model.SimpleUserBase;
-import com.abixen.platform.core.model.enumtype.UserGender;
-import com.abixen.platform.core.model.enumtype.UserLanguage;
-import com.abixen.platform.core.model.enumtype.UserState;
+import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.model.SimpleUserBase;
+import com.abixen.platform.common.model.enumtype.UserGender;
+import com.abixen.platform.common.model.enumtype.UserLanguage;
+import com.abixen.platform.common.model.enumtype.UserState;
 
 import java.util.Date;
 import java.util.Set;

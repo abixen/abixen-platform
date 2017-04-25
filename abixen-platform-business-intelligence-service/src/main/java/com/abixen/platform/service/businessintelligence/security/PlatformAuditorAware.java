@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.security;
 
-import com.abixen.platform.core.security.PlatformUser;
+import com.abixen.platform.common.security.PlatformUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

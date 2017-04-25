@@ -36,7 +36,7 @@
         return {
             restrict: 'E',
             transclude: true,
-            templateUrl: '/common/navigation/html/platform-navigation.html',
+            templateUrl: 'common/navigation/html/platform-navigation.html',
             scope: {
                 addNewModule: '&addNewModule',
                 addNewPage: '&addNewPage',
@@ -114,10 +114,12 @@
             }
 
             function onUserChange() {
-                navigation.platformUser = platformSecurity.getPlatformUser();
-                navigation.avatarUrl = baseUserUrl + navigation.platformUser.id + '/avatar/' + navigation.platformUser.avatarFileName;
-                navigation.selectedLocale = $filter('filter')(navigation.locales, {name: navigation.platformUser.selectedLanguage})[0];
-                $translate.use(navigation.selectedLocale.name);
+                if(platformSecurity.getPlatformUser()){
+                    navigation.platformUser = platformSecurity.getPlatformUser();
+                    navigation.avatarUrl = baseUserUrl + navigation.platformUser.id + '/avatar/' + navigation.platformUser.avatarFileName;
+                    navigation.selectedLocale = $filter('filter')(navigation.locales, {name: navigation.platformUser.selectedLanguage})[0];
+                    $translate.use(navigation.selectedLocale.name);
+                }
             }
 
             function onWidthChange(newValue) {

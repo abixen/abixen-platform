@@ -17,5 +17,5 @@
     'use strict';
 
     angular
-        .module('platformUploadFileModule', []);
+        .module('platformUploadFileModule', ['webClientTemplatecache']);
 })();

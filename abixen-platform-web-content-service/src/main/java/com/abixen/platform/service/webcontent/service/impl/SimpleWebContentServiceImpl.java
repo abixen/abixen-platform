@@ -14,13 +14,16 @@
 
 package com.abixen.platform.service.webcontent.service.impl;
 
-import com.abixen.platform.core.exception.PlatformServiceRuntimeException;
+import com.abixen.platform.common.exception.PlatformServiceRuntimeException;
 import com.abixen.platform.service.webcontent.form.SimpleWebContentForm;
+import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
 import com.abixen.platform.service.webcontent.model.impl.SimpleWebContent;
-import com.abixen.platform.service.webcontent.repository.SimpleWebContentRepository;
+import com.abixen.platform.service.webcontent.model.impl.WebContent;
+import com.abixen.platform.service.webcontent.repository.WebContentRepository;
 import com.abixen.platform.service.webcontent.service.SimpleWebContentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,14 +36,16 @@ import javax.annotation.Resource;
 public class SimpleWebContentServiceImpl implements SimpleWebContentService {
 
     @Resource
-    private SimpleWebContentRepository simpleWebContentRepository;
+    private WebContentRepository webContentRepository;
 
     @Override
     public SimpleWebContent createSimpleWebContent(SimpleWebContentForm simpleWebContentForm) {
         log.debug("createSimpleWebContent() - simpleWebContentForm: {}", simpleWebContentForm);
         SimpleWebContent simpleWebContent = new SimpleWebContent();
+        simpleWebContent.setTitle(simpleWebContentForm.getTitle());
         simpleWebContent.setContent(simpleWebContentForm.getContent());
-        return simpleWebContentRepository.save(simpleWebContent);
+        simpleWebContent.setType(WebContentType.SIMPLE);
+        return webContentRepository.save(simpleWebContent);
     }
 
     @Override
@@ -48,19 +53,19 @@ public class SimpleWebContentServiceImpl implements SimpleWebContentService {
         log.debug("updateSimpleWebContent() - simpleWebContentForm: {}", simpleWebContentForm);
         SimpleWebContent simpleWebContent = findSimpleWebContentById(simpleWebContentForm.getId());
         simpleWebContent.setContent(simpleWebContentForm.getContent());
-        return simpleWebContentRepository.save(simpleWebContent);
+        return webContentRepository.save(simpleWebContent);
     }
 
     @Override
     public void removeSimpleWebContent(Long simpleWebContentId) {
         log.debug("removeSimpleWebContent() - simpleWebContentId: {}", simpleWebContentId);
-        simpleWebContentRepository.delete(simpleWebContentId);
+        webContentRepository.delete(simpleWebContentId);
     }
 
     @Override
     public SimpleWebContent findSimpleWebContentById(Long simpleWebContentId) {
         log.debug("findSimpleWebContentById() - simpleWebContentId: {}", simpleWebContentId);
-        SimpleWebContent simpleWebContent = simpleWebContentRepository.findOne(simpleWebContentId);
+        SimpleWebContent simpleWebContent = (SimpleWebContent) webContentRepository.findOne(simpleWebContentId);
         if (simpleWebContent == null) {
             throw new PlatformServiceRuntimeException(String.format("SimpleWebContent with id=%d not found", simpleWebContentId));
         }
@@ -70,6 +75,9 @@ public class SimpleWebContentServiceImpl implements SimpleWebContentService {
     @Override
     public Page<SimpleWebContent> findAllSimpleWebContents(Pageable pageable) {
         log.debug("findAllSimpleWebContents() - pageable: {}", pageable);
-        return simpleWebContentRepository.findAll(pageable);
+        Page<WebContent> webContentPage = webContentRepository.findAll(pageable);
+
+        Page<SimpleWebContent> simpleWebContentPage = new PageImpl(webContentPage.getContent(), pageable, webContentPage.getTotalElements());
+        return simpleWebContentPage;
     }
 }

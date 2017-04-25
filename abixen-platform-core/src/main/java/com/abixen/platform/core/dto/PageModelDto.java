@@ -14,8 +14,6 @@
 
 package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.model.web.PageWeb;
-
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -26,7 +24,7 @@ public class PageModelDto implements Serializable {
     private final long serialVersionUID = -7437477767491577712L;
 
     @NotNull
-    private PageWeb page;
+    private PageDto page;
 
     @NotNull
     private List<DashboardModuleDto> dashboardModuleDtos;
@@ -34,16 +32,16 @@ public class PageModelDto implements Serializable {
     public PageModelDto() {
     }
 
-    public PageModelDto(PageWeb page, List<DashboardModuleDto> dashboardModuleDtos) {
+    public PageModelDto(PageDto page, List<DashboardModuleDto> dashboardModuleDtos) {
         this.page = page;
         this.dashboardModuleDtos = dashboardModuleDtos;
     }
 
-    public PageWeb getPage() {
+    public PageDto getPage() {
         return page;
     }
 
-    public void setPage(PageWeb page) {
+    public void setPage(PageDto page) {
         this.page = page;
     }
 

@@ -19,9 +19,9 @@
         .module('webContentServiceWebContentModule')
         .controller('WebContentServiceWebContentController', WebContentServiceWebContentController);
 
-    WebContentServiceWebContentController.$inject = ['applicationNavigationItems', 'WebContent'];
+    WebContentServiceWebContentController.$inject = ['applicationNavigationItems', 'WebContent','$state'];
 
-    function WebContentServiceWebContentController(applicationNavigationItems, WebContent) {
+    function WebContentServiceWebContentController(applicationNavigationItems, WebContent,$state) {
 
         var webContentList = this;
 
@@ -35,19 +35,19 @@
         updateNavigation();
 
         function updateNavigation() {
-            var newTemplateButton = {
+            var newSimpleWebContentButton = {
                 id: 1,
                 styleClass: 'btn add-new-object-button',
                 faIcon: 'fa fa-plus',
-                title: 'New Web Content',
+                title: 'New Simple Web Content',
                 onClick: function () {
-                    $state.go('application.webContentService.webContent.add');
+                    $state.go('application.webContentService.webContent.addSimple');
                 },
                 visible: true,
                 disabled: false
             };
 
-            applicationNavigationItems.setTopbarItem(newTemplateButton);
+            applicationNavigationItems.setTopbarItem(newSimpleWebContentButton);
         }
 
         function getTableColumns() {

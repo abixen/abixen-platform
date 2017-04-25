@@ -14,11 +14,11 @@
 
 package com.abixen.platform.client.web.model;
 
-import com.abixen.platform.core.model.Model;
-import com.abixen.platform.core.model.ResourceBase;
-import com.abixen.platform.core.model.enumtype.ResourcePage;
-import com.abixen.platform.core.model.enumtype.ResourcePageLocation;
-import com.abixen.platform.core.model.enumtype.ResourceType;
+import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.model.ResourceBase;
+import com.abixen.platform.common.model.enumtype.ResourcePage;
+import com.abixen.platform.common.model.enumtype.ResourcePageLocation;
+import com.abixen.platform.common.model.enumtype.ResourceType;
 
 
 public class Resource extends Model implements ResourceBase<ModuleType> {

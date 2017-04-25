@@ -6,12 +6,17 @@
         <div class="module-body" uib-collapse="moduleState.isCollapsed">
             <div ng-if="moduleState.permissionDenied" class="error-container">
                 <div class="error-message">
-                    <i class="fa fa-exclamation-triangle"></i>&nbsp;You have no permission to this module.
+                    <i class="fa fa-exclamation-triangle"></i>&nbsp;{{'dashboard.module.message.permissionDenied' | translate}}
                 </div>
             </div>
             <div ng-if="moduleState.notAvailable" class="error-container">
                 <div class="error-message">
-                    <i class="fa fa-exclamation-triangle"></i>&nbsp;Module is temporary unavailable.
+                    <i class="fa fa-exclamation-triangle"></i>&nbsp;{{'dashboard.module.message.temporarilyUnavailable' | translate}}
+                </div>
+            </div>
+            <div ng-if="moduleState.configurationMissing" class="error-container">
+                <div class="error-message">
+                    <i class="fa fa-exclamation-triangle"></i>&nbsp;{{'dashboard.module.message.notConfigured' | translate}}
                 </div>
             </div>
             <module-content ng-if="!moduleState.permissionDenied" ng-show="!moduleState.chatShowing" model="definition" content="module"/>

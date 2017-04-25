@@ -9,6 +9,8 @@
     <property name="databaseConnectionFile" value="database-connection-h2" dbms="h2"/>
     <property name="databaseConnectionFile" value="database-connection-postgres" dbms="postgresql"/>
     <property name="databaseConnectionFile" value="database-connection-mysql" dbms="mysql"/>
+    <property name="databaseConnectionFile" value="database-connection-oracle" dbms="oracle"/>
+    <property name="databaseConnectionFile" value="database-connection-mssql" dbms="mssql"/>
 
     <changeSet author="KonradWisniewski" id="import-v1" runAlways="false" runOnChange="true">
 
@@ -28,6 +30,9 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_visualisation_data</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_something_data</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM chart_sample_visualisation_data</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_sales_in_stores_data</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_sales_in_stores_global_data</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_sales_per_employers_data</sqlCheck>
         </preConditions>
 
         <loadData file="liquibase/import/data/${databaseConnectionFile}.csv"
@@ -93,6 +98,18 @@
         <loadData file="liquibase/import/data/chart-sample-visualisation-data.csv"
                   separator=";"
                   tableName="chart_sample_visualisation_data">
+        </loadData>
+        <loadData file="liquibase/import/data/sample-sales-in-store-data.csv"
+                  separator=";"
+                  tableName="sample_sales_in_stores_data">
+        </loadData>
+        <loadData file="liquibase/import/data/sample-sales-in-stores-global-data.csv"
+                  separator=";"
+                  tableName="sample_sales_in_stores_global_data">
+        </loadData>
+        <loadData file="liquibase/import/data/sample-sales-per-employers-data.csv"
+                  separator=";"
+                  tableName="sample_sales_per_employers_data">
         </loadData>
     </changeSet>
 </databaseChangeLog>

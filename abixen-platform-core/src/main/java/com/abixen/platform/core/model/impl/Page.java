@@ -14,9 +14,8 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.PageBase;
-import com.abixen.platform.core.model.SecurableModel;
-import com.abixen.platform.core.model.web.PageWeb;
+import com.abixen.platform.common.model.PageBase;
+import com.abixen.platform.common.model.SecurableModel;
 
 import javax.persistence.*;
 
@@ -24,21 +23,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "page")
 @SequenceGenerator(sequenceName = "page_seq", name = "page_seq", allocationSize = 1)
-public class Page extends AuditingModel implements PageBase<Layout>, PageWeb, SecurableModel<User> {
+public class Page extends AuditingModel implements PageBase<Layout>, SecurableModel<User> {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "page_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "name", length = PAGE_NAME_MAX_LENGTH, nullable = false)
-    private String name;
-
     @Column(name = "title", length = PAGE_TITLE_MAX_LENGTH, nullable = false)
     private String title;
 
     @Column(name = "icon", length = PAGE_ICON_MAX_LENGTH, nullable = false)
-    private String icon = "fa fa-file-text-o";
+    private String icon;
 
     @Column(name = "description", length = PAGE_DESCRIPTION_MAX_LENGTH)
     private String description;
@@ -65,16 +61,6 @@ public class Page extends AuditingModel implements PageBase<Layout>, PageWeb, Se
     @Override
     public void setIcon(String icon) {
         this.icon = icon;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.security;
 
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;

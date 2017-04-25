@@ -24,8 +24,7 @@
 
     function WebContent($resource) {
         return $resource('/api/service/abixen/web-content/control-panel/web-contents/:id', {}, {
-            query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'}
+            query: {method: 'GET', isArray: false}
         });
     }
 

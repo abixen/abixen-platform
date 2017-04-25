@@ -14,11 +14,9 @@
 
 package com.abixen.platform.core.form;
 
+import com.abixen.platform.common.form.Form;
 import com.abixen.platform.core.dto.DashboardModuleDto;
-import com.abixen.platform.core.model.impl.Page;
-import com.abixen.platform.core.model.web.PageWeb;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.abixen.platform.core.dto.PageDto;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -27,32 +25,30 @@ import java.util.List;
 
 public class PageConfigurationForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    private PageWeb page;
+    private PageDto page;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private List<DashboardModuleDto> dashboardModuleDtos;
 
     public PageConfigurationForm() {
     }
 
-    public PageConfigurationForm(Page page) {
+    public PageConfigurationForm(PageDto page) {
         this.page = page;
         this.dashboardModuleDtos = new ArrayList<>();
     }
 
-    public PageConfigurationForm(Page page, List<DashboardModuleDto> dashboardModuleDtos) {
+    public PageConfigurationForm(PageDto page, List<DashboardModuleDto> dashboardModuleDtos) {
         this.page = page;
         this.dashboardModuleDtos = dashboardModuleDtos;
     }
 
-    public PageWeb getPage() {
+    public PageDto getPage() {
         return page;
     }
 
-    public void setPage(PageWeb page) {
+    public void setPage(PageDto page) {
         this.page = page;
     }
 

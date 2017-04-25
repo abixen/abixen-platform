@@ -14,9 +14,6 @@
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_date" type="timestamp"/>
             <column name="description" type="varchar(255)"/>
-            <column name="name" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
             <column name="icon" type="varchar(40)" >
                 <constraints nullable="false"/>
             </column>

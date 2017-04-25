@@ -15,10 +15,9 @@
 package com.abixen.platform.core.form;
 
 
-import com.abixen.platform.core.model.LayoutBase;
+import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.model.LayoutBase;
 import com.abixen.platform.core.model.impl.Layout;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -26,21 +25,17 @@ import javax.validation.constraints.NotNull;
 
 public class LayoutForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Length(max = LayoutBase.LAYOUT_TITLE_MAX_LENGTH)
     private String title;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Length(max = LayoutBase.LAYOUT_CONTENT_MAX_LENGTH)
     private String content;
 
     @Length(max = LayoutBase.LAYOUT_ICON_FILE_NAME_MAX_LENGTH)
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private String iconFileName;
 
@@ -87,6 +82,5 @@ public class LayoutForm implements Form {
     public void setIconFileName(String iconFileName) {
         this.iconFileName = iconFileName;
     }
-
 
 }

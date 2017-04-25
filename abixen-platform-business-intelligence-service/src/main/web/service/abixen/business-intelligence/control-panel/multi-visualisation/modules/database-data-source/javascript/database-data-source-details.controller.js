@@ -76,6 +76,8 @@
 
         $scope.$watch('databaseDataSourceDetails.filter', function (newValue) {
             if (databaseDataSourceDetails.entity) {
+
+                recursiveConvertDateToStringWithoutTimezone(newValue);
                 databaseDataSourceDetails.json = JSON.stringify(newValue, null, 2);
                 databaseDataSourceDetails.entity.filter = databaseDataSourceDetails.json;
             }
@@ -170,6 +172,26 @@
                 }
             }
             databaseDataSourceDetails.saveForm();
+        }
+
+        function recursiveConvertDateToStringWithoutTimezone (obj) {
+
+            for (var key in obj) {
+                var value = obj[key];
+                if (typeof value === 'object') {
+                    recursiveConvertDateToStringWithoutTimezone(value);
+                }
+
+                if (key === "data") {
+                    if (isDate(value)){
+                        obj[key] = new Date(new Date(value) - new Date().getTimezoneOffset() * 60000).toISOString().slice(0,10);
+                    }
+                }
+            }
+        }
+
+        function isDate(date) {
+            return (date instanceof Date);
         }
 
         function getPreviewData() {

@@ -26,7 +26,7 @@
  */
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data;
 
-import com.abixen.platform.core.model.Model;
+import com.abixen.platform.common.model.Model;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataValueWeb;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

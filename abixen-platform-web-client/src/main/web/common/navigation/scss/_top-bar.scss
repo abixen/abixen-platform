@@ -47,8 +47,9 @@
   .user {
     min-width: 130px;
     cursor: pointer;
+    padding-right: 10px;
     & > .item {
-      width: 65px;
+      width: 60px;
       height: 60px;
       float: right;
       display: inline-block;
@@ -60,13 +61,7 @@
       i {
         @include common-dropdown-li;
       }
-      img {
-        width: 40px;
-        height: 40px;
-        margin-top: 10px;
-        @include border-radius(50%);
-        border: solid $base-color-darker 1px;
-      }
+
       ul.dropdown-menu {
         border-radius: 2px;
         -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .05);

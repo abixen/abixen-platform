@@ -86,5 +86,11 @@
                 structureDetails.templates = templates;
             }
         }
+
+        structureDetails.isVisualEditor =false;
+        structureDetails.toggleEditor= function () {
+          structureDetails.isVisualEditor = (structureDetails.isVisualEditor)? false : true;
+          return  structureDetails.isVisualEditor;
+        };
     }
 })();

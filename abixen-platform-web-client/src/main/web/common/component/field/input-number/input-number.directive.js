@@ -25,7 +25,7 @@
         return {
             restrict: 'E',
             require: '^form',
-            templateUrl: '/common/component/field/input-number/input-number.template.html',
+            templateUrl: 'common/component/field/input-number/input-number.template.html',
             scope: {
                 model: '=',
                 validators: '=',

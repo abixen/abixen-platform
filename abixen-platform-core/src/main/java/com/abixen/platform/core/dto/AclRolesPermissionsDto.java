@@ -14,9 +14,6 @@
 
 package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.model.impl.Permission;
-import com.abixen.platform.core.model.web.PermissionWeb;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +25,12 @@ public class AclRolesPermissionsDto implements Serializable {
 
     private List<AclRolePermissionsDto> aclRolePermissionsDtos = new ArrayList<>();
 
-    private List<PermissionWeb> permissions = new ArrayList<>();
+    private List<PermissionDto> permissions = new ArrayList<>();
 
     public AclRolesPermissionsDto() {
     }
 
-    public AclRolesPermissionsDto(List<AclRolePermissionsDto> aclRolePermissionsDtos, List<Permission> permissions) {
+    public AclRolesPermissionsDto(List<AclRolePermissionsDto> aclRolePermissionsDtos, List<PermissionDto> permissions) {
         this.aclRolePermissionsDtos = aclRolePermissionsDtos;
         this.permissions = new ArrayList<>();
         this.permissions.addAll(permissions);
@@ -47,11 +44,11 @@ public class AclRolesPermissionsDto implements Serializable {
         this.aclRolePermissionsDtos = aclRolePermissionsDtos;
     }
 
-    public List<PermissionWeb> getPermissions() {
+    public List<PermissionDto> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<PermissionWeb> permissions) {
+    public void setPermissions(List<PermissionDto> permissions) {
         this.permissions = permissions;
     }
 

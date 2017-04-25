@@ -53,6 +53,10 @@
                 $scope.$emit(platformParameters.events.SHOW_PERMISSION_DENIED_TO_MODULE);
             });
 
+            $scope.$on(platformParameters.events.MODULE_CONFIGURATION_MISSING, function () {
+                $scope.$emit(platformParameters.events.SHOW_MODULE_CONFIGURATION_MISSING);
+            });
+
             $scope.$on(platformParameters.events.START_REQUEST, function () {
                 $scope.$emit(platformParameters.events.SHOW_LOADER);
             });

@@ -16,8 +16,11 @@ package com.abixen.platform.core.controller.admin;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.controller.common.AbstractUserController;
-import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.converter.RoleToRoleDtoConverter;
+import com.abixen.platform.core.converter.UserToUserDtoConverter;
+import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.UserDto;
 import com.abixen.platform.core.form.UserRolesForm;
 import com.abixen.platform.core.form.UserSearchForm;
 import com.abixen.platform.core.model.impl.User;
@@ -25,7 +28,7 @@ import com.abixen.platform.core.service.MailService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;
-import com.abixen.platform.core.util.ValidationUtil;
+import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -45,6 +48,7 @@ import java.util.List;
 public class AdminUserController extends AbstractUserController {
 
     private final UserService userService;
+    private final UserToUserDtoConverter userToUserDtoConverter;
 
     @Autowired
     public AdminUserController(UserService userService,
@@ -52,21 +56,30 @@ public class AdminUserController extends AbstractUserController {
                                RoleService roleService,
                                SecurityService securityService,
                                AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
-                               MessageSource messageSource) {
-        super(userService, mailService, roleService, securityService, platformResourceConfigurationProperties, messageSource);
+                               MessageSource messageSource,
+                               UserToUserDtoConverter userToUserDtoConverter,
+                               RoleToRoleDtoConverter roleToRoleDtoConverter) {
+        super(userService,
+                mailService,
+                roleService,
+                securityService,
+                platformResourceConfigurationProperties,
+                messageSource,
+                userToUserDtoConverter,
+                roleToRoleDtoConverter);
+
         this.userService = userService;
+        this.userToUserDtoConverter = userToUserDtoConverter;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<User> getUsers(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
+    public Page<UserDto> getUsers(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
         log.debug("getUsers()");
 
         Page<User> users = userService.findAllUsers(pageable, userSearchForm);
-        for (User user : users) {
-            log.debug("user: " + user);
-        }
+        Page<UserDto> userDtos = userToUserDtoConverter.convertToPage(users);
 
-        return users;
+        return userDtos;
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.PUT)
@@ -85,10 +98,12 @@ public class AdminUserController extends AbstractUserController {
     }
 
     @RequestMapping(value = "/custom/username/{username}/", method = RequestMethod.GET)
-    public User getUserByUsername(@PathVariable("username") String username) {
+    public UserDto getUserByUsername(@PathVariable("username") String username) {
         log.debug("getUserByUsername() - username: " + username);
         User user = userService.findUser(username);
-        log.debug("fetched user: " + user);
-        return user;
+
+        UserDto userDto = userToUserDtoConverter.convert(user);
+        log.debug("fetched user: {}", userDto);
+        return userDto;
     }
 }

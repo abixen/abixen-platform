@@ -15,9 +15,8 @@
 package com.abixen.platform.core.model.impl;
 
 
-import com.abixen.platform.core.model.RoleBase;
-import com.abixen.platform.core.model.enumtype.RoleType;
-import com.abixen.platform.core.model.web.RoleWeb;
+import com.abixen.platform.common.model.RoleBase;
+import com.abixen.platform.common.model.enumtype.RoleType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -29,7 +28,7 @@ import java.util.Set;
 @Entity
 @Table(name = "role_")
 @SequenceGenerator(sequenceName = "role_seq", name = "role_seq", allocationSize = 1)
-public class Role extends AuditingModel implements RoleBase<Permission>, RoleWeb {
+public class Role extends AuditingModel implements RoleBase<Permission> {
 
     /**
      *

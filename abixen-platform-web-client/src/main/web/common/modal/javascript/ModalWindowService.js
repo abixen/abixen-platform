@@ -1,4 +1,4 @@
-var commonModalWindowServices = angular.module('commonModalWindowServices', []);
+var commonModalWindowServices = angular.module('commonModalWindowServices', ['webClientTemplatecache']);
 
 commonModalWindowServices.provider('modalWindow',
     function ModalWindow() {

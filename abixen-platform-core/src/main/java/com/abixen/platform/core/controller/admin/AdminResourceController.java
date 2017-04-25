@@ -14,6 +14,8 @@
 
 package com.abixen.platform.core.controller.admin;
 
+import com.abixen.platform.core.converter.ResourceToResourceDtoConverter;
+import com.abixen.platform.core.dto.ResourceDto;
 import com.abixen.platform.core.model.impl.Resource;
 import com.abixen.platform.core.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,15 +34,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminResourceController {
 
     private final ResourceService resourceService;
+    private final ResourceToResourceDtoConverter resourceToResourceDtoConverter;
 
     @Autowired
-    public AdminResourceController(ResourceService resourceService) {
+    public AdminResourceController(ResourceService resourceService,
+                                   ResourceToResourceDtoConverter resourceToResourceDtoConverter) {
         this.resourceService = resourceService;
+        this.resourceToResourceDtoConverter = resourceToResourceDtoConverter;
     }
 
     @RequestMapping(value = "/{moduleId}/resources", method = RequestMethod.GET)
-    public Page<Resource> getResources(@PathVariable("moduleId") Long moduleId, @PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public Page<ResourceDto> getResources(@PathVariable("moduleId") Long moduleId, @PageableDefault(size = 1, page = 0) Pageable pageable) {
         log.debug("getResources({})", moduleId);
-        return this.resourceService.findAllResources(moduleId, pageable);
+        Page<Resource> resourcePage = resourceService.findAllResources(moduleId, pageable);
+        return resourceToResourceDtoConverter.convertToPage(resourcePage);
     }
 }

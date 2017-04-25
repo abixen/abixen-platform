@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.AuditingModelBase;
-import com.abixen.platform.core.model.Model;
+import com.abixen.platform.common.model.AuditingModelBase;
+import com.abixen.platform.common.model.Model;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -65,7 +65,15 @@ public abstract class AuditingModel extends Model implements AuditingModelBase<U
     }
 
     public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
+        if (this instanceof User) {
+            if (this.equals(createdBy)) {
+                this.createdBy = null;
+            } else {
+                this.createdBy = createdBy;
+            }
+        } else {
+            this.createdBy = createdBy;
+        }
     }
 
     public Date getCreatedDate() {
@@ -77,14 +85,26 @@ public abstract class AuditingModel extends Model implements AuditingModelBase<U
     }
 
     public User getLastModifiedBy() {
-        if (!this.equals(lastModifiedBy)) {
-            return lastModifiedBy;
+        if (this instanceof User) {
+            if (!this.equals(lastModifiedBy)) {
+                return lastModifiedBy;
+            } else {
+                return null;
+            }
         }
-        return null;
+        return lastModifiedBy;
     }
 
     public void setLastModifiedBy(User lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
+        if (this instanceof User) {
+            if (this.equals(lastModifiedBy)) {
+                this.lastModifiedBy = null;
+            } else {
+                this.lastModifiedBy = lastModifiedBy;
+            }
+        } else {
+            this.lastModifiedBy = lastModifiedBy;
+        }
     }
 
     public Date getLastModifiedDate() {

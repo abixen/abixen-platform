@@ -26,13 +26,16 @@
         '$stateParams',
         '$log',
         'Role',
+        'RoleDictionary',
         'responseHandler'
     ];
 
-    function RoleDetailsController($scope, $state, $stateParams, $log, Role, responseHandler) {
+    function RoleDetailsController($scope, $state, $stateParams, $log, Role, RoleDictionary, responseHandler) {
         $log.log('RoleDetailsController');
 
         var roleDetails = this;
+        roleDetails.roles = [];
+
 
         new AbstractDetailsController(roleDetails, Role, responseHandler, $scope,
             {
@@ -41,21 +44,36 @@
                 onSuccessSaveForm: onSuccessSaveForm
             }
         );
-
         function onSuccessSaveForm() {
             $state.go('application.roles.list');
         }
 
+        function getRoles() {
+            RoleDictionary.query(function (data) {
+                var roles = [];
+                data.forEach(function (element) {
+                    $log.debug("element: ",element);
+                    roles.push({key: element})
+                });
+                roleDetails.roles = roles;
+            });
+        }
+
         function getValidators() {
             var validators = [];
-
             validators['name'] =
                 [
                     new NotNull(),
                     new Length(1, 300)
                 ];
+            validators['roleType'] =
+                [
+                    new NotNull()
+                ];
 
             return validators;
+
         }
+        getRoles();
     }
 })();

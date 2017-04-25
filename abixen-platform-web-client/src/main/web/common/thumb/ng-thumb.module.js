@@ -17,5 +17,5 @@
     'use strict';
 
     angular
-        .module('platformThumbModule', []);
+        .module('platformThumbModule', ['webClientTemplatecache']);
 })();

@@ -14,23 +14,19 @@
 
 package com.abixen.platform.core.form;
 
+import com.abixen.platform.common.form.Form;
 import com.abixen.platform.core.model.impl.Module;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
 
 
 public class ModuleForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private String title;
 
-    @JsonView(WebModelJsonSerialize.class)
     private String description;
 
     public ModuleForm() {

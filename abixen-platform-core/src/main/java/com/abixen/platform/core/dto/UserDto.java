@@ -15,9 +15,9 @@
 package com.abixen.platform.core.dto;
 
 
-import com.abixen.platform.core.model.enumtype.UserGender;
-import com.abixen.platform.core.model.enumtype.UserLanguage;
-import com.abixen.platform.core.model.enumtype.UserState;
+import com.abixen.platform.common.model.enumtype.UserGender;
+import com.abixen.platform.common.model.enumtype.UserLanguage;
+import com.abixen.platform.common.model.enumtype.UserState;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,10 +30,11 @@ import java.util.Set;
 @Setter
 @Accessors(chain = true)
 @ToString
-public class UserDto {
+public class UserDto extends AuditingDto {
 
     private Long id;
     private String username;
+    private String password;
     private String screenName;
     private String firstName;
     private String middleName;

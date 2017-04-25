@@ -55,7 +55,7 @@
                     <ul class="columns-section-content" ng-scrollbar rebuild-on-resize
                         rebuild-on="content-scroll:rebuild">
                         <li class="columns-section-content-row" on-ng-repeat-render-finish="content-scroll:rebuild"
-                            ng-repeat="fileColumn in fileDataSourceDetails.fileColumns">
+                            ng-repeat="fileColumn in fileDataSourceDetails.fileColumns | orderBy:'position'" >
                                 <span class="col-xs-6 col-sm-6 col-md-6 col-lg-6 no-padding-left">
                                     {{fileColumn.name}}
                                 </span>
@@ -87,11 +87,11 @@
 </form>
 <div class="row bottom-navigation">
     <div class="col-xs-12">
-        <a class="btn save-button" ng-disabled="fileDataSourceDetails.entityForm.$invalid"
+        <button class="btn save-button" ng-disabled="fileDataSourceDetails.entityForm.$invalid"
            ng-click="fileDataSourceDetails.beforeSaveForm()"><i class="fa fa-floppy-o"></i><span>&nbsp;{{'service.businessIntelligence.fileDataSource.save' | translate}}</span>
-        </a>
-        <a class="btn cancel-button"
+        </button>
+        <button class="btn cancel-button"
            ng-click="fileDataSourceDetails.goToViewMode()"><i class="fa fa-times"></i><span>&nbsp;{{'service.businessIntelligence.fileDataSource.cancel' | translate}}</span>
-        </a>
+        </button>
     </div>
 </div>

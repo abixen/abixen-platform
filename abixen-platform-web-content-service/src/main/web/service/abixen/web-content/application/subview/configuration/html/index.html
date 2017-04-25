@@ -1,0 +1,34 @@
+<div ng-controller="ConfigurationWizardController as configurationWizard">
+    <div>
+        <ul class="nav nav-wizard">
+            <li ng-class="configWizard.stepCurrent == '0' ? 'active': 'non-active'">{{ 'wizard.navigation.tab.contentSelection' | translate}}</li>
+            <li ng-class="configWizard.stepCurrent == '1' ? 'active': 'non-active'">{{ 'wizard.navigation.tab.preview' | translate}}</li>
+        </ul>
+    </div>
+
+
+    <div ng-switch="configurationWizard.stepCurrent">
+        <div ng-switch-when="0">
+            <div ng-include="'/service/abixen/web-content/application/subview/configuration/html/contentSelectionStep/list.html'"></div>
+        </div>
+        <div ng-switch-when="1" >
+            <div ng-include="'/service/abixen/web-content/application/subview/configuration/html/preview/view.html'"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 text-right bottom-prev-next">
+            <button class="btn nav-button pull-left" ng-disabled="configurationWizard.stepCurrent==0"
+                    ng-click="configurationWizard.prev()">
+                <i class="fa fa-chevron-circle-left">
+                </i><span class="hidden-xs">&nbsp;{{'wizard.navigation.button.prev' | translate}}</span>
+            </button>
+            <button class="btn nav-button pull-right"
+                    ng-disabled="!configurationWizard.canNext()" ng-click="configurationWizard.next()">
+                <span class="hidden-xs">{{configurationWizard.stepCurrent === configurationWizard.stepMax? 'wizard.navigation.button.save': 'wizard.navigation.button.next' | translate}}&nbsp;</span> <i class="fa fa-chevron-circle-right">
+            </i>
+            </button>
+
+        </div>
+    </div>
+</div>

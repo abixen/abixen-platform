@@ -14,7 +14,9 @@
 
 package com.abixen.platform.core.form;
 
-import com.abixen.platform.core.model.RoleBase;
+import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.model.RoleBase;
+import com.abixen.platform.common.model.enumtype.RoleType;
 import com.abixen.platform.core.model.impl.Role;
 import org.hibernate.validator.constraints.Length;
 
@@ -28,6 +30,8 @@ public class RoleForm implements Form {
     @NotNull
     @Length(max = RoleBase.ROLE_NAME_MAX_LENGTH)
     private String name;
+
+    private RoleType roleType;
 
     public RoleForm() {
 
@@ -54,5 +58,11 @@ public class RoleForm implements Form {
         this.id = id;
     }
 
+    public RoleType getRoleType() {
+        return roleType;
+    }
 
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
 }

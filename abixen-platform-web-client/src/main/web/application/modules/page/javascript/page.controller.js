@@ -27,10 +27,18 @@
         '$stateParams',
         'PageModel',
         'PageModelParser',
-        'toaster'
+        'toaster',
+        'applicationNavigationItems'
     ];
 
-    function PageController($scope, $log, $state, $stateParams, PageModel, PageModelParser, toaster) {
+    function PageController($scope,
+                            $log,
+                            $state,
+                            $stateParams,
+                            PageModel,
+                            PageModelParser,
+                            toaster,
+                            applicationNavigationItems) {
         $log.log('PageController');
 
         var model = $scope.model;
@@ -104,6 +112,7 @@
                 $log.log('page updated');
                 $scope.pageModelDto = {page: data.form.page, dashboardModuleDtos: data.form.dashboardModuleDtos};
                 $scope.model = PageModelParser.updateModelModulesNullIds($scope.model, data.form.dashboardModuleDtos);
+                applicationNavigationItems.editSidebarItem($scope.pageModelDto.page.id, $scope.pageModelDto.page.title, $scope.pageModelDto.page.icon);
                 toaster.pop(platformParameters.statusAlertTypes.SUCCESS, 'Updated', 'The page has been updated successfully.');
             })
         };

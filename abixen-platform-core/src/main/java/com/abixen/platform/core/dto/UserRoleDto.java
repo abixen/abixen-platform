@@ -14,8 +14,6 @@
 
 package com.abixen.platform.core.dto;
 
-import com.abixen.platform.core.model.impl.Role;
-import com.abixen.platform.core.model.web.RoleWeb;
 
 import java.io.Serializable;
 
@@ -24,23 +22,23 @@ public class UserRoleDto implements Serializable {
 
     private static final long serialVersionUID = -7437477767491527712L;
 
-    private RoleWeb role;
+    private RoleDto role;
 
     private Boolean selected;
 
     public UserRoleDto() {
     }
 
-    public UserRoleDto(Role role, Boolean selected) {
+    public UserRoleDto(RoleDto role, Boolean selected) {
         this.role = role;
         this.selected = selected;
     }
 
-    public RoleWeb getRole() {
+    public RoleDto getRole() {
         return role;
     }
 
-    public void setRole(RoleWeb role) {
+    public void setRole(RoleDto role) {
         this.role = role;
     }
 

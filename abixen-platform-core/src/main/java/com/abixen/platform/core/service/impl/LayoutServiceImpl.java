@@ -14,15 +14,15 @@
 
 package com.abixen.platform.core.service.impl;
 
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.form.LayoutForm;
 import com.abixen.platform.core.form.LayoutSearchForm;
-import com.abixen.platform.core.model.enumtype.AclClassName;
-import com.abixen.platform.core.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.repository.LayoutRepository;
-import com.abixen.platform.core.security.PlatformUser;
 import com.abixen.platform.core.service.LayoutService;
 import com.abixen.platform.core.service.SecurityService;
 import com.abixen.platform.core.service.UserService;

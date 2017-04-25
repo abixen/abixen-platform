@@ -14,17 +14,15 @@
 
 package com.abixen.platform.core.controller.admin;
 
-import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.converter.ModuleToModuleDtoConverter;
+import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.ModuleDto;
 import com.abixen.platform.core.form.ModuleForm;
 import com.abixen.platform.core.form.ModuleSearchForm;
 import com.abixen.platform.core.model.impl.Module;
-import com.abixen.platform.core.model.web.ModuleWeb;
 import com.abixen.platform.core.service.ModuleService;
-import com.abixen.platform.core.service.SecurityService;
-import com.abixen.platform.core.util.ValidationUtil;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -40,28 +38,33 @@ import java.util.List;
 @RequestMapping(value = "/api/control-panel/modules")
 public class ModuleController {
 
-    @Autowired
-    private SecurityService securityService;
+    private final ModuleService moduleService;
+    private final ModuleToModuleDtoConverter moduleToModuleDtoConverter;
 
     @Autowired
-    private ModuleService moduleService;
+    public ModuleController(ModuleService moduleService,
+                            ModuleToModuleDtoConverter moduleToModuleDtoConverter) {
+        this.moduleService = moduleService;
+        this.moduleToModuleDtoConverter = moduleToModuleDtoConverter;
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public org.springframework.data.domain.Page<Module> getModules(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleSearchForm moduleSearchForm) {
+    public org.springframework.data.domain.Page<ModuleDto> getModules(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleSearchForm moduleSearchForm) {
         log.debug("getModules()");
 
-        return moduleService.findAllModules(pageable, moduleSearchForm);
+        org.springframework.data.domain.Page<Module> modules = moduleService.findAllModules(pageable, moduleSearchForm);
+        return moduleToModuleDtoConverter.convertToPage(modules);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModuleWeb getModule(@PathVariable Long id) {
+    public ModuleDto getModule(@PathVariable Long id) {
         log.debug("getModule() - id: " + id);
 
-        return moduleService.findModule(id);
+        Module module = moduleService.findModule(id);
+
+        return moduleToModuleDtoConverter.convert(module);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateModule(@PathVariable("id") Long id, @RequestBody @Valid ModuleForm moduleForm, BindingResult bindingResult) {
         log.debug("updateModule() - id: " + id + ", moduleForm: " + moduleForm);

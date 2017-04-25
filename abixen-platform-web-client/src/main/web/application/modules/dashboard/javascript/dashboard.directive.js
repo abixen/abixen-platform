@@ -110,7 +110,7 @@
                     var instance = $aside.open({
                         scope: editDashboardScope,
                         placement: 'left',
-                        templateUrl: '/application/modules/page/html/edit.html',
+                        templateUrl: 'application/modules/page/html/edit.html',
                         size: 'md',
                         backdrop: 'static'
                     });
@@ -216,7 +216,7 @@
             },
             link: function ($scope) {
 
-                $scope.$on('FULL_SCREEN_MODE', function (event, moduleId, fullScreenMode) {
+                $scope.$on('FULL_SCREEN_MODE', function (event, moduleId, fullScreenMode, callback) {
                     var dashboardSubContainer = angular.element(document.getElementById('dashboard-sub-container'));
 
                     if (fullScreenMode) {
@@ -235,6 +235,7 @@
                         var moduleFullScreen = angular.element(document.getElementById('platform-dashboard-row-full-screen'));
                         moduleFullScreen.remove();
                     }
+                    callback();
                 });
             },
             templateUrl: 'application/modules/dashboard/html/dashboard.html'

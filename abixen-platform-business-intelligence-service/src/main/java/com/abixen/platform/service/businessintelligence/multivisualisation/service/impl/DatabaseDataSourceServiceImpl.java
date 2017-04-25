@@ -91,9 +91,10 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
     @Override
     public DatabaseDataSource buildDataSource(DatabaseDataSourceForm databaseDataSourceForm) {
         log.debug("buildDataSource() - databaseDataSourceForm: " + databaseDataSourceForm);
+        DatabaseConnection databaseConnection = databaseConnectionService.findDatabaseConnection(databaseDataSourceForm.getDatabaseConnection().getId());
         return domainBuilderService.newDatabaseDataSourceBuilderInstance()
                 .base(databaseDataSourceForm.getName(), databaseDataSourceForm.getDescription())
-                .connection(databaseConnectionService.findDatabaseConnection(databaseDataSourceForm.getDatabaseConnection().getId()))
+                .connection(databaseConnection)
                 .data(databaseDataSourceForm.getTable(), databaseDataSourceForm.getFilter())
                 .columns(databaseDataSourceForm.getColumns())
                 .build();
@@ -173,6 +174,11 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
     public DatabaseDataSource findDatabaseDataSource(Long id) {
         log.debug("findPage() - id: " + id);
         return databaseDataSourceRepository.findOne(id);
+    }
+
+    @Override
+    public void delateDataBaseDataSource(Long id) {
+        databaseDataSourceRepository.delete(id);
     }
 
     @Override

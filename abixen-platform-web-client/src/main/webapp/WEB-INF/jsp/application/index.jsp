@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
-<%@ page import="com.abixen.platform.core.model.enumtype.ResourcePageLocation" %>
-<%@ page import="com.abixen.platform.core.model.enumtype.ResourcePage" %>
-<%@ page import="com.abixen.platform.core.model.enumtype.ResourceType" %>
+<%@ page import="com.abixen.platform.common.model.enumtype.ResourcePageLocation" %>
+<%@ page import="com.abixen.platform.common.model.enumtype.ResourcePage" %>
+<%@ page import="com.abixen.platform.common.model.enumtype.ResourceType" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +41,7 @@
 <script src="<c:url value='/lib/angular-ui-router.min.js' />"></script>
 <script src="<c:url value="/lib/ui-bootstrap-tpls.min.js" />"></script>
 <script src="<c:url value='/lib/angular-aside.min.js' />"></script>
-<script src="<c:url value='/lib/sortable.min.js' />"></script>
+<script src="<c:url value='/lib/Sortable.min.js' />"></script>
 <script src="<c:url value='/lib/show-errors.min.js' />"></script>
 <script src="<c:url value='/lib/toaster.min.js' />"></script>
 <script src="<c:url value='/lib/xeditable.min.js' />"></script>

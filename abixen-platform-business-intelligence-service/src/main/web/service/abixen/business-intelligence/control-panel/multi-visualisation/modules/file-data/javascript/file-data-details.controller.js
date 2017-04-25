@@ -33,25 +33,25 @@
         fileDataDetails.fileData = [];
         fileDataDetails.beforeSaveForm = beforeSaveForm;
         fileDataDetails.onFileUpload = onFileUpload;
+        fileDataDetails.readFirstRowAsColumnName = true;
 
         $scope.$watch('fileDataDetails.fileData', function () {
             if (fileDataDetails.fileData !== undefined && fileDataDetails.fileData !== [] && fileDataDetails.fileData.length > 0) {
-                $scope.$broadcast('GridDataUpdated', fileDataDetails.fileData);
+                transformDataForTable(fileDataDetails.fileData);
             }
         }, true);
 
         function beforeSaveForm() {
             fileDataDetails.entity.columns = [];
-            if (fileDataDetails.fileData[0] != null) {
-                Object.keys(fileDataDetails.fileData[0]).forEach(function (column) {
+            if (fileDataDetails.fileData != null) {
+                fileDataDetails.fileData.forEach(function (column, index) {
                     if (column !== undefined && column !== null && column !== '' && column !== '$$hashKey') {
-                        var values = [];
-                        fileDataDetails.fileData.forEach(function (row) {
-                            values.push({value: row[column]})
-                        });
+                        $log.debug("column: ", column);
                         fileDataDetails.entity.columns.push({
-                            name: column,
-                            values: values
+                            name: column.name ? column.name : ("col"+index),
+                            dataValueType: column.dataValueType,
+                            position: column.position,
+                            values: column.values
                         });
                     }
                 });
@@ -69,11 +69,14 @@
             data[0].values.forEach(function (row, index) {
                 var parsedRow = [];
                 data.forEach(function (column, index1) {
-                    parsedRow['col' + index1] = column.values[index].value;
+                    if (column.name){
+                        parsedRow[column.name] = column.values[index].value;
+                    } else {
+                        parsedRow['col' + index1] = column.values[index].value;
+                    }
                 });
                 parsedData.push(parsedRow);
             });
-            fileDataDetails.fileData = parsedData;
             $scope.$broadcast('GridDataUpdated', parsedData);
         }
 
@@ -81,17 +84,16 @@
             if (fileDataDetails.entity.columns == null || fileDataDetails.entity.columns.length === 0 || fileDataDetails.entity.columns == undefined){
                 return;
             }
-            transformDataForTable(fileDataDetails.entity.columns);
-
+            fileDataDetails.fileData = fileDataDetails.entity.columns;
         }
 
         function onFileUpload(file) {
             $log.debug("UploadFile", file);
             var fd = new FormData();
             fd.append('file', file);
-            FileData.parse(fd, function (message) {
+            FileData.parse({readFirstColumnAsColumnName:fileDataDetails.readFirstRowAsColumnName}, fd, function (message) {
                 if (message.data.length > 0) {
-                    transformDataForTable(message.data);
+                    fileDataDetails.fileData = message.data;
                 } else {
                     message.fileParseErrors.forEach(function (element){
                         toaster.pop('error', 'parsed', element.errorMsg);

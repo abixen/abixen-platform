@@ -49,11 +49,13 @@
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <div>
-                                    <img class="avatar" ng-src="{{userAccountDetails.userDetails.avatarUrl}}">
-                                    <div>
-                                        <a href="#" ng-click="userAccountDetails.userDetails.showUploadContent()"><i class="fa fa-pencil-square-o"></i>Change</a>
+                                <div class="avatar-container details-avatar-container">
+                                    <div class="avatar-border">
+                                        <img class="avatar" ng-src="{{userAccountDetails.userDetails.avatarUrl}}">
                                     </div>
+                                </div>
+                                <div>
+                                    <a href="#" ng-click="userAccountDetails.userDetails.showUploadContent()"><i class="fa fa-pencil-square-o"></i>Change</a>
                                 </div>
                                 <div class="form-group user-id">
                                     <label for="userId">User ID</label>
@@ -80,14 +82,10 @@
                     </form>
                     <div class="col-xs-12 uploader" ng-show="userAccountDetails.userDetails.isUploadAvatar">
                         <h2>Avatar uploader</h2>
-                        <div ng-show="uploader.isHTML5">
+                        <div ng-show="userAccountDetails.userDetails.uploader.isHTML5">
                             <div class="" ng-if="userAccountDetails.userDetails.uploader.queue[0] != undefined"
                                  platform-thumb="{ file: userAccountDetails.userDetails.uploader.queue[0]._file, height: 150 }"></div>
                         </div>
-                        <div class="well my-drop-zone">
-
-                        </div>
-
                         <div>
                             <input type="file" nv-file-select="" uploader="userAccountDetails.userDetails.uploader"/><br/>
                             <div>
@@ -150,8 +148,8 @@
         <div class="col-sx-12 bottom-navigation-content" ng-show="userAccountDetails.userDetails.isUploadAvatar">
             <a class="btn save-button" ng-click="userAccountDetails.userDetails.uploader.uploadAll()"
                ng-disabled="!userAccountDetails.userDetails.uploader.getNotUploadedItems().length"><i
-                    class="fa fa-floppy-o"></i><span>&nbsp;Upload</span></a>
-            <a class="btn cancel-button" ng-click="userAccountDetails.userDetails.uploader.cancelAll();userAccountDetails.userDetails.hideUploadContent()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span></a>
+                    class="fa fa-upload"></i><span>&nbsp;Upload</span></a>
+            <a class="btn cancel-button" ng-click="userAccountDetails.userDetails.uploader.cancelAll();userAccountDetails.userDetails.hideUploadContent()"><i class="fa fa-times"></i><span>&nbsp;Back</span></a>
         </div>
     </div>
 </div>

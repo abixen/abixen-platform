@@ -25,7 +25,7 @@
         return {
             restrict: 'E',
             require: '^form',
-            templateUrl: '/common/component/field/input-text-area/input-text-area.template.html',
+            templateUrl: 'common/component/field/input-text-area/input-text-area.template.html',
             scope: {
                 model: '=',
                 validators: '=',

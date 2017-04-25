@@ -16,6 +16,8 @@ package com.abixen.platform.core.controller.application;
 
 import com.abixen.platform.core.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.controller.common.AbstractUserController;
+import com.abixen.platform.core.converter.RoleToRoleDtoConverter;
+import com.abixen.platform.core.converter.UserToUserDtoConverter;
 import com.abixen.platform.core.service.MailService;
 import com.abixen.platform.core.service.RoleService;
 import com.abixen.platform.core.service.SecurityService;
@@ -36,7 +38,16 @@ public class ApplicationUserController extends AbstractUserController {
                                      RoleService roleService,
                                      SecurityService securityService,
                                      AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
-                                     MessageSource messageSource) {
-        super(userService, mailService, roleService, securityService, platformResourceConfigurationProperties, messageSource);
+                                     MessageSource messageSource,
+                                     UserToUserDtoConverter userToUserDtoConverter,
+                                     RoleToRoleDtoConverter roleToRoleDtoConverter) {
+        super(userService,
+                mailService,
+                roleService,
+                securityService,
+                platformResourceConfigurationProperties,
+                messageSource,
+                userToUserDtoConverter,
+                roleToRoleDtoConverter);
     }
 }

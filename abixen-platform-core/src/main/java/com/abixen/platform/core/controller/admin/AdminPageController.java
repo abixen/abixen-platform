@@ -15,16 +15,15 @@
 package com.abixen.platform.core.controller.admin;
 
 import com.abixen.platform.core.controller.common.AbstractPageController;
-import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.converter.PageToPageDtoConverter;
+import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.PageDto;
 import com.abixen.platform.core.form.PageForm;
 import com.abixen.platform.core.form.PageSearchForm;
 import com.abixen.platform.core.model.impl.Page;
-import com.abixen.platform.core.model.web.PageWeb;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
 import com.abixen.platform.core.service.PageService;
-import com.abixen.platform.core.util.ValidationUtil;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -45,22 +44,24 @@ public class AdminPageController extends AbstractPageController {
     private static final int PAGEABLE_DEFAULT_PAGE_SIZE = 100;
 
     private final PageService pageService;
+    private final PageToPageDtoConverter pageToPageDtoConverter;
 
     @Autowired
-    public AdminPageController(PageService pageService) {
+    public AdminPageController(PageService pageService,
+                               PageToPageDtoConverter pageToPageDtoConverter) {
         super(pageService);
         this.pageService = pageService;
+        this.pageToPageDtoConverter = pageToPageDtoConverter;
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public PageWeb getPage(@PathVariable Long id) {
+    public PageDto getPage(@PathVariable Long id) {
         log.debug("getPage() - id: " + id);
 
-        return pageService.findPage(id);
+        Page page = pageService.findPage(id);
+        return pageToPageDtoConverter.convert(page);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updatePage(@PathVariable("id") Long id, @RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("updatePage() - id: " + id + ", pageForm: " + pageForm);
@@ -76,20 +77,17 @@ public class AdminPageController extends AbstractPageController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public org.springframework.data.domain.Page<Page> getPages(@PageableDefault(size = PAGEABLE_DEFAULT_PAGE_SIZE) Pageable pageable, PageSearchForm pageSearchForm) {
+    public org.springframework.data.domain.Page<PageDto> getPages(@PageableDefault(size = PAGEABLE_DEFAULT_PAGE_SIZE) Pageable pageable, PageSearchForm pageSearchForm) {
         log.debug("getPages()");
 
         org.springframework.data.domain.Page<Page> pages = pageService.findAllPages(pageable, pageSearchForm);
-        for (Page page : pages) {
-            log.debug("page: " + page);
-        }
 
-        return pages;
+
+        return pageToPageDtoConverter.convertToPage(pages);
     }
 
 
     @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.model.impl.Page', 'PAGE_ADD')")
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createPage(@RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("createPage() - pageForm: " + pageForm);
@@ -103,6 +101,5 @@ public class AdminPageController extends AbstractPageController {
 
         return new FormValidationResultDto(pageFormResult);
     }
-
 
 }

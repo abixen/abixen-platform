@@ -17,14 +17,14 @@ package com.abixen.platform.core.service.impl;
 import com.abixen.platform.core.dto.DashboardModuleDto;
 import com.abixen.platform.core.form.ModuleForm;
 import com.abixen.platform.core.form.ModuleSearchForm;
-import com.abixen.platform.core.model.enumtype.PermissionName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.model.impl.Module;
 import com.abixen.platform.core.model.impl.Page;
 import com.abixen.platform.core.model.impl.User;
-import com.abixen.platform.core.rabbitmq.message.RabbitMQMessage;
-import com.abixen.platform.core.rabbitmq.message.RabbitMQRemoveModuleMessage;
+import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
+import com.abixen.platform.common.rabbitmq.message.RabbitMQRemoveModuleMessage;
 import com.abixen.platform.core.repository.ModuleRepository;
-import com.abixen.platform.core.security.PlatformUser;
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.service.*;
 import com.abixen.platform.core.util.ModuleBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -120,8 +120,10 @@ public class ModuleServiceImpl implements ModuleService {
         List<Module> modules = moduleRepository.findAllExcept(page, ids);
 
         List<Long> moduleIds = modules.stream().map(module -> module.getId()).collect(Collectors.toList());
-        commentService.deleteCommentByModuleIds(moduleIds);
 
+        if (!moduleIds.isEmpty()) {
+            commentService.deleteCommentByModuleIds(moduleIds);
+        }
         moduleRepository.removeAllExcept(page, ids);
 
         modules.forEach(module -> {

@@ -15,9 +15,8 @@
 package com.abixen.platform.core.model.impl;
 
 
-import com.abixen.platform.core.model.PermissionBase;
-import com.abixen.platform.core.model.enumtype.PermissionName;
-import com.abixen.platform.core.model.web.PermissionWeb;
+import com.abixen.platform.common.model.PermissionBase;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -27,7 +26,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "permission", uniqueConstraints = @UniqueConstraint(columnNames = {"permission_name"}))
 @SequenceGenerator(sequenceName = "permission_seq", name = "permission_seq", allocationSize = 1)
-public class Permission extends AuditingModel implements PermissionBase<PermissionAclClassCategory, PermissionGeneralCategory>, PermissionWeb {
+public class Permission extends AuditingModel implements PermissionBase<PermissionAclClassCategory, PermissionGeneralCategory> {
 
     /**
      *

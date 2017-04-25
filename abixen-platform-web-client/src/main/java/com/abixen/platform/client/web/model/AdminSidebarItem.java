@@ -15,8 +15,8 @@
 package com.abixen.platform.client.web.model;
 
 
-import com.abixen.platform.core.model.AdminSidebarItemBase;
-import com.abixen.platform.core.model.Model;
+import com.abixen.platform.common.model.AdminSidebarItemBase;
+import com.abixen.platform.common.model.Model;
 
 public class AdminSidebarItem extends Model implements AdminSidebarItemBase {
 

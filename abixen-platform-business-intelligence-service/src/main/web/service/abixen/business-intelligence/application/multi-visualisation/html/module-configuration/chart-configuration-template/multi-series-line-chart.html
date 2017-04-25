@@ -57,12 +57,23 @@
                 </input-drop-down>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 no-padding value-padding">
-                <input-text ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType != 'DATE'"
-                       placeholder="value" type="text" name="input"
-                       model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"> </input-text>
+                <input-text ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'STRING' ||
+                                !configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType"
+                            placeholder="value" type="text" name="input"
+                            validators="configWizard.validators"
+                            model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"> </input-text>
                 <input-date ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'DATE'"
                             name="inputDataCalender"
+                            validators="configWizard.validators"
                             model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"></input-date>
+                <input-number ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'INTEGER'"
+                              name="inputDataInteger"
+                              validators="configWizard.validators"
+                              model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"></input-number>
+                <input-number ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'DOUBLE'"
+                              name="inputDataDouble"
+                              validators="configWizard.validators"
+                              model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionOne.value"></input-number>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 no-padding">
                 <input-drop-down name="axisxSecondOperator"
@@ -77,13 +88,23 @@
                 </input-drop-down>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 no-padding value-padding">
-                <input-text ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType != 'DATE'"
-                       placeholder="value" type="text" name="input"
-                       model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"> </input-text>
+                <input-text ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'STRING' ||
+                                !configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType"
+                            placeholder="value" type="text" name="input"
+                            validators="configWizard.validators"
+                            model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"> </input-text>
                 <input-date ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'DATE'"
                             name="inputDataCalender"
+                            validators="configWizard.validators"
                             model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"></input-date>
-            </div>
+                <input-number ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'INTEGER'"
+                              name="inputDataInteger"
+                              validators="configWizard.validators"
+                              model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"></input-number>
+                <input-number ng-if="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.dataValueType == 'DOUBLE'"
+                              name="inputDataDouble"
+                              validators="configWizard.validators"
+                              model="configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.filterObj.conditionTwo.value"></input-number>           </div>
         </div>
         <button class="btn refresh-button pull-right"
                 ng-show="configWizard.chartConfiguration.dataSetChart.dataSetSeries.length > 0" ng-click="configWizard.reloadPreviewData()">

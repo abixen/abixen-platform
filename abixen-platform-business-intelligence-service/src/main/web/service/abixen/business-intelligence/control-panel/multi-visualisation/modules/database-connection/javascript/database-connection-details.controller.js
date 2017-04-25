@@ -42,7 +42,7 @@
             }
         );
 
-        databaseConnectionDetails.databaseTypes = [{key: 'POSTGRES'}, {key: 'MYSQL'}, {key: 'ORACLE'}, {key: 'H2'}];
+        databaseConnectionDetails.databaseTypes = [{key: 'POSTGRES'}, {key: 'MYSQL'}, {key: 'MSSQL'}, {key: 'ORACLE'}, {key: 'H2'}];
         databaseConnectionDetails.testConnection = testConnection;
         databaseConnectionDetails.cancel = cancel;
 

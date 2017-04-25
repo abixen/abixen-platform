@@ -14,6 +14,8 @@
 
 package com.abixen.platform.service.webcontent.service;
 
+import com.abixen.platform.service.webcontent.form.SearchWebContentForm;
+import com.abixen.platform.service.webcontent.form.WebContentForm;
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,5 +23,9 @@ import org.springframework.data.domain.Pageable;
 public interface WebContentService {
 
     Page<WebContent> getWebContents(Pageable pageable);
+
+    Page<WebContent> getWebContents(Pageable pageable, SearchWebContentForm searchWebContentForm);
+
+    WebContentForm getWebContent(Long id);
 
 }

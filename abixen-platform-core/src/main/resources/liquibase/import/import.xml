@@ -9,8 +9,8 @@
     <changeSet author="MariuszKumor" id="import-v1" runAlways="false" runOnChange="true">
 
         <preConditions onFail="HALT">
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM role_</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM user_</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM role_</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM user_role</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM acl_class</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM permission_acl_class_category</sqlCheck>
@@ -31,14 +31,14 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM module_type_admin_sidebar_item</sqlCheck>
         </preConditions>
 
-        <loadData file="liquibase/import/data/role-data.csv"
-                  separator=";"
-                  tableName="role_">
-        </loadData>
-
         <loadData file="liquibase/import/data/user-data.csv"
                   separator=";"
                   tableName="user_">
+        </loadData>
+
+        <loadData file="liquibase/import/data/role-data.csv"
+                  separator=";"
+                  tableName="role_">
         </loadData>
 
         <loadData file="liquibase/import/data/user-role-data.csv"

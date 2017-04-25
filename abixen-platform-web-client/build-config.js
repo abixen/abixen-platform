@@ -19,7 +19,9 @@ module.exports = {
         roboto: 'src/main/resources/static/fonts/roboto',
         glyphicons: 'src/main/resources/static/fonts/bootstrap',
         ckeditor: 'src/main/resources/static/lib/ckeditor',
-        moment: 'src/main/resources/static/lib/moment'
+        moment: 'src/main/resources/static/lib/moment',
+        applicationTemplateCache: 'src/main/web/application/javascript',
+        controlPanelTemplateCache: 'src/main/web/control-panel/javascript'
     },
     images: {
         login: 'src/main/web/login/image/*',
@@ -104,6 +106,7 @@ module.exports = {
             'src/main/web/common/**/*.js'
         ],
         concatOrder: [
+            'src/main/web/**/*.templatecache.config.js',
             'src/main/web/**/*.module.js',
             'src/main/web/**/*.js'
         ]

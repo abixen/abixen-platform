@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.util;
 
-import com.abixen.platform.core.model.enumtype.UserGender;
-import com.abixen.platform.core.model.enumtype.UserLanguage;
+import com.abixen.platform.common.model.enumtype.UserGender;
+import com.abixen.platform.common.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.Role;
 import com.abixen.platform.core.model.impl.User;
 

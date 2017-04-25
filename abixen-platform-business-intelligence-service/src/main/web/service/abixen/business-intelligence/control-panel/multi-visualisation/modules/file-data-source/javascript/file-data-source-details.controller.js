@@ -79,7 +79,7 @@
                     column.selected = selected;
                     fileDataSourceDetails.fileColumns.push(column);
                 })
-            })
+            });
         }
 
 

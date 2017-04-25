@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource;
 
-import com.abixen.platform.core.util.ModelKeys;
+import com.abixen.platform.common.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.fasterxml.jackson.annotation.JsonIgnore;

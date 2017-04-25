@@ -16,6 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.serv
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DatabaseConnectionException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Map;
 
 
 @Slf4j
@@ -76,4 +78,17 @@ public class DatabaseOracleServiceImpl extends AbstractDatabaseService implement
         return connection;
     }
 
+    @Override
+    protected Map<String, String> getSpecyficTypeMapping(Map<String, String> databaseTypeOnApplicationType) {
+        databaseTypeOnApplicationType.put("VARCHAR2", DataValueType.STRING.getName());
+        databaseTypeOnApplicationType.put("NUMBER", DataValueType.DOUBLE.getName());
+        return databaseTypeOnApplicationType;
+    }
+
+    @Override
+    protected StringBuilder setLimitConditionForCharDataQuery(StringBuilder stringBuilder, Integer limit) {
+        stringBuilder.append(" AND ROWNUM <= ");
+        stringBuilder.append(limit);
+        return stringBuilder;
+    }
 }

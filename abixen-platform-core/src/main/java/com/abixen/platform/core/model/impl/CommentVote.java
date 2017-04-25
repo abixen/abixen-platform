@@ -14,15 +14,15 @@
 
 package com.abixen.platform.core.model.impl;
 
-import com.abixen.platform.core.model.CommentVoteBase;
-import com.abixen.platform.core.model.enumtype.CommentVoteType;
-import com.abixen.platform.core.model.web.CommentVoteWeb;
+import com.abixen.platform.common.model.CommentVoteBase;
+import com.abixen.platform.common.model.enumtype.CommentVoteType;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "comment_vote")
 @SequenceGenerator(sequenceName = "comment_vote_seq", name = "comment_vote_seq", allocationSize = 1)
-public class CommentVote extends AuditingModel implements CommentVoteBase<Comment>, CommentVoteWeb {
+public class CommentVote extends AuditingModel implements CommentVoteBase<Comment> {
 
     @Id
     @Column(name = "id")

@@ -51,8 +51,9 @@ public class ModuleConfigurationIntegrationClient {
         return moduleConfigurationService.getModulesConfigurationProperties();
     }
 
-    private ModulesConfigurationProperties getModulesConfigurationPropertiesFallback(String serviceName) {
+    private ModulesConfigurationProperties getModulesConfigurationPropertiesFallback(String serviceName, Throwable e) {
         log.error("getModulesConfigurationPropertiesFallback: " + serviceName);
+        e.printStackTrace();
         return null;
     }
 }

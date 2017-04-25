@@ -14,11 +14,11 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
+import com.abixen.platform.core.dto.CommentDto;
+import com.abixen.platform.core.dto.CommentVoteDto;
 import com.abixen.platform.core.form.CommentForm;
 import com.abixen.platform.core.form.CommentVoteForm;
-import com.abixen.platform.core.model.enumtype.CommentVoteType;
-import com.abixen.platform.core.model.impl.Comment;
-import com.abixen.platform.core.model.web.CommentWeb;
+import com.abixen.platform.common.model.enumtype.CommentVoteType;
 import com.abixen.platform.core.repository.CommentRepository;
 import com.abixen.platform.core.repository.CommentVoteRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -53,7 +52,7 @@ public class CommentVoteServiceTest {
     @Autowired
     private CommentRepository commentRepository;
 
-    private CommentVoteForm commentVoteFormSaved;
+    private CommentVoteDto commentVoteDtoSaved;
 
     private CommentForm commentFromDB;
 
@@ -70,34 +69,20 @@ public class CommentVoteServiceTest {
     @After
     public void tearDown() {
         commentRepository.delete(commentFromDB.getId());
-        commentVoteRepository.delete(commentVoteFormSaved.getId());
+        commentVoteRepository.delete(commentVoteDtoSaved.getId());
     }
 
     @Test
     public void saveCommentVote() {
         CommentVoteForm commentVoteForm = new CommentVoteForm();
-        Comment comment = new Comment();
+        CommentDto comment = new CommentDto();
         comment.setId(commentFromDB.getId());
         comment.setMessage(commentFromDB.getMessage());
-        commentVoteForm.setComment(comment);
+        commentVoteForm.setCommentId(comment.getId());
         commentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
-        commentVoteFormSaved = commentVoteService.saveCommentVote(commentVoteForm);
-        assertNotNull(commentVoteFormSaved.getId());
-        assertEquals(commentVoteFormSaved.getCommentVoteType(), CommentVoteType.POSITIVE);
 
-    }
-
-    @Test
-    public void updateCommentVote() {
-        CommentVoteForm commentVoteForm = new CommentVoteForm();
-        Comment comment = new Comment();
-        comment.setId(commentFromDB.getId());
-        comment.setMessage(commentFromDB.getMessage());
-        commentVoteForm.setComment(comment);
-        commentVoteForm.setCommentVoteType(CommentVoteType.POSITIVE);
-        commentVoteFormSaved = commentVoteService.saveCommentVote(commentVoteForm);
-        commentVoteFormSaved.setCommentVoteType(CommentVoteType.NEGATIVE);
-        CommentVoteForm commentVoteFormUpdated = commentVoteService.updateCommentVote(commentVoteFormSaved);
-        assertEquals(commentVoteFormSaved.getCommentVoteType(), CommentVoteType.NEGATIVE);
+        commentVoteDtoSaved = commentVoteService.saveCommentVote(commentVoteForm);
+        assertNotNull(commentVoteDtoSaved.getId());
+        assertEquals(commentVoteDtoSaved.getCommentVoteType(), CommentVoteType.POSITIVE);
     }
 }

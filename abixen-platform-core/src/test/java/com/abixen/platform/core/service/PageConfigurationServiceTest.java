@@ -14,9 +14,10 @@
 package com.abixen.platform.core.service;
 
 import com.abixen.platform.core.configuration.PlatformConfiguration;
+import com.abixen.platform.core.converter.PageToPageDtoConverter;
+import com.abixen.platform.core.dto.LayoutDto;
 import com.abixen.platform.core.dto.PageModelDto;
 import com.abixen.platform.core.form.PageForm;
-import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.model.impl.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -25,12 +26,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
+@Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformConfiguration.class)
 @Slf4j
@@ -42,6 +43,9 @@ public class PageConfigurationServiceTest {
     @Autowired
     private PageService pageService;
 
+    @Autowired
+    private PageToPageDtoConverter pageToPageDtoConverter;
+
     private PageForm samplePageForm;
     private Page samplePage;
     private PageModelDto dto;
@@ -52,15 +56,15 @@ public class PageConfigurationServiceTest {
         samplePageForm.setTitle("Sample page");
         samplePageForm.setDescription("Sample page to validate PageModel");
         samplePageForm.setIcon("fa fa-file-text-o");
-        Layout layoutWeb = new Layout();
-        layoutWeb.setId(7L);
-        samplePageForm.setLayout(layoutWeb);
+        LayoutDto layout = new LayoutDto();
+        layout.setId(7L);
+        samplePageForm.setLayout(layout);
 
         samplePage = pageService.buildPage(samplePageForm);
         samplePage = pageService.createPage(samplePage);
 
         dto = new PageModelDto();
-        dto.setPage(samplePage);
+        dto.setPage(pageToPageDtoConverter.convert(samplePage));
 
     }
 

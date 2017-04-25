@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.webcontent.configuration;
 
-import com.abixen.platform.core.configuration.AbstractJapConfiguration;
-import com.abixen.platform.core.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
+import com.abixen.platform.common.configuration.AbstractJpaConfiguration;
+import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import com.abixen.platform.service.webcontent.security.PlatformAuditorAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +33,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "platformAuditorAware")
 @EnableJpaRepositories(basePackages = {PlatformWebContentServicePackages.REPOSITORY})
-public class PlatformWebContentServiceJpaConfiguration extends AbstractJapConfiguration {
+public class PlatformWebContentServiceJpaConfiguration extends AbstractJpaConfiguration {
 
     @Autowired
     public PlatformWebContentServiceJpaConfiguration(DataSource dataSource, AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration) {

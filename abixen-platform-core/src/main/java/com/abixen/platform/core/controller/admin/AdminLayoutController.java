@@ -14,16 +14,16 @@
 
 package com.abixen.platform.core.controller.admin;
 
-import com.abixen.platform.core.dto.FormErrorDto;
-import com.abixen.platform.core.dto.FormValidationResultDto;
+import com.abixen.platform.core.converter.LayoutToLayoutDtoConverter;
+import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.core.dto.LayoutDto;
 import com.abixen.platform.core.form.LayoutForm;
 import com.abixen.platform.core.form.LayoutSearchForm;
 import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.service.LayoutService;
+import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
-import com.abixen.platform.core.util.ValidationUtil;
-import com.abixen.platform.core.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,14 +45,17 @@ import java.util.List;
 public class AdminLayoutController {
 
     private final LayoutService layoutService;
+    private final LayoutToLayoutDtoConverter layoutToLayoutDtoConverter;
 
     @Autowired
-    public AdminLayoutController(LayoutService layoutService) {
+    public AdminLayoutController(LayoutService layoutService,
+                                 LayoutToLayoutDtoConverter layoutToLayoutDtoConverter) {
         this.layoutService = layoutService;
+        this.layoutToLayoutDtoConverter = layoutToLayoutDtoConverter;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<Layout> getLayouts(@PageableDefault(size = 1) Pageable pageable, LayoutSearchForm layoutSearchForm) {
+    public Page<LayoutDto> getLayouts(@PageableDefault(size = 1) Pageable pageable, LayoutSearchForm layoutSearchForm) {
         log.debug("getLayouts()");
 
         Page<Layout> layouts = layoutService.findAllLayouts(pageable, layoutSearchForm);
@@ -61,23 +64,27 @@ public class AdminLayoutController {
             String html = layout.getContent();
             layout.setContent(layoutService.htmlLayoutToJson(html));
         }
-        return layouts;
+
+        Page<LayoutDto> layoutDtos = layoutToLayoutDtoConverter.convertToPage(layouts);
+
+        return layoutDtos;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Layout getLayout(@PathVariable Long id) {
+    public LayoutDto getLayout(@PathVariable Long id) {
         log.debug("getLayout() - id: {}", id);
 
-        return layoutService.findLayout(id);
+        Layout layout = layoutService.findLayout(id);
+        return layoutToLayoutDtoConverter.convert(layout);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public Layout createLayout(@RequestBody Layout layout) {
+    public FormValidationResultDto createLayout(@RequestBody Layout layout) {
         log.debug("save() - layout: {}", layout);
-        return layoutService.createLayout(layout);
+        Layout createdLayout = layoutService.createLayout(layout);
+        return new FormValidationResultDto(new LayoutForm(createdLayout));
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     FormValidationResultDto updateLayout(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -97,7 +104,8 @@ public class AdminLayoutController {
     }
 
     @RequestMapping(value = "/{id}/icon", method = RequestMethod.POST)
-    public Layout updateLayoutIcon(@PathVariable Long id, @RequestParam("iconFile") MultipartFile iconFile) throws IOException {
-        return layoutService.changeIcon(id, iconFile);
+    public LayoutDto updateLayoutIcon(@PathVariable Long id, @RequestParam("iconFile") MultipartFile iconFile) throws IOException {
+        Layout layout = layoutService.changeIcon(id, iconFile);
+        return layoutToLayoutDtoConverter.convert(layout);
     }
 }
