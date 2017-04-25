@@ -24,16 +24,17 @@
         '$scope',
         '$log',
         'WebContentPreview',
+        'WebContentConfig',
         'moduleResponseErrorHandler'
     ];
 
-    function PreviewSimpleController($scope, $log, WebContentPreview, moduleResponseErrorHandler) {
+    function PreviewSimpleController($scope, $log, WebContentPreview, WebContentConfig, moduleResponseErrorHandler) {
         $log.log('PreviewSimpleController');
 
         var previewSimple = this;
 
         previewSimple.entity = {};
-
+        previewSimple.webContentConfig = WebContentConfig.getConfig();
 
         function getSimplePreview(id) {
             WebContentPreview.get({id:id})
@@ -49,9 +50,6 @@
                 previewSimple.entity = {};
             }
         }
-
-        getSimplePreview(1)
-
-
+        getSimplePreview(previewSimple.webContentConfig.contentId)
     }
 })();

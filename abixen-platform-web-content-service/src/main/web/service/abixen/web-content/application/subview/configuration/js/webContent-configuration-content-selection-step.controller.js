@@ -24,23 +24,35 @@
         '$scope',
         '$log',
         'WebContent',
+        'WebContentConfig',
         'moduleResponseErrorHandler'
     ];
 
-    function ContentSelectionStepController($scope, $log, WebContent, moduleResponseErrorHandler) {
+    function ContentSelectionStepController($scope, $log, WebContent, WebContentConfig, moduleResponseErrorHandler) {
         $log.log('ContentSelectionStepController');
 
         var contentSelectionStep = this;
 
         contentSelectionStep.searchFields = createSearchFields();
         contentSelectionStep.searchFilter = {};
+        contentSelectionStep.webContentConfig = WebContentConfig.getConfig();
+
 
         angular.extend(contentSelectionStep, new AbstractListGridController(WebContent,
             {
                 getTableColumns: getTableColumns,
-                filter: contentSelectionStep.searchFilter
+                filter: contentSelectionStep.searchFilter,
+                onRowSelected: onSelectRow,
+                onGetDataResult: onGetDataResult
             }
         ));
+
+        function onSelectRow(row) {
+            if (row && contentSelectionStep.webContentConfig) {
+                contentSelectionStep.webContentConfig.contentId = row.entity.id;
+                WebContentConfig.setConfig(contentSelectionStep.webContentConfig);
+            }
+        }
 
         function getTableColumns() {
             return [
@@ -57,6 +69,17 @@
                     type: 'input-text'
                 }
             ];
+        }
+
+        function selectRow(contentId){
+            contentSelectionStep.listGridConfig.getListGridData().forEach(function(row){
+                if (row.id === contentId) {
+                    contentSelectionStep.listGridConfig.selectRow(row);
+                }
+            });
+        }
+        function onGetDataResult() {
+            selectRow(contentSelectionStep.webContentConfig.contentId);
         }
     }
 })();

@@ -23,10 +23,12 @@
     WebContentModuleInitController.$inject = [
         '$scope',
         '$log',
+        'WebContentConfig',
+        'WebContentConfigData',
         'moduleResponseErrorHandler'
     ];
 
-    function WebContentModuleInitController($scope, $log, moduleResponseErrorHandler) {
+    function WebContentModuleInitController($scope, $log, WebContentConfig, WebContentConfigData, moduleResponseErrorHandler) {
         $log.log('WebContentModuleInitController');
 
         var webContentModuleInit = this;
@@ -35,6 +37,30 @@
         var SUBVIEW_SIMPLE = 'simple';
 
         webContentModuleInit.subview = SUBVIEW_SIMPLE;
+
+        $scope.$on(platformParameters.events.RELOAD_MODULE, function (event, id, viewMode) {
+            $log.log('RELOAD MODULE EVENT', id, viewMode);
+
+            WebContentConfigData.get({moduleId:id})
+                .$promise
+                .then(onGetResult, onGetError);
+
+            function onGetResult(webContentConfigData) {
+                if (webContentConfigData) {
+                    WebContentConfig.setConfig(webContentConfigData)
+                } else {
+                    var webContentConfig = WebContentConfig.getDefaultConfig();
+                    webContentConfig.moduleId = id;
+                    WebContentConfig.setConfig(webContentConfig)
+                }
+            }
+
+            function onGetError() {
+                var webContentConfig = WebContentConfig.getDefaultConfig();
+                webContentConfig.moduleId = id;
+                WebContentConfig.setConfig(webContentConfig)
+            }
+        });
 
         $scope.$on('CONFIGURATION_MODE', function (event, id) {
             $log.log('CONFIGURATION_MODE EVENT', event, id);
