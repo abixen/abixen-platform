@@ -19,9 +19,9 @@
         .module('webContentServiceWebContentModule')
         .controller('WebContentServiceWebContentController', WebContentServiceWebContentController);
 
-    WebContentServiceWebContentController.$inject = ['applicationNavigationItems', 'WebContent','$state'];
+    WebContentServiceWebContentController.$inject = ['applicationNavigationItems', 'WebContent', '$state'];
 
-    function WebContentServiceWebContentController(applicationNavigationItems, WebContent,$state) {
+    function WebContentServiceWebContentController(applicationNavigationItems, WebContent, $state) {
 
         var webContentList = this;
 
@@ -30,6 +30,8 @@
                 getTableColumns: getTableColumns
             }
         ));
+
+        webContentList.editEntity = editEntity;
 
 
         updateNavigation();
@@ -63,6 +65,14 @@
                 {field: 'title', name: 'Title', pinnedLeft: true, width: 200},
                 {field: 'type', name: 'Type', pinnedLeft: true, width: 200}
             ].concat(getAuditingTableColumns());
+        }
+
+        function editEntity() {
+            if (webContentList.listGridConfig.selectedEntity.type === 'SIMPLE') {
+                $state.go('application.webContentService.webContent.editSimple', {id: webContentList.listGridConfig.selectedEntity.id});
+            } else if (webContentList.listGridConfig.selectedEntity.type === 'ADVANCED') {
+                $state.go('application.webContentService.webContent.editAdvanced', {id: webContentList.listGridConfig.selectedEntity.id});
+            }
         }
     }
 })();

@@ -38,10 +38,16 @@
                 controllerAs: 'webContentList'
             })
             .state('application.webContentService.webContent.addSimple', {
-                    url: '/add',
+                    url: '/simple/add',
                     templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/simple-details.html',
                     controller: 'WebContentServiceSimpleWebContentDetailsController',
                     controllerAs: 'simpleWebContentDetails'
+            })
+            .state('application.webContentService.webContent.editSimple', {
+                url: '/simple/edit/:id',
+                templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/simple-details.html',
+                controller: 'WebContentServiceSimpleWebContentDetailsController',
+                controllerAs: 'simpleWebContentDetails'
             });
     }
 })();

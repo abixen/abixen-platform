@@ -1,3 +1,18 @@
+<div class="row module-navigation-row">
+    <div class="col-xs-12 module-navigation-col">
+        <button type="button"
+                ng-click="webContentList.editEntity()"
+                ng-disabled="!webContentList.listGridConfig.selectedEntity"
+                class="btn btn-default pull-left">
+            <i class="fa fa-pencil-square-o"></i>Edit
+        </button>
+        <span class="buttons-separator"></span>
+        <button type="button" ng-click="webContentList.deleteEntity(webContentList.listGridConfig.selectedEntity)"
+                ng-disabled="!webContentList.listGridConfig.selectedEntity" class="btn btn-warning pull-left">
+            <i class="fa fa-trash-o"></i>Delete
+        </button>
+    </div>
+</div>
 <div class="row grid-row">
     <div class="col-xs-12">
         <platform-list-grid class="default-platform-list-grid"
