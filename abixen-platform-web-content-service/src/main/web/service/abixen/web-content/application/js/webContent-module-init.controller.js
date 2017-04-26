@@ -36,31 +36,32 @@
         var SUBVIEW_CONFIGURATION = 'configuration';
         var SUBVIEW_SIMPLE = 'simple';
 
-        webContentModuleInit.subview = SUBVIEW_SIMPLE;
-
         $scope.$on(platformParameters.events.RELOAD_MODULE, function (event, id, viewMode) {
             $log.log('RELOAD MODULE EVENT', id, viewMode);
 
+            $scope.moduleId = id;
+
             WebContentConfigData.get({moduleId:id})
                 .$promise
-                .then(onGetResult, onGetError);
+                .then(onGetResult);
 
             function onGetResult(webContentConfigData) {
-                if (webContentConfigData) {
-                    WebContentConfig.setConfig(webContentConfigData)
+                if (webContentConfigData.moduleId) {
+                    WebContentConfig.setConfig(webContentConfigData);
+                    setView();
                 } else {
+                    $scope.$emit(platformParameters.events.MODULE_CONFIGURATION_MISSING);
                     var webContentConfig = WebContentConfig.getDefaultConfig();
                     webContentConfig.moduleId = id;
                     WebContentConfig.setConfig(webContentConfig)
                 }
             }
 
-            function onGetError() {
-                var webContentConfig = WebContentConfig.getDefaultConfig();
-                webContentConfig.moduleId = id;
-                WebContentConfig.setConfig(webContentConfig)
-            }
         });
+
+        function setView(){
+            webContentModuleInit.subview = SUBVIEW_SIMPLE;
+        }
 
         $scope.$on('CONFIGURATION_MODE', function (event, id) {
             $log.log('CONFIGURATION_MODE EVENT', event, id);

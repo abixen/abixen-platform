@@ -51,7 +51,7 @@
             }
         }
 
-        getSimpleWebContent(WebContentConfig.getConfig().contentId)
+        getSimpleWebContent(WebContentConfig.getConfig($scope.moduleId).contentId)
 
 
     }

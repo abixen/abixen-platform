@@ -23,7 +23,7 @@
     WebContentConfig.$inject = ['$resource'];
 
     function WebContentConfig() {
-        var webContentConfig = {};
+        var webContentConfigList = {};
 
 
         return {
@@ -34,15 +34,15 @@
         };
 
         function setConfig(config) {
-            webContentConfig = config;
+            webContentConfigList[config.moduleId] = config;
         }
 
-        function getConfig() {
-            return webContentConfig;
+        function getConfig(moduleId) {
+            return webContentConfigList[moduleId];
         }
 
-        function clearConfig() {
-            webContentConfig = {};
+        function clearConfig(moduleId) {
+            webContentConfigList[moduleId] = {};
         }
 
         function getDefaultConfig() {
