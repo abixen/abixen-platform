@@ -34,7 +34,7 @@
         var previewSimple = this;
 
         previewSimple.entity = {};
-        previewSimple.webContentConfig = WebContentConfig.getConfig($scope.moduleId);
+        previewSimple.webContentConfig = WebContentConfig.getChangedConfig($scope.moduleId);
 
         function getSimplePreview(id) {
             WebContentPreview.get({id:id})

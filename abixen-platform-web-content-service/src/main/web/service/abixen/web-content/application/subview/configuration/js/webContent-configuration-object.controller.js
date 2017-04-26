@@ -24,25 +24,41 @@
 
     function WebContentConfig() {
         var webContentConfigList = {};
+        var webContentChangedConfigList = {};
 
 
         return {
             setConfig: setConfig,
+            setChangedConfig: setChangedConfig,
             getConfig: getConfig,
+            getChangedConfig: getChangedConfig,
             clearConfig: clearConfig,
+            clearChangedConfig: clearChangedConfig,
             getDefaultConfig: getDefaultConfig
         };
 
         function setConfig(config) {
-            webContentConfigList[config.moduleId] = config;
+            webContentConfigList[config.moduleId] = angular.copy(config);
+        }
+
+        function setChangedConfig(config) {
+            webContentChangedConfigList[config.moduleId] = angular.copy(config);
         }
 
         function getConfig(moduleId) {
             return webContentConfigList[moduleId];
         }
 
+        function getChangedConfig(moduleId) {
+            return webContentChangedConfigList[moduleId];
+        }
+
         function clearConfig(moduleId) {
             webContentConfigList[moduleId] = {};
+        }
+
+        function clearChangedConfig(moduleId) {
+            webContentChangedConfigList[moduleId] = {};
         }
 
         function getDefaultConfig() {
