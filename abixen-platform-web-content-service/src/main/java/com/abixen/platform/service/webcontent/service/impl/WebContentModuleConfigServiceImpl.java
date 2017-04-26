@@ -14,7 +14,6 @@
 
 package com.abixen.platform.service.webcontent.service.impl;
 
-import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.service.webcontent.form.WebContentModuleConfigForm;
 import com.abixen.platform.service.webcontent.model.impl.WebContentModuleConfig;
 import com.abixen.platform.service.webcontent.repository.WebContentModuleConfigRepository;
@@ -37,9 +36,8 @@ public class WebContentModuleConfigServiceImpl implements WebContentModuleConfig
         WebContentModuleConfig webContentModuleConfig = webContentModuleConfigRepository.findByModuleId(moduleId);
         if (webContentModuleConfig != null) {
             return new WebContentModuleConfigForm(webContentModuleConfig);
-        } else {
-            throw new PlatformRuntimeException("Configuration for module not found");
         }
+        return null;
     }
 
     @Override

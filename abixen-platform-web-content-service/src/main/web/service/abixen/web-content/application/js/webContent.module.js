@@ -20,6 +20,7 @@
         .module('webContentService', [
             'platformModuleComponent',
             'platformListGridModule',
-            'webContentConfigurationModule'
+            'webContentConfigurationModule',
+            'webContentSimpleModule'
         ]);
 })();

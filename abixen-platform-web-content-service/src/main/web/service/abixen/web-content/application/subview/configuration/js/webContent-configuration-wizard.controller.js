@@ -50,7 +50,7 @@
             if (webContentConfigurationWizard.stepCurrent < webContentConfigurationWizard.stepMax) {
                 webContentConfigurationWizard.stepCurrent++;
             } else if (webContentConfigurationWizard.stepCurrent === webContentConfigurationWizard.stepMax) {
-                WebContentConfigData.save(WebContentConfig.getConfig());
+                WebContentConfigData.save(WebContentConfig.getConfig($scope.moduleId));
                 $scope.$emit('VIEW_MODE');
             }
         }

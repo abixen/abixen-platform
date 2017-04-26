@@ -35,7 +35,7 @@
 
         contentSelectionStep.searchFields = createSearchFields();
         contentSelectionStep.searchFilter = {};
-        contentSelectionStep.webContentConfig = WebContentConfig.getConfig();
+        contentSelectionStep.webContentConfig = WebContentConfig.getConfig($scope.moduleId);
 
 
         angular.extend(contentSelectionStep, new AbstractListGridController(WebContent,
