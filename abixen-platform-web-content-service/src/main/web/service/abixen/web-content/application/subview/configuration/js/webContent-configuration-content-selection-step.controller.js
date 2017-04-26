@@ -25,15 +25,17 @@
         '$log',
         'WebContent',
         'WebContentConfig',
+        'WebContentPreview',
         'moduleResponseErrorHandler'
     ];
 
-    function ContentSelectionStepController($scope, $log, WebContent, WebContentConfig, moduleResponseErrorHandler) {
+    function ContentSelectionStepController($scope, $log, WebContent, WebContentConfig, WebContentPreview, moduleResponseErrorHandler) {
         $log.log('ContentSelectionStepController');
 
         var contentSelectionStep = this;
 
         contentSelectionStep.webContentConfig = WebContentConfig.getChangedConfig($scope.moduleId);
+        contentSelectionStep.selectedRowTitle = "Content not selected";
 
         angular.extend(contentSelectionStep, new AbstractListGridController(WebContent,
             {
@@ -47,6 +49,7 @@
         function onSelectRow(row) {
             if (row && contentSelectionStep.webContentConfig) {
                 contentSelectionStep.webContentConfig.contentId = row.entity.id;
+                contentSelectionStep.selectedRowTitle = row.entity.title;
                 WebContentConfig.setChangedConfig(contentSelectionStep.webContentConfig);
             }
         }
@@ -62,11 +65,26 @@
             contentSelectionStep.listGridConfig.getListGridData().forEach(function(row){
                 if (row.id === contentId) {
                     contentSelectionStep.listGridConfig.selectRow(row);
+                    contentSelectionStep.selectedRowTitle = row.title;
                 }
             });
         }
+
         function onGetDataResult() {
             selectRow(contentSelectionStep.webContentConfig.contentId);
         }
+
+        function setStartSelectedTitle() {
+            if  (contentSelectionStep.webContentConfig.contentId) {
+                WebContentPreview.get({id:contentSelectionStep.webContentConfig.contentId})
+                    .$promise
+                    .then(onGetResult);
+            }
+        }
+
+        function onGetResult(webContent) {
+            contentSelectionStep.selectedRowTitle = webContent.title;
+        }
+        setStartSelectedTitle();
     }
 })();
