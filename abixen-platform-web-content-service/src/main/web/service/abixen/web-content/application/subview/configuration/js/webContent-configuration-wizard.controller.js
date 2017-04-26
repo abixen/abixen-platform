@@ -50,7 +50,7 @@
             if (webContentConfigurationWizard.stepCurrent < webContentConfigurationWizard.stepMax) {
                 webContentConfigurationWizard.stepCurrent++;
             } else if (webContentConfigurationWizard.stepCurrent === webContentConfigurationWizard.stepMax) {
-                WebContentConfigData.save(WebContentConfig.getConfig($scope.moduleId));
+                WebContentConfigData.save(WebContentConfig.getChangedConfig($scope.moduleId));
                 $scope.$emit('VIEW_MODE');
             }
         }
@@ -63,5 +63,10 @@
             }
             return false
         }
+
+        function prepareNewObjectForConfig() {
+            WebContentConfig.setChangedConfig(WebContentConfig.getConfig($scope.moduleId));
+        }
+        prepareNewObjectForConfig()
     }
 })();

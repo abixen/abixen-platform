@@ -35,7 +35,7 @@
 
         contentSelectionStep.searchFields = createSearchFields();
         contentSelectionStep.searchFilter = {};
-        contentSelectionStep.webContentConfig = WebContentConfig.getConfig($scope.moduleId);
+        contentSelectionStep.webContentConfig = WebContentConfig.getChangedConfig($scope.moduleId);
 
 
         angular.extend(contentSelectionStep, new AbstractListGridController(WebContent,
@@ -50,7 +50,7 @@
         function onSelectRow(row) {
             if (row && contentSelectionStep.webContentConfig) {
                 contentSelectionStep.webContentConfig.contentId = row.entity.id;
-                WebContentConfig.setConfig(contentSelectionStep.webContentConfig);
+                WebContentConfig.setChangedConfig(contentSelectionStep.webContentConfig);
             }
         }
 

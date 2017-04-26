@@ -36,6 +36,7 @@
         var SUBVIEW_CONFIGURATION = 'configuration';
         var SUBVIEW_SIMPLE = 'simple';
 
+
         $scope.$on(platformParameters.events.RELOAD_MODULE, function (event, id, viewMode) {
             $log.log('RELOAD MODULE EVENT', id, viewMode);
 
@@ -71,6 +72,7 @@
 
         $scope.$on('VIEW_MODE', function (event, id) {
             $log.log('VIEW_MODE EVENT', event, id);
+            WebContentConfig.clearChangedConfig(id);
             webContentModuleInit.subview = SUBVIEW_SIMPLE;
             $scope.$emit(platformParameters.events.VIEW_MODE_READY);
         });
