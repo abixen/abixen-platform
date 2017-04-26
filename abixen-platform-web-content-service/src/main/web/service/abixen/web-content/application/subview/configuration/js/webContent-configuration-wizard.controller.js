@@ -51,6 +51,7 @@
                 webContentConfigurationWizard.stepCurrent++;
             } else if (webContentConfigurationWizard.stepCurrent === webContentConfigurationWizard.stepMax) {
                 WebContentConfigData.save(WebContentConfig.getChangedConfig($scope.moduleId));
+                WebContentConfig.setConfig(WebContentConfig.getChangedConfig($scope.moduleId));
                 $scope.$emit('VIEW_MODE');
             }
         }

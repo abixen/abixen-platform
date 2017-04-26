@@ -25,16 +25,18 @@
         '$log',
         'WebContentConfig',
         'WebContentConfigData',
+        'WebContentPreview',
         'moduleResponseErrorHandler'
     ];
 
-    function WebContentModuleInitController($scope, $log, WebContentConfig, WebContentConfigData, moduleResponseErrorHandler) {
+    function WebContentModuleInitController($scope, $log, WebContentConfig, WebContentConfigData, WebContentPreview, moduleResponseErrorHandler) {
         $log.log('WebContentModuleInitController');
 
         var webContentModuleInit = this;
 
         var SUBVIEW_CONFIGURATION = 'configuration';
         var SUBVIEW_SIMPLE = 'simple';
+        var SUBVIEW_ADVANCED = 'advanced';
 
 
         $scope.$on(platformParameters.events.RELOAD_MODULE, function (event, id, viewMode) {
@@ -49,19 +51,30 @@
             function onGetResult(webContentConfigData) {
                 if (webContentConfigData.moduleId) {
                     WebContentConfig.setConfig(webContentConfigData);
-                    setView();
+                    WebContentPreview.get({id:webContentConfigData.contentId})
+                        .$promise
+                        .then(onGetResult);
                 } else {
                     $scope.$emit(platformParameters.events.MODULE_CONFIGURATION_MISSING);
                     var webContentConfig = WebContentConfig.getDefaultConfig();
                     webContentConfig.moduleId = id;
                     WebContentConfig.setConfig(webContentConfig)
                 }
+
+                function onGetResult(webContent) {
+                    setView(webContent.type);
+                }
             }
 
         });
 
-        function setView(){
-            webContentModuleInit.subview = SUBVIEW_SIMPLE;
+        function setView(type){
+            if (type == 'ADVANCED') {
+                webContentModuleInit.subview = SUBVIEW_ADVANCED;
+            }
+            if(type == 'SIMPLE') {
+                webContentModuleInit.subview = SUBVIEW_SIMPLE;
+            }
         }
 
         $scope.$on('CONFIGURATION_MODE', function (event, id) {

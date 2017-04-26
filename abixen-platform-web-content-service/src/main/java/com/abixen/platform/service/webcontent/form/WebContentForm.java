@@ -16,6 +16,7 @@ package com.abixen.platform.service.webcontent.form;
 
 import com.abixen.platform.common.form.Form;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -26,6 +27,10 @@ public class WebContentForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     protected Long id;
+
+    @JsonView(WebModelJsonSerialize.class)
+    @NotNull
+    protected WebContentType type;
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
@@ -42,6 +47,7 @@ public class WebContentForm implements Form {
 
     public WebContentForm(WebContent webContent) {
         this.id = webContent.getId();
+        this.type = webContent.getType();
         this.title = webContent.getTitle();
         this.content = webContent.getContent();
     }
@@ -52,6 +58,14 @@ public class WebContentForm implements Form {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public WebContentType getType() {
+        return type;
+    }
+
+    public void setType(WebContentType type) {
+        this.type = type;
     }
 
     public String getTitle() {
