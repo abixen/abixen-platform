@@ -33,10 +33,7 @@
 
         var contentSelectionStep = this;
 
-        contentSelectionStep.searchFields = createSearchFields();
-        contentSelectionStep.searchFilter = {};
         contentSelectionStep.webContentConfig = WebContentConfig.getChangedConfig($scope.moduleId);
-
 
         angular.extend(contentSelectionStep, new AbstractListGridController(WebContent,
             {
@@ -58,16 +55,6 @@
             return [
                 {field: 'id', name: 'Id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
                 {field: 'title', name: 'Title', pinnedLeft: true}
-            ];
-        }
-
-        function createSearchFields() {
-            return [
-                {
-                    name: 'title',
-                    label: 'wizard.contentSelectionStep.search.title.label',
-                    type: 'input-text'
-                }
             ];
         }
 
