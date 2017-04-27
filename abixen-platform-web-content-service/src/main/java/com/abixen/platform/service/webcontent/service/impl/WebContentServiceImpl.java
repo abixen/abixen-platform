@@ -60,4 +60,10 @@ public class WebContentServiceImpl implements WebContentService {
             throw new PlatformRuntimeException("Content not found");
         }
     }
+
+    @Override
+    public void deleteWebContent(Long id) {
+        log.debug("deleteWebContent() - id={}", id);
+        webContentRepository.delete(id);
+    }
 }

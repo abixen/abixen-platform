@@ -44,7 +44,7 @@ public class SimpleWebContentController {
 
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public SimpleWebContentWeb getTemplate(@PathVariable Long id) {
+    public SimpleWebContentWeb getSimpleWebContent(@PathVariable Long id) {
         log.debug("getSimpleWebContent() - id: {}", id);
 
         return simpleWebContentService.findSimpleWebContentById(id);
@@ -67,7 +67,7 @@ public class SimpleWebContentController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateSimpleWebContent(@PathVariable("id") Long id, @RequestBody @Valid SimpleWebContentForm simpleWebContentForm, BindingResult bindingResult) {
-        log.debug("updateTemplate() - id: {}, templateForm: {}", id, simpleWebContentForm);
+        log.debug("updateSimpleWebContent() - id: {}, simpleWebContentForm: {}", id, simpleWebContentForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);

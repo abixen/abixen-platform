@@ -28,4 +28,5 @@ public interface WebContentService {
 
     WebContentForm getWebContent(Long id);
 
+    void deleteWebContent(Long id);
 }

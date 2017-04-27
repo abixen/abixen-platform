@@ -52,4 +52,9 @@ public class WebContentController {
     public WebContentForm getWebContent(@PathVariable("id") Long id) {
         return webContentService.getWebContent(id);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteWebContent(@PathVariable("id") Long id) {
+        webContentService.deleteWebContent(id);
+    }
 }
