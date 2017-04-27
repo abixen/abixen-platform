@@ -37,6 +37,9 @@
         new AbstractDetailsController(simpleWebContentDetails, SimpleWebContent, responseHandler, $scope,
             {
                 entityId: $stateParams.id,
+                initEntity: {
+                    type: 'SIMPLE'
+                },
                 getValidators: getValidators,
                 onSuccessSaveForm: onSuccessSaveForm
             }
