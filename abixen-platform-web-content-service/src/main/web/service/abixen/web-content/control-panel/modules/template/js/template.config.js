@@ -42,6 +42,12 @@
                 templateUrl: 'service/abixen/web-content/control-panel/modules/template/html/details.html',
                 controller: 'WebContentServiceTemplateDetailsController',
                 controllerAs: 'templateDetails'
+            })
+            .state('application.webContentService.template.edit', {
+                url: '/edit/:id',
+                templateUrl: 'service/abixen/web-content/control-panel/modules/template/html/details.html',
+                controller: 'WebContentServiceTemplateDetailsController',
+                controllerAs: 'templateDetails'
             });
     }
 })();
