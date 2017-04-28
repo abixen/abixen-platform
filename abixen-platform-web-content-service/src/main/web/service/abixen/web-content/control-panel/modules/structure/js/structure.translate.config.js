@@ -27,22 +27,18 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
-            'structureDetails.title.label': 'Title',
-            'structureDetails.name.placeholder': 'Title',
-            'structureDetails.content.label': 'Content',
-            'structureDetails.content.placeholder': 'Content',
-            'structureDetails.template.label': 'Template',
-            'structureDetails.template.placeholder': 'Template',
-            'structureDetails.template.select': 'Select Template'
+            'structureDetails.name.label': 'Nazwa',
+            'structureDetails.name.placeholder': 'Np. Nowości sprzedażowe',
+            'structureDetails.content.label': 'Zawartość',
+            'structureDetails.template.label': 'Szablon',
+            'structureDetails.template.select': 'Wybierz szablon'
         });
 
         $translateProvider.translations('ENGLISH', {
-            'structureDetails.title.label': 'Title',
-            'structureDetails.title.placeholder': 'Title',
+            'structureDetails.name.label': 'Name',
+            'structureDetails.name.placeholder': 'E.g. Sales news',
             'structureDetails.content.label': 'Content',
-            'structureDetails.content.placeholder': 'Content',
             'structureDetails.template.label': 'Template',
-            'structureDetails.template.placeholder': 'Template',
             'structureDetails.template.select': 'Select Template'
         });
     }
