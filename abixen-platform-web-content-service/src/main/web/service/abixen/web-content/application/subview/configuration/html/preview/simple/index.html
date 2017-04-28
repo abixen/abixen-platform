@@ -1,7 +1,7 @@
 <div ng-controller="PreviewSimpleController as previewSimple">
     <div class="web-content-view">
         <div class="web-content-content">
-            {{previewSimple.entity.content}}
+            <div ng-bind-html="previewSimple.entity.content"></div>
         </div>
     </div>
 </div>
