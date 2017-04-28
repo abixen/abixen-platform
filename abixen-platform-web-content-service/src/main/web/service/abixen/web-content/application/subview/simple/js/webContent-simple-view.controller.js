@@ -23,12 +23,13 @@
     WebContentSimpleViewController.$inject = [
         '$scope',
         '$log',
+        '$sce',
         'WebContentView',
         'WebContentConfig',
         'moduleResponseErrorHandler'
     ];
 
-    function WebContentSimpleViewController($scope, $log, WebContentView, WebContentConfig, moduleResponseErrorHandler) {
+    function WebContentSimpleViewController($scope, $log, $sce, WebContentView, WebContentConfig, moduleResponseErrorHandler) {
         $log.log('PreviewSimpleController');
 
         var webContentSimpleView = this;
@@ -44,7 +45,8 @@
 
         function onGetResult(webContent) {
             if (webContent){
-                webContentSimpleView.entity = webContent
+                webContentSimpleView.entity = webContent;
+                webContentSimpleView.entity.content = $sce.trustAsHtml(webContentSimpleView.entity.content);
             }
             else {
                 webContentSimpleView.entity = {};

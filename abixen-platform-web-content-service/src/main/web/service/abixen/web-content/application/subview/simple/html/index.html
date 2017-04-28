@@ -1,7 +1,7 @@
 <div ng-controller="WebContentSimpleViewController as webContentSimpleView">
     <div class="web-content-view">
         <div class="web-content-content">
-            {{webContentSimpleView.entity.content}}
+            <div ng-bind-html="webContentSimpleView.entity.content"></div>
         </div>
     </div>
 </div>

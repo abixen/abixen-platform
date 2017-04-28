@@ -23,12 +23,13 @@
     PreviewSimpleController.$inject = [
         '$scope',
         '$log',
+        '$sce',
         'WebContentPreview',
         'WebContentConfig',
         'moduleResponseErrorHandler'
     ];
 
-    function PreviewSimpleController($scope, $log, WebContentPreview, WebContentConfig, moduleResponseErrorHandler) {
+    function PreviewSimpleController($scope, $log, $sce, WebContentPreview, WebContentConfig, moduleResponseErrorHandler) {
         $log.log('PreviewSimpleController');
 
         var previewSimple = this;
@@ -44,7 +45,8 @@
 
         function onGetResult(webContent) {
             if (webContent){
-                previewSimple.entity = webContent
+                previewSimple.entity = webContent;
+                previewSimple.entity.content = $sce.trustAsHtml(previewSimple.entity.content);
             }
             else {
                 previewSimple.entity = {};
