@@ -1,34 +1,33 @@
-<div class="row form-row template-details">
-    <div class="col-md-12">
-        <form class="form form-instance" role="form" name="templateDetails.entityForm" novalidate>
-            <div class="col-xs-12">
-                <input-text model="templateDetails.entity.name"
-                            name="name"
-                            label="{{'webContentService.template.name.label' | translate}}"
-                            placeholder="{{'webContentService.template.name.placeholder' | translate}}"
-                            validators="templateDetails.validators">
-                </input-text>
-                <input-ckeditor id="contentInput"
-                                model="templateDetails.entity.content"
-                                name="content"
-                                label="{{'webContentService.template.content.label' | translate}}"
-                                placeholder="{{'webContentService.template.content.placeholder' | translate}}"
-                                validators="templateDetails.validators"
-                                rows="5"
-                                options="templateDetails.ckeditorOptions">
-                </input-ckeditor>
+<div class="row form-row">
+    <div class="col-xs-12">
+        <form class="form-horizontal" role="form" name="templateDetails.entityForm" novalidate>
+            <input-text model="templateDetails.entity.name"
+                        name="name"
+                        label="{{'webContentService.template.name.label' | translate}}"
+                        placeholder="{{'webContentService.template.name.placeholder' | translate}}"
+                        validators="templateDetails.validators">
+            </input-text>
+            <input-ckeditor id="contentInput"
+                            model="templateDetails.entity.content"
+                            name="content"
+                            label="{{'webContentService.template.content.label' | translate}}"
+                            placeholder="{{'webContentService.template.content.placeholder' | translate}}"
+                            validators="templateDetails.validators"
+                            rows="5"
+                            options="templateDetails.ckeditorOptions">
+            </input-ckeditor>
+
+            <div class="row bottom-navigation">
+                <div class="col-xs-12">
+                    <button class="btn save-button" ng-click="templateDetails.saveForm()"
+                            ng-disabled="templateDetails.entityForm.$invalid">
+                        <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
+                    </button>
+                    <button ui-sref="application.webContentService.template.list" class="btn cancel-button">
+                        <i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+                    </button>
+                </div>
             </div>
         </form>
-    </div>
-</div>
-<div class="row bottom-navigation">
-    <div class="col-sx-12 bottom-navigation-content">
-        <button class="btn save-button" ng-click="templateDetails.saveForm()"
-                ng-disabled="templateDetails.entityForm.$invalid">
-            <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
-        </button>
-        <button ui-sref="application.webContentService.template.list" class="btn cancel-button">
-            <i class="fa fa-times"></i><span>&nbsp;Cancel</span>
-        </button>
     </div>
 </div>
