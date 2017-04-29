@@ -37,5 +37,17 @@
             'webContentService.webContent.title.placeholder': 'E.g. announcement of sales results',
             'webContentService.webContent.content.label': 'Content'
         });
+
+        $translateProvider.translations('RUSSIAN', {
+            'webContentService.webContent.title.label': 'Заглавие',
+            'webContentService.webContent.title.placeholder': 'Напр. объявление результатов продаж',
+            'webContentService.webContent.content.label': 'Содержание'
+        });
+
+        $translateProvider.translations('UKRAINIAN', {
+            'webContentService.webContent.title.label': 'Назва',
+            'webContentService.webContent.title.placeholder': 'Напр. оголошення результатів продажів',
+            'webContentService.webContent.content.label': 'Зміст'
+        });
     }
 })();
