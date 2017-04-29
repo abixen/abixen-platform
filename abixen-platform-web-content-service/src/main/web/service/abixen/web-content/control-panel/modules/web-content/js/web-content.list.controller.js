@@ -41,7 +41,7 @@
                 id: 1,
                 styleClass: 'btn add-new-object-button',
                 faIcon: 'fa fa-plus',
-                title: 'New Simple Web Content',
+                title: 'New Simple',
                 onClick: function () {
                     $state.go('application.webContentService.webContent.addSimple');
                 },
@@ -49,7 +49,20 @@
                 disabled: false
             };
 
+            var newAdvancedWebContentButton = {
+                id: 1,
+                styleClass: 'btn add-new-object-button',
+                faIcon: 'fa fa-plus',
+                title: 'New Advanced',
+                onClick: function () {
+                    $state.go('application.webContentService.webContent.addAdvanced');
+                },
+                visible: true,
+                disabled: false
+            };
+
             applicationNavigationItems.setTopbarItem(newSimpleWebContentButton);
+            applicationNavigationItems.addTopbarItem(newAdvancedWebContentButton);
         }
 
         function getTableColumns() {

@@ -78,6 +78,7 @@ body {
 
 .add-new-object-button {
   @include platform-button($font-color, $font-color, $success-color, $success-color-darkest, $success-color-lighter, $success-color-darker);
+  margin-right: 10px;
 }
 
 .save-button {
