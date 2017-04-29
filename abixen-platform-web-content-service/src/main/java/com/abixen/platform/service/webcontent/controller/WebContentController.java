@@ -14,6 +14,8 @@
 
 package com.abixen.platform.service.webcontent.controller;
 
+import com.abixen.platform.service.webcontent.converter.WebContentToWebContentDtoConverter;
+import com.abixen.platform.service.webcontent.dto.WebContentDto;
 import com.abixen.platform.service.webcontent.form.WebContentForm;
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
 import com.abixen.platform.service.webcontent.service.WebContentService;
@@ -30,22 +32,23 @@ import org.springframework.web.bind.annotation.*;
 public class WebContentController {
 
     private final WebContentService webContentService;
+    private final WebContentToWebContentDtoConverter webContentToWebContentDtoConverter;
 
     @Autowired
-    public WebContentController(WebContentService webContentService) {
+    public WebContentController(WebContentService webContentService,
+                                WebContentToWebContentDtoConverter webContentToWebContentDtoConverter) {
         this.webContentService = webContentService;
+        this.webContentToWebContentDtoConverter = webContentToWebContentDtoConverter;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<WebContent> getWebContents(@PageableDefault(size = 1) Pageable pageable) {
+    public Page<WebContentDto> getWebContents(@PageableDefault(size = 1) Pageable pageable) {
         log.debug("getWebContents()- pageable: {}", pageable);
 
         Page<WebContent> webContents = webContentService.getWebContents(pageable);
-        for (WebContent webContent : webContents) {
-            log.debug("webContent: " + webContent);
-        }
+        Page<WebContentDto> webContentsDtos = webContentToWebContentDtoConverter.convertToPage(webContents);
 
-        return webContents;
+        return webContentsDtos;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
