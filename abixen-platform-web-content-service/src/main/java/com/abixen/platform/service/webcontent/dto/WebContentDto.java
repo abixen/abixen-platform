@@ -13,6 +13,7 @@
  */
 package com.abixen.platform.service.webcontent.dto;
 
+import com.abixen.platform.common.dto.AuditingDto;
 import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +24,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @ToString
-public class WebContentDto {
+public class WebContentDto extends AuditingDto {
 
     protected Long id;
     protected WebContentType type;
