@@ -40,5 +40,16 @@
             'webContentService.template.content.label': 'Template content'
         });
 
+        $translateProvider.translations('RUSSIAN', {
+            'webContentService.template.name.label': 'Имя',
+            'webContentService.template.name.placeholder': 'Напр. новости продаж',
+            'webContentService.template.content.label': 'Содежание шаблона'
+        });
+
+        $translateProvider.translations('UKRAINIAN', {
+            'webContentService.template.name.label': 'Ім\'я',
+            'webContentService.template.name.placeholder': 'Напр. новини продажів',
+            'webContentService.template.content.label': 'Зміст шаблона'
+        });
     }
 })();
