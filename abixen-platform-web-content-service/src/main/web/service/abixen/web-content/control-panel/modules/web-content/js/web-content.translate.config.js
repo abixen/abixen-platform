@@ -27,15 +27,15 @@
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('POLISH', {
-            'webContentService.type.label': 'Type',
-            'webContentService.title.placeholder': 'Title',
-            'webContentService.content.label': 'Content'
+            'webContentService.webContent.title.label': 'Tytuł',
+            'webContentService.webContent.title.placeholder': 'Np. ogłoszenie wyników sprzedaży',
+            'webContentService.webContent.content.label': 'Treść'
         });
 
         $translateProvider.translations('ENGLISH', {
-            'webContentService.type.label': 'Type',
-            'webContentService.title.placeholder': 'Title',
-            'webContentService.content.label': 'Content'
+            'webContentService.webContent.title.label': 'Title',
+            'webContentService.webContent.title.placeholder': 'E.g. announcement of sales results',
+            'webContentService.webContent.content.label': 'Content'
         });
     }
 })();
