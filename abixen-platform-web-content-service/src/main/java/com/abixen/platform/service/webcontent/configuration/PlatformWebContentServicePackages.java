@@ -35,4 +35,5 @@ public class PlatformWebContentServicePackages {
 
     public static final String CLIENT = MAIN + ".client";
 
+    public static final String CONVERTER = MAIN + ".converter";
 }

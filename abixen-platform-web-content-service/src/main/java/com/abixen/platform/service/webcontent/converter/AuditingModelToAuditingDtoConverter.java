@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.converter;
+package com.abixen.platform.service.webcontent.converter;
 
 
 import com.abixen.platform.common.dto.AuditingDto;
