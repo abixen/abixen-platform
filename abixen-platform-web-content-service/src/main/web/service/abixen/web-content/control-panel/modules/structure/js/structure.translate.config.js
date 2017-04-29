@@ -41,5 +41,21 @@
             'structureDetails.template.label': 'Template',
             'structureDetails.template.select': 'Select Template'
         });
+
+        $translateProvider.translations('RUSSIAN', {
+            'structureDetails.name.label': 'Имя',
+            'structureDetails.name.placeholder': 'Напр. Новости продаж',
+            'structureDetails.content.label': 'Содержание',
+            'structureDetails.template.label': 'Шаблон',
+            'structureDetails.template.select': 'Выберите шаблон'
+        });
+
+        $translateProvider.translations('UKRAINIAN', {
+            'structureDetails.name.label': 'Ім\'я',
+            'structureDetails.name.placeholder': 'Напр. Новини продажів',
+            'structureDetails.content.label': 'Зміст',
+            'structureDetails.template.label': 'Шаблон',
+            'structureDetails.template.select': 'Виберіть шаблон'
+        });
     }
 })();
