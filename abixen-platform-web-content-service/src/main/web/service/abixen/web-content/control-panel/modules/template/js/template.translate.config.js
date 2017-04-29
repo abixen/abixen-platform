@@ -28,18 +28,16 @@
     function WebContentServiceTemplateTranslateConfig($translateProvider) {
         $translateProvider.useSanitizeValueStrategy('escape');
 
-        $translateProvider.translations('pl', {
+        $translateProvider.translations('POLISH', {
             'webContentService.template.name.label': 'Nazwa',
-            'webContentService.template.name.placeholder': 'Nazwa',
-            'webContentService.template.content.label': 'Treść szablonu',
-            'webContentService.template.content.placeholder': 'Treść szablonu'
+            'webContentService.template.name.placeholder': 'Np. aktualności sprzedażowe',
+            'webContentService.template.content.label': 'Treść szablonu'
         });
 
-        $translateProvider.translations('en', {
+        $translateProvider.translations('ENGLISH', {
             'webContentService.template.name.label': 'Name',
-            'webContentService.template.name.placeholder': 'Name',
-            'webContentService.template.content.label': 'Template content',
-            'webContentService.template.content.placeholder': 'Template content'
+            'webContentService.template.name.placeholder': 'E.g. sales news',
+            'webContentService.template.content.label': 'Template content'
         });
 
     }
