@@ -1,7 +1,6 @@
-<form role="form" name="structureDetails.entityForm" novalidate>
-    <div class="row form-row">
-
-        <div class="col-md-6">
+<div class="row form-row">
+    <div class="col-xs-12">
+        <form class="form-horizontal" role="form" name="structureDetails.entityForm" novalidate>
             <input-text model="structureDetails.entity.name"
                         name="name"
                         label="{{'structureDetails.name.label' | translate}}"
@@ -51,19 +50,19 @@
                              key-as-value="false"
                              validators="structureDetails.validators">
             </input-drop-down>
-        </div>
 
-    </div>
-</form>
-<div class="row bottom-navigation">
-    <div class="col-xs-12">
-        <button class="btn save-button"
-                ng-disabled="structureDetails.entityForm.$invalid"
-                ng-click="structureDetails.saveForm()">
-            <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
-        </button>
-        <button class="btn cancel-button"
-                ng-click="structureDetails.cancel()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
-        </button>
+            <div class="row bottom-navigation">
+                <div class="col-xs-12">
+                    <button class="btn save-button"
+                            ng-disabled="structureDetails.entityForm.$invalid"
+                            ng-click="structureDetails.saveForm()">
+                        <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
+                    </button>
+                    <button class="btn cancel-button"
+                            ng-click="structureDetails.cancel()"><i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
