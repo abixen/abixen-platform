@@ -126,8 +126,10 @@ The release is planned for the Q3 2017.
 The plan for the 1.3 version is an empower of custom permissions creation for microservices. 
 The release is planned for the Q3 2017.
 
-## Next version
+## Next versions
 All depends on the Community feedback and needs. But we are going to extend Business Intelligence Service moving it into Big Data analysis.
+Also we would like to add a support of creation a frontend layer of microservices using ReactJS.
+In this way developers would have the choice between clear JavaScript, jQuery, AngularJS, Angular 2 and ReactJS. 
 
 # Get it started
 The documentation is available under https://github.com/abixen/abixen-platform/wiki page.
