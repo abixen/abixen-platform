@@ -18,6 +18,8 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.webcontent.converter.StructureToStructureDtoConverter;
+import com.abixen.platform.service.webcontent.dto.StructureDto;
 import com.abixen.platform.service.webcontent.form.StructureForm;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
 import com.abixen.platform.service.webcontent.model.web.StructureWeb;
@@ -40,10 +42,13 @@ import java.util.List;
 public class StructureController {
 
     private final StructureService structureService;
+    private  final StructureToStructureDtoConverter structureToStructureDtoConverter;
 
     @Autowired
-    public StructureController(StructureService structureService) {
+    public StructureController(StructureService structureService,
+                               StructureToStructureDtoConverter structureToStructureDtoConverter) {
         this.structureService = structureService;
+        this.structureToStructureDtoConverter = structureToStructureDtoConverter;
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -93,15 +98,13 @@ public class StructureController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<Structure> getStructures(@PageableDefault(size = 1) Pageable pageable) {
+    public Page<StructureDto> getStructures(@PageableDefault(size = 1) Pageable pageable) {
         log.debug("getStructures() - pageable: {}", pageable);
 
         Page<Structure> structures = structureService.findAllStructures(pageable);
-        for (Structure structure : structures) {
-            log.debug("structure: " + structure);
-        }
+        Page<StructureDto> structureDtos = structureToStructureDtoConverter.convertToPage(structures);
 
-        return structures;
+        return structureDtos;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
