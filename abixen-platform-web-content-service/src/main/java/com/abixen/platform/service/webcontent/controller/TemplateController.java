@@ -18,6 +18,8 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.webcontent.converter.TemplateToTemplateDtoConverter;
+import com.abixen.platform.service.webcontent.dto.TemplateDto;
 import com.abixen.platform.service.webcontent.form.TemplateForm;
 import com.abixen.platform.service.webcontent.model.impl.Template;
 import com.abixen.platform.service.webcontent.model.web.TemplateWeb;
@@ -40,10 +42,13 @@ import java.util.List;
 public class TemplateController {
 
     private final TemplateService templateService;
+    private final TemplateToTemplateDtoConverter templateToTemplateDtoConverter;
 
     @Autowired
-    public TemplateController(TemplateService templateService) {
+    public TemplateController(TemplateService templateService,
+                              TemplateToTemplateDtoConverter templateToTemplateDtoConverter) {
         this.templateService = templateService;
+        this.templateToTemplateDtoConverter = templateToTemplateDtoConverter;
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -102,23 +107,22 @@ public class TemplateController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<Template> getTemplates(@PageableDefault(size = 1) Pageable pageable) {
+    public Page<TemplateDto> getTemplates(@PageableDefault(size = 1) Pageable pageable) {
         log.debug("getTemplates() - pageable: {}", pageable);
 
         Page<Template> templates = templateService.findAllTemplates(pageable);
-        for (Template template : templates) {
-            log.debug("template: " + template);
-        }
+        Page<TemplateDto> templatesDtos = templateToTemplateDtoConverter.convertToPage(templates);
 
-        return templates;
+        return templatesDtos;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<Template> getTemplates() {
+    public List<TemplateDto> getTemplates() {
         log.debug("getTemplates()");
 
         List<Template> templates = templateService.findAllTemplates();
+        List<TemplateDto> templatesDtos = templateToTemplateDtoConverter.convertToList(templates);
 
-        return templates;
+        return templatesDtos;
     }
 }
