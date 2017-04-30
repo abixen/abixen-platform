@@ -108,11 +108,10 @@ There are some known issues. We work on fixes and improvements.
 
 ## Version 1.0
 Before release the first version of Abixen Platform we have to fix several issues.
-We are going to release the first version at the turn of April and May 2017. 
+We are going to release the first version in May 2017. 
 
 ## Version 1.1
-We are going to finish Web Content microservice in 1.1 version. 
-Also add a support to loading data in Business Intelligence microservice from MongoDB.
+We are going to add a support to loading data in Business Intelligence microservice from MongoDB.
 Very important for us is a feedback from the Abixen Platform's Community. 
 That's why we would like to improve the application having remarks based on the first version.
 The release is planned in June 2017.
