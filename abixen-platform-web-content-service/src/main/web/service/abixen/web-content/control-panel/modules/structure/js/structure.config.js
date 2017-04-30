@@ -40,13 +40,13 @@
             .state('application.webContentService.structure.add', {
                 url: '/add',
                 templateUrl: 'service/abixen/web-content/control-panel/modules/structure/html/edit.html',
-                controller: 'WebContentDetailsController',
+                controller: 'WebContentServiceStructureDetailsController',
                 controllerAs: 'structureDetails'
             })
             .state('application.webContentService.structure.edit', {
                 url: '/edit/:id',
                 templateUrl: 'service/abixen/web-content/control-panel/modules/structure/html/edit.html',
-                controller: 'WebContentDetailsController',
+                controller: 'WebContentServiceStructureDetailsController',
                 controllerAs: 'structureDetails'
             });
     }

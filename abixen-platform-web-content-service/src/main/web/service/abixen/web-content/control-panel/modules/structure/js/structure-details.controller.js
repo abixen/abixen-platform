@@ -18,9 +18,9 @@
 
     angular
         .module('webContentServiceStructureModule', ['ui.codemirror'])
-        .controller('WebContentDetailsController', WebContentDetailsController);
+        .controller('WebContentServiceStructureDetailsController', WebContentServiceStructureDetailsController);
 
-    WebContentDetailsController.$inject = [
+    WebContentServiceStructureDetailsController.$inject = [
         '$scope',
         'Structure',
         'Template',
@@ -30,8 +30,8 @@
         'responseHandler'
     ];
 
-    function WebContentDetailsController($scope, Structure, Template, $state, $stateParams, $log, responseHandler) {
-        $log.log('WebContentDetailsController');
+    function WebContentServiceStructureDetailsController($scope, Structure, Template, $state, $stateParams, $log, responseHandler) {
+        $log.log('WebContentServiceStructureDetailsController');
         var structureDetails = this;
 
         new AbstractDetailsController(structureDetails, Structure, responseHandler, $scope,
