@@ -19,6 +19,8 @@ import com.abixen.platform.service.webcontent.model.impl.Structure;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface StructureService {
 
     Structure createStructure(StructureForm structureForm);
@@ -30,5 +32,7 @@ public interface StructureService {
     Structure findStructureById(Long structureId);
 
     Page<Structure> findAllStructures(Pageable pageable);
+
+    List<Structure> findAllStructures();
 
 }

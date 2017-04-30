@@ -1,0 +1,39 @@
+<div class="row form-row">
+    <div class="col-xs-12">
+        <form class="form-horizontal" role="form" name="advancedWebContentDetails.entityForm" novalidate>
+            <input-text model="advancedWebContentDetails.entity.title"
+                        name="title"
+                        label="{{'webContentService.webContent.title.label' | translate}}"
+                        placeholder="{{'webContentService.webContent.title.placeholder' | translate}}"
+                        validators="advancedWebContentDetails.validators">
+            </input-text>
+
+            <input-drop-down name="structure"
+                             id="structureInput"
+                             ng-model="advancedWebContentDetails.entity.structure"
+                             ng-model-as-object="true"
+                             label="{{'webContentService.webContent.structure.label' | translate}}"
+                             options="advancedWebContentDetails.structures"
+                             show-empty-value="true"
+                             value-key="id"
+                             value-label="name"
+                             empty-value-label="{{'webContentService.webContent.structure.select' | translate}}"
+                             key-as-value="false"
+                             validators="advancedWebContentDetails.validators">
+            </input-drop-down>
+
+
+            <div class="row bottom-navigation">
+                <div class="col-xs-12">
+                    <button class="btn save-button" ng-click="advancedWebContentDetails.saveForm()"
+                            ng-disabled="advancedWebContentDetails.entityForm.$invalid">
+                        <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
+                    </button>
+                    <button ui-sref="application.webContentService.webContent.list" class="btn cancel-button">
+                        <i class="fa fa-times"></i><span>&nbsp;Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

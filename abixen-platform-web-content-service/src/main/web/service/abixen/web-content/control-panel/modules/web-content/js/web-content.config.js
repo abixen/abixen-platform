@@ -38,16 +38,28 @@
                 controllerAs: 'webContentList'
             })
             .state('application.webContentService.webContent.addSimple', {
-                    url: '/simple/add',
-                    templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/simple-details.html',
-                    controller: 'WebContentServiceSimpleWebContentDetailsController',
-                    controllerAs: 'simpleWebContentDetails'
+                url: '/simple/add',
+                templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/simple-details.html',
+                controller: 'WebContentServiceSimpleWebContentDetailsController',
+                controllerAs: 'simpleWebContentDetails'
             })
             .state('application.webContentService.webContent.editSimple', {
                 url: '/simple/edit/:id',
                 templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/simple-details.html',
                 controller: 'WebContentServiceSimpleWebContentDetailsController',
                 controllerAs: 'simpleWebContentDetails'
-            });
+            })
+            .state('application.webContentService.webContent.addAdvanced', {
+                url: '/advanced/add',
+                templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/advanced-details.html',
+                controller: 'WebContentServiceAdvancedWebContentDetailsController',
+                controllerAs: 'advancedWebContentDetails'
+            })
+            .state('application.webContentService.webContent.editAdvanced', {
+            url: '/advanced/edit/:id',
+            templateUrl: 'service/abixen/web-content/control-panel/modules/web-content/html/advanced-details.html',
+            controller: 'WebContentServiceAdvancedWebContentDetailsController',
+            controllerAs: 'advancedWebContentDetails'
+        });
     }
 })();

@@ -33,6 +33,7 @@ import org.xml.sax.SAXException;
 import javax.annotation.Resource;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -114,5 +115,10 @@ public class StructureServiceImpl implements StructureService {
     public Page<Structure> findAllStructures(Pageable pageable) {
         log.debug("findAllStructures() - pageable: {}", pageable);
         return structureRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Structure> findAllStructures() {
+        return structureRepository.findAll();
     }
 }

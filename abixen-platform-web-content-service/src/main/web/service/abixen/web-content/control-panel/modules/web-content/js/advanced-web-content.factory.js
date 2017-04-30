@@ -17,20 +17,15 @@
     'use strict';
 
     angular
-        .module('webContentServiceStructureModule')
-        .factory('Structure', Structure);
+        .module('webContentServiceWebContentModule')
+        .factory('AdvancedWebContent', AdvancedWebContent);
 
-    Structure.$inject = ['$resource'];
+    AdvancedWebContent.$inject = ['$resource'];
 
-    function Structure($resource) {
-        return $resource('/api/service/abixen/web-content/control-panel/structures/:id', {}, {
+    function AdvancedWebContent($resource) {
+        return $resource('/api/service/abixen/web-content/control-panel/advanced-web-contents/:id', {}, {
             query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'},
-            queryAll: {
-                method: 'GET',
-                isArray: true,
-                url: '/api/service/abixen/web-content/control-panel/structures/all'
-            }
+            update: {method: 'PUT'}
         });
     }
 

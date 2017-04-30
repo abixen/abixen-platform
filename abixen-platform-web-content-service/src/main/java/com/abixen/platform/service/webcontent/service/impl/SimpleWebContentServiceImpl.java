@@ -43,6 +43,7 @@ public class SimpleWebContentServiceImpl implements SimpleWebContentService {
         SimpleWebContent simpleWebContent = new SimpleWebContent();
         simpleWebContent.setTitle(simpleWebContentForm.getTitle());
         simpleWebContent.setContent(simpleWebContentForm.getContent());
+        simpleWebContent.setType(simpleWebContentForm.getType());
         return webContentRepository.save(simpleWebContent);
     }
 

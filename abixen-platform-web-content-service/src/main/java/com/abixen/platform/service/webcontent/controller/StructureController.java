@@ -103,4 +103,13 @@ public class StructureController {
 
         return structures;
     }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<Structure> getAllStructures(@PageableDefault(size = 1) Pageable pageable) {
+        log.debug("getAllStructures()");
+
+        List<Structure> structures = structureService.findAllStructures();
+
+        return structures;
+    }
 }
