@@ -17,10 +17,10 @@
     'use strict';
 
     angular
-        .module('webContentSimpleModule')
-        .controller('WebContentSimpleViewController', WebContentSimpleViewController);
+        .module('webContentViewModule')
+        .controller('WebContentViewController', WebContentViewController);
 
-    WebContentSimpleViewController.$inject = [
+    WebContentViewController.$inject = [
         '$scope',
         '$log',
         '$sce',
@@ -29,15 +29,15 @@
         'moduleResponseErrorHandler'
     ];
 
-    function WebContentSimpleViewController($scope, $log, $sce, WebContentView, WebContentConfig, moduleResponseErrorHandler) {
-        $log.log('PreviewSimpleController');
+    function WebContentViewController($scope, $log, $sce, WebContentView, WebContentConfig, moduleResponseErrorHandler) {
+        $log.log('WebContentViewController');
 
-        var webContentSimpleView = this;
+        var webContentView = this;
 
-        webContentSimpleView.entity = {};
+        webContentView.entity = {};
 
 
-        function getSimpleWebContent(id) {
+        function getWebContent(id) {
             WebContentView.get({id:id})
                 .$promise
                 .then(onGetResult);
@@ -45,15 +45,15 @@
 
         function onGetResult(webContent) {
             if (webContent){
-                webContentSimpleView.entity = webContent;
-                webContentSimpleView.entity.content = $sce.trustAsHtml(webContentSimpleView.entity.content);
+                webContentView.entity = webContent;
+                webContentView.entity.content = $sce.trustAsHtml(webContentView.entity.content);
             }
             else {
-                webContentSimpleView.entity = {};
+                webContentView.entity = {};
             }
         }
 
-        getSimpleWebContent(WebContentConfig.getConfig($scope.moduleId).contentId)
+        getWebContent(WebContentConfig.getConfig($scope.moduleId).contentId)
 
 
     }

@@ -17,7 +17,7 @@
     'use strict';
 
     angular
-        .module('webContentSimpleModule')
+        .module('webContentViewModule')
         .factory('WebContentView', WebContentView);
 
     WebContentView.$inject = ['$resource'];
