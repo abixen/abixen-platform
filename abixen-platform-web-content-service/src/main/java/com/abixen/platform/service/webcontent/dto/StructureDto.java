@@ -14,7 +14,6 @@
 package com.abixen.platform.service.webcontent.dto;
 
 import com.abixen.platform.common.dto.AuditingDto;
-import com.abixen.platform.service.webcontent.model.impl.Template;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,5 +28,5 @@ public class StructureDto extends AuditingDto {
     private Long id;
     private String name;
     private String content;
-    private Template template;
+    private TemplateDto template;
 }

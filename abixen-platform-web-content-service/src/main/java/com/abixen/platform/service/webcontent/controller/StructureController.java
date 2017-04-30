@@ -42,7 +42,7 @@ import java.util.List;
 public class StructureController {
 
     private final StructureService structureService;
-    private  final StructureToStructureDtoConverter structureToStructureDtoConverter;
+    private final StructureToStructureDtoConverter structureToStructureDtoConverter;
 
     @Autowired
     public StructureController(StructureService structureService,
@@ -102,8 +102,8 @@ public class StructureController {
         log.debug("getStructures() - pageable: {}", pageable);
 
         Page<Structure> structures = structureService.findAllStructures(pageable);
-        Page<StructureDto> structureDtos = structureToStructureDtoConverter.convertToPage(structures);
+        Page<StructureDto> structuresDtos = structureToStructureDtoConverter.convertToPage(structures);
 
-        return structureDtos;
+        return structuresDtos;
     }
 }

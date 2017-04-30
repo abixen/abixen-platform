@@ -25,10 +25,13 @@ import java.util.Map;
 public class StructureToStructureDtoConverter extends AbstractConverter<Structure, StructureDto> {
 
     private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+    private final TemplateToTemplateDtoConverter templateToTemplateDtoConverter;
 
     @Autowired
-    public StructureToStructureDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+    public StructureToStructureDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter,
+                                            TemplateToTemplateDtoConverter templateToTemplateDtoConverter) {
         this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+        this.templateToTemplateDtoConverter = templateToTemplateDtoConverter;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class StructureToStructureDtoConverter extends AbstractConverter<Structur
         structureDto.setId(structure.getId())
                 .setContent(structure.getContent())
                 .setName(structure.getName())
-                .setTemplate(structure.getTemplate());
+                .setTemplate(templateToTemplateDtoConverter.convert(structure.getTemplate()));
 
         auditingModelToAuditingDtoConverter.convert(structure, structureDto);
 
