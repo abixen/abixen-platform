@@ -17,6 +17,6 @@
     'use strict';
 
     angular
-        .module('webContentSimpleModule', [
+        .module('webContentViewModule', [
         ]);
 })();

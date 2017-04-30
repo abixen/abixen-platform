@@ -21,6 +21,6 @@
             'platformModuleComponent',
             'platformListGridModule',
             'webContentConfigurationModule',
-            'webContentSimpleModule'
+            'webContentViewModule'
         ]);
 })();
