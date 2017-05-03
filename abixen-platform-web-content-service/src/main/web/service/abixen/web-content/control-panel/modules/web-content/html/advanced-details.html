@@ -1,5 +1,5 @@
 <div class="row form-row">
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <form class="form-horizontal" role="form" name="advancedWebContentDetails.entityForm" novalidate>
             <input-text model="advancedWebContentDetails.entity.title"
                         name="title"
@@ -19,13 +19,45 @@
                              value-label="name"
                              empty-value-label="{{'webContentService.webContent.structure.select' | translate}}"
                              key-as-value="false"
-                             validators="advancedWebContentDetails.validators">
+                             validators="advancedWebContentDetails.validators"
+                             on-change="advancedWebContentDetails.changeStructure(advancedWebContentDetails.entity.structure)">
             </input-drop-down>
+
+            <div ng-repeat="field in advancedWebContentDetails.structureFields">
+                <input-text ng-if="field.type == 'text'"
+                            model="advancedWebContentDetails.structureFieldsValues[field.name]"
+                            name="{{field.name}}"
+                            label="{{field.name}}"
+                            validators="advancedWebContentDetails.structureValidators">
+                </input-text>
+                <input-text-area ng-if="field.type == 'textArea'"
+                                 model="advancedWebContentDetails.structureFieldsValues[field.name]"
+                                 name="{{field.name}}"
+                                 label="{{field.name}}"
+                                 validators="advancedWebContentDetails.structureValidators"
+                                 rows="10">
+                </input-text-area>
+                <input-ckeditor ng-if="field.type == 'richTextArea'"
+                                id="{{field.name}}Input"
+                                model="advancedWebContentDetails.structureFieldsValues[field.name]"
+                                name="{{field.name}}"
+                                label="{{field.name}}"
+                                validators="advancedWebContentDetails.structureValidators"
+                                rows="5"
+                                options="advancedWebContentDetails.ckeditorOptions">
+                </input-ckeditor>
+                <input-date ng-if="field.type == 'date'"
+                            model="advancedWebContentDetails.structureFieldsValues[field.name]"
+                            name="{{field.name}}"
+                            label="{{field.name}}"
+                            validators="advancedWebContentDetails.structureValidators">
+                </input-date>
+            </div>
 
 
             <div class="row bottom-navigation">
                 <div class="col-xs-12">
-                    <button class="btn save-button" ng-click="advancedWebContentDetails.saveForm()"
+                    <button class="btn save-button" ng-click="advancedWebContentDetails.beforeSaveForm()"
                             ng-disabled="advancedWebContentDetails.entityForm.$invalid">
                         <i class="fa fa-floppy-o"></i><span>&nbsp;Save</span>
                     </button>

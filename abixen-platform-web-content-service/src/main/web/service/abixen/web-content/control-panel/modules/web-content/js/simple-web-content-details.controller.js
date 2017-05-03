@@ -25,20 +25,21 @@
         '$state',
         '$stateParams',
         '$log',
-        'SimpleWebContent',
+        'WebContent',
         'responseHandler'
     ];
 
-    function WebContentServiceSimpleWebContentDetailsController($scope, $state, $stateParams, $log, SimpleWebContent, responseHandler) {
+    function WebContentServiceSimpleWebContentDetailsController($scope, $state, $stateParams, $log, WebContent, responseHandler) {
 
         var simpleWebContentDetails = this;
         simpleWebContentDetails.entity = null;
         simpleWebContentDetails.onSuccessSaveForm = onSuccessSaveForm;
-        new AbstractDetailsController(simpleWebContentDetails, SimpleWebContent, responseHandler, $scope,
+        new AbstractDetailsController(simpleWebContentDetails, WebContent, responseHandler, $scope,
             {
                 entityId: $stateParams.id,
                 initEntity: {
-                    type: 'SIMPLE'
+                    type: 'SIMPLE',
+                    classType: 'SIMPLE'
                 },
                 getValidators: getValidators,
                 onSuccessSaveForm: onSuccessSaveForm
