@@ -14,16 +14,13 @@
 
 package com.abixen.platform.service.webcontent.model.impl;
 
-import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
-import com.abixen.platform.service.webcontent.model.web.AdvancedWebContentWeb;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "advanced_web_content")
-@DiscriminatorValue(value = WebContentType.Values.ADVANCED)
-public class AdvancedWebContent extends WebContent implements AdvancedWebContentWeb, Serializable {
+public class AdvancedWebContent extends WebContent implements Serializable {
 
     private static final long serialVersionUID = -9126772442611909363L;
 
@@ -31,7 +28,6 @@ public class AdvancedWebContent extends WebContent implements AdvancedWebContent
     @JoinColumn(name = "structure_id", nullable = false)
     private Structure structure;
 
-    @Override
     public Structure getStructure() {
         return structure;
     }

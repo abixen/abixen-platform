@@ -14,7 +14,11 @@
 package com.abixen.platform.service.webcontent.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
+import com.abixen.platform.service.webcontent.dto.AdvancedWebContentDto;
+import com.abixen.platform.service.webcontent.dto.SimpleWebContentDto;
+import com.abixen.platform.service.webcontent.dto.StructureDto;
 import com.abixen.platform.service.webcontent.dto.WebContentDto;
+import com.abixen.platform.service.webcontent.model.impl.AdvancedWebContent;
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,21 +29,43 @@ import java.util.Map;
 public class WebContentToWebContentDtoConverter extends AbstractConverter<WebContent, WebContentDto> {
 
     private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+    private final StructureToStructureDtoConverter structureToStructureDtoConverter;
 
     @Autowired
-    public WebContentToWebContentDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+    public WebContentToWebContentDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter,
+                                              StructureToStructureDtoConverter structureToStructureDtoConverter) {
         this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+        this.structureToStructureDtoConverter = structureToStructureDtoConverter;
     }
 
     @Override
     public WebContentDto convert(WebContent webContent, Map<String, Object> parameters) {
-        WebContentDto webContentDto = new WebContentDto();
+        WebContentDto webContentDto = null;
 
-        webContentDto
-                .setId(webContent.getId())
-                .setTitle(webContent.getTitle())
-                .setContent(webContent.getContent())
-                .setType(webContent.getType());
+        switch (webContent.getType()) {
+            case SIMPLE:
+                webContentDto = new SimpleWebContentDto();
+
+                webContentDto
+                        .setId(webContent.getId())
+                        .setTitle(webContent.getTitle())
+                        .setContent(webContent.getContent())
+                        .setType(webContent.getType());
+
+                break;
+            case ADVANCED:
+                webContentDto = new AdvancedWebContentDto();
+
+                webContentDto
+                        .setId(webContent.getId())
+                        .setTitle(webContent.getTitle())
+                        .setContent(webContent.getContent())
+                        .setType(webContent.getType());
+                StructureDto structure = structureToStructureDtoConverter.convert(((AdvancedWebContent) webContent).getStructure());
+                ((AdvancedWebContentDto) webContentDto).setStructure(structure);
+                break;
+            default:
+        }
 
         auditingModelToAuditingDtoConverter.convert(webContent, webContentDto);
 

@@ -11,12 +11,17 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+package com.abixen.platform.service.webcontent.dto;
 
-package com.abixen.platform.service.webcontent.repository;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
-import com.abixen.platform.service.webcontent.model.impl.AdvancedWebContent;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+public class SimpleWebContentDto extends WebContentDto {
 
-public interface AdvancedWebContentRepository extends JpaRepository<AdvancedWebContent, Long>, JpaSpecificationExecutor<AdvancedWebContent> {
 }

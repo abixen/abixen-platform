@@ -15,29 +15,28 @@
 package com.abixen.platform.service.webcontent.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "classType")
+@JsonSubTypes({@JsonSubTypes.Type(value = SimpleWebContentForm.class, name = "SIMPLE"),
+        @JsonSubTypes.Type(value = AdvancedWebContentForm.class, name = "ADVANCED")})
 public class WebContentForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     protected Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     protected WebContentType type;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(max = WebContent.TITLE_MAX_LENGTH)
     protected String title;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(max = WebContent.CONTENT_MAX_LENGTH)
     protected String content;

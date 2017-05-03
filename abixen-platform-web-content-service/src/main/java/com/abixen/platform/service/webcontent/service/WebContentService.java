@@ -22,6 +22,12 @@ import org.springframework.data.domain.Pageable;
 
 public interface WebContentService {
 
+    WebContent createWebContent(WebContentForm webContentForm);
+
+    WebContent updateWebContent(WebContentForm advancedWebContentForm);
+
+    WebContent findWebContent(Long id);
+
     Page<WebContent> getWebContents(Pageable pageable);
 
     Page<WebContent> getWebContents(Pageable pageable, SearchWebContentForm searchWebContentForm);

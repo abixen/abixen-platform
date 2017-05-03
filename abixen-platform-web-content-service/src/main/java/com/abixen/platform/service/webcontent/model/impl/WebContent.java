@@ -16,7 +16,6 @@ package com.abixen.platform.service.webcontent.model.impl;
 
 import com.abixen.platform.common.model.audit.AuditingModel;
 import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
-import com.abixen.platform.service.webcontent.model.web.WebContentWeb;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,7 +24,7 @@ import java.io.Serializable;
 @Table(name = "web_content")
 @SequenceGenerator(sequenceName = "web_content_seq", name = "web_content_seq", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
-public class WebContent extends AuditingModel implements WebContentWeb, Serializable {
+public class WebContent extends AuditingModel implements Serializable {
 
     private static final long serialVersionUID = 994392175080662107L;
 
@@ -66,7 +65,6 @@ public class WebContent extends AuditingModel implements WebContentWeb, Serializ
         this.type = type;
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
@@ -75,7 +73,6 @@ public class WebContent extends AuditingModel implements WebContentWeb, Serializ
         this.title = title;
     }
 
-    @Override
     public String getContent() {
         return content;
     }

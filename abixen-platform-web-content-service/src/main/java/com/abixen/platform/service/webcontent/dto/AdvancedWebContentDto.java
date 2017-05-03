@@ -11,17 +11,18 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+package com.abixen.platform.service.webcontent.dto;
 
-package com.abixen.platform.service.webcontent.model.impl;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.io.Serializable;
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+public class AdvancedWebContentDto extends WebContentDto {
 
-@Entity
-@Table(name = "simple_web_content")
-public class SimpleWebContent extends WebContent implements Serializable {
-
-    private static final long serialVersionUID = -5253029007016137717L;
-
+    private StructureDto structure;
 }
