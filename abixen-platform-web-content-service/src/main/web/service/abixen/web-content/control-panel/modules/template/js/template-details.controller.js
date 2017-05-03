@@ -37,7 +37,8 @@
         templateDetails.ckeditorOptions = {
             language: 'en',
             allowedContent: true,
-            entities: false
+            entities: false,
+            extraPlugins : 'colorbutton'
         };
 
         angular.extend(templateDetails, new AbstractDetailsController(templateDetails, Template, responseHandler, $scope,
