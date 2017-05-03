@@ -8,11 +8,20 @@
     <changeSet author="KonradWisniewski" id="import-v1" runAlways="false" runOnChange="true">
 
         <preConditions onFail="HALT">
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM web_content</sqlCheck>
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM simple_web_content</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM template</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM structure</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM web_content</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM simple_web_content</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM advanced_web_content</sqlCheck>
         </preConditions>
+        <loadData file="liquibase/import/data/template-data.csv"
+                  separator=";"
+                  tableName="template">
+        </loadData>
+        <loadData file="liquibase/import/data/structure-data.csv"
+                  separator=";"
+                  tableName="structure">
+        </loadData>
         <loadData file="liquibase/import/data/web-content-data.csv"
                   separator=";"
                   tableName="web_content">
@@ -21,13 +30,9 @@
                   separator=";"
                   tableName="simple_web_content">
         </loadData>
-        <loadData file="liquibase/import/data/template-data.csv"
+        <loadData file="liquibase/import/data/advanced-web-content-data.csv"
                   separator=";"
-                  tableName="template">
-        </loadData>
-        <loadData file="liquibase/import/data/structure-data.csv"
-                  separator=";"
-                  tableName="structure">
+                  tableName="advanced_web_content">
         </loadData>
     </changeSet>
 

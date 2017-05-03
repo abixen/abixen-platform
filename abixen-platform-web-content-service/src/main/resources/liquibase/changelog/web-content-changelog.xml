@@ -60,6 +60,11 @@
 
         <addPrimaryKey columnNames="id" constraintName="pk__advanced_web_content__id" tableName="advanced_web_content"/>
 
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="advanced_web_content"
+                                 constraintName="fk__advanced_web_content__id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="web_content"/>
+
         <addForeignKeyConstraint baseColumnNames="structure_id" baseTableName="advanced_web_content"
                                  constraintName="fk__structure_id__advanced_web_content__structure"
                                  deferrable="false"

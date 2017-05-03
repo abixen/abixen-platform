@@ -1,2 +1,2 @@
 id;name;content;template_id;created_by_id;created_date;last_modified_by_id;last_modified_date
-1;home page;<?xml version="1.0" encoding="UTF-8"?><fields><field name="someName1" type="text"/> <field name="someName2" type="textArea"/><field name="someName3" type="richTextArea"/><field name="someName4" type="date"/></fields>;1;1;NULL;1;NULL
+1;home page;<?xml version="1.0" encoding="UTF-8"?><fields><field name="someName1" type="text"/> <field name="someName2" type="textArea"/><field name="someName3" type="richTextArea"/><field name="someName4" type="date"/></fields>;1;1;2017-05-03 00:00:00;1;2017-05-03 00:00:00
