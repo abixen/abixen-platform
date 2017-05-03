@@ -24,7 +24,7 @@
 
     function WebContentPreview($resource) {
 
-        return $resource('/api/service/abixen/web-content/control-panel/web-contents/:id', {}, {
+        return $resource('/api/service/abixen/web-content/application/web-contents/:id', {}, {
             query: {method: 'GET', isArray: false}
         });
     }
