@@ -15,7 +15,6 @@
 package com.abixen.platform.service.webcontent.model.impl;
 
 import com.abixen.platform.common.model.audit.AuditingModel;
-import com.abixen.platform.service.webcontent.model.web.StructureWeb;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +23,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "structure")
 @SequenceGenerator(sequenceName = "structure_seq", name = "structure_seq", allocationSize = 1)
-public class Structure extends AuditingModel implements StructureWeb, Serializable {
+public class Structure extends AuditingModel implements Serializable {
 
     private static final long serialVersionUID = 1443021404845246701L;
 
@@ -57,7 +56,6 @@ public class Structure extends AuditingModel implements StructureWeb, Serializab
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -66,7 +64,6 @@ public class Structure extends AuditingModel implements StructureWeb, Serializab
         this.name = name;
     }
 
-    @Override
     public String getContent() {
         return content;
     }
@@ -75,7 +72,6 @@ public class Structure extends AuditingModel implements StructureWeb, Serializab
         this.content = content;
     }
 
-    @Override
     public Template getTemplate() {
         return template;
     }

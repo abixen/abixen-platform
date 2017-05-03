@@ -14,14 +14,14 @@
 
 package com.abixen.platform.service.webcontent.form;
 
-import com.abixen.platform.service.webcontent.model.impl.SimpleWebContent;
+import com.abixen.platform.service.webcontent.dto.SimpleWebContentDto;
 
 public class SimpleWebContentForm extends WebContentForm {
 
     public SimpleWebContentForm() {
     }
 
-    public SimpleWebContentForm(SimpleWebContent simpleWebContent) {
+    public SimpleWebContentForm(SimpleWebContentDto simpleWebContent) {
         super(simpleWebContent);
     }
 }

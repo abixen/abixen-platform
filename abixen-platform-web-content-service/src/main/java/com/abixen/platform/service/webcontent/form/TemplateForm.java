@@ -15,24 +15,19 @@
 package com.abixen.platform.service.webcontent.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.webcontent.model.impl.Template;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class TemplateForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(min = Template.NAME_MIN_LENGTH, max = Template.NAME_MAX_LENGTH)
     private String name;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(max = Template.CONTENT_MAX_LENGTH)
     private String content;

@@ -16,6 +16,10 @@ package com.abixen.platform.service.webcontent.service.impl;
 
 import com.abixen.platform.common.exception.PlatformServiceRuntimeException;
 import com.abixen.platform.service.webcontent.configuration.PlatformWebContentServiceConfiguration;
+import com.abixen.platform.service.webcontent.converter.StructureToStructureDtoConverter;
+import com.abixen.platform.service.webcontent.converter.TemplateToTemplateDtoConverter;
+import com.abixen.platform.service.webcontent.dto.StructureDto;
+import com.abixen.platform.service.webcontent.dto.TemplateDto;
 import com.abixen.platform.service.webcontent.form.StructureForm;
 import com.abixen.platform.service.webcontent.form.TemplateForm;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
@@ -42,10 +46,16 @@ import static org.junit.Assert.assertNotNull;
 public class StructureServiceImplTest {
 
     @Autowired
-    StructureService structureService;
+    private StructureService structureService;
 
     @Autowired
-    TemplateService templateService;
+    private  TemplateService templateService;
+
+    @Autowired
+    private TemplateToTemplateDtoConverter templateToTemplateDtoConverter;
+
+    @Autowired
+    private StructureToStructureDtoConverter structureToStructureDtoConverter;
 
     public static final String structureContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<fields>\n" +
@@ -63,40 +73,42 @@ public class StructureServiceImplTest {
             "   <field name=\"someName4\" type=\"date\"/>\n" +
             "</fields>";
 
-    public String templateContent ="Hello ${someName1}! \n" +
+    public String templateContent = "Hello ${someName1}! \n" +
             "This is something else: ${someName2}\n" +
             "And this is rich editor's text: ${someName3}\n" +
             "Born date: ${someName4}";
 
 
     @Test
-    public void createStructure()  {
+    public void createStructure() {
         StructureForm structureForm = new StructureForm();
         structureForm.setName("Test Structure");
         structureForm.setContent(structureContent);
         TemplateForm templateForm = new TemplateForm();
         templateForm.setName("Test Template");
         templateForm.setContent(templateContent);
-        Template template =templateService.createTemplate(templateForm);
-        structureForm.setTemplate(template);
-        Structure structure =structureService.createStructure(structureForm);
+        Template template = templateService.createTemplate(templateForm);
+        TemplateDto templateDto = templateToTemplateDtoConverter.convert(template);
+        structureForm.setTemplate(templateDto);
+        Structure structure = structureService.createStructure(structureForm);
         assertNotNull(structure.getId());
     }
 
     @Test
     public void updateStructure() {
-        Structure structure =structureService.findStructureById(new Long(1));
-        StructureForm structureForm = new StructureForm(structure);
+        Structure structure = structureService.findStructureById(new Long(1));
+        StructureDto structureDto = structureToStructureDtoConverter.convert(structure);
+        StructureForm structureForm = new StructureForm(structureDto);
         structureForm.setName("Test Structure1");
-        Structure updatedStructure =structureService.updateStructure(structureForm);
-        assertEquals(structure.getName(),"Test Structure1");
+        Structure updatedStructure = structureService.updateStructure(structureForm);
+        assertEquals(updatedStructure.getName(), "Test Structure1");
     }
 
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
 
     @Test
-    public void createStructureTemplateValidateFailure()  {
+    public void createStructureTemplateValidateFailure() {
         expectedEx.expect(PlatformServiceRuntimeException.class);
         expectedEx.expectMessage("Structure Content is missing following Template Contents: [someName1]");
         StructureForm structureForm = new StructureForm();
@@ -105,9 +117,10 @@ public class StructureServiceImplTest {
         TemplateForm templateForm = new TemplateForm();
         templateForm.setName("Test Template");
         templateForm.setContent(templateContent);
-        Template template =templateService.createTemplate(templateForm);
-        structureForm.setTemplate(template);
-        Structure structure =structureService.createStructure(structureForm);
+        Template template = templateService.createTemplate(templateForm);
+        TemplateDto templateDto = templateToTemplateDtoConverter.convert(template);
+        structureForm.setTemplate(templateDto);
+        Structure structure = structureService.createStructure(structureForm);
     }
 
 }

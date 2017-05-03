@@ -17,14 +17,11 @@ package com.abixen.platform.service.webcontent.controller;
 import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.webcontent.converter.StructureToStructureDtoConverter;
 import com.abixen.platform.service.webcontent.dto.StructureDto;
 import com.abixen.platform.service.webcontent.form.StructureForm;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
-import com.abixen.platform.service.webcontent.model.web.StructureWeb;
 import com.abixen.platform.service.webcontent.service.StructureService;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -51,7 +48,6 @@ public class StructureController {
         this.structureToStructureDtoConverter = structureToStructureDtoConverter;
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createStructure(@RequestBody @Valid StructureForm structureForm, BindingResult bindingResult) {
         log.debug("createStructure() - structureForm: {}", structureForm);
@@ -66,7 +62,6 @@ public class StructureController {
         return new FormValidationResultDto(structureForm);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateStructure(@PathVariable("id") Long id, @RequestBody @Valid StructureForm structureForm, BindingResult bindingResult) {
         log.debug("updateStructure() - id: {}, structureForm: {}", id, structureForm);
@@ -81,7 +76,6 @@ public class StructureController {
         return new FormValidationResultDto(structureForm);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void removeStructure(@PathVariable Long id) {
         log.debug("removeStructure() - id: {}", id);
@@ -89,12 +83,12 @@ public class StructureController {
         structureService.removeStructure(id);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public StructureWeb getStructure(@PathVariable Long id) {
+    public StructureDto getStructure(@PathVariable Long id) {
         log.debug("getStructure() - id: {}", id);
 
-        return structureService.findStructureById(id);
+        Structure structure = structureService.findStructureById(id);
+        return structureToStructureDtoConverter.convert(structure);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -108,11 +102,11 @@ public class StructureController {
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<Structure> getAllStructures(@PageableDefault(size = 1) Pageable pageable) {
+    public List<StructureDto> getAllStructures(@PageableDefault(size = 1) Pageable pageable) {
         log.debug("getAllStructures()");
 
         List<Structure> structures = structureService.findAllStructures();
 
-        return structures;
+        return structureToStructureDtoConverter.convertToList(structures);
     }
 }

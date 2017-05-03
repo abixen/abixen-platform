@@ -17,14 +17,11 @@ package com.abixen.platform.service.webcontent.controller;
 import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.webcontent.converter.TemplateToTemplateDtoConverter;
 import com.abixen.platform.service.webcontent.dto.TemplateDto;
 import com.abixen.platform.service.webcontent.form.TemplateForm;
 import com.abixen.platform.service.webcontent.model.impl.Template;
-import com.abixen.platform.service.webcontent.model.web.TemplateWeb;
 import com.abixen.platform.service.webcontent.service.TemplateService;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -51,7 +48,6 @@ public class TemplateController {
         this.templateToTemplateDtoConverter = templateToTemplateDtoConverter;
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createTemplate(@RequestBody @Valid TemplateForm templateForm, BindingResult bindingResult) {
         log.debug("createTemplate() - templateForm: {}", templateForm);
@@ -66,7 +62,6 @@ public class TemplateController {
         return new FormValidationResultDto(templateForm);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateTemplate(@PathVariable("id") Long id, @RequestBody @Valid TemplateForm templateForm, BindingResult bindingResult) {
         log.debug("updateTemplate() - id: {}, templateForm: {}", id, templateForm);
@@ -81,7 +76,6 @@ public class TemplateController {
         return new FormValidationResultDto(templateForm);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void removeTemplate(@PathVariable Long id) {
         log.debug("removeTemplate() - id: {}", id);
@@ -89,12 +83,12 @@ public class TemplateController {
         templateService.removeTemplate(id);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public TemplateWeb getTemplate(@PathVariable Long id) {
+    public TemplateDto getTemplate(@PathVariable Long id) {
         log.debug("getTemplate() - id: {}", id);
 
-        return templateService.findTemplateById(id);
+        Template template = templateService.findTemplateById(id);
+        return templateToTemplateDtoConverter.convert(template);
     }
 
     @RequestMapping(value = "/{id}/variables", method = RequestMethod.GET)

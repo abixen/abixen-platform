@@ -15,7 +15,6 @@
 package com.abixen.platform.service.webcontent.model.impl;
 
 import com.abixen.platform.common.model.audit.AuditingModel;
-import com.abixen.platform.service.webcontent.model.web.TemplateWeb;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +23,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "template")
 @SequenceGenerator(sequenceName = "template_seq", name = "template_seq", allocationSize = 1)
-public class Template extends AuditingModel implements TemplateWeb, Serializable {
+public class Template extends AuditingModel implements Serializable {
 
     private static final long serialVersionUID = -8783217634723319219L;
 
@@ -53,7 +52,6 @@ public class Template extends AuditingModel implements TemplateWeb, Serializable
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -62,7 +60,6 @@ public class Template extends AuditingModel implements TemplateWeb, Serializable
         this.name = name;
     }
 
-    @Override
     public String getContent() {
         return content;
     }

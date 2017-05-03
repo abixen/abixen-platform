@@ -14,32 +14,29 @@
 
 package com.abixen.platform.service.webcontent.form;
 
-import com.abixen.platform.common.util.WebModelJsonSerialize;
-import com.abixen.platform.service.webcontent.model.impl.AdvancedWebContent;
-import com.abixen.platform.service.webcontent.model.web.StructureWeb;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.abixen.platform.service.webcontent.dto.AdvancedWebContentDto;
+import com.abixen.platform.service.webcontent.dto.StructureDto;
 
 import javax.validation.constraints.NotNull;
 
 public class AdvancedWebContentForm extends WebContentForm {
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    private StructureWeb structure;
+    private StructureDto structure;
 
     public AdvancedWebContentForm() {
     }
 
-    public AdvancedWebContentForm(AdvancedWebContent advancedWebContent) {
+    public AdvancedWebContentForm(AdvancedWebContentDto advancedWebContent) {
         super(advancedWebContent);
         this.structure = advancedWebContent.getStructure();
     }
 
-    public StructureWeb getStructure() {
+    public StructureDto getStructure() {
         return structure;
     }
 
-    public void setStructure(StructureWeb structure) {
+    public void setStructure(StructureDto structure) {
         this.structure = structure;
     }
 }

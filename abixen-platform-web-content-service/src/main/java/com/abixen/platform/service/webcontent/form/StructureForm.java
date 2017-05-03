@@ -15,37 +15,32 @@
 package com.abixen.platform.service.webcontent.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.webcontent.dto.StructureDto;
+import com.abixen.platform.service.webcontent.dto.TemplateDto;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
-import com.abixen.platform.service.webcontent.model.web.TemplateWeb;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class StructureForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(min = Structure.NAME_MIN_LENGTH, max = Structure.NAME_MAX_LENGTH)
     private String name;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(max = Structure.CONTENT_MAX_LENGTH)
     private String content;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    private TemplateWeb template;
+    private TemplateDto template;
 
     public StructureForm() {
     }
 
-    public StructureForm(Structure structure) {
+    public StructureForm(StructureDto structure) {
         this.id = structure.getId();
         this.name = structure.getName();
         this.content = structure.getContent();
@@ -76,11 +71,11 @@ public class StructureForm implements Form {
         this.content = content;
     }
 
-    public TemplateWeb getTemplate() {
+    public TemplateDto getTemplate() {
         return template;
     }
 
-    public void setTemplate(TemplateWeb template) {
+    public void setTemplate(TemplateDto template) {
         this.template = template;
     }
 }

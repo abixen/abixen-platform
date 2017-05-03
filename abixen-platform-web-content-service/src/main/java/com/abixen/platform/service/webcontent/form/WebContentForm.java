@@ -15,6 +15,7 @@
 package com.abixen.platform.service.webcontent.form;
 
 import com.abixen.platform.common.form.Form;
+import com.abixen.platform.service.webcontent.dto.WebContentDto;
 import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -44,7 +45,7 @@ public class WebContentForm implements Form {
     public WebContentForm() {
     }
 
-    public WebContentForm(WebContent webContent) {
+    public WebContentForm(WebContentDto webContent) {
         this.id = webContent.getId();
         this.type = webContent.getType();
         this.title = webContent.getTitle();
