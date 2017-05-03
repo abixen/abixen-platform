@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -15,11 +15,13 @@
 package com.abixen.platform.service.webcontent.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.service.webcontent.converter.AuditingModelToAuditingDtoConverter;
+import com.abixen.platform.service.webcontent.converter.WebContentToWebContentDtoConverter;
+import com.abixen.platform.service.webcontent.dto.WebContentDto;
 import com.abixen.platform.service.webcontent.form.AdvancedWebContentForm;
 import com.abixen.platform.service.webcontent.form.SearchWebContentForm;
 import com.abixen.platform.service.webcontent.form.SimpleWebContentForm;
 import com.abixen.platform.service.webcontent.form.WebContentForm;
-import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
 import com.abixen.platform.service.webcontent.model.impl.AdvancedWebContent;
 import com.abixen.platform.service.webcontent.model.impl.SimpleWebContent;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
@@ -37,12 +39,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,12 +60,18 @@ public class WebContentServiceImpl implements WebContentService {
 
     private final WebContentRepository webContentRepository;
     private final StructureService structureService;
+    private final WebContentToWebContentDtoConverter webContentToWebContentDtoConverter;
+    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
 
     @Autowired
     public WebContentServiceImpl(WebContentRepository webContentRepository,
-                                 StructureService structureService) {
+                                 StructureService structureService,
+                                 WebContentToWebContentDtoConverter webContentToWebContentDtoConverter,
+                                 AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
         this.webContentRepository = webContentRepository;
         this.structureService = structureService;
+        this.webContentToWebContentDtoConverter = webContentToWebContentDtoConverter;
+        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
     }
 
     @Override
@@ -131,54 +143,73 @@ public class WebContentServiceImpl implements WebContentService {
     }
 
     @Override
-    public WebContentForm getWebContent(Long id) {
-        WebContent webContent = webContentRepository.getOne(id);
-        if (webContent != null) {
-            return getWebContentForm(webContent);
-        } else {
-            throw new PlatformRuntimeException("Content not found");
-        }
-    }
-
-    @Override
     public void deleteWebContent(Long id) {
         log.debug("deleteWebContent() - id={}", id);
         webContentRepository.delete(id);
     }
 
-    private WebContentForm getWebContentForm(WebContent webContent) {
-        if (WebContentType.ADVANCED.equals(webContent.getType())) {
-            return buildAdvanceWebContent(webContent);
+    @Override
+    public WebContentDto findAndAssembleWebContent(Long id) {
+        WebContent webContent = findWebContent(id);
+
+        WebContentDto webContentDto = null;
+
+        switch (webContent.getType()) {
+            case SIMPLE:
+                webContentDto = webContentToWebContentDtoConverter.convert(webContent);
+                break;
+            case ADVANCED:
+                webContentDto = assembleAdvanceWebContent((AdvancedWebContent) webContent);
+                break;
+            default:
         }
-        return new WebContentForm(webContent);
+
+        return webContentDto;
     }
 
-    private WebContentForm buildAdvanceWebContent(WebContent webContent) {
-        //AdvancedWebContent advancedWebContentById = advancedWebContentService.findAdvancedWebContentById(webContent.getId());
-        //String contentWithoutData = advancedWebContentById.getStructure().getTemplate().getContent();
-        //String dataForContent = advancedWebContentById.getStructure().getContent();
-        //getContentWithData(contentWithoutData, getParsedXml(dataForContent));
-        return null;
+    private WebContentDto assembleAdvanceWebContent(AdvancedWebContent advancedWebContent) {
+        String content = advancedWebContent.getStructure().getTemplate().getContent();
+        String dataForContent = advancedWebContent.getContent();
+        Map<String, String> values = getValuesForVariables(getParsedXml(dataForContent));
+        content = fillContentByData(content, values);
+
+        WebContentDto webContentDto = new WebContentDto();
+        webContentDto.setTitle(advancedWebContent.getTitle())
+                .setType(advancedWebContent.getType())
+                .setContent(content);
+
+        auditingModelToAuditingDtoConverter.convert(advancedWebContent, webContentDto);
+
+        return webContentDto;
     }
 
-    private void getContentWithData(String contentWithoutData, Document parsedXml) {
-        String contentToFill = contentWithoutData;
-        for (String tag : getAllTag(contentWithoutData)) {
-            contentWithoutData.replace(tag, getElementByTag(parsedXml, tag));
+    private String fillContentByData(String contentToFill, Map<String, String> values) {
+        for (String variable : findAllVariables(contentToFill)) {
+            String cleanVariable = variable.replace("${", "").replace("}", "");
+            contentToFill = contentToFill.replace(variable, values.get(cleanVariable));
         }
+        return contentToFill;
     }
 
-    private List<String> getAllTag(String contentWithoutData) {
-        List<String> tags = new ArrayList<>();
+    private List<String> findAllVariables(String contentWithoutData) {
+        List<String> variables = new ArrayList<>();
         Matcher result = Pattern.compile("\\$\\{(.*?)}").matcher(contentWithoutData);
         while (result.find()) {
-            tags.add(result.group());
+            variables.add(result.group());
         }
-        return tags;
+        return variables;
     }
 
-    private String getElementByTag(Document parsedXml, String tag) {
-        return parsedXml.getElementsByTagName(tag).item(0).getNodeValue();
+    private Map<String, String> getValuesForVariables(Document parsedXml) {
+        Map<String, String> values = new HashMap<>();
+        NodeList fieldsList = parsedXml.getElementsByTagName("field");
+
+        for (int i = 0; i < fieldsList.getLength(); i++) {
+            Element field = (Element) fieldsList.item(i);
+            values.put(field.getAttribute("name"), field.getAttribute("value"));
+        }
+
+        return values;
     }
 
     private Document getParsedXml(String dataForContent) {
@@ -186,9 +217,7 @@ public class WebContentServiceImpl implements WebContentService {
         try {
             parser.parse(new InputSource(new java.io.StringReader(dataForContent)));
             return parser.getDocument();
-        } catch (SAXException e) {
-            throw new PlatformRuntimeException("Can't parse structure for advanced web content. Please check configuration.");
-        } catch (IOException e) {
+        } catch (SAXException | IOException e) {
             throw new PlatformRuntimeException("Can't parse structure for advanced web content. Please check configuration.");
         }
     }

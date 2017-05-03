@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.webcontent.service;
 
+import com.abixen.platform.service.webcontent.dto.WebContentDto;
 import com.abixen.platform.service.webcontent.form.SearchWebContentForm;
 import com.abixen.platform.service.webcontent.form.WebContentForm;
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
@@ -28,11 +29,11 @@ public interface WebContentService {
 
     WebContent findWebContent(Long id);
 
+    WebContentDto findAndAssembleWebContent(Long id);
+
     Page<WebContent> getWebContents(Pageable pageable);
 
     Page<WebContent> getWebContents(Pageable pageable, SearchWebContentForm searchWebContentForm);
-
-    WebContentForm getWebContent(Long id);
 
     void deleteWebContent(Long id);
 }
