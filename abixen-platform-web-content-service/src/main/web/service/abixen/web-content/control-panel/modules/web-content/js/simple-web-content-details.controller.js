@@ -49,7 +49,8 @@
         simpleWebContentDetails.ckeditorOptions = {
             language: 'en',
             allowedContent: true,
-            entities: false
+            entities: false,
+            extraPlugins: 'colorbutton'
         };
 
 
