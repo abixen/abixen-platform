@@ -12,12 +12,18 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.model.web;
+package com.abixen.platform.service.businessintelligence.multivisualisation.dto;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValue;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
-@JsonDeserialize(as = DataValue.class)
-public interface DataValueWeb {
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+public class DataValueDto<T> {
+    private T value;
 
 }

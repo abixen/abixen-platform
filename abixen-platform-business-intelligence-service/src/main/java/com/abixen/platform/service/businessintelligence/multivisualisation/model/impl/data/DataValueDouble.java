@@ -14,15 +14,13 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataValueDoubleWeb;
-
 import javax.persistence.*;
 
 
 @Entity
 @Table(name = "data_value_double")
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-public class DataValueDouble extends DataValue<Double> implements DataValueDoubleWeb {
+public class DataValueDouble extends DataValue<Double> {
 
 
     private static final long serialVersionUID = -1434303122608329824L;

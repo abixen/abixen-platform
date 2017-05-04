@@ -16,8 +16,8 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.cont
 
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.ChartDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,13 +40,13 @@ public class ChartDataController {
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "/{seriesName}", method = RequestMethod.POST)
-    public List<Map<String, DataValueWeb>> getDataForChart(@PathVariable String seriesName, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
+    public List<Map<String, DataValueDto>> getDataForChart(@PathVariable String seriesName, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
         return chartDataService.getChartData(chartConfigurationForm, seriesName);
     }
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public List<Map<String, DataValueWeb>> getDataForChart(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
+    public List<Map<String, DataValueDto>> getDataForChart(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
         return chartDataService.getChartData(chartConfigurationForm, null);
     }
 

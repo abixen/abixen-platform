@@ -15,10 +15,10 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.*;
@@ -43,7 +43,7 @@ public class ChartDataServiceImpl implements ChartDataService {
     private DataSourceService dataSourceService;
 
     @Override
-    public List<Map<String, DataValueWeb>> getChartData(ChartConfigurationForm chartConfigurationForm, String seriesName) {
+    public List<Map<String, DataValueDto>> getChartData(ChartConfigurationForm chartConfigurationForm, String seriesName) {
         DataSource dataSource = dataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId());
         switch (dataSource.getDataSourceType()) {
             case DB : return getChartDataFromDatabaseDataSource(dataSource, chartConfigurationForm, seriesName);
@@ -52,14 +52,14 @@ public class ChartDataServiceImpl implements ChartDataService {
         }
     }
 
-    private List<Map<String, DataValueWeb>> getChartDataFromDatabaseDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+    private List<Map<String, DataValueDto>> getChartDataFromDatabaseDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         DatabaseConnection databaseConnection = ((DatabaseDataSource) dataSource).getDatabaseConnection();
         DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnection);
         return databaseService.getChartData(connection, ((DatabaseDataSource) dataSource), chartConfigurationForm, seriesName);
     }
 
-    private List<Map<String, DataValueWeb>> getChartDataFromFileDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+    private List<Map<String, DataValueDto>> getChartDataFromFileDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         return fileService.getChartData(((FileDataSource) dataSource), chartConfigurationForm, seriesName);
     }
 

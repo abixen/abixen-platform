@@ -14,6 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.converter.DataValueToDataValueDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
@@ -21,6 +23,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.model
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -32,36 +35,43 @@ public class FileServiceImpl implements FileService {
     private static final int INDEX_OF_FIRST_ELEMENT = 0;
     private static final int PREVIEW_LIST_SIZE = 10;
 
+    private DataValueToDataValueDtoConverter dataValueToDataValueDtoConverter;
+
+    @Autowired
+    public FileServiceImpl(DataValueToDataValueDtoConverter dataValueToDataValueDtoConverter) {
+        this.dataValueToDataValueDtoConverter = dataValueToDataValueDtoConverter;
+    }
+
     @Override
-    public List<Map<String, DataValueWeb>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+    public List<Map<String, DataValueDto>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         return seriesName != null ? getChartDataPreview(fileDataSource, chartConfigurationForm, seriesName)
                 : getChartData(fileDataSource, chartConfigurationForm);
     }
 
-    private List<Map<String, DataValueWeb>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm) {
+    private List<Map<String, DataValueDto>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm) {
         DataFile dataFile = fileDataSource.getDataFile();
         int size = dataFile.getColumns().get(INDEX_OF_FIRST_ELEMENT).getValues().size();
         List<String> columnNames = getColumnNames(chartConfigurationForm);
         return getData(dataFile, size, columnNames);
     }
 
-    private List<Map<String, DataValueWeb>> getChartDataPreview(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+    private List<Map<String, DataValueDto>> getChartDataPreview(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         return getData(fileDataSource.getDataFile(), PREVIEW_LIST_SIZE, getColumnNames(chartConfigurationForm, seriesName));
     }
 
-    private List<Map<String, DataValueWeb>> getData(DataFile dataFile, int size, List<String> columnNames) {
-        List<Map<String, DataValueWeb>> data = new ArrayList<>();
+    private List<Map<String, DataValueDto>> getData(DataFile dataFile, int size, List<String> columnNames) {
+        List<Map<String, DataValueDto>> data = new ArrayList<>();
         for (int rowIndex = 0; rowIndex < size; rowIndex++) {
             data.add(getDataFromRow(dataFile, columnNames, rowIndex));
         }
         return data;
     }
 
-    private Map<String, DataValueWeb> getDataFromRow(DataFile dataFile, List<String> columnNames, Integer rowIndex) {
-        Map<String, DataValueWeb> rowMap = new HashMap<>();
+    private Map<String, DataValueDto> getDataFromRow(DataFile dataFile, List<String> columnNames, Integer rowIndex) {
+        Map<String, DataValueDto> rowMap = new HashMap<>();
         for (DataFileColumn dataFileColumn : dataFile.getColumns()) {
             if (columnNames.contains(dataFileColumn.getName().toUpperCase())) {
-                rowMap.put(dataFileColumn.getName(),  dataFileColumn.getValues().get(rowIndex));
+                rowMap.put(dataFileColumn.getName(), dataValueToDataValueDtoConverter.convert(dataFileColumn.getValues().get(rowIndex)));
             }
         }
         return rowMap;
