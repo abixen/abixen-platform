@@ -28,7 +28,7 @@ public class WebContentModuleConfigForm {
     public WebContentModuleConfigForm(WebContentModuleConfig webContentModuleConfig) {
         this.id = webContentModuleConfig.getId();
         this.moduleId = webContentModuleConfig.getModuleId();
-        this.contentId = webContentModuleConfig.getContentId();
+        this.contentId = webContentModuleConfig.getWebContent().getId();
     }
 
     public Long getId() {

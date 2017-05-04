@@ -15,7 +15,6 @@
 package com.abixen.platform.service.webcontent.model.impl;
 
 import com.abixen.platform.common.model.audit.AuditingModel;
-import com.abixen.platform.service.webcontent.model.web.WebContentModuleConfigWeb;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +23,7 @@ import java.io.Serializable;
 @Table(name = "web_content_module_config")
 @SequenceGenerator(sequenceName = "web_content_module_config_seq", name = "web_content_module_config_seq", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
-public class WebContentModuleConfig extends AuditingModel implements WebContentModuleConfigWeb, Serializable {
+public class WebContentModuleConfig extends AuditingModel implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -34,8 +33,9 @@ public class WebContentModuleConfig extends AuditingModel implements WebContentM
     @Column(name = "module_id", nullable = false)
     private Long moduleId;
 
-    @Column(name = "content_id", nullable = false)
-    private Long contentId;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "content_id", nullable = false)
+    private WebContent webContent;
 
     @Override
     public Long getId() {
@@ -46,7 +46,6 @@ public class WebContentModuleConfig extends AuditingModel implements WebContentM
         this.id = id;
     }
 
-    @Override
     public Long getModuleId() {
         return moduleId;
     }
@@ -55,12 +54,12 @@ public class WebContentModuleConfig extends AuditingModel implements WebContentM
         this.moduleId = moduleId;
     }
 
-    @Override
-    public Long getContentId() {
-        return contentId;
+    public WebContent getWebContent() {
+        return webContent;
     }
 
-    public void setContentId(Long contentId) {
-        this.contentId = contentId;
+    public void setWebContent(WebContent webContent) {
+        this.webContent = webContent;
     }
+
 }
