@@ -24,12 +24,12 @@
         '$scope',
         '$log',
         '$sce',
-        'WebContentView',
+        'WebContent',
         'WebContentConfig',
         'moduleResponseErrorHandler'
     ];
 
-    function WebContentViewController($scope, $log, $sce, WebContentView, WebContentConfig, moduleResponseErrorHandler) {
+    function WebContentViewController($scope, $log, $sce, WebContent, WebContentConfig, moduleResponseErrorHandler) {
         $log.log('WebContentViewController');
 
         var webContentView = this;
@@ -38,7 +38,7 @@
 
 
         function getWebContent(id) {
-            WebContentView.get({id:id})
+            WebContent.get({id:id})
                 .$promise
                 .then(onGetResult);
         }

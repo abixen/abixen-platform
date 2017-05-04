@@ -24,12 +24,12 @@
         '$scope',
         '$log',
         '$sce',
-        'WebContentPreview',
+        'WebContent',
         'WebContentConfig',
         'moduleResponseErrorHandler'
     ];
 
-    function PreviewSimpleController($scope, $log, $sce, WebContentPreview, WebContentConfig, moduleResponseErrorHandler) {
+    function PreviewSimpleController($scope, $log, $sce, WebContent, WebContentConfig, moduleResponseErrorHandler) {
         $log.log('PreviewSimpleController');
 
         var previewSimple = this;
@@ -38,7 +38,7 @@
         previewSimple.webContentConfig = WebContentConfig.getChangedConfig($scope.moduleId);
 
         function getSimplePreview(id) {
-            WebContentPreview.get({id:id})
+            WebContent.get({id:id})
                 .$promise
                 .then(onGetResult);
         }

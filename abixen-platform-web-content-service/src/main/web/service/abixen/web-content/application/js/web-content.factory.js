@@ -17,14 +17,14 @@
     'use strict';
 
     angular
-        .module('webContentViewModule')
-        .factory('WebContentView', WebContentView);
+        .module('webContentService')
+        .factory('WebContent', WebContent);
 
-    WebContentView.$inject = ['$resource'];
+    WebContent.$inject = ['$resource'];
 
-    function WebContentView($resource) {
+    function WebContent($resource) {
 
-        return $resource('/api/service/abixen/web-content/control-panel/web-contents/:id', {}, {
+        return $resource('/api/service/abixen/web-content/application/web-contents/:id', {}, {
             query: {method: 'GET', isArray: false}
         });
     }

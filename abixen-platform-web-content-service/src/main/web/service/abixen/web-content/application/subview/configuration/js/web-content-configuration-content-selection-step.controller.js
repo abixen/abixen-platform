@@ -25,11 +25,10 @@
         '$log',
         'WebContent',
         'WebContentConfig',
-        'WebContentPreview',
         'moduleResponseErrorHandler'
     ];
 
-    function ContentSelectionStepController($scope, $log, WebContent, WebContentConfig, WebContentPreview, moduleResponseErrorHandler) {
+    function ContentSelectionStepController($scope, $log, WebContent, WebContentConfig, moduleResponseErrorHandler) {
         $log.log('ContentSelectionStepController');
 
         var contentSelectionStep = this;
@@ -76,7 +75,7 @@
 
         function setStartSelectedTitle() {
             if  (contentSelectionStep.webContentConfig.contentId) {
-                WebContentPreview.get({id:contentSelectionStep.webContentConfig.contentId})
+                WebContent.get({id:contentSelectionStep.webContentConfig.contentId})
                     .$promise
                     .then(onGetResult);
             }

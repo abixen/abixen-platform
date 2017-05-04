@@ -25,11 +25,11 @@
         '$log',
         'WebContentConfig',
         'WebContentConfigData',
-        'WebContentPreview',
+        'WebContent',
         'moduleResponseErrorHandler'
     ];
 
-    function WebContentModuleInitController($scope, $log, WebContentConfig, WebContentConfigData, WebContentPreview, moduleResponseErrorHandler) {
+    function WebContentModuleInitController($scope, $log, WebContentConfig, WebContentConfigData, WebContent, moduleResponseErrorHandler) {
         $log.log('WebContentModuleInitController');
 
         var webContentModuleInit = this;
@@ -51,7 +51,7 @@
             function onGetResult(webContentConfigData) {
                 if (webContentConfigData.moduleId) {
                     WebContentConfig.setConfig(webContentConfigData);
-                    WebContentPreview.get({id:webContentConfigData.contentId})
+                    WebContent.get({id:webContentConfigData.contentId})
                         .$promise
                         .then(onGetResult);
                 } else {
