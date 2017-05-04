@@ -14,10 +14,10 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataValueWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
 
@@ -36,8 +36,8 @@ public interface DatabaseService {
 
     List<String> getTables(Connection connection);
 
-    List<Map<String, DataValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName);
+    List<Map<String, DataValueDto>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName);
 
-    List<Map<String, DataValueWeb>> getDataSourcePreview(Connection connection, DatabaseDataSource databaseDataSource);
+    List<Map<String, DataValueDto>> getDataSourcePreview(Connection connection, DatabaseDataSource databaseDataSource);
 
 }

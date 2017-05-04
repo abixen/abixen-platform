@@ -27,7 +27,6 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data;
 
 import com.abixen.platform.common.model.Model;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataValueWeb;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -37,7 +36,7 @@ import javax.persistence.*;
 @Table(name = "data_value")
 @SequenceGenerator(sequenceName = "data_value_seq", name = "data_value_seq", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class DataValue<E> extends Model implements DataValueWeb {
+public abstract class DataValue<E> extends Model {
 
     private static final long serialVersionUID = 9032457388585082311L;
 

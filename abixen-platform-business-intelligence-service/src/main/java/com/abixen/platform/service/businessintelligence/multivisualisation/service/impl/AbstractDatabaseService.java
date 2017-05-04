@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataParsingException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataSourceValueException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
@@ -152,7 +153,7 @@ public abstract class AbstractDatabaseService {
         return true;
     }
 
-    public List<Map<String, DataValueWeb>> getChartData(Connection connection,
+    public List<Map<String, DataValueDto>> getChartData(Connection connection,
                                                         DatabaseDataSource databaseDataSource,
                                                         ChartConfigurationForm chartConfigurationForm,
                                                         String seriesName) {
@@ -160,7 +161,7 @@ public abstract class AbstractDatabaseService {
                 : getChartData(connection, databaseDataSource, chartConfigurationForm);
     }
 
-    private List<Map<String, DataValueWeb>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm) {
+    private List<Map<String, DataValueDto>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm) {
         Set<String> chartColumnsSet = getDomainColumn(chartConfigurationForm);
 
         chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
@@ -187,7 +188,7 @@ public abstract class AbstractDatabaseService {
         return chartColumnsSet;
     }
 
-    private List<Map<String, DataValueWeb>> getChartDataPreview(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+    private List<Map<String, DataValueDto>> getChartDataPreview(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         Set<String> chartColumnsSet = getDomainColumn(chartConfigurationForm);
 
         chartConfigurationForm.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
@@ -200,11 +201,11 @@ public abstract class AbstractDatabaseService {
             return new ArrayList<>();
         }
         //FixMe
-        List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm, chartLimit);
+        List<Map<String, DataValueDto>> data = getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm, chartLimit);
         return data;
     }
 
-    public List<Map<String, DataValueWeb>> getDataSourcePreview(Connection connection, DatabaseDataSource databaseDataSource) {
+    public List<Map<String, DataValueDto>> getDataSourcePreview(Connection connection, DatabaseDataSource databaseDataSource) {
         Set<String> dataSourceColumnsSet = new HashSet<>();
 
         databaseDataSource.getColumns().forEach(column -> {
@@ -215,13 +216,13 @@ public abstract class AbstractDatabaseService {
             return new ArrayList<>();
         }
         //FixMe
-        List<Map<String, DataValueWeb>> data = getData(connection, databaseDataSource, dataSourceColumnsSet, null, datasourceLimit);
+        List<Map<String, DataValueDto>> data = getData(connection, databaseDataSource, dataSourceColumnsSet, null, datasourceLimit);
         return data;
     }
 
-    private List<Map<String, DataValueWeb>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ChartConfigurationForm chartConfigurationForm, Integer limit) {
+    private List<Map<String, DataValueDto>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ChartConfigurationForm chartConfigurationForm, Integer limit) {
         ResultSet rs;
-        List<Map<String, DataValueWeb>> data = new ArrayList<>();
+        List<Map<String, DataValueDto>> data = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
             ResultSetMetaData resultSetMetaData = getDatabaseMetaData(connection, databaseDataSource.getTable());
@@ -232,7 +233,7 @@ public abstract class AbstractDatabaseService {
             }
             while (rs.next()) {
                 final ResultSet row = rs;
-                Map<String, DataValueWeb> rowMap = new HashMap<>();
+                Map<String, DataValueDto> rowMap = new HashMap<>();
                 chartColumnsSet.forEach(chartColumnsSetElement -> {
                     rowMap.put(chartColumnsSetElement, getDataFromColumn(row, chartColumnsSetElement));
                 });
@@ -270,7 +271,7 @@ public abstract class AbstractDatabaseService {
         return stringBuilder;
     }
 
-    private DataValueWeb getDataFromColumn(ResultSet row, String columnName) {
+    private DataValueDto getDataFromColumn(ResultSet row, String columnName) {
         try {
             ResultSetMetaData resultSetMetaData = row.getMetaData();
             String columnTypeName = getValidColumnTypeName(row.findColumn(columnName), resultSetMetaData);
@@ -308,7 +309,7 @@ public abstract class AbstractDatabaseService {
     }
 
 
-    private DataValueWeb getValueAsDataSourceValue(ResultSet row, String columnName, DataValueType columnTypeName) throws SQLException {
+    private DataValueDto getValueAsDataSourceValue(ResultSet row, String columnName, DataValueType columnTypeName) throws SQLException {
         switch (columnTypeName) {
             case DOUBLE:
                 return getValueAsDataSourceValueDoubleWeb(row, columnName);
@@ -323,63 +324,27 @@ public abstract class AbstractDatabaseService {
         }
     }
 
-    private DataValueWeb getValueAsDataSourceValueDateWeb(ResultSet row, String columnName) throws SQLException {
+    private DataValueDto getValueAsDataSourceValueDateWeb(ResultSet row, String columnName) throws SQLException {
         Date value = row.getDate(row.findColumn(columnName));
-        return new DataValueDateWeb() {
-            @Override
-            public Date getValue() {
-                return value;
-            }
-
-            @Override
-            public void setValue(Date value) {
-                throw new NotImplementedException("Setter not implemented yet");
-            }
-        };
+        return new DataValueDto<Date>()
+                        .setValue(value);
     }
 
-    private DataValueWeb getValueAsDataSourceValueDoubleWeb(ResultSet row, String columnName) throws SQLException {
+    private DataValueDto getValueAsDataSourceValueDoubleWeb(ResultSet row, String columnName) throws SQLException {
         Double value = row.getDouble(row.findColumn(columnName));
-        return new DataValueDoubleWeb() {
-            @Override
-            public Double getValue() {
-                return value;
-            }
-
-            @Override
-            public void setValue(Double value) {
-                throw new NotImplementedException("Setter not implemented yet");
-            }
-        };
+        return new DataValueDto<Double>()
+                .setValue(value);
     }
 
-    private DataValueWeb getValueAsDataSourceValueIntegerWeb(ResultSet row, String columnName) throws SQLException {
+    private DataValueDto getValueAsDataSourceValueIntegerWeb(ResultSet row, String columnName) throws SQLException {
         Integer value = row.getInt(row.findColumn(columnName));
-        return new DataValueIntegerWeb() {
-            @Override
-            public Integer getValue() {
-                return value;
-            }
-
-            @Override
-            public void setValue(Integer value) {
-                throw new NotImplementedException("Setter not implemented yet");
-            }
-        };
+        return new DataValueDto<Integer>()
+                .setValue(value);
     }
 
-    private DataValueWeb getValueAsDataSourceValueStringWeb(ResultSet row, String columnName) throws SQLException {
+    private DataValueDto getValueAsDataSourceValueStringWeb(ResultSet row, String columnName) throws SQLException {
         String value = row.getString(row.findColumn(columnName));
-        return new DataValueStringWeb() {
-            @Override
-            public String getValue() {
-                return value;
-            }
-
-            @Override
-            public void setValue(String value) {
-                throw new NotImplementedException("Setter not implemented yet");
-            }
-        };
+        return new DataValueDto<String>()
+                .setValue(value);
     }
 }

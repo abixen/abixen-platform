@@ -14,10 +14,10 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseDataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataValueWeb;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -50,5 +50,5 @@ public interface DatabaseDataSourceService extends DataSourceService {
 
     void delateDataBaseDataSource(Long id);
 
-    List<Map<String, DataValueWeb>> getPreviewData(DatabaseDataSourceForm databaseDataSourceForm);
+    List<Map<String, DataValueDto>> getPreviewData(DatabaseDataSourceForm databaseDataSourceForm);
 }
