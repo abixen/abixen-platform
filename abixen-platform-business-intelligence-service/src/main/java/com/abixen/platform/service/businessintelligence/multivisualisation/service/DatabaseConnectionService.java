@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
@@ -27,7 +28,11 @@ public interface DatabaseConnectionService {
 
     Page<DatabaseConnection> findAllDatabaseConnections(Pageable pageable);
 
+    Page<DatabaseConnectionDto> findAllDatabaseConnectionsAsDto(Pageable pageable);
+
     DatabaseConnection findDatabaseConnection(Long id);
+
+    DatabaseConnectionDto findDatabaseConnectionAsDto(Long id);
 
     void deleteDatabaseConnection(Long id);
 

@@ -14,6 +14,7 @@
 
  package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseDataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
@@ -124,7 +125,7 @@ public class DatabaseDataSourceServiceImplTest {
         DatabaseDataSourceForm databaseDataSourceForm = new DatabaseDataSourceForm();
         databaseDataSourceForm.setName("New Form");
         databaseDataSourceForm.setDescription("New Form Desc");
-        databaseDataSourceForm.setDatabaseConnection(DatabaseConnectionAfterSave);
+        databaseDataSourceForm.setDatabaseConnection(new DatabaseConnectionForm(DatabaseConnectionAfterSave));
         databaseDataSourceForm.setTable("NEW_TABLE");
         Set<DataSourceColumnWeb> columns = new HashSet<DataSourceColumnWeb>();
         columns.add(dataSourceColumnAfterSave);
@@ -206,7 +207,7 @@ public class DatabaseDataSourceServiceImplTest {
         DatabaseDataSourceForm databaseDataSourceForm = new DatabaseDataSourceForm();
         databaseDataSourceForm.setName("New Form");
         databaseDataSourceForm.setDescription("New Form Desc");
-        databaseDataSourceForm.setDatabaseConnection(DatabaseConnectionAfterSave);
+        databaseDataSourceForm.setDatabaseConnection(new DatabaseConnectionForm(DatabaseConnectionAfterSave));
         databaseDataSourceForm.setTable("NEW_TABLE");
         Set<DataSourceColumnWeb> columns = new HashSet<DataSourceColumnWeb>();
         columns.add(dataSourceColumnAfterSave);
@@ -224,7 +225,7 @@ public class DatabaseDataSourceServiceImplTest {
         DatabaseDataSourceForm databaseDataSourceForm = new DatabaseDataSourceForm();
         databaseDataSourceForm.setName("New Form");
         databaseDataSourceForm.setDescription("New Form Desc");
-        databaseDataSourceForm.setDatabaseConnection(DatabaseConnectionAfterSave);
+        databaseDataSourceForm.setDatabaseConnection(new DatabaseConnectionForm(DatabaseConnectionAfterSave));
         databaseDataSourceForm.setTable("NEW_TABLE");
         Set<DataSourceColumnWeb> columns = new HashSet<DataSourceColumnWeb>();
         columns.add(dataSourceColumnAfterSave);

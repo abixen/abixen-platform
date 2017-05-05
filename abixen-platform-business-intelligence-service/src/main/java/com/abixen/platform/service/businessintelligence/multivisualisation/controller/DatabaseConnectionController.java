@@ -18,10 +18,9 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DatabaseConnectionWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseConnectionService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
@@ -51,23 +50,13 @@ public class DatabaseConnectionController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<DatabaseConnection> getDatabaseConnections(@PageableDefault(size = 1, page = 0) Pageable pageable) {
-        log.debug("getDatabaseConnections()");
-
-        Page<DatabaseConnection> databaseConnections = databaseConnectionService.findAllDatabaseConnections(pageable);
-        for (DatabaseConnection fileDatabaseConnection : databaseConnections) {
-            log.debug("fileDatabaseConnection: " + fileDatabaseConnection);
-        }
-
-        return databaseConnections;
+    public Page<DatabaseConnectionDto> getDatabaseConnections(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+        return databaseConnectionService.findAllDatabaseConnectionsAsDto(pageable);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public DatabaseConnectionWeb getDatabaseConnection(@PathVariable Long id) {
-        log.debug("getFileDatabaseConnection() - id: " + id);
-
-        return databaseConnectionService.findDatabaseConnection(id);
+    public DatabaseConnectionDto getDatabaseConnection(@PathVariable Long id) {
+        return databaseConnectionService.findDatabaseConnectionAsDto(id);
     }
 
     @JsonView(WebModelJsonSerialize.class)

@@ -18,7 +18,6 @@ import com.abixen.platform.common.form.Form;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DatabaseConnectionWeb;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
@@ -29,7 +28,7 @@ public class DatabaseDataSourceForm extends DataSourceForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    private DatabaseConnectionWeb databaseConnection;
+    private DatabaseConnectionForm databaseConnection;
 
     @JsonView(WebModelJsonSerialize.class)
     private String filter;
@@ -45,7 +44,7 @@ public class DatabaseDataSourceForm extends DataSourceForm implements Form {
         this.setId(databaseDataSource.getId());
         this.setName(databaseDataSource.getName());
         this.setDescription(databaseDataSource.getDescription());
-        this.databaseConnection = databaseDataSource.getDatabaseConnection();
+        this.databaseConnection = new DatabaseConnectionForm(databaseDataSource.getDatabaseConnection());
         this.filter = databaseDataSource.getFilter();
         this.table = databaseDataSource.getTable();
         this.setColumns(new HashSet<>());
@@ -55,11 +54,11 @@ public class DatabaseDataSourceForm extends DataSourceForm implements Form {
         }
     }
 
-    public DatabaseConnectionWeb getDatabaseConnection() {
+    public DatabaseConnectionForm getDatabaseConnection() {
         return databaseConnection;
     }
 
-    public void setDatabaseConnection(DatabaseConnectionWeb databaseConnection) {
+    public void setDatabaseConnection(DatabaseConnectionForm databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
 

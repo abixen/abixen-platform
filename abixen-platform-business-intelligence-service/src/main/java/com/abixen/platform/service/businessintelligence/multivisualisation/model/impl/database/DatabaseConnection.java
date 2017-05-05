@@ -17,15 +17,14 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.mode
 import com.abixen.platform.common.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DatabaseType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.util.converter.ConnectionPasswordConverter;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DatabaseConnectionWeb;
 import com.abixen.platform.common.model.audit.AuditingModel;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DatabaseConnectionWeb;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-
 
 
 @Entity
