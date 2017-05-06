@@ -15,9 +15,9 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.util;
 
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceColumnForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 
 import java.util.Set;
 
@@ -32,7 +32,7 @@ public interface DatabaseDataSourceBuilder {
 
     DatabaseDataSourceBuilder data(String table, String filter);
 
-    DatabaseDataSourceBuilder columns(Set<DataSourceColumnWeb> columns);
+    DatabaseDataSourceBuilder columns(Set<DataSourceColumnForm> columns);
 
 }
 

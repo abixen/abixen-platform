@@ -42,4 +42,28 @@ public class FileDataSourceRow {
     @NotNull
     @Valid
     private DataSource fileDataSource;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getRowNumber() {
+        return rowNumber;
+    }
+
+    public void setRowNumber(Integer rowNumber) {
+        this.rowNumber = rowNumber;
+    }
+
+    public DataSource getFileDataSource() {
+        return fileDataSource;
+    }
+
+    public void setFileDataSource(DataSource fileDataSource) {
+        this.fileDataSource = fileDataSource;
+    }
 }

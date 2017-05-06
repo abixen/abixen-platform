@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataParsingException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataSourceValueException;
@@ -63,9 +64,9 @@ public abstract class AbstractDatabaseService {
     @Autowired
     private JsonFilterService jsonFilterService;
 
-    public List<DataSourceColumnWeb> getColumns(Connection connection, String tableName) {
+    public List<DataSourceColumnDto> getColumns(Connection connection, String tableName) {
 
-        List<DataSourceColumnWeb> columns = new ArrayList<>();
+        List<DataSourceColumnDto> columns = new ArrayList<>();
 
         try {
             ResultSetMetaData rsmd = getDatabaseMetaData(connection, tableName);
@@ -87,30 +88,12 @@ public abstract class AbstractDatabaseService {
         return columns;
     }
 
-    private DataSourceColumnWeb prepareDataSourceColumns(ResultSetMetaData rsmd, int i) throws SQLException {
+    private DataSourceColumnDto prepareDataSourceColumns(ResultSetMetaData rsmd, int i) throws SQLException {
         DataValueType dataValueType = DataValueType.valueOf(getValidColumnTypeName(i, rsmd));
         String name = rsmd.getColumnName(i);
-        return new DataSourceColumnWeb() {
-            @Override
-            public Long getId() {
-                return null;
-            }
-
-            @Override
-            public String getName() {
-                return name;
-            }
-
-            @Override
-            public Integer getPosition() {
-                return null;
-            }
-
-            @Override
-            public DataValueType getDataValueType() {
-                return dataValueType;
-            }
-        };
+        return new DataSourceColumnDto()
+                    .setName(name)
+                    .setDataValueType(dataValueType);
     }
 
     private ResultSetMetaData getDatabaseMetaData(Connection connection, String tableName) throws SQLException {

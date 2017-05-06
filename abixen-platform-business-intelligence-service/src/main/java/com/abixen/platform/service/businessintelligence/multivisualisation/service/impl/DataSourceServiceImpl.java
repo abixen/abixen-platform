@@ -14,7 +14,7 @@ public class DataSourceServiceImpl implements DataSourceService {
     private DataSourceRepository dataSourceRepository;
 
     @Override
-    public Page<DataSource> getDataSources(Pageable pageable) {
+    public Page<DataSource> findAllDataSources(Pageable pageable) {
         Page<DataSource> result;
         result = dataSourceRepository.findAll(pageable);
         return result;

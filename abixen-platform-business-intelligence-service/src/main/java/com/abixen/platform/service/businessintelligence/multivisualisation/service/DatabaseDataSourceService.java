@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseDataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseDataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
@@ -30,7 +31,9 @@ public interface DatabaseDataSourceService extends DataSourceService {
 
     Page<DatabaseDataSource> getDatabaseDataSources(String jsonCriteria, Pageable pageable);
 
-    Page<DatabaseDataSource> findAllDataSources(Pageable pageable);
+    Page<DatabaseDataSource> findAllDatabaseDataSources(Pageable pageable);
+
+    Page<DatabaseDataSourceDto> findAllDataSourcesAsDto(Pageable pageable);
 
     Set<DataSourceColumn> getDataSourceColumns(Long dataSourceId);
 
@@ -47,6 +50,8 @@ public interface DatabaseDataSourceService extends DataSourceService {
     DatabaseDataSource updateDataSource(DatabaseDataSource databaseDataSource);
 
     DatabaseDataSource findDatabaseDataSource(Long id);
+
+    DatabaseDataSourceDto findDatabaseDataSourceAsDto(Long id);
 
     void delateDataBaseDataSource(Long id);
 

@@ -38,10 +38,10 @@ public class DataSourceController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<DataSource> getDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public Page<DataSource> findAllDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
         log.debug("getDatabaseDataSources()");
 
-        Page<DataSource> dataSources = dataSourceService.getDataSources(pageable);
+        Page<DataSource> dataSources = dataSourceService.findAllDataSources(pageable);
 
         return dataSources;
     }

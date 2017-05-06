@@ -18,9 +18,9 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseConnectionService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
@@ -50,12 +50,12 @@ public class DatabaseConnectionController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<DatabaseConnectionDto> getDatabaseConnections(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public Page<DatabaseConnectionDto> findAllDatabaseConnections(@PageableDefault(size = 1, page = 0) Pageable pageable) {
         return databaseConnectionService.findAllDatabaseConnectionsAsDto(pageable);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public DatabaseConnectionDto getDatabaseConnection(@PathVariable Long id) {
+    public DatabaseConnectionDto findDatabaseConnection(@PathVariable Long id) {
         return databaseConnectionService.findDatabaseConnectionAsDto(id);
     }
 
@@ -111,8 +111,7 @@ public class DatabaseConnectionController {
     }
 
     @RequestMapping(value = "/{id}/tables/{tableName}/columns", method = RequestMethod.GET)
-    public List<DataSourceColumnWeb> getTableColumns(@PathVariable("id") Long id, @PathVariable("tableName") String tableName) {
-        log.debug("getTableColumns()");
+    public List<DataSourceColumnDto> getTableColumns(@PathVariable("id") Long id, @PathVariable("tableName") String tableName) {
         return databaseConnectionService.getTableColumns(id, tableName);
     }
 

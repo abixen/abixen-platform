@@ -14,10 +14,10 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -50,5 +50,5 @@ public interface DatabaseConnectionService {
 
     List<String> getTables(Long databaseConnectionId);
 
-    List<DataSourceColumnWeb> getTableColumns(Long databaseConnectionId, String table);
+    List<DataSourceColumnDto> getTableColumns(Long databaseConnectionId, String table);
 }

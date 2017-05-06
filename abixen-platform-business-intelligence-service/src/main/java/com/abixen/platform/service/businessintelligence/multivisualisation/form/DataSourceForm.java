@@ -16,7 +16,6 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.form
 
 import com.abixen.platform.common.form.Form;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
@@ -43,7 +42,7 @@ public class DataSourceForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    private Set<DataSourceColumnWeb> columns;
+    private Set<DataSourceColumnForm> columns;
 
     public String getName() {
         return name;
@@ -69,11 +68,11 @@ public class DataSourceForm implements Form {
         this.description = description;
     }
 
-    public Set<DataSourceColumnWeb> getColumns() {
+    public Set<DataSourceColumnForm> getColumns() {
         return columns;
     }
 
-    public void setColumns(Set<DataSourceColumnWeb> columns) {
+    public void setColumns(Set<DataSourceColumnForm> columns) {
         this.columns = columns;
     }
 

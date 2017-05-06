@@ -18,9 +18,8 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.FileDataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.FileDataSourceForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.FileDataSourceWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileDataSourceService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
@@ -50,20 +49,15 @@ public class FileDataSourceController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<FileDataSource> getDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
-        log.debug("getDatabaseDataSources()");
-
-        Page<FileDataSource> dataSources = fileDataSourceService.findAllDataSources(pageable);
-
-        return dataSources;
+    public Page<FileDataSourceDto> findAllDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+        return fileDataSourceService.findAllDataSourcesAsDto(pageable);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public FileDataSourceWeb getDataSource(@PathVariable Long id) {
+    public FileDataSourceDto findDataSource(@PathVariable Long id) {
         log.debug("getDataSource() - id: " + id);
 
-        return fileDataSourceService.findDataSource(id);
+        return fileDataSourceService.findDataSourceAsDto(id);
     }
 
     @JsonView(WebModelJsonSerialize.class)

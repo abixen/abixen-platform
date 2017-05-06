@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface DataSourceService {
 
-    Page<DataSource> getDataSources(Pageable pageable);
+    Page<DataSource> findAllDataSources(Pageable pageable);
 
     DataSource findDataSource(Long id);
 

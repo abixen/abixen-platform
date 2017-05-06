@@ -28,6 +28,11 @@ public class DataValueToDataValueDtoConverter extends AbstractConverter<DataValu
 
     @Override
     public DataValueDto convert(DataValue dataValue, Map<String, Object> parameters) {
+        if (dataValue == null) {
+            return null;
+        }
+
+
         if (dataValue.getValue() instanceof Integer) {
             return new DataValueDto<Integer>()
                     .setValue((Integer) dataValue.getValue());

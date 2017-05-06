@@ -26,6 +26,10 @@ public class DatabaseConnectionToDatabaseConnectionDtoConverter extends Abstract
 
     @Override
     public DatabaseConnectionDto convert(DatabaseConnection databaseConnection, Map<String, Object> parameters) {
+        if (databaseConnection == null) {
+            return null;
+        }
+
         return new DatabaseConnectionDto()
                 .setId(databaseConnection.getId())
                 .setName(databaseConnection.getName())
