@@ -15,9 +15,9 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.util;
 
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceColumnForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 
 import java.util.Set;
 
@@ -28,7 +28,7 @@ public interface FileDataSourceBuilder {
 
     FileDataSourceBuilder base(String name, String description);
 
-    FileDataSourceBuilder data(Set<DataSourceColumnWeb> columns, DataFile dataFile);
+    FileDataSourceBuilder data(Set<DataSourceColumnForm> columns, DataFile dataFile);
 
     FileDataSourceBuilder filter(String filter);
 

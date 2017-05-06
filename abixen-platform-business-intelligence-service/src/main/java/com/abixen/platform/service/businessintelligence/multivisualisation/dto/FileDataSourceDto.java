@@ -14,9 +14,19 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.dto;
 
-import java.io.Serializable;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataFileWeb;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
-//TODO - to remove
-public class DataSourceDTO implements Serializable {
+import java.util.Set;
 
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+public class FileDataSourceDto extends DataSourceDto {
+    private Set<FileDataSourceRowDto> rows;
+    private DataFileWeb dataFile;
 }

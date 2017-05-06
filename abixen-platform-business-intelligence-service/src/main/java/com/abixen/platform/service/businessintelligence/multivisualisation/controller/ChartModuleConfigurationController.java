@@ -51,7 +51,7 @@ public class ChartModuleConfigurationController {
     @PreAuthorize("hasPermission(#moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{moduleId}", method = RequestMethod.GET)
-    public ChartConfigurationForm getChartConfigurationForm(@PathVariable Long moduleId) {
+    public ChartConfigurationForm findChartConfigurationForm(@PathVariable Long moduleId) {
         log.debug("getChartConfigurationForm() - moduleId: " + moduleId);
 
         ChartConfiguration chartConfiguration = chartConfigurationService.findChartConfigurationByModuleId(moduleId);

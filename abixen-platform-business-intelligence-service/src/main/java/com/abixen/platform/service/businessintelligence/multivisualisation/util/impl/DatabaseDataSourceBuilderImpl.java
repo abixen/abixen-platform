@@ -15,11 +15,11 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.util.impl;
 
 import com.abixen.platform.common.util.EntityBuilder;
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceColumnForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.util.DatabaseDataSourceBuilder;
 
 import java.util.HashSet;
@@ -56,15 +56,15 @@ public class DatabaseDataSourceBuilderImpl extends EntityBuilder<DatabaseDataSou
     }
 
     @Override
-    public DatabaseDataSourceBuilder columns(Set<DataSourceColumnWeb> columns) {
+    public DatabaseDataSourceBuilder columns(Set<DataSourceColumnForm> columns) {
 
         Set<DataSourceColumn> dataSourceColumns = new HashSet<>();
 
-        for (DataSourceColumnWeb dataSourceColumnWeb : columns) {
+        for (DataSourceColumnForm dataSourceColumnForm : columns) {
             DataSourceColumn dataSourceColumn = new DataSourceColumn();
-            dataSourceColumn.setName(dataSourceColumnWeb.getName());
-            dataSourceColumn.setPosition(dataSourceColumnWeb.getPosition());
-            dataSourceColumn.setDataValueType(dataSourceColumnWeb.getDataValueType());
+            dataSourceColumn.setName(dataSourceColumnForm.getName());
+            dataSourceColumn.setPosition(dataSourceColumnForm.getPosition());
+            dataSourceColumn.setDataValueType(dataSourceColumnForm.getDataValueType());
             dataSourceColumn.setDataSource(this.product);
             dataSourceColumns.add(dataSourceColumn);
         }

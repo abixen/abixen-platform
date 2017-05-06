@@ -15,10 +15,8 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseDataSourceDto;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -26,21 +24,18 @@ import java.util.HashSet;
 
 public class DatabaseDataSourceForm extends DataSourceForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private DatabaseConnectionForm databaseConnection;
 
-    @JsonView(WebModelJsonSerialize.class)
     private String filter;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private String table;
 
     public DatabaseDataSourceForm() {
     }
 
-    public DatabaseDataSourceForm(DatabaseDataSource databaseDataSource) {
+    public DatabaseDataSourceForm(DatabaseDataSourceDto databaseDataSource) {
         this.setId(databaseDataSource.getId());
         this.setName(databaseDataSource.getName());
         this.setDescription(databaseDataSource.getDescription());
@@ -49,8 +44,8 @@ public class DatabaseDataSourceForm extends DataSourceForm implements Form {
         this.table = databaseDataSource.getTable();
         this.setColumns(new HashSet<>());
 
-        for (DataSourceColumnWeb dataSourceColumn : databaseDataSource.getColumns()) {
-            this.getColumns().add(dataSourceColumn);
+        for (DataSourceColumnDto dataSourceColumnDto : databaseDataSource.getColumns()) {
+            this.getColumns().add(new DataSourceColumnForm(dataSourceColumnDto));
         }
     }
 

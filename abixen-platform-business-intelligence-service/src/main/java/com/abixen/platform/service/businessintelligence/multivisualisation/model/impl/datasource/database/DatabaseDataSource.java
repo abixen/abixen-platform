@@ -16,7 +16,6 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.mode
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DatabaseDataSourceWeb;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -27,7 +26,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "database_data_source")
-public class DatabaseDataSource extends DataSource implements DatabaseDataSourceWeb, Serializable {
+public class DatabaseDataSource extends DataSource implements Serializable {
 
     private static final long serialVersionUID = -1420930478759410093L;
 
@@ -62,7 +61,6 @@ public class DatabaseDataSource extends DataSource implements DatabaseDataSource
         this.filter = filter;
     }
 
-    @Override
     public String getTable() {
         return table;
     }

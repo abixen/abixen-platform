@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.converter.DatabaseConnectionToDatabaseConnectionDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
@@ -33,14 +34,21 @@ import java.util.List;
 @Service
 public class ChartDataServiceImpl implements ChartDataService {
 
-    @Autowired
     private DatabaseFactory databaseFactory;
-
-    @Autowired
     private FileService fileService;
+    private DataSourceService dataSourceService;
+    private DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
 
     @Autowired
-    private DataSourceService dataSourceService;
+    public ChartDataServiceImpl(DatabaseFactory databaseFactory,
+                                FileService fileService,
+                                DataSourceService dataSourceService,
+                                DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter) {
+        this.databaseFactory = databaseFactory;
+        this.fileService = fileService;
+        this.dataSourceService = dataSourceService;
+        this.databaseConnectionToDatabaseConnectionDtoConverter = databaseConnectionToDatabaseConnectionDtoConverter;
+    }
 
     @Override
     public List<Map<String, DataValueDto>> getChartData(ChartConfigurationForm chartConfigurationForm, String seriesName) {
@@ -55,7 +63,7 @@ public class ChartDataServiceImpl implements ChartDataService {
     private List<Map<String, DataValueDto>> getChartDataFromDatabaseDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         DatabaseConnection databaseConnection = ((DatabaseDataSource) dataSource).getDatabaseConnection();
         DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
-        Connection connection = databaseService.getConnection(databaseConnection);
+        Connection connection = databaseService.getConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection));
         return databaseService.getChartData(connection, ((DatabaseDataSource) dataSource), chartConfigurationForm, seriesName);
     }
 

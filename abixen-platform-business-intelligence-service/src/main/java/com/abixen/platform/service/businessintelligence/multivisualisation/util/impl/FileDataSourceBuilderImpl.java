@@ -15,11 +15,11 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.util.impl;
 
 import com.abixen.platform.common.util.EntityBuilder;
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceColumnForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.util.FileDataSourceBuilder;
 
 import java.util.HashSet;
@@ -44,7 +44,7 @@ public class FileDataSourceBuilderImpl extends EntityBuilder<FileDataSource> imp
     }
 
     @Override
-    public FileDataSourceBuilder data(Set<DataSourceColumnWeb> columns, DataFile dataFile) {
+    public FileDataSourceBuilder data(Set<DataSourceColumnForm> columns, DataFile dataFile) {
         Set<DataSourceColumn> dataSourceColumnSet = new HashSet<>();
         columns.forEach(column -> {
             DataSourceColumn dataSourceColumn = new DataSourceColumn();

@@ -15,10 +15,8 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DatabaseType;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -29,50 +27,41 @@ import static com.abixen.platform.service.businessintelligence.multivisualisatio
 
 public class DatabaseConnectionForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(max = NAME_MAX_LENGTH)
     private String name;
 
-    @JsonView(WebModelJsonSerialize.class)
     @Size(max = DESCRIPTION_MAX_LENGTH)
     private String description;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private DatabaseType databaseType;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(max = DATABASE_HOST_MAX_LENGTH)
     private String databaseHost;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Min(0)
     private Integer databasePort;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(max = DATABASE_NAME_MAX_LENGTH)
     private String databaseName;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(max = USERNAME_MAX_LENGTH)
     private String username;
 
-    @JsonView(WebModelJsonSerialize.class)
     @Size(max = PASSWORD_MAX_LENGTH)
     private String password;
 
     public DatabaseConnectionForm() {
     }
 
-    public DatabaseConnectionForm(DatabaseConnection databaseConnection) {
+    public DatabaseConnectionForm(DatabaseConnectionDto databaseConnection) {
         this.id = databaseConnection.getId();
         this.name = databaseConnection.getName();
         this.description = databaseConnection.getDescription();

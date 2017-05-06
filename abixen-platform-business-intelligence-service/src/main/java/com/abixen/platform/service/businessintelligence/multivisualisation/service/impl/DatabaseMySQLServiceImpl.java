@@ -14,9 +14,9 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DatabaseConnectionException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class DatabaseMySQLServiceImpl extends AbstractDatabaseService implements
 
 
     @Override
-    public Connection getConnection(DatabaseConnection databaseConnection) {
+    public Connection getConnection(DatabaseConnectionDto databaseConnection) {
         return getConnection(new DatabaseConnectionForm(databaseConnection));
     }
 

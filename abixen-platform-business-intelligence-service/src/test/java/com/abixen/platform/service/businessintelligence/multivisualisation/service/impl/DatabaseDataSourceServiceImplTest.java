@@ -14,6 +14,9 @@
 
  package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.converter.DataSourceColumnToDataSourceColumnDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.converter.DatabaseConnectionToDatabaseConnectionDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceColumnForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseDataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
@@ -22,7 +25,6 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.model
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataSourceColumnRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DatabaseConnectionRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DatabaseDataSourceRepository;
@@ -77,6 +79,12 @@ public class DatabaseDataSourceServiceImplTest {
     @Resource
     private DatabaseConnectionRepository dataSourceConnectionRepository;
 
+    @Autowired
+    private DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
+
+    @Autowired
+    private DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
+
     private DomainBuilderService domainBuilderService = new DomainBuilderServiceImpl();
 
     private DataSourceColumn dataSourceColumnAfterSave;
@@ -125,10 +133,10 @@ public class DatabaseDataSourceServiceImplTest {
         DatabaseDataSourceForm databaseDataSourceForm = new DatabaseDataSourceForm();
         databaseDataSourceForm.setName("New Form");
         databaseDataSourceForm.setDescription("New Form Desc");
-        databaseDataSourceForm.setDatabaseConnection(new DatabaseConnectionForm(DatabaseConnectionAfterSave));
+        databaseDataSourceForm.setDatabaseConnection(new DatabaseConnectionForm(databaseConnectionToDatabaseConnectionDtoConverter.convert(DatabaseConnectionAfterSave)));
         databaseDataSourceForm.setTable("NEW_TABLE");
-        Set<DataSourceColumnWeb> columns = new HashSet<DataSourceColumnWeb>();
-        columns.add(dataSourceColumnAfterSave);
+        Set<DataSourceColumnForm> columns = new HashSet<DataSourceColumnForm>();
+        columns.add(new DataSourceColumnForm(dataSourceColumnToDataSourceColumnDtoConverter.convert(dataSourceColumnAfterSave)));
         databaseDataSourceForm.setColumns(columns);
         databaseDataSourceFormSave = databaseDataSourceService.createDataSource(databaseDataSourceForm);
     }
@@ -190,11 +198,11 @@ public class DatabaseDataSourceServiceImplTest {
     }
 
     /**
-     * Test method for findAllDataSources in DatabaseDataSourceServiceImpl
+     * Test method for findAllDatabaseDataSources in DatabaseDataSourceServiceImpl
      */
     @Test
     public void findAllDataSources()  {
-        Page<DatabaseDataSource> page = databaseDataSourceService.findAllDataSources(new PageRequest(0, 10));
+        Page<DatabaseDataSource> page = databaseDataSourceService.findAllDatabaseDataSources(new PageRequest(0, 10));
         assertTrue(page.getTotalElements() > 0);
         assertEquals(page.getTotalElements(),8);
     }
@@ -207,10 +215,10 @@ public class DatabaseDataSourceServiceImplTest {
         DatabaseDataSourceForm databaseDataSourceForm = new DatabaseDataSourceForm();
         databaseDataSourceForm.setName("New Form");
         databaseDataSourceForm.setDescription("New Form Desc");
-        databaseDataSourceForm.setDatabaseConnection(new DatabaseConnectionForm(DatabaseConnectionAfterSave));
+        databaseDataSourceForm.setDatabaseConnection(new DatabaseConnectionForm(databaseConnectionToDatabaseConnectionDtoConverter.convert(DatabaseConnectionAfterSave)));
         databaseDataSourceForm.setTable("NEW_TABLE");
-        Set<DataSourceColumnWeb> columns = new HashSet<DataSourceColumnWeb>();
-        columns.add(dataSourceColumnAfterSave);
+        Set<DataSourceColumnForm> columns = new HashSet<DataSourceColumnForm>();
+        columns.add(new DataSourceColumnForm(dataSourceColumnToDataSourceColumnDtoConverter.convert(dataSourceColumnAfterSave)));
         databaseDataSourceForm.setColumns(columns);
         DatabaseDataSource databaseDataSource = databaseDataSourceService.buildDataSource(databaseDataSourceForm);
         assertNotNull(databaseDataSource.getDescription());
@@ -225,10 +233,10 @@ public class DatabaseDataSourceServiceImplTest {
         DatabaseDataSourceForm databaseDataSourceForm = new DatabaseDataSourceForm();
         databaseDataSourceForm.setName("New Form");
         databaseDataSourceForm.setDescription("New Form Desc");
-        databaseDataSourceForm.setDatabaseConnection(new DatabaseConnectionForm(DatabaseConnectionAfterSave));
+        databaseDataSourceForm.setDatabaseConnection(new DatabaseConnectionForm(databaseConnectionToDatabaseConnectionDtoConverter.convert(DatabaseConnectionAfterSave)));
         databaseDataSourceForm.setTable("NEW_TABLE");
-        Set<DataSourceColumnWeb> columns = new HashSet<DataSourceColumnWeb>();
-        columns.add(dataSourceColumnAfterSave);
+        Set<DataSourceColumnForm> columns = new HashSet<DataSourceColumnForm>();
+        columns.add(new DataSourceColumnForm(dataSourceColumnToDataSourceColumnDtoConverter.convert(dataSourceColumnAfterSave)));
         databaseDataSourceForm.setColumns(columns);
         databaseDataSourceFormSaveNew = databaseDataSourceService.createDataSource(databaseDataSourceForm);
         assertNotNull(databaseDataSourceFormSaveNew.getId());

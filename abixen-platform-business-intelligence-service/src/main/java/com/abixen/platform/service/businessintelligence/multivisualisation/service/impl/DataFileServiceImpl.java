@@ -15,9 +15,9 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValue;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueDouble;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueInteger;
@@ -25,7 +25,6 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.model
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataFileRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.FileDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataFileService;
@@ -76,31 +75,14 @@ public class DataFileServiceImpl implements DataFileService {
     }
 
     @Override
-    public List<DataSourceColumnWeb> getDataFileColumns(Long dataFileId) {
-        List<DataSourceColumnWeb> result = new ArrayList<>();
+    public List<DataSourceColumnDto> getDataFileColumns(Long dataFileId) {
+        List<DataSourceColumnDto> result = new ArrayList<>();
         DataFile dataFile = dataFileRepository.getOne(dataFileId);
         for (DataFileColumn dataFileColumn : dataFile.getColumns()) {
-            result.add(new DataSourceColumnWeb() {
-                @Override
-                public Long getId() {
-                    return null;
-                }
-
-                @Override
-                public String getName() {
-                    return dataFileColumn.getName();
-                }
-
-                @Override
-                public Integer getPosition() {
-                    return dataFileColumn.getPosition();
-                }
-
-                @Override
-                public DataValueType getDataValueType() {
-                    return dataFileColumn.getDataValueType();
-                }
-            });
+            result.add(new DataSourceColumnDto()
+                            .setName(dataFileColumn.getName())
+                            .setPosition(dataFileColumn.getPosition())
+                            .setDataValueType(dataFileColumn.getDataValueType()));
         }
         return result;
     }

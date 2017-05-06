@@ -40,13 +40,13 @@ public class ChartDataController {
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "/{seriesName}", method = RequestMethod.POST)
-    public List<Map<String, DataValueDto>> getDataForChart(@PathVariable String seriesName, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
+    public List<Map<String, DataValueDto>> findDataForChart(@PathVariable String seriesName, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
         return chartDataService.getChartData(chartConfigurationForm, seriesName);
     }
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public List<Map<String, DataValueDto>> getDataForChart(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
+    public List<Map<String, DataValueDto>> findDataForChart(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
         return chartDataService.getChartData(chartConfigurationForm, null);
     }
 

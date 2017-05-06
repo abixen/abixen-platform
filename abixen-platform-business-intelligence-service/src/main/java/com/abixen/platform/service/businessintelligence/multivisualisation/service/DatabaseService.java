@@ -14,11 +14,11 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
 
 import java.sql.Connection;
@@ -28,11 +28,11 @@ import java.util.List;
 
 public interface DatabaseService {
 
-    Connection getConnection(DatabaseConnection databaseConnection);
+    Connection getConnection(DatabaseConnectionDto databaseConnection);
 
     Connection getConnection(DatabaseConnectionForm databaseConnectionForm);
 
-    List<DataSourceColumnWeb> getColumns(Connection connection, String tableName);
+    List<DataSourceColumnDto> getColumns(Connection connection, String tableName);
 
     List<String> getTables(Connection connection);
 

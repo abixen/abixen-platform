@@ -20,9 +20,8 @@ import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseDataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseDataSourceForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DatabaseDataSourceWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseDataSourceService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
@@ -54,20 +53,15 @@ public class DatabaseDataSourceController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<DatabaseDataSource> getDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
-        log.debug("getDatabaseDataSources()");
-
-        Page<DatabaseDataSource> dataSources = databaseDataSourceService.findAllDataSources(pageable);
-
-        return dataSources;
+    public Page<DatabaseDataSourceDto> findAllDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+        return databaseDataSourceService.findAllDataSourcesAsDto(pageable);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public DatabaseDataSourceWeb getDataSource(@PathVariable Long id) {
+    public DatabaseDataSourceDto findDataSource(@PathVariable Long id) {
         log.debug("getDataSource() - id: " + id);
 
-        return databaseDataSourceService.findDatabaseDataSource(id);
+        return databaseDataSourceService.findDatabaseDataSourceAsDto(id);
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -105,11 +99,9 @@ public class DatabaseDataSourceController {
                 throw e;
             }
         }
-
         return new FormValidationResultDto(databaseDataSourceFormResult);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/preview", method = RequestMethod.POST)
     public  List<Map<String, DataValueDto>> getPreviewData(@RequestBody @Valid DatabaseDataSourceForm databaseDataSourceForm) {
         log.debug("createDataSource() - databaseDataSourceForm: " + databaseDataSourceForm);

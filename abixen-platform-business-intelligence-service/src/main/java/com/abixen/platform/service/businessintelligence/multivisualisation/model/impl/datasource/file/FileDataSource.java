@@ -16,7 +16,6 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.mode
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.FileDataSourceWeb;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -28,7 +27,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "file_data_source")
-public class FileDataSource extends DataSource implements FileDataSourceWeb, Serializable {
+public class FileDataSource extends DataSource implements Serializable {
 
     private static final long serialVersionUID = -1420930478759410093L;
 
@@ -41,7 +40,6 @@ public class FileDataSource extends DataSource implements FileDataSourceWeb, Ser
     @OneToMany(mappedBy = "fileDataSource", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FileDataSourceRow> rows = new HashSet<>();
 
-    @Override
     public DataFile getDataFile() {
         return dataFile;
     }
@@ -50,7 +48,6 @@ public class FileDataSource extends DataSource implements FileDataSourceWeb, Ser
         this.dataFile = dataFile;
     }
 
-    @Override
     public Set<FileDataSourceRow> getRows() {
         return rows;
     }

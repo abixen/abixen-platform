@@ -14,10 +14,12 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.converter.FileDataSourceToFileDataSourceDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.FileDataSourceDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceColumnForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.FileDataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.FileDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataFileService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DomainBuilderService;
@@ -28,7 +30,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,14 +38,21 @@ import java.util.stream.Collectors;
 @Service
 public class FileDataSourceServiceImpl implements FileDataSourceService {
 
-    @Resource
     private FileDataSourceRepository fileDataSourceRepository;
-
-    @Autowired
     private DomainBuilderService domainBuilderService;
+    private DataFileService dataFileService;
+    private FileDataSourceToFileDataSourceDtoConverter fileDataSourceToFileDataSourceDtoConverter;
 
     @Autowired
-    private DataFileService dataFileService;
+    public FileDataSourceServiceImpl(FileDataSourceRepository fileDataSourceRepository,
+                                     DomainBuilderService domainBuilderService,
+                                     DataFileService dataFileService,
+                                     FileDataSourceToFileDataSourceDtoConverter fileDataSourceToFileDataSourceDtoConverter) {
+        this.fileDataSourceRepository = fileDataSourceRepository;
+        this.domainBuilderService = domainBuilderService;
+        this.dataFileService = dataFileService;
+        this.fileDataSourceToFileDataSourceDtoConverter = fileDataSourceToFileDataSourceDtoConverter;
+    }
 
     @Override
     public Set<DataSourceColumn> getDataSourceColumns(Long dataSourceId) {
@@ -67,6 +75,11 @@ public class FileDataSourceServiceImpl implements FileDataSourceService {
     @Override
     public Page<FileDataSource> findAllDataSources(Pageable pageable) {
         return fileDataSourceRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<FileDataSourceDto> findAllDataSourcesAsDto(Pageable pageable) {
+        return fileDataSourceToFileDataSourceDtoConverter.convertToPage(findAllDataSources(pageable));
     }
 
     @Override
@@ -120,18 +133,18 @@ public class FileDataSourceServiceImpl implements FileDataSourceService {
                 .peek(s -> s = s.toUpperCase())
                 .collect(Collectors.toList());
         List<String> newColumnNames = fileDataSourceForm.getColumns().stream()
-                .map(DataSourceColumnWeb::getName)
+                .map(DataSourceColumnForm::getName)
                 .peek(s -> s = s.toUpperCase())
                 .collect(Collectors.toList());
         newColumnNames.replaceAll(String::toUpperCase);
         oldColumnNames.replaceAll(String::toUpperCase);
         List<DataSourceColumn> toRemove = fileDataSource.getColumns().stream().filter(dataSourceColumn -> !newColumnNames.contains(dataSourceColumn.getName().toUpperCase())).collect(Collectors.toList());
-        List<DataSourceColumnWeb> toAdd = fileDataSourceForm.getColumns().stream().filter(dataSourceColumn -> !oldColumnNames.contains(dataSourceColumn.getName().toUpperCase())).collect(Collectors.toList());
+        List<DataSourceColumnForm> toAdd = fileDataSourceForm.getColumns().stream().filter(dataSourceColumn -> !oldColumnNames.contains(dataSourceColumn.getName().toUpperCase())).collect(Collectors.toList());
         if (!toRemove.isEmpty()) {
             fileDataSource.removeColumns(new HashSet<>(toRemove));
         }
         if (!toAdd.isEmpty()) {
-            convertDataSourceColumnWebToDataSourceColumn(fileDataSource, dataSourceColumns, toAdd);
+            convertDataSourceColumnFormToDataSourceColumn(fileDataSource, dataSourceColumns, toAdd);
             fileDataSource.addColumns(dataSourceColumns);
         }
         fileDataSource.setDataFile(dataFileService.findDataFile(fileDataSourceForm.getDataFile().getId()));
@@ -151,17 +164,22 @@ public class FileDataSourceServiceImpl implements FileDataSourceService {
     }
 
     @Override
+    public FileDataSourceDto findDataSourceAsDto(Long id) {
+        return fileDataSourceToFileDataSourceDtoConverter.convert(findDataSource(id));
+    }
+
+    @Override
     public void delateFileDataSource(Long id) {
         fileDataSourceRepository.delete(id);
     }
 
-    private void convertDataSourceColumnWebToDataSourceColumn(FileDataSource databaseDataSource, Set<DataSourceColumn> dataSourceColumns, List<DataSourceColumnWeb> toAdd) {
-        for (DataSourceColumnWeb dataSourceColumnWeb : toAdd) {
+    private void convertDataSourceColumnFormToDataSourceColumn(FileDataSource databaseDataSource, Set<DataSourceColumn> dataSourceColumns, List<DataSourceColumnForm> toAdd) {
+        for (DataSourceColumnForm dataSourceColumnForm : toAdd) {
             DataSourceColumn dataSourceColumn = new DataSourceColumn();
-            dataSourceColumn.setName(dataSourceColumnWeb.getName());
-            dataSourceColumn.setPosition(dataSourceColumnWeb.getPosition());
+            dataSourceColumn.setName(dataSourceColumnForm.getName());
+            dataSourceColumn.setPosition(dataSourceColumnForm.getPosition());
             dataSourceColumn.setDataSource(databaseDataSource);
-            dataSourceColumn.setDataValueType(dataSourceColumnWeb.getDataValueType());
+            dataSourceColumn.setDataValueType(dataSourceColumnForm.getDataValueType());
             dataSourceColumns.add(dataSourceColumn);
         }
     }

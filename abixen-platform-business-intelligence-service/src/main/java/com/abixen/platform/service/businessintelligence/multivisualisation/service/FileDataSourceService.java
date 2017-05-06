@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.FileDataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.FileDataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
@@ -27,9 +28,15 @@ import java.util.Set;
 
 public interface FileDataSourceService {
 
-    Page<FileDataSource> getDataSources(String jsonCriteria, Pageable pageable);
-
     Page<FileDataSource> findAllDataSources(Pageable pageable);
+
+    Page<FileDataSourceDto> findAllDataSourcesAsDto(Pageable pageable);
+
+    FileDataSource findDataSource(Long id);
+
+    FileDataSourceDto findDataSourceAsDto(Long id);
+
+    Page<FileDataSource> getDataSources(String jsonCriteria, Pageable pageable);
 
     Set<DataSourceColumn> getDataSourceColumns(Long dataSourceId);
 
@@ -44,8 +51,6 @@ public interface FileDataSourceService {
     FileDataSourceForm updateDataSource(FileDataSourceForm fileDataSourceForm);
 
     FileDataSource updateDataSource(FileDataSource fileDataSource);
-
-    FileDataSource findDataSource(Long id);
 
     void delateFileDataSource(Long id);
 }

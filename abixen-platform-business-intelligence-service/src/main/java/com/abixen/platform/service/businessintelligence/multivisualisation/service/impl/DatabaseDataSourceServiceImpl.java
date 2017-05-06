@@ -14,12 +14,15 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.converter.DatabaseDataSourceToDatabaseDataSourceDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseDataSourceDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceColumnForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseDataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceColumnWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DatabaseDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.*;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +31,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.sql.Connection;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,17 +40,24 @@ import java.util.stream.Collectors;
 @Service
 public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl implements DatabaseDataSourceService {
 
-    @Resource
     private DatabaseDataSourceRepository databaseDataSourceRepository;
-
-    @Autowired
     private DatabaseConnectionService databaseConnectionService;
-
-    @Autowired
     private DomainBuilderService domainBuilderService;
+    private DatabaseFactory databaseFactory;
+    private DatabaseDataSourceToDatabaseDataSourceDtoConverter databaseDataSourceToDatabaseDataSourceDtoConverter;
 
     @Autowired
-    private DatabaseFactory databaseFactory;
+    public DatabaseDataSourceServiceImpl(DatabaseDataSourceRepository databaseDataSourceRepository,
+                                         DatabaseConnectionService databaseConnectionService,
+                                         DomainBuilderService domainBuilderService,
+                                         DatabaseFactory databaseFactory,
+                                         DatabaseDataSourceToDatabaseDataSourceDtoConverter databaseDataSourceToDatabaseDataSourceDtoConverter) {
+        this.databaseDataSourceRepository = databaseDataSourceRepository;
+        this.databaseConnectionService = databaseConnectionService;
+        this.domainBuilderService = domainBuilderService;
+        this.databaseFactory = databaseFactory;
+        this.databaseDataSourceToDatabaseDataSourceDtoConverter = databaseDataSourceToDatabaseDataSourceDtoConverter;
+    }
 
     @Override
     public Set<DataSourceColumn> getDataSourceColumns(Long dataSourceId) {
@@ -68,8 +77,13 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
     }
 
     @Override
-    public Page<DatabaseDataSource> findAllDataSources(Pageable pageable) {
+    public Page<DatabaseDataSource> findAllDatabaseDataSources(Pageable pageable) {
         return databaseDataSourceRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<DatabaseDataSourceDto> findAllDataSourcesAsDto(Pageable pageable) {
+        return databaseDataSourceToDatabaseDataSourceDtoConverter.convertToPage(findAllDatabaseDataSources(pageable));
     }
 
     @Override
@@ -100,10 +114,14 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
                 .build();
     }
 
+
+
     @Override
     public DatabaseDataSourceForm createDataSource(DatabaseDataSourceForm databaseDataSourceForm) {
         DatabaseDataSource databaseDataSource = buildDataSource(databaseDataSourceForm);
-        return new DatabaseDataSourceForm(updateDataSource(createDataSource(databaseDataSource)));
+        DatabaseDataSource updatedDataSource = updateDataSource(createDataSource(databaseDataSource));
+        DatabaseDataSourceDto updatedDataSourceDto = databaseDataSourceToDatabaseDataSourceDtoConverter.convert(updatedDataSource);
+        return new DatabaseDataSourceForm(updatedDataSourceDto);
     }
 
     @Override
@@ -136,30 +154,33 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
                         .peek(s -> s = s.toUpperCase())
                         .collect(Collectors.toList());
         List<String> newColumnNames = databaseDataSourceForm.getColumns().stream()
-                        .map(DataSourceColumnWeb::getName)
+                        .map(DataSourceColumnForm::getName)
                         .peek(s -> s = s.toUpperCase())
                         .collect(Collectors.toList());
         newColumnNames.replaceAll(String::toUpperCase);
         oldColumnNames.replaceAll(String::toUpperCase);
         List<DataSourceColumn> toRemove = databaseDataSource.getColumns().stream().filter(dataSourceColumn -> !newColumnNames.contains(dataSourceColumn.getName().toUpperCase())).collect(Collectors.toList());
-        List<DataSourceColumnWeb> toAdd = databaseDataSourceForm.getColumns().stream().filter(dataSourceColumn -> !oldColumnNames.contains(dataSourceColumn.getName().toUpperCase())).collect(Collectors.toList());
+        List<DataSourceColumnForm> toAdd = databaseDataSourceForm.getColumns().stream().filter(dataSourceColumn -> !oldColumnNames.contains(dataSourceColumn.getName().toUpperCase())).collect(Collectors.toList());
         if (!toRemove.isEmpty()) {
             databaseDataSource.removeColumns(new HashSet<>(toRemove));
         }
         if (!toAdd.isEmpty()) {
-            convertDataSourceColumnWebToDataSourceColumn(databaseDataSource, dataSourceColumns, toAdd);
+            convertDataSourceColumnFromToDataSourceColumn(databaseDataSource, dataSourceColumns, toAdd);
             databaseDataSource.addColumns(dataSourceColumns);
         }
-        return new DatabaseDataSourceForm(updateDataSource(databaseDataSource));
+        DatabaseDataSource updatedDataSource = updateDataSource(databaseDataSource);
+        DatabaseDataSourceDto updatedDatabaseDataSourceDto = databaseDataSourceToDatabaseDataSourceDtoConverter.convert(updatedDataSource);
+        return new DatabaseDataSourceForm(updatedDatabaseDataSourceDto);
     }
 
-    private void convertDataSourceColumnWebToDataSourceColumn(DatabaseDataSource databaseDataSource, Set<DataSourceColumn> dataSourceColumns, List<DataSourceColumnWeb> toAdd) {
-        for (DataSourceColumnWeb dataSourceColumnWeb : toAdd) {
+    private void convertDataSourceColumnFromToDataSourceColumn(DatabaseDataSource databaseDataSource, Set<DataSourceColumn> dataSourceColumns, List<DataSourceColumnForm
+            > toAdd) {
+        for (DataSourceColumnForm dataSourceColumnForm : toAdd) {
             DataSourceColumn dataSourceColumn = new DataSourceColumn();
-            dataSourceColumn.setName(dataSourceColumnWeb.getName());
-            dataSourceColumn.setPosition(dataSourceColumnWeb.getPosition());
+            dataSourceColumn.setName(dataSourceColumnForm.getName());
+            dataSourceColumn.setPosition(dataSourceColumnForm.getPosition());
             dataSourceColumn.setDataSource(databaseDataSource);
-            dataSourceColumn.setDataValueType(dataSourceColumnWeb.getDataValueType());
+            dataSourceColumn.setDataValueType(dataSourceColumnForm.getDataValueType());
             dataSourceColumns.add(dataSourceColumn);
         }
     }
@@ -177,13 +198,18 @@ public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl impleme
     }
 
     @Override
+    public DatabaseDataSourceDto findDatabaseDataSourceAsDto(Long id) {
+        return databaseDataSourceToDatabaseDataSourceDtoConverter.convert(findDatabaseDataSource(id));
+    }
+
+    @Override
     public void delateDataBaseDataSource(Long id) {
         databaseDataSourceRepository.delete(id);
     }
 
     @Override
     public List<Map<String, DataValueDto>> getPreviewData(DatabaseDataSourceForm databaseDataSourceForm) {
-        DatabaseConnection databaseConnection = databaseConnectionService.findDatabaseConnection(databaseDataSourceForm.getDatabaseConnection().getId());
+        DatabaseConnectionDto databaseConnection = databaseConnectionService.findDatabaseConnectionAsDto(databaseDataSourceForm.getDatabaseConnection().getId());
         DatabaseService databaseService = databaseFactory.getDatabaseService(databaseDataSourceForm.getDatabaseConnection().getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnection);
         List<Map<String, DataValueDto>> dataSourcePreviewData = databaseService.getDataSourcePreview(connection, buildDataSource(databaseDataSourceForm));
