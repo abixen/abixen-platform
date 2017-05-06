@@ -15,12 +15,12 @@
 package com.abixen.platform.service.webcontent.facade;
 
 
-import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigDto;
+import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigurationDto;
 import com.abixen.platform.service.webcontent.form.WebContentModuleConfigForm;
 
-public interface WebContentModuleConfigFacade {
+public interface WebContentModuleConfigurationFacade {
 
-    WebContentModuleConfigDto findWebContentModuleConfig(Long moduleId);
+    WebContentModuleConfigurationDto findWebContentModuleConfiguration(Long moduleId);
 
-    WebContentModuleConfigDto saveWebContentModuleConfig(WebContentModuleConfigForm webContentModuleConfigForm);
+    WebContentModuleConfigurationDto saveWebContentModuleConfiguration(WebContentModuleConfigForm webContentModuleConfigForm);
 }

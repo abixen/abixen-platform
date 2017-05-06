@@ -14,9 +14,9 @@
 
 package com.abixen.platform.service.webcontent.facade.impl;
 
-import com.abixen.platform.service.webcontent.converter.WebContentModuleConfigToWebContentModuleConfigDtoConverter;
-import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigDto;
-import com.abixen.platform.service.webcontent.facade.WebContentModuleConfigFacade;
+import com.abixen.platform.service.webcontent.converter.WebContentModuleConfigurationToWebContentModuleConfigurationDtoConverter;
+import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigurationDto;
+import com.abixen.platform.service.webcontent.facade.WebContentModuleConfigurationFacade;
 import com.abixen.platform.service.webcontent.form.WebContentModuleConfigForm;
 import com.abixen.platform.service.webcontent.model.impl.WebContentModuleConfig;
 import com.abixen.platform.service.webcontent.service.WebContentModuleConfigService;
@@ -26,29 +26,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Service
-public class WebContentModuleConfigFacadeImpl implements WebContentModuleConfigFacade {
+public class WebContentModuleConfigurationFacadeImpl implements WebContentModuleConfigurationFacade {
 
     private final WebContentModuleConfigService webContentModuleConfigService;
-    private final WebContentModuleConfigToWebContentModuleConfigDtoConverter converter;
+    private final WebContentModuleConfigurationToWebContentModuleConfigurationDtoConverter converter;
 
     @Autowired
-    public WebContentModuleConfigFacadeImpl(WebContentModuleConfigService webContentModuleConfigService,
-                                            WebContentModuleConfigToWebContentModuleConfigDtoConverter converter) {
+    public WebContentModuleConfigurationFacadeImpl(WebContentModuleConfigService webContentModuleConfigService,
+                                                   WebContentModuleConfigurationToWebContentModuleConfigurationDtoConverter converter) {
         this.webContentModuleConfigService = webContentModuleConfigService;
         this.converter = converter;
     }
 
     @Override
-    public WebContentModuleConfigDto findWebContentModuleConfig(Long moduleId) {
+    public WebContentModuleConfigurationDto findWebContentModuleConfiguration(Long moduleId) {
         WebContentModuleConfig webContentModuleConfig = webContentModuleConfigService.findWebContentModuleConfig(moduleId);
-        WebContentModuleConfigDto webContentModuleConfigDto = converter.convert(webContentModuleConfig);
-        return webContentModuleConfigDto;
+        WebContentModuleConfigurationDto webContentModuleConfigurationDto = converter.convert(webContentModuleConfig);
+        return webContentModuleConfigurationDto;
     }
 
     @Override
-    public WebContentModuleConfigDto saveWebContentModuleConfig(WebContentModuleConfigForm webContentModuleConfigForm) {
+    public WebContentModuleConfigurationDto saveWebContentModuleConfiguration(WebContentModuleConfigForm webContentModuleConfigForm) {
         WebContentModuleConfig savedWebContentModuleConfig = webContentModuleConfigService.saveWebContentModuleConfig(webContentModuleConfigForm);
-        WebContentModuleConfigDto savedWebContentModuleConfigDto = converter.convert(savedWebContentModuleConfig);
-        return savedWebContentModuleConfigDto;
+        WebContentModuleConfigurationDto savedWebContentModuleConfigurationDto = converter.convert(savedWebContentModuleConfig);
+        return savedWebContentModuleConfigurationDto;
     }
 }

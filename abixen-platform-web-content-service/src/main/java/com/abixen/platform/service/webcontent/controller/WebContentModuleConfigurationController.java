@@ -14,30 +14,30 @@
 
 package com.abixen.platform.service.webcontent.controller;
 
-import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigDto;
-import com.abixen.platform.service.webcontent.facade.WebContentModuleConfigFacade;
+import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigurationDto;
+import com.abixen.platform.service.webcontent.facade.WebContentModuleConfigurationFacade;
 import com.abixen.platform.service.webcontent.form.WebContentModuleConfigForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/service/abixen/web-content/application/web-content-module-config")
-public class WebContentModuleConfigController {
+public class WebContentModuleConfigurationController {
 
-    private final WebContentModuleConfigFacade webContentModuleConfigFacade;
+    private final WebContentModuleConfigurationFacade webContentModuleConfigurationFacade;
 
     @Autowired
-    public WebContentModuleConfigController(WebContentModuleConfigFacade webContentModuleConfigFacade) {
-        this.webContentModuleConfigFacade = webContentModuleConfigFacade;
+    public WebContentModuleConfigurationController(WebContentModuleConfigurationFacade webContentModuleConfigurationFacade) {
+        this.webContentModuleConfigurationFacade = webContentModuleConfigurationFacade;
     }
 
     @RequestMapping(value = "/{moduleId}", method = RequestMethod.GET)
-    public WebContentModuleConfigDto findWebContentModuleConfig(@PathVariable Long moduleId) {
-        return webContentModuleConfigFacade.findWebContentModuleConfig(moduleId);
+    public WebContentModuleConfigurationDto findWebContentModuleConfig(@PathVariable Long moduleId) {
+        return webContentModuleConfigurationFacade.findWebContentModuleConfiguration(moduleId);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public WebContentModuleConfigDto saveWebContentModuleConfig(@RequestBody WebContentModuleConfigForm webContentModuleConfigForm) {
-        return webContentModuleConfigFacade.saveWebContentModuleConfig(webContentModuleConfigForm);
+    public WebContentModuleConfigurationDto saveWebContentModuleConfig(@RequestBody WebContentModuleConfigForm webContentModuleConfigForm) {
+        return webContentModuleConfigurationFacade.saveWebContentModuleConfiguration(webContentModuleConfigForm);
     }
 }

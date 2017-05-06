@@ -14,7 +14,7 @@
 package com.abixen.platform.service.webcontent.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigDto;
+import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigurationDto;
 import com.abixen.platform.service.webcontent.model.impl.WebContentModuleConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,32 +22,32 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public class WebContentModuleConfigToWebContentModuleConfigDtoConverter extends AbstractConverter<WebContentModuleConfig, WebContentModuleConfigDto> {
+public class WebContentModuleConfigurationToWebContentModuleConfigurationDtoConverter extends AbstractConverter<WebContentModuleConfig, WebContentModuleConfigurationDto> {
 
     private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
     private final WebContentToWebContentDtoConverter webContentToWebContentDtoConverter;
 
     @Autowired
-    public WebContentModuleConfigToWebContentModuleConfigDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter,
-                                                                      WebContentToWebContentDtoConverter webContentToWebContentDtoConverter) {
+    public WebContentModuleConfigurationToWebContentModuleConfigurationDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter,
+                                                                                    WebContentToWebContentDtoConverter webContentToWebContentDtoConverter) {
         this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
         this.webContentToWebContentDtoConverter = webContentToWebContentDtoConverter;
     }
 
     @Override
-    public WebContentModuleConfigDto convert(WebContentModuleConfig webContentModuleConfig, Map<String, Object> parameters) {
+    public WebContentModuleConfigurationDto convert(WebContentModuleConfig webContentModuleConfig, Map<String, Object> parameters) {
         if (webContentModuleConfig == null) {
             return null;
         }
 
-        WebContentModuleConfigDto webContentModuleConfigDto = new WebContentModuleConfigDto();
+        WebContentModuleConfigurationDto webContentModuleConfigurationDto = new WebContentModuleConfigurationDto();
 
-        webContentModuleConfigDto.setId(webContentModuleConfig.getId())
+        webContentModuleConfigurationDto.setId(webContentModuleConfig.getId())
                 .setModuleId(webContentModuleConfig.getModuleId())
                 .setContentId(webContentModuleConfig.getWebContent().getId());
 
-        auditingModelToAuditingDtoConverter.convert(webContentModuleConfig, webContentModuleConfigDto);
+        auditingModelToAuditingDtoConverter.convert(webContentModuleConfig, webContentModuleConfigurationDto);
 
-        return webContentModuleConfigDto;
+        return webContentModuleConfigurationDto;
     }
 }

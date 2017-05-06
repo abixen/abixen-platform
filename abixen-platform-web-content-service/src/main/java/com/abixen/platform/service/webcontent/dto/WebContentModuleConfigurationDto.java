@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @ToString
-public class WebContentModuleConfigDto extends AuditingDto {
+public class WebContentModuleConfigurationDto extends AuditingDto {
 
     private Long id;
     private Long moduleId;
