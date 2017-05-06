@@ -96,7 +96,7 @@ public class StructureServiceImplTest {
 
     @Test
     public void updateStructure() {
-        Structure structure = structureService.findStructureById(new Long(1));
+        Structure structure = structureService.findStructure(new Long(1));
         StructureDto structureDto = structureToStructureDtoConverter.convert(structure);
         StructureForm structureForm = new StructureForm(structureDto);
         structureForm.setName("Test Structure1");

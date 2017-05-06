@@ -14,36 +14,28 @@
 
 package com.abixen.platform.service.webcontent.controller;
 
-import com.abixen.platform.service.webcontent.converter.WebContentToWebContentDtoConverter;
 import com.abixen.platform.service.webcontent.dto.WebContentDto;
-import com.abixen.platform.service.webcontent.service.WebContentService;
-import lombok.extern.slf4j.Slf4j;
+import com.abixen.platform.service.webcontent.facade.WebContentFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/api/service/abixen/web-content/application/web-contents")
 public class ApplicationWebContentController extends AbstractWebContentController {
 
-    private final WebContentService webContentService;
-    private final WebContentToWebContentDtoConverter webContentToWebContentDtoConverter;
+    private final WebContentFacade webContentFacade;
 
     @Autowired
-    public ApplicationWebContentController(WebContentService webContentService,
-                                           WebContentToWebContentDtoConverter webContentToWebContentDtoConverter) {
-        super(webContentService, webContentToWebContentDtoConverter);
-        this.webContentService = webContentService;
-        this.webContentToWebContentDtoConverter = webContentToWebContentDtoConverter;
+    public ApplicationWebContentController(WebContentFacade webContentFacade) {
+        super(webContentFacade);
+        this.webContentFacade = webContentFacade;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public WebContentDto getWebContent(@PathVariable Long id) {
-        log.debug("getSimpleWebContent() - id: {}", id);
-
-        return webContentService.findAndAssembleWebContent(id);
+    public WebContentDto findWebContent(@PathVariable Long id) {
+        return webContentFacade.findAndAssembleWebContent(id);
     }
 }

@@ -68,7 +68,7 @@ public class TemplateControllerTest {
 
     @After
     public void tearDown() throws Exception {
-        templateService.removeTemplate(template.getId());
+        templateService.deleteTemplate(template.getId());
     }
 
 }

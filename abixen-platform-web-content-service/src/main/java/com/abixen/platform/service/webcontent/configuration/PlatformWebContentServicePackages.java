@@ -27,6 +27,8 @@ public class PlatformWebContentServicePackages {
 
     public static final String CONTROLLER = MAIN + ".controller";
 
+    public static final String FACADE = MAIN + ".facade";
+
     public static final String SERVICE = MAIN + ".service";
 
     public static final String REPOSITORY = MAIN + ".repository";

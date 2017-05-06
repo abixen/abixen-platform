@@ -27,9 +27,9 @@ public interface TemplateService {
 
     Template updateTemplate(TemplateForm templateForm);
 
-    void removeTemplate(Long templateId);
+    void deleteTemplate(Long templateId);
 
-    Template findTemplateById(Long templateId);
+    Template findTemplate(Long templateId);
 
     Page<Template> findAllTemplates(Pageable pageable);
 

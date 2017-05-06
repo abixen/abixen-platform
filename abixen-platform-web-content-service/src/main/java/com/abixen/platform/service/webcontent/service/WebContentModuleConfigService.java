@@ -16,10 +16,11 @@ package com.abixen.platform.service.webcontent.service;
 
 
 import com.abixen.platform.service.webcontent.form.WebContentModuleConfigForm;
+import com.abixen.platform.service.webcontent.model.impl.WebContentModuleConfig;
 
 public interface WebContentModuleConfigService {
 
-    WebContentModuleConfigForm findByModuleId(Long moduleId);
+    WebContentModuleConfig findWebContentModuleConfig(Long moduleId);
 
-    void save(WebContentModuleConfigForm webContentModuleConfigForm);
+    WebContentModuleConfig saveWebContentModuleConfig(WebContentModuleConfigForm webContentModuleConfigForm);
 }

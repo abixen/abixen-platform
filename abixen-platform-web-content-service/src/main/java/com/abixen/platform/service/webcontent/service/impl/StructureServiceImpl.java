@@ -24,27 +24,31 @@ import com.abixen.platform.service.webcontent.service.TemplateService;
 import com.abixen.platform.service.webcontent.util.ParserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
 
-import javax.annotation.Resource;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
 @Slf4j
-@Transactional
 @Service
 public class StructureServiceImpl implements StructureService {
 
-    @Resource
-    private StructureRepository structureRepository;
-    @Resource
-    private TemplateService templateService;
+    private final TemplateService templateService;
+    private final StructureRepository structureRepository;
+
+    @Autowired
+    public StructureServiceImpl(TemplateService templateService,
+                                StructureRepository structureRepository) {
+        this.templateService = templateService;
+        this.structureRepository = structureRepository;
+    }
+
 
     @Override
     public Structure createStructure(StructureForm structureForm) {
@@ -52,7 +56,7 @@ public class StructureServiceImpl implements StructureService {
         Structure structure = new Structure();
         structure.setName(structureForm.getName());
         structure.setContent(structureForm.getContent());
-        Template template = templateService.findTemplateById(structureForm.getTemplate().getId());
+        Template template = templateService.findTemplate(structureForm.getTemplate().getId());
         validateStructureTemplate(structure, template);
         structure.setTemplate(template);
         return structureRepository.save(structure);
@@ -61,10 +65,10 @@ public class StructureServiceImpl implements StructureService {
     @Override
     public Structure updateStructure(StructureForm structureForm) {
         log.debug("updateStructure() - structureForm: {}", structureForm);
-        Structure structure = findStructureById(structureForm.getId());
+        Structure structure = structureRepository.findOne(structureForm.getId());
         structure.setName(structureForm.getName());
         structure.setContent(structureForm.getContent());
-        Template template = templateService.findTemplateById(structureForm.getTemplate().getId());
+        Template template = templateService.findTemplate(structureForm.getTemplate().getId());
         validateStructureTemplate(structure, template);
         structure.setTemplate(template);
         return structureRepository.save(structure);
@@ -74,7 +78,7 @@ public class StructureServiceImpl implements StructureService {
         String templateContents = template.getContent();
         String structureContents = structure.getContent();
         Set<String> templateKeys = ParserUtil.evaluateEL(templateContents);
-        Set<String> attributeValues = null;
+        Set<String> attributeValues;
         try {
             attributeValues = ParserUtil.parseAttributes(structureContents);
         } catch (ParserConfigurationException | IOException | SAXException e) {
@@ -96,19 +100,15 @@ public class StructureServiceImpl implements StructureService {
     }
 
     @Override
-    public void removeStructure(Long structureId) {
-        log.debug("removeStructure() - structureId: {}", structureId);
+    public void deleteStructure(Long structureId) {
+        log.debug("deleteStructure() - structureId: {}", structureId);
         structureRepository.delete(structureId);
     }
 
     @Override
-    public Structure findStructureById(Long structureId) {
+    public Structure findStructure(Long structureId) {
         log.debug("findStructureById() - structureId: {}", structureId);
-        Structure structure = structureRepository.findOne(structureId);
-        if (structure == null) {
-            throw new PlatformServiceRuntimeException(String.format("Structure with id=%d not found", structureId));
-        }
-        return structure;
+        return structureRepository.findOne(structureId);
     }
 
     @Override

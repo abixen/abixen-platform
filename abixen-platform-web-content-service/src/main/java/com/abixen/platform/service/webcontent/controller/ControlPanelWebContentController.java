@@ -17,11 +17,9 @@ package com.abixen.platform.service.webcontent.controller;
 import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
-import com.abixen.platform.service.webcontent.converter.WebContentToWebContentDtoConverter;
 import com.abixen.platform.service.webcontent.dto.WebContentDto;
+import com.abixen.platform.service.webcontent.facade.WebContentFacade;
 import com.abixen.platform.service.webcontent.form.WebContentForm;
-import com.abixen.platform.service.webcontent.model.impl.WebContent;
-import com.abixen.platform.service.webcontent.service.WebContentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -35,23 +33,19 @@ import java.util.List;
 @RequestMapping(value = "/api/service/abixen/web-content/control-panel/web-contents")
 public class ControlPanelWebContentController extends AbstractWebContentController {
 
-    private final WebContentService webContentService;
-    private final WebContentToWebContentDtoConverter webContentToWebContentDtoConverter;
+    private final WebContentFacade webContentFacade;
 
     @Autowired
-    public ControlPanelWebContentController(WebContentService webContentService,
-                                            WebContentToWebContentDtoConverter webContentToWebContentDtoConverter) {
-        super(webContentService, webContentToWebContentDtoConverter);
-        this.webContentService = webContentService;
-        this.webContentToWebContentDtoConverter = webContentToWebContentDtoConverter;
+    public ControlPanelWebContentController(WebContentFacade webContentFacade) {
+        super(webContentFacade);
+        this.webContentFacade = webContentFacade;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public WebContentDto getWebContent(@PathVariable Long id) {
+    public WebContentDto findWebContent(@PathVariable Long id) {
         log.debug("getWebContent() - id: {}", id);
 
-        WebContent webContent = webContentService.findWebContent(id);
-        return webContentToWebContentDtoConverter.convert(webContent);
+        return webContentFacade.findWebContent(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -62,7 +56,7 @@ public class ControlPanelWebContentController extends AbstractWebContentControll
             return new FormValidationResultDto(simpleWebContentForm, formErrors);
         }
 
-        webContentService.createWebContent(simpleWebContentForm);
+        webContentFacade.createWebContent(simpleWebContentForm);
 
         return new FormValidationResultDto(simpleWebContentForm);
     }
@@ -76,13 +70,13 @@ public class ControlPanelWebContentController extends AbstractWebContentControll
             return new FormValidationResultDto(simpleWebContentForm, formErrors);
         }
 
-        webContentService.updateWebContent(simpleWebContentForm);
+        webContentFacade.updateWebContent(simpleWebContentForm);
 
         return new FormValidationResultDto(simpleWebContentForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteWebContent(@PathVariable("id") Long id) {
-        webContentService.deleteWebContent(id);
+        webContentFacade.deleteWebContent(id);
     }
 }

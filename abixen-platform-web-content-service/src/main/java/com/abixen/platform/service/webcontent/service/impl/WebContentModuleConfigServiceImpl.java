@@ -29,7 +29,6 @@ public class WebContentModuleConfigServiceImpl implements WebContentModuleConfig
     private final WebContentModuleConfigRepository webContentModuleConfigRepository;
     private final WebContentService webContentService;
 
-
     @Autowired
     public WebContentModuleConfigServiceImpl(WebContentModuleConfigRepository webContentModuleConfigRepository,
                                              WebContentService webContentService) {
@@ -38,21 +37,17 @@ public class WebContentModuleConfigServiceImpl implements WebContentModuleConfig
     }
 
     @Override
-    public WebContentModuleConfigForm findByModuleId(Long moduleId) {
-        WebContentModuleConfig webContentModuleConfig = webContentModuleConfigRepository.findByModuleId(moduleId);
-        if (webContentModuleConfig != null) {
-            return new WebContentModuleConfigForm(webContentModuleConfig);
-        }
-        return null;
+    public WebContentModuleConfig findWebContentModuleConfig(Long moduleId) {
+        return webContentModuleConfigRepository.findByModuleId(moduleId);
     }
 
     @Override
-    public void save(WebContentModuleConfigForm webContentModuleConfigForm) {
+    public WebContentModuleConfig saveWebContentModuleConfig(WebContentModuleConfigForm webContentModuleConfigForm) {
         WebContentModuleConfig webContentModuleConfig = new WebContentModuleConfig();
         webContentModuleConfig.setId(webContentModuleConfigForm.getId());
         webContentModuleConfig.setModuleId(webContentModuleConfigForm.getModuleId());
         WebContent webContent = webContentService.findWebContent(webContentModuleConfigForm.getContentId());
         webContentModuleConfig.setWebContent(webContent);
-        webContentModuleConfigRepository.save(webContentModuleConfig);
+        return webContentModuleConfigRepository.save(webContentModuleConfig);
     }
 }

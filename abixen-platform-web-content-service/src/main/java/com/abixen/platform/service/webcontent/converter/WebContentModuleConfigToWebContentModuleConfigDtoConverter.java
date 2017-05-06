@@ -36,6 +36,10 @@ public class WebContentModuleConfigToWebContentModuleConfigDtoConverter extends 
 
     @Override
     public WebContentModuleConfigDto convert(WebContentModuleConfig webContentModuleConfig, Map<String, Object> parameters) {
+        if (webContentModuleConfig == null) {
+            return null;
+        }
+
         WebContentModuleConfigDto webContentModuleConfigDto = new WebContentModuleConfigDto();
 
         webContentModuleConfigDto.setId(webContentModuleConfig.getId())

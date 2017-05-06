@@ -12,27 +12,27 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.service;
+package com.abixen.platform.service.webcontent.facade;
 
+import com.abixen.platform.service.webcontent.dto.StructureDto;
 import com.abixen.platform.service.webcontent.form.StructureForm;
-import com.abixen.platform.service.webcontent.model.impl.Structure;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface StructureService {
+public interface StructureFacade {
 
-    Structure createStructure(StructureForm structureForm);
+    StructureDto createStructure(StructureForm structureForm);
 
-    Structure updateStructure(StructureForm structureForm);
+    StructureDto updateStructure(StructureForm structureForm);
 
     void deleteStructure(Long structureId);
 
-    Structure findStructure(Long structureId);
+    StructureDto findStructure(Long structureId);
 
-    Page<Structure> findAllStructures(Pageable pageable);
+    Page<StructureDto> findAllStructures(Pageable pageable);
 
-    List<Structure> findAllStructures();
+    List<StructureDto> findAllStructures();
 
 }

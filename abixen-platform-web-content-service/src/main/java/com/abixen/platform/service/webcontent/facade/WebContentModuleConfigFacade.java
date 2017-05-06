@@ -12,16 +12,15 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.configuration;
-
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
-import static com.abixen.platform.service.webcontent.configuration.PlatformWebContentServicePackages.*;
+package com.abixen.platform.service.webcontent.facade;
 
 
-@Configuration
-@ComponentScan(basePackages = {CONFIG, CONTROLLER, FACADE, SERVICE, REPOSITORY, CONVERTER})
-public class PlatformWebContentServiceConfiguration {
+import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigDto;
+import com.abixen.platform.service.webcontent.form.WebContentModuleConfigForm;
 
+public interface WebContentModuleConfigFacade {
+
+    WebContentModuleConfigDto findWebContentModuleConfig(Long moduleId);
+
+    WebContentModuleConfigDto saveWebContentModuleConfig(WebContentModuleConfigForm webContentModuleConfigForm);
 }

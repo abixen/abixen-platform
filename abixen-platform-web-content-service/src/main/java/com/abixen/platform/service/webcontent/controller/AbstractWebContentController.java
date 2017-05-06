@@ -14,36 +14,25 @@
 
 package com.abixen.platform.service.webcontent.controller;
 
-import com.abixen.platform.service.webcontent.converter.WebContentToWebContentDtoConverter;
 import com.abixen.platform.service.webcontent.dto.WebContentDto;
-import com.abixen.platform.service.webcontent.model.impl.WebContent;
-import com.abixen.platform.service.webcontent.service.WebContentService;
-import lombok.extern.slf4j.Slf4j;
+import com.abixen.platform.service.webcontent.facade.WebContentFacade;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Slf4j
 public class AbstractWebContentController {
 
-    private final WebContentService webContentService;
-    private final WebContentToWebContentDtoConverter webContentToWebContentDtoConverter;
+    private final WebContentFacade webContentFacade;
 
-    public AbstractWebContentController(WebContentService webContentService,
-                                        WebContentToWebContentDtoConverter webContentToWebContentDtoConverter) {
-        this.webContentService = webContentService;
-        this.webContentToWebContentDtoConverter = webContentToWebContentDtoConverter;
+    public AbstractWebContentController(WebContentFacade webContentFacade) {
+        this.webContentFacade = webContentFacade;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<WebContentDto> getWebContents(@PageableDefault(size = 1) Pageable pageable) {
-        log.debug("getWebContents()- pageable: {}", pageable);
+    public Page<WebContentDto> findWebContents(@PageableDefault(size = 1) Pageable pageable) {
 
-        Page<WebContent> webContents = webContentService.getWebContents(pageable);
-        Page<WebContentDto> webContentsDtos = webContentToWebContentDtoConverter.convertToPage(webContents);
-
-        return webContentsDtos;
+        return webContentFacade.findWebContents(pageable);
     }
 }

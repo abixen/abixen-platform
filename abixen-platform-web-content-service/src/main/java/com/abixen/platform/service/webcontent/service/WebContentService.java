@@ -14,8 +14,6 @@
 
 package com.abixen.platform.service.webcontent.service;
 
-import com.abixen.platform.service.webcontent.dto.WebContentDto;
-import com.abixen.platform.service.webcontent.form.SearchWebContentForm;
 import com.abixen.platform.service.webcontent.form.WebContentForm;
 import com.abixen.platform.service.webcontent.model.impl.WebContent;
 import org.springframework.data.domain.Page;
@@ -25,15 +23,11 @@ public interface WebContentService {
 
     WebContent createWebContent(WebContentForm webContentForm);
 
-    WebContent updateWebContent(WebContentForm advancedWebContentForm);
+    WebContent updateWebContent(WebContentForm webContentForm);
 
-    WebContent findWebContent(Long id);
+    WebContent findWebContent(Long webContentId);
 
-    WebContentDto findAndAssembleWebContent(Long id);
+    Page<WebContent> findWebContents(Pageable pageable);
 
-    Page<WebContent> getWebContents(Pageable pageable);
-
-    Page<WebContent> getWebContents(Pageable pageable, SearchWebContentForm searchWebContentForm);
-
-    void deleteWebContent(Long id);
+    void deleteWebContent(Long webContentId);
 }
