@@ -23,13 +23,13 @@
     WebContentModuleInitController.$inject = [
         '$scope',
         '$log',
+        'WebContentConfigObject',
         'WebContentConfig',
-        'WebContentConfigData',
         'WebContent',
         'moduleResponseErrorHandler'
     ];
 
-    function WebContentModuleInitController($scope, $log, WebContentConfig, WebContentConfigData, WebContent, moduleResponseErrorHandler) {
+    function WebContentModuleInitController($scope, $log, WebContentConfigObject, WebContentConfig, WebContent, moduleResponseErrorHandler) {
         $log.log('WebContentModuleInitController');
 
         var webContentModuleInit = this;
@@ -44,21 +44,21 @@
 
             $scope.moduleId = id;
 
-            WebContentConfigData.get({moduleId:id})
+            WebContentConfig.get({moduleId: id})
                 .$promise
                 .then(onGetResult);
 
-            function onGetResult(webContentConfigData) {
-                if (webContentConfigData.moduleId) {
-                    WebContentConfig.setConfig(webContentConfigData);
-                    WebContent.get({id:webContentConfigData.contentId})
+            function onGetResult(webContentConfig) {
+                if (webContentConfig.moduleId) {
+                    WebContentConfigObject.setConfig(webContentConfig);
+                    WebContent.get({id: webContentConfig.contentId})
                         .$promise
                         .then(onGetResult);
                 } else {
                     $scope.$emit(platformParameters.events.MODULE_CONFIGURATION_MISSING);
-                    var webContentConfig = WebContentConfig.getDefaultConfig();
+                    var webContentConfig = WebContentConfigObject.getDefaultConfig();
                     webContentConfig.moduleId = id;
-                    WebContentConfig.setConfig(webContentConfig)
+                    WebContentConfigObject.setConfig(webContentConfig)
                 }
 
                 function onGetResult(webContent) {
@@ -68,11 +68,11 @@
 
         });
 
-        function setView(type){
-            if (type == 'ADVANCED') {
+        function setView(type) {
+            if (type === 'ADVANCED') {
                 webContentModuleInit.subview = SUBVIEW_ADVANCED;
             }
-            if(type == 'SIMPLE') {
+            if (type === 'SIMPLE') {
                 webContentModuleInit.subview = SUBVIEW_SIMPLE;
             }
         }
@@ -85,7 +85,7 @@
 
         $scope.$on('VIEW_MODE', function (event, id) {
             $log.log('VIEW_MODE EVENT', event, id);
-            WebContentConfig.clearChangedConfig(id);
+            WebContentConfigObject.clearChangedConfig(id);
             webContentModuleInit.subview = SUBVIEW_SIMPLE;
             $scope.$emit(platformParameters.events.VIEW_MODE_READY);
         });

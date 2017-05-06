@@ -12,21 +12,17 @@
  * details.
  */
 
-(function () {
+package com.abixen.platform.service.webcontent.service;
 
-    'use strict';
 
-    angular
-        .module('webContentConfigurationModule')
-        .factory('WebContent', WebContent);
+import com.abixen.platform.service.webcontent.form.WebContentModuleConfigForm;
+import com.abixen.platform.service.webcontent.model.impl.WebContentModuleConfig;
 
-    WebContent.$inject = ['$resource'];
+public interface WebContentModuleConfigurationService {
 
-    function WebContent($resource) {
+    WebContentModuleConfig findWebContentModuleConfig(Long moduleId);
 
-        return $resource('/api/service/abixen/web-content/control-panel/web-contents', {}, {
-            query: {method: 'GET', isArray: false}
-        });
-    }
+    WebContentModuleConfig createWebContentModuleConfig(WebContentModuleConfigForm webContentModuleConfigForm);
 
-})();
+    WebContentModuleConfig updateWebContentModuleConfig(WebContentModuleConfigForm webContentModuleConfigForm);
+}

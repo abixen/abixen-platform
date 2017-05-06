@@ -18,15 +18,15 @@
 
     angular
         .module('webContentService')
-        .factory('WebContentConfigData', WebContentConfigData);
+        .factory('WebContentConfig', WebContentConfig);
 
-    WebContentConfigData.$inject = ['$resource'];
+    WebContentConfig.$inject = ['$resource'];
 
-    function WebContentConfigData($resource) {
+    function WebContentConfig($resource) {
 
         return $resource('/api/service/abixen/web-content/application/web-content-module-config/:moduleId', {}, {
             query: {method: 'GET', isArray: false},
-            save: {method: 'PUT'}
+            update: {method: 'PUT'}
         });
     }
 

@@ -22,5 +22,7 @@ public interface WebContentModuleConfigurationFacade {
 
     WebContentModuleConfigurationDto findWebContentModuleConfiguration(Long moduleId);
 
-    WebContentModuleConfigurationDto saveWebContentModuleConfiguration(WebContentModuleConfigForm webContentModuleConfigForm);
+    WebContentModuleConfigurationDto createWebContentModuleConfiguration(WebContentModuleConfigForm webContentModuleConfigForm);
+
+    WebContentModuleConfigurationDto updateWebContentModuleConfiguration(WebContentModuleConfigForm webContentModuleConfigForm);
 }

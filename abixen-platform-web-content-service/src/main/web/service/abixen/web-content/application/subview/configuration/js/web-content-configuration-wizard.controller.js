@@ -23,12 +23,12 @@
     ConfigurationWizardController.$inject = [
         '$scope',
         '$log',
+        'WebContentConfigObject',
         'WebContentConfig',
-        'WebContentConfigData',
         'moduleResponseErrorHandler'
     ];
 
-    function ConfigurationWizardController($scope, $log, WebContentConfig, WebContentConfigData, moduleResponseErrorHandler) {
+    function ConfigurationWizardController($scope, $log, WebContentConfigObject, WebContentConfig, moduleResponseErrorHandler) {
         $log.log('WebContentConfigurationWizardController');
 
         var webContentConfigurationWizard = this;
@@ -39,23 +39,37 @@
         webContentConfigurationWizard.prev = prev;
         webContentConfigurationWizard.next = next;
         webContentConfigurationWizard.canNext = canNext;
-        
+
         function prev() {
             if (webContentConfigurationWizard.stepCurrent > 0) {
                 webContentConfigurationWizard.stepCurrent--;
             }
         }
-        
+
         function next() {
             if (webContentConfigurationWizard.stepCurrent < webContentConfigurationWizard.stepMax) {
                 webContentConfigurationWizard.stepCurrent++;
             } else if (webContentConfigurationWizard.stepCurrent === webContentConfigurationWizard.stepMax) {
-                WebContentConfigData.save(WebContentConfig.getChangedConfig($scope.moduleId));
-                WebContentConfig.setConfig(WebContentConfig.getChangedConfig($scope.moduleId));
+
+                WebContentConfigObject.setConfig(WebContentConfigObject.getChangedConfig($scope.moduleId));
+                var configuration = WebContentConfigObject.getConfig($scope.moduleId);
+
+                if (configuration.id !== null) {
+                    WebContentConfig.update({moduleId: configuration.moduleId}, configuration)
+                        .$promise
+                        .then(onResult);
+                } else {
+                    WebContentConfig.save(configuration)
+                        .$promise
+                        .then(onResult);
+                }
+            }
+            function onResult() {
+                WebContentConfigObject.setConfig(WebContentConfigObject.getChangedConfig($scope.moduleId));
                 $scope.$emit('VIEW_MODE');
             }
         }
-        
+
         function canNext() {
             if (webContentConfigurationWizard.stepCurrent < webContentConfigurationWizard.stepMax) {
                 return true;
@@ -66,8 +80,9 @@
         }
 
         function prepareNewObjectForConfig() {
-            WebContentConfig.setChangedConfig(WebContentConfig.getConfig($scope.moduleId));
+            WebContentConfigObject.setChangedConfig(WebContentConfigObject.getConfig($scope.moduleId));
         }
+
         prepareNewObjectForConfig()
     }
 })();

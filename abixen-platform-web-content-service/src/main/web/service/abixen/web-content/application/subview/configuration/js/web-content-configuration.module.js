@@ -17,6 +17,5 @@
     'use strict';
 
     angular
-        .module('webContentConfigurationModule', [
-        ]);
+        .module('webContentConfigurationModule', []);
 })();

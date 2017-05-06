@@ -25,11 +25,11 @@
         '$log',
         '$sce',
         'WebContent',
-        'WebContentConfig',
+        'WebContentConfigObject',
         'moduleResponseErrorHandler'
     ];
 
-    function WebContentViewController($scope, $log, $sce, WebContent, WebContentConfig, moduleResponseErrorHandler) {
+    function WebContentViewController($scope, $log, $sce, WebContent, WebContentConfigObject, moduleResponseErrorHandler) {
         $log.log('WebContentViewController');
 
         var webContentView = this;
@@ -38,13 +38,13 @@
 
 
         function getWebContent(id) {
-            WebContent.get({id:id})
+            WebContent.get({id: id})
                 .$promise
                 .then(onGetResult);
         }
 
         function onGetResult(webContent) {
-            if (webContent){
+            if (webContent) {
                 webContentView.entity = webContent;
                 webContentView.entity.content = $sce.trustAsHtml(webContentView.entity.content);
             }
@@ -53,7 +53,7 @@
             }
         }
 
-        getWebContent(WebContentConfig.getConfig($scope.moduleId).contentId)
+        getWebContent(WebContentConfigObject.getConfig($scope.moduleId).contentId)
 
 
     }

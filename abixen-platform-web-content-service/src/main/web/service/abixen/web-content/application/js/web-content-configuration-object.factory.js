@@ -18,11 +18,11 @@
 
     angular
         .module('webContentConfigurationModule')
-        .factory('WebContentConfig', WebContentConfig);
+        .factory('WebContentConfigObject', WebContentConfigObject);
 
-    WebContentConfig.$inject = ['$resource'];
+    WebContentConfigObject.$inject = ['$resource'];
 
-    function WebContentConfig() {
+    function WebContentConfigObject() {
         var webContentConfigList = {};
         var webContentChangedConfigList = {};
 
@@ -63,6 +63,7 @@
 
         function getDefaultConfig() {
             return {
+                id: null,
                 moduleId: null,
                 contentId: null
             }

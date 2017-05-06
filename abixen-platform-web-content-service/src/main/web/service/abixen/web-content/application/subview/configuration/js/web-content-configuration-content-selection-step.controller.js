@@ -24,16 +24,16 @@
         '$scope',
         '$log',
         'WebContent',
-        'WebContentConfig',
+        'WebContentConfigObject',
         'moduleResponseErrorHandler'
     ];
 
-    function ContentSelectionStepController($scope, $log, WebContent, WebContentConfig, moduleResponseErrorHandler) {
+    function ContentSelectionStepController($scope, $log, WebContent, WebContentConfigObject, moduleResponseErrorHandler) {
         $log.log('ContentSelectionStepController');
 
         var contentSelectionStep = this;
 
-        contentSelectionStep.webContentConfig = WebContentConfig.getChangedConfig($scope.moduleId);
+        contentSelectionStep.webContentConfig = WebContentConfigObject.getChangedConfig($scope.moduleId);
         contentSelectionStep.selectedRowTitle = "Content not selected";
 
         angular.extend(contentSelectionStep, new AbstractListGridController(WebContent,
@@ -49,19 +49,26 @@
             if (row && contentSelectionStep.webContentConfig) {
                 contentSelectionStep.webContentConfig.contentId = row.entity.id;
                 contentSelectionStep.selectedRowTitle = row.entity.title;
-                WebContentConfig.setChangedConfig(contentSelectionStep.webContentConfig);
+                WebContentConfigObject.setChangedConfig(contentSelectionStep.webContentConfig);
             }
         }
 
         function getTableColumns() {
             return [
-                {field: 'id', name: 'Id', pinnedLeft: true, enableColumnResizing: false, enableFiltering: false, width: 50},
+                {
+                    field: 'id',
+                    name: 'Id',
+                    pinnedLeft: true,
+                    enableColumnResizing: false,
+                    enableFiltering: false,
+                    width: 50
+                },
                 {field: 'title', name: 'Title', pinnedLeft: true}
             ];
         }
 
-        function selectRow(contentId){
-            contentSelectionStep.listGridConfig.getListGridData().forEach(function(row){
+        function selectRow(contentId) {
+            contentSelectionStep.listGridConfig.getListGridData().forEach(function (row) {
                 if (row.id === contentId) {
                     contentSelectionStep.listGridConfig.selectRow(row);
                     contentSelectionStep.selectedRowTitle = row.title;
@@ -74,8 +81,8 @@
         }
 
         function setStartSelectedTitle() {
-            if  (contentSelectionStep.webContentConfig.contentId) {
-                WebContent.get({id:contentSelectionStep.webContentConfig.contentId})
+            if (contentSelectionStep.webContentConfig.contentId) {
+                WebContent.get({id: contentSelectionStep.webContentConfig.contentId})
                     .$promise
                     .then(onGetResult);
             }
@@ -84,6 +91,7 @@
         function onGetResult(webContent) {
             contentSelectionStep.selectedRowTitle = webContent.title;
         }
+
         setStartSelectedTitle();
     }
 })();

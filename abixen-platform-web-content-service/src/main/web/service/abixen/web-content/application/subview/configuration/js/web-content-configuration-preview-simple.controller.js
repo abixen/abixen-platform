@@ -25,26 +25,26 @@
         '$log',
         '$sce',
         'WebContent',
-        'WebContentConfig',
+        'WebContentConfigObject',
         'moduleResponseErrorHandler'
     ];
 
-    function PreviewSimpleController($scope, $log, $sce, WebContent, WebContentConfig, moduleResponseErrorHandler) {
+    function PreviewSimpleController($scope, $log, $sce, WebContent, WebContentConfigObject, moduleResponseErrorHandler) {
         $log.log('PreviewSimpleController');
 
         var previewSimple = this;
 
         previewSimple.entity = {};
-        previewSimple.webContentConfig = WebContentConfig.getChangedConfig($scope.moduleId);
+        previewSimple.webContentConfig = WebContentConfigObject.getChangedConfig($scope.moduleId);
 
         function getSimplePreview(id) {
-            WebContent.get({id:id})
+            WebContent.get({id: id})
                 .$promise
                 .then(onGetResult);
         }
 
         function onGetResult(webContent) {
-            if (webContent){
+            if (webContent) {
                 previewSimple.entity = webContent;
                 previewSimple.entity.content = $sce.trustAsHtml(previewSimple.entity.content);
             }
@@ -52,6 +52,7 @@
                 previewSimple.entity = {};
             }
         }
+
         getSimplePreview(previewSimple.webContentConfig.contentId)
     }
 })();

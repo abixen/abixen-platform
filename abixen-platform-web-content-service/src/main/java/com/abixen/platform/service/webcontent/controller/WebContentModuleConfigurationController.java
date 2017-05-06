@@ -36,8 +36,13 @@ public class WebContentModuleConfigurationController {
         return webContentModuleConfigurationFacade.findWebContentModuleConfiguration(moduleId);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
-    public WebContentModuleConfigurationDto saveWebContentModuleConfig(@RequestBody WebContentModuleConfigForm webContentModuleConfigForm) {
-        return webContentModuleConfigurationFacade.saveWebContentModuleConfiguration(webContentModuleConfigForm);
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public WebContentModuleConfigurationDto createWebContentModuleConfig(@RequestBody WebContentModuleConfigForm webContentModuleConfigForm) {
+        return webContentModuleConfigurationFacade.createWebContentModuleConfiguration(webContentModuleConfigForm);
+    }
+
+    @RequestMapping(value = "/{moduleId}", method = RequestMethod.PUT)
+    public WebContentModuleConfigurationDto updateWebContentModuleConfig(@RequestBody WebContentModuleConfigForm webContentModuleConfigForm) {
+        return webContentModuleConfigurationFacade.updateWebContentModuleConfiguration(webContentModuleConfigForm);
     }
 }
