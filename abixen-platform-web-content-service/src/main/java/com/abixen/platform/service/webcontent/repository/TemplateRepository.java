@@ -16,11 +16,10 @@ package com.abixen.platform.service.webcontent.repository;
 
 import com.abixen.platform.service.webcontent.model.impl.Template;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface TemplateRepository extends JpaRepository<Template, Long>, JpaSpecificationExecutor<Template> {
+public interface TemplateRepository extends JpaRepository<Template, Long> {
 
     @Query("SELECT count(s) > 0 FROM Structure s WHERE s.template = :template")
     boolean isTemplateUsed(@Param("template") Template template);
