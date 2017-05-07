@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.webcontent.service.impl;
 
+import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.common.exception.PlatformServiceRuntimeException;
 import com.abixen.platform.service.webcontent.form.TemplateForm;
 import com.abixen.platform.service.webcontent.model.impl.Template;
@@ -54,6 +55,14 @@ public class TemplateServiceImpl implements TemplateService {
     public Template updateTemplate(TemplateForm templateForm) {
         log.debug("updateTemplate() - templateForm: {}", templateForm);
         Template template = findTemplate(templateForm.getId());
+
+        if (!template.getContent().equals(templateForm.getContent())) {
+            boolean templateUsed = templateRepository.isTemplateUsed(template);
+            if (templateUsed) {
+                throw new PlatformRuntimeException("You can not edit a content because the template is assigned to at least a one structure.");
+            }
+        }
+
         template.setName(templateForm.getName());
         template.setContent(templateForm.getContent());
         return templateRepository.save(template);
