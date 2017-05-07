@@ -16,7 +16,6 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.mode
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.ChartType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.ChartConfigurationWeb;
 import com.abixen.platform.common.model.audit.AuditingModel;
 import org.hibernate.annotations.Type;
 
@@ -27,7 +26,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "chart_configuration")
 @SequenceGenerator(sequenceName = "chart_configuration_seq", name = "chart_configuration_seq", allocationSize = 1)
-public class ChartConfiguration extends AuditingModel implements ChartConfigurationWeb, Serializable {
+public class ChartConfiguration extends AuditingModel implements Serializable {
 
     private static final long serialVersionUID = -1420930478759410093L;
 
@@ -71,7 +70,6 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
         this.id = id;
     }
 
-    @Override
     public Long getModuleId() {
         return moduleId;
     }
@@ -80,7 +78,6 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
         this.moduleId = moduleId;
     }
 
-    @Override
     public ChartType getChartType() {
         return chartType;
     }
@@ -89,7 +86,6 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
         this.chartType = chartType;
     }
 
-    @Override
     public DataSetChart getDataSetChart() {
         return dataSetChart;
     }
@@ -98,7 +94,6 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
         this.dataSetChart = dataSetChart;
     }
 
-    @Override
     public String getAxisXName() {
         return axisXName;
     }
@@ -107,7 +102,6 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
         this.axisXName = axisXName;
     }
 
-    @Override
     public String getAxisYName() {
         return axisYName;
     }
@@ -116,7 +110,6 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
         this.axisYName = axisYName;
     }
 
-    @Override
     public String getFilter() {
         return filter;
     }
@@ -125,7 +118,6 @@ public class ChartConfiguration extends AuditingModel implements ChartConfigurat
         this.filter = filter;
     }
 
-    @Override
     public DataSource getDataSource() {
         return dataSource;
     }

@@ -20,8 +20,8 @@ import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.ChartConfigurationDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.ChartConfiguration;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.ChartConfigurationService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
@@ -49,12 +49,11 @@ public class ChartModuleConfigurationController {
     }
 
     @PreAuthorize("hasPermission(#moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{moduleId}", method = RequestMethod.GET)
     public ChartConfigurationForm findChartConfigurationForm(@PathVariable Long moduleId) {
         log.debug("getChartConfigurationForm() - moduleId: " + moduleId);
 
-        ChartConfiguration chartConfiguration = chartConfigurationService.findChartConfigurationByModuleId(moduleId);
+        ChartConfigurationDto chartConfiguration = chartConfigurationService.findChartConfigurationByModuleIdAsDto(moduleId);
 
         ChartConfigurationForm chartConfigurationForm;
 

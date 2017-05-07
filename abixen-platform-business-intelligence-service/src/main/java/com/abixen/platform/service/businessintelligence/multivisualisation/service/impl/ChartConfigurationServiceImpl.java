@@ -14,6 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.converter.ChartConfigurationToChartConfigurationDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.ChartConfigurationDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.ChartConfiguration;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.ChartConfigurationRepository;
@@ -35,16 +37,19 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     private final ChartConfigurationDomainBuilderService chartConfigurationDomainBuilderService;
     private final DataSourceService dataSourceService;
     private final DataSourceColumnRepository dataSourceColumnRepository;
+    private final ChartConfigurationToChartConfigurationDtoConverter chartConfigurationToChartConfigurationDtoConverter;
 
     @Autowired
     public ChartConfigurationServiceImpl(ChartConfigurationRepository chartConfigurationRepository,
                                          ChartConfigurationDomainBuilderService chartConfigurationDomainBuilderService,
                                          DataSourceService dataSourceService,
-                                         DataSourceColumnRepository dataSourceColumnRepository) {
+                                         DataSourceColumnRepository dataSourceColumnRepository,
+                                         ChartConfigurationToChartConfigurationDtoConverter chartConfigurationToChartConfigurationDtoConverter) {
         this.chartConfigurationRepository = chartConfigurationRepository;
         this.chartConfigurationDomainBuilderService = chartConfigurationDomainBuilderService;
         this.dataSourceService = dataSourceService;
         this.dataSourceColumnRepository = dataSourceColumnRepository;
+        this.chartConfigurationToChartConfigurationDtoConverter = chartConfigurationToChartConfigurationDtoConverter;
     }
 
     @Override
@@ -61,7 +66,9 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     @Override
     public ChartConfigurationForm createChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
         ChartConfiguration chartConfiguration = buildChartConfiguration(chartConfigurationForm);
-        return new ChartConfigurationForm(createChartConfiguration(chartConfiguration));
+        ChartConfiguration createdChartConfiguration = createChartConfiguration(chartConfiguration);
+        ChartConfigurationDto createdChartConfigurationDto = chartConfigurationToChartConfigurationDtoConverter.convert(createdChartConfiguration);
+        return new ChartConfigurationForm(createdChartConfigurationDto);
     }
 
     @Override
@@ -76,12 +83,19 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
                 .filter(chartConfigurationForm.getFilter())
                 .build();
 
-        return new ChartConfigurationForm(updateChartConfiguration(chartConfigurationUpdated));
+        ChartConfiguration updatedChartConfiguration = updateChartConfiguration(chartConfigurationUpdated);
+        ChartConfigurationDto updatedChartConfigurationDto = chartConfigurationToChartConfigurationDtoConverter.convert(updatedChartConfiguration);
+        return new ChartConfigurationForm(updatedChartConfigurationDto);
     }
 
     @Override
     public ChartConfiguration findChartConfigurationByModuleId(Long moduleId) {
         return chartConfigurationRepository.findByModuleId(moduleId);
+    }
+
+    @Override
+    public ChartConfigurationDto findChartConfigurationByModuleIdAsDto(Long id) {
+        return chartConfigurationToChartConfigurationDtoConverter.convert(findChartConfigurationByModuleId(id));
     }
 
     @Override

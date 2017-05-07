@@ -15,52 +15,42 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.ChartConfigurationDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSetChartDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.ChartType;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.ChartConfiguration;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSetChartWeb;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceWeb;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
 
 
 public class ChartConfigurationForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private Long moduleId;
 
     @NotNull
-    @JsonView(WebModelJsonSerialize.class)
     private ChartType chartType;
 
     @NotNull
-    @JsonView(WebModelJsonSerialize.class)
-    private DataSetChartWeb dataSetChart;
+    private DataSetChartDto dataSetChart;
 
     @NotNull
-    @JsonView(WebModelJsonSerialize.class)
     private String axisXName;
 
     @NotNull
-    @JsonView(WebModelJsonSerialize.class)
     private String axisYName;
 
-    @JsonView(WebModelJsonSerialize.class)
     private String filter;
 
     @NotNull
-    @JsonView(WebModelJsonSerialize.class)
-    private DataSourceWeb dataSource;
+    private DataSourceDto dataSource;
 
     public ChartConfigurationForm() {
     }
 
-    public ChartConfigurationForm(ChartConfiguration chartConfiguration) {
+    public ChartConfigurationForm(ChartConfigurationDto chartConfiguration) {
         this.id = chartConfiguration.getId();
         this.moduleId = chartConfiguration.getModuleId();
         this.chartType = chartConfiguration.getChartType();
@@ -95,11 +85,11 @@ public class ChartConfigurationForm implements Form {
         this.chartType = chartType;
     }
 
-    public DataSetChartWeb getDataSetChart() {
+    public DataSetChartDto getDataSetChart() {
         return dataSetChart;
     }
 
-    public void setDataSetChart(DataSetChartWeb dataSetChart) {
+    public void setDataSetChart(DataSetChartDto dataSetChart) {
         this.dataSetChart = dataSetChart;
     }
 
@@ -127,11 +117,11 @@ public class ChartConfigurationForm implements Form {
         this.filter = filter;
     }
 
-    public DataSourceWeb getDataSource() {
+    public DataSourceDto getDataSource() {
         return dataSource;
     }
 
-    public void setDataSource(DataSourceWeb dataSource) {
+    public void setDataSource(DataSourceDto dataSource) {
         this.dataSource = dataSource;
     }
 

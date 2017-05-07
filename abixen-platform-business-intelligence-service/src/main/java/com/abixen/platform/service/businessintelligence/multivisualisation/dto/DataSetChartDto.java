@@ -12,21 +12,16 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl;
+package com.abixen.platform.service.businessintelligence.multivisualisation.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
-
-@Entity
-@Table(name = "data_set_chart")
-public class DataSetChart extends DataSet {
-
-    private static final long serialVersionUID = 1232457388531081321L;
-
-    public DataSetChart() {
-    }
-
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+public class DataSetChartDto extends DataSetDto {
 }
-
-
