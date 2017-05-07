@@ -16,7 +16,6 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.mode
 
 import com.abixen.platform.common.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSourceWeb;
 import com.abixen.platform.common.model.audit.AuditingModel;
 import org.hibernate.annotations.Type;
 
@@ -33,7 +32,7 @@ import java.util.Set;
 @Table(name = "data_source")
 @Inheritance(strategy = InheritanceType.JOINED)
 @SequenceGenerator(sequenceName = "data_source_seq", name = "data_source_seq", allocationSize = 1)
-public class DataSource extends AuditingModel implements DataSourceWeb, Serializable {
+public class DataSource extends AuditingModel implements Serializable {
 
     private static final long serialVersionUID = -1420930478759410093L;
 
@@ -76,7 +75,6 @@ public class DataSource extends AuditingModel implements DataSourceWeb, Serializ
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -85,7 +83,6 @@ public class DataSource extends AuditingModel implements DataSourceWeb, Serializ
         this.name = name;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }
@@ -94,7 +91,6 @@ public class DataSource extends AuditingModel implements DataSourceWeb, Serializ
         this.description = description;
     }
 
-    @Override
     public Set<DataSourceColumn> getColumns() {
         return columns;
     }
@@ -130,7 +126,6 @@ public class DataSource extends AuditingModel implements DataSourceWeb, Serializ
         this.dataSourceType = dataSourceType;
     }
 
-    @Override
     public String getFilter() {
         return filter;
     }

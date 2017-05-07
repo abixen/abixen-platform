@@ -15,7 +15,6 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl;
 
 import com.abixen.platform.common.util.ModelKeys;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSetSeriesWeb;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +23,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "data_set_series")
 @SequenceGenerator(sequenceName = "data_set_series_seq", name = "data_set_series_seq", allocationSize = 1)
-public class DataSetSeries implements DataSetSeriesWeb, Serializable {
+public class DataSetSeries implements Serializable {
 
     private static final long serialVersionUID = 1745322508918878116L;
 
@@ -51,7 +50,6 @@ public class DataSetSeries implements DataSetSeriesWeb, Serializable {
     public DataSetSeries() {
     }
 
-    @Override
     public Long getId() {
         return id;
     }
@@ -60,7 +58,6 @@ public class DataSetSeries implements DataSetSeriesWeb, Serializable {
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -69,7 +66,6 @@ public class DataSetSeries implements DataSetSeriesWeb, Serializable {
         this.name = name;
     }
 
-    @Override
     public DataSetSeriesColumn getValueSeriesColumn() {
         return valueSeriesColumn;
     }
@@ -78,7 +74,6 @@ public class DataSetSeries implements DataSetSeriesWeb, Serializable {
         this.valueSeriesColumn = valueSeriesColumn;
     }
 
-    @Override
     public String getFilter() {
         return filter;
     }
@@ -87,7 +82,6 @@ public class DataSetSeries implements DataSetSeriesWeb, Serializable {
         this.filter = filter;
     }
 
-    @Override
     public DataSet getDataSet() {
         return dataSet;
     }

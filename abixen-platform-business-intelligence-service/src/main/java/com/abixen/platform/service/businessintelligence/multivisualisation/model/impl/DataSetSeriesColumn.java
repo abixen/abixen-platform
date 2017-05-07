@@ -17,7 +17,6 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.mode
 import com.abixen.platform.common.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.ColumnType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSetSeriesColumnWeb;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,7 +27,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "data_set_series_column")
 @SequenceGenerator(sequenceName = "data_set_series_column_seq", name = "data_set_series_column_seq", allocationSize = 1)
-public class DataSetSeriesColumn implements DataSetSeriesColumnWeb, Serializable {
+public class DataSetSeriesColumn implements Serializable {
 
     private static final long serialVersionUID = 5511866355918336820L;
 
@@ -48,7 +47,6 @@ public class DataSetSeriesColumn implements DataSetSeriesColumnWeb, Serializable
     @JoinColumn(name = "data_source_column_id", nullable = false)
     private DataSourceColumn dataSourceColumn;
 
-    @Override
     public Long getId() {
         return id;
     }
@@ -57,7 +55,6 @@ public class DataSetSeriesColumn implements DataSetSeriesColumnWeb, Serializable
         this.id = id;
     }
 
-    @Override
     public ColumnType getType() {
         return type;
     }
@@ -66,7 +63,6 @@ public class DataSetSeriesColumn implements DataSetSeriesColumnWeb, Serializable
         this.type = type;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -75,7 +71,6 @@ public class DataSetSeriesColumn implements DataSetSeriesColumnWeb, Serializable
         this.name = name;
     }
 
-    @Override
     public DataSourceColumn getDataSourceColumn() {
         return dataSourceColumn;
     }

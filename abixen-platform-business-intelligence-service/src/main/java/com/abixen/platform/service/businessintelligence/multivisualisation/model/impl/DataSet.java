@@ -15,7 +15,6 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl;
 
 import com.abixen.platform.common.model.Model;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSetWeb;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -27,7 +26,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "type")
 @SequenceGenerator(sequenceName = "data_set_seq", name = "data_set_seq", allocationSize = 1)
-public class DataSet extends Model implements DataSetWeb {
+public class DataSet extends Model {
 
     private static final long serialVersionUID = -1420930478359410091L;
 
@@ -56,7 +55,6 @@ public class DataSet extends Model implements DataSetWeb {
         this.id = id;
     }
 
-    @Override
     public DataSetSeriesColumn getDomainXSeriesColumn() {
         return domainXSeriesColumn;
     }
@@ -65,7 +63,6 @@ public class DataSet extends Model implements DataSetWeb {
         this.domainXSeriesColumn = domainXSeriesColumn;
     }
 
-    @Override
     public DataSetSeriesColumn getDomainZSeriesColumn() {
         return domainZSeriesColumn;
     }

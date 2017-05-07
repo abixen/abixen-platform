@@ -15,10 +15,11 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.util.impl;
 
 import com.abixen.platform.common.util.EntityBuilder;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSetChartDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSetSeriesColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.ChartType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataSetChartWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataSourceColumnRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.util.ChartConfigurationBuilder;
 
@@ -46,12 +47,12 @@ public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfigurat
     }
 
     @Override
-    public ChartConfigurationBuilder data(DataSetChartWeb dataSetChart, DataSource dataSource, DataSourceColumnRepository dataSourceColumnRepository) {
+    public ChartConfigurationBuilder data(DataSetChartDto dataSetChart, DataSource dataSource, DataSourceColumnRepository dataSourceColumnRepository) {
 
         DataSetChart dataSetChartCreated = new DataSetChart();
 
         if (dataSetChart.getDomainXSeriesColumn() != null) {
-            DataSetSeriesColumn dataSetSeriesColumn = dataSetChart.getDomainXSeriesColumn();
+            DataSetSeriesColumnDto dataSetSeriesColumn = dataSetChart.getDomainXSeriesColumn();
             DataSetSeriesColumn dataSetSeriesColumnCreated = new DataSetSeriesColumn();
 
             dataSetSeriesColumnCreated.setName(dataSetSeriesColumn.getName());
@@ -62,7 +63,7 @@ public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfigurat
         }
 
         if (dataSetChart.getDomainZSeriesColumn() != null) {
-            DataSetSeriesColumn dataSetSeriesColumn = dataSetChart.getDomainZSeriesColumn();
+            DataSetSeriesColumnDto dataSetSeriesColumn = dataSetChart.getDomainZSeriesColumn();
             DataSetSeriesColumn dataSetSeriesColumnCreated = new DataSetSeriesColumn();
 
             dataSetSeriesColumnCreated.setName(dataSetSeriesColumn.getName());
@@ -79,7 +80,14 @@ public class ChartConfigurationBuilderImpl extends EntityBuilder<ChartConfigurat
             dssCreated.setFilter(dss.getFilter());
             dssCreated.setName(dss.getName());
             //TODO
-            dssCreated.setValueSeriesColumn(dss.getValueSeriesColumn());
+            DataSetSeriesColumn dataSetSeriesColumnCreated = new DataSetSeriesColumn();
+            DataSetSeriesColumnDto dataSetSeriesColumn = dss.getValueSeriesColumn();
+            dataSetSeriesColumnCreated.setId(dataSetSeriesColumn.getId());
+            dataSetSeriesColumnCreated.setName(dataSetSeriesColumn.getName());
+            dataSetSeriesColumnCreated.setType(dataSetSeriesColumn.getType());
+            dataSetSeriesColumnCreated.setDataSourceColumn(dataSourceColumnRepository.findOne(dataSetSeriesColumn.getDataSourceColumn().getId()));
+
+            dssCreated.setValueSeriesColumn(dataSetSeriesColumnCreated);
             dssCreated.getValueSeriesColumn().setDataSourceColumn(dataSourceColumnRepository.findOne(dssCreated.getValueSeriesColumn().getDataSourceColumn().getId()));
             //TODO - add columns
 

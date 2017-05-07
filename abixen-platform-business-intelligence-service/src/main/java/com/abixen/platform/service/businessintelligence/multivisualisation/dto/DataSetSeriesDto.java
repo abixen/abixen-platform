@@ -12,13 +12,21 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.model.web;
+package com.abixen.platform.service.businessintelligence.multivisualisation.dto;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.DataSetChart;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
-
-@JsonDeserialize(as = DataSetChart.class)
-public interface DataSetChartWeb extends DataSetWeb {
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+public class DataSetSeriesDto {
+    private Long id;
+    private String name;
+    private DataSetSeriesColumnDto valueSeriesColumn;
+    private String filter;
 
 }
