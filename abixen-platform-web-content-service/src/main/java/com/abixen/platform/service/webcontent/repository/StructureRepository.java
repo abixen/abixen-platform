@@ -17,6 +17,11 @@ package com.abixen.platform.service.webcontent.repository;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface StructureRepository extends JpaRepository<Structure, Long>, JpaSpecificationExecutor<Structure> {
+
+    @Query("SELECT count(awc) > 0 FROM AdvancedWebContent awc WHERE awc.structure = :structure")
+    boolean isStructureUsed(@Param("structure") Structure structure);
 }

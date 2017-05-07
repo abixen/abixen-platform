@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.webcontent.service.impl;
 
+import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.common.exception.PlatformServiceRuntimeException;
 import com.abixen.platform.service.webcontent.form.StructureForm;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
@@ -65,7 +66,15 @@ public class StructureServiceImpl implements StructureService {
     @Override
     public Structure updateStructure(StructureForm structureForm) {
         log.debug("updateStructure() - structureForm: {}", structureForm);
-        Structure structure = structureRepository.findOne(structureForm.getId());
+        Structure structure = findStructure(structureForm.getId());
+
+        if (!structure.getContent().equals(structureForm.getContent()) || !structure.getTemplate().getId().equals(structureForm.getTemplate().getId())) {
+            boolean templateUsed = structureRepository.isStructureUsed(structure);
+            if (templateUsed) {
+                throw new PlatformRuntimeException("You can not edit this structure because the structure is assigned to at least a one advanced web content.");
+            }
+        }
+
         structure.setName(structureForm.getName());
         structure.setContent(structureForm.getContent());
         Template template = templateService.findTemplate(structureForm.getTemplate().getId());

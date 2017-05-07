@@ -59,7 +59,7 @@ public class TemplateServiceImpl implements TemplateService {
         if (!template.getContent().equals(templateForm.getContent())) {
             boolean templateUsed = templateRepository.isTemplateUsed(template);
             if (templateUsed) {
-                throw new PlatformRuntimeException("You can not edit a content because the template is assigned to at least a one structure.");
+                throw new PlatformRuntimeException("You can not edit this content because the template is assigned to at least a one structure.");
             }
         }
 
