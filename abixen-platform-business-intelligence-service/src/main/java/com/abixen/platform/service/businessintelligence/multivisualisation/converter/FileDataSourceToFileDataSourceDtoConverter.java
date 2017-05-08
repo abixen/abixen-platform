@@ -25,13 +25,17 @@ import java.util.Map;
 @Component
 public class FileDataSourceToFileDataSourceDtoConverter extends AbstractConverter<FileDataSource, FileDataSourceDto> {
 
-    private FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter;
-    private DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
+    private final FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter;
+    private final DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
+    private final DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter;
 
     @Autowired
-    public FileDataSourceToFileDataSourceDtoConverter(FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter, DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter) {
+    public FileDataSourceToFileDataSourceDtoConverter(FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter,
+                                                      DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter,
+                                                      DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter) {
         this.fileDataSourceRowToFileDataSourceRowDtoConverter = fileDataSourceRowToFileDataSourceRowDtoConverter;
         this.dataSourceColumnToDataSourceColumnDtoConverter = dataSourceColumnToDataSourceColumnDtoConverter;
+        this.dataFileToDataFileDtoConverter = dataFileToDataFileDtoConverter;
     }
 
     @Override
@@ -47,7 +51,7 @@ public class FileDataSourceToFileDataSourceDtoConverter extends AbstractConverte
         fileDataSourceDto.setDescription(fileDataSource.getDescription());
         fileDataSourceDto.setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(fileDataSource.getColumns()));
         fileDataSourceDto.setRows(fileDataSourceRowToFileDataSourceRowDtoConverter.convertToSet(fileDataSource.getRows()));
-        fileDataSourceDto.setDataFile(fileDataSource.getDataFile());
+        fileDataSourceDto.setDataFile(dataFileToDataFileDtoConverter.convert(fileDataSource.getDataFile()));
         return fileDataSourceDto;
     }
 }

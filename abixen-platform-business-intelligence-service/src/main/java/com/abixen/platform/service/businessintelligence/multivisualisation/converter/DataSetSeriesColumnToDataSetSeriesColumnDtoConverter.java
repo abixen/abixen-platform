@@ -25,7 +25,7 @@ import java.util.Map;
 @Component
 public class DataSetSeriesColumnToDataSetSeriesColumnDtoConverter extends AbstractConverter<DataSetSeriesColumn, DataSetSeriesColumnDto> {
 
-    private DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
+    private final DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
 
     @Autowired
     public DataSetSeriesColumnToDataSetSeriesColumnDtoConverter(DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter) {

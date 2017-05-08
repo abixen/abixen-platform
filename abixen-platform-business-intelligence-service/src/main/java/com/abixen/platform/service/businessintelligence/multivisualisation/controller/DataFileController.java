@@ -18,12 +18,12 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataFileWeb;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataFileService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
@@ -64,10 +64,8 @@ public class DataFileController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public DataFileWeb findDataFile(@PathVariable Long id) {
-        log.debug("getDataSource() - id: " + id);
-
-        return dataFileService.findDataFile(id);
+    public DataFileDto findDataFile(@PathVariable Long id) {
+        return dataFileService.findDataFileAsDto(id);
     }
 
     @JsonView(WebModelJsonSerialize.class)

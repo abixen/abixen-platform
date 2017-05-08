@@ -40,11 +40,11 @@ import java.util.stream.Collectors;
 @Service
 public class DatabaseDataSourceServiceImpl extends DataSourceServiceImpl implements DatabaseDataSourceService {
 
-    private DatabaseDataSourceRepository databaseDataSourceRepository;
-    private DatabaseConnectionService databaseConnectionService;
-    private DomainBuilderService domainBuilderService;
-    private DatabaseFactory databaseFactory;
-    private DatabaseDataSourceToDatabaseDataSourceDtoConverter databaseDataSourceToDatabaseDataSourceDtoConverter;
+    private final DatabaseDataSourceRepository databaseDataSourceRepository;
+    private final DatabaseConnectionService databaseConnectionService;
+    private final DomainBuilderService domainBuilderService;
+    private final DatabaseFactory databaseFactory;
+    private final DatabaseDataSourceToDatabaseDataSourceDtoConverter databaseDataSourceToDatabaseDataSourceDtoConverter;
 
     @Autowired
     public DatabaseDataSourceServiceImpl(DatabaseDataSourceRepository databaseDataSourceRepository,

@@ -20,7 +20,6 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.form.
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class FileServiceImpl implements FileService {
     private static final int INDEX_OF_FIRST_ELEMENT = 0;
     private static final int PREVIEW_LIST_SIZE = 10;
 
-    private DataValueToDataValueDtoConverter dataValueToDataValueDtoConverter;
+    private final DataValueToDataValueDtoConverter dataValueToDataValueDtoConverter;
 
     @Autowired
     public FileServiceImpl(DataValueToDataValueDtoConverter dataValueToDataValueDtoConverter) {

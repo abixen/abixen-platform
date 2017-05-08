@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
@@ -48,6 +49,8 @@ public interface DataFileService {
     DataFile updateDataFile(DataFile dataFile);
 
     DataFile findDataFile(Long id);
+
+    DataFileDto findDataFileAsDto(Long id);
 
     void delateFileData(Long id);
 
