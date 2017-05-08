@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.util;
 
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileColumnDTO;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 
 import java.util.Set;
@@ -26,5 +26,5 @@ public interface DataFileBuilder {
 
     DataFileBuilder base(String name, String description);
 
-    DataFileBuilder data(Set<DataFileColumnDTO> dataColumn);
+    DataFileBuilder data(Set<DataFileColumnDto> dataColumn);
 }

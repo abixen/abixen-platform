@@ -15,6 +15,8 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.service.businessintelligence.multivisualisation.converter.DataFileToDataFileDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
@@ -46,20 +48,23 @@ import java.util.*;
 @Service
 public class DataFileServiceImpl implements DataFileService {
 
-    private DataFileRepository dataFileRepository;
-
-    private FileDataSourceRepository fileDataSourceRepository;
-
-    private DomainBuilderService domainBuilderService;
-
-    private FileParserFactory fileParserFactory;
+    private final DataFileRepository dataFileRepository;
+    private final FileDataSourceRepository fileDataSourceRepository;
+    private final DomainBuilderService domainBuilderService;
+    private final FileParserFactory fileParserFactory;
+    private final DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter;
 
     @Autowired
-    public DataFileServiceImpl(FileDataSourceRepository fileDataSourceRepository, FileParserFactory fileParserFactory, DomainBuilderService domainBuilderService, DataFileRepository dataFileRepository) {
+    public DataFileServiceImpl(FileDataSourceRepository fileDataSourceRepository,
+                               FileParserFactory fileParserFactory,
+                               DomainBuilderService domainBuilderService,
+                               DataFileRepository dataFileRepository,
+                               DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter) {
         this.fileDataSourceRepository = fileDataSourceRepository;
         this.domainBuilderService = domainBuilderService;
         this.fileParserFactory = fileParserFactory;
         this.dataFileRepository = dataFileRepository;
+        this.dataFileToDataFileDtoConverter = dataFileToDataFileDtoConverter;
     }
 
     @Override
@@ -122,7 +127,7 @@ public class DataFileServiceImpl implements DataFileService {
             List<DataValue> values = new ArrayList<>();
             entity.getValues().forEach(child -> {
                 if (child != null && child.getValue() != null) {
-                    String value = child.getValue().trim();
+                    String value = child.getValue().toString().trim();
                     DataValue dataValue = getObjForValue(value);
                     dataValue.setDataColumn(dataFileColumn);
                     values.add(dataValue);
@@ -147,6 +152,11 @@ public class DataFileServiceImpl implements DataFileService {
     public DataFile findDataFile(Long id) {
         log.debug("findDataFile() - id: " + id);
         return dataFileRepository.findOne(id);
+    }
+
+    @Override
+    public DataFileDto findDataFileAsDto(Long id) {
+        return dataFileToDataFileDtoConverter.convert(findDataFile(id));
     }
 
     @Override

@@ -14,18 +14,23 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.dto;
 
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @ToString
-public class FileDataSourceDto extends DataSourceDto {
-    private Set<FileDataSourceRowDto> rows;
-    private DataFileDto dataFile;
+public class DataFileDto {
+    private Long id;
+    private List<DataFileColumnDto> columns;
+    private String name;
+    private String description;
+
+
 }

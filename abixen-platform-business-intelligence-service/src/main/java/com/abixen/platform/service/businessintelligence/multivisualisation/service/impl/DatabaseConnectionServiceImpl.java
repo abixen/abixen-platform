@@ -37,9 +37,9 @@ import java.util.List;
 @Service
 public class DatabaseConnectionServiceImpl implements DatabaseConnectionService {
 
-    private DatabaseConnectionRepository dataSourceConnectionRepository;
-    private DatabaseFactory databaseFactory;
-    private DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
+    private final DatabaseConnectionRepository dataSourceConnectionRepository;
+    private final DatabaseFactory databaseFactory;
+    private final DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
 
     @Autowired
     public DatabaseConnectionServiceImpl(DatabaseConnectionRepository dataSourceConnectionRepository, DatabaseFactory databaseFactory, DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter) {

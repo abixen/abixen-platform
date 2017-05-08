@@ -25,8 +25,8 @@ import java.util.Map;
 @Component
 public class DatabaseDataSourceToDatabaseDataSourceDtoConverter extends AbstractConverter<DatabaseDataSource, DatabaseDataSourceDto> {
 
-    private DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
-    private DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
+    private final DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
+    private final DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
 
     @Autowired
     public DatabaseDataSourceToDatabaseDataSourceDtoConverter(DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter,

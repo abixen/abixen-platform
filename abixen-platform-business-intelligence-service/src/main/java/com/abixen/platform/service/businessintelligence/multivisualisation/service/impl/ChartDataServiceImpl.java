@@ -34,10 +34,10 @@ import java.util.List;
 @Service
 public class ChartDataServiceImpl implements ChartDataService {
 
-    private DatabaseFactory databaseFactory;
-    private FileService fileService;
-    private DataSourceService dataSourceService;
-    private DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
+    private final DatabaseFactory databaseFactory;
+    private final FileService fileService;
+    private final DataSourceService dataSourceService;
+    private final DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
 
     @Autowired
     public ChartDataServiceImpl(DatabaseFactory databaseFactory,

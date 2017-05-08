@@ -14,15 +14,15 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.dto;
 
-public class DataFileColumnValueDTO {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+public class DataFileColumnValueDto {
     private String value;
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

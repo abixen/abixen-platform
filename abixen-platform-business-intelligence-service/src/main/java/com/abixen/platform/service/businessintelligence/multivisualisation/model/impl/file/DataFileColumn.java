@@ -16,7 +16,6 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.mode
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataFileColumnWeb;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -24,7 +23,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @DiscriminatorValue("FILE")
-public class DataFileColumn extends DataColumn implements DataFileColumnWeb {
+public class DataFileColumn extends DataColumn {
 
     @OneToOne
     @JoinColumn(name = "data_file_id", nullable = false)

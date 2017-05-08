@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.form
 
 import com.abixen.platform.common.form.Form;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileColumnDTO;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -38,7 +38,7 @@ public class DataFileForm implements Form {
     private String description;
 
     @JsonView(WebModelJsonSerialize.class)
-    private Set<DataFileColumnDTO> columns = new HashSet<>();
+    private Set<DataFileColumnDto> columns = new HashSet<>();
 
     public String getName() {
         return name;
@@ -64,11 +64,11 @@ public class DataFileForm implements Form {
         this.description = description;
     }
 
-    public Set<DataFileColumnDTO> getColumns() {
+    public Set<DataFileColumnDto> getColumns() {
         return columns;
     }
 
-    public void setColumns(Set<DataFileColumnDTO> columns) {
+    public void setColumns(Set<DataFileColumnDto> columns) {
         this.columns = columns;
     }
     public DataFileForm() {

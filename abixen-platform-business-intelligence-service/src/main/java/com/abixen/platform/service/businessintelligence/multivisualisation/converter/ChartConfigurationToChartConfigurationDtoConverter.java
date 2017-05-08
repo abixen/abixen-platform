@@ -25,8 +25,8 @@ import java.util.Map;
 @Component
 public class ChartConfigurationToChartConfigurationDtoConverter extends AbstractConverter<ChartConfiguration, ChartConfigurationDto> {
 
-    private DataSetChartToDataSetChartDtoConverter dataSetChartToDataSetChartDtoConverter;
-    private DataSourceToDataSourceDtoConverter dataSourceToDataSourceDtoConverter;
+    private final DataSetChartToDataSetChartDtoConverter dataSetChartToDataSetChartDtoConverter;
+    private final DataSourceToDataSourceDtoConverter dataSourceToDataSourceDtoConverter;
 
     @Autowired
     public ChartConfigurationToChartConfigurationDtoConverter(DataSetChartToDataSetChartDtoConverter dataSetChartToDataSetChartDtoConverter,

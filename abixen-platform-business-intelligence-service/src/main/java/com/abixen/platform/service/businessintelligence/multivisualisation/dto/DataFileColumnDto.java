@@ -15,53 +15,22 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.dto;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataFileColumnDTO {
-
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+public class DataFileColumnDto {
     private String name;
-
     private DataValueType dataValueType;
-
     private Integer position;
+    private List<DataValueDto> values = new ArrayList<>();
 
-    private List<DataFileColumnValueDTO> values = new ArrayList<>();
-
-    public DataFileColumnDTO() {
-
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public DataValueType getDataValueType() {
-        return dataValueType;
-    }
-
-    public void setDataValueType(DataValueType dataValueType) {
-        this.dataValueType = dataValueType;
-    }
-
-    public Integer getPosition() {
-        return position;
-    }
-
-    public void setPosition(Integer position) {
-        this.position = position;
-    }
-
-    public List<DataFileColumnValueDTO> getValues() {
-        return values;
-    }
-
-    public void setValues(List<DataFileColumnValueDTO> values) {
-        this.values = values;
-    }
 }

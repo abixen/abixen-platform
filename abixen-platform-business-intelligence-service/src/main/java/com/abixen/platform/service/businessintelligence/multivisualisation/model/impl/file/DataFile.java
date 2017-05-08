@@ -16,7 +16,6 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.mode
 
 
 import com.abixen.platform.common.util.ModelKeys;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.web.DataFileWeb;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,7 +25,7 @@ import java.util.List;
 @Entity
 @Table(name = "data_file")
 @SequenceGenerator(sequenceName = "data_file_seq", name = "data_file_seq", allocationSize = 1)
-public class DataFile implements DataFileWeb {
+public class DataFile {
 
     @Id
     @Column(name = "id")
@@ -59,7 +58,6 @@ public class DataFile implements DataFileWeb {
         this.name = name;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }

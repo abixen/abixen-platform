@@ -38,10 +38,10 @@ import java.util.stream.Collectors;
 @Service
 public class FileDataSourceServiceImpl implements FileDataSourceService {
 
-    private FileDataSourceRepository fileDataSourceRepository;
-    private DomainBuilderService domainBuilderService;
-    private DataFileService dataFileService;
-    private FileDataSourceToFileDataSourceDtoConverter fileDataSourceToFileDataSourceDtoConverter;
+    private final FileDataSourceRepository fileDataSourceRepository;
+    private final DomainBuilderService domainBuilderService;
+    private final DataFileService dataFileService;
+    private final FileDataSourceToFileDataSourceDtoConverter fileDataSourceToFileDataSourceDtoConverter;
 
     @Autowired
     public FileDataSourceServiceImpl(FileDataSourceRepository fileDataSourceRepository,
