@@ -46,7 +46,7 @@ public class WebContentModuleConfigurationController {
         return webContentModuleConfigurationFacade.createWebContentModuleConfiguration(webContentModuleConfigForm);
     }
 
-    @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
+    @PreAuthorize("hasPermission(#webContentModuleConfigForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @RequestMapping(value = "/{moduleId}", method = RequestMethod.PUT)
     public WebContentModuleConfigurationDto updateWebContentModuleConfig(@RequestBody WebContentModuleConfigForm webContentModuleConfigForm) {
         return webContentModuleConfigurationFacade.updateWebContentModuleConfiguration(webContentModuleConfigForm);
