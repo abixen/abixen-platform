@@ -46,7 +46,7 @@
 
             WebContentConfig.get({moduleId: id})
                 .$promise
-                .then(onGetResult);
+                .then(onGetResult, onGetError);
 
             function onGetResult(webContentConfig) {
                 if (webContentConfig.moduleId) {
@@ -64,6 +64,10 @@
                 function onGetResult(webContent) {
                     setView(webContent.type);
                 }
+            }
+
+            function onGetError(error) {
+                moduleResponseErrorHandler.handle(error, $scope);
             }
 
         });
