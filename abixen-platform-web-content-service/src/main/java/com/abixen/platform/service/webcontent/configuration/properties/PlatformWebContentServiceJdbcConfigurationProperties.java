@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.configuration;
+package com.abixen.platform.service.webcontent.configuration.properties;
 
 
 import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;

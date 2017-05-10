@@ -32,6 +32,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
+
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformWebContentServiceConfiguration.class)

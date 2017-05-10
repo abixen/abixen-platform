@@ -15,20 +15,16 @@
 package com.abixen.platform.service.webcontent.security;
 
 import com.abixen.platform.common.security.PlatformUser;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 
-@Slf4j
 public class PlatformAuditorAware implements AuditorAware<Long> {
 
     @Override
     public Long getCurrentAuditor() {
-        log.debug("getCurrentAuditor()");
-
         PlatformUser authorizedUser = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {

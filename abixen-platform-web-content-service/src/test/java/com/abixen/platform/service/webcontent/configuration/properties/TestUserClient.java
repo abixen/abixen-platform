@@ -12,16 +12,20 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.configuration;
+package com.abixen.platform.service.webcontent.configuration.properties;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import com.abixen.platform.service.webcontent.client.UserClient;
+import com.abixen.platform.service.webcontent.model.User;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import static com.abixen.platform.service.webcontent.configuration.PlatformWebContentServicePackages.*;
-
-
-@Configuration
-@ComponentScan(basePackages = {CONFIG, CONTROLLER, FACADE, SERVICE, REPOSITORY, CONVERTER, INTEGRATION})
-public class PlatformWebContentServiceConfiguration {
-
+@Component
+public class TestUserClient implements UserClient {
+    @Override
+    public User getUserById(@PathVariable("id") Long id) {
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("joe.brown@abixen.com");
+        return user;
+    }
 }

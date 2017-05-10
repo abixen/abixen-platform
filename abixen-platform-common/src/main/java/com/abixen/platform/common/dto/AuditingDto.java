@@ -26,8 +26,8 @@ import java.util.Date;
 @Accessors(chain = true)
 public abstract class AuditingDto {
 
-    private Long createdById;
+    private UserDto createdBy;
     private Date createdDate;
-    private Long lastModifiedById;
+    private UserDto lastModifiedBy;
     private Date lastModifiedDate;
 }

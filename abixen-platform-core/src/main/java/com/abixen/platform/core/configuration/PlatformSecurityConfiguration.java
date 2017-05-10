@@ -30,6 +30,7 @@ public class PlatformSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .cors()
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api-intranet/**").permitAll()
                 .antMatchers("/api/control-panel/users/custom/username/*/").permitAll()
                 .antMatchers("/api/control-panel/module-types/all").permitAll()
                 .antMatchers("/api/control-panel/securities/**").permitAll()

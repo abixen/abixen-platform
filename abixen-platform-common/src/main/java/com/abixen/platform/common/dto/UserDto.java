@@ -11,17 +11,19 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+package com.abixen.platform.common.dto;
 
-package com.abixen.platform.service.webcontent.configuration;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+public class UserDto {
 
-import static com.abixen.platform.service.webcontent.configuration.PlatformWebContentServicePackages.*;
-
-
-@Configuration
-@ComponentScan(basePackages = {CONFIG, CONTROLLER, FACADE, SERVICE, REPOSITORY, CONVERTER, INTEGRATION})
-public class PlatformWebContentServiceConfiguration {
-
+    private Long id;
+    private String username;
 }

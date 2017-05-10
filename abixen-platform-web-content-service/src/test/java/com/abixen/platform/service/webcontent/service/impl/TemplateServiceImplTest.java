@@ -29,7 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
 
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
