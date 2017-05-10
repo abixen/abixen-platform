@@ -45,6 +45,8 @@
         function beforeSaveForm() {
             $log.debug('entity.id: ',fileDataSourceDetails.entity);
             fileDataSourceDetails.entity.columns = [];
+            fileDataSourceDetails.entity.classType = "FILE";
+            fileDataSourceDetails.entity.dataSourceType = "FILE";
             fileDataSourceDetails.fileColumns.forEach(function (column) {
                 if (column.selected === true){
                     fileDataSourceDetails.entity.columns.push({

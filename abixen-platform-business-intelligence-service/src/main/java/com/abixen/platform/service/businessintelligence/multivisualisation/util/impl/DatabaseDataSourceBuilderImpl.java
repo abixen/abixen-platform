@@ -15,19 +15,30 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.util.impl;
 
 import com.abixen.platform.common.util.EntityBuilder;
-import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceColumnForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DatabaseConnectionRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.util.DatabaseDataSourceBuilder;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class DatabaseDataSourceBuilderImpl extends EntityBuilder<DatabaseDataSource> implements DatabaseDataSourceBuilder {
 
+    public DatabaseDataSourceBuilderImpl() {
+    }
+
+    public DatabaseDataSourceBuilderImpl(DatabaseDataSource databaseDataSource) {
+        if (databaseDataSource != null) {
+            this.product = databaseDataSource;
+        }
+    }
 
     @Override
     protected void initProduct() {
@@ -43,8 +54,8 @@ public class DatabaseDataSourceBuilderImpl extends EntityBuilder<DatabaseDataSou
     }
 
     @Override
-    public DatabaseDataSourceBuilder connection(DatabaseConnection databaseConnection) {
-        this.product.setDatabaseConnection(databaseConnection);
+    public DatabaseDataSourceBuilder connection(DatabaseConnectionDto databaseConnection, DatabaseConnectionRepository databaseConnectionRepository) {
+        this.product.setDatabaseConnection(databaseConnectionRepository.findOne(databaseConnection.getId()));
         return this;
     }
 
@@ -56,21 +67,45 @@ public class DatabaseDataSourceBuilderImpl extends EntityBuilder<DatabaseDataSou
     }
 
     @Override
-    public DatabaseDataSourceBuilder columns(Set<DataSourceColumnForm> columns) {
-
+    public DatabaseDataSourceBuilder columns(Set<DataSourceColumnDto> columns) {
         Set<DataSourceColumn> dataSourceColumns = new HashSet<>();
-
-        for (DataSourceColumnForm dataSourceColumnForm : columns) {
-            DataSourceColumn dataSourceColumn = new DataSourceColumn();
-            dataSourceColumn.setName(dataSourceColumnForm.getName());
-            dataSourceColumn.setPosition(dataSourceColumnForm.getPosition());
-            dataSourceColumn.setDataValueType(dataSourceColumnForm.getDataValueType());
-            dataSourceColumn.setDataSource(this.product);
-            dataSourceColumns.add(dataSourceColumn);
+        List<String> oldColumnNames = this.product.getColumns().stream()
+                .map(DataSourceColumn::getName)
+                .peek(s -> s = s.toUpperCase())
+                .collect(Collectors.toList());
+        List<String> newColumnNames = columns.stream()
+                .map(DataSourceColumnDto::getName)
+                .peek(s -> s = s.toUpperCase())
+                .collect(Collectors.toList());
+        newColumnNames.replaceAll(String::toUpperCase);
+        oldColumnNames.replaceAll(String::toUpperCase);
+        List<DataSourceColumn> toRemove = this.product.getColumns().stream()
+                .filter(dataSourceColumn -> !newColumnNames.contains(dataSourceColumn.getName().toUpperCase()))
+                .collect(Collectors.toList());
+        List<DataSourceColumnDto> toAdd = columns.stream()
+                .filter(dataSourceColumn -> !oldColumnNames.contains(dataSourceColumn.getName().toUpperCase()))
+                .collect(Collectors.toList());
+        if (!toRemove.isEmpty()) {
+            this.product.removeColumns(new HashSet<>(toRemove));
         }
-
-        this.product.setColumns(dataSourceColumns);
-
+        if (!toAdd.isEmpty()) {
+            convertDataSourceColumnFromToDataSourceColumn(this.product, dataSourceColumns, toAdd);
+            this.product.addColumns(dataSourceColumns);
+        }
         return this;
     }
+
+    private void convertDataSourceColumnFromToDataSourceColumn(DatabaseDataSource databaseDataSource,
+                                                               Set<DataSourceColumn> dataSourceColumns,
+                                                               List<DataSourceColumnDto> toAdd) {
+        toAdd.forEach(dataSourceColumnDto -> {
+            DataSourceColumn dataSourceColumn = new DataSourceColumn();
+            dataSourceColumn.setName(dataSourceColumnDto.getName());
+            dataSourceColumn.setPosition(dataSourceColumnDto.getPosition());
+            dataSourceColumn.setDataSource(databaseDataSource);
+            dataSourceColumn.setDataValueType(dataSourceColumnDto.getDataValueType());
+            dataSourceColumns.add(dataSourceColumn);
+        });
+    }
 }
+

@@ -15,6 +15,8 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DomainBuilderService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.util.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.util.impl.*;
@@ -25,13 +27,13 @@ import org.springframework.stereotype.Service;
 public class DomainBuilderServiceImpl implements DomainBuilderService {
 
     @Override
-    public DatabaseDataSourceBuilder newDatabaseDataSourceBuilderInstance() {
-        return new DatabaseDataSourceBuilderImpl();
+    public DatabaseDataSourceBuilder newDatabaseDataSourceBuilderInstance(DatabaseDataSource databaseDataSource) {
+        return new DatabaseDataSourceBuilderImpl(databaseDataSource);
     }
 
     @Override
-    public FileDataSourceBuilder newFileDataSourceBuilderInstance() {
-        return new FileDataSourceBuilderImpl();
+    public FileDataSourceBuilder newFileDataSourceBuilderInstance(FileDataSource fileDataSource) {
+        return new FileDataSourceBuilderImpl(fileDataSource);
     }
 
     @Override

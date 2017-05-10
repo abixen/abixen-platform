@@ -16,6 +16,11 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.form
 
 import com.abixen.platform.common.form.Form;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
@@ -25,7 +30,9 @@ import java.util.Set;
 import static com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource.DESCRIPTION_MAX_LENGTH;
 import static com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource.NAME_MAX_LENGTH;
 
-
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "classType")
+@JsonSubTypes({@JsonSubTypes.Type(value = DatabaseDataSourceForm.class, name = "DB"),
+        @JsonSubTypes.Type(value = FileDataSourceForm.class, name = "FILE")})
 public class DataSourceForm implements Form {
 
     @JsonView(WebModelJsonSerialize.class)
@@ -40,9 +47,22 @@ public class DataSourceForm implements Form {
     @Size(max = DESCRIPTION_MAX_LENGTH)
     private String description;
 
+    private DataSourceType dataSourceType;
+
     @JsonView(WebModelJsonSerialize.class)
     @NotNull
-    private Set<DataSourceColumnForm> columns;
+    private Set<DataSourceColumnDto> columns;
+
+    public DataSourceForm() {
+    }
+
+    public DataSourceForm(DataSourceDto dataSourceDto) {
+        this.id = dataSourceDto.getId();
+        this.name = dataSourceDto.getName();
+        this.description = dataSourceDto.getDescription();
+        this.columns = dataSourceDto.getColumns();
+        this.dataSourceType = dataSourceDto.getDataSourceType();
+    }
 
     public String getName() {
         return name;
@@ -68,13 +88,22 @@ public class DataSourceForm implements Form {
         this.description = description;
     }
 
-    public Set<DataSourceColumnForm> getColumns() {
+    public DataSourceType getDataSourceType() {
+        return dataSourceType;
+    }
+
+    public void setDataSourceType(DataSourceType dataSourceType) {
+        this.dataSourceType = dataSourceType;
+    }
+
+    public Set<DataSourceColumnDto> getColumns() {
         return columns;
     }
 
-    public void setColumns(Set<DataSourceColumnForm> columns) {
+    public void setColumns(Set<DataSourceColumnDto> columns) {
         this.columns = columns;
     }
+
 
 
 }

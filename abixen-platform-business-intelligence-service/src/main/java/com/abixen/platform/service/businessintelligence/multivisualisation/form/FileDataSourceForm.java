@@ -15,26 +15,27 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.FileDataSourceDto;
 
 public class FileDataSourceForm extends DataSourceForm implements Form {
 
-    private DataFileForm dataFile;
+    private DataFileDto dataFile;
 
     public FileDataSourceForm() {
+        super();
     }
 
-    public FileDataSourceForm(FileDataSource fileDataSource) {
-        this.setId(fileDataSource.getId());
-        this.setName(fileDataSource.getName());
-        this.setDescription(fileDataSource.getDescription());
+    public FileDataSourceForm(FileDataSourceDto fileDataSourceDto) {
+        super(fileDataSourceDto);
+        this.dataFile = fileDataSourceDto.getDataFile();
     }
 
-    public DataFileForm getDataFile() {
+    public DataFileDto getDataFile() {
         return dataFile;
     }
 
-    public void setDataFile(DataFileForm dataFile) {
+    public void setDataFile(DataFileDto dataFile) {
         this.dataFile = dataFile;
     }
 }

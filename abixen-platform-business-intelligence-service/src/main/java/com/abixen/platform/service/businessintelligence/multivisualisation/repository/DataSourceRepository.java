@@ -14,10 +14,15 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.repository;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface DataSourceRepository extends JpaRepository<DataSource, Long> {
+
+    Page<DataSource> findByDataSourceType(DataSourceType dataSourceType, Pageable pageable);
 
 }

@@ -27,6 +27,8 @@ public class PlatformModulesPackages {
 
     public static final String CONTROLLER = MAIN + ".controller";
 
+    public static final String FACADE = MAIN + ".facade";
+
     public static final String CLIENT = MAIN + ".client";
 
     public static final String CHART = MAIN + ".multivisualisation";

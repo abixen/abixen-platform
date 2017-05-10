@@ -15,9 +15,10 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.util;
 
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceColumnForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
+import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DataFileRepository;
 
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public interface FileDataSourceBuilder {
 
     FileDataSourceBuilder base(String name, String description);
 
-    FileDataSourceBuilder data(Set<DataSourceColumnForm> columns, DataFile dataFile);
+    FileDataSourceBuilder data(Set<DataSourceColumnDto> columns, DataFileDto dataFile, DataFileRepository dataFileRepository);
 
     FileDataSourceBuilder filter(String filter);
 

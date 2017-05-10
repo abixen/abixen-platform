@@ -21,6 +21,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.excep
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataSourceValueException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.JsonFilterService;
 import org.apache.commons.lang.NotImplementedException;
@@ -136,11 +137,11 @@ public abstract class AbstractDatabaseService {
     }
 
     public List<Map<String, DataValueDto>> getChartData(Connection connection,
-                                                        DatabaseDataSource databaseDataSource,
+                                                        DataSource dataSource,
                                                         ChartConfigurationForm chartConfigurationForm,
                                                         String seriesName) {
-        return seriesName != null ? getChartDataPreview(connection, databaseDataSource, chartConfigurationForm, seriesName)
-                : getChartData(connection, databaseDataSource, chartConfigurationForm);
+        return seriesName != null ? getChartDataPreview(connection, (DatabaseDataSource) dataSource, chartConfigurationForm, seriesName)
+                : getChartData(connection, (DatabaseDataSource) dataSource, chartConfigurationForm);
     }
 
     private List<Map<String, DataValueDto>> getChartData(Connection connection, DatabaseDataSource databaseDataSource, ChartConfigurationForm chartConfigurationForm) {
@@ -182,24 +183,20 @@ public abstract class AbstractDatabaseService {
         if (chartColumnsSet.isEmpty()) {
             return new ArrayList<>();
         }
-        //FixMe
-        List<Map<String, DataValueDto>> data = getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm, chartLimit);
-        return data;
+        return getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm, chartLimit);
     }
 
-    public List<Map<String, DataValueDto>> getDataSourcePreview(Connection connection, DatabaseDataSource databaseDataSource) {
+    public List<Map<String, DataValueDto>> getDataSourcePreview(Connection connection, DataSource dataSource) {
         Set<String> dataSourceColumnsSet = new HashSet<>();
 
-        databaseDataSource.getColumns().forEach(column -> {
+        dataSource.getColumns().forEach(column -> {
             dataSourceColumnsSet.add(column.getName());
         });
 
         if (dataSourceColumnsSet.isEmpty()) {
             return new ArrayList<>();
         }
-        //FixMe
-        List<Map<String, DataValueDto>> data = getData(connection, databaseDataSource, dataSourceColumnsSet, null, datasourceLimit);
-        return data;
+        return getData(connection, (DatabaseDataSource) dataSource, dataSourceColumnsSet, null, datasourceLimit);
     }
 
     private List<Map<String, DataValueDto>> getData(Connection connection, DatabaseDataSource databaseDataSource, Set<String> chartColumnsSet, ChartConfigurationForm chartConfigurationForm, Integer limit) {
