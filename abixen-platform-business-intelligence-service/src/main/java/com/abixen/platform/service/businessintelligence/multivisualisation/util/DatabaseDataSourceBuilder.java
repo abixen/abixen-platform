@@ -15,9 +15,10 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.util;
 
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceColumnForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DatabaseConnectionRepository;
 
 import java.util.Set;
 
@@ -28,11 +29,11 @@ public interface DatabaseDataSourceBuilder {
 
     DatabaseDataSourceBuilder base(String name, String description);
 
-    DatabaseDataSourceBuilder connection(DatabaseConnection databaseConnection);
+    DatabaseDataSourceBuilder connection(DatabaseConnectionDto databaseConnection, DatabaseConnectionRepository databaseConnectionRepository);
 
     DatabaseDataSourceBuilder data(String table, String filter);
 
-    DatabaseDataSourceBuilder columns(Set<DataSourceColumnForm> columns);
+    DatabaseDataSourceBuilder columns(Set<DataSourceColumnDto> columns);
 
 }
 

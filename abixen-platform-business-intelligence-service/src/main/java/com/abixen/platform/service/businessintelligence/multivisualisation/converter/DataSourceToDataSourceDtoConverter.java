@@ -33,14 +33,17 @@ public class DataSourceToDataSourceDtoConverter extends AbstractConverter<DataSo
     private final DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
     private final DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
     private final FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter;
+    private final DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter;
 
     @Autowired
     public DataSourceToDataSourceDtoConverter(DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter,
                                               DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter,
-                                              FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter) {
+                                              FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter,
+                                              DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter) {
         this.databaseConnectionToDatabaseConnectionDtoConverter = databaseConnectionToDatabaseConnectionDtoConverter;
         this.dataSourceColumnToDataSourceColumnDtoConverter = dataSourceColumnToDataSourceColumnDtoConverter;
         this.fileDataSourceRowToFileDataSourceRowDtoConverter = fileDataSourceRowToFileDataSourceRowDtoConverter;
+        this.dataFileToDataFileDtoConverter = dataFileToDataFileDtoConverter;
     }
 
     @Override
@@ -55,13 +58,16 @@ public class DataSourceToDataSourceDtoConverter extends AbstractConverter<DataSo
                     .setFilter(((DatabaseDataSource) dataSource).getFilter())
                     .setTable(((DatabaseDataSource) dataSource).getTable())
                     .setId(dataSource.getId())
+                    .setDataSourceType(dataSource.getDataSourceType())
                     .setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(dataSource.getColumns()))
                     .setName(dataSource.getName())
                     .setDescription(dataSource.getDescription());
             case FILE: return new FileDataSourceDto()
+                    .setDataFile(dataFileToDataFileDtoConverter.convert(((FileDataSource) dataSource).getDataFile()))
                     .setRows(fileDataSourceRowToFileDataSourceRowDtoConverter.convertToSet(((FileDataSource) dataSource).getRows()))
                     .setFilter(((FileDataSource) dataSource).getFilter())
                     .setId(dataSource.getId())
+                    .setDataSourceType(dataSource.getDataSourceType())
                     .setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(dataSource.getColumns()))
                     .setName(dataSource.getName())
                     .setDescription(dataSource.getDescription());

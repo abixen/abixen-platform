@@ -64,7 +64,7 @@ public class ChartDataServiceImpl implements ChartDataService {
         DatabaseConnection databaseConnection = ((DatabaseDataSource) dataSource).getDatabaseConnection();
         DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection));
-        return databaseService.getChartData(connection, ((DatabaseDataSource) dataSource), chartConfigurationForm, seriesName);
+        return databaseService.getChartData(connection, dataSource, chartConfigurationForm, seriesName);
     }
 
     private List<Map<String, DataValueDto>> getChartDataFromFileDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {

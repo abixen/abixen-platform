@@ -15,6 +15,9 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.dto;
 
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,11 +30,15 @@ import java.util.Set;
 @Setter
 @Accessors(chain = true)
 @ToString
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "classType")
+@JsonSubTypes({@JsonSubTypes.Type(value = DatabaseDataSourceDto.class, name = "DB"),
+        @JsonSubTypes.Type(value = FileDataSourceDto.class, name = "FILE")})
 public class DataSourceDto {
     private Long id;
     private String name;
     private String description;
     private Set<DataSourceColumnDto> columns;
     private String filter;
+    private DataSourceType dataSourceType;
 
 }

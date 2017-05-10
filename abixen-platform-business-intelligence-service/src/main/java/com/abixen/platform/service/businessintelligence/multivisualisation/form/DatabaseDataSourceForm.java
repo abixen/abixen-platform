@@ -15,17 +15,16 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseDataSourceDto;
 
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
 
 
 public class DatabaseDataSourceForm extends DataSourceForm implements Form {
 
     @NotNull
-    private DatabaseConnectionForm databaseConnection;
+    private DatabaseConnectionDto databaseConnection;
 
     private String filter;
 
@@ -33,27 +32,21 @@ public class DatabaseDataSourceForm extends DataSourceForm implements Form {
     private String table;
 
     public DatabaseDataSourceForm() {
+        super();
     }
 
     public DatabaseDataSourceForm(DatabaseDataSourceDto databaseDataSource) {
-        this.setId(databaseDataSource.getId());
-        this.setName(databaseDataSource.getName());
-        this.setDescription(databaseDataSource.getDescription());
-        this.databaseConnection = new DatabaseConnectionForm(databaseDataSource.getDatabaseConnection());
+        super(databaseDataSource);
+        this.databaseConnection = databaseDataSource.getDatabaseConnection();
         this.filter = databaseDataSource.getFilter();
         this.table = databaseDataSource.getTable();
-        this.setColumns(new HashSet<>());
-
-        for (DataSourceColumnDto dataSourceColumnDto : databaseDataSource.getColumns()) {
-            this.getColumns().add(new DataSourceColumnForm(dataSourceColumnDto));
-        }
     }
 
-    public DatabaseConnectionForm getDatabaseConnection() {
+    public DatabaseConnectionDto getDatabaseConnection() {
         return databaseConnection;
     }
 
-    public void setDatabaseConnection(DatabaseConnectionForm databaseConnection) {
+    public void setDatabaseConnection(DatabaseConnectionDto databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
 

@@ -163,6 +163,8 @@
             $log.log('beforeSaveForm', databaseDataSourceDetails.entity);
 
             databaseDataSourceDetails.entity.columns = [];
+            databaseDataSourceDetails.entity.classType = "DB";
+            databaseDataSourceDetails.entity.dataSourceType = "DB";
 
             var columnPosition = 1;
 
@@ -196,6 +198,8 @@
 
         function getPreviewData() {
             databaseDataSourceDetails.entity.columns = [];
+            databaseDataSourceDetails.entity.classType = "DB";
+            databaseDataSourceDetails.entity.dataSourceType = "DB";
 
             var columnPosition = 1;
 

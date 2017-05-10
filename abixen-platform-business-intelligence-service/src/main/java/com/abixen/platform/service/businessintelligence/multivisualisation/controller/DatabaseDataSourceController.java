@@ -18,12 +18,12 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.common.util.ValidationUtil;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.facade.DataSourceFacade;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseDataSourceDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseDataSourceForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseDataSourceService;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,26 +45,25 @@ import java.util.Map;
 @RequestMapping(value = "/api/service/abixen/business-intelligence/control-panel/multi-visualisation/database-data-sources")
 public class DatabaseDataSourceController {
 
-    private final DatabaseDataSourceService databaseDataSourceService;
+    private final DataSourceFacade dataSourceFacade;
 
     @Autowired
-    public DatabaseDataSourceController(DatabaseDataSourceService databaseDataSourceService) {
-        this.databaseDataSourceService = databaseDataSourceService;
+    public DatabaseDataSourceController(DataSourceFacade dataSourceFacade) {
+        this.dataSourceFacade = dataSourceFacade;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<DatabaseDataSourceDto> findAllDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
-        return databaseDataSourceService.findAllDataSourcesAsDto(pageable);
+    public Page<DataSourceDto> findAllDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+        return dataSourceFacade.findAllDataSources(pageable, DataSourceType.DB);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public DatabaseDataSourceDto findDataSource(@PathVariable Long id) {
+    public DataSourceDto findDataSource(@PathVariable Long id) {
         log.debug("getDataSource() - id: " + id);
 
-        return databaseDataSourceService.findDatabaseDataSourceAsDto(id);
+        return dataSourceFacade.findDataSource(id);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createDataSource(@RequestBody @Valid DatabaseDataSourceForm databaseDataSourceForm, BindingResult bindingResult) {
         log.debug("createDataSource() - databaseDataSourceForm: " + databaseDataSourceForm);
@@ -74,12 +73,11 @@ public class DatabaseDataSourceController {
             return new FormValidationResultDto(databaseDataSourceForm, formErrors);
         }
 
-        DatabaseDataSourceForm databaseDataSourceFormResult = databaseDataSourceService.createDataSource(databaseDataSourceForm);
+        DataSourceDto dataSourceDto = dataSourceFacade.createDataSource(databaseDataSourceForm);
 
-        return new FormValidationResultDto(databaseDataSourceFormResult);
+        return new FormValidationResultDto(new DataSourceForm(dataSourceDto));
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateDataSource(@PathVariable("id") Long id, @RequestBody @Valid DatabaseDataSourceForm databaseDataSourceForm, BindingResult bindingResult) {
         log.debug("updateDataSource() - id: " + id + ", databaseDataSourceForm: " + databaseDataSourceForm);
@@ -88,9 +86,9 @@ public class DatabaseDataSourceController {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(databaseDataSourceForm, formErrors);
         }
-        DatabaseDataSourceForm databaseDataSourceFormResult = null;
+        DataSourceDto dataSourceDto = null;
         try {
-            databaseDataSourceFormResult = databaseDataSourceService.updateDataSource(databaseDataSourceForm);
+            dataSourceDto = dataSourceFacade.updateDataSource(databaseDataSourceForm);
         } catch (Throwable e) {
             log.error(e.getMessage());
             if (e.getCause() instanceof ConstraintViolationException) {
@@ -99,22 +97,18 @@ public class DatabaseDataSourceController {
                 throw e;
             }
         }
-        return new FormValidationResultDto(databaseDataSourceFormResult);
+        return new FormValidationResultDto(new DataSourceForm(dataSourceDto));
     }
 
     @RequestMapping(value = "/preview", method = RequestMethod.POST)
     public  List<Map<String, DataValueDto>> getPreviewData(@RequestBody @Valid DatabaseDataSourceForm databaseDataSourceForm) {
-        log.debug("createDataSource() - databaseDataSourceForm: " + databaseDataSourceForm);
-
-        List<Map<String, DataValueDto>> databaseDataSourcePreviewData = databaseDataSourceService.getPreviewData(databaseDataSourceForm);
-
-        return databaseDataSourcePreviewData;
+        return dataSourceFacade.getPreviewData(databaseDataSourceForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteDatabaseDataSource(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
-        databaseDataSourceService.delateDataBaseDataSource(id);
+        dataSourceFacade.deleteDataSource(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 

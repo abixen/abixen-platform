@@ -18,9 +18,11 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.FileDataSourceDto;
+import com.abixen.platform.service.businessintelligence.facade.DataSourceFacade;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.FileDataSourceForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileDataSourceService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,23 +43,23 @@ import java.util.List;
 @RequestMapping(value = "/api/service/abixen/business-intelligence/control-panel/multi-visualisation/file-data-sources")
 public class FileDataSourceController {
 
-    private final FileDataSourceService fileDataSourceService;
+    private final DataSourceFacade dataSourceFacade;
 
     @Autowired
-    public FileDataSourceController(FileDataSourceService fileDataSourceService) {
-        this.fileDataSourceService = fileDataSourceService;
+    public FileDataSourceController(DataSourceFacade dataSourceFacade) {
+        this.dataSourceFacade = dataSourceFacade;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<FileDataSourceDto> findAllDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
-        return fileDataSourceService.findAllDataSourcesAsDto(pageable);
+    public Page<DataSourceDto> findAllDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+        return dataSourceFacade.findAllDataSources(pageable, DataSourceType.FILE);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public FileDataSourceDto findDataSource(@PathVariable Long id) {
+    public DataSourceDto findDataSource(@PathVariable Long id) {
         log.debug("getDataSource() - id: " + id);
 
-        return fileDataSourceService.findDataSourceAsDto(id);
+        return dataSourceFacade.findDataSource(id);
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -70,9 +72,9 @@ public class FileDataSourceController {
             return new FormValidationResultDto(fileDataSourceForm, formErrors);
         }
 
-        FileDataSourceForm fileDataSourceFormResult = fileDataSourceService.createDataSource(fileDataSourceForm);
+        DataSourceDto dataSourceDto = dataSourceFacade.createDataSource(fileDataSourceForm);
 
-        return new FormValidationResultDto(fileDataSourceFormResult);
+        return new FormValidationResultDto(new DataSourceForm(dataSourceDto));
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -85,15 +87,15 @@ public class FileDataSourceController {
             return new FormValidationResultDto(fileDataSourceForm, formErrors);
         }
 
-        FileDataSourceForm fileDataSourceFormResult = fileDataSourceService.updateDataSource(fileDataSourceForm);
+        DataSourceDto dataSourceDto = dataSourceFacade.updateDataSource(fileDataSourceForm);
 
-        return new FormValidationResultDto(fileDataSourceFormResult);
+        return new FormValidationResultDto(new DataSourceForm(dataSourceDto));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteFileDataSource(@PathVariable("id") long id) {
        log.debug("delete() - id: " + id);
-       fileDataSourceService.delateFileDataSource(id);
+       dataSourceFacade.deleteDataSource(id);
        return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
