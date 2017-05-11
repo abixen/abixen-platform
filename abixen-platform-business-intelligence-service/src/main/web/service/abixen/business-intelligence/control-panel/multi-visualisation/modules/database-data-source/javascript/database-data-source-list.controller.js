@@ -22,19 +22,22 @@
 
     DatabaseDataSourceListController.$inject = [
         '$log',
-        'DatabaseDataSource',
+        'DataSource',
         'applicationNavigationItems',
         '$state'
     ];
 
-    function DatabaseDataSourceListController($log, DatabaseDataSource, applicationNavigationItems, $state) {
+    function DatabaseDataSourceListController($log, DataSource, applicationNavigationItems, $state) {
         $log.log('DatabaseDataSourceListController');
 
         var databaseDataSourceList = this;
 
-        angular.extend(databaseDataSourceList, new AbstractListGridController(DatabaseDataSource,
+        angular.extend(databaseDataSourceList, new AbstractListGridController(DataSource,
             {
-                getTableColumns: getTableColumns
+                getTableColumns: getTableColumns,
+                filter: {
+                    dataSourceType: 'DB'
+                }
             }
         ));
 

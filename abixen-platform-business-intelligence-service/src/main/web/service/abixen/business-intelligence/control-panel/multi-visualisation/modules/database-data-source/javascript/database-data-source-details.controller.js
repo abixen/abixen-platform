@@ -22,25 +22,24 @@
 
     DatabaseDataSourceDetailsController.$inject = [
         '$scope',
-        'DatabaseDataSource',
+        'DataSource',
         '$state',
         '$stateParams',
         '$log',
         'DatabaseConnection',
-        'DatabaseDataSourcePreviewData',
         'responseHandler'
     ];
 
-    function DatabaseDataSourceDetailsController($scope, DatabaseDataSource, $state, $stateParams, $log, DatabaseConnection, DatabaseDataSourcePreviewData, responseHandler) {
+    function DatabaseDataSourceDetailsController($scope, DataSource, $state, $stateParams, $log, DatabaseConnection, responseHandler) {
         $log.log('DatabaseDataSourceDetailsController');
         var databaseDataSourceDetails = this;
 
-        new AbstractDetailsController(databaseDataSourceDetails, DatabaseDataSource, responseHandler, $scope,
+        new AbstractDetailsController(databaseDataSourceDetails, DataSource, responseHandler, $scope,
             {
                 entityId: $stateParams.id,
                 getValidators: getValidators,
                 onSuccessSaveForm: onSuccessSaveForm,
-                onSuccessGetEntity: onSuccessGetEntity
+                onSuccessGetEntity: onSuccessGetEntity,
             }
         );
 
@@ -198,8 +197,8 @@
 
         function getPreviewData() {
             databaseDataSourceDetails.entity.columns = [];
-            databaseDataSourceDetails.entity.classType = "DB";
-            databaseDataSourceDetails.entity.dataSourceType = "DB";
+            databaseDataSourceDetails.entity.classType = 'DB';
+            databaseDataSourceDetails.entity.dataSourceType = 'DB';
 
             var columnPosition = 1;
 
@@ -212,13 +211,13 @@
                 }
             }
 
-            DatabaseDataSourcePreviewData.query({}, databaseDataSourceDetails.entity)
+            DataSource.preview({}, databaseDataSourceDetails.entity)
                 .$promise
                 .then(onQueryResult, onQueryError);
         }
 
         function onQueryResult(data) {
-            $log.log('DatabaseDataSourcePreviewData.query: ', data);
+            $log.log('DataSource.preview: ', data);
             $scope.$broadcast('DatabaseDataSourceDataUpdated', data);
         }
 

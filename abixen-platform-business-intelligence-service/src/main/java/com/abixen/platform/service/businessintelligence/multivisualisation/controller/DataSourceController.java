@@ -23,6 +23,7 @@ import com.abixen.platform.service.businessintelligence.facade.DataSourceFacade;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataSourceType;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,9 @@ public class DataSourceController {
         this.dataSourceFacade = dataSourceFacade;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<DataSourceDto> findAllDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
-        return dataSourceFacade.findAllDataSources(pageable, null);
+    @RequestMapping(value = "/{dataSourceType}/all", method = RequestMethod.GET)
+    public Page<DataSourceDto> findAllDataSources(@PathVariable("dataSourceType") DataSourceType dataSourceType, @PageableDefault(size = 1, page = 0) Pageable pageable) {
+        return dataSourceFacade.findAllDataSources(pageable, dataSourceType);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -17,16 +17,16 @@
     'use strict';
 
     angular
-        .module('platformFileDataSourceModule')
-        .factory('FileDataSource', FileDataSource);
+        .module('platformDataSourceModule')
+        .factory('DataSource', DataSource);
 
-    FileDataSource.$inject = ['$resource'];
+    DataSource.$inject = ['$resource'];
 
-    function FileDataSource($resource) {
-
-        return $resource('/api/service/abixen/business-intelligence/control-panel/multi-visualisation/file-data-sources/:id', {}, {
-            query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'}
+    function DataSource($resource) {
+        return $resource('/api/service/abixen/business-intelligence/control-panel/multi-visualisation/data-sources/:id', {}, {
+            query: {url: '/api/service/abixen/business-intelligence/control-panel/multi-visualisation/data-sources/:dataSourceType/all', method: 'GET', isArray: false},
+            update: {method: 'PUT'},
+            preview: {url:'/api/service/abixen/business-intelligence/control-panel/multi-visualisation/data-sources/preview' , method:'POST', isArray: true}
         });
     }
 
