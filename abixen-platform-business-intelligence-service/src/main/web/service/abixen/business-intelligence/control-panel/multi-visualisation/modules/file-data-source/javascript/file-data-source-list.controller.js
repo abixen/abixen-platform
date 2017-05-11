@@ -22,19 +22,22 @@
 
     FileDataSourceListController.$inject = [
         '$log',
-        'FileDataSource',
+        'DataSource',
         'applicationNavigationItems',
         '$state'
     ];
 
-    function FileDataSourceListController($log, FileDataSource, applicationNavigationItems, $state) {
+    function FileDataSourceListController($log, DataSource, applicationNavigationItems, $state) {
         $log.log('FileDataSourceListController');
 
         var fileDataSourceList = this;
 
-        angular.extend(fileDataSourceList, new AbstractListGridController(FileDataSource,
+        angular.extend(fileDataSourceList, new AbstractListGridController(DataSource,
             {
-                getTableColumns: getTableColumns
+                getTableColumns: getTableColumns,
+                filter: {
+                    dataSourceType: 'FILE'
+                }
             }
         ));
 

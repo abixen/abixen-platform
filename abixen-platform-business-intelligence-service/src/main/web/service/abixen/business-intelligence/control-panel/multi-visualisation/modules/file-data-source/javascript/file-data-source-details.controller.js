@@ -12,16 +12,16 @@
         '$state',
         '$stateParams',
         '$log',
-        'FileDataSource',
+        'DataSource',
         'FileData',
         'responseHandler'
     ];
 
-    function FileDataSourceDetailController($scope, $http, $state, $stateParams, $log, FileDataSource, FileData, responseHandler) {
+    function FileDataSourceDetailController($scope, $http, $state, $stateParams, $log, DataSource, FileData, responseHandler) {
         $log.log('FileDataDetailController');
         var fileDataSourceDetails = this;
 
-        new AbstractDetailsController(fileDataSourceDetails, FileDataSource, responseHandler, $scope,
+        new AbstractDetailsController(fileDataSourceDetails, DataSource, responseHandler, $scope,
             {
                 entityId: $stateParams.id,
                 getValidators: getValidators,
@@ -45,8 +45,8 @@
         function beforeSaveForm() {
             $log.debug('entity.id: ',fileDataSourceDetails.entity);
             fileDataSourceDetails.entity.columns = [];
-            fileDataSourceDetails.entity.classType = "FILE";
-            fileDataSourceDetails.entity.dataSourceType = "FILE";
+            fileDataSourceDetails.entity.classType = 'FILE';
+            fileDataSourceDetails.entity.dataSourceType = 'FILE';
             fileDataSourceDetails.fileColumns.forEach(function (column) {
                 if (column.selected === true){
                     fileDataSourceDetails.entity.columns.push({
