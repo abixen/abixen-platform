@@ -12,19 +12,20 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.client;
+package com.abixen.platform.service.webcontent.configuration;
 
-import com.abixen.platform.service.businessintelligence.model.User;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import com.abixen.platform.service.webcontent.client.UserClient;
+import com.abixen.platform.service.webcontent.model.User;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-
-@FeignClient("abixen-platform-core")
-public interface UserClient {
-
-    @RequestMapping(method = RequestMethod.GET, value = "/api-intranet/users/{id}")
-    User getUserById(@PathVariable("id") Long id);
-
+@Component
+public class TestUserClient implements UserClient {
+    @Override
+    public User getUserById(@PathVariable("id") Long id) {
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("joe.brown@abixen.com");
+        return user;
+    }
 }

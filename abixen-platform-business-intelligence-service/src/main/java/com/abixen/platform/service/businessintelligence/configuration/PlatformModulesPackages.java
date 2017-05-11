@@ -31,6 +31,8 @@ public class PlatformModulesPackages {
 
     public static final String CLIENT = MAIN + ".client";
 
+    public static final String INTEGRATION = MAIN + ".integration";
+
     public static final String CHART = MAIN + ".multivisualisation";
 
     public static final String CHART_DOMAIN = CHART + ".model";

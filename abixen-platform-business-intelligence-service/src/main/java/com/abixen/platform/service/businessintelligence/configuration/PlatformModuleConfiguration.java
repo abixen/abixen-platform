@@ -17,9 +17,11 @@ package com.abixen.platform.service.businessintelligence.configuration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import static com.abixen.platform.service.businessintelligence.configuration.PlatformModulesPackages.*;
+
 
 @Configuration
-@ComponentScan(basePackages = {PlatformModulesPackages.CONFIG, PlatformModulesPackages.CONTROLLER, PlatformModulesPackages.CHART, PlatformModulesPackages.FACADE})
+@ComponentScan(basePackages = {CONFIG, CONTROLLER, CHART, FACADE, INTEGRATION})
 public class PlatformModuleConfiguration {
 
 }

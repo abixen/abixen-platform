@@ -24,13 +24,21 @@ import java.util.Map;
 @Component
 public class DatabaseConnectionToDatabaseConnectionDtoConverter extends AbstractConverter<DatabaseConnection, DatabaseConnectionDto> {
 
+    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+
+    public DatabaseConnectionToDatabaseConnectionDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+    }
+
     @Override
     public DatabaseConnectionDto convert(DatabaseConnection databaseConnection, Map<String, Object> parameters) {
         if (databaseConnection == null) {
             return null;
         }
 
-        return new DatabaseConnectionDto()
+        DatabaseConnectionDto databaseConnectionDto = new DatabaseConnectionDto();
+
+        databaseConnectionDto
                 .setId(databaseConnection.getId())
                 .setName(databaseConnection.getName())
                 .setDatabaseHost(databaseConnection.getDatabaseHost())
@@ -40,5 +48,9 @@ public class DatabaseConnectionToDatabaseConnectionDtoConverter extends Abstract
                 .setDescription(databaseConnection.getDescription())
                 .setUsername(databaseConnection.getUsername())
                 .setPassword(databaseConnection.getPassword());
+
+        auditingModelToAuditingDtoConverter.convert(databaseConnection, databaseConnectionDto);
+
+        return databaseConnectionDto;
     }
 }

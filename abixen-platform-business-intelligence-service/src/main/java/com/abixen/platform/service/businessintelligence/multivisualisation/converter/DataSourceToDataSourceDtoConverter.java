@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -30,16 +30,19 @@ import java.util.Map;
 @Component
 public class DataSourceToDataSourceDtoConverter extends AbstractConverter<DataSource, DataSourceDto> {
 
+    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
     private final DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
     private final DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
     private final FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter;
     private final DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter;
 
     @Autowired
-    public DataSourceToDataSourceDtoConverter(DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter,
+    public DataSourceToDataSourceDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter,
+                                              DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter,
                                               DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter,
                                               FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter,
                                               DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter) {
+        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
         this.databaseConnectionToDatabaseConnectionDtoConverter = databaseConnectionToDatabaseConnectionDtoConverter;
         this.dataSourceColumnToDataSourceColumnDtoConverter = dataSourceColumnToDataSourceColumnDtoConverter;
         this.fileDataSourceRowToFileDataSourceRowDtoConverter = fileDataSourceRowToFileDataSourceRowDtoConverter;
@@ -52,26 +55,38 @@ public class DataSourceToDataSourceDtoConverter extends AbstractConverter<DataSo
             return null;
         }
 
+        DataSourceDto dataSourceDto = null;
+
         switch (dataSource.getDataSourceType()) {
-            case DB: return new DatabaseDataSourceDto()
-                    .setDatabaseConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(((DatabaseDataSource) dataSource).getDatabaseConnection()))
-                    .setFilter(((DatabaseDataSource) dataSource).getFilter())
-                    .setTable(((DatabaseDataSource) dataSource).getTable())
-                    .setId(dataSource.getId())
-                    .setDataSourceType(dataSource.getDataSourceType())
-                    .setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(dataSource.getColumns()))
-                    .setName(dataSource.getName())
-                    .setDescription(dataSource.getDescription());
-            case FILE: return new FileDataSourceDto()
-                    .setDataFile(dataFileToDataFileDtoConverter.convert(((FileDataSource) dataSource).getDataFile()))
-                    .setRows(fileDataSourceRowToFileDataSourceRowDtoConverter.convertToSet(((FileDataSource) dataSource).getRows()))
-                    .setFilter(((FileDataSource) dataSource).getFilter())
-                    .setId(dataSource.getId())
-                    .setDataSourceType(dataSource.getDataSourceType())
-                    .setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(dataSource.getColumns()))
-                    .setName(dataSource.getName())
-                    .setDescription(dataSource.getDescription());
-            default: throw new PlatformRuntimeException("DataSource type not supported");
+            case DB:
+                dataSourceDto = new DatabaseDataSourceDto();
+                ((DatabaseDataSourceDto) dataSourceDto)
+                        .setDatabaseConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(((DatabaseDataSource) dataSource).getDatabaseConnection()))
+                        .setFilter((dataSource).getFilter())
+                        .setTable(((DatabaseDataSource) dataSource).getTable())
+                        .setId(dataSource.getId())
+                        .setDataSourceType(dataSource.getDataSourceType())
+                        .setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(dataSource.getColumns()))
+                        .setName(dataSource.getName())
+                        .setDescription(dataSource.getDescription());
+                break;
+            case FILE:
+                dataSourceDto = new FileDataSourceDto();
+                ((FileDataSourceDto) dataSourceDto)
+                        .setDataFile(dataFileToDataFileDtoConverter.convert(((FileDataSource) dataSource).getDataFile()))
+                        .setRows(fileDataSourceRowToFileDataSourceRowDtoConverter.convertToSet(((FileDataSource) dataSource).getRows()))
+                        .setFilter((dataSource).getFilter())
+                        .setId(dataSource.getId())
+                        .setDataSourceType(dataSource.getDataSourceType())
+                        .setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(dataSource.getColumns()))
+                        .setName(dataSource.getName())
+                        .setDescription(dataSource.getDescription());
+                break;
+            default:
+                throw new PlatformRuntimeException("DataSource type not supported");
         }
+        auditingModelToAuditingDtoConverter.convert(dataSource, dataSourceDto);
+
+        return dataSourceDto;
     }
 }

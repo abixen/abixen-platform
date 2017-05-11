@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.dto;
 
+import com.abixen.platform.common.dto.AuditingDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DatabaseType;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +25,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @ToString
-public class DatabaseConnectionDto {
+public class DatabaseConnectionDto extends AuditingDto {
     private Long id;
     private String name;
     private String description;

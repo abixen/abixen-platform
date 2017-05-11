@@ -32,4 +32,3 @@ public interface SecurityClient {
                           @PathVariable("permissionName") String permissionName);
 
 }
-

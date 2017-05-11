@@ -12,19 +12,18 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.client;
+package com.abixen.platform.service.webcontent.configuration;
 
-import com.abixen.platform.service.businessintelligence.model.User;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.service.webcontent.client.SecurityClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
+@Component
+public class TestSecurityClient implements SecurityClient {
 
-@FeignClient("abixen-platform-core")
-public interface UserClient {
-
-    @RequestMapping(method = RequestMethod.GET, value = "/api-intranet/users/{id}")
-    User getUserById(@PathVariable("id") Long id);
-
+    @Override
+    public Boolean hasPermission(@PathVariable("username") String username, @PathVariable("securableObjectId") Long securableObjectId, @PathVariable("aclClassName") AclClassName aclClassName, @PathVariable("permissionName") String permissionName) {
+        return true;
+    }
 }

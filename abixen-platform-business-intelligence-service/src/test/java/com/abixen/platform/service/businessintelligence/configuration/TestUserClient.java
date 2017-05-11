@@ -12,10 +12,10 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.configuration.properties;
+package com.abixen.platform.service.businessintelligence.configuration;
 
-import com.abixen.platform.service.webcontent.client.UserClient;
-import com.abixen.platform.service.webcontent.model.User;
+import com.abixen.platform.service.businessintelligence.client.UserClient;
+import com.abixen.platform.service.businessintelligence.model.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 
