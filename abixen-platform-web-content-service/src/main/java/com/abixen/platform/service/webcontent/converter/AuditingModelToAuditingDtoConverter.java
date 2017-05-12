@@ -34,18 +34,24 @@ public class AuditingModelToAuditingDtoConverter {
         this.userIntegrationClient = userIntegrationClient;
     }
 
-
     public AuditingDto convert(AuditingModel auditingModel, AuditingDto auditingDto) {
-        User createdBy = userIntegrationClient.getUserById(auditingModel.getCreatedById());
-        User lastModifiedBy = userIntegrationClient.getUserById(auditingModel.getLastModifiedById());
+        UserDto createdByDto = null;
+        UserDto lastModifiedByDto = null;
 
-        UserDto createdByDto = new UserDto();
-        createdByDto.setId(createdBy.getId());
-        createdByDto.setUsername(createdBy.getUsername());
+        if (auditingModel.getCreatedById() != null) {
+            User createdBy = userIntegrationClient.getUserById(auditingModel.getCreatedById());
+            createdByDto = new UserDto();
+            createdByDto.setId(createdBy.getId());
+            createdByDto.setUsername(createdBy.getUsername());
 
-        UserDto lastModifiedByDto = new UserDto();
-        lastModifiedByDto.setId(lastModifiedBy.getId());
-        lastModifiedByDto.setUsername(lastModifiedBy.getUsername());
+        }
+        if (auditingModel.getLastModifiedById() != null) {
+            User lastModifiedBy = userIntegrationClient.getUserById(auditingModel.getLastModifiedById());
+            lastModifiedByDto = new UserDto();
+            lastModifiedByDto.setId(lastModifiedBy.getId());
+            lastModifiedByDto.setUsername(lastModifiedBy.getUsername());
+        }
+
 
         auditingDto
                 .setCreatedBy(createdByDto)
