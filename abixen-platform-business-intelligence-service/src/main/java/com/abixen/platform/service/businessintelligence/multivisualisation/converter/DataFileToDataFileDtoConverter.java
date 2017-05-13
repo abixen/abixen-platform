@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
+import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +27,25 @@ import java.util.Map;
 public class DataFileToDataFileDtoConverter extends AbstractConverter<DataFile, DataFileDto> {
 
     private final DataFileColumnToDataFileColumnDtoConverter dataFileColumnToDataFileColumnDtoConverter;
+    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
 
     @Autowired
-    public DataFileToDataFileDtoConverter(DataFileColumnToDataFileColumnDtoConverter dataFileColumnToDataFileColumnDtoConverter) {
+    public DataFileToDataFileDtoConverter(DataFileColumnToDataFileColumnDtoConverter dataFileColumnToDataFileColumnDtoConverter,
+                                          AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
         this.dataFileColumnToDataFileColumnDtoConverter = dataFileColumnToDataFileColumnDtoConverter;
+        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
     }
 
     @Override
     public DataFileDto convert(DataFile dataFile, Map<String, Object> parameters) {
-        return new DataFileDto()
+        DataFileDto dataFileDto = new DataFileDto()
                 .setId(dataFile.getId())
                 .setName(dataFile.getName())
                 .setDescription(dataFile.getDescription())
                 .setColumns(dataFileColumnToDataFileColumnDtoConverter.convertToList(dataFile.getColumns()));
+
+        auditingModelToAuditingDtoConverter.convert(dataFile, dataFileDto);
+
+        return dataFileDto;
     }
 }

@@ -15,17 +15,19 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file;
 
 
+import com.abixen.platform.common.model.audit.AuditingModel;
 import com.abixen.platform.common.util.ModelKeys;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "data_file")
 @SequenceGenerator(sequenceName = "data_file_seq", name = "data_file_seq", allocationSize = 1)
-public class DataFile {
+public class DataFile extends AuditingModel implements Serializable {
 
     @Id
     @Column(name = "id")
