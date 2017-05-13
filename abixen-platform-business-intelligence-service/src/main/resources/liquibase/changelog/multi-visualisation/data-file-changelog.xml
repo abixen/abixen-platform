@@ -20,6 +20,10 @@
             <column name="file_data_source_id" type="bigint">
                 <constraints nullable="true"/>
             </column>
+            <column name="created_by_id" type="bigint"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by_id" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
         </createTable>
 
         <addPrimaryKey columnNames="id" constraintName="pk__data_file__id" tableName="data_file"/>
