@@ -19,7 +19,7 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.common.util.ValidationUtil;
-import com.abixen.platform.service.businessintelligence.facade.DataSourceFacade;
+import com.abixen.platform.service.businessintelligence.multivisualisation.facade.DataSourceFacade;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataSourceForm;

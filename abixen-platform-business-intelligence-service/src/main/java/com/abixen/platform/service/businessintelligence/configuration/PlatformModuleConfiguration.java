@@ -21,7 +21,7 @@ import static com.abixen.platform.service.businessintelligence.configuration.Pla
 
 
 @Configuration
-@ComponentScan(basePackages = {CONFIG, CONTROLLER, CHART, FACADE, INTEGRATION, COMMON_CONVERTER, SECURITY})
+@ComponentScan(basePackages = {CONFIG, CONTROLLER, CHART, INTEGRATION, COMMON_CONVERTER, SECURITY})
 public class PlatformModuleConfiguration {
 
 }

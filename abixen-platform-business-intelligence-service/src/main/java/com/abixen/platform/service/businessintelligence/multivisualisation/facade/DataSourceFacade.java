@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.facade;
+package com.abixen.platform.service.businessintelligence.multivisualisation.facade;
 
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceDto;
