@@ -15,6 +15,7 @@
 package com.abixen.platform.service.webcontent.model.impl;
 
 import com.abixen.platform.common.model.audit.AuditingModel;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -39,8 +40,9 @@ public class Template extends AuditingModel implements Serializable {
     @Column(name = "name", nullable = false, length = NAME_MAX_LENGTH)
     private String name;
 
-    @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGTH, columnDefinition = "text")
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "content", nullable = false, length = CONTENT_MAX_LENGTH)
     private String content;
 
     @Override
