@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.security;
+package com.abixen.platform.common.security;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;

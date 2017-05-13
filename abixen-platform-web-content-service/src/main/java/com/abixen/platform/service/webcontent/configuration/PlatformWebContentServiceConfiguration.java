@@ -21,7 +21,7 @@ import static com.abixen.platform.service.webcontent.configuration.PlatformWebCo
 
 
 @Configuration
-@ComponentScan(basePackages = {CONFIG, CONTROLLER, FACADE, SERVICE, REPOSITORY, CONVERTER, COMMON_CONVERTER, INTEGRATION})
+@ComponentScan(basePackages = {CONFIG, CONTROLLER, FACADE, SERVICE, REPOSITORY, CONVERTER, COMMON_CONVERTER, INTEGRATION, SECURITY})
 public class PlatformWebContentServiceConfiguration {
 
 }

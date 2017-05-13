@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.security;
+package com.abixen.platform.common.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

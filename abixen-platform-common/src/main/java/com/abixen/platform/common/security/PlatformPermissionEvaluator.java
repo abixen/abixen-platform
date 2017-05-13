@@ -12,11 +12,10 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.security;
+package com.abixen.platform.common.security;
 
 import com.abixen.platform.common.integration.SecurityIntegrationClient;
 import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.common.security.PlatformUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;

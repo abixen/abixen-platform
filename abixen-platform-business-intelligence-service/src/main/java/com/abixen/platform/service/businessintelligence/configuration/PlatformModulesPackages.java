@@ -42,4 +42,6 @@ public class PlatformModulesPackages {
     public static final String CHART_REPOSITORY = CHART + ".repository";
 
     public static final String COMMON_CONVERTER = COMMON + ".converter";
+
+    public static final String SECURITY = COMMON + ".security";
 }

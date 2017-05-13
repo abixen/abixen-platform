@@ -12,18 +12,14 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.security;
+package com.abixen.platform.common.security;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
 
 
-@Slf4j
 public class PlatformMethodSecurityExpressionRoot extends SecurityExpressionRoot implements MethodSecurityExpressionOperations {
-
-    // private PageRepository pageRepository;
 
     private Object filterObject;
     private Object returnObject;
@@ -32,22 +28,6 @@ public class PlatformMethodSecurityExpressionRoot extends SecurityExpressionRoot
     public PlatformMethodSecurityExpressionRoot(Authentication authentication) {
         super(authentication);
     }
-
-    public boolean canViewPage(Long pageId) {
-        log.debug("canViewPage - pageId:" + pageId);
-        log.debug("authentication:" + authentication);
-        //Page page = null;//pageRepository.findByName(pageName);
-        //log.debug("page:" + page);
-        //if (page == null) {
-        //    return true;
-        //}
-        //return hasPermission(page, PermissionName.PAGE_VIEW);
-        return true;
-    }
-
-    //public void setPageRepository(PageRepository pageRepository) {
-    //this.pageRepository = pageRepository;
-    //}
 
     protected void setThis(Object target) {
         this.target = target;

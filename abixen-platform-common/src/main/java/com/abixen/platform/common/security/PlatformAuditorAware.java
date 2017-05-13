@@ -12,9 +12,8 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.security;
+package com.abixen.platform.common.security;
 
-import com.abixen.platform.common.security.PlatformUser;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

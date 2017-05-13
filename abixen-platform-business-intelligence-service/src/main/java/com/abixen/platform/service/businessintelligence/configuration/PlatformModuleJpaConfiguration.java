@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.configuration;
 
 import com.abixen.platform.common.configuration.AbstractJpaConfiguration;
 import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
-import com.abixen.platform.service.businessintelligence.security.PlatformAuditorAware;
+import com.abixen.platform.common.security.PlatformAuditorAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
