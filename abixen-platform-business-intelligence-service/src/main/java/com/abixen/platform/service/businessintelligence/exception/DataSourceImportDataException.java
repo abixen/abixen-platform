@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.exception;
+package com.abixen.platform.service.businessintelligence.exception;
 
 
 public class DataSourceImportDataException extends RuntimeException {
