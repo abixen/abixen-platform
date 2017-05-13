@@ -12,9 +12,9 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.client;
+package com.abixen.platform.common.client;
 
-import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.User;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @FeignClient("abixen-platform-core")
-public interface SecurityClient {
+public interface UserClient {
 
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/api/control-panel/securities/has-permission/{username}/{securableObjectId}/{aclClassName}/{permissionName}")
-    Boolean hasPermission(@PathVariable("username") String username,
-                          @PathVariable("securableObjectId") Long securableObjectId,
-                          @PathVariable("aclClassName") AclClassName aclClassName,
-                          @PathVariable("permissionName") String permissionName);
+    @RequestMapping(method = RequestMethod.GET, value = "/api-intranet/users/{id}")
+    User getUserById(@PathVariable("id") Long id);
 
 }
-

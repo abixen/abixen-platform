@@ -12,14 +12,14 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.converter;
+package com.abixen.platform.common.converter;
 
 
 import com.abixen.platform.common.dto.AuditingDto;
 import com.abixen.platform.common.dto.UserDto;
+import com.abixen.platform.common.integration.UserIntegrationClient;
+import com.abixen.platform.common.model.User;
 import com.abixen.platform.common.model.audit.AuditingModel;
-import com.abixen.platform.service.webcontent.integration.UserIntegrationClient;
-import com.abixen.platform.service.webcontent.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

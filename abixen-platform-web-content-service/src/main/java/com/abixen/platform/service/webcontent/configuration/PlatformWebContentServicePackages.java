@@ -23,6 +23,8 @@ public class PlatformWebContentServicePackages {
 
     public static final String MAIN = "com.abixen.platform.service.webcontent";
 
+    public static final String COMMON = "com.abixen.platform.common";
+
     public static final String CONFIG = MAIN + ".configuration";
 
     public static final String CONTROLLER = MAIN + ".controller";
@@ -35,9 +37,11 @@ public class PlatformWebContentServicePackages {
 
     public static final String DOMAIN = MAIN + ".model";
 
-    public static final String CLIENT = MAIN + ".client";
+    public static final String CLIENT = COMMON + ".client";
 
-    public static final String INTEGRATION = MAIN + ".integration";
+    public static final String INTEGRATION = COMMON + ".integration";
 
     public static final String CONVERTER = MAIN + ".converter";
+
+    public static final String COMMON_CONVERTER = COMMON + ".converter";
 }

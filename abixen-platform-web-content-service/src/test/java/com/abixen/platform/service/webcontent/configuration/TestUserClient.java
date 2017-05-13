@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.webcontent.configuration;
 
-import com.abixen.platform.service.webcontent.client.UserClient;
-import com.abixen.platform.service.webcontent.model.User;
+import com.abixen.platform.common.client.UserClient;
+import com.abixen.platform.common.model.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 

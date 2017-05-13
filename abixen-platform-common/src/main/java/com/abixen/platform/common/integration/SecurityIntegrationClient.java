@@ -12,10 +12,10 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.integration;
+package com.abixen.platform.common.integration;
 
+import com.abixen.platform.common.client.SecurityClient;
 import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.service.webcontent.client.SecurityClient;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

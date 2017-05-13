@@ -14,6 +14,7 @@
 package com.abixen.platform.service.webcontent.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
+import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
 import com.abixen.platform.service.webcontent.dto.StructureDto;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,10 +12,8 @@
  * details.
  */
 
-package com.abixen.platform.service.webcontent.model;
+package com.abixen.platform.common.model;
 
-import com.abixen.platform.common.model.Model;
-import com.abixen.platform.common.model.SimpleUserBase;
 import com.abixen.platform.common.model.enumtype.UserGender;
 import com.abixen.platform.common.model.enumtype.UserLanguage;
 import com.abixen.platform.common.model.enumtype.UserState;
