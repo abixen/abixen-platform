@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.configuration;
 
+import com.abixen.platform.common.client.SecurityClient;
 import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.service.businessintelligence.client.SecurityClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 

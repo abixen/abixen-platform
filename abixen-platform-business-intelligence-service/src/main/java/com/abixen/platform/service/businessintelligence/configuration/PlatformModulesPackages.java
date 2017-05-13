@@ -23,15 +23,17 @@ public class PlatformModulesPackages {
 
     public static final String MAIN = "com.abixen.platform.service.businessintelligence";
 
+    public static final String COMMON = "com.abixen.platform.common";
+
     public static final String CONFIG = MAIN + ".configuration";
 
     public static final String CONTROLLER = MAIN + ".controller";
 
     public static final String FACADE = MAIN + ".facade";
 
-    public static final String CLIENT = MAIN + ".client";
+    public static final String CLIENT = COMMON + ".client";
 
-    public static final String INTEGRATION = MAIN + ".integration";
+    public static final String INTEGRATION = COMMON + ".integration";
 
     public static final String CHART = MAIN + ".multivisualisation";
 
@@ -39,4 +41,5 @@ public class PlatformModulesPackages {
 
     public static final String CHART_REPOSITORY = CHART + ".repository";
 
+    public static final String COMMON_CONVERTER = COMMON + ".converter";
 }

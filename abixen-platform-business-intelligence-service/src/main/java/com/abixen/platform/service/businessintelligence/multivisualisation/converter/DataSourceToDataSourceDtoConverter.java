@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
+import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
 import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseDataSourceDto;
