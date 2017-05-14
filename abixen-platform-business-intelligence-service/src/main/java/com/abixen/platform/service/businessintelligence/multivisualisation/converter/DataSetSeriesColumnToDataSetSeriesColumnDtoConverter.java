@@ -38,10 +38,13 @@ public class DataSetSeriesColumnToDataSetSeriesColumnDtoConverter extends Abstra
             return null;
         }
 
-        return new DataSetSeriesColumnDto()
-                .setId(dataSetSeriesColumn.getId())
+        DataSetSeriesColumnDto dataSetSeriesColumnDto = new DataSetSeriesColumnDto();
+
+        dataSetSeriesColumnDto.setId(dataSetSeriesColumn.getId())
                 .setName(dataSetSeriesColumn.getName())
                 .setType(dataSetSeriesColumn.getType())
                 .setDataSourceColumn(dataSourceColumnToDataSourceColumnDtoConverter.convert(dataSetSeriesColumn.getDataSourceColumn()));
+
+        return dataSetSeriesColumnDto;
     }
 }

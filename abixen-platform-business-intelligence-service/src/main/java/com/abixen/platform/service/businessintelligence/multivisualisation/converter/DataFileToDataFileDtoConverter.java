@@ -38,8 +38,13 @@ public class DataFileToDataFileDtoConverter extends AbstractConverter<DataFile, 
 
     @Override
     public DataFileDto convert(DataFile dataFile, Map<String, Object> parameters) {
-        DataFileDto dataFileDto = new DataFileDto()
-                .setId(dataFile.getId())
+        if (dataFile == null) {
+            return null;
+        }
+
+        DataFileDto dataFileDto = new DataFileDto();
+
+        dataFileDto.setId(dataFile.getId())
                 .setName(dataFile.getName())
                 .setDescription(dataFile.getDescription())
                 .setColumns(dataFileColumnToDataFileColumnDtoConverter.convertToList(dataFile.getColumns()));

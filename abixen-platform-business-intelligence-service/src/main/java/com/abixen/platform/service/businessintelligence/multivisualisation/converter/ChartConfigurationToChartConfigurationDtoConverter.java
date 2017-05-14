@@ -41,8 +41,9 @@ public class ChartConfigurationToChartConfigurationDtoConverter extends Abstract
             return null;
         }
 
-        return new ChartConfigurationDto()
-                .setId(chartConfiguration.getId())
+        ChartConfigurationDto chartConfigurationDto = new ChartConfigurationDto();
+
+        chartConfigurationDto.setId(chartConfiguration.getId())
                 .setModuleId(chartConfiguration.getModuleId())
                 .setAxisXName(chartConfiguration.getAxisXName())
                 .setAxisYName(chartConfiguration.getAxisYName())
@@ -50,5 +51,7 @@ public class ChartConfigurationToChartConfigurationDtoConverter extends Abstract
                 .setChartType(chartConfiguration.getChartType())
                 .setDataSetChart(dataSetChartToDataSetChartDtoConverter.convert(chartConfiguration.getDataSetChart()))
                 .setDataSource(dataSourceToDataSourceDtoConverter.convert(chartConfiguration.getDataSource()));
+
+        return chartConfigurationDto;
     }
 }

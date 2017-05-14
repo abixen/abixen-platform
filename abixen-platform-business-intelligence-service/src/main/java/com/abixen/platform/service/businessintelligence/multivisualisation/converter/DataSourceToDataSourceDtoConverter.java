@@ -61,8 +61,7 @@ public class DataSourceToDataSourceDtoConverter extends AbstractConverter<DataSo
         switch (dataSource.getDataSourceType()) {
             case DB:
                 dataSourceDto = new DatabaseDataSourceDto();
-                ((DatabaseDataSourceDto) dataSourceDto)
-                        .setDatabaseConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(((DatabaseDataSource) dataSource).getDatabaseConnection()))
+                ((DatabaseDataSourceDto) dataSourceDto).setDatabaseConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(((DatabaseDataSource) dataSource).getDatabaseConnection()))
                         .setFilter((dataSource).getFilter())
                         .setTable(((DatabaseDataSource) dataSource).getTable())
                         .setId(dataSource.getId())
@@ -73,8 +72,7 @@ public class DataSourceToDataSourceDtoConverter extends AbstractConverter<DataSo
                 break;
             case FILE:
                 dataSourceDto = new FileDataSourceDto();
-                ((FileDataSourceDto) dataSourceDto)
-                        .setDataFile(dataFileToDataFileDtoConverter.convert(((FileDataSource) dataSource).getDataFile()))
+                ((FileDataSourceDto) dataSourceDto).setDataFile(dataFileToDataFileDtoConverter.convert(((FileDataSource) dataSource).getDataFile()))
                         .setRows(fileDataSourceRowToFileDataSourceRowDtoConverter.convertToSet(((FileDataSource) dataSource).getRows()))
                         .setFilter((dataSource).getFilter())
                         .setId(dataSource.getId())

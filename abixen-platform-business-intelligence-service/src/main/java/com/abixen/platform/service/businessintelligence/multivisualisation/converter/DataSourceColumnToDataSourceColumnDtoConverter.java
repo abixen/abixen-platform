@@ -28,10 +28,13 @@ public class DataSourceColumnToDataSourceColumnDtoConverter extends AbstractConv
             return null;
         }
 
-        return new DataSourceColumnDto()
-                    .setId(dataSourceColumn.getId())
-                    .setName(dataSourceColumn.getName())
-                    .setPosition(dataSourceColumn.getPosition())
-                    .setDataValueType(dataSourceColumn.getDataValueType());
+        DataSourceColumnDto dataSourceColumnDto = new DataSourceColumnDto();
+
+        dataSourceColumnDto.setId(dataSourceColumn.getId())
+                .setName(dataSourceColumn.getName())
+                .setPosition(dataSourceColumn.getPosition())
+                .setDataValueType(dataSourceColumn.getDataValueType());
+
+        return dataSourceColumnDto;
     }
 }
