@@ -15,7 +15,6 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.converter.ChartConfigurationToChartConfigurationDtoConverter;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.ChartConfigurationDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.ChartConfiguration;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.ChartConfigurationRepository;
@@ -64,15 +63,14 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     }
 
     @Override
-    public ChartConfigurationForm createChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
+    public ChartConfiguration createChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
         ChartConfiguration chartConfiguration = buildChartConfiguration(chartConfigurationForm);
         ChartConfiguration createdChartConfiguration = createChartConfiguration(chartConfiguration);
-        ChartConfigurationDto createdChartConfigurationDto = chartConfigurationToChartConfigurationDtoConverter.convert(createdChartConfiguration);
-        return new ChartConfigurationForm(createdChartConfigurationDto);
+        return createdChartConfiguration;
     }
 
     @Override
-    public ChartConfigurationForm updateChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
+    public ChartConfiguration updateChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
         log.debug("updateChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
 
         ChartConfiguration chartConfiguration = findChartConfigurationByModuleId(chartConfigurationForm.getModuleId());
@@ -84,18 +82,12 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
                 .build();
 
         ChartConfiguration updatedChartConfiguration = updateChartConfiguration(chartConfigurationUpdated);
-        ChartConfigurationDto updatedChartConfigurationDto = chartConfigurationToChartConfigurationDtoConverter.convert(updatedChartConfiguration);
-        return new ChartConfigurationForm(updatedChartConfigurationDto);
+        return updatedChartConfiguration;
     }
 
     @Override
     public ChartConfiguration findChartConfigurationByModuleId(Long moduleId) {
         return chartConfigurationRepository.findByModuleId(moduleId);
-    }
-
-    @Override
-    public ChartConfigurationDto findChartConfigurationByModuleIdAsDto(Long id) {
-        return chartConfigurationToChartConfigurationDtoConverter.convert(findChartConfigurationByModuleId(id));
     }
 
     @Override

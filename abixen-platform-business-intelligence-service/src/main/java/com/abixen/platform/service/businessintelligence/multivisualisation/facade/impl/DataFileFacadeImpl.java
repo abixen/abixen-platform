@@ -35,7 +35,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Map;
 
 @Transactional
 @Service
@@ -76,11 +75,6 @@ public class DataFileFacadeImpl implements DataFileFacade {
         List<DataSourceColumn> dataFileColumns = dataFileService.getDataFileColumns(dataFileId);
         List<DataSourceColumnDto> dataSourceColumnDtos = dataSourceColumnToDataSourceColumnDtoConverter.convertToList(dataFileColumns);
         return dataSourceColumnDtos;
-    }
-
-    @Override
-    public List<Map<String, Integer>> getAllColumns(Long dataFileId) {
-        return dataFileService.getAllColumns(dataFileId);
     }
 
     @Override

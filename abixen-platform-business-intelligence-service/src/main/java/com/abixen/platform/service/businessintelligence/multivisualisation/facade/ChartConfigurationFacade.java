@@ -12,22 +12,16 @@
  * details.
  */
 
-(function () {
+package com.abixen.platform.service.businessintelligence.multivisualisation.facade;
 
-    'use strict';
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.ChartConfigurationDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 
-    angular
-        .module('platformChartModule')
-        .factory('ApplicationDatabaseDataSource', ApplicationDatabaseDataSource);
+public interface ChartConfigurationFacade {
 
-    ApplicationDatabaseDataSource.$inject = ['$resource'];
+    ChartConfigurationDto createChartConfiguration(ChartConfigurationForm chartConfigurationForm);
 
-    function ApplicationDatabaseDataSource($resource) {
+    ChartConfigurationDto updateChartConfiguration(ChartConfigurationForm chartConfigurationForm);
 
-        return $resource('/api/service/abixen/business-intelligence/control-panel/multi-visualisation/data-sources', {}, {
-            query: {method: 'GET', isArray: false}
-        });
-
-    }
-
-})();
+    ChartConfigurationDto findChartConfiguration(Long moduleId);
+}

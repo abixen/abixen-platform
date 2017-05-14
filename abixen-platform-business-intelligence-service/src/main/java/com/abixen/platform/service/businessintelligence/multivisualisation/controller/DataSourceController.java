@@ -52,8 +52,8 @@ public class DataSourceController {
         this.dataSourceFacade = dataSourceFacade;
     }
 
-    @RequestMapping(value = "/{dataSourceType}/all", method = RequestMethod.GET)
-    public Page<DataSourceDto> findAllDataSources(@PathVariable("dataSourceType") DataSourceType dataSourceType, @PageableDefault(size = 1, page = 0) Pageable pageable) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public Page<DataSourceDto> findAllDataSources(@RequestParam(value = "dataSourceType", required = false) DataSourceType dataSourceType, @PageableDefault(size = 1, page = 0) Pageable pageable) {
         return dataSourceFacade.findAllDataSources(pageable, dataSourceType);
     }
 

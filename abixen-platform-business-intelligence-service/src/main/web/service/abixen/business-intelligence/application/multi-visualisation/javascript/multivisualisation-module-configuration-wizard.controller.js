@@ -23,13 +23,13 @@
     ChartModuleConfigurationWizardController.$inject = [
         '$scope',
         '$log',
-        'ApplicationDatabaseDataSource',
+        'ApplicationDataSource',
         'ChartModuleConfiguration',
         'CharData',
         'multivisualisationWizardStep'
     ];
 
-    function ChartModuleConfigurationWizardController($scope, $log, ApplicationDatabaseDataSource, ChartModuleConfiguration, CharData, multivisualisationWizardStep) {
+    function ChartModuleConfigurationWizardController($scope, $log, ApplicationDataSource, ChartModuleConfiguration, CharData, multivisualisationWizardStep) {
         $log.log('ChartModuleConfigurationWizardController');
 
         var configWizard = this;
@@ -293,12 +293,13 @@
         function getDataSources() {
             $scope.$emit(platformParameters.events.START_REQUEST);
             var queryParameters = {
+                dataSourceType: null,
                 page: 0,
                 size: 10000,
                 sort: 'id,asc'
             };
 
-            ApplicationDatabaseDataSource.query(queryParameters)
+            ApplicationDataSource.query(queryParameters)
                 .$promise
                 .then(onQueryResult, onQueryError);
 
