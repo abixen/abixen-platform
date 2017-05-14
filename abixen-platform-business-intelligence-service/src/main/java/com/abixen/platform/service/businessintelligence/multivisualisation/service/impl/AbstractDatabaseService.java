@@ -15,13 +15,13 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataParsingException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.exception.DataSourceValueException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.JsonFilterService;
 import org.apache.commons.lang.NotImplementedException;
@@ -64,9 +64,9 @@ public abstract class AbstractDatabaseService {
     @Autowired
     private JsonFilterService jsonFilterService;
 
-    public List<DataSourceColumnDto> getColumns(Connection connection, String tableName) {
+    public List<DataSourceColumn> getColumns(Connection connection, String tableName) {
 
-        List<DataSourceColumnDto> columns = new ArrayList<>();
+        List<DataSourceColumn> columns = new ArrayList<>();
 
         try {
             ResultSetMetaData rsmd = getDatabaseMetaData(connection, tableName);
@@ -88,12 +88,13 @@ public abstract class AbstractDatabaseService {
         return columns;
     }
 
-    private DataSourceColumnDto prepareDataSourceColumns(ResultSetMetaData rsmd, int i) throws SQLException {
+    private DataSourceColumn prepareDataSourceColumns(ResultSetMetaData rsmd, int i) throws SQLException {
         DataValueType dataValueType = DataValueType.valueOf(getValidColumnTypeName(i, rsmd));
         String name = rsmd.getColumnName(i);
-        return new DataSourceColumnDto()
-                    .setName(name)
-                    .setDataValueType(dataValueType);
+        DataSourceColumn dataSourceColumn = new DataSourceColumn();
+        dataSourceColumn.setName(name);
+        dataSourceColumn.setDataValueType(dataValueType);
+        return dataSourceColumn;
     }
 
     private ResultSetMetaData getDatabaseMetaData(Connection connection, String tableName) throws SQLException {

@@ -15,10 +15,9 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.converter.DatabaseConnectionToDatabaseConnectionDtoConverter;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DatabaseConnectionRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseConnectionService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseFactory;
@@ -54,18 +53,8 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     }
 
     @Override
-    public Page<DatabaseConnectionDto> findAllDatabaseConnectionsAsDto(Pageable pageable) {
-        return databaseConnectionToDatabaseConnectionDtoConverter.convertToPage(findAllDatabaseConnections(pageable));
-    }
-
-    @Override
     public DatabaseConnection findDatabaseConnection(Long id) {
        return dataSourceConnectionRepository.getOne(id);
-    }
-
-    @Override
-    public DatabaseConnectionDto findDatabaseConnectionAsDto(Long id) {
-        return databaseConnectionToDatabaseConnectionDtoConverter.convert(findDatabaseConnection(id));
     }
 
     @Override
@@ -91,15 +80,14 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     }
 
     @Override
-    public DatabaseConnectionForm createDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
+    public DatabaseConnection createDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
         DatabaseConnection databaseConnection = buildDatabaseConnection(databaseConnectionForm);
         DatabaseConnection updatedDatabaseConnection = updateDatabaseConnection(createDatabaseConnection(databaseConnection));
-        DatabaseConnectionDto updatedDatabaseConnectionDto = databaseConnectionToDatabaseConnectionDtoConverter.convert(updatedDatabaseConnection);
-        return new DatabaseConnectionForm(updatedDatabaseConnectionDto);
+        return updatedDatabaseConnection;
     }
 
     @Override
-    public DatabaseConnectionForm updateDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
+    public DatabaseConnection updateDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
         log.debug("updateDatabaseConnection() - databaseConnectionForm: " + databaseConnectionForm);
 
         DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionForm.getId());
@@ -113,8 +101,7 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
         databaseConnection.setUsername(databaseConnectionForm.getUsername());
 
         DatabaseConnection updateDatabaseConnection = updateDatabaseConnection(databaseConnection);
-        DatabaseConnectionDto updatedDatabaseConnectionDto = databaseConnectionToDatabaseConnectionDtoConverter.convert(updateDatabaseConnection);
-        return new DatabaseConnectionForm(updatedDatabaseConnectionDto);
+        return updateDatabaseConnection;
     }
 
     @Override
@@ -143,7 +130,7 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     }
 
     @Override
-    public List<DataSourceColumnDto> getTableColumns(Long databaseConnectionId, String table) {
+    public List<DataSourceColumn> getTableColumns(Long databaseConnectionId, String table) {
         DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionId);
         DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         Connection connection = databaseService.getConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection));

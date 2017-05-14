@@ -20,8 +20,8 @@ import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.facade.DatabaseConnectionFacade;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseConnectionService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,21 +42,21 @@ import java.util.List;
 @RequestMapping(value = "/api/service/abixen/business-intelligence/control-panel/multi-visualisation/database-connections")
 public class DatabaseConnectionController {
 
-    private final DatabaseConnectionService databaseConnectionService;
+    private final DatabaseConnectionFacade databaseConnectionFacade;
 
     @Autowired
-    public DatabaseConnectionController(DatabaseConnectionService databaseConnectionService) {
-        this.databaseConnectionService = databaseConnectionService;
+    public DatabaseConnectionController(DatabaseConnectionFacade databaseConnectionFacade) {
+        this.databaseConnectionFacade = databaseConnectionFacade;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<DatabaseConnectionDto> findAllDatabaseConnections(@PageableDefault(size = 1, page = 0) Pageable pageable) {
-        return databaseConnectionService.findAllDatabaseConnectionsAsDto(pageable);
+        return databaseConnectionFacade.findAllDatabaseConnections(pageable);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public DatabaseConnectionDto findDatabaseConnection(@PathVariable Long id) {
-        return databaseConnectionService.findDatabaseConnectionAsDto(id);
+        return databaseConnectionFacade.findDatabaseConnection(id);
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -69,9 +69,9 @@ public class DatabaseConnectionController {
             return new FormValidationResultDto(databaseConnectionForm, formErrors);
         }
 
-        DatabaseConnectionForm databaseConnectionFormResult = databaseConnectionService.createDatabaseConnection(databaseConnectionForm);
+        databaseConnectionFacade.createDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto(databaseConnectionFormResult);
+        return new FormValidationResultDto(databaseConnectionForm);
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -84,9 +84,9 @@ public class DatabaseConnectionController {
             return new FormValidationResultDto(databaseConnectionForm, formErrors);
         }
 
-        DatabaseConnectionForm databaseConnectionFormResult = databaseConnectionService.updateDatabaseConnection(databaseConnectionForm);
+        databaseConnectionFacade.updateDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto(databaseConnectionFormResult);
+        return new FormValidationResultDto(databaseConnectionForm);
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -99,7 +99,7 @@ public class DatabaseConnectionController {
             return new FormValidationResultDto(databaseConnectionForm, formErrors);
         }
 
-        databaseConnectionService.testDatabaseConnection(databaseConnectionForm);
+        databaseConnectionFacade.testDatabaseConnection(databaseConnectionForm);
 
         return new FormValidationResultDto(databaseConnectionForm);
     }
@@ -107,18 +107,18 @@ public class DatabaseConnectionController {
     @RequestMapping(value = "/{id}/tables", method = RequestMethod.GET)
     public List<String> getTables(@PathVariable("id") Long id) {
         log.debug("getTables()");
-        return databaseConnectionService.getTables(id);
+        return databaseConnectionFacade.getTables(id);
     }
 
     @RequestMapping(value = "/{id}/tables/{tableName}/columns", method = RequestMethod.GET)
     public List<DataSourceColumnDto> getTableColumns(@PathVariable("id") Long id, @PathVariable("tableName") String tableName) {
-        return databaseConnectionService.getTableColumns(id, tableName);
+        return databaseConnectionFacade.getTableColumns(id, tableName);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteFileData(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
-        databaseConnectionService.deleteDatabaseConnection(id);
+        databaseConnectionFacade.deleteDatabaseConnection(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
