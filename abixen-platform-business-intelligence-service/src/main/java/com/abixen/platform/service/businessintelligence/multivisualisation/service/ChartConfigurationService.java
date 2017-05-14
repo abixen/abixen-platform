@@ -14,7 +14,6 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.ChartConfigurationDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.ChartConfiguration;
 
@@ -23,13 +22,11 @@ public interface ChartConfigurationService {
 
     ChartConfiguration buildChartConfiguration(ChartConfigurationForm chartConfigurationForm);
 
-    ChartConfigurationForm createChartConfiguration(ChartConfigurationForm chartConfigurationForm);
+    ChartConfiguration createChartConfiguration(ChartConfigurationForm chartConfigurationForm);
 
-    ChartConfigurationForm updateChartConfiguration(ChartConfigurationForm chartConfigurationForm);
+    ChartConfiguration updateChartConfiguration(ChartConfigurationForm chartConfigurationForm);
 
     ChartConfiguration findChartConfigurationByModuleId(Long id);
-
-    ChartConfigurationDto findChartConfigurationByModuleIdAsDto(Long id);
 
     ChartConfiguration createChartConfiguration(ChartConfiguration chartConfiguration);
 

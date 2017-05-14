@@ -17,17 +17,17 @@
     'use strict';
 
     angular
-        .module('platformDataSourceModule')
-        .factory('DataSource', DataSource);
+        .module('platformChartModule')
+        .factory('ApplicationDataSource', ApplicationDataSource);
 
-    DataSource.$inject = ['$resource'];
+    ApplicationDataSource.$inject = ['$resource'];
 
-    function DataSource($resource) {
-        return $resource('/api/service/abixen/business-intelligence/control-panel/multi-visualisation/data-sources/:id', {}, {
-            query: {method: 'GET', isArray: false},
-            update: {method: 'PUT'},
-            preview: {url:'/api/service/abixen/business-intelligence/control-panel/multi-visualisation/data-sources/preview' , method:'POST', isArray: true}
+    function ApplicationDataSource($resource) {
+
+        return $resource('/api/service/abixen/business-intelligence/control-panel/multi-visualisation/data-sources/', {}, {
+            query: {method: 'GET', isArray: false}
         });
+
     }
 
 })();

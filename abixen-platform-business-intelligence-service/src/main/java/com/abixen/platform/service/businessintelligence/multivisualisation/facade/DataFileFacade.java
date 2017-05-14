@@ -24,7 +24,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
 public interface DataFileFacade {
 
@@ -33,8 +32,6 @@ public interface DataFileFacade {
     DataFileDto findDataFile(Long id);
 
     List<DataSourceColumnDto> getDataFileColumns(Long dataFileId);
-
-    List<Map<String, Integer>> getAllColumns(Long dataFileId);
 
     DataFileDto createDataFile(DataFileForm dataFileForm);
 
