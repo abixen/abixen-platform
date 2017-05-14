@@ -18,13 +18,12 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
+import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.facade.DataFileFacade;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
-import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataFileService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,32 +39,31 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.util.List;
 
-
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/service/abixen/business-intelligence/control-panel/multi-visualisation/file-data")
 public class DataFileController {
 
     public static final int DEFAULT_PAGE_SIZE = 20;
-    private final DataFileService dataFileService;
+    private final DataFileFacade dataFileFacade;
 
     @Autowired
-    public DataFileController(DataFileService dataFileService) {
-        this.dataFileService = dataFileService;
+    public DataFileController(DataFileFacade dataFileFacade) {
+        this.dataFileFacade = dataFileFacade;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<DataFile> findDataFile(@PageableDefault(size = DEFAULT_PAGE_SIZE, page = 0) Pageable pageable) {
+    public Page<DataFileDto> findDataFile(@PageableDefault(size = DEFAULT_PAGE_SIZE, page = 0) Pageable pageable) {
         log.debug("getDatabaseDataSources()");
 
-        Page<DataFile> dataSources = dataFileService.findAllDataFile(pageable);
+        Page<DataFileDto> dataSources = dataFileFacade.findAllDataFile(pageable);
 
         return dataSources;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public DataFileDto findDataFile(@PathVariable Long id) {
-        return dataFileService.findDataFileAsDto(id);
+        return dataFileFacade.findDataFile(id);
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -78,9 +76,9 @@ public class DataFileController {
             return new FormValidationResultDto(fileDataForm, formErrors);
         }
 
-        DataFileForm fileDataFormResult = dataFileService.createDataFile(fileDataForm);
+        dataFileFacade.createDataFile(fileDataForm);
 
-        return new FormValidationResultDto(fileDataFormResult);
+        return new FormValidationResultDto(fileDataForm);
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -93,26 +91,26 @@ public class DataFileController {
             return new FormValidationResultDto(dataFileForm, formErrors);
         }
 
-        DataFileForm fileDataSourceFormResult = dataFileService.updateDataFile(dataFileForm);
+        dataFileFacade.updateDataFile(dataFileForm);
 
-        return new FormValidationResultDto(fileDataSourceFormResult);
+        return new FormValidationResultDto(dataFileForm);
     }
 
     @RequestMapping(value = "/{id}/columns", method = RequestMethod.GET)
     public List<DataSourceColumnDto> getTableColumns(@PathVariable("id") Long id) {
         log.debug("getTableColumns()");
-        return dataFileService.getDataFileColumns(id);
+        return dataFileFacade.getDataFileColumns(id);
     }
 
     @RequestMapping(value = "/parse/{readFirstColumnAsColumnName}", method = RequestMethod.POST)
-    public FileParserMessage<DataFileColumn> uploadAndParseFile(@PathVariable("readFirstColumnAsColumnName") Boolean readFirstColumnAsColumnName, @RequestParam("file") MultipartFile uploadedFile) {
-        return dataFileService.uploadAndParseFile(uploadedFile, readFirstColumnAsColumnName);
+    public FileParserMessage<DataFileColumnDto> uploadAndParseFile(@PathVariable("readFirstColumnAsColumnName") Boolean readFirstColumnAsColumnName, @RequestParam("file") MultipartFile uploadedFile) {
+        return dataFileFacade.uploadAndParseFile(uploadedFile, readFirstColumnAsColumnName);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteFileData(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
-        dataFileService.delateFileData(id);
+        dataFileFacade.deleteDataFile(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 

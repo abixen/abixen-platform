@@ -14,10 +14,9 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
 import org.springframework.data.domain.Page;
@@ -34,23 +33,21 @@ public interface DataFileService {
 
     Page<DataFile> findAllDataFile(Pageable pageable);
 
-    List<DataSourceColumnDto> getDataFileColumns(Long dataFileId);
+    List<DataSourceColumn> getDataFileColumns(Long dataFileId);
 
     List<Map<String, Integer>> getAllColumns(Long dataFileId);
 
     DataFile buildDataFile(DataFileForm dataFileForm);
 
-    DataFileForm createDataFile(DataFileForm dataFileForm);
+    DataFile createDataFile(DataFileForm dataFileForm);
 
     DataFile createDataFile(DataFile dataFile);
 
-    DataFileForm updateDataFile(DataFileForm dataFileForm);
+    DataFile updateDataFile(DataFileForm dataFileForm);
 
     DataFile updateDataFile(DataFile dataFile);
 
     DataFile findDataFile(Long id);
-
-    DataFileDto findDataFileAsDto(Long id);
 
     void delateFileData(Long id);
 
