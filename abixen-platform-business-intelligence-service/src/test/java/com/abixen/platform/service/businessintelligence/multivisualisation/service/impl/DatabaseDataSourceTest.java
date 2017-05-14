@@ -16,6 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.serv
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.enumtype.DatabaseType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DatabaseConnectionRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseConnectionService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseService;
@@ -64,9 +65,9 @@ public class DatabaseDataSourceTest {
         databaseConnectionForm.setUsername("postgres");
         databaseConnectionForm.setPassword("postgres");
 
-        DatabaseConnectionForm createdDatabaseConnectionForm = databaseConnectionService.createDatabaseConnection(databaseConnectionForm);
+        DatabaseConnection createdDatabaseConnection = databaseConnectionService.createDatabaseConnection(databaseConnectionForm);
 
-        assertNotNull(createdDatabaseConnectionForm);
+        assertNotNull(createdDatabaseConnection);
     }
 
     //FIXME

@@ -14,10 +14,9 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -28,19 +27,15 @@ public interface DatabaseConnectionService {
 
     Page<DatabaseConnection> findAllDatabaseConnections(Pageable pageable);
 
-    Page<DatabaseConnectionDto> findAllDatabaseConnectionsAsDto(Pageable pageable);
-
     DatabaseConnection findDatabaseConnection(Long id);
-
-    DatabaseConnectionDto findDatabaseConnectionAsDto(Long id);
 
     void deleteDatabaseConnection(Long id);
 
     DatabaseConnection buildDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
 
-    DatabaseConnectionForm createDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
+    DatabaseConnection createDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
 
-    DatabaseConnectionForm updateDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
+    DatabaseConnection updateDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
 
     DatabaseConnection createDatabaseConnection(DatabaseConnection databaseConnection);
 
@@ -50,5 +45,5 @@ public interface DatabaseConnectionService {
 
     List<String> getTables(Long databaseConnectionId);
 
-    List<DataSourceColumnDto> getTableColumns(Long databaseConnectionId, String table);
+    List<DataSourceColumn> getTableColumns(Long databaseConnectionId, String table);
 }

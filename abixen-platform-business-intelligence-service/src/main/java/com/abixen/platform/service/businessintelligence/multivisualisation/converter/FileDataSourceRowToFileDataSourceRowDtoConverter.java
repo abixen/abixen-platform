@@ -30,8 +30,11 @@ public class FileDataSourceRowToFileDataSourceRowDtoConverter extends AbstractCo
             return null;
         }
 
-        return new FileDataSourceRowDto()
-                    .setId(fileDataSourceRow.getId())
-                    .setRowNumber(fileDataSourceRow.getRowNumber());
+        FileDataSourceRowDto fileDataSourceRowDto = new FileDataSourceRowDto();
+
+        fileDataSourceRowDto.setId(fileDataSourceRow.getId())
+                .setRowNumber(fileDataSourceRow.getRowNumber());
+
+        return fileDataSourceRowDto;
     }
 }

@@ -14,12 +14,12 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 
 import java.sql.Connection;
 import java.util.Map;
@@ -32,7 +32,7 @@ public interface DatabaseService {
 
     Connection getConnection(DatabaseConnectionForm databaseConnectionForm);
 
-    List<DataSourceColumnDto> getColumns(Connection connection, String tableName);
+    List<DataSourceColumn> getColumns(Connection connection, String tableName);
 
     List<String> getTables(Connection connection);
 

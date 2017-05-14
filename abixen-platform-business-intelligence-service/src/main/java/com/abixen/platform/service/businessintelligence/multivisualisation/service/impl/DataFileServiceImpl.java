@@ -16,14 +16,13 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.serv
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.converter.DataFileToDataFileDtoConverter;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataFileDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValue;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueDouble;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueInteger;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueString;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFile;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
@@ -42,7 +41,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
-
 
 @Slf4j
 @Service
@@ -80,14 +78,15 @@ public class DataFileServiceImpl implements DataFileService {
     }
 
     @Override
-    public List<DataSourceColumnDto> getDataFileColumns(Long dataFileId) {
-        List<DataSourceColumnDto> result = new ArrayList<>();
+    public List<DataSourceColumn> getDataFileColumns(Long dataFileId) {
+        List<DataSourceColumn> result = new ArrayList<>();
         DataFile dataFile = dataFileRepository.getOne(dataFileId);
         for (DataFileColumn dataFileColumn : dataFile.getColumns()) {
-            result.add(new DataSourceColumnDto()
-                            .setName(dataFileColumn.getName())
-                            .setPosition(dataFileColumn.getPosition())
-                            .setDataValueType(dataFileColumn.getDataValueType()));
+            DataSourceColumn dataSourceColumn = new DataSourceColumn();
+            dataSourceColumn.setName(dataFileColumn.getName());
+            dataSourceColumn.setPosition(dataFileColumn.getPosition());
+            dataSourceColumn.setDataValueType(dataFileColumn.getDataValueType());
+            result.add(dataSourceColumn);
         }
         return result;
     }
@@ -101,9 +100,9 @@ public class DataFileServiceImpl implements DataFileService {
     }
 
     @Override
-    public DataFileForm createDataFile(DataFileForm dataFileForm) {
+    public DataFile createDataFile(DataFileForm dataFileForm) {
         DataFile dataFile = buildDataFile(dataFileForm);
-        return new DataFileForm(createDataFile(dataFile));
+        return createDataFile(dataFile);
     }
 
     @Override
@@ -114,7 +113,7 @@ public class DataFileServiceImpl implements DataFileService {
     }
 
     @Override
-    public DataFileForm updateDataFile(DataFileForm dataFileForm) {
+    public DataFile updateDataFile(DataFileForm dataFileForm) {
         log.debug("updateDataFile() - fileDataForm: " + dataFileForm);
 
         DataFile dataFile = findDataFile(dataFileForm.getId());
@@ -139,7 +138,7 @@ public class DataFileServiceImpl implements DataFileService {
         });
         dataFile.setColumns(columns);
 
-        return new DataFileForm(updateDataFile(dataFile));
+        return updateDataFile(dataFile);
     }
 
     @Override
@@ -152,11 +151,6 @@ public class DataFileServiceImpl implements DataFileService {
     public DataFile findDataFile(Long id) {
         log.debug("findDataFile() - id: " + id);
         return dataFileRepository.findOne(id);
-    }
-
-    @Override
-    public DataFileDto findDataFileAsDto(Long id) {
-        return dataFileToDataFileDtoConverter.convert(findDataFile(id));
     }
 
     @Override

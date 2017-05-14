@@ -38,10 +38,13 @@ public class DataFileColumnToDataFileColumnDtoConverter extends AbstractConverte
             return null;
         }
 
-        return new DataFileColumnDto()
-                .setName(dataFileColumn.getName())
+        DataFileColumnDto dataFileColumnDto = new DataFileColumnDto();
+
+        dataFileColumnDto.setName(dataFileColumn.getName())
                 .setPosition(dataFileColumn.getPosition())
                 .setDataValueType(dataFileColumn.getDataValueType())
                 .setValues(dataValueToDataValueDtoConverter.convertToList(dataFileColumn.getValues()));
+
+        return dataFileColumnDto;
     }
 }

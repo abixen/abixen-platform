@@ -38,10 +38,13 @@ public class DataSetSeriesToDataSetSeriesDtoConverter extends AbstractConverter<
             return null;
         }
 
-        return new DataSetSeriesDto()
-                .setId(dataSetSeries.getId())
+        DataSetSeriesDto dataSetSeriesDto = new DataSetSeriesDto();
+
+        dataSetSeriesDto.setId(dataSetSeries.getId())
                 .setName(dataSetSeries.getName())
                 .setFilter(dataSetSeries.getFilter())
                 .setValueSeriesColumn(dataSetSeriesColumnToDataSetSeriesColumnDtoConverter.convert(dataSetSeries.getValueSeriesColumn()));
+
+        return dataSetSeriesDto;
     }
 }

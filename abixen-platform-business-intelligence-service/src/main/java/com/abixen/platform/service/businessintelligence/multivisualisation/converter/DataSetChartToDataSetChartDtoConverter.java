@@ -46,6 +46,7 @@ public class DataSetChartToDataSetChartDtoConverter extends AbstractConverter<Da
         dataSetChartDto.setDomainXSeriesColumn(dataSetSeriesColumnToDataSetSeriesColumnDtoConverter.convert(dataSetChart.getDomainXSeriesColumn()));
         dataSetChartDto.setDomainZSeriesColumn(dataSetSeriesColumnToDataSetSeriesColumnDtoConverter.convert(dataSetChart.getDomainZSeriesColumn()));
         dataSetChartDto.setDataSetSeries(dataSetSeriesToDataSetSeriesDtoConverter.convertToSet(dataSetChart.getDataSetSeries()));
+
         return dataSetChartDto;
     }
 }

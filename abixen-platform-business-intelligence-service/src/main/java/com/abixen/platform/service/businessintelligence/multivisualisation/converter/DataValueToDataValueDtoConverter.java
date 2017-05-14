@@ -32,22 +32,25 @@ public class DataValueToDataValueDtoConverter extends AbstractConverter<DataValu
             return null;
         }
 
-
         if (dataValue.getValue() instanceof Integer) {
-            return new DataValueDto<Integer>()
-                    .setValue((Integer) dataValue.getValue());
+            DataValueDto<Integer> integerDataValueDto = new DataValueDto<Integer>();
+            integerDataValueDto.setValue((Integer) dataValue.getValue());
+            return integerDataValueDto;
         }
         if (dataValue.getValue() instanceof Double) {
-            return new DataValueDto<Double>()
-                    .setValue((Double) dataValue.getValue());
+            DataValueDto<Double> doubleDataValueDto = new DataValueDto<Double>();
+            doubleDataValueDto.setValue((Double) dataValue.getValue());
+            return doubleDataValueDto;
         }
         if (dataValue.getValue() instanceof String) {
-            return new DataValueDto<String>()
-                    .setValue((String) dataValue.getValue());
+            DataValueDto<String> stringDataValueDto = new DataValueDto<String>();
+            stringDataValueDto.setValue((String) dataValue.getValue());
+            return stringDataValueDto;
         }
         if (dataValue.getValue() instanceof Date) {
-            return new DataValueDto<Date>()
-                    .setValue((Date) dataValue.getValue());
+            DataValueDto<Date> dateDataValueDto = new DataValueDto<Date>();
+            dateDataValueDto.setValue((Date) dataValue.getValue());
+            return dateDataValueDto;
         }
         throw new PlatformRuntimeException("Value type not recognized.");
     }
