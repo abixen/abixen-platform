@@ -25,4 +25,6 @@ public interface WebContentModuleConfigurationService {
     WebContentModuleConfig createWebContentModuleConfig(WebContentModuleConfigForm webContentModuleConfigForm);
 
     WebContentModuleConfig updateWebContentModuleConfig(WebContentModuleConfigForm webContentModuleConfigForm);
+
+    void removeWebContentModuleConfig(Long moduleId);
 }

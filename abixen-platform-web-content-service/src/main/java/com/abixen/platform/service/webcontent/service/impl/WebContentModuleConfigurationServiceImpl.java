@@ -57,4 +57,12 @@ public class WebContentModuleConfigurationServiceImpl implements WebContentModul
         webContentModuleConfig.setWebContent(webContent);
         return webContentModuleConfigRepository.save(webContentModuleConfig);
     }
+
+    @Override
+    public void removeWebContentModuleConfig(Long moduleId) {
+        WebContentModuleConfig webContentModuleConfig = webContentModuleConfigRepository.findByModuleId(moduleId);
+        if (webContentModuleConfig != null) {
+            webContentModuleConfigRepository.delete(webContentModuleConfig);
+        }
+    }
 }
