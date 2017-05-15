@@ -18,3 +18,5 @@ id;created_date;last_modified_date;description;title;module_type_id;page_id;row_
 14;NULL;NULL;This is chart sample instance visualisation module #2;Sales value and count in Europe.;1;5;1;1;0;2;2
 
 15;NULL;NULL;This is chart sample instance visualisation module #2;Chart sample visualisation;1;6;1;1;0;2;2
+
+16;NULL;NULL;This is web content instance module;About Abixen Platform;4;7;0;0;0;1;1

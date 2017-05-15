@@ -13,6 +13,7 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM web_content</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM simple_web_content</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM advanced_web_content</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM web_content_module_config</sqlCheck>
         </preConditions>
         <loadData file="liquibase/import/data/template-data.csv"
                   separator=";"
@@ -33,6 +34,10 @@
         <loadData file="liquibase/import/data/advanced-web-content-data.csv"
                   separator=";"
                   tableName="advanced_web_content">
+        </loadData>
+        <loadData file="liquibase/import/data/web-content-config-data.csv"
+                  separator=";"
+                  tableName="web_content_module_config">
         </loadData>
     </changeSet>
 

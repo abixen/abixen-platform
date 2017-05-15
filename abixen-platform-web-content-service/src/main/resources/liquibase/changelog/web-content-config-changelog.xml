@@ -7,7 +7,7 @@
         logicalFilePath="liquibase/changelog/web-content-changelog.xml">
 
     <changeSet id="web-content-module-config-sequence-v1" author="KonradWisniewski">
-        <createSequence sequenceName="web_content_module_config_seq" startValue="1"/>
+        <createSequence sequenceName="web_content_module_config_seq" startValue="2"/>
     </changeSet>
 
     <changeSet id="web-content-module-config-v1" author="KonradWisniewski">
