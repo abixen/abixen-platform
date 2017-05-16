@@ -31,7 +31,7 @@
 
     function platformNavigationDirective($state, applicationNavigationItems, $translate, $filter, platformSecurity, User) {
 
-        NavigationController.$inject = ['$scope'];
+        NavigationController.$inject = ['$scope', '$timeout'];
 
         return {
             restrict: 'E',
@@ -52,7 +52,7 @@
             bindToController: true
         };
 
-        function NavigationController($scope) {
+        function NavigationController($scope, $timeout) {
             var navigation = this;
             var baseUserUrl = '/api/application/users/';
             var mobileView = 992;
@@ -111,6 +111,9 @@
 
             function toggleSidebar() {
                 navigation.toggle = !navigation.toggle;
+                $timeout(function () {
+                    $scope.$broadcast(platformParameters.events.REDRAW_MODULE);
+                },400);
             }
 
             function onUserChange() {
