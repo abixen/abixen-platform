@@ -1,5 +1,4 @@
 @import 'variables';
-@import 'bootstrap-nav-wizard';
 
 @mixin platform-button($font-color, $font-color-hover, $background-color, $border-color, $background-color-hover, $border-color-hover) {
   color: $font-color !important;
@@ -19,13 +18,6 @@
   }
 }
 
-.bottom-prev-next {
-  margin-top: 15px;
-  .nav-button {
-    @include platform-button($font-color-reversed, $font-color-reversed, $base-color, $base-color-darkest, $base-color-lighter, $base-color-darker);
-  }
-
-}
 
 .chart-view-wizard-component {
   border-bottom: 1px solid $wizard-border-color-lighter;
