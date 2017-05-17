@@ -1,3 +1,5 @@
+@import "../../common/button/scss/styles";
+
 ul.nav-wizard {
   background-color: #f9f9f9;
   border-top: 1px solid $wizard-border-color-lighter;
@@ -67,12 +69,6 @@ ul.nav-wizard li:before {
   right: -16px;
 }
 
-/*
-ul.nav-wizard li.non-active:before {
-  border-left: 16px solid $font-color-reversed!important;
-}
-*/
-
 ul.nav-wizard li:after {
   position: absolute;
   display: block;
@@ -86,12 +82,12 @@ ul.nav-wizard li:after {
 }
 
 ul.nav-wizard li.active {
-  color: $font-color-reversed;
+  color: $font-color;
   background: $base-color;
 }
 
 ul.nav-wizard li.non-active {
-  color: $font-color-reversed;
+  color: $font-color;
   background: $base-color-lighter;
 }
 
@@ -114,10 +110,6 @@ ul.nav-wizard .active ~ li:after {
   border-left: 16px solid #ededed;
 }
 
-
-
-
-
 ul.nav-wizard.nav-wizard-backnav .active ~ li {
   color: #999999;
   background: #ededed;
@@ -125,5 +117,12 @@ ul.nav-wizard.nav-wizard-backnav .active ~ li {
 
 ul.nav-wizard.nav-wizard-backnav .active ~ li:after {
   border-left: 16px solid #ededed;
+}
+
+.bottom-prev-next {
+  margin-top: 15px;
+  .nav-button {
+    @include platform-button($font-color, $font-color, $base-color, $base-color-darkest, $base-color-lighter, $base-color-darker);
+  }
 }
 
