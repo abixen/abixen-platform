@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.configuration;
 
+import com.abixen.platform.common.configuration.PlatformModuleSecurityConfiguration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
