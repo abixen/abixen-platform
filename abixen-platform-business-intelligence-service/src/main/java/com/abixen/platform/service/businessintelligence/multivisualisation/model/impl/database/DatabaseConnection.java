@@ -84,12 +84,15 @@ public class DatabaseConnection extends AuditingModel implements Serializable {
     @Size(max = PASSWORD_MAX_LENGTH)
     private String password;
 
+    DatabaseConnection() {
+    }
+
     @Override
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(Long id) {
         this.id = id;
     }
 
@@ -97,7 +100,7 @@ public class DatabaseConnection extends AuditingModel implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -105,7 +108,7 @@ public class DatabaseConnection extends AuditingModel implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
@@ -113,7 +116,7 @@ public class DatabaseConnection extends AuditingModel implements Serializable {
         return databaseType;
     }
 
-    public void setDatabaseType(DatabaseType databaseType) {
+    void setDatabaseType(DatabaseType databaseType) {
         this.databaseType = databaseType;
     }
 
@@ -121,7 +124,7 @@ public class DatabaseConnection extends AuditingModel implements Serializable {
         return databaseHost;
     }
 
-    public void setDatabaseHost(String databaseHost) {
+    void setDatabaseHost(String databaseHost) {
         this.databaseHost = databaseHost;
     }
 
@@ -129,7 +132,7 @@ public class DatabaseConnection extends AuditingModel implements Serializable {
         return databasePort;
     }
 
-    public void setDatabasePort(Integer databasePort) {
+    void setDatabasePort(Integer databasePort) {
         this.databasePort = databasePort;
     }
 
@@ -137,7 +140,7 @@ public class DatabaseConnection extends AuditingModel implements Serializable {
         return databaseName;
     }
 
-    public void setDatabaseName(String databaseName) {
+    void setDatabaseName(String databaseName) {
         this.databaseName = databaseName;
     }
 
@@ -145,7 +148,7 @@ public class DatabaseConnection extends AuditingModel implements Serializable {
         return username;
     }
 
-    public void setUsername(String username) {
+    void setUsername(String username) {
         this.username = username;
     }
 
@@ -153,9 +156,28 @@ public class DatabaseConnection extends AuditingModel implements Serializable {
         return password;
     }
 
-    public void setPassword(String password) {
+    void setPassword(String password) {
         this.password = password;
     }
 
+    public void changeCredentials(String username, String password) {
+        setUsername(username);
+        setPassword(password);
+    }
+
+    public void changeDetails(String name, String description) {
+        setName(name);
+        setDescription(description);
+    }
+
+    public void changeDatabase(DatabaseType databaseType,
+                               String databaseHost,
+                               Integer databasePort,
+                               String databaseName) {
+        setDatabaseType(databaseType);
+        setDatabaseHost(databaseHost);
+        setDatabasePort(databasePort);
+        setDatabaseName(databaseName);
+    }
 
 }

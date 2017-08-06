@@ -14,27 +14,34 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl.parser;
 
+import com.abixen.platform.service.businessintelligence.configuration.PlatformModuleConfiguration;
 import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.stereotype.Service;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+@Service
+@Transactional
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = PlatformModuleConfiguration.class)
+public class ExcelLoaderServiceImplTest {
 
-public class ExcelParserServiceImplTest {
-
-    @InjectMocks
-    ExcelParserServiceImpl excelParserService;
+    @Autowired
+    ExcelFileParserServiceImpl excelParserService;
 
     @Before
     public void setUp() throws Exception {

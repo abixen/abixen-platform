@@ -30,7 +30,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.repos
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.FileDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DataFileService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DomainBuilderService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileParserService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileDataParserService;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -182,8 +182,8 @@ public class DataFileServiceImpl implements DataFileService {
     @Override
     public FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile multipartFile, Boolean readFirstColumnAsColumnName) {
         String fileName = multipartFile.getOriginalFilename();
-        FileParserService fileParserService = fileParserFactory.getParse(fileName.substring(fileName.lastIndexOf(".")));
-        return fileParserService.parseFile(multipartFile, readFirstColumnAsColumnName);
+        FileDataParserService fileDataParserService = fileParserFactory.getParse(fileName.substring(fileName.lastIndexOf(".")));
+        return fileDataParserService.parseFile(multipartFile, readFirstColumnAsColumnName);
     }
 
     private DataValue getObjForValue(String value) {

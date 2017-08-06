@@ -15,7 +15,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl.parser;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileParserService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileDataParserService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.impl.FileParserFactory;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +23,27 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service("fileParserFactoryImpl")
-public class FileParserFactoryImpl implements FileParserFactory {
+public class FileDataParserFactoryImpl implements FileParserFactory {
 
-    private FileParserService csvFileParserService;
-    private FileParserService excelFileParserService;
+    private FileDataParserService csvFileDataParserService;
+    private FileDataParserService excelFileDataParserService;
 
     @Autowired
-    public FileParserFactoryImpl(@Qualifier("csvParserService") FileParserService csvFileParserService,
-                                 @Qualifier("excelParserService") FileParserService excelFileParserService) {
-        this.csvFileParserService = csvFileParserService;
-        this.excelFileParserService = excelFileParserService;
+    public FileDataParserFactoryImpl(@Qualifier("csvParserService") FileDataParserService csvFileDataParserService,
+                                     @Qualifier("excelParserService") FileDataParserService excelFileDataParserService) {
+        this.csvFileDataParserService = csvFileDataParserService;
+        this.excelFileDataParserService = excelFileDataParserService;
     }
 
     @Override
-    public FileParserService getParse(String extension) {
+    public FileDataParserService getParse(String extension) {
         switch (extension) {
             case ".csv":
-                return csvFileParserService;
+                return csvFileDataParserService;
             case ".xls":
-                return excelFileParserService;
+                return excelFileDataParserService;
             case ".xlsx":
-                return excelFileParserService;
+                return excelFileDataParserService;
             default:
                 throw new NotImplementedException("Parser for this file isn't implemented");
         }

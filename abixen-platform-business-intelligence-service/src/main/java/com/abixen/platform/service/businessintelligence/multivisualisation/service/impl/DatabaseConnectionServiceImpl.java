@@ -17,6 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.serv
 import com.abixen.platform.service.businessintelligence.multivisualisation.converter.DatabaseConnectionToDatabaseConnectionDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.database.DatabaseConnectionBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.repository.DatabaseConnectionRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.DatabaseConnectionService;
@@ -66,24 +67,20 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     public DatabaseConnection buildDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
         log.debug("buildDatabaseConnection() - databaseConnectionForm: " + databaseConnectionForm);
 
-        DatabaseConnection databaseConnection = new DatabaseConnection();
-        databaseConnection.setName(databaseConnectionForm.getName());
-        databaseConnection.setDatabaseType(databaseConnectionForm.getDatabaseType());
-        databaseConnection.setDatabaseHost(databaseConnectionForm.getDatabaseHost());
-        databaseConnection.setDatabasePort(databaseConnectionForm.getDatabasePort());
-        databaseConnection.setDatabaseName(databaseConnectionForm.getDatabaseName());
-        databaseConnection.setDescription(databaseConnectionForm.getDescription());
-        databaseConnection.setPassword(databaseConnectionForm.getPassword());
-        databaseConnection.setUsername(databaseConnectionForm.getUsername());
-
-        return databaseConnection;
+        return new DatabaseConnectionBuilder()
+                .credentials(databaseConnectionForm.getUsername(), databaseConnectionForm.getPassword())
+                .database(databaseConnectionForm.getDatabaseType(),
+                        databaseConnectionForm.getDatabaseHost(),
+                        databaseConnectionForm.getDatabasePort(),
+                        databaseConnectionForm.getDatabaseName())
+                .details(databaseConnectionForm.getName(), databaseConnectionForm.getDescription())
+                .build();
     }
 
     @Override
     public DatabaseConnection createDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
         DatabaseConnection databaseConnection = buildDatabaseConnection(databaseConnectionForm);
-        DatabaseConnection updatedDatabaseConnection = updateDatabaseConnection(createDatabaseConnection(databaseConnection));
-        return updatedDatabaseConnection;
+        return updateDatabaseConnection(createDatabaseConnection(databaseConnection));
     }
 
     @Override
@@ -91,17 +88,15 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
         log.debug("updateDatabaseConnection() - databaseConnectionForm: " + databaseConnectionForm);
 
         DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionForm.getId());
-        databaseConnection.setName(databaseConnectionForm.getName());
-        databaseConnection.setDatabaseType(databaseConnectionForm.getDatabaseType());
-        databaseConnection.setDatabaseHost(databaseConnectionForm.getDatabaseHost());
-        databaseConnection.setDatabasePort(databaseConnectionForm.getDatabasePort());
-        databaseConnection.setDatabaseName(databaseConnectionForm.getDatabaseName());
-        databaseConnection.setDescription(databaseConnectionForm.getDescription());
-        databaseConnection.setPassword(databaseConnectionForm.getPassword());
-        databaseConnection.setUsername(databaseConnectionForm.getUsername());
 
-        DatabaseConnection updateDatabaseConnection = updateDatabaseConnection(databaseConnection);
-        return updateDatabaseConnection;
+        databaseConnection.changeCredentials(databaseConnectionForm.getUsername(), databaseConnectionForm.getPassword());
+        databaseConnection.changeDatabase(databaseConnectionForm.getDatabaseType(),
+                databaseConnectionForm.getDatabaseHost(),
+                databaseConnectionForm.getDatabasePort(),
+                databaseConnectionForm.getDatabaseName());
+        databaseConnection.changeDetails(databaseConnectionForm.getName(), databaseConnectionForm.getDescription());
+
+        return updateDatabaseConnection(databaseConnection);
     }
 
     @Override

@@ -12,11 +12,21 @@
  * details.
  */
 
+package com.abixen.platform.service.businessintelligence.multivisualisation.model.util.dataFile;
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
+public class ColumnDto {
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileDataParserService;
+    private String value;
 
-public interface FileParserFactory {
-    FileDataParserService getParse(String extension);
+    public ColumnDto(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }
