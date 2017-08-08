@@ -15,6 +15,7 @@ env:
 branches:
   only:
   - master
+  - v-1-0-wave-2-refactor
 
 script:
   - ./travis/script/build.sh
