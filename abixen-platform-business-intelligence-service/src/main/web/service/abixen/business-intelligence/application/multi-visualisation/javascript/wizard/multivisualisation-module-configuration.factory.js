@@ -17,7 +17,7 @@
     'use strict';
 
     angular
-        .module('platformChartModule')
+        .module('platformChartWizardModule')
         .factory('ChartModuleConfiguration', ChartModuleConfiguration);
 
     ChartModuleConfiguration.$inject = ['$resource'];

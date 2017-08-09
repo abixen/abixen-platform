@@ -7,6 +7,7 @@
             'nvd3',
             'platformModuleComponent',
             'platformListGridModule',
-            'businessIntelligenceServiceTemplatecache'
+            'businessIntelligenceServiceTemplatecache',
+            'platformChartWizardModule'
         ]);
 })();

@@ -1,0 +1,20 @@
+<div ng-controller="WizardPreviewController as wizardPreview">
+    <div class="wizard-chart-configuration-preview">
+        <div class="chart-module-preview-type-switch">
+            <i class="fa fa fa-line-chart" aria-hidden="true"
+               ng-if="wizardPreview.previewType == 'TABLE' && wizardPreview.isChartViewAvailable(wizardPreview.chartConfiguration.chartType)"
+               ng-click="wizardPreview.setPreviewType('CHART')"></i>
+            <i class="fa fa-table" aria-hidden="true"
+               ng-if="wizardPreview.previewType == 'CHART' && wizardPreview.isTableViewAvailable(wizardPreview.chartConfiguration.chartType)"
+               ng-click="wizardPreview.setPreviewType('TABLE')"></i>
+        </div>
+        <div ng-switch="wizardPreview.previewType">
+            <div ng-switch-when="TABLE">
+                <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/preview/table-preview.html'"></div>
+            </div>
+            <div ng-switch-when="CHART">
+                <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/preview/chart-preview.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>

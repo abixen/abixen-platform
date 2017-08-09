@@ -1,0 +1,10 @@
+<div ng-controller="WizardSeriesController as wizardSeries">
+    <div ng-switch="wizardSeries.isChart()">
+        <div ng-switch-when="true">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration.html'"></div>
+        </div>
+        <div ng-switch-when="false">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/table-configuration.html'"></div>
+        </div>
+    </div>
+</div>

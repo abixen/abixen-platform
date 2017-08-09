@@ -1,0 +1,41 @@
+<!-- header -->
+<div class="wizard-chart-configuration">
+    <div ng-switch on="wizardSeries.chartConfiguration.chartType" >
+        <div multi-switch-when="LINE|LINE_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/multi-series-line-chart.html'"></div>
+        </div>
+        <div multi-switch-when="PIE|PIE_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/single-series-chart.html'"></div>
+        </div>
+        <div multi-switch-when="MULTI_BAR|MULTI_BAR_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/multi-series-bar-chart.html'"></div>
+        </div>
+        <div multi-switch-when="MULTI_COLUMN|MULTI_COLUMN_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/multi-series-bar-chart.html'"></div>
+        </div>
+        <div multi-switch-when="STACKED_AREA|STACKED_AREA_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/multi-series-line-chart.html'"></div>
+        </div>
+        <div multi-switch-when="DONUT|DONUT_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/single-series-chart.html'"></div>
+        </div>
+        <div multi-switch-when="DISCRETE_COLUMN|DISCRETE_COLUMN_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/multi-series-bar-chart.html'"></div>
+        </div>
+        <div multi-switch-when="HISTORICAL_COLUMN|HISTORICAL_COLUMN_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/multi-series-bar-chart.html'"></div>
+        </div>
+        <div multi-switch-when="CUMULATIVE_LINE|CUMULATIVE_LINE_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/multi-series-line-chart.html'"></div>
+        </div>
+        <div multi-switch-when="SCATTER|SCATTER_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/multi-series-line-chart.html'"></div>
+        </div>
+        <div multi-switch-when="LINE_WITH_FOCUS_CHART|LINE_WITH_FOCUS_CHART_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/multi-series-line-chart.html'"></div>
+        </div>
+        <div multi-switch-when="LINE_AND_BAR_WITH_FOCUS_CHART|LINE_AND_BAR_WITH_FOCUS_CHART_TABLE">
+            <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/series/chart-configuration-template/multi-series-line-chart.html'"></div>
+        </div>
+    </div>
+</div>
