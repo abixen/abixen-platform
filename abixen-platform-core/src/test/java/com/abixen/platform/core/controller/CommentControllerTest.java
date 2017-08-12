@@ -15,12 +15,13 @@
 package com.abixen.platform.core.controller;
 
 import com.abixen.platform.common.dto.FormErrorDto;
-import com.abixen.platform.core.configuration.PlatformConfiguration;
-import com.abixen.platform.core.dto.ModuleCommentDto;
-import com.abixen.platform.core.form.CommentForm;
-import com.abixen.platform.core.model.impl.Comment;
-import com.abixen.platform.core.model.impl.Module;
-import com.abixen.platform.core.service.CommentService;
+import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration;
+import com.abixen.platform.core.application.dto.ModuleCommentDto;
+import com.abixen.platform.core.application.form.CommentForm;
+import com.abixen.platform.core.domain.model.impl.Comment;
+import com.abixen.platform.core.domain.model.impl.Module;
+import com.abixen.platform.core.interfaces.web.CommentController;
+import com.abixen.platform.core.application.service.CommentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.junit.Before;
