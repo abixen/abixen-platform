@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -14,16 +14,24 @@
 
 package com.abixen.platform.core.domain.model.impl;
 
-import com.abixen.platform.common.model.AclObjectIdentityBase;
 import com.abixen.platform.common.model.Model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "acl_object_identity")
 @SequenceGenerator(sequenceName = "acl_object_identity_seq", name = "acl_object_identity_seq", allocationSize = 1)
-public class AclObjectIdentity extends Model implements AclObjectIdentityBase<AclClass> {
+public class AclObjectIdentity extends Model {
 
     /**
      *
@@ -50,30 +58,24 @@ public class AclObjectIdentity extends Model implements AclObjectIdentityBase<Ac
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Override
     public AclClass getAclClass() {
         return aclClass;
     }
 
-    @Override
     public void setAclClass(AclClass aclClass) {
         this.aclClass = aclClass;
     }
 
-    @Override
     public Long getObjectId() {
         return objectId;
     }
 
-    @Override
     public void setObjectId(Long objectId) {
         this.objectId = objectId;
     }
-
 
 }

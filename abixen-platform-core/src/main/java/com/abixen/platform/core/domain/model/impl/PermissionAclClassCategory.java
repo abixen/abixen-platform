@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -15,15 +15,24 @@
 package com.abixen.platform.core.domain.model.impl;
 
 import com.abixen.platform.common.model.Model;
-import com.abixen.platform.common.model.PermissionAclClassCategoryBase;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 
 @Entity
 @Table(name = "permission_acl_class_category", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @SequenceGenerator(sequenceName = "permission_acl_class_category_seq", name = "permission_acl_class_category_seq", allocationSize = 1)
-public class PermissionAclClassCategory extends Model implements PermissionAclClassCategoryBase<AclClass> {
+public class PermissionAclClassCategory extends Model {
 
     /**
      *
@@ -53,47 +62,38 @@ public class PermissionAclClassCategory extends Model implements PermissionAclCl
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Override
     public AclClass getAclClass() {
         return aclClass;
     }
 
-    @Override
     public void setAclClass(AclClass aclClass) {
         this.aclClass = aclClass;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public void setTitle(String title) {
         this.title = title;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }
 
-    @Override
     public void setDescription(String description) {
         this.description = description;
     }

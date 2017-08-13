@@ -20,7 +20,7 @@ import com.abixen.platform.core.application.dto.AclPermissionDto;
 import com.abixen.platform.core.application.dto.AclRolePermissionsDto;
 import com.abixen.platform.core.application.dto.AclRolesPermissionsDto;
 import com.abixen.platform.core.application.dto.PermissionDto;
-import com.abixen.platform.common.model.SecurableModel;
+import com.abixen.platform.core.domain.model.SecurableModel;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.AclSidType;
 import com.abixen.platform.common.model.enumtype.PermissionName;

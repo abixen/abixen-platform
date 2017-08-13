@@ -15,7 +15,7 @@
 package com.abixen.platform.core.interfaces.web;
 
 
-import com.abixen.platform.common.model.SecurableModel;
+import com.abixen.platform.core.domain.model.SecurableModel;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.core.application.service.SecuribleModelService;
 import com.abixen.platform.core.application.service.SecurityService;

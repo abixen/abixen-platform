@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -15,18 +15,29 @@
 package com.abixen.platform.core.domain.model.impl;
 
 
-import com.abixen.platform.common.model.PermissionBase;
 import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 
 @JsonSerialize(as = Permission.class)
 @Entity
 @Table(name = "permission", uniqueConstraints = @UniqueConstraint(columnNames = {"permission_name"}))
 @SequenceGenerator(sequenceName = "permission_seq", name = "permission_seq", allocationSize = 1)
-public class Permission extends AuditingModel implements PermissionBase<PermissionAclClassCategory, PermissionGeneralCategory> {
+public class Permission extends AuditingModel {
 
     /**
      *
@@ -66,60 +77,48 @@ public class Permission extends AuditingModel implements PermissionBase<Permissi
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Override
     public PermissionName getPermissionName() {
         return permissionName;
     }
 
-    @Override
     public void setPermissionName(PermissionName permissionName) {
         this.permissionName = permissionName;
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public void setTitle(String title) {
         this.title = title;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }
 
-    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @Override
     public PermissionAclClassCategory getPermissionAclClassCategory() {
         return permissionAclClassCategory;
     }
 
-    @Override
     public void setPermissionAclClassCategory(PermissionAclClassCategory permissionAclClassCategory) {
         this.permissionAclClassCategory = permissionAclClassCategory;
     }
 
-    @Override
     public PermissionGeneralCategory getPermissionGeneralCategory() {
         return permissionGeneralCategory;
     }
 
-    @Override
     public void setPermissionGeneralCategory(PermissionGeneralCategory permissionGeneralCategory) {
         this.permissionGeneralCategory = permissionGeneralCategory;
     }
-
 
 }

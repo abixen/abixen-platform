@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -14,17 +14,26 @@
 
 package com.abixen.platform.core.domain.model.impl;
 
-import com.abixen.platform.common.model.AdminSidebarItemBase;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 @JsonSerialize(as = AdminSidebarItem.class)
 @Entity
 @Table(name = "admin_sidebar_item")
 @SequenceGenerator(sequenceName = "admin_sidebar_item_seq", name = "admin_sidebar_item_seq", allocationSize = 1)
-public class AdminSidebarItem extends AuditingModel implements AdminSidebarItemBase {
+public class AdminSidebarItem extends AuditingModel {
+
+    public static final int TITLE_MAX_LENGTH = 40;
+    public static final int ANGULAR_JS_STATE_MAX_LENGTH = 255;
+    public static final int ICON_CLASS_MAX_LENGTH = 40;
 
     @Id
     @Column(name = "id")
@@ -48,47 +57,38 @@ public class AdminSidebarItem extends AuditingModel implements AdminSidebarItemB
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public void setTitle(String title) {
         this.title = title;
     }
 
-    @Override
     public String getAngularJsState() {
         return angularJsState;
     }
 
-    @Override
     public void setAngularJsState(String angularJsState) {
         this.angularJsState = angularJsState;
     }
 
-    @Override
     public Double getOrderIndex() {
         return orderIndex;
     }
 
-    @Override
     public void setOrderIndex(Double orderIndex) {
         this.orderIndex = orderIndex;
     }
 
-    @Override
     public String getIconClass() {
         return iconClass;
     }
 
-    @Override
     public void setIconClass(String iconClass) {
         this.iconClass = iconClass;
     }

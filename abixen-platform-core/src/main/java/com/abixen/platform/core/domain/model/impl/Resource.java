@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -14,22 +14,34 @@
 
 package com.abixen.platform.core.domain.model.impl;
 
-import com.abixen.platform.common.model.ResourceBase;
 import com.abixen.platform.common.model.enumtype.ResourcePage;
 import com.abixen.platform.common.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.common.model.enumtype.ResourceType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 @JsonSerialize(as = Resource.class)
 @Entity
 @Table(name = "resource")
 @SequenceGenerator(sequenceName = "resource_seq", name = "resource_seq", allocationSize = 1)
-public class Resource extends AuditingModel implements ResourceBase<ModuleType> {
+public class Resource extends AuditingModel {
 
+    public static final int RESOURCE_RELATIVE_URL_MIN_LENGTH = 3;
+    public static final int RESOURCE_RELATIVE_URL_MAX_LENGTH = 250;
 
     //FIXME - to remove AuditingModel
     @Id
@@ -62,57 +74,46 @@ public class Resource extends AuditingModel implements ResourceBase<ModuleType> 
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Override
     public String getRelativeUrl() {
         return relativeUrl;
     }
 
-    @Override
     public void setRelativeUrl(String relativeUrl) {
         this.relativeUrl = relativeUrl;
     }
 
-    @Override
     public ResourcePageLocation getResourcePageLocation() {
         return resourcePageLocation;
     }
 
-    @Override
     public void setResourcePageLocation(ResourcePageLocation resourcePageLocation) {
         this.resourcePageLocation = resourcePageLocation;
     }
 
-    @Override
     public ResourcePage getResourcePage() {
         return resourcePage;
     }
 
-    @Override
     public void setResourcePage(ResourcePage resourcePage) {
         this.resourcePage = resourcePage;
     }
 
-    @Override
     public ResourceType getResourceType() {
         return resourceType;
     }
 
-    @Override
     public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
     }
 
-    @Override
     public ModuleType getModuleType() {
         return moduleType;
     }
 
-    @Override
     public void setModuleType(ModuleType moduleType) {
         this.moduleType = moduleType;
     }

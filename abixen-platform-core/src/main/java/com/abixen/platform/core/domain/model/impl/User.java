@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -14,14 +14,26 @@
 
 package com.abixen.platform.core.domain.model.impl;
 
-import com.abixen.platform.common.model.UserBase;
 import com.abixen.platform.common.model.enumtype.UserGender;
 import com.abixen.platform.common.model.enumtype.UserLanguage;
 import com.abixen.platform.common.model.enumtype.UserState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,11 +43,25 @@ import java.util.Set;
 @Entity
 @Table(name = "user_")
 @SequenceGenerator(sequenceName = "user_seq", name = "user_seq", allocationSize = 1)
-public class User extends AuditingModel implements UserBase<Role> {
+public class User extends AuditingModel {
 
+    public static final int USERNAME_MAX_LENGTH = 32;
+    public static final int USERNAME_MIN_LENGTH = 3;
+    public static final int PASSWORD_MAX_LENGTH = 60;
+    public static final int FIRST_NAME_MAX_LENGTH = 64;
+    public static final int FIRST_NAME_MIN_LENGTH = 2;
+    public static final int LAST_NAME_MAX_LENGTH = 64;
+    public static final int LAST_NAME_MIN_LENGTH = 2;
+    public static final int SCREEN_NAME_MIN_LENGTH = 3;
+    public static final int SCREEN_NAME_MAX_LENGTH = 32;
+    public static final int MIDDLE_NAME_MIN_LENGTH = 2;
+    public static final int MIDDLE_NAME_MAX_LENGTH = 64;
     /**
-     *
+     * IPv4-mapped IPv6 (45 bytes)
      */
+    public static final int REGISTRATION_IP_MAX_LENGTH = 45;
+    public static final int HASH_KEY_MAX_LENGTH = 60;
+
     private static final long serialVersionUID = -1247915331100609524L;
 
     @Id
@@ -71,7 +97,7 @@ public class User extends AuditingModel implements UserBase<Role> {
     private UserGender gender;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "selected_language",  nullable = false)
+    @Column(name = "selected_language", nullable = false)
     private UserLanguage selectedLanguage = UserLanguage.ENGLISH;
 
     @Column(name = "avatar_file_name")
@@ -97,157 +123,126 @@ public class User extends AuditingModel implements UserBase<Role> {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Override
     public String getUsername() {
         return username;
     }
 
-    @Override
     public void setUsername(String username) {
         this.username = username;
     }
 
-    @Override
     public String getPassword() {
         return password;
     }
 
-    @Override
     public void setPassword(String password) {
         this.password = password;
     }
 
-    @Override
     public String getScreenName() {
         return screenName;
     }
 
-    @Override
     public void setScreenName(String screenName) {
         this.screenName = screenName;
     }
 
-    @Override
     public String getFirstName() {
         return firstName;
     }
 
-    @Override
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    @Override
     public String getMiddleName() {
         return middleName;
     }
 
-    @Override
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
 
-    @Override
     public String getLastName() {
         return lastName;
     }
 
-    @Override
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    @Override
     public String getJobTitle() {
         return jobTitle;
     }
 
-    @Override
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
 
-    @Override
     public Date getBirthday() {
         return birthday;
     }
 
-    @Override
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
-    @Override
     public UserGender getGender() {
         return gender;
     }
 
-    @Override
     public void setGender(UserGender gender) {
         this.gender = gender;
     }
 
-    @Override
     public UserLanguage getSelectedLanguage() {
         return selectedLanguage;
     }
 
-    @Override
     public void setSelectedLanguage(UserLanguage selectedLanguage) {
-            this.selectedLanguage = selectedLanguage;
+        this.selectedLanguage = selectedLanguage;
     }
 
-    @Override
     public String getAvatarFileName() {
         return avatarFileName;
     }
 
-    @Override
     public void setAvatarFileName(String avatarFileName) {
         this.avatarFileName = avatarFileName;
     }
 
-    @Override
     public String getRegistrationIp() {
         return registrationIp;
     }
 
-    @Override
     public void setRegistrationIp(String registrationIp) {
         this.registrationIp = registrationIp;
     }
 
-    @Override
     public UserState getState() {
         return state;
     }
 
-    @Override
     public void setState(UserState state) {
         this.state = state;
     }
 
-    @Override
     public Set<Role> getRoles() {
         return roles;
     }
 
-    @Override
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
-    @Override
     public String getHashKey() {
         return hashKey;
     }
 
-    @Override
     public void setHashKey(String hashKey) {
         this.hashKey = hashKey;
     }

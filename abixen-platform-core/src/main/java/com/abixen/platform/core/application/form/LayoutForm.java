@@ -16,7 +16,6 @@ package com.abixen.platform.core.application.form;
 
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.model.LayoutBase;
 import com.abixen.platform.core.domain.model.impl.Layout;
 import org.hibernate.validator.constraints.Length;
 
@@ -28,14 +27,14 @@ public class LayoutForm implements Form {
     private Long id;
 
     @NotNull
-    @Length(max = LayoutBase.LAYOUT_TITLE_MAX_LENGTH)
+    @Length(max = Layout.LAYOUT_TITLE_MAX_LENGTH)
     private String title;
 
     @NotNull
-    @Length(max = LayoutBase.LAYOUT_CONTENT_MAX_LENGTH)
+    @Length(max = Layout.LAYOUT_CONTENT_MAX_LENGTH)
     private String content;
 
-    @Length(max = LayoutBase.LAYOUT_ICON_FILE_NAME_MAX_LENGTH)
+    @Length(max = Layout.LAYOUT_ICON_FILE_NAME_MAX_LENGTH)
     @NotNull
     private String iconFileName;
 

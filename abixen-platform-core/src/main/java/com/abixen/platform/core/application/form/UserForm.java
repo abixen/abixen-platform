@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -15,7 +15,6 @@
 package com.abixen.platform.core.application.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.model.UserBase;
 import com.abixen.platform.common.model.enumtype.UserGender;
 import com.abixen.platform.common.model.enumtype.UserLanguage;
 import com.abixen.platform.core.domain.model.impl.User;
@@ -31,22 +30,22 @@ public class UserForm implements Form {
 
     @NotNull
     @Email
-    @Length(min = UserBase.USERNAME_MIN_LENGTH, max = UserBase.USERNAME_MAX_LENGTH)
+    @Length(min = User.USERNAME_MIN_LENGTH, max = User.USERNAME_MAX_LENGTH)
     private String username;
 
     @NotNull
-    @Length(min = UserBase.SCREEN_NAME_MIN_LENGTH, max = UserBase.SCREEN_NAME_MAX_LENGTH)
+    @Length(min = User.SCREEN_NAME_MIN_LENGTH, max = User.SCREEN_NAME_MAX_LENGTH)
     private String screenName;
 
     @NotNull
-    @Length(min = UserBase.FIRST_NAME_MIN_LENGTH, max = UserBase.FIRST_NAME_MAX_LENGTH)
+    @Length(min = User.FIRST_NAME_MIN_LENGTH, max = User.FIRST_NAME_MAX_LENGTH)
     private String firstName;
 
-    @Length(min = UserBase.MIDDLE_NAME_MIN_LENGTH, max = UserBase.MIDDLE_NAME_MAX_LENGTH)
+    @Length(min = User.MIDDLE_NAME_MIN_LENGTH, max = User.MIDDLE_NAME_MAX_LENGTH)
     private String middleName;
 
     @NotNull
-    @Length(min = UserBase.LAST_NAME_MIN_LENGTH, max = UserBase.LAST_NAME_MAX_LENGTH)
+    @Length(min = User.LAST_NAME_MIN_LENGTH, max = User.LAST_NAME_MAX_LENGTH)
     private String lastName;
 
     private String jobTitle;

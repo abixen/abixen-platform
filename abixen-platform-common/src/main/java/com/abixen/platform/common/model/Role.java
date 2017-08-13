@@ -17,13 +17,12 @@ package com.abixen.platform.common.model;
 import com.abixen.platform.common.model.enumtype.RoleType;
 
 
-public class Role extends Model implements SimpleRoleBase {
+public class Role extends Model {
 
     private Long id;
     private RoleType roleType;
     private String name;
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -33,22 +32,18 @@ public class Role extends Model implements SimpleRoleBase {
         return id;
     }
 
-    @Override
     public void setRoleType(RoleType roleType) {
         this.roleType = roleType;
     }
 
-    @Override
     public RoleType getRoleType() {
         return roleType;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
     public String getName() {
         return name;
     }

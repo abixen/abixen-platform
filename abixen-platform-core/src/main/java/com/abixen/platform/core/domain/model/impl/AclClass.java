@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -14,17 +14,24 @@
 
 package com.abixen.platform.core.domain.model.impl;
 
-import com.abixen.platform.common.model.AclClassBase;
 import com.abixen.platform.common.model.Model;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "acl_class")
 @SequenceGenerator(sequenceName = "acl_class_seq", name = "acl_class_seq", allocationSize = 1)
-public class AclClass extends Model implements AclClassBase {
+public class AclClass extends Model {
 
     /**
      *
@@ -50,17 +57,14 @@ public class AclClass extends Model implements AclClassBase {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Override
     public AclClassName getAclClassName() {
         return aclClassName;
     }
 
-    @Override
     public void setAclClassName(AclClassName aclClassName) {
         this.aclClassName = aclClassName;
     }

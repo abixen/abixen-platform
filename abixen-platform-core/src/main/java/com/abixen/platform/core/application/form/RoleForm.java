@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -15,7 +15,6 @@
 package com.abixen.platform.core.application.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.model.RoleBase;
 import com.abixen.platform.common.model.enumtype.RoleType;
 import com.abixen.platform.core.domain.model.impl.Role;
 import org.hibernate.validator.constraints.Length;
@@ -28,7 +27,7 @@ public class RoleForm implements Form {
     private Long id;
 
     @NotNull
-    @Length(max = RoleBase.ROLE_NAME_MAX_LENGTH)
+    @Length(max = Role.ROLE_NAME_MAX_LENGTH)
     private String name;
 
     private RoleType roleType;

@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.model.UserBase;
+import com.abixen.platform.core.domain.model.impl.User;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -29,17 +29,17 @@ public class UserChangePasswordForm implements Form {
 
     @NotNull
     @NotEmpty
-    @Length(max = UserBase.PASSWORD_MAX_LENGTH)
+    @Length(max = User.PASSWORD_MAX_LENGTH)
     private String currentPassword;
 
     @NotNull
     @NotEmpty
-    @Length(max = UserBase.PASSWORD_MAX_LENGTH)
+    @Length(max = User.PASSWORD_MAX_LENGTH)
     private String newPassword;
 
     @NotNull
     @NotEmpty
-    @Length(max = UserBase.PASSWORD_MAX_LENGTH)
+    @Length(max = User.PASSWORD_MAX_LENGTH)
     private String retypeNewPassword;
 
     public Long getId() {
