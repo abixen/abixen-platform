@@ -15,6 +15,7 @@ env:
 branches:
   only:
   - master
+  - ddd-core
 
 script:
   - ./travis/script/build.sh
