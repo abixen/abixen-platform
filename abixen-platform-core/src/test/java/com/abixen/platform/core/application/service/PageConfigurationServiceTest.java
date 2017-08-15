@@ -18,7 +18,7 @@ import com.abixen.platform.core.interfaces.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.LayoutDto;
 import com.abixen.platform.core.application.dto.PageModelDto;
 import com.abixen.platform.core.application.form.PageForm;
-import com.abixen.platform.core.domain.model.impl.Page;
+import com.abixen.platform.core.domain.model.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;

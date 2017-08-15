@@ -14,20 +14,26 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.core.interfaces.client.ModulesConfigurationProperties;
-import com.abixen.platform.core.infrastructure.configuration.properties.RegisteredModuleServicesConfigurationProperties;
-import com.abixen.platform.core.interfaces.converter.ModuleTypeToModuleTypeDtoConverter;
+import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.application.dto.ModuleTypeDto;
 import com.abixen.platform.core.application.form.ModuleTypeSearchForm;
-import com.abixen.platform.core.infrastructure.integration.ModuleConfigurationIntegrationClient;
-import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.AdminSidebarItem;
-import com.abixen.platform.core.domain.model.impl.ModuleType;
-import com.abixen.platform.core.domain.model.impl.Resource;
-import com.abixen.platform.core.domain.model.impl.User;
+import com.abixen.platform.core.application.service.ModuleTypeService;
+import com.abixen.platform.core.application.service.ResourceService;
+import com.abixen.platform.core.application.service.SecurityService;
+import com.abixen.platform.core.application.service.UserService;
+import com.abixen.platform.core.domain.model.AdminSidebarItem;
+import com.abixen.platform.core.domain.model.AdminSidebarItemBuilder;
+import com.abixen.platform.core.domain.model.ModuleType;
+import com.abixen.platform.core.domain.model.ModuleTypeBuilder;
+import com.abixen.platform.core.domain.model.Resource;
+import com.abixen.platform.core.domain.model.ResourceBuilder;
+import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.ModuleTypeRepository;
-import com.abixen.platform.common.security.PlatformUser;
-import com.abixen.platform.core.application.service.*;
+import com.abixen.platform.core.infrastructure.configuration.properties.RegisteredModuleServicesConfigurationProperties;
+import com.abixen.platform.core.infrastructure.integration.ModuleConfigurationIntegrationClient;
+import com.abixen.platform.core.interfaces.client.ModulesConfigurationProperties;
+import com.abixen.platform.core.interfaces.converter.ModuleTypeToModuleTypeDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,7 +53,6 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
     private final ModuleConfigurationIntegrationClient moduleConfigurationIntegrationClient;
     private final ResourceService resourceService;
     private final RegisteredModuleServicesConfigurationProperties registeredModuleServicesConfigurationProperties;
-    private final DomainBuilderService domainBuilderService;
     private final SecurityService securityService;
     private final UserService userService;
     private final ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter;
@@ -57,7 +62,6 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
                                  ModuleConfigurationIntegrationClient moduleConfigurationIntegrationClient,
                                  ResourceService resourceService,
                                  RegisteredModuleServicesConfigurationProperties registeredModuleServicesConfigurationProperties,
-                                 DomainBuilderService domainBuilderService,
                                  SecurityService securityService,
                                  UserService userService,
                                  ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter) {
@@ -65,7 +69,6 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
         this.moduleConfigurationIntegrationClient = moduleConfigurationIntegrationClient;
         this.resourceService = resourceService;
         this.registeredModuleServicesConfigurationProperties = registeredModuleServicesConfigurationProperties;
-        this.domainBuilderService = domainBuilderService;
         this.securityService = securityService;
         this.userService = userService;
         this.moduleTypeToModuleTypeDtoConverter = moduleTypeToModuleTypeDtoConverter;
@@ -95,8 +98,8 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
                 moduleTypeDtos.add(moduleTypeDto);
             } else {
                 ModuleTypeDto moduleTypeDto = new ModuleTypeDto();
-                moduleType.setId(moduleType.getId());
-                moduleType.setName(moduleType.getName());
+                moduleTypeDto.setId(moduleType.getId());
+                moduleTypeDto.setName(moduleType.getName());
                 moduleTypeDtos.add(moduleTypeDto);
             }
         });
@@ -131,7 +134,7 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
 
         List<Resource> newResources = generateResources(moduleType, module);
         resourceService.updateResource(moduleType, newResources);
-        moduleType.setAdminSidebarItems(generateAdminSidebarItem(modulesConfigurationProperties));
+        moduleType.changeAdminSidebarItems(generateAdminSidebarItem(modulesConfigurationProperties));
         moduleTypeRepository.save(moduleType);
     }
 
@@ -149,8 +152,7 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
 
                 //TODO - add removing functionality
                 if (moduleType == null) {
-                    moduleType = domainBuilderService.
-                            newModuleTypeBuilderInstance().
+                    moduleType = new ModuleTypeBuilder().
                             basic(module.getName(), module.getTitle(), module.getDescription()).
                             angular(module.getAngularJsNameApplication(), module.getAngularJsNameAdmin()).
                             initUrl(module.getRelativeInitUrl()).
@@ -158,10 +160,10 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
                             adminSidebarItems(generateAdminSidebarItem(modulesConfigurationProperties)).build();
                     moduleTypeRepository.save(moduleType);
                 } else {
-                    moduleType.setDescription(module.getDescription());
-                    moduleType.setTitle(module.getTitle());
-                    moduleType.setInitUrl(module.getRelativeInitUrl());
-                    moduleType.setAdminSidebarItems(generateAdminSidebarItem(modulesConfigurationProperties));
+                    moduleType.changeDescription(module.getDescription());
+                    moduleType.changeTitle(module.getTitle());
+                    moduleType.changeInitUrl(module.getRelativeInitUrl());
+                    moduleType.changeAdminSidebarItems(generateAdminSidebarItem(modulesConfigurationProperties));
                     moduleTypeRepository.save(moduleType);
                 }
 
@@ -176,13 +178,13 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
         List<Resource> newResources = new ArrayList<>();
 
         module.getStaticResources().forEach(staticResource -> {
-            Resource resource = new Resource();
-
-            resource.setModuleType(moduleType);
-            resource.setRelativeUrl(staticResource.getRelativeUrl());
-            resource.setResourcePageLocation(staticResource.getResourcePageLocation());
-            resource.setResourcePage(staticResource.getResourcePage());
-            resource.setResourceType(staticResource.getResourceType());
+            Resource resource = new ResourceBuilder()
+                    .moduleType(moduleType)
+                    .relativeUrl(staticResource.getRelativeUrl())
+                    .pageLocation(staticResource.getResourcePageLocation())
+                    .page(staticResource.getResourcePage())
+                    .type(staticResource.getResourceType())
+                    .build();
 
             newResources.add(resource);
         });
@@ -194,12 +196,12 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
         List<AdminSidebarItem> newAdminSidebarItems = new ArrayList<>();
 
         modulesConfigurationProperties.getAdminSidebarItems().forEach(asi -> {
-            AdminSidebarItem adminSidebarItem = new AdminSidebarItem();
-
-            adminSidebarItem.setTitle(asi.getTitle());
-            adminSidebarItem.setAngularJsState(asi.getAngularJsState());
-            adminSidebarItem.setIconClass(asi.getIconClass());
-            adminSidebarItem.setOrderIndex(asi.getOrderIndex());
+            AdminSidebarItem adminSidebarItem = new AdminSidebarItemBuilder()
+                    .title(asi.getTitle())
+                    .angularJsState(asi.getAngularJsState())
+                    .iconClass(asi.getIconClass())
+                    .orderIndex(asi.getOrderIndex())
+                    .build();
 
             newAdminSidebarItems.add(adminSidebarItem);
         });

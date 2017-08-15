@@ -39,7 +39,6 @@ public class ApplicationUserActivationController {
         log.debug("activate() - userHashKey: " + userHashKey);
 
         userService.activate(userHashKey);
-
     }
 
 }

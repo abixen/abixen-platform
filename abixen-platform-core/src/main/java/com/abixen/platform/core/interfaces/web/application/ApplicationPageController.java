@@ -17,7 +17,7 @@ package com.abixen.platform.core.interfaces.web.application;
 import com.abixen.platform.core.interfaces.web.common.AbstractPageController;
 import com.abixen.platform.core.interfaces.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.PageDto;
-import com.abixen.platform.core.domain.model.impl.Page;
+import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.PageService;
 import lombok.extern.slf4j.Slf4j;

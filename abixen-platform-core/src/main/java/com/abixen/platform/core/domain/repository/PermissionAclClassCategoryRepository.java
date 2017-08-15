@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.repository;
 
-import com.abixen.platform.core.domain.model.impl.PermissionAclClassCategory;
+import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

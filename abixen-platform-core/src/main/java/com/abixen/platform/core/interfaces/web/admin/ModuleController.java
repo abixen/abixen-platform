@@ -20,7 +20,7 @@ import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.core.application.dto.ModuleDto;
 import com.abixen.platform.core.application.form.ModuleForm;
 import com.abixen.platform.core.application.form.ModuleSearchForm;
-import com.abixen.platform.core.domain.model.impl.Module;
+import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.application.service.ModuleService;
 import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;

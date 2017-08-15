@@ -17,7 +17,7 @@ package com.abixen.platform.core.domain.repository.custom;
 import com.abixen.platform.common.form.search.SearchForm;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.User;
+import com.abixen.platform.core.domain.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

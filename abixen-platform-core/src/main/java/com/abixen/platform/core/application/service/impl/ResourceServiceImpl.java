@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.core.domain.model.impl.ModuleType;
+import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.repository.ResourceRepository;
 import com.abixen.platform.core.application.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,12 +33,12 @@ public class ResourceServiceImpl implements ResourceService {
     private ResourceRepository resourceRepository;
 
     @Override
-    public List<com.abixen.platform.core.domain.model.impl.Resource> findAllResources() {
+    public List<com.abixen.platform.core.domain.model.Resource> findAllResources() {
         return resourceRepository.findAll();
     }
 
     @Override
-    public void updateResource(ModuleType moduleType, List<com.abixen.platform.core.domain.model.impl.Resource> newResources) {
+    public void updateResource(ModuleType moduleType, List<com.abixen.platform.core.domain.model.Resource> newResources) {
 
         resourceRepository.deleteResources(moduleType);
 
@@ -48,7 +48,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public Page<com.abixen.platform.core.domain.model.impl.Resource> findAllResources(Long moduleId, Pageable pageable) {
+    public Page<com.abixen.platform.core.domain.model.Resource> findAllResources(Long moduleId, Pageable pageable) {
         return this.resourceRepository.findAllResources(moduleId, pageable);
     }
 }

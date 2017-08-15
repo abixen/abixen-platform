@@ -17,7 +17,7 @@ package com.abixen.platform.core.interfaces.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
 import com.abixen.platform.core.application.dto.PermissionDto;
-import com.abixen.platform.core.domain.model.impl.Permission;
+import com.abixen.platform.core.domain.model.Permission;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

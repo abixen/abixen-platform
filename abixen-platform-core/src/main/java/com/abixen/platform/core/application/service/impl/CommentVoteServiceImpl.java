@@ -14,13 +14,14 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.core.interfaces.converter.CommentVoteToCommentVoteDtoConverter;
 import com.abixen.platform.core.application.dto.CommentVoteDto;
 import com.abixen.platform.core.application.form.CommentVoteForm;
-import com.abixen.platform.core.domain.model.impl.CommentVote;
+import com.abixen.platform.core.application.service.CommentVoteService;
+import com.abixen.platform.core.domain.model.CommentVote;
+import com.abixen.platform.core.domain.model.CommentVoteBuilder;
 import com.abixen.platform.core.domain.repository.CommentRepository;
 import com.abixen.platform.core.domain.repository.CommentVoteRepository;
-import com.abixen.platform.core.application.service.CommentVoteService;
+import com.abixen.platform.core.interfaces.converter.CommentVoteToCommentVoteDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,13 @@ public class CommentVoteServiceImpl implements CommentVoteService {
     @Override
     public CommentVoteDto saveCommentVote(CommentVoteForm commentVoteForm) {
         log.debug("saveCommentVote() - commentVoteForm={}", commentVoteForm);
-        CommentVote commentVote = buildCommentVote(commentVoteForm);
+        Long commentId = commentVoteForm.getCommentId();
+        //FIXME - impossible id commentId == null
+        CommentVote commentVote = new CommentVoteBuilder()
+                .type(commentVoteForm.getCommentVoteType())
+                .comment(commentId != null ? commentRepository.findOne(commentId) : null)
+                .build();
+
         CommentVote savedCommentVote = commentVoteRepository.save(commentVote);
 
         CommentVoteDto savedCommentVoteDto = commentVoteToCommentVoteDtoConverter.convert(savedCommentVote);
@@ -61,7 +68,7 @@ public class CommentVoteServiceImpl implements CommentVoteService {
     public CommentVoteForm updateCommentVote(CommentVoteForm commentVoteForm) {
         log.debug("saveCommentVote() - commentVoteForm={}", commentVoteForm);
         CommentVote commentVote = commentVoteRepository.findOne(commentVoteForm.getId());
-        commentVote.setCommentVoteType(commentVoteForm.getCommentVoteType());
+        commentVote.changeType(commentVoteForm.getCommentVoteType());
         //FIXME
         CommentVote updatedComment = commentVoteRepository.save(commentVote);
         return commentVoteForm;
@@ -88,14 +95,4 @@ public class CommentVoteServiceImpl implements CommentVoteService {
         List<CommentVoteDto> votesDto = votes.stream().map(commentVoteToCommentVoteDtoConverter::convert).collect(Collectors.toList());
         return votesDto;
     }
-
-    private CommentVote buildCommentVote(CommentVoteForm commentVoteForm) {
-        CommentVote commentVote = new CommentVote();
-        commentVote.setId(commentVoteForm.getId());
-        commentVote.setCommentVoteType(commentVoteForm.getCommentVoteType());
-        Long commentId = commentVoteForm.getCommentId();
-        commentVote.setComment(commentId != null ? commentRepository.findOne(commentId) : null);
-        return commentVote;
-    }
-
 }

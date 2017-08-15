@@ -14,13 +14,14 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.core.domain.model.CommentBuilder;
 import com.abixen.platform.core.interfaces.converter.CommentToCommentDtoConverter;
 import com.abixen.platform.core.application.dto.CommentDto;
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.Comment;
+import com.abixen.platform.core.domain.model.Comment;
 import com.abixen.platform.core.domain.repository.CommentRepository;
 import com.abixen.platform.core.domain.repository.ModuleRepository;
 import com.abixen.platform.core.domain.repository.UserRepository;
@@ -70,7 +71,12 @@ public class CommentServiceImpl implements CommentService {
     public CommentForm createComment(CommentForm commentForm) {
         log.debug("createComment() - commentForm={}", commentForm);
 
-        Comment comment = buildComment(commentForm);
+        Comment comment = new CommentBuilder()
+                .message(commentForm.getMessage())
+                .parent(commentForm.getParentId() != null ? commentRepository.findOne(commentForm.getParentId()) : null)
+                .module(commentForm.getModuleId() != null ? moduleRepository.findOne(commentForm.getModuleId()) : null)
+                .build();
+
         Comment savedComment = commentRepository.save(comment);
         CommentDto savedCommentDto = commentToCommentDtoConverter.convert(savedComment);
 
@@ -81,7 +87,8 @@ public class CommentServiceImpl implements CommentService {
     public CommentForm updateComment(CommentForm commentForm) {
         log.debug("updateComment() - commentForm={}", commentForm);
 
-        Comment comment = buildComment(commentForm);
+        Comment comment = commentRepository.findOne(commentForm.getId());
+        comment.changeMessage(commentForm.getMessage());
         Comment savedComment = commentRepository.save(comment);
         CommentDto savedCommentDto = commentToCommentDtoConverter.convert(savedComment);
 
@@ -144,17 +151,6 @@ public class CommentServiceImpl implements CommentService {
         return accumulator;
     }
 
-    private Comment buildComment(CommentForm commentForm) {
-        Comment comment = new Comment();
-        comment.setId(commentForm.getId());
-        comment.setMessage(commentForm.getMessage());
-        Long parentCommentId = commentForm.getParentId();
-        comment.setParent(parentCommentId != null ? commentRepository.findOne(parentCommentId) : null);
-        Long moduleId = commentForm.getModuleId();
-        comment.setModule(moduleId != null ? moduleRepository.findOne(moduleId) : null);
-        return comment;
-    }
-
     private Integer calculateMaxDepth(List<ModuleCommentDto> rootComments, Integer depth) {
         int thisLevelMax = depth;
         depth++;
@@ -185,7 +181,7 @@ public class CommentServiceImpl implements CommentService {
 
     private void populateCommentsWithVotes(List<CommentDto> comments) {
         comments.forEach(comment ->
-            comment.setVotes(commentVoteService.findVotes(comment.getId()))
+                comment.setVotes(commentVoteService.findVotes(comment.getId()))
         );
     }
 }

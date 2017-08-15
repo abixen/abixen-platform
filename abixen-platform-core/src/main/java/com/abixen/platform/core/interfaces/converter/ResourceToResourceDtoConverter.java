@@ -17,7 +17,7 @@ package com.abixen.platform.core.interfaces.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
 import com.abixen.platform.core.application.dto.ResourceDto;
-import com.abixen.platform.core.domain.model.impl.Resource;
+import com.abixen.platform.core.domain.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.core.domain.model.PageBuilder;
 import com.abixen.platform.core.interfaces.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.PageDto;
 import com.abixen.platform.core.application.form.PageConfigurationForm;
@@ -21,9 +22,9 @@ import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.application.form.PageSearchForm;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.Module;
-import com.abixen.platform.core.domain.model.impl.Page;
-import com.abixen.platform.core.domain.model.impl.User;
+import com.abixen.platform.core.domain.model.Module;
+import com.abixen.platform.core.domain.model.Page;
+import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.ModuleRepository;
 import com.abixen.platform.core.domain.repository.PageRepository;
 import com.abixen.platform.common.security.PlatformUser;
@@ -46,7 +47,6 @@ import java.util.List;
 public class PageServiceImpl implements PageService {
 
     private final AclService aclService;
-    private final DomainBuilderService domainBuilderService;
     private final LayoutService layoutService;
     private final ModuleService moduleService;
     private final SecurityService securityService;
@@ -57,7 +57,6 @@ public class PageServiceImpl implements PageService {
 
     @Autowired
     public PageServiceImpl(AclService aclService,
-                           DomainBuilderService domainBuilderService,
                            LayoutService layoutService,
                            ModuleService moduleService,
                            SecurityService securityService,
@@ -66,7 +65,6 @@ public class PageServiceImpl implements PageService {
                            ModuleRepository moduleRepository,
                            PageToPageDtoConverter pageToPageDtoConverter) {
         this.aclService = aclService;
-        this.domainBuilderService = domainBuilderService;
         this.layoutService = layoutService;
         this.moduleService = moduleService;
         this.securityService = securityService;
@@ -79,8 +77,9 @@ public class PageServiceImpl implements PageService {
     @Override
     public Page buildPage(PageForm pageForm) {
         log.debug("buildPage() - pageForm={}", pageForm);
-        return domainBuilderService.newPageBuilderInstance()
-                .init(pageForm.getTitle(), layoutService.findLayout(pageForm.getLayout().getId()))
+        return new PageBuilder()
+                .layout(layoutService.findLayout(pageForm.getLayout().getId()))
+                .title(pageForm.getTitle())
                 .description(pageForm.getDescription())
                 .icon(pageForm.getIcon())
                 .build();
@@ -88,11 +87,9 @@ public class PageServiceImpl implements PageService {
 
     public Page buildPage(PageConfigurationForm pageConfigurationForm) {
         log.debug("buildPage() - pageConfigurationForm={}", pageConfigurationForm);
-        return domainBuilderService.newPageBuilderInstance()
-                .init(
-                        pageConfigurationForm.getPage().getTitle(),
-                        layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId())
-                )
+        return new PageBuilder()
+                .layout(layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId()))
+                .title(pageConfigurationForm.getPage().getTitle())
                 .description(pageConfigurationForm.getPage().getDescription())
                 .icon(pageConfigurationForm.getPage().getIcon())
                 .build();
@@ -138,10 +135,10 @@ public class PageServiceImpl implements PageService {
         log.debug("updatePage() - pageForm={}", pageForm);
 
         Page page = findPage(pageForm.getId());
-        page.setTitle(pageForm.getTitle());
-        page.setDescription(pageForm.getDescription());
-        page.setIcon(pageForm.getIcon());
-        page.setLayout(layoutService.findLayout(pageForm.getLayout().getId()));
+        page.changeTitle(pageForm.getTitle());
+        page.changeDescription(pageForm.getDescription());
+        page.changeIcon(pageForm.getIcon());
+        page.changeLayout(layoutService.findLayout(pageForm.getLayout().getId()));
 
         Page updatedPage = updatePage(page);
         PageDto updatedPageDto = pageToPageDtoConverter.convert(updatedPage);

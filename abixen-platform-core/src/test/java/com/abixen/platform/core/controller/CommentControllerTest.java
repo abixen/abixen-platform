@@ -15,11 +15,13 @@
 package com.abixen.platform.core.controller;
 
 import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.core.domain.model.CommentBuilder;
+import com.abixen.platform.core.domain.model.ModuleBuilder;
 import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration;
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;
-import com.abixen.platform.core.domain.model.impl.Comment;
-import com.abixen.platform.core.domain.model.impl.Module;
+import com.abixen.platform.core.domain.model.Comment;
+import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.interfaces.web.CommentController;
 import com.abixen.platform.core.application.service.CommentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -70,13 +72,13 @@ public class CommentControllerTest {
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
-        Module module = new Module();
-        module.setId(3L);
-        Comment comment1 = Comment.builder().id(1L).message("Test Comment Parent").parent(null).module(module).build();
-        Comment comment2 = Comment.builder().id(2L).message("Some new 11").parent(comment1).module(module).build();
-        Comment comment3 = Comment.builder().id(3L).message("Some new 11").parent(comment2).module(module).build();
-        Comment comment4 = Comment.builder().id(4L).message("Some new 22").parent(comment3).module(module).build();
-        Comment comment5 = Comment.builder().id(5L).message("Some new 33").parent(comment2).module(module).build();
+        Module module = new ModuleBuilder().build();
+        //module.setId(3L);
+        Comment comment1 = new CommentBuilder().message("Test Comment Parent").parent(null).module(module).build();
+        Comment comment2 = new CommentBuilder().message("Some new 11").parent(comment1).module(module).build();
+        Comment comment3 = new CommentBuilder().message("Some new 11").parent(comment2).module(module).build();
+        Comment comment4 = new CommentBuilder().message("Some new 22").parent(comment3).module(module).build();
+        Comment comment5 = new CommentBuilder().message("Some new 33").parent(comment2).module(module).build();
 
         inputComments.addAll(Arrays.asList(new Comment[]{comment1, comment2, comment3, comment4, comment5}));
     }

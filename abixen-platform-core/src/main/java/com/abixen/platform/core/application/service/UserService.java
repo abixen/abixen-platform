@@ -19,7 +19,7 @@ import com.abixen.platform.core.application.form.UserForm;
 import com.abixen.platform.core.application.form.UserRolesForm;
 import com.abixen.platform.core.application.form.UserSearchForm;
 import com.abixen.platform.common.model.enumtype.UserLanguage;
-import com.abixen.platform.core.domain.model.impl.User;
+import com.abixen.platform.core.domain.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,7 +49,7 @@ public interface UserService {
 
     User findUser(String username);
 
-    User activate(String userHashKey);
+    void activate(String userHashKey);
 
     UserChangePasswordForm changeUserPassword(User user, UserChangePasswordForm userChangePasswordForm);
 

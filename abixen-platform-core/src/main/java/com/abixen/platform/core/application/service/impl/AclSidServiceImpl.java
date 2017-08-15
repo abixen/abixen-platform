@@ -15,7 +15,8 @@
 package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.common.model.enumtype.AclSidType;
-import com.abixen.platform.core.domain.model.impl.AclSid;
+import com.abixen.platform.core.domain.model.AclSid;
+import com.abixen.platform.core.domain.model.AclSidBuilder;
 import com.abixen.platform.core.domain.repository.custom.AclSidRepository;
 import com.abixen.platform.core.application.service.AclSidService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,11 @@ public class AclSidServiceImpl implements AclSidService {
 
     @Override
     public AclSid createAclSid(AclSidType aclSidType, Long sidId) {
-        AclSid aclSid = new AclSid();
-        aclSid.setSidId(sidId);
-        aclSid.setSidType(aclSidType);
+        AclSid aclSid = new AclSidBuilder()
+                .sidId(sidId)
+                .aclSidType(aclSidType)
+                .build();
+
         return aclSidRepository.save(aclSid);
     }
 }

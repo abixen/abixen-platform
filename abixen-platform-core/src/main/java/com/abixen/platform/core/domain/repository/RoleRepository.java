@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.repository;
 
-import com.abixen.platform.core.domain.model.impl.Role;
+import com.abixen.platform.core.domain.model.Role;
 import com.abixen.platform.core.domain.repository.custom.PlatformJpaRepository;
 
 

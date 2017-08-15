@@ -17,7 +17,7 @@ package com.abixen.platform.core.application.service;
 import com.abixen.platform.core.application.form.RoleForm;
 import com.abixen.platform.core.application.form.RolePermissionsForm;
 import com.abixen.platform.core.application.form.RoleSearchForm;
-import com.abixen.platform.core.domain.model.impl.Role;
+import com.abixen.platform.core.domain.model.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

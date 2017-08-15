@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.interfaces.web;
 
-import com.abixen.platform.core.domain.model.impl.Resource;
+import com.abixen.platform.core.domain.model.Resource;
 import com.abixen.platform.core.application.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.domain.repository;
 
-import com.abixen.platform.core.domain.model.impl.AclClass;
-import com.abixen.platform.core.domain.model.impl.AclObjectIdentity;
+import com.abixen.platform.core.domain.model.AclClass;
+import com.abixen.platform.core.domain.model.AclObjectIdentity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.repository;
 
-import com.abixen.platform.core.domain.model.impl.AclEntry;
+import com.abixen.platform.core.domain.model.AclEntry;
 import com.abixen.platform.core.domain.repository.custom.AclEntryRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -15,8 +15,8 @@
 package com.abixen.platform.core.domain.repository;
 
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.Permission;
-import com.abixen.platform.core.domain.model.impl.PermissionAclClassCategory;
+import com.abixen.platform.core.domain.model.Permission;
+import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
 import com.abixen.platform.core.domain.repository.custom.PlatformJpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

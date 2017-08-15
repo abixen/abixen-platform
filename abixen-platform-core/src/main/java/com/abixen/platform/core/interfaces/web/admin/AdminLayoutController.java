@@ -20,7 +20,7 @@ import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.core.application.dto.LayoutDto;
 import com.abixen.platform.core.application.form.LayoutForm;
 import com.abixen.platform.core.application.form.LayoutSearchForm;
-import com.abixen.platform.core.domain.model.impl.Layout;
+import com.abixen.platform.core.domain.model.Layout;
 import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -62,7 +62,7 @@ public class AdminLayoutController {
 
         for (Layout layout : layouts) {
             String html = layout.getContent();
-            layout.setContent(layoutService.htmlLayoutToJson(html));
+            layout.changeContent(layoutService.htmlLayoutToJson(html));
         }
 
         Page<LayoutDto> layoutDtos = layoutToLayoutDtoConverter.convertToPage(layouts);

@@ -16,7 +16,7 @@ package com.abixen.platform.core.interfaces.web.application;
 
 import com.abixen.platform.core.interfaces.converter.LayoutToLayoutDtoConverter;
 import com.abixen.platform.core.application.dto.LayoutDto;
-import com.abixen.platform.core.domain.model.impl.Layout;
+import com.abixen.platform.core.domain.model.Layout;
 import com.abixen.platform.core.application.service.LayoutService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

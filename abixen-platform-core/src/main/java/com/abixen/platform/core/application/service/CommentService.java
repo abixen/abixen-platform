@@ -16,7 +16,7 @@ package com.abixen.platform.core.application.service;
 
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;
-import com.abixen.platform.core.domain.model.impl.Comment;
+import com.abixen.platform.core.domain.model.Comment;
 
 import java.util.List;
 

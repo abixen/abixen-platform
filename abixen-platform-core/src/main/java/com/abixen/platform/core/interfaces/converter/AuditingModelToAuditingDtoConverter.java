@@ -17,7 +17,7 @@ package com.abixen.platform.core.interfaces.converter;
 
 import com.abixen.platform.core.application.dto.AuditingDto;
 import com.abixen.platform.core.application.dto.UserDto;
-import com.abixen.platform.core.domain.model.impl.AuditingModel;
+import com.abixen.platform.core.domain.model.AuditingModel;
 import org.springframework.stereotype.Component;
 
 

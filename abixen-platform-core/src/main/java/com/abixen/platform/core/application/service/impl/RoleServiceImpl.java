@@ -19,13 +19,12 @@ import com.abixen.platform.core.application.dto.RolePermissionDto;
 import com.abixen.platform.core.application.form.RoleForm;
 import com.abixen.platform.core.application.form.RolePermissionsForm;
 import com.abixen.platform.core.application.form.RoleSearchForm;
-import com.abixen.platform.core.domain.model.impl.Role;
-import com.abixen.platform.core.domain.repository.RoleRepository;
 import com.abixen.platform.core.application.service.AclSidService;
-import com.abixen.platform.core.application.service.DomainBuilderService;
 import com.abixen.platform.core.application.service.PermissionService;
 import com.abixen.platform.core.application.service.RoleService;
-import com.abixen.platform.core.infrastructure.util.RoleBuilder;
+import com.abixen.platform.core.domain.model.Role;
+import com.abixen.platform.core.domain.model.RoleBuilder;
+import com.abixen.platform.core.domain.repository.RoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,17 +41,14 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
     private final PermissionService permissionService;
-    private final DomainBuilderService domainBuilderService;
     private final AclSidService aclSidService;
 
     @Autowired
     public RoleServiceImpl(RoleRepository roleRepository,
                            PermissionService permissionService,
-                           DomainBuilderService domainBuilderService,
                            AclSidService aclSidService) {
         this.roleRepository = roleRepository;
         this.permissionService = permissionService;
-        this.domainBuilderService = domainBuilderService;
         this.aclSidService = aclSidService;
     }
 
@@ -74,8 +70,7 @@ public class RoleServiceImpl implements RoleService {
     public RoleForm updateRole(RoleForm roleForm) {
         log.debug("updateRole() - roleForm: {}", roleForm);
         Role role = roleRepository.findOne(roleForm.getId());
-        role.setName(roleForm.getName());
-        role.setRoleType(roleForm.getRoleType());
+        role.changeDetails(roleForm.getName(), roleForm.getRoleType());
         return new RoleForm(roleRepository.save(role));
     }
 
@@ -101,7 +96,7 @@ public class RoleServiceImpl implements RoleService {
     public Role buildRole(RoleForm roleForm) {
         log.debug("buildRole() - roleForm: " + roleForm);
 
-        RoleBuilder roleBuilder = domainBuilderService.newRoleBuilderInstance();
+        RoleBuilder roleBuilder = new RoleBuilder();
         roleBuilder.name(roleForm.getName());
         roleBuilder.type(roleForm.getRoleType());
         return roleBuilder.build();
@@ -126,6 +121,5 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findAllRoles() {
         return roleRepository.findAll();
     }
-
 
 }

@@ -14,6 +14,15 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.core.domain.model.AclClass;
+import com.abixen.platform.core.domain.model.AclEntry;
+import com.abixen.platform.core.domain.model.AclEntryBuilder;
+import com.abixen.platform.core.domain.model.AclObjectIdentity;
+import com.abixen.platform.core.domain.model.AclObjectIdentityBuilder;
+import com.abixen.platform.core.domain.model.AclSid;
+import com.abixen.platform.core.domain.model.Permission;
+import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
+import com.abixen.platform.core.domain.model.Role;
 import com.abixen.platform.core.interfaces.converter.PermissionToPermissionDtoConverter;
 import com.abixen.platform.core.interfaces.converter.RoleToRoleDtoConverter;
 import com.abixen.platform.core.application.dto.AclPermissionDto;
@@ -24,7 +33,6 @@ import com.abixen.platform.core.domain.model.SecurableModel;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.AclSidType;
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.*;
 import com.abixen.platform.core.domain.repository.*;
 import com.abixen.platform.core.domain.repository.custom.AclSidRepository;
 import com.abixen.platform.core.application.service.AclService;
@@ -90,16 +98,18 @@ public class AclServiceImpl implements AclService {
         AclObjectIdentity aclObjectIdentity = aclObjectIdentityRepository.findByAclClassAndObjectId(aclClass, securableModel.getId());
 
         if (aclObjectIdentity == null) {
-            aclObjectIdentity = new AclObjectIdentity();
-            aclObjectIdentity.setAclClass(aclClass);
-            aclObjectIdentity.setObjectId(securableModel.getId());
+            aclObjectIdentity = new AclObjectIdentityBuilder()
+                    .aclClass(aclClass)
+                    .objectId(securableModel.getId())
+                    .build();
         }
 
         for (PermissionName permissionName : permissionNames) {
-            AclEntry aclEntry = new AclEntry();
-            aclEntry.setAclSid(ownerAclSid);
-            aclEntry.setPermission(permissionRepository.findByPermissionName(permissionName));
-            aclEntry.setAclObjectIdentity(aclObjectIdentity);
+            AclEntry aclEntry = new AclEntryBuilder()
+                    .aclSid(ownerAclSid)
+                    .permission(permissionRepository.findByPermissionName(permissionName))
+                    .aclObjectIdentity(aclObjectIdentity)
+                    .build();
             aclEntryRepository.save(aclEntry);
         }
     }
@@ -233,10 +243,11 @@ public class AclServiceImpl implements AclService {
             aclEntryRepository.removeAclEntries(aclObjectIdentity, aclSid);
 
             for (Long permissionId : newPermissionIds) {
-                AclEntry aclEntry = new AclEntry();
-                aclEntry.setAclObjectIdentity(aclObjectIdentity);
-                aclEntry.setPermission(permissionService.findPermission(permissionId));
-                aclEntry.setAclSid(aclSid);
+                AclEntry aclEntry = new AclEntryBuilder()
+                        .aclSid(aclSid)
+                        .permission(permissionService.findPermission(permissionId))
+                        .aclObjectIdentity(aclObjectIdentity)
+                        .build();
                 aclEntryRepository.save(aclEntry);
             }
 

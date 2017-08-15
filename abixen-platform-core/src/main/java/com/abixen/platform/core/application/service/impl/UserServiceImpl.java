@@ -14,26 +14,23 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import com.abixen.platform.common.model.enumtype.UserLanguage;
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.application.dto.UserRoleDto;
-import com.abixen.platform.core.infrastructure.exception.UserActivationException;
 import com.abixen.platform.core.application.form.UserChangePasswordForm;
 import com.abixen.platform.core.application.form.UserForm;
 import com.abixen.platform.core.application.form.UserRolesForm;
 import com.abixen.platform.core.application.form.UserSearchForm;
-import com.abixen.platform.common.model.enumtype.UserLanguage;
-import com.abixen.platform.common.model.enumtype.UserState;
-import com.abixen.platform.core.domain.model.impl.User;
-import com.abixen.platform.core.domain.repository.UserRepository;
-import com.abixen.platform.common.security.PlatformUser;
-import com.abixen.platform.core.application.service.DomainBuilderService;
 import com.abixen.platform.core.application.service.PasswordGeneratorService;
 import com.abixen.platform.core.application.service.RoleService;
 import com.abixen.platform.core.application.service.UserService;
+import com.abixen.platform.core.domain.model.User;
+import com.abixen.platform.core.domain.model.UserBuilder;
+import com.abixen.platform.core.domain.repository.UserRepository;
+import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import com.abixen.platform.core.infrastructure.exception.UserActivationException;
 import com.abixen.platform.core.infrastructure.util.IpAddressUtil;
-import com.abixen.platform.core.infrastructure.util.UserBuilder;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,19 +38,13 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 
 @Slf4j
 @Service
@@ -65,19 +56,16 @@ public class UserServiceImpl implements UserService {
     private final int generatorNoOfSpecialChars = 2;
 
     private final UserRepository userRepository;
-    private final DomainBuilderService domainBuilderService;
     private final PasswordGeneratorService passwordGeneratorService;
     private final RoleService roleService;
     private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
-                           DomainBuilderService domainBuilderService,
                            PasswordGeneratorService passwordGeneratorService,
                            RoleService roleService,
                            AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties) {
         this.userRepository = userRepository;
-        this.domainBuilderService = domainBuilderService;
         this.passwordGeneratorService = passwordGeneratorService;
         this.roleService = roleService;
         this.platformResourceConfigurationProperties = platformResourceConfigurationProperties;
@@ -96,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
-        UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
+        UserBuilder userBuilder = new UserBuilder();
         userBuilder.credentials(userForm.getUsername(), userPassword);
         userBuilder.screenName(userForm.getScreenName());
         userBuilder.personalData(userForm.getFirstName(), userForm.getMiddleName(), userForm.getLastName());
@@ -116,15 +104,10 @@ public class UserServiceImpl implements UserService {
         log.debug("updateUser() - userForm: {}", userForm);
 
         User user = findUser(userForm.getId());
-        user.setUsername(userForm.getUsername());
-        user.setScreenName(userForm.getScreenName());
-        user.setFirstName(userForm.getFirstName());
-        user.setMiddleName(userForm.getMiddleName());
-        user.setLastName(userForm.getLastName());
-        user.setJobTitle(userForm.getJobTitle());
-        user.setSelectedLanguage(userForm.getSelectedLanguage());
-        user.setBirthday(userForm.getBirthday());
-        user.setGender(userForm.getGender());
+        user.changeUsername(userForm.getUsername());
+        user.changeScreenName(userForm.getScreenName());
+        user.changePersonalData(userForm.getFirstName(), userForm.getMiddleName(), userForm.getLastName());
+        user.changeAdditionalData(userForm.getBirthday(), userForm.getJobTitle(), userForm.getSelectedLanguage(), userForm.getGender());
 
         return new UserForm(updateUser(user));
     }
@@ -178,7 +161,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User activate(String userHashKey) {
+    public void activate(String userHashKey) {
         log.info("Activation user with hash key {}", userHashKey);
         User user = userRepository.findByHashKey(userHashKey);
 
@@ -187,26 +170,16 @@ public class UserServiceImpl implements UserService {
             throw new UserActivationException("Cannot activate user because a hash key is wrong.");
         }
 
-        if (user.getState().equals(UserState.ACTIVE)) {
-            log.warn("Cannot activate user {} with hash key {}. User is active already.", user.getUsername(), userHashKey);
-            throw new UserActivationException("Cannot activate user because the user is active already.");
-        }
+        user.activate();
 
-        user.setState(UserState.ACTIVE);
-        return updateUser(user);
+        updateUser(user);
     }
 
     @Override
     public UserChangePasswordForm changeUserPassword(User user, UserChangePasswordForm userChangePasswordForm) {
         log.info("changeUserPassword()");
 
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String password = userChangePasswordForm.getCurrentPassword();
-        if (!encoder.matches(password, user.getPassword())) {
-            throw new UsernameNotFoundException("Wrong username and / or password.");
-        }
-
-        user.setPassword(encoder.encode(userChangePasswordForm.getNewPassword()));
+        user.changePassword(userChangePasswordForm.getCurrentPassword(), userChangePasswordForm.getNewPassword());
         updateUser(user);
 
         return userChangePasswordForm;
@@ -215,19 +188,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User changeUserAvatar(Long userId, MultipartFile avatarFile) throws IOException {
         User user = findUser(userId);
-        File currentAvatarFile = new File(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/user-avatar/" + user.getAvatarFileName());
-        if (currentAvatarFile.exists()) {
-            if (!currentAvatarFile.delete()) {
-                throw new FileExistsException();
-            }
-        }
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String newAvatarFileName = encoder.encode(avatarFile.getName() + new Date().getTime()).replaceAll("\"", "s").replaceAll("/", "a").replace(".", "sde");
-        File newAvatarFile = new File(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/user-avatar/" + newAvatarFileName);
-        FileOutputStream out = new FileOutputStream(newAvatarFile);
-        out.write(avatarFile.getBytes());
-        out.close();
-        user.setAvatarFileName(newAvatarFileName);
+        user.changeAvatar(platformResourceConfigurationProperties.getImageLibraryDirectory(), avatarFile);
         updateUser(user);
         return findUser(userId);
     }
@@ -235,8 +196,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserLanguage updateSelectedLanguage(Long userId, UserLanguage selectedLanguage) {
         User user = findUser(userId);
-        user.setSelectedLanguage(selectedLanguage);
+        user.changeLanguage(selectedLanguage);
         updateUser(user);
+
         return selectedLanguage;
     }
 

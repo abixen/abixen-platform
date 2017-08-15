@@ -14,14 +14,14 @@
 
 package com.abixen.platform.core.application.service;
 
-import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration;
-import com.abixen.platform.core.infrastructure.configuration.properties.PlatformTestResourceConfigurationProperties;
-import com.abixen.platform.core.application.form.UserChangePasswordForm;
-import com.abixen.platform.core.application.form.UserSearchForm;
 import com.abixen.platform.common.model.enumtype.UserGender;
 import com.abixen.platform.common.model.enumtype.UserLanguage;
-import com.abixen.platform.core.domain.model.impl.User;
-import com.abixen.platform.core.infrastructure.util.UserBuilder;
+import com.abixen.platform.core.application.form.UserChangePasswordForm;
+import com.abixen.platform.core.application.form.UserSearchForm;
+import com.abixen.platform.core.domain.model.User;
+import com.abixen.platform.core.domain.model.UserBuilder;
+import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration;
+import com.abixen.platform.core.infrastructure.configuration.properties.PlatformTestResourceConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +42,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -55,9 +58,6 @@ public class UserServiceTest {
     private UserService userService;
 
     @Autowired
-    private DomainBuilderService domainBuilderService;
-
-    @Autowired
     private PlatformTestResourceConfigurationProperties platformResourceConfigurationProperties;
 
     private File avatarFile;
@@ -65,7 +65,7 @@ public class UserServiceTest {
     @Test
     public void createUser() {
         log.debug("createUser()");
-        UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
+        UserBuilder userBuilder = new UserBuilder();
         userBuilder.credentials("username", "password");
         userBuilder.screenName("screenName");
         userBuilder.personalData("firstName", "middleName", "lastName");
@@ -82,7 +82,7 @@ public class UserServiceTest {
         log.debug("changeUserPassword() positive case");
         String newpassword = "newPassword";
 
-        UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
+        UserBuilder userBuilder = new UserBuilder();
         userBuilder.credentials("usernameA", "password");
         userBuilder.screenName("screenNameA");
         userBuilder.personalData("firstName", "middleName", "lastName");
@@ -109,7 +109,7 @@ public class UserServiceTest {
         log.debug("changeUserPassword() negative case");
         String newpassword = "newPassword";
 
-        UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
+        UserBuilder userBuilder = new UserBuilder();
         userBuilder.credentials("usernameB", "password");
         userBuilder.screenName("screenNameB");
         userBuilder.personalData("firstName", "middleName", "lastName");
@@ -129,14 +129,15 @@ public class UserServiceTest {
     public void changeUserAvatar() throws IOException {
         log.debug("changeUserAvatar() positive case");
 
-        UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
+        UserBuilder userBuilder = new UserBuilder();
         userBuilder.credentials("usernameC", "password");
         userBuilder.screenName("screenNameC");
         userBuilder.personalData("firstName", "middleName", "lastName");
         userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
         userBuilder.registrationIp("127.0.0.1");
         User user = userBuilder.build();
-        user.setAvatarFileName("oldAvatarName");
+        //FIXME
+        //user.setAvatarFileName("oldAvatarName");
         userService.createUser(user);
 
 
@@ -177,14 +178,15 @@ public class UserServiceTest {
     @Test
     public void updateSelectedLanguage() {
 
-        UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
+        UserBuilder userBuilder = new UserBuilder();
         userBuilder.credentials("usertestlang", "password");
         userBuilder.screenName("screentestlang");
         userBuilder.personalData("firstName", "middleName", "lastName");
         userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
         userBuilder.registrationIp("127.0.0.1");
         User user = userBuilder.build();
-        user.setAvatarFileName("oldAvatarName");
+        //FIXME
+        //user.setAvatarFileName("oldAvatarName");
         User createdUser = userService.createUser(user);
         userService.updateSelectedLanguage(createdUser.getId(), UserLanguage.POLISH);
         User lookupUser = userService.findUser(createdUser.getId());

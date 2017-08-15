@@ -17,7 +17,7 @@ package com.abixen.platform.core.domain.repository.custom.impl;
 import com.abixen.platform.common.form.search.SearchForm;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.User;
+import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.custom.PlatformJpaRepository;
 import com.abixen.platform.core.domain.repository.custom.impl.specification.AndSpecifications;
 import com.abixen.platform.core.domain.repository.custom.impl.specification.SearchFormSpecifications;

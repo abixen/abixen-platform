@@ -16,8 +16,8 @@ package com.abixen.platform.core.application.service;
 
 import com.abixen.platform.core.domain.model.SecurableModel;
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.Role;
-import com.abixen.platform.core.domain.model.impl.User;
+import com.abixen.platform.core.domain.model.Role;
+import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.common.security.PlatformUser;
 
 

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.repository;
 
-import com.abixen.platform.core.domain.model.impl.AdminSidebarItem;
+import com.abixen.platform.core.domain.model.AdminSidebarItem;
 import com.abixen.platform.core.domain.repository.custom.PlatformJpaRepository;
 
 

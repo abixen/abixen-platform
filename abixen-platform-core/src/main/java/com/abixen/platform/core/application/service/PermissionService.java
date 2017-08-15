@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.service;
 
 import com.abixen.platform.core.application.form.PermissionSearchForm;
-import com.abixen.platform.core.domain.model.impl.Permission;
+import com.abixen.platform.core.domain.model.Permission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

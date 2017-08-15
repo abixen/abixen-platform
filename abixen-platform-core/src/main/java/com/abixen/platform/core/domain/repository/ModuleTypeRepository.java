@@ -16,8 +16,8 @@ package com.abixen.platform.core.domain.repository;
 
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.ModuleType;
-import com.abixen.platform.core.domain.model.impl.User;
+import com.abixen.platform.core.domain.model.ModuleType;
+import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.custom.PlatformJpaRepository;
 
 import java.util.List;

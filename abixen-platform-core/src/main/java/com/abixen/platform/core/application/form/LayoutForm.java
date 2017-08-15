@@ -16,7 +16,7 @@ package com.abixen.platform.core.application.form;
 
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.core.domain.model.impl.Layout;
+import com.abixen.platform.core.domain.model.Layout;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -40,7 +40,6 @@ public class LayoutForm implements Form {
 
 
     public LayoutForm() {
-
     }
 
     public LayoutForm(Layout layout) {

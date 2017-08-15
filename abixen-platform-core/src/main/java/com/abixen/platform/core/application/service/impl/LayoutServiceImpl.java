@@ -20,8 +20,8 @@ import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.application.form.LayoutForm;
 import com.abixen.platform.core.application.form.LayoutSearchForm;
-import com.abixen.platform.core.domain.model.impl.Layout;
-import com.abixen.platform.core.domain.model.impl.User;
+import com.abixen.platform.core.domain.model.Layout;
+import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.LayoutRepository;
 import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.SecurityService;
@@ -92,9 +92,9 @@ public class LayoutServiceImpl implements LayoutService {
     public LayoutForm updateLayout(LayoutForm layoutForm) {
         log.debug("updateLayout() - layoutForm: " + layoutForm);
         Layout layout = findLayout(layoutForm.getId());
-        layout.setContent(layoutForm.getContent());
-        layout.setTitle(layoutForm.getTitle());
-        layout.setIconFileName(layoutForm.getIconFileName());
+        layout.changeContent(layoutForm.getContent());
+        layout.changeTitle(layoutForm.getTitle());
+        layout.changeIconFileName(layoutForm.getIconFileName());
         return new LayoutForm(updateLayout(layout));
     }
 
@@ -170,13 +170,13 @@ public class LayoutServiceImpl implements LayoutService {
         FileOutputStream out = new FileOutputStream(newIconFile);
         out.write(iconFile.getBytes());
         out.close();
-        layout.setIconFileName(newIconFileName);
+        layout.changeIconFileName(newIconFileName);
         updateLayout(layout);
         return findLayout(id);
     }
 
     @Override
-    public void convertPageLayoutToJson(com.abixen.platform.core.domain.model.impl.Page page) {
+    public void convertPageLayoutToJson(com.abixen.platform.core.domain.model.Page page) {
         String html = page.getLayout().getContent();
         page.getLayout().setContentAsJson(htmlLayoutToJson(html));
     }

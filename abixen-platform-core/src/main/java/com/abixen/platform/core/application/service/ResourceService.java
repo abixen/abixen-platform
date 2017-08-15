@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.application.service;
 
-import com.abixen.platform.core.domain.model.impl.ModuleType;
-import com.abixen.platform.core.domain.model.impl.Resource;
+import com.abixen.platform.core.domain.model.ModuleType;
+import com.abixen.platform.core.domain.model.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

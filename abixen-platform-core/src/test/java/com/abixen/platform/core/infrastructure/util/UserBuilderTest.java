@@ -14,13 +14,11 @@
 
 package com.abixen.platform.core.infrastructure.util;
 
-import com.abixen.platform.core.domain.model.impl.User;
-import com.abixen.platform.core.application.service.DomainBuilderService;
-import com.abixen.platform.core.application.service.impl.DomainBuilderServiceImpl;
+import com.abixen.platform.core.domain.model.User;
+import com.abixen.platform.core.domain.model.UserBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -30,9 +28,6 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(MockitoJUnitRunner.class)
 public class UserBuilderTest {
 
-    @InjectMocks
-    public DomainBuilderService domainBuilderService = new DomainBuilderServiceImpl();
-
     @Before
     @SuppressWarnings("unchecked")
     public void setup() {
@@ -41,7 +36,7 @@ public class UserBuilderTest {
 
     @Test
     public void testFindUserByUsername() {
-        UserBuilder userBuilder = domainBuilderService.newUserBuilderInstance();
+        UserBuilder userBuilder = new UserBuilder();
         userBuilder.credentials("username", "password");
         User user = userBuilder.build();
         assertNotNull(user);

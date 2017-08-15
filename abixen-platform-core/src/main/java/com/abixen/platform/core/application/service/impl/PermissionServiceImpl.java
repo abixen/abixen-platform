@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.core.application.form.PermissionSearchForm;
-import com.abixen.platform.core.domain.model.impl.Permission;
+import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.repository.PermissionRepository;
 import com.abixen.platform.core.application.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;

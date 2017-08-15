@@ -17,7 +17,7 @@ package com.abixen.platform.core.application.service;
 import com.abixen.platform.core.application.form.PageConfigurationForm;
 import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.application.form.PageSearchForm;
-import com.abixen.platform.core.domain.model.impl.Page;
+import com.abixen.platform.core.domain.model.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

@@ -26,4 +26,3 @@ public interface MailService {
     void sendMail(String to, Map<String, String> parameters, String template, String subject);
 
 }
-

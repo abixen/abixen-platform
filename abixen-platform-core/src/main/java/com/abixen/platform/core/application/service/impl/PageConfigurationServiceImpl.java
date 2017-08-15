@@ -14,19 +14,19 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.core.interfaces.converter.ModuleTypeToModuleTypeDtoConverter;
-import com.abixen.platform.core.interfaces.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.DashboardModuleDto;
 import com.abixen.platform.core.application.dto.PageDto;
 import com.abixen.platform.core.application.dto.PageModelDto;
-import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
 import com.abixen.platform.core.application.form.PageConfigurationForm;
-import com.abixen.platform.core.domain.model.impl.Module;
-import com.abixen.platform.core.domain.model.impl.Page;
 import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.ModuleService;
 import com.abixen.platform.core.application.service.PageConfigurationService;
 import com.abixen.platform.core.application.service.PageService;
+import com.abixen.platform.core.domain.model.Module;
+import com.abixen.platform.core.domain.model.Page;
+import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
+import com.abixen.platform.core.interfaces.converter.ModuleTypeToModuleTypeDtoConverter;
+import com.abixen.platform.core.interfaces.converter.PageToPageDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -119,10 +119,10 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
             validateConfiguration(pageConfigurationForm, page);
         }
 
-        page.setDescription(pageConfigurationForm.getPage().getDescription());
-        page.setTitle(pageConfigurationForm.getPage().getTitle());
-        page.setIcon(pageConfigurationForm.getPage().getIcon());
-        page.setLayout(layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId()));
+        page.changeDescription(pageConfigurationForm.getPage().getDescription());
+        page.changeTitle(pageConfigurationForm.getPage().getTitle());
+        page.changeIcon(pageConfigurationForm.getPage().getIcon());
+        page.changeLayout(layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId()));
         pageService.updatePage(page);
 
         updateExistingModules(pageConfigurationForm.getDashboardModuleDtos(), currentModulesIds);
@@ -138,7 +138,6 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
     }
 
     private void updateExistingModules(List<DashboardModuleDto> dashboardModuleDtos, List<Long> modulesIds) {
-
         dashboardModuleDtos
                 .stream()
                 .filter(dashboardModuleDto -> dashboardModuleDto.getId() != null)
@@ -147,20 +146,16 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                     log.debug("updateExistingModules() - dashboardModuleDto: {}", dashboardModuleDto);
 
                     Module module = moduleService.findModule(dashboardModuleDto.getId());
-                    module.setDescription(dashboardModuleDto.getDescription());
-                    module.setTitle(dashboardModuleDto.getTitle());
-                    module.setRowIndex(dashboardModuleDto.getRowIndex());
-                    module.setColumnIndex(dashboardModuleDto.getColumnIndex());
-                    module.setOrderIndex(dashboardModuleDto.getOrderIndex());
+                    module.changeDescription(dashboardModuleDto.getDescription());
+                    module.changeTitle(dashboardModuleDto.getTitle());
+                    module.changePositionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex());
 
                     moduleService.updateModule(module);
                     modulesIds.add(module.getId());
                 });
-
     }
 
     private void createNonExistentModules(List<DashboardModuleDto> dashboardModuleDtos, Long pageId, List<Long> modulesIds) {
-
         dashboardModuleDtos
                 .stream()
                 .filter(dashboardModuleDto -> dashboardModuleDto.getId() == null)

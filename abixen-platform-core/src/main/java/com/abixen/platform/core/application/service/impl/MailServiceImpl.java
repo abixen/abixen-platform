@@ -40,6 +40,7 @@ import java.util.Map;
 @Service
 public class MailServiceImpl implements MailService, ServletContextAware {
 
+    //FIXME - unused?
     private ServletContext servletContext;
     private final JavaMailSender mailSender;
     private final AbstractPlatformMailConfigurationProperties platformMailConfigurationProperties;

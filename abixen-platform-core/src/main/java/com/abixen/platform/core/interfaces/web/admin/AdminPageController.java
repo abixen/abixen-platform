@@ -21,7 +21,7 @@ import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.core.application.dto.PageDto;
 import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.application.form.PageSearchForm;
-import com.abixen.platform.core.domain.model.impl.Page;
+import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.application.service.PageService;
 import com.abixen.platform.common.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;

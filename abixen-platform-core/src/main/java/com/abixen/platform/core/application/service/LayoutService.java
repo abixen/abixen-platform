@@ -16,7 +16,7 @@ package com.abixen.platform.core.application.service;
 
 import com.abixen.platform.core.application.form.LayoutForm;
 import com.abixen.platform.core.application.form.LayoutSearchForm;
-import com.abixen.platform.core.domain.model.impl.Layout;
+import com.abixen.platform.core.domain.model.Layout;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,5 +44,5 @@ public interface LayoutService {
 
     Layout changeIcon(Long id, MultipartFile iconFile) throws IOException;
 
-    void convertPageLayoutToJson(com.abixen.platform.core.domain.model.impl.Page page);
+    void convertPageLayoutToJson(com.abixen.platform.core.domain.model.Page page);
 }

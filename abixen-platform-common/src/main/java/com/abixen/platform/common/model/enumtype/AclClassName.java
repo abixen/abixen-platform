@@ -44,11 +44,11 @@ public enum AclClassName {
     }
 
     public static class Values {
-        public static final String LAYOUT = "com.abixen.platform.core.domain.model.impl.Layout";
-        public static final String MODULE = "com.abixen.platform.core.domain.model.impl.Module";
-        public static final String PAGE = "com.abixen.platform.core.domain.model.impl.Page";
-        public static final String ROLE = "com.abixen.platform.core.domain.model.impl.Role";
-        public static final String USER = "com.abixen.platform.core.domain.model.impl.User";
-        public static final String MODULE_TYPE = "com.abixen.platform.core.domain.model.impl.ModuleType";
+        public static final String LAYOUT = "com.abixen.platform.core.domain.model.Layout";
+        public static final String MODULE = "com.abixen.platform.core.domain.model.Module";
+        public static final String PAGE = "com.abixen.platform.core.domain.model.Page";
+        public static final String ROLE = "com.abixen.platform.core.domain.model.Role";
+        public static final String USER = "com.abixen.platform.core.domain.model.User";
+        public static final String MODULE_TYPE = "com.abixen.platform.core.domain.model.ModuleType";
     }
 }

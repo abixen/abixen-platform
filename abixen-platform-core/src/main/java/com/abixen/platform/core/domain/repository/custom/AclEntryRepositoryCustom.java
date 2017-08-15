@@ -17,9 +17,9 @@ package com.abixen.platform.core.domain.repository.custom;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.AclSidType;
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.AclEntry;
-import com.abixen.platform.core.domain.model.impl.AclObjectIdentity;
-import com.abixen.platform.core.domain.model.impl.AclSid;
+import com.abixen.platform.core.domain.model.AclEntry;
+import com.abixen.platform.core.domain.model.AclObjectIdentity;
+import com.abixen.platform.core.domain.model.AclSid;
 
 import java.util.List;
 

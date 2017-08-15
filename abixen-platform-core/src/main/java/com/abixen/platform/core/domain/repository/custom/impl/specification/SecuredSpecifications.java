@@ -18,10 +18,10 @@ package com.abixen.platform.core.domain.repository.custom.impl.specification;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.AclSidType;
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.AclEntry;
-import com.abixen.platform.core.domain.model.impl.Permission;
-import com.abixen.platform.core.domain.model.impl.Role;
-import com.abixen.platform.core.domain.model.impl.User;
+import com.abixen.platform.core.domain.model.AclEntry;
+import com.abixen.platform.core.domain.model.Permission;
+import com.abixen.platform.core.domain.model.Role;
+import com.abixen.platform.core.domain.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 

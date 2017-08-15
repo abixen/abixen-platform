@@ -14,19 +14,25 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
+import com.abixen.platform.common.rabbitmq.message.RabbitMQRemoveModuleMessage;
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.application.dto.DashboardModuleDto;
 import com.abixen.platform.core.application.form.ModuleForm;
 import com.abixen.platform.core.application.form.ModuleSearchForm;
-import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.core.domain.model.impl.Module;
-import com.abixen.platform.core.domain.model.impl.Page;
-import com.abixen.platform.core.domain.model.impl.User;
-import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
-import com.abixen.platform.common.rabbitmq.message.RabbitMQRemoveModuleMessage;
+import com.abixen.platform.core.application.service.AclService;
+import com.abixen.platform.core.application.service.CommentService;
+import com.abixen.platform.core.application.service.ModuleService;
+import com.abixen.platform.core.application.service.ModuleTypeService;
+import com.abixen.platform.core.application.service.RabbitMQOperations;
+import com.abixen.platform.core.application.service.SecurityService;
+import com.abixen.platform.core.application.service.UserService;
+import com.abixen.platform.core.domain.model.Module;
+import com.abixen.platform.core.domain.model.ModuleBuilder;
+import com.abixen.platform.core.domain.model.Page;
+import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.ModuleRepository;
-import com.abixen.platform.common.security.PlatformUser;
-import com.abixen.platform.core.application.service.*;
-import com.abixen.platform.core.infrastructure.util.ModuleBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +50,6 @@ public class ModuleServiceImpl implements ModuleService {
     private final UserService userService;
     private final ModuleRepository moduleRepository;
     private final ModuleTypeService moduleTypeService;
-    private final DomainBuilderService domainBuilderService;
     private final AclService aclService;
     private final RabbitMQOperations rabbitMQOperations;
     private final CommentService commentService;
@@ -54,7 +59,6 @@ public class ModuleServiceImpl implements ModuleService {
                              UserService userService,
                              ModuleRepository moduleRepository,
                              ModuleTypeService moduleTypeService,
-                             DomainBuilderService domainBuilderService,
                              AclService aclService,
                              RabbitMQOperations rabbitMQOperations,
                              CommentService commentService) {
@@ -62,7 +66,6 @@ public class ModuleServiceImpl implements ModuleService {
         this.userService = userService;
         this.moduleRepository = moduleRepository;
         this.moduleTypeService = moduleTypeService;
-        this.domainBuilderService = domainBuilderService;
         this.aclService = aclService;
         this.rabbitMQOperations = rabbitMQOperations;
         this.commentService = commentService;
@@ -89,8 +92,8 @@ public class ModuleServiceImpl implements ModuleService {
         log.debug("updateModule() - moduleForm: " + moduleForm);
 
         Module module = findModule(moduleForm.getId());
-        module.setTitle(moduleForm.getTitle());
-        module.setDescription(moduleForm.getDescription());
+        module.changeTitle(moduleForm.getTitle());
+        module.changeDescription(moduleForm.getDescription());
 
         return new ModuleForm(updateModule(module));
     }
@@ -153,12 +156,13 @@ public class ModuleServiceImpl implements ModuleService {
     public Module buildModule(DashboardModuleDto dashboardModuleDto, Page page) {
         log.debug("buildModule() - dashboardModuleDto: " + dashboardModuleDto);
 
-        ModuleBuilder moduleBuilder = domainBuilderService.newModuleBuilderInstance();
-        moduleBuilder.positionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex());
-        moduleBuilder.moduleData(dashboardModuleDto.getTitle(), moduleTypeService.findModuleType(dashboardModuleDto.getModuleType().getId()), page);
-        moduleBuilder.description((dashboardModuleDto.getDescription()));
-
-        return moduleBuilder.build();
+        return new ModuleBuilder()
+                .positionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex())
+                .title(dashboardModuleDto.getTitle())
+                .moduleType(moduleTypeService.findModuleType(dashboardModuleDto.getModuleType().getId()))
+                .page(page)
+                .description((dashboardModuleDto.getDescription()))
+                .build();
     }
 
     @Override

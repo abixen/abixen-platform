@@ -16,7 +16,7 @@ package com.abixen.platform.core.application.service;
 
 import com.abixen.platform.core.application.dto.ModuleTypeDto;
 import com.abixen.platform.core.application.form.ModuleTypeSearchForm;
-import com.abixen.platform.core.domain.model.impl.ModuleType;
+import com.abixen.platform.core.domain.model.ModuleType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
