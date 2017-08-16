@@ -12,17 +12,16 @@
  * details.
  */
 
-package com.abixen.platform.core.domain.repository.custom.impl;
+package com.abixen.platform.core.infrastructure.repository.impl;
 
 import com.abixen.platform.common.form.search.SearchForm;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.domain.model.User;
-import com.abixen.platform.core.domain.repository.custom.PlatformJpaRepository;
 import com.abixen.platform.core.domain.repository.custom.impl.specification.AndSpecifications;
 import com.abixen.platform.core.domain.repository.custom.impl.specification.SearchFormSpecifications;
 import com.abixen.platform.core.domain.repository.custom.impl.specification.SecuredSpecifications;
-import lombok.extern.slf4j.Slf4j;
+import com.abixen.platform.core.infrastructure.repository.PlatformJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -35,10 +34,10 @@ import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 
-@Slf4j
 public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
         extends SimpleJpaRepository<T, ID> implements PlatformJpaRepository<T, ID> {
 
+    //FIXME - unused?
     private final EntityManager entityManager;
 
     public PlatformJpaRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {

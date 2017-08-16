@@ -18,7 +18,7 @@ import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.model.User;
-import com.abixen.platform.core.domain.repository.custom.PlatformJpaRepository;
+import com.abixen.platform.core.infrastructure.repository.PlatformJpaRepository;
 
 import java.util.List;
 

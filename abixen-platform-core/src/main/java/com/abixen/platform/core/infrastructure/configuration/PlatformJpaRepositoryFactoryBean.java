@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.infrastructure.configuration;
 
-import com.abixen.platform.core.domain.repository.custom.impl.PlatformJpaRepositoryImpl;
+import com.abixen.platform.core.infrastructure.repository.impl.PlatformJpaRepositoryImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;

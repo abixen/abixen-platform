@@ -12,14 +12,16 @@
  * details.
  */
 
-package com.abixen.platform.core.infrastructure.util;
+package com.abixen.platform.core.application.util;
 
+import java.util.List;
 
-public class LayoutColumnUtil {
+//FIXME - do we need it?
+public class LayoutRowUtil {
 
-    private String styleClass;
+    private List<LayoutColumnUtil> columns;
 
-    public LayoutColumnUtil(String styleClass) {
-        this.styleClass = styleClass;
+    public LayoutRowUtil(List<LayoutColumnUtil> columns) {
+        this.columns = columns;
     }
 }

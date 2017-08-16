@@ -15,7 +15,7 @@
 package com.abixen.platform.core.domain.repository;
 
 import com.abixen.platform.core.domain.model.Role;
-import com.abixen.platform.core.domain.repository.custom.PlatformJpaRepository;
+import com.abixen.platform.core.infrastructure.repository.PlatformJpaRepository;
 
 
 public interface RoleRepository extends PlatformJpaRepository<Role, Long> {

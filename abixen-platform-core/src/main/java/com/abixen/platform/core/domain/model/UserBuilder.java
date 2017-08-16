@@ -68,6 +68,7 @@ public final class UserBuilder extends EntityBuilder<User> {
         return this;
     }
 
+    //FIXME unused?
     public UserBuilder roles(Role... roles) {
         Set<Role> rolesSet = new HashSet<>();
         for (Role role : roles) {

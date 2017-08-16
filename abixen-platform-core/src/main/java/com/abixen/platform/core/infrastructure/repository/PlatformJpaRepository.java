@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.domain.repository.custom;
+package com.abixen.platform.core.infrastructure.repository;
 
 import com.abixen.platform.common.form.search.SearchForm;
 import com.abixen.platform.common.model.enumtype.AclClassName;

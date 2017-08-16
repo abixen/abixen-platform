@@ -19,7 +19,7 @@ import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.domain.model.Layout;
 import com.abixen.platform.core.domain.model.User;
-import com.abixen.platform.core.domain.repository.custom.PlatformJpaRepository;
+import com.abixen.platform.core.infrastructure.repository.PlatformJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

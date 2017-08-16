@@ -12,12 +12,17 @@
  * details.
  */
 
-package com.abixen.platform.core.infrastructure.exception;
+package com.abixen.platform.core.application.exception;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends RuntimeException {
+@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+public class UserActivationException extends RuntimeException {
+
+    public UserActivationException(String message) {
+        super(message);
+    }
 
 }

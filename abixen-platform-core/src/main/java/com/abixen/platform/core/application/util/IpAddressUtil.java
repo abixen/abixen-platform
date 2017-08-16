@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.infrastructure.util;
+package com.abixen.platform.core.application.util;
 
 import javax.servlet.http.HttpServletRequest;
 

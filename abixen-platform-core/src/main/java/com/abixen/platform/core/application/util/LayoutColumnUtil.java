@@ -12,17 +12,15 @@
  * details.
  */
 
-package com.abixen.platform.core.infrastructure.exception;
+package com.abixen.platform.core.application.util;
 
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+//FIXME - do we need it?
+public class LayoutColumnUtil {
 
-@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class UserActivationException extends RuntimeException {
+    private String styleClass;
 
-    public UserActivationException(String message) {
-        super(message);
+    public LayoutColumnUtil(String styleClass) {
+        this.styleClass = styleClass;
     }
-
 }
