@@ -17,13 +17,8 @@ package com.abixen.platform.core.infrastructure.configuration.properties;
 import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import static com.abixen.platform.common.util.PlatformProfiles.DEV;
-import static com.abixen.platform.common.util.PlatformProfiles.DOCKER;
-
-@Profile({DEV, DOCKER})
 @Component
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "platform.core.jdbc")

@@ -13,21 +13,20 @@
  */
 package com.abixen.platform.core.application.service;
 
-import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration;
+import com.abixen.platform.common.model.enumtype.CommentVoteType;
 import com.abixen.platform.core.application.dto.CommentDto;
 import com.abixen.platform.core.application.dto.CommentVoteDto;
 import com.abixen.platform.core.application.form.CommentForm;
 import com.abixen.platform.core.application.form.CommentVoteForm;
-import com.abixen.platform.common.model.enumtype.CommentVoteType;
 import com.abixen.platform.core.domain.repository.CommentRepository;
 import com.abixen.platform.core.domain.repository.CommentVoteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +34,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = PlatformConfiguration.class)
 @Slf4j
 @Transactional
 public class CommentVoteServiceTest {
@@ -72,6 +70,7 @@ public class CommentVoteServiceTest {
         commentVoteRepository.delete(commentVoteDtoSaved.getId());
     }
 
+    @Ignore
     @Test
     public void saveCommentVote() {
         CommentVoteForm commentVoteForm = new CommentVoteForm();

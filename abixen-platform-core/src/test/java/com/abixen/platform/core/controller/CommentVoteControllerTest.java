@@ -14,14 +14,13 @@
 
 package com.abixen.platform.core.controller;
 
-import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration;
-import com.abixen.platform.core.application.dto.CommentDto;
 import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.model.enumtype.CommentVoteType;
+import com.abixen.platform.core.application.dto.CommentDto;
 import com.abixen.platform.core.application.dto.CommentVoteDto;
 import com.abixen.platform.core.application.form.CommentVoteForm;
-import com.abixen.platform.common.model.enumtype.CommentVoteType;
-import com.abixen.platform.core.interfaces.web.CommentVoteController;
 import com.abixen.platform.core.application.service.CommentVoteService;
+import com.abixen.platform.core.interfaces.web.CommentVoteController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -32,7 +31,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -54,7 +52,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = PlatformConfiguration.class)
 public class CommentVoteControllerTest {
 
     @Autowired

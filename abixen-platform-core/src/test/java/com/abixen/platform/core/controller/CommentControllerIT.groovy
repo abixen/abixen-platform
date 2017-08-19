@@ -12,13 +12,27 @@
  * details.
  */
 
-package com.abixen.platform.core.infrastructure.configuration;
+package com.abixen.platform.core.controller
 
-import com.abixen.platform.common.configuration.AbstractLiquibaseConfiguration;
-import org.springframework.context.annotation.Configuration;
+import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration
+import org.springframework.boot.test.context.SpringBootTest
+import spock.lang.Specification
+
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+)
+class CommentControllerIT extends Specification {
 
 
-@Configuration
-public class PlatformLiquibaseConfiguration extends AbstractLiquibaseConfiguration {
+    void "sample test"() {
 
+        given:
+
+        int a = 1
+        when:
+        a++
+
+        then:
+        a == 2
+    }
 }
