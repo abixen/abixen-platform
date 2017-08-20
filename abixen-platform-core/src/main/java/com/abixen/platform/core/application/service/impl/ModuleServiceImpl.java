@@ -169,7 +169,7 @@ public class ModuleServiceImpl implements ModuleService {
     public org.springframework.data.domain.Page<Module> findAllModules(Pageable pageable, ModuleSearchForm moduleSearchForm) {
         log.debug("findAllModules() - pageable: " + pageable);
         PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
-        User authorizedUser = userService.findUser(platformAuthorizedUser.getId());
+        User authorizedUser = userService.find(platformAuthorizedUser.getId());
 
         return moduleRepository.findAllSecured(pageable, moduleSearchForm, authorizedUser, PermissionName.MODULE_VIEW);
     }

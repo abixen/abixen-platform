@@ -92,7 +92,7 @@ public abstract class AbstractUserController {
     public UserDto getUser(@PathVariable Long id) {
         log.debug("getUser() - id: " + id);
 
-        User user = userService.findUser(id);
+        User user = userService.find(id);
         UserDto userDto = userToUserDtoConverter.convert(user);
         return userDto;
     }
@@ -106,22 +106,21 @@ public abstract class AbstractUserController {
             return new FormValidationResultDto(userForm, formErrors);
         }
 
-        String userPassword = userService.generateUserPassword();
-        User user = userService.buildUser(userForm, userPassword);
-        User savedUser = userService.createUser(user);
-        userForm.setId(savedUser.getId());
+        String userPassword = userService.generatePassword();
+        User createdUser = userService.create(userForm, userPassword);
+        userForm.setId(createdUser.getId());
 
         Map<String, String> params = new HashMap<>();
-        params.put("email", user.getUsername());
+        params.put("email", createdUser.getUsername());
         params.put("password", userPassword);
-        params.put("firstName", user.getFirstName());
-        params.put("lastName", user.getLastName());
-        params.put("accountActivationUrl", "http://localhost:8080/login#/?activation-key=" + user.getHashKey());
+        params.put("firstName", createdUser.getFirstName());
+        params.put("lastName", createdUser.getLastName());
+        params.put("accountActivationUrl", "http://localhost:8080/login#/?activation-key=" + createdUser.getHashKey());
 
         String subject = messageSource.getMessage("email.userAccountActivation.subject", null, LocaleUtils.toLocale(userForm.getSelectedLanguage().getSelectedLanguage().toLowerCase()));
 
         //TODO
-        mailService.sendMail(user.getUsername(), params, MailService.USER_ACCOUNT_ACTIVATION_MAIL + "_" + userForm.getSelectedLanguage().getSelectedLanguage().toLowerCase(), subject);
+        mailService.sendMail(createdUser.getUsername(), params, MailService.USER_ACCOUNT_ACTIVATION_MAIL + "_" + userForm.getSelectedLanguage().getSelectedLanguage().toLowerCase(), subject);
 
         return new FormValidationResultDto(userForm);
     }
@@ -129,7 +128,7 @@ public abstract class AbstractUserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteUser(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
-        userService.deleteUser(id);
+        userService.delete(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
@@ -142,7 +141,7 @@ public abstract class AbstractUserController {
             return new FormValidationResultDto(userForm, formErrors);
         }
 
-        UserForm userFormResult = userService.updateUser(userForm);
+        UserForm userFormResult = userService.update(userForm);
         return new FormValidationResultDto(userFormResult);
     }
 
@@ -167,14 +166,14 @@ public abstract class AbstractUserController {
 
     @RequestMapping(value = "/{id}/avatar", method = RequestMethod.POST)
     public User updateUserAvatar(@PathVariable Long id, @RequestParam("avatarFile") MultipartFile avatarFile) throws IOException {
-        return userService.changeUserAvatar(id, avatarFile);
+        return userService.changeAvatar(id, avatarFile);
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.GET)
     public UserRolesForm getUserRoles(@PathVariable Long id) {
         log.debug("getUserRoles() - id: " + id);
 
-        User user = userService.findUser(id);
+        User user = userService.find(id);
         List<Role> allRoles = roleService.findAllRoles();
 
         UserDto userDto = userToUserDtoConverter.convert(user);
@@ -187,14 +186,14 @@ public abstract class AbstractUserController {
 
     @RequestMapping(value = "/{id}/password", method = RequestMethod.POST)
     public FormValidationResultDto changeUserPassword(@PathVariable Long id, @RequestBody @Valid UserChangePasswordForm userChangePasswordForm, BindingResult bindingResult) {
-        log.debug("changeUserPassword() - id: " + id + ", changeUserPasswordForm: " + userChangePasswordForm);
+        log.debug("changePassword() - id: " + id + ", changeUserPasswordForm: " + userChangePasswordForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(userChangePasswordForm, formErrors);
         }
 
-        User user = userService.findUser(id);
+        User user = userService.find(id);
         if (user == null) {
             throw new IllegalArgumentException("User not found");
         }
@@ -202,7 +201,7 @@ public abstract class AbstractUserController {
         UserChangePasswordForm userChangePasswordFormResult;
 
         try {
-            userChangePasswordFormResult = userService.changeUserPassword(user, userChangePasswordForm);
+            userChangePasswordFormResult = userService.changePassword(user, userChangePasswordForm);
 
         } catch (UsernameNotFoundException e) {
             List<FormErrorDto> formErrors = new ArrayList<>();

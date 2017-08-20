@@ -29,31 +29,27 @@ import java.io.IOException;
 
 public interface UserService {
 
-    String generateUserPassword();
+    String generatePassword();
 
-    User buildUser(UserForm userForm, String userPassword);
+    User create(UserForm userForm, String userPassword);
 
-    User createUser(User user);
+    UserForm update(UserForm userForm);
 
-    UserForm updateUser(UserForm userForm);
+    void delete(Long id);
 
-    User updateUser(User user);
+    Page<User> findAll(Pageable pageable, UserSearchForm userSearchForm);
 
-    void deleteUser(Long id);
+    User find(Long id);
 
-    Page<User> findAllUsers(Pageable pageable, UserSearchForm userSearchForm);
+    User updateRoles(UserRolesForm userRolesForm);
 
-    User findUser(Long id);
-
-    User buildUserRoles(UserRolesForm userRolesForm);
-
-    User findUser(String username);
+    User find(String username);
 
     void activate(String userHashKey);
 
-    UserChangePasswordForm changeUserPassword(User user, UserChangePasswordForm userChangePasswordForm);
+    UserChangePasswordForm changePassword(User user, UserChangePasswordForm userChangePasswordForm);
 
-    User changeUserAvatar(Long userId, MultipartFile avatarFile) throws IOException;
+    User changeAvatar(Long userId, MultipartFile avatarFile) throws IOException;
 
     UserLanguage updateSelectedLanguage(Long userId, UserLanguage selectedLanguage);
 }

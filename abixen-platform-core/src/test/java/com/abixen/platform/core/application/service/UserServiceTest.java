@@ -63,7 +63,7 @@ public class UserServiceTest {
     @Ignore
     @Test
     public void createUser() {
-        log.debug("createUser()");
+        log.debug("create()");
         UserBuilder userBuilder = new UserBuilder();
         userBuilder.credentials("username", "password");
         userBuilder.screenName("screenName");
@@ -71,15 +71,15 @@ public class UserServiceTest {
         userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
         userBuilder.registrationIp("127.0.0.1");
         User user = userBuilder.build();
-        userService.createUser(user);
-        User userFromDB = userService.findUser("username");
+        //userService.create(user);
+        User userFromDB = userService.find("username");
         assertNotNull(userFromDB);
     }
 
     @Ignore
     @Test
     public void changeUserPasswordPositiveCase() {
-        log.debug("changeUserPassword() positive case");
+        log.debug("changePassword() positive case");
         String newpassword = "newPassword";
 
         UserBuilder userBuilder = new UserBuilder();
@@ -89,14 +89,14 @@ public class UserServiceTest {
         userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
         userBuilder.registrationIp("127.0.0.1");
         User user = userBuilder.build();
-        userService.createUser(user);
+        //userService.create(user);
 
         UserChangePasswordForm passwordForm = new UserChangePasswordForm();
         passwordForm.setCurrentPassword("password");
         passwordForm.setNewPassword(newpassword);
 
-        UserChangePasswordForm newPasswordForm = userService.changeUserPassword(user, passwordForm);
-        User userFromDB = userService.findUser("usernameA");
+        UserChangePasswordForm newPasswordForm = userService.changePassword(user, passwordForm);
+        User userFromDB = userService.find("usernameA");
 
         PasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -107,7 +107,7 @@ public class UserServiceTest {
     @Ignore
     @Test(expected = UsernameNotFoundException.class)
     public void changeUserPasswordNegativeCase() {
-        log.debug("changeUserPassword() negative case");
+        log.debug("changePassword() negative case");
         String newpassword = "newPassword";
 
         UserBuilder userBuilder = new UserBuilder();
@@ -117,19 +117,19 @@ public class UserServiceTest {
         userBuilder.additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE);
         userBuilder.registrationIp("127.0.0.1");
         User user = userBuilder.build();
-        userService.createUser(user);
+        //userService.create(user);
 
         UserChangePasswordForm passwordForm = new UserChangePasswordForm();
         passwordForm.setCurrentPassword("someNotCorrectpassword");
         passwordForm.setNewPassword(newpassword);
 
-        userService.changeUserPassword(user, passwordForm);
+        userService.changePassword(user, passwordForm);
     }
 
     @Ignore
     @Test
     public void changeUserAvatar() throws IOException {
-        log.debug("changeUserAvatar() positive case");
+        log.debug("changeAvatar() positive case");
 
         UserBuilder userBuilder = new UserBuilder();
         userBuilder.credentials("usernameC", "password");
@@ -140,7 +140,7 @@ public class UserServiceTest {
         User user = userBuilder.build();
         //FIXME
         //user.setAvatarFileName("oldAvatarName");
-        userService.createUser(user);
+        //userService.create(user);
 
 
         MultipartFile newAvatarFile = mock(MultipartFile.class);
@@ -151,7 +151,7 @@ public class UserServiceTest {
 
         User updatedUser = null;
         try {
-            updatedUser = userService.changeUserAvatar(user.getId(), newAvatarFile);
+            updatedUser = userService.changeAvatar(user.getId(), newAvatarFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -172,7 +172,7 @@ public class UserServiceTest {
         searchForm.setSelectedLanguage(UserLanguage.ENGLISH);
 
         Pageable pageable = new PageRequest(0, 10, Sort.Direction.ASC, "firstName");
-        Page<User> usersPage = userService.findAllUsers(pageable, searchForm);
+        Page<User> usersPage = userService.findAll(pageable, searchForm);
         log.debug("usersPage.getTotalElements(): {}", usersPage.getTotalElements());
 
         assertEquals(5, usersPage.getTotalElements());
@@ -191,12 +191,12 @@ public class UserServiceTest {
         User user = userBuilder.build();
         //FIXME
         //user.setAvatarFileName("oldAvatarName");
-        User createdUser = userService.createUser(user);
-        userService.updateSelectedLanguage(createdUser.getId(), UserLanguage.POLISH);
-        User lookupUser = userService.findUser(createdUser.getId());
+        //User createdUser = userService.create(user);
+        //userService.updateSelectedLanguage(createdUser.getId(), UserLanguage.POLISH);
+        //User lookupUser = userService.find(createdUser.getId());
 
-        assertEquals(lookupUser.getSelectedLanguage(), UserLanguage.POLISH);
-        userService.deleteUser(lookupUser.getId());
+        //assertEquals(lookupUser.getSelectedLanguage(), UserLanguage.POLISH);
+        //userService.delete(lookupUser.getId());
     }
 
 }

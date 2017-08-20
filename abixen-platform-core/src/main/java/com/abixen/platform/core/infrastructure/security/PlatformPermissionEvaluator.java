@@ -57,7 +57,7 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
         log.debug("hasPermission() - authentication: " + authentication + ", targetDomainObject: " + targetDomainObject + ", permission: " + permission);
         log.debug("targetDomainObject class: " + targetDomainObject.getClass());
         //TODO
-        User user = userService.findUser(authentication.getName());
+        User user = userService.find(authentication.getName());
 
         if (targetDomainObject instanceof String) {
             return securityService.hasUserPermissionToClass(user, PermissionName.valueOf((String) permission), (String) targetDomainObject);
@@ -71,7 +71,7 @@ public class PlatformPermissionEvaluator implements PermissionEvaluator {
                                  String targetType, Object permission) {
         log.debug("hasPermission() - authentication: " + authentication + ", targetId: " + targetId + ", targetType: " + targetType + ", permission: " + permission);
 
-        User user = userService.findUser(authentication.getName());
+        User user = userService.find(authentication.getName());
 
         if (targetId == null) {
             return securityService.hasUserPermissionToClass(user, PermissionName.valueOf((String) permission), targetType);

@@ -137,7 +137,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public boolean hasPermission(String username, SecurableModel securibleObject, String permissionName) {
-        User user = userService.findUser(username);
+        User user = userService.find(username);
 
         boolean hasPermission = hasUserPermissionToObject(user, PermissionName.valueOf(permissionName), securibleObject);
         log.debug("hasPermission: " + hasPermission);

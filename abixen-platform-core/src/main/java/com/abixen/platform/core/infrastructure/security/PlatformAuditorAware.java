@@ -40,6 +40,6 @@ public class PlatformAuditorAware implements AuditorAware<User> {
             return null;
         }
 
-        return userService.findUser(authorizedUser.getId());
+        return userService.find(authorizedUser.getId());
     }
 }

@@ -134,7 +134,7 @@ public class LayoutServiceImpl implements LayoutService {
     @Override
     public Page<Layout> findAllLayouts(Pageable pageable, LayoutSearchForm layoutSearchForm) {
         PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
-        User authorizedUser = userService.findUser(platformAuthorizedUser.getId());
+        User authorizedUser = userService.find(platformAuthorizedUser.getId());
 
         return layoutRepository.findAllSecured(pageable, layoutSearchForm, authorizedUser, PermissionName.LAYOUT_VIEW);
     }
@@ -142,7 +142,7 @@ public class LayoutServiceImpl implements LayoutService {
     @Override
     public List<Layout> findAllLayouts() {
         PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
-        User authorizedUser = userService.findUser(platformAuthorizedUser.getId());
+        User authorizedUser = userService.find(platformAuthorizedUser.getId());
 
         return layoutRepository.findAllSecured(authorizedUser, PermissionName.LAYOUT_VIEW);
     }

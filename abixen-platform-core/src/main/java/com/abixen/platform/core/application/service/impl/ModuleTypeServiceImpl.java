@@ -85,7 +85,7 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
         log.debug("findAllModuleTypes()");
 
         PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
-        User authorizedUser = userService.findUser(platformAuthorizedUser.getId());
+        User authorizedUser = userService.find(platformAuthorizedUser.getId());
 
         List<ModuleType> securityFilteredModuleTypes = moduleTypeRepository.findAllSecured(authorizedUser, PermissionName.MODULE_TYPE_VIEW);
         List<ModuleType> allModuleTypes = moduleTypeRepository.findAll();

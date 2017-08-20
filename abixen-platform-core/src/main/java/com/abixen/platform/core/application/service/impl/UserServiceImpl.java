@@ -17,6 +17,7 @@ package com.abixen.platform.core.application.service.impl;
 import com.abixen.platform.common.model.enumtype.UserLanguage;
 import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.application.dto.UserRoleDto;
+import com.abixen.platform.core.application.exception.UserActivationException;
 import com.abixen.platform.core.application.form.UserChangePasswordForm;
 import com.abixen.platform.core.application.form.UserForm;
 import com.abixen.platform.core.application.form.UserRolesForm;
@@ -24,12 +25,11 @@ import com.abixen.platform.core.application.form.UserSearchForm;
 import com.abixen.platform.core.application.service.PasswordGeneratorService;
 import com.abixen.platform.core.application.service.RoleService;
 import com.abixen.platform.core.application.service.UserService;
+import com.abixen.platform.core.application.util.IpAddressUtil;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.model.UserBuilder;
 import com.abixen.platform.core.domain.repository.UserRepository;
 import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
-import com.abixen.platform.core.application.exception.UserActivationException;
-import com.abixen.platform.core.application.util.IpAddressUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,10 +50,10 @@ import java.io.IOException;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final int generatorLength = 12;
-    private final int generatorNoOfCAPSAlpha = 2;
-    private final int generatorNoOfDigits = 8;
-    private final int generatorNoOfSpecialChars = 2;
+    private static final int GENERATOR_LENGTH = 12;
+    private static final int GENERATOR_NO_OF_CAPS_ALPHA = 2;
+    private static final int GENERATOR_NO_OF_DIGITS = 8;
+    private static final int GENERATOR_NO_OF_SPECIAL_CHARS = 2;
 
     private final UserRepository userRepository;
     private final PasswordGeneratorService passwordGeneratorService;
@@ -72,38 +72,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String generateUserPassword() {
-        return passwordGeneratorService.generate(generatorLength, generatorNoOfCAPSAlpha, generatorNoOfDigits, generatorNoOfSpecialChars);
+    public String generatePassword() {
+        return passwordGeneratorService.generate(GENERATOR_LENGTH, GENERATOR_NO_OF_CAPS_ALPHA, GENERATOR_NO_OF_DIGITS, GENERATOR_NO_OF_SPECIAL_CHARS);
     }
 
     @Override
-    public User buildUser(UserForm userForm, String userPassword) {
-        log.debug("buildUser() - userForm: {}", userForm);
+    public User create(UserForm userForm, String userPassword) {
+        log.debug("create() - userForm: {}", userForm);
 
-        log.debug("Generated password: {}", userPassword);
-
+        //FIXME - move to IpAddressUtil?
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
-        UserBuilder userBuilder = new UserBuilder();
-        userBuilder.credentials(userForm.getUsername(), userPassword);
-        userBuilder.screenName(userForm.getScreenName());
-        userBuilder.personalData(userForm.getFirstName(), userForm.getMiddleName(), userForm.getLastName());
-        userBuilder.additionalData(userForm.getBirthday(), userForm.getJobTitle(), userForm.getSelectedLanguage(), userForm.getGender());
-        userBuilder.registrationIp(IpAddressUtil.getClientIpAddress(request));
-        return userBuilder.build();
-    }
+        User user = new UserBuilder()
+                .credentials(userForm.getUsername(), userPassword)
+                .screenName(userForm.getScreenName())
+                .personalData(userForm.getFirstName(), userForm.getMiddleName(), userForm.getLastName())
+                .additionalData(userForm.getBirthday(), userForm.getJobTitle(), userForm.getSelectedLanguage(), userForm.getGender())
+                .registrationIp(IpAddressUtil.getClientIpAddress(request))
+                .build();
 
-    @Override
-    public User createUser(User user) {
-        log.debug("createUser() - user: {}", user);
         return userRepository.save(user);
     }
 
     @Override
-    public UserForm updateUser(UserForm userForm) {
-        log.debug("updateUser() - userForm: {}", userForm);
+    public UserForm update(UserForm userForm) {
+        log.debug("update() - userForm: {}", userForm);
 
-        User user = findUser(userForm.getId());
+        User user = find(userForm.getId());
         user.changeUsername(userForm.getUsername());
         user.changeScreenName(userForm.getScreenName());
         user.changePersonalData(userForm.getFirstName(), userForm.getMiddleName(), userForm.getLastName());
@@ -112,9 +107,8 @@ public class UserServiceImpl implements UserService {
         return new UserForm(updateUser(user));
     }
 
-    @Override
-    public User updateUser(User user) {
-        log.debug("updateUser() - user: {}", user);
+    private User updateUser(User user) {
+        log.debug("update() - user: {}", user);
 
         User updatedUser = userRepository.save(user);
         updatePlatformUser(user);
@@ -123,40 +117,40 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
-        log.debug("deleteUser() - id: {}", id);
+    public void delete(Long id) {
+        log.debug("delete() - id: {}", id);
         userRepository.delete(id);
     }
 
     @Override
-    public Page<User> findAllUsers(Pageable pageable, UserSearchForm userSearchForm) {
-        log.debug("findAllUsers() - pageable: {}", pageable);
+    public Page<User> findAll(Pageable pageable, UserSearchForm userSearchForm) {
+        log.debug("findAll() - pageable: {}", pageable);
         return userRepository.findAll(pageable, userSearchForm);
     }
 
     @Override
-    public User findUser(Long id) {
-        log.debug("findUser() - id: {}", id);
+    public User find(Long id) {
+        log.debug("find() - id: {}", id);
         return userRepository.findOne(id);
     }
 
     @Override
-    public User buildUserRoles(UserRolesForm userRolesForm) {
-        log.debug("buildUserRoles() - userRolesForm: {}", userRolesForm);
+    public User updateRoles(UserRolesForm userRolesForm) {
+        log.debug("updateRoles() - userRolesForm: {}", userRolesForm);
 
-        User user = findUser(userRolesForm.getUser().getId());
+        User user = find(userRolesForm.getUser().getId());
         user.getRoles().clear();
 
         userRolesForm.getUserRoles().stream().filter(UserRoleDto::isSelected).forEach(userRoleDto -> {
             user.getRoles().add(roleService.findRole(userRoleDto.getRole().getId()));
         });
 
-        return user;
+        return updateUser(user);
     }
 
     @Override
-    public User findUser(String username) {
-        log.debug("findUser() - username: {}", username);
+    public User find(String username) {
+        log.debug("find() - username: {}", username);
         return userRepository.findByUsername(username);
     }
 
@@ -176,8 +170,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserChangePasswordForm changeUserPassword(User user, UserChangePasswordForm userChangePasswordForm) {
-        log.info("changeUserPassword()");
+    public UserChangePasswordForm changePassword(User user, UserChangePasswordForm userChangePasswordForm) {
+        log.info("changePassword()");
 
         user.changePassword(userChangePasswordForm.getCurrentPassword(), userChangePasswordForm.getNewPassword());
         updateUser(user);
@@ -186,16 +180,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User changeUserAvatar(Long userId, MultipartFile avatarFile) throws IOException {
-        User user = findUser(userId);
+    public User changeAvatar(Long userId, MultipartFile avatarFile) throws IOException {
+        User user = find(userId);
         user.changeAvatar(platformResourceConfigurationProperties.getImageLibraryDirectory(), avatarFile);
         updateUser(user);
-        return findUser(userId);
+        return find(userId);
     }
 
     @Override
     public UserLanguage updateSelectedLanguage(Long userId, UserLanguage selectedLanguage) {
-        User user = findUser(userId);
+        User user = find(userId);
         user.changeLanguage(selectedLanguage);
         updateUser(user);
 
