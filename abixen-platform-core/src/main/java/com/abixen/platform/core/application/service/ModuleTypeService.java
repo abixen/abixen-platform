@@ -24,15 +24,16 @@ import java.util.List;
 
 public interface ModuleTypeService {
 
-    ModuleType findModuleType(Long id);
+    ModuleType find(Long id);
 
-    List<ModuleTypeDto> findAllModuleTypes();
+    List<ModuleTypeDto> findAll();
 
-    Page<ModuleType> findModuleTypes(Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm);
+    Page<ModuleType> findAll(Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm);
 
     List<ModuleType> findModuleTypes();
 
     void reload(Long id);
 
     void reloadAll();
+
 }

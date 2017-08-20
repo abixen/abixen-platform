@@ -75,14 +75,14 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
     }
 
     @Override
-    public ModuleType findModuleType(Long id) {
-        log.debug("findModuleType() - id: " + id);
+    public ModuleType find(Long id) {
+        log.debug("find() - id: " + id);
         return moduleTypeRepository.findOne(id);
     }
 
     @Override
-    public List<ModuleTypeDto> findAllModuleTypes() {
-        log.debug("findAllModuleTypes()");
+    public List<ModuleTypeDto> findAll() {
+        log.debug("findAll()");
 
         PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
         User authorizedUser = userService.find(platformAuthorizedUser.getId());
@@ -108,8 +108,8 @@ public class ModuleTypeServiceImpl implements ModuleTypeService {
     }
 
     @Override
-    public Page<ModuleType> findModuleTypes(Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm) {
-        log.debug("findAllModuleTypes()");
+    public Page<ModuleType> findAll(Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm) {
+        log.debug("findAll()");
         return moduleTypeRepository.findAll(pageable, moduleTypeSearchForm);
     }
 

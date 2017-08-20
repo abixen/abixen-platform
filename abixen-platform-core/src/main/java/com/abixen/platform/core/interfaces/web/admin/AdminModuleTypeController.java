@@ -48,7 +48,7 @@ public class AdminModuleTypeController {
     public Page<ModuleTypeDto> getModuleTypes(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm) {
         log.debug("getModuleTypes()");
 
-        Page<ModuleType> moduleTypes = moduleTypeService.findModuleTypes(pageable, moduleTypeSearchForm);
+        Page<ModuleType> moduleTypes = moduleTypeService.findAll(pageable, moduleTypeSearchForm);
         Page<ModuleTypeDto> moduleTypeDtos = moduleTypeToModuleTypeDtoConverter.convertToPage(moduleTypes);
         return moduleTypeDtos;
     }

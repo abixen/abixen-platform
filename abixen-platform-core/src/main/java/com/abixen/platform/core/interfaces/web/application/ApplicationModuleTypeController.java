@@ -37,6 +37,6 @@ public class ApplicationModuleTypeController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<ModuleTypeDto> getModuleTypes() {
-        return moduleTypeService.findAllModuleTypes();
+        return moduleTypeService.findAll();
     }
 }

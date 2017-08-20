@@ -169,7 +169,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
 
                             log.debug("createNonExistentModules() - dashboardModuleDto: {}", dashboardModuleDto);
 
-                            ModuleType moduleType = moduleTypeService.findModuleType(dashboardModuleDto.getModuleType().getId());
+                            ModuleType moduleType = moduleTypeService.find(dashboardModuleDto.getModuleType().getId());
 
                             Module module = new ModuleBuilder()
                                     .positionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex())
