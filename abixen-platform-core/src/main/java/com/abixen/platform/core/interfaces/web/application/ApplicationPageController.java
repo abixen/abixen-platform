@@ -51,7 +51,7 @@ public class ApplicationPageController extends AbstractPageController {
     public List<PageDto> getPages() {
         log.debug("getPages()");
 
-        List<Page> pages = pageService.findAllPages();
+        List<Page> pages = pageService.findAll();
 
         pages.forEach(page -> {
             layoutService.convertPageLayoutToJson(page);

@@ -60,11 +60,11 @@ public class PageConfigurationServiceTest {
         layout.setId(7L);
         samplePageForm.setLayout(layout);
 
-        samplePage = pageService.buildPage(samplePageForm);
-        samplePage = pageService.createPage(samplePage);
+        //samplePage = pageService.buildPage(samplePageForm);
+        //samplePage = pageService.create(samplePage);
 
-        dto = new PageModelDto();
-        dto.setPage(pageToPageDtoConverter.convert(samplePage));
+        //dto = new PageModelDto();
+        //dto.setPage(pageToPageDtoConverter.convert(samplePage));
 
     }
 

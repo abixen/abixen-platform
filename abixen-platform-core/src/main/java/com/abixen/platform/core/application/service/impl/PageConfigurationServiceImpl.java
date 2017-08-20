@@ -70,7 +70,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
     public PageModelDto getPageConfiguration(Long pageId) {
         log.debug("getPageConfiguration() - pageId: {}", pageId);
 
-        Page page = pageService.findPage(pageId);
+        Page page = pageService.find(pageId);
         log.debug("page.getLayout().getContent(): {}", page.getLayout().getContent());
 
         List<Module> modules = moduleService.findAll(page);
@@ -98,7 +98,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
 
     @Override
     public PageConfigurationForm createPageConfiguration(PageConfigurationForm pageConfigurationForm) {
-        Page page = pageService.createPage(pageConfigurationForm);
+        Page page = pageService.create(pageConfigurationForm);
         layoutService.convertPageLayoutToJson(page);
         PageDto pageDto = pageToPageDtoConverter.convert(page);
         return new PageConfigurationForm(pageDto);
@@ -119,7 +119,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
     PageConfigurationForm changePageConfiguration(PageConfigurationForm pageConfigurationForm, boolean configurationChangeType) {
         List<Long> currentModulesIds = new ArrayList<>();
 
-        Page page = pageService.findPage(pageConfigurationForm.getPage().getId());
+        Page page = pageService.find(pageConfigurationForm.getPage().getId());
 
         if (configurationChangeType) {
             validateConfiguration(pageConfigurationForm, page);
@@ -129,7 +129,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
         page.changeTitle(pageConfigurationForm.getPage().getTitle());
         page.changeIcon(pageConfigurationForm.getPage().getIcon());
         page.changeLayout(layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId()));
-        pageService.updatePage(page);
+        pageService.update(page);
 
         updateExistingModules(pageConfigurationForm.getDashboardModuleDtos(), currentModulesIds);
         createNonExistentModules(pageConfigurationForm.getDashboardModuleDtos(), pageConfigurationForm.getPage().getId(), currentModulesIds);
@@ -175,7 +175,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                                     .positionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex())
                                     .title(dashboardModuleDto.getTitle())
                                     .moduleType(moduleType)
-                                    .page(pageService.findPage(pageId))
+                                    .page(pageService.find(pageId))
                                     .description((dashboardModuleDto.getDescription()))
                                     .build();
 

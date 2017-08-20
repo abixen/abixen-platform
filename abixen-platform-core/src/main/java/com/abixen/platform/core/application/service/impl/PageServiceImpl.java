@@ -14,21 +14,26 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.core.domain.model.PageBuilder;
-import com.abixen.platform.core.interfaces.converter.PageToPageDtoConverter;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.application.dto.PageDto;
 import com.abixen.platform.core.application.form.PageConfigurationForm;
 import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.application.form.PageSearchForm;
-import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.core.application.service.AclService;
+import com.abixen.platform.core.application.service.LayoutService;
+import com.abixen.platform.core.application.service.ModuleService;
+import com.abixen.platform.core.application.service.PageService;
+import com.abixen.platform.core.application.service.SecurityService;
+import com.abixen.platform.core.application.service.UserService;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.Page;
+import com.abixen.platform.core.domain.model.PageBuilder;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.ModuleRepository;
 import com.abixen.platform.core.domain.repository.PageRepository;
-import com.abixen.platform.common.security.PlatformUser;
-import com.abixen.platform.core.application.service.*;
+import com.abixen.platform.core.interfaces.converter.PageToPageDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -74,30 +79,95 @@ public class PageServiceImpl implements PageService {
         this.pageToPageDtoConverter = pageToPageDtoConverter;
     }
 
+    @PostAuthorize("hasPermission(returnObject, '" + PermissionName.Values.PAGE_VIEW + "')")
     @Override
-    public Page buildPage(PageForm pageForm) {
-        log.debug("buildPage() - pageForm={}", pageForm);
-        return new PageBuilder()
+    public Page find(Long id) {
+        log.debug("find() - id: " + id);
+        return pageRepository.findOne(id);
+    }
+
+    @Override
+    public List<Page> findAll() {
+        PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
+        User authorizedUser = userService.find(platformAuthorizedUser.getId());
+
+        return pageRepository.findAllSecured(authorizedUser, PermissionName.PAGE_VIEW);
+    }
+
+    @Override
+    public org.springframework.data.domain.Page<Page> findAll(Pageable pageable, PageSearchForm pageSearchForm) {
+        PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
+        User authorizedUser = userService.find(platformAuthorizedUser.getId());
+
+        return pageRepository.findAllSecured(pageable, pageSearchForm, authorizedUser, PermissionName.PAGE_VIEW);
+    }
+
+    @Override
+    public PageForm create(PageForm pageForm) {
+        log.debug("update() - pageForm={}", pageForm);
+
+        Page page = new PageBuilder()
                 .layout(layoutService.findLayout(pageForm.getLayout().getId()))
                 .title(pageForm.getTitle())
                 .description(pageForm.getDescription())
                 .icon(pageForm.getIcon())
                 .build();
+
+        Page createdPage = create(page);
+        PageDto createdPageDto = pageToPageDtoConverter.convert(createdPage);
+
+        return new PageForm(createdPageDto);
     }
 
-    public Page buildPage(PageConfigurationForm pageConfigurationForm) {
-        log.debug("buildPage() - pageConfigurationForm={}", pageConfigurationForm);
-        return new PageBuilder()
+    @PreAuthorize("hasPermission('" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
+    @Override
+    public Page create(PageConfigurationForm pageConfigurationForm) {
+        Page page = new PageBuilder()
                 .layout(layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId()))
                 .title(pageConfigurationForm.getPage().getTitle())
                 .description(pageConfigurationForm.getPage().getDescription())
                 .icon(pageConfigurationForm.getPage().getIcon())
                 .build();
+
+        return create(page);
     }
 
+    @PreAuthorize("hasPermission(#pageForm.id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
     @Override
-    public Page createPage(Page page) {
-        log.debug("createPage() - page={} ", page);
+    public PageForm update(PageForm pageForm) {
+        log.debug("update() - pageForm={}", pageForm);
+
+        Page page = find(pageForm.getId());
+        page.changeTitle(pageForm.getTitle());
+        page.changeDescription(pageForm.getDescription());
+        page.changeIcon(pageForm.getIcon());
+        page.changeLayout(layoutService.findLayout(pageForm.getLayout().getId()));
+
+        Page updatedPage = update(page);
+        PageDto updatedPageDto = pageToPageDtoConverter.convert(updatedPage);
+
+        return new PageForm(updatedPageDto);
+    }
+
+    @PreAuthorize("hasPermission(#page.id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
+    @Override
+    public Page update(Page page) {
+        log.debug("update() - page: " + page);
+        return pageRepository.saveAndFlush(page);
+    }
+
+    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_DELETE + "')")
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        log.debug("delete() - id={}", id);
+        List<Module> pageModules = moduleService.findAll(pageRepository.findOne(id));
+        moduleRepository.deleteInBatch(pageModules);
+        pageRepository.delete(id);
+    }
+
+    private Page create(Page page) {
+        log.debug("create() - page={} ", page);
         Page createdPage = pageRepository.save(page);
         aclService.insertDefaultAcl(createdPage, new ArrayList<PermissionName>() {
             {
@@ -111,78 +181,4 @@ public class PageServiceImpl implements PageService {
         return createdPage;
     }
 
-    @Override
-    public PageForm createPage(PageForm pageForm) {
-        log.debug("updatePage() - pageForm={}", pageForm);
-
-        Page page = buildPage(pageForm);
-        Page createdPage = createPage(page);
-        PageDto createdPageDto = pageToPageDtoConverter.convert(createdPage);
-
-        return new PageForm(createdPageDto);
-    }
-
-    @PreAuthorize("hasPermission('" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
-    @Override
-    public Page createPage(PageConfigurationForm pageConfigurationForm) {
-        Page page = buildPage(pageConfigurationForm);
-        return createPage(page);
-    }
-
-    @PreAuthorize("hasPermission(#pageForm.id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
-    @Override
-    public PageForm updatePage(PageForm pageForm) {
-        log.debug("updatePage() - pageForm={}", pageForm);
-
-        Page page = findPage(pageForm.getId());
-        page.changeTitle(pageForm.getTitle());
-        page.changeDescription(pageForm.getDescription());
-        page.changeIcon(pageForm.getIcon());
-        page.changeLayout(layoutService.findLayout(pageForm.getLayout().getId()));
-
-        Page updatedPage = updatePage(page);
-        PageDto updatedPageDto = pageToPageDtoConverter.convert(updatedPage);
-
-        return new PageForm(updatedPageDto);
-    }
-
-    @PreAuthorize("hasPermission(#page.id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
-    @Override
-    public Page updatePage(Page page) {
-        log.debug("updatePage() - page: " + page);
-        return pageRepository.saveAndFlush(page);
-    }
-
-    @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_DELETE + "')")
-    @Override
-    @Transactional
-    public void deletePage(Long id) {
-        log.debug("deletePage() - id={}", id);
-        List<Module> pageModules = moduleService.findAll(pageRepository.findOne(id));
-        moduleRepository.deleteInBatch(pageModules);
-        pageRepository.delete(id);
-    }
-
-    @Override
-    public org.springframework.data.domain.Page<Page> findAllPages(Pageable pageable, PageSearchForm pageSearchForm) {
-        PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
-        User authorizedUser = userService.find(platformAuthorizedUser.getId());
-
-        return pageRepository.findAllSecured(pageable, pageSearchForm, authorizedUser, PermissionName.PAGE_VIEW);
-    }
-
-    @Override
-    public List<Page> findAllPages() {
-        PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
-        User authorizedUser = userService.find(platformAuthorizedUser.getId());
-
-        return pageRepository.findAllSecured(authorizedUser, PermissionName.PAGE_VIEW);
-    }
-
-    @PostAuthorize("hasPermission(returnObject, '" + PermissionName.Values.PAGE_VIEW + "')")
-    @Override
-    public Page findPage(Long id) {
-        log.debug("findPage() - id: " + id);
-        return pageRepository.findOne(id);
-    }
 }

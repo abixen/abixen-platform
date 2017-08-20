@@ -58,20 +58,20 @@ public class AdminPageController extends AbstractPageController {
     public PageDto getPage(@PathVariable Long id) {
         log.debug("getPage() - id: " + id);
 
-        Page page = pageService.findPage(id);
+        Page page = pageService.find(id);
         return pageToPageDtoConverter.convert(page);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updatePage(@PathVariable("id") Long id, @RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
-        log.debug("updatePage() - id: " + id + ", pageForm: " + pageForm);
+        log.debug("update() - id: " + id + ", pageForm: " + pageForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(pageForm, formErrors);
         }
 
-        PageForm pageFormResult = pageService.updatePage(pageForm);
+        PageForm pageFormResult = pageService.update(pageForm);
 
         return new FormValidationResultDto(pageFormResult);
     }
@@ -80,7 +80,7 @@ public class AdminPageController extends AbstractPageController {
     public org.springframework.data.domain.Page<PageDto> getPages(@PageableDefault(size = PAGEABLE_DEFAULT_PAGE_SIZE) Pageable pageable, PageSearchForm pageSearchForm) {
         log.debug("getPages()");
 
-        org.springframework.data.domain.Page<Page> pages = pageService.findAllPages(pageable, pageSearchForm);
+        org.springframework.data.domain.Page<Page> pages = pageService.findAll(pageable, pageSearchForm);
 
 
         return pageToPageDtoConverter.convertToPage(pages);
@@ -90,14 +90,14 @@ public class AdminPageController extends AbstractPageController {
     @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.domain.model.impl.Page', 'PAGE_ADD')")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createPage(@RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
-        log.debug("createPage() - pageForm: " + pageForm);
+        log.debug("create() - pageForm: " + pageForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(pageForm, formErrors);
         }
 
-        PageForm pageFormResult = pageService.createPage(pageForm);
+        PageForm pageFormResult = pageService.create(pageForm);
 
         return new FormValidationResultDto(pageFormResult);
     }

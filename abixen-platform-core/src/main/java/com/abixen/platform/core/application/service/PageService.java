@@ -25,23 +25,20 @@ import java.util.List;
 
 public interface PageService {
 
-    Page buildPage(PageForm pageForm);
+    Page find(Long id);
 
-    Page createPage(Page page);
+    List<Page> findAll();
 
-    PageForm createPage(PageForm pageForm);
+    org.springframework.data.domain.Page<Page> findAll(Pageable pageable, PageSearchForm pageSearchForm);
 
-    Page createPage(PageConfigurationForm pageConfigurationForm);
+    PageForm create(PageForm pageForm);
 
-    Page updatePage(Page page);
+    Page create(PageConfigurationForm pageConfigurationForm);
 
-    PageForm updatePage(PageForm pageForm);
+    Page update(Page page);
 
-    void deletePage(Long id);
+    PageForm update(PageForm pageForm);
 
-    org.springframework.data.domain.Page<Page> findAllPages(Pageable pageable, PageSearchForm pageSearchForm);
+    void delete(Long id);
 
-    List<Page> findAllPages();
-
-    Page findPage(Long id);
 }

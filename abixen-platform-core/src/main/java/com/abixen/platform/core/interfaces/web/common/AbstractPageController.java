@@ -38,7 +38,7 @@ public abstract class AbstractPageController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deletePage(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
-        pageService.deletePage(id);
+        pageService.delete(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
