@@ -15,7 +15,7 @@
 package com.abixen.platform.core.interfaces.web.admin;
 
 import com.abixen.platform.core.interfaces.web.common.AbstractPageController;
-import com.abixen.platform.core.interfaces.converter.PageToPageDtoConverter;
+import com.abixen.platform.core.interfaces.web.facade.converter.PageToPageDtoConverter;
 import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.core.application.dto.PageDto;

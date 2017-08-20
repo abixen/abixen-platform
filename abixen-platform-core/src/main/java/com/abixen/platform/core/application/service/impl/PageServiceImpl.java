@@ -33,7 +33,7 @@ import com.abixen.platform.core.domain.model.PageBuilder;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.ModuleRepository;
 import com.abixen.platform.core.domain.repository.PageRepository;
-import com.abixen.platform.core.interfaces.converter.PageToPageDtoConverter;
+import com.abixen.platform.core.interfaces.web.facade.converter.PageToPageDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

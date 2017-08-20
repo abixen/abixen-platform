@@ -17,7 +17,7 @@ import com.abixen.platform.core.application.dto.LayoutDto;
 import com.abixen.platform.core.application.dto.PageModelDto;
 import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.domain.model.Page;
-import com.abixen.platform.core.interfaces.converter.PageToPageDtoConverter;
+import com.abixen.platform.core.interfaces.web.facade.converter.PageToPageDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -73,7 +73,7 @@ public class PageConfigurationServiceTest {
     public void getPageModel() {
         log.debug("getPageModel() id:" + samplePage.getId());
 
-        dto = pageConfigurationService.getPageConfiguration(samplePage.getId());
+        dto = pageConfigurationService.find(samplePage.getId());
 
         assertNotNull(dto);
 

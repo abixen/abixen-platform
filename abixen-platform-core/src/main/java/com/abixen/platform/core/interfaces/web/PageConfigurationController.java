@@ -47,7 +47,7 @@ public class PageConfigurationController {
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_VIEW + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public PageModelDto getPageConfiguration(@PathVariable Long id) {
-        return pageConfigurationService.getPageConfiguration(id);
+        return pageConfigurationService.find(id);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
@@ -60,7 +60,7 @@ public class PageConfigurationController {
             return new FormValidationResultDto(pageConfigurationForm, formErrors);
         }
 
-        PageConfigurationForm updatedPageConfigurationForm = pageConfigurationService.createPageConfiguration(pageConfigurationForm);
+        PageConfigurationForm updatedPageConfigurationForm = pageConfigurationService.create(pageConfigurationForm);
 
         return new FormValidationResultDto(updatedPageConfigurationForm);
     }
@@ -75,7 +75,7 @@ public class PageConfigurationController {
             return new FormValidationResultDto(pageConfigurationForm, formErrors);
         }
 
-        PageConfigurationForm updatedPageConfigurationForm = pageConfigurationService.updatePageConfiguration(pageConfigurationForm);
+        PageConfigurationForm updatedPageConfigurationForm = pageConfigurationService.update(pageConfigurationForm);
 
         return new FormValidationResultDto(updatedPageConfigurationForm);
     }
@@ -90,7 +90,7 @@ public class PageConfigurationController {
             return new FormValidationResultDto(pageConfigurationForm, formErrors);
         }
 
-        PageConfigurationForm updatedPageConfigurationForm = pageConfigurationService.configurePageConfiguration(pageConfigurationForm);
+        PageConfigurationForm updatedPageConfigurationForm = pageConfigurationService.configure(pageConfigurationForm);
 
         return new FormValidationResultDto(updatedPageConfigurationForm);
     }

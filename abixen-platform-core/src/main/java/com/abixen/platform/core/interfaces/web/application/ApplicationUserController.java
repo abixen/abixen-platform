@@ -14,16 +14,9 @@
 
 package com.abixen.platform.core.interfaces.web.application;
 
-import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
 import com.abixen.platform.core.interfaces.web.common.AbstractUserController;
-import com.abixen.platform.core.interfaces.converter.RoleToRoleDtoConverter;
-import com.abixen.platform.core.interfaces.converter.UserToUserDtoConverter;
-import com.abixen.platform.core.application.service.MailService;
-import com.abixen.platform.core.application.service.RoleService;
-import com.abixen.platform.core.application.service.SecurityService;
-import com.abixen.platform.core.application.service.UserService;
+import com.abixen.platform.core.interfaces.web.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,21 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApplicationUserController extends AbstractUserController {
 
     @Autowired
-    public ApplicationUserController(UserService userService,
-                                     MailService mailService,
-                                     RoleService roleService,
-                                     SecurityService securityService,
-                                     AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
-                                     MessageSource messageSource,
-                                     UserToUserDtoConverter userToUserDtoConverter,
-                                     RoleToRoleDtoConverter roleToRoleDtoConverter) {
-        super(userService,
-                mailService,
-                roleService,
-                securityService,
-                platformResourceConfigurationProperties,
-                messageSource,
-                userToUserDtoConverter,
-                roleToRoleDtoConverter);
+    public ApplicationUserController(UserFacade userFacade) {
+        super(userFacade);
     }
 }

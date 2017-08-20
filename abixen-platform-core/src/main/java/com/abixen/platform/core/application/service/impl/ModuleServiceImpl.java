@@ -114,6 +114,11 @@ public class ModuleServiceImpl implements ModuleService {
     public void deleteAllExcept(Page page, List<Long> ids) {
         log.debug("deleteAllExcept() - page: " + page + ", ids: " + ids);
 
+        if (ids.isEmpty()) {
+            deleteAll(page);
+            return;
+        }
+
         List<Module> modules = moduleRepository.findAllExcept(page, ids);
 
         List<Long> moduleIds = modules.stream().map(module -> module.getId()).collect(Collectors.toList());
@@ -129,8 +134,7 @@ public class ModuleServiceImpl implements ModuleService {
         });
     }
 
-    @Override
-    public void deleteAll(Page page) {
+    void deleteAll(Page page) {
         log.debug("deleteAll() - page: " + page);
 
         List<Module> modules = moduleRepository.findByPage(page);

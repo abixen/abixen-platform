@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.converter;
+package com.abixen.platform.core.interfaces.web.facade.converter;
 
 
 import com.abixen.platform.common.converter.AbstractConverter;

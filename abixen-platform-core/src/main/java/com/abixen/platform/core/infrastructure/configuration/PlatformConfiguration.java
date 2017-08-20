@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
         com.abixen.platform.core.infrastructure.integration.PackageMarker.class,
         com.abixen.platform.core.application.service.PackageMarker.class,
         com.abixen.platform.core.interfaces.web.PackageMarker.class,
-        com.abixen.platform.core.interfaces.converter.PackageMarker.class
+        com.abixen.platform.core.interfaces.web.facade.converter.PackageMarker.class
 })
 public class PlatformConfiguration {
 

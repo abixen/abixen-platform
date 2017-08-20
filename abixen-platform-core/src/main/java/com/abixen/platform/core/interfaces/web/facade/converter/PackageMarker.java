@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.abixen.platform.core.interfaces.converter;
+package com.abixen.platform.core.interfaces.web.facade.converter;
 
 public class PackageMarker {
 }

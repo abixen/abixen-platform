@@ -33,7 +33,7 @@ import com.abixen.platform.core.domain.repository.ModuleTypeRepository;
 import com.abixen.platform.core.infrastructure.configuration.properties.RegisteredModuleServicesConfigurationProperties;
 import com.abixen.platform.core.infrastructure.integration.ModuleConfigurationIntegrationClient;
 import com.abixen.platform.core.interfaces.client.ModulesConfigurationProperties;
-import com.abixen.platform.core.interfaces.converter.ModuleTypeToModuleTypeDtoConverter;
+import com.abixen.platform.core.interfaces.web.facade.converter.ModuleTypeToModuleTypeDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

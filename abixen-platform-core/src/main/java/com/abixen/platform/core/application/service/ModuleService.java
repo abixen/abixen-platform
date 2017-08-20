@@ -39,6 +39,4 @@ public interface ModuleService {
 
     void deleteAllExcept(Page page, List<Long> ids);
 
-    void deleteAll(Page page);
-
 }

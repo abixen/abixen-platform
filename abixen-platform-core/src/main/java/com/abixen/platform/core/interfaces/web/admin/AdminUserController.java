@@ -14,29 +14,25 @@
 
 package com.abixen.platform.core.interfaces.web.admin;
 
-import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
-import com.abixen.platform.core.interfaces.web.common.AbstractUserController;
-import com.abixen.platform.core.interfaces.converter.RoleToRoleDtoConverter;
-import com.abixen.platform.core.interfaces.converter.UserToUserDtoConverter;
 import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.UserDto;
 import com.abixen.platform.core.application.form.UserRolesForm;
 import com.abixen.platform.core.application.form.UserSearchForm;
-import com.abixen.platform.core.domain.model.User;
-import com.abixen.platform.core.application.service.MailService;
-import com.abixen.platform.core.application.service.RoleService;
-import com.abixen.platform.core.application.service.SecurityService;
-import com.abixen.platform.core.application.service.UserService;
-import com.abixen.platform.common.util.ValidationUtil;
+import com.abixen.platform.core.interfaces.web.common.AbstractUserController;
+import com.abixen.platform.core.interfaces.web.facade.UserFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -47,62 +43,40 @@ import java.util.List;
 @RequestMapping(value = "/api/control-panel/users")
 public class AdminUserController extends AbstractUserController {
 
-    private final UserService userService;
-    private final UserToUserDtoConverter userToUserDtoConverter;
+    private final UserFacade userFacade;
 
     @Autowired
-    public AdminUserController(UserService userService,
-                               MailService mailService,
-                               RoleService roleService,
-                               SecurityService securityService,
-                               AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
-                               MessageSource messageSource,
-                               UserToUserDtoConverter userToUserDtoConverter,
-                               RoleToRoleDtoConverter roleToRoleDtoConverter) {
-        super(userService,
-                mailService,
-                roleService,
-                securityService,
-                platformResourceConfigurationProperties,
-                messageSource,
-                userToUserDtoConverter,
-                roleToRoleDtoConverter);
+    public AdminUserController(UserFacade userFacade) {
+        super(userFacade);
 
-        this.userService = userService;
-        this.userToUserDtoConverter = userToUserDtoConverter;
+        this.userFacade = userFacade;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<UserDto> getUsers(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
-        log.debug("getUsers()");
+    public Page<UserDto> findAll(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
+        log.debug("findAll()");
 
-        Page<User> users = userService.findAll(pageable, userSearchForm);
-        Page<UserDto> userDtos = userToUserDtoConverter.convertToPage(users);
-
-        return userDtos;
+        return userFacade.findAll(pageable, userSearchForm);
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.PUT)
-    public FormValidationResultDto updateUserRoles(@PathVariable("id") Long id, @RequestBody @Valid UserRolesForm userRolesForm, BindingResult bindingResult) {
-        log.debug("updateUserRoles() - id: " + id + ", userRolesForm: " + userRolesForm);
+    public FormValidationResultDto updateRoles(@PathVariable("id") Long id, @RequestBody @Valid UserRolesForm userRolesForm, BindingResult bindingResult) {
+        log.debug("updateRoles() - id: " + id + ", userRolesForm: " + userRolesForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(userRolesForm, formErrors);
         }
 
-        User user = userService.updateRoles(userRolesForm);
+        UserRolesForm updatedUserRolesForm = userFacade.updateRoles(userRolesForm);
 
-        return new FormValidationResultDto(userRolesForm);
+        return new FormValidationResultDto(updatedUserRolesForm);
     }
 
     @RequestMapping(value = "/custom/username/{username}/", method = RequestMethod.GET)
-    public UserDto getUserByUsername(@PathVariable("username") String username) {
+    public UserDto find(@PathVariable("username") String username) {
         log.debug("getUserByUsername() - username: " + username);
-        User user = userService.find(username);
 
-        UserDto userDto = userToUserDtoConverter.convert(user);
-        log.debug("fetched user: {}", userDto);
-        return userDto;
+        return userFacade.find(username);
     }
 }

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.interfaces.web.admin;
 
-import com.abixen.platform.core.interfaces.converter.ModuleToModuleDtoConverter;
+import com.abixen.platform.core.interfaces.web.facade.converter.ModuleToModuleDtoConverter;
 import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.core.application.dto.ModuleDto;

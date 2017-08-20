@@ -12,45 +12,41 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.converter;
+package com.abixen.platform.core.interfaces.web.facade.converter;
 
 
 import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.core.application.dto.PageDto;
-import com.abixen.platform.core.domain.model.Page;
+import com.abixen.platform.core.application.dto.RoleDto;
+import com.abixen.platform.core.domain.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-
 @Component
-public class PageToPageDtoConverter extends AbstractConverter<Page, PageDto> {
+public class RoleToRoleDtoConverter extends AbstractConverter<Role, RoleDto> {
 
-    private final LayoutToLayoutDtoConverter layoutToLayoutDtoConverter;
+    private final PermissionToPermissionDtoConverter permissionToPermissionDtoConverter;
     private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
 
     @Autowired
-    public PageToPageDtoConverter(LayoutToLayoutDtoConverter layoutToLayoutDtoConverter,
+    public RoleToRoleDtoConverter(PermissionToPermissionDtoConverter permissionToPermissionDtoConverter,
                                   AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
-        this.layoutToLayoutDtoConverter = layoutToLayoutDtoConverter;
+        this.permissionToPermissionDtoConverter = permissionToPermissionDtoConverter;
         this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
     }
 
     @Override
-    public PageDto convert(Page page, Map<String, Object> parameters) {
-        PageDto pageDto = new PageDto();
+    public RoleDto convert(Role role, Map<String, Object> parameters) {
+        RoleDto roleDto = new RoleDto();
 
-        pageDto
-                .setId(page.getId())
-                .setTitle(page.getTitle())
-                .setIcon(page.getIcon())
-                .setDescription(page.getDescription())
-                .setLayout(layoutToLayoutDtoConverter.convert(page.getLayout()));
+        roleDto
+                .setId(role.getId())
+                .setRoleType(role.getRoleType())
+                .setName(role.getName())
+                .setPermissions(permissionToPermissionDtoConverter.convertToSet(role.getPermissions()));
 
-
-        auditingModelToAuditingDtoConverter.convert(page, pageDto);
-
-        return pageDto;
+        auditingModelToAuditingDtoConverter.convert(role, roleDto);
+        return roleDto;
     }
 }

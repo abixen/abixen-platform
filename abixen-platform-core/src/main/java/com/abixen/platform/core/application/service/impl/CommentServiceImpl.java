@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.core.domain.model.CommentBuilder;
-import com.abixen.platform.core.interfaces.converter.CommentToCommentDtoConverter;
+import com.abixen.platform.core.interfaces.web.facade.converter.CommentToCommentDtoConverter;
 import com.abixen.platform.core.application.dto.CommentDto;
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;

@@ -20,11 +20,12 @@ import com.abixen.platform.core.application.form.PageConfigurationForm;
 
 public interface PageConfigurationService {
 
-    PageModelDto getPageConfiguration(Long pageId);
+    PageModelDto find(Long pageId);
 
-    PageConfigurationForm createPageConfiguration(PageConfigurationForm pageConfigurationForm);
+    PageConfigurationForm create(PageConfigurationForm pageConfigurationForm);
 
-    PageConfigurationForm updatePageConfiguration(PageConfigurationForm pageConfigurationForm);
+    PageConfigurationForm update(PageConfigurationForm pageConfigurationForm);
 
-    PageConfigurationForm configurePageConfiguration(PageConfigurationForm pageConfigurationForm);
+    PageConfigurationForm configure(PageConfigurationForm pageConfigurationForm);
+
 }
