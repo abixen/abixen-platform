@@ -31,6 +31,7 @@
         <gmavenplus.version>1.5</gmavenplus.version>
         <maven.failsafe.version>2.18.1</maven.failsafe.version>
         <maven.surefire.version>2.20</maven.surefire.version>
+        <liquibase.version>3.5.3</liquibase.version>
     </properties>
 
     <dependencyManagement>
@@ -212,7 +213,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>3.5.3</version>
+            <version>${liquibase.version}</version>
         </dependency>
 
         <dependency>
@@ -338,9 +339,9 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.5.3</version>
+                <version>${liquibase.version}</version>
                 <configuration>
-                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                    <propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>
                 </configuration>
             </plugin>
             <plugin>
@@ -376,6 +377,7 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven.failsafe.version}</version>
                 <configuration>
+                    <skip>true</skip>
                     <includes>**/*IT.*</includes>
                 </configuration>
                 <executions>
