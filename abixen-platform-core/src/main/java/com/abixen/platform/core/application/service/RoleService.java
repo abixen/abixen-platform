@@ -26,22 +26,18 @@ import java.util.List;
 
 public interface RoleService {
 
-    Role createRole(Role role);
+    Role find(Long id);
 
-    Role updateRole(Role role);
+    List<Role> findAll();
 
-    RoleForm updateRole(RoleForm roleForm);
+    Page<Role> findAll(Pageable pageable, RoleSearchForm roleSearchForm);
 
-    void deleteRole(Long id);
+    Role create(RoleForm roleForm);
 
-    Page<Role> findAllRoles(Pageable pageable, RoleSearchForm roleSearchForm);
+    RoleForm update(RoleForm roleForm);
 
-    Role findRole(Long id);
+    Role updatePermissions(RolePermissionsForm rolePermissionsForm);
 
-    Role buildRole(RoleForm roleForm);
-
-    Role buildRolePermissions(RolePermissionsForm rolePermissionsForm);
-
-    List<Role> findAllRoles();
+    void delete(Long id);
 
 }

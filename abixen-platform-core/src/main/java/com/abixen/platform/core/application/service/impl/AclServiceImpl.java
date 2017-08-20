@@ -118,7 +118,7 @@ public class AclServiceImpl implements AclService {
     public AclRolesPermissionsDto getAclRolesPermissionsDto(PermissionAclClassCategory permissionAclClassCategory, Long objectId) {
         log.debug("getAclRolesPermissionsDto() - permissionAclClassCategory: " + permissionAclClassCategory + ", objectId: " + objectId);
         List<Permission> permissions = permissionRepository.findAllByPermissionAclClassCategory(permissionAclClassCategory);
-        List<Role> roles = roleService.findAllRoles();
+        List<Role> roles = roleService.findAll();
 
         List<AclRolePermissionsDto> aclRolePermissionsDtos = new ArrayList<>();
 
@@ -197,7 +197,7 @@ public class AclServiceImpl implements AclService {
         AclClassName aclClassName = permissionAclClassCategory.getAclClass().getAclClassName();
         AclClass aclClass = aclClassRepository.findByAclClassName(aclClassName);
 
-        List<Role> roles = roleService.findAllRoles();
+        List<Role> roles = roleService.findAll();
 
         for (AclRolePermissionsDto aclRolePermissionsDto : aclRolesPermissionsDto.getAclRolePermissionsDtos()) {
             List<Long> newPermissionIds = new ArrayList<>();

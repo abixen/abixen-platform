@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
         user.getRoles().clear();
 
         userRolesForm.getUserRoles().stream().filter(UserRoleDto::isSelected).forEach(userRoleDto -> {
-            user.getRoles().add(roleService.findRole(userRoleDto.getRole().getId()));
+            user.getRoles().add(roleService.find(userRoleDto.getRole().getId()));
         });
 
         return updateUser(user);

@@ -174,7 +174,7 @@ public abstract class AbstractUserController {
         log.debug("getUserRoles() - id: " + id);
 
         User user = userService.find(id);
-        List<Role> allRoles = roleService.findAllRoles();
+        List<Role> allRoles = roleService.findAll();
 
         UserDto userDto = userToUserDtoConverter.convert(user);
         List<RoleDto> allRolesDto = roleToRoleDtoConverter.convertToList(allRoles);

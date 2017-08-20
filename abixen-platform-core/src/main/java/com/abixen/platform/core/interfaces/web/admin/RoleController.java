@@ -68,7 +68,7 @@ public class RoleController {
     public Page<RoleDto> getRoles(@PageableDefault(size = 1, page = 0) Pageable pageable, RoleSearchForm roleSearchForm) {
         log.debug("getRoles()");
 
-        Page<Role> roles = roleService.findAllRoles(pageable, roleSearchForm);
+        Page<Role> roles = roleService.findAll(pageable, roleSearchForm);
         Page<RoleDto> roleDtos = roleToRoleDtoConverter.convertToPage(roles);
 
         return roleDtos;
@@ -78,7 +78,7 @@ public class RoleController {
     public RoleDto getRole(@PathVariable Long id) {
         log.debug("getRole() - id: " + id);
 
-        Role role = roleService.findRole(id);
+        Role role = roleService.find(id);
         RoleDto roleDto = roleToRoleDtoConverter.convert(role);
 
         return roleDto;
@@ -93,8 +93,7 @@ public class RoleController {
             return new FormValidationResultDto(roleForm, formErrors);
         }
 
-        Role role = roleService.buildRole(roleForm);
-        roleService.createRole(role);
+        roleService.create(roleForm);
 
         return new FormValidationResultDto(roleForm);
     }
@@ -108,14 +107,14 @@ public class RoleController {
             return new FormValidationResultDto(roleForm, formErrors);
         }
 
-        return new FormValidationResultDto(roleService.updateRole(roleForm));
+        return new FormValidationResultDto(roleService.update(roleForm));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteRole(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
         try {
-            roleService.deleteRole(id);
+            roleService.delete(id);
         } catch (Throwable e) {
             e.printStackTrace();
             if (e.getCause() instanceof ConstraintViolationException) {
@@ -131,7 +130,7 @@ public class RoleController {
     public RolePermissionsForm getRolePermissions(@PathVariable Long id) {
         log.debug("getRolePermissionsForm() - id: " + id);
 
-        Role role = roleService.findRole(id);
+        Role role = roleService.find(id);
         List<Permission> allPermissions = permissionService.findAllPermissions();
 
         RoleDto roleDto = roleToRoleDtoConverter.convert(role);
@@ -150,8 +149,7 @@ public class RoleController {
             return new FormValidationResultDto(rolePermissionsForm, formErrors);
         }
 
-        Role role = roleService.buildRolePermissions(rolePermissionsForm);
-        roleService.updateRole(role);
+        roleService.updatePermissions(rolePermissionsForm);
 
         return new FormValidationResultDto(rolePermissionsForm);
     }

@@ -53,60 +53,49 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role createRole(Role role) {
-        log.debug("createRole() - role: " + role);
+    public Role find(Long id) {
+        log.debug("find() - id: " + id);
+        return roleRepository.findOne(id);
+    }
+
+    @Override
+    public List<Role> findAll() {
+        return roleRepository.findAll();
+    }
+
+    @Override
+    public Page<Role> findAll(Pageable pageable, RoleSearchForm roleSearchForm) {
+        log.debug("findAll() - pageable: " + pageable);
+        return roleRepository.findAll(pageable, roleSearchForm);
+    }
+
+    @Override
+    public Role create(RoleForm roleForm) {
+        log.debug("create() - roleForm: " + roleForm);
+
+        Role role = new RoleBuilder()
+                .name(roleForm.getName())
+                .type(roleForm.getRoleType())
+                .build();
+
         Role createdRole = roleRepository.save(role);
         aclSidService.createAclSid(AclSidType.ROLE, createdRole.getId());
         return createdRole;
     }
 
     @Override
-    public Role updateRole(Role role) {
-        log.debug("updateRole() - role: " + role);
-        return roleRepository.save(role);
-    }
-
-    @Override
-    public RoleForm updateRole(RoleForm roleForm) {
-        log.debug("updateRole() - roleForm: {}", roleForm);
+    public RoleForm update(RoleForm roleForm) {
+        log.debug("update() - roleForm: {}", roleForm);
         Role role = roleRepository.findOne(roleForm.getId());
         role.changeDetails(roleForm.getName(), roleForm.getRoleType());
         return new RoleForm(roleRepository.save(role));
     }
 
     @Override
-    public void deleteRole(Long id) {
-        log.debug("deleteRole() - id: " + id);
-        roleRepository.delete(id);
-    }
-
-    @Override
-    public Page<Role> findAllRoles(Pageable pageable, RoleSearchForm roleSearchForm) {
-        log.debug("findAllRoles() - pageable: " + pageable);
-        return roleRepository.findAll(pageable, roleSearchForm);
-    }
-
-    @Override
-    public Role findRole(Long id) {
-        log.debug("findRole() - id: " + id);
-        return roleRepository.findOne(id);
-    }
-
-    @Override
-    public Role buildRole(RoleForm roleForm) {
-        log.debug("buildRole() - roleForm: " + roleForm);
-
-        RoleBuilder roleBuilder = new RoleBuilder();
-        roleBuilder.name(roleForm.getName());
-        roleBuilder.type(roleForm.getRoleType());
-        return roleBuilder.build();
-    }
-
-    @Override
-    public Role buildRolePermissions(RolePermissionsForm rolePermissionsForm) {
+    public Role updatePermissions(RolePermissionsForm rolePermissionsForm) {
         log.debug("buildRolePermissions() - rolePermissionsForm: " + rolePermissionsForm);
 
-        Role role = findRole(rolePermissionsForm.getRole().getId());
+        Role role = find(rolePermissionsForm.getRole().getId());
         role.getPermissions().clear();
 
         for (RolePermissionDto rolePermissionDto : rolePermissionsForm.getRolePermissions()) {
@@ -114,12 +103,14 @@ public class RoleServiceImpl implements RoleService {
                 role.getPermissions().add(permissionService.findPermission(rolePermissionDto.getPermission().getId()));
             }
         }
-        return role;
+
+        return roleRepository.save(role);
     }
 
     @Override
-    public List<Role> findAllRoles() {
-        return roleRepository.findAll();
+    public void delete(Long id) {
+        log.debug("delete() - id: " + id);
+        roleRepository.delete(id);
     }
 
 }
