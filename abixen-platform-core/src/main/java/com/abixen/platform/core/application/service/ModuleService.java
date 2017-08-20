@@ -14,7 +14,6 @@
 
 package com.abixen.platform.core.application.service;
 
-import com.abixen.platform.core.application.dto.DashboardModuleDto;
 import com.abixen.platform.core.application.form.ModuleForm;
 import com.abixen.platform.core.application.form.ModuleSearchForm;
 import com.abixen.platform.core.domain.model.Module;
@@ -26,23 +25,20 @@ import java.util.List;
 
 public interface ModuleService {
 
-    //@PreAuthorize("hasPermission(#page, 'Module', 'VIEW')")
-    Module createModule(Module module);
+    Module find(Long id);
 
-    Module updateModule(Module module);
+    List<Module> findAll(Page page);
 
-    ModuleForm updateModule(ModuleForm moduleForm);
+    org.springframework.data.domain.Page<Module> findAll(Pageable pageable, ModuleSearchForm moduleSearchForm);
 
-    Module findModule(Long id);
+    Module create(Module module);
 
-    List<Module> findAllByPage(Page page);
+    Module update(Module module);
 
-    void removeAllExcept(Page page, List<Long> ids);
+    ModuleForm update(ModuleForm moduleForm);
 
-    void removeAll(Page page);
+    void deleteAllExcept(Page page, List<Long> ids);
 
-    Module buildModule(DashboardModuleDto dashboardModuleDto, Page page);
-
-    org.springframework.data.domain.Page<Module> findAllModules(Pageable pageable, ModuleSearchForm moduleSearchForm);
+    void deleteAll(Page page);
 
 }

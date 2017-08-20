@@ -52,7 +52,7 @@ public class ModuleController {
     public org.springframework.data.domain.Page<ModuleDto> getModules(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleSearchForm moduleSearchForm) {
         log.debug("getModules()");
 
-        org.springframework.data.domain.Page<Module> modules = moduleService.findAllModules(pageable, moduleSearchForm);
+        org.springframework.data.domain.Page<Module> modules = moduleService.findAll(pageable, moduleSearchForm);
         return moduleToModuleDtoConverter.convertToPage(modules);
     }
 
@@ -60,21 +60,21 @@ public class ModuleController {
     public ModuleDto getModule(@PathVariable Long id) {
         log.debug("getModule() - id: " + id);
 
-        Module module = moduleService.findModule(id);
+        Module module = moduleService.find(id);
 
         return moduleToModuleDtoConverter.convert(module);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateModule(@PathVariable("id") Long id, @RequestBody @Valid ModuleForm moduleForm, BindingResult bindingResult) {
-        log.debug("updateModule() - id: " + id + ", moduleForm: " + moduleForm);
+        log.debug("update() - id: " + id + ", moduleForm: " + moduleForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(moduleForm, formErrors);
         }
 
-        moduleService.updateModule(moduleForm);
+        moduleService.update(moduleForm);
 
         return new FormValidationResultDto(moduleForm);
     }

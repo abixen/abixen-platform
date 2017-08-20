@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -20,9 +20,12 @@ import com.abixen.platform.core.application.dto.PageModelDto;
 import com.abixen.platform.core.application.form.PageConfigurationForm;
 import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.ModuleService;
+import com.abixen.platform.core.application.service.ModuleTypeService;
 import com.abixen.platform.core.application.service.PageConfigurationService;
 import com.abixen.platform.core.application.service.PageService;
 import com.abixen.platform.core.domain.model.Module;
+import com.abixen.platform.core.domain.model.ModuleBuilder;
+import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
 import com.abixen.platform.core.interfaces.converter.ModuleTypeToModuleTypeDtoConverter;
@@ -43,6 +46,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
 
     private final PageService pageService;
     private final ModuleService moduleService;
+    private final ModuleTypeService moduleTypeService;
     private final LayoutService layoutService;
     private final PageToPageDtoConverter pageToPageDtoConverter;
     private final ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter;
@@ -50,11 +54,13 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
     @Autowired
     public PageConfigurationServiceImpl(PageService pageService,
                                         ModuleService moduleService,
+                                        ModuleTypeService moduleTypeService,
                                         LayoutService layoutService,
                                         PageToPageDtoConverter pageToPageDtoConverter,
                                         ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter) {
         this.pageService = pageService;
         this.moduleService = moduleService;
+        this.moduleTypeService = moduleTypeService;
         this.layoutService = layoutService;
         this.pageToPageDtoConverter = pageToPageDtoConverter;
         this.moduleTypeToModuleTypeDtoConverter = moduleTypeToModuleTypeDtoConverter;
@@ -67,7 +73,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
         Page page = pageService.findPage(pageId);
         log.debug("page.getLayout().getContent(): {}", page.getLayout().getContent());
 
-        List<Module> modules = moduleService.findAllByPage(page);
+        List<Module> modules = moduleService.findAll(page);
         List<DashboardModuleDto> dashboardModuleDtos = new ArrayList<>();
 
         modules
@@ -110,7 +116,7 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
         return changePageConfiguration(pageConfigurationForm, true);
     }
 
-    private PageConfigurationForm changePageConfiguration(PageConfigurationForm pageConfigurationForm, boolean configurationChangeType) {
+    PageConfigurationForm changePageConfiguration(PageConfigurationForm pageConfigurationForm, boolean configurationChangeType) {
         List<Long> currentModulesIds = new ArrayList<>();
 
         Page page = pageService.findPage(pageConfigurationForm.getPage().getId());
@@ -128,16 +134,16 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
         updateExistingModules(pageConfigurationForm.getDashboardModuleDtos(), currentModulesIds);
         createNonExistentModules(pageConfigurationForm.getDashboardModuleDtos(), pageConfigurationForm.getPage().getId(), currentModulesIds);
         if (currentModulesIds.isEmpty()) {
-            moduleService.removeAll(page);
+            moduleService.deleteAll(page);
         } else {
-            moduleService.removeAllExcept(page, currentModulesIds);
+            moduleService.deleteAllExcept(page, currentModulesIds);
         }
 
         //FIXME - build a new instance
         return pageConfigurationForm;
     }
 
-    private void updateExistingModules(List<DashboardModuleDto> dashboardModuleDtos, List<Long> modulesIds) {
+    void updateExistingModules(List<DashboardModuleDto> dashboardModuleDtos, List<Long> modulesIds) {
         dashboardModuleDtos
                 .stream()
                 .filter(dashboardModuleDto -> dashboardModuleDto.getId() != null)
@@ -145,17 +151,17 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
 
                     log.debug("updateExistingModules() - dashboardModuleDto: {}", dashboardModuleDto);
 
-                    Module module = moduleService.findModule(dashboardModuleDto.getId());
+                    Module module = moduleService.find(dashboardModuleDto.getId());
                     module.changeDescription(dashboardModuleDto.getDescription());
                     module.changeTitle(dashboardModuleDto.getTitle());
                     module.changePositionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex());
 
-                    moduleService.updateModule(module);
+                    moduleService.update(module);
                     modulesIds.add(module.getId());
                 });
     }
 
-    private void createNonExistentModules(List<DashboardModuleDto> dashboardModuleDtos, Long pageId, List<Long> modulesIds) {
+    void createNonExistentModules(List<DashboardModuleDto> dashboardModuleDtos, Long pageId, List<Long> modulesIds) {
         dashboardModuleDtos
                 .stream()
                 .filter(dashboardModuleDto -> dashboardModuleDto.getId() == null)
@@ -163,14 +169,23 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
 
                             log.debug("createNonExistentModules() - dashboardModuleDto: {}", dashboardModuleDto);
 
-                            Module module = moduleService.buildModule(dashboardModuleDto, pageService.findPage(pageId));
-                            dashboardModuleDto.setId(moduleService.createModule(module).getId());
+                            ModuleType moduleType = moduleTypeService.findModuleType(dashboardModuleDto.getModuleType().getId());
+
+                            Module module = new ModuleBuilder()
+                                    .positionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex())
+                                    .title(dashboardModuleDto.getTitle())
+                                    .moduleType(moduleType)
+                                    .page(pageService.findPage(pageId))
+                                    .description((dashboardModuleDto.getDescription()))
+                                    .build();
+
+                            dashboardModuleDto.setId(moduleService.create(module).getId());
                             modulesIds.add(dashboardModuleDto.getId());
                         }
                 );
     }
 
-    private void validateConfiguration(PageConfigurationForm pageConfigurationForm, Page page) {
+    void validateConfiguration(PageConfigurationForm pageConfigurationForm, Page page) {
         boolean validationFailed = false;
 
         log.debug("pageConfigurationForm.getPage()={}, page={}", pageConfigurationForm.getPage(), page);

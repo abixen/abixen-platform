@@ -158,7 +158,7 @@ public class PageServiceImpl implements PageService {
     @Transactional
     public void deletePage(Long id) {
         log.debug("deletePage() - id={}", id);
-        List<Module> pageModules = moduleService.findAllByPage(pageRepository.findOne(id));
+        List<Module> pageModules = moduleService.findAll(pageRepository.findOne(id));
         moduleRepository.deleteInBatch(pageModules);
         pageRepository.delete(id);
     }

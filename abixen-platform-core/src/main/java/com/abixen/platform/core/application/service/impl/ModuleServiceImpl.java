@@ -18,18 +18,15 @@ import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
 import com.abixen.platform.common.rabbitmq.message.RabbitMQRemoveModuleMessage;
 import com.abixen.platform.common.security.PlatformUser;
-import com.abixen.platform.core.application.dto.DashboardModuleDto;
 import com.abixen.platform.core.application.form.ModuleForm;
 import com.abixen.platform.core.application.form.ModuleSearchForm;
 import com.abixen.platform.core.application.service.AclService;
 import com.abixen.platform.core.application.service.CommentService;
 import com.abixen.platform.core.application.service.ModuleService;
-import com.abixen.platform.core.application.service.ModuleTypeService;
 import com.abixen.platform.core.application.service.RabbitMQOperations;
 import com.abixen.platform.core.application.service.SecurityService;
 import com.abixen.platform.core.application.service.UserService;
 import com.abixen.platform.core.domain.model.Module;
-import com.abixen.platform.core.domain.model.ModuleBuilder;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.ModuleRepository;
@@ -49,7 +46,6 @@ public class ModuleServiceImpl implements ModuleService {
     private final SecurityService securityService;
     private final UserService userService;
     private final ModuleRepository moduleRepository;
-    private final ModuleTypeService moduleTypeService;
     private final AclService aclService;
     private final RabbitMQOperations rabbitMQOperations;
     private final CommentService commentService;
@@ -58,22 +54,20 @@ public class ModuleServiceImpl implements ModuleService {
     public ModuleServiceImpl(SecurityService securityService,
                              UserService userService,
                              ModuleRepository moduleRepository,
-                             ModuleTypeService moduleTypeService,
                              AclService aclService,
                              RabbitMQOperations rabbitMQOperations,
                              CommentService commentService) {
         this.securityService = securityService;
         this.userService = userService;
         this.moduleRepository = moduleRepository;
-        this.moduleTypeService = moduleTypeService;
         this.aclService = aclService;
         this.rabbitMQOperations = rabbitMQOperations;
         this.commentService = commentService;
     }
 
     @Override
-    public Module createModule(Module module) {
-        log.debug("createModule() - module: " + module);
+    public Module create(Module module) {
+        log.debug("create() - module: " + module);
         Module createdModule = moduleRepository.save(module);
         aclService.insertDefaultAcl(createdModule, new ArrayList<PermissionName>() {
             {
@@ -88,37 +82,37 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     @Override
-    public ModuleForm updateModule(ModuleForm moduleForm) {
-        log.debug("updateModule() - moduleForm: " + moduleForm);
+    public ModuleForm update(ModuleForm moduleForm) {
+        log.debug("update() - moduleForm: " + moduleForm);
 
-        Module module = findModule(moduleForm.getId());
+        Module module = find(moduleForm.getId());
         module.changeTitle(moduleForm.getTitle());
         module.changeDescription(moduleForm.getDescription());
 
-        return new ModuleForm(updateModule(module));
+        return new ModuleForm(update(module));
     }
 
     @Override
-    public Module updateModule(Module module) {
-        log.debug("updateModule() - module: " + module);
+    public Module update(Module module) {
+        log.debug("update() - module: " + module);
         return moduleRepository.save(module);
     }
 
     @Override
-    public Module findModule(Long id) {
-        log.debug("findModule() - id: " + id);
+    public Module find(Long id) {
+        log.debug("find() - id: " + id);
         return moduleRepository.findOne(id);
     }
 
     @Override
-    public List<Module> findAllByPage(Page page) {
-        log.debug("findAllByPage() - page: " + page);
+    public List<Module> findAll(Page page) {
+        log.debug("findAll() - page: " + page);
         return moduleRepository.findByPage(page);
     }
 
     @Override
-    public void removeAllExcept(Page page, List<Long> ids) {
-        log.debug("removeAllExcept() - page: " + page + ", ids: " + ids);
+    public void deleteAllExcept(Page page, List<Long> ids) {
+        log.debug("deleteAllExcept() - page: " + page + ", ids: " + ids);
 
         List<Module> modules = moduleRepository.findAllExcept(page, ids);
 
@@ -136,8 +130,8 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     @Override
-    public void removeAll(Page page) {
-        log.debug("removeAll() - page: " + page);
+    public void deleteAll(Page page) {
+        log.debug("deleteAll() - page: " + page);
 
         List<Module> modules = moduleRepository.findByPage(page);
 
@@ -153,21 +147,8 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     @Override
-    public Module buildModule(DashboardModuleDto dashboardModuleDto, Page page) {
-        log.debug("buildModule() - dashboardModuleDto: " + dashboardModuleDto);
-
-        return new ModuleBuilder()
-                .positionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex())
-                .title(dashboardModuleDto.getTitle())
-                .moduleType(moduleTypeService.findModuleType(dashboardModuleDto.getModuleType().getId()))
-                .page(page)
-                .description((dashboardModuleDto.getDescription()))
-                .build();
-    }
-
-    @Override
-    public org.springframework.data.domain.Page<Module> findAllModules(Pageable pageable, ModuleSearchForm moduleSearchForm) {
-        log.debug("findAllModules() - pageable: " + pageable);
+    public org.springframework.data.domain.Page<Module> findAll(Pageable pageable, ModuleSearchForm moduleSearchForm) {
+        log.debug("findAll() - pageable: " + pageable);
         PlatformUser platformAuthorizedUser = securityService.getAuthorizedUser();
         User authorizedUser = userService.find(platformAuthorizedUser.getId());
 

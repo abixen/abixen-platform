@@ -86,7 +86,7 @@ public class CommentServiceTest {
         module.setRowIndex(1);
         module.setColumnIndex(1);
         module.setOrderIndex(1);
-        moduleDb = moduleService.createModule(module);
+        moduleDb = moduleService.create(module);
     }*/
 
     //FIXME - adjust test to the new code
