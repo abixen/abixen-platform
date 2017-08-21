@@ -17,7 +17,9 @@ package com.abixen.platform.common.configuration;
 import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseDataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
@@ -26,6 +28,7 @@ public abstract class AbstractPlatformDataSourceConfiguration {
     AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration;
 
     @Bean(destroyMethod = "close")
+    @LiquibaseDataSource
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(platformJdbcConfiguration.getDriverClassName());
