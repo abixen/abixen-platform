@@ -14,13 +14,14 @@
 
 package com.abixen.platform.core.controller
 
-import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 import spock.lang.Specification
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
+@ActiveProfiles("test")
 class CommentControllerIT extends Specification {
 
 

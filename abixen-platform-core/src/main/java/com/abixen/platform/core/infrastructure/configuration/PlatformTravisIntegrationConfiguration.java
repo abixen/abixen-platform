@@ -11,15 +11,14 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+package com.abixen.platform.core.infrastructure.configuration;
 
-package com.abixen.platform.common.util;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
+import static com.abixen.platform.common.util.PlatformProfiles.TEST;
 
-public final class PlatformProfiles {
-
-    public static final String DEV = "dev";
-
-    public static final String DOCKER = "docker";
-
-    public static final String TEST = "test";
+@Profile({TEST})
+@Configuration
+public class PlatformTravisIntegrationConfiguration {
 }
