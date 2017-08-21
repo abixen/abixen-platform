@@ -377,8 +377,11 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven.failsafe.version}</version>
                 <configuration>
-                    <skip>true</skip>
+                    <skip>false</skip>
                     <includes>**/*IT.*</includes>
+                    <classpathDependencyExcludes>
+                        <classpathDependencyExclude>org.springframework.session:spring-session</classpathDependencyExclude>
+                    </classpathDependencyExcludes>
                 </configuration>
                 <executions>
                     <execution>

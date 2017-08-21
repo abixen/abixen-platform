@@ -14,7 +14,6 @@
 
 package com.abixen.platform.core.controller
 
-import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
