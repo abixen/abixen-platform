@@ -50,5 +50,7 @@ class AclSidServiceTest extends Specification {
         then:
         createdAclSid.sidId == sidId
         createdAclSid.sidType == aclSidType
+        1 * aclSidRepository.save(aclSid) >> aclSid
+        0 * _
     }
 }

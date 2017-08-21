@@ -14,12 +14,9 @@
 
 package com.abixen.platform.core.interfaces.web.application;
 
-import com.abixen.platform.core.interfaces.web.common.AbstractPageController;
-import com.abixen.platform.core.interfaces.web.facade.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.PageDto;
-import com.abixen.platform.core.domain.model.Page;
-import com.abixen.platform.core.application.service.LayoutService;
-import com.abixen.platform.core.application.service.PageService;
+import com.abixen.platform.core.interfaces.web.common.AbstractPageController;
+import com.abixen.platform.core.interfaces.web.facade.PageFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,31 +30,19 @@ import java.util.List;
 @RequestMapping(value = "/api/application/pages")
 public class ApplicationPageController extends AbstractPageController {
 
-    private final PageService pageService;
-    private final LayoutService layoutService;
-    private final PageToPageDtoConverter pageToPageDtoConverter;
+    private final PageFacade pageFacade;
 
     @Autowired
-    public ApplicationPageController(PageService pageService,
-                                     LayoutService layoutService,
-                                     PageToPageDtoConverter pageToPageDtoConverter) {
-        super(pageService);
-        this.pageService = pageService;
-        this.layoutService = layoutService;
-        this.pageToPageDtoConverter = pageToPageDtoConverter;
+    public ApplicationPageController(PageFacade pageFacade) {
+        super(pageFacade);
+        this.pageFacade = pageFacade;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<PageDto> getPages() {
-        log.debug("getPages()");
+    public List<PageDto> findAll() {
+        log.debug("findAll()");
 
-        List<Page> pages = pageService.findAll();
-
-        pages.forEach(page -> {
-            layoutService.convertPageLayoutToJson(page);
-        });
-
-        return pageToPageDtoConverter.convertToList(pages);
+        return pageFacade.findAll();
     }
 
 }
