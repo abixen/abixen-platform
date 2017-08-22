@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PageConfigurationForm implements Form {
+public class DashboardForm implements Form {
 
     @NotNull
     private PageDto page;
@@ -31,15 +31,15 @@ public class PageConfigurationForm implements Form {
     @NotNull
     private List<DashboardModuleDto> dashboardModuleDtos;
 
-    public PageConfigurationForm() {
+    public DashboardForm() {
     }
 
-    public PageConfigurationForm(PageDto page) {
+    public DashboardForm(PageDto page) {
         this.page = page;
         this.dashboardModuleDtos = new ArrayList<>();
     }
 
-    public PageConfigurationForm(PageDto page, List<DashboardModuleDto> dashboardModuleDtos) {
+    public DashboardForm(PageDto page, List<DashboardModuleDto> dashboardModuleDtos) {
         this.page = page;
         this.dashboardModuleDtos = dashboardModuleDtos;
     }

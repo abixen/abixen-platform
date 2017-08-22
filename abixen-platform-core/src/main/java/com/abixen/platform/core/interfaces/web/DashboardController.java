@@ -19,8 +19,8 @@ import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.common.util.ValidationUtil;
-import com.abixen.platform.core.application.dto.PageModelDto;
-import com.abixen.platform.core.application.form.PageConfigurationForm;
+import com.abixen.platform.core.application.form.DashboardForm;
+import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
 import com.abixen.platform.core.interfaces.web.facade.DashboardFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,52 +50,52 @@ public class DashboardController {
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_VIEW + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public PageModelDto find(@PathVariable Long id) {
+    public DashboardDto find(@PathVariable Long id) {
         return dashboardFacade.find(id);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto create(@RequestBody @Valid PageConfigurationForm pageConfigurationForm, BindingResult bindingResult) {
-        log.debug("create() - pageConfigurationForm: {}", pageConfigurationForm);
+    public FormValidationResultDto create(@RequestBody @Valid DashboardForm dashboardForm, BindingResult bindingResult) {
+        log.debug("create() - dashboardForm: {}", dashboardForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(pageConfigurationForm, formErrors);
+            return new FormValidationResultDto(dashboardForm, formErrors);
         }
 
-        PageConfigurationForm updatedPageConfigurationForm = dashboardFacade.create(pageConfigurationForm);
+        DashboardForm updatedDashboardForm = dashboardFacade.create(dashboardForm);
 
-        return new FormValidationResultDto(updatedPageConfigurationForm);
+        return new FormValidationResultDto(updatedDashboardForm);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto update(@PathVariable("id") Long id, @RequestBody @Valid PageConfigurationForm pageConfigurationForm, BindingResult bindingResult) {
-        log.debug("update() - id: {}, pageConfigurationForm: {}", id, pageConfigurationForm);
+    public FormValidationResultDto update(@PathVariable("id") Long id, @RequestBody @Valid DashboardForm dashboardForm, BindingResult bindingResult) {
+        log.debug("update() - id: {}, dashboardForm: {}", id, dashboardForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(pageConfigurationForm, formErrors);
+            return new FormValidationResultDto(dashboardForm, formErrors);
         }
 
-        PageConfigurationForm updatedPageConfigurationForm = dashboardFacade.update(pageConfigurationForm);
+        DashboardForm updatedDashboardForm = dashboardFacade.update(dashboardForm);
 
-        return new FormValidationResultDto(updatedPageConfigurationForm);
+        return new FormValidationResultDto(updatedDashboardForm);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_CONFIGURATION + "')")
     @RequestMapping(value = "/{id}/configure", method = RequestMethod.PUT)
-    public FormValidationResultDto configure(@PathVariable("id") Long id, @RequestBody @Valid PageConfigurationForm pageConfigurationForm, BindingResult bindingResult) {
-        log.debug("configure() - id: {}, pageConfigurationForm: {}", id, pageConfigurationForm);
+    public FormValidationResultDto configure(@PathVariable("id") Long id, @RequestBody @Valid DashboardForm dashboardForm, BindingResult bindingResult) {
+        log.debug("configure() - id: {}, dashboardForm: {}", id, dashboardForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(pageConfigurationForm, formErrors);
+            return new FormValidationResultDto(dashboardForm, formErrors);
         }
 
-        PageConfigurationForm updatedPageConfigurationForm = dashboardFacade.configure(pageConfigurationForm);
+        DashboardForm updatedDashboardForm = dashboardFacade.configure(dashboardForm);
 
-        return new FormValidationResultDto(updatedPageConfigurationForm);
+        return new FormValidationResultDto(updatedDashboardForm);
     }
 }

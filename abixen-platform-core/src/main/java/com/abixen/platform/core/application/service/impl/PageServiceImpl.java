@@ -18,7 +18,7 @@ import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.application.dto.PageDto;
-import com.abixen.platform.core.application.form.PageConfigurationForm;
+import com.abixen.platform.core.application.form.DashboardForm;
 import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.application.form.PageSearchForm;
 import com.abixen.platform.core.application.service.AclService;
@@ -121,12 +121,12 @@ public class PageServiceImpl implements PageService {
 
     @PreAuthorize("hasPermission('" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
     @Override
-    public Page create(PageConfigurationForm pageConfigurationForm) {
+    public Page create(DashboardForm dashboardForm) {
         Page page = new PageBuilder()
-                .layout(layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId()))
-                .title(pageConfigurationForm.getPage().getTitle())
-                .description(pageConfigurationForm.getPage().getDescription())
-                .icon(pageConfigurationForm.getPage().getIcon())
+                .layout(layoutService.findLayout(dashboardForm.getPage().getLayout().getId()))
+                .title(dashboardForm.getPage().getTitle())
+                .description(dashboardForm.getPage().getDescription())
+                .icon(dashboardForm.getPage().getIcon())
                 .build();
 
         return create(page);

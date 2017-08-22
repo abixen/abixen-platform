@@ -16,8 +16,8 @@ package com.abixen.platform.core.interfaces.web.facade.impl;
 
 import com.abixen.platform.core.application.dto.DashboardModuleDto;
 import com.abixen.platform.core.application.dto.PageDto;
-import com.abixen.platform.core.application.dto.PageModelDto;
-import com.abixen.platform.core.application.form.PageConfigurationForm;
+import com.abixen.platform.core.application.form.DashboardForm;
+import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
 import com.abixen.platform.core.application.service.DashboardService;
 import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.ModuleService;
@@ -63,7 +63,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
     }
 
     @Override
-    public PageModelDto find(Long pageId) {
+    public DashboardDto find(Long pageId) {
         Page page = pageService.find(pageId);
 
         List<Module> modules = moduleService.findAll(page);
@@ -87,26 +87,26 @@ public class DashboardFacadeImpl implements DashboardFacade {
         layoutService.convertPageLayoutToJson(page);
         PageDto pageDto = pageToPageDtoConverter.convert(page);
 
-        return new PageModelDto(pageDto, dashboardModules);
+        return new DashboardDto(pageDto, dashboardModules);
     }
 
     @Override
-    public PageConfigurationForm create(PageConfigurationForm pageConfigurationForm) {
-        Page page = pageService.create(pageConfigurationForm);
+    public DashboardForm create(DashboardForm dashboardForm) {
+        Page page = pageService.create(dashboardForm);
         layoutService.convertPageLayoutToJson(page);
         PageDto pageDto = pageToPageDtoConverter.convert(page);
 
-        return new PageConfigurationForm(pageDto);
+        return new DashboardForm(pageDto);
     }
 
     @Override
-    public PageConfigurationForm update(PageConfigurationForm pageConfigurationForm) {
-        return dashboardService.update(pageConfigurationForm);
+    public DashboardForm update(DashboardForm dashboardForm) {
+        return dashboardService.update(dashboardForm);
     }
 
     @Override
-    public PageConfigurationForm configure(PageConfigurationForm pageConfigurationForm) {
-        return dashboardService.configure(pageConfigurationForm);
+    public DashboardForm configure(DashboardForm dashboardForm) {
+        return dashboardService.configure(dashboardForm);
     }
 
 }

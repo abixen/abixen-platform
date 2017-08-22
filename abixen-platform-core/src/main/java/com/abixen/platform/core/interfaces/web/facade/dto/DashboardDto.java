@@ -12,14 +12,17 @@
  * details.
  */
 
-package com.abixen.platform.core.application.dto;
+package com.abixen.platform.core.interfaces.web.facade.dto;
+
+import com.abixen.platform.core.application.dto.DashboardModuleDto;
+import com.abixen.platform.core.application.dto.PageDto;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
 
-public class PageModelDto implements Serializable {
+public class DashboardDto implements Serializable {
 
     private final long serialVersionUID = -7437477767491577712L;
 
@@ -29,10 +32,10 @@ public class PageModelDto implements Serializable {
     @NotNull
     private List<DashboardModuleDto> dashboardModuleDtos;
 
-    public PageModelDto() {
+    public DashboardDto() {
     }
 
-    public PageModelDto(PageDto page, List<DashboardModuleDto> dashboardModuleDtos) {
+    public DashboardDto(PageDto page, List<DashboardModuleDto> dashboardModuleDtos) {
         this.page = page;
         this.dashboardModuleDtos = dashboardModuleDtos;
     }

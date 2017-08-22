@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.core.application.dto.DashboardModuleDto;
-import com.abixen.platform.core.application.form.PageConfigurationForm;
+import com.abixen.platform.core.application.form.DashboardForm;
 import com.abixen.platform.core.application.service.DashboardService;
 import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.ModuleService;
@@ -57,36 +57,36 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public PageConfigurationForm update(PageConfigurationForm pageConfigurationForm) {
-        return change(pageConfigurationForm, false);
+    public DashboardForm update(DashboardForm dashboardForm) {
+        return change(dashboardForm, false);
     }
 
     @Override
-    public PageConfigurationForm configure(PageConfigurationForm pageConfigurationForm) {
-        return change(pageConfigurationForm, true);
+    public DashboardForm configure(DashboardForm dashboardForm) {
+        return change(dashboardForm, true);
     }
 
-    PageConfigurationForm change(PageConfigurationForm pageConfigurationForm, boolean configurationChangeType) {
+    DashboardForm change(DashboardForm dashboardForm, boolean configurationChangeType) {
         List<Long> currentModulesIds = new ArrayList<>();
 
-        Page page = pageService.find(pageConfigurationForm.getPage().getId());
+        Page page = pageService.find(dashboardForm.getPage().getId());
 
         if (configurationChangeType) {
-            validateConfiguration(pageConfigurationForm, page);
+            validateConfiguration(dashboardForm, page);
         }
 
-        page.changeDescription(pageConfigurationForm.getPage().getDescription());
-        page.changeTitle(pageConfigurationForm.getPage().getTitle());
-        page.changeIcon(pageConfigurationForm.getPage().getIcon());
-        page.changeLayout(layoutService.findLayout(pageConfigurationForm.getPage().getLayout().getId()));
+        page.changeDescription(dashboardForm.getPage().getDescription());
+        page.changeTitle(dashboardForm.getPage().getTitle());
+        page.changeIcon(dashboardForm.getPage().getIcon());
+        page.changeLayout(layoutService.findLayout(dashboardForm.getPage().getLayout().getId()));
         pageService.update(page);
 
-        updateExistingModules(pageConfigurationForm.getDashboardModuleDtos(), currentModulesIds);
-        createNonExistentModules(pageConfigurationForm.getDashboardModuleDtos(), pageConfigurationForm.getPage().getId(), currentModulesIds);
+        updateExistingModules(dashboardForm.getDashboardModuleDtos(), currentModulesIds);
+        createNonExistentModules(dashboardForm.getDashboardModuleDtos(), dashboardForm.getPage().getId(), currentModulesIds);
 
         moduleService.deleteAllExcept(page, currentModulesIds);
 
-        return pageConfigurationForm;
+        return dashboardForm;
     }
 
     void updateExistingModules(List<DashboardModuleDto> dashboardModules, List<Long> modulesIds) {
@@ -125,14 +125,14 @@ public class DashboardServiceImpl implements DashboardService {
                 );
     }
 
-    void validateConfiguration(PageConfigurationForm pageConfigurationForm, Page page) {
+    void validateConfiguration(DashboardForm dashboardForm, Page page) {
         boolean validationFailed = false;
 
-        if (page.getDescription() == null && pageConfigurationForm.getPage().getDescription() != null) {
+        if (page.getDescription() == null && dashboardForm.getPage().getDescription() != null) {
             validationFailed = true;
-        } else if (page.getDescription() != null && !page.getDescription().equals(pageConfigurationForm.getPage().getDescription())) {
+        } else if (page.getDescription() != null && !page.getDescription().equals(dashboardForm.getPage().getDescription())) {
             validationFailed = true;
-        } else if (!page.getTitle().equals(pageConfigurationForm.getPage().getTitle())) {
+        } else if (!page.getTitle().equals(dashboardForm.getPage().getTitle())) {
             validationFailed = true;
         }
 

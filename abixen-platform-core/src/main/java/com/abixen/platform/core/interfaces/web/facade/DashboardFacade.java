@@ -15,16 +15,17 @@
 package com.abixen.platform.core.interfaces.web.facade;
 
 
-import com.abixen.platform.core.application.dto.PageModelDto;
-import com.abixen.platform.core.application.form.PageConfigurationForm;
+import com.abixen.platform.core.application.form.DashboardForm;
+import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
 
 public interface DashboardFacade {
 
-    PageModelDto find(Long pageId);
+    DashboardDto find(Long pageId);
 
-    PageConfigurationForm create(PageConfigurationForm pageConfigurationForm);
+    DashboardForm create(DashboardForm dashboardForm);
 
-    PageConfigurationForm update(PageConfigurationForm pageConfigurationForm);
+    DashboardForm update(DashboardForm dashboardForm);
 
-    PageConfigurationForm configure(PageConfigurationForm pageConfigurationForm);
+    DashboardForm configure(DashboardForm dashboardForm);
+
 }

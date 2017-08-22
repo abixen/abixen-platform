@@ -14,7 +14,7 @@
 package com.abixen.platform.core.application.service;
 
 import com.abixen.platform.core.application.dto.LayoutDto;
-import com.abixen.platform.core.application.dto.PageModelDto;
+import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
 import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.interfaces.web.facade.converter.PageToPageDtoConverter;
@@ -48,7 +48,7 @@ public class DashboardServiceTest {
 
     private PageForm samplePageForm;
     private Page samplePage;
-    private PageModelDto dto;
+    private DashboardDto dto;
 
     @Before
     public void generatePageForm() {
@@ -63,7 +63,7 @@ public class DashboardServiceTest {
         //samplePage = pageService.buildPage(samplePageForm);
         //samplePage = pageService.create(samplePage);
 
-        //dto = new PageModelDto();
+        //dto = new DashboardDto();
         //dto.setPage(pageToPageDtoConverter.convert(samplePage));
 
     }

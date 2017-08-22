@@ -14,13 +14,13 @@
 
 package com.abixen.platform.core.application.service;
 
-import com.abixen.platform.core.application.form.PageConfigurationForm;
+import com.abixen.platform.core.application.form.DashboardForm;
 
 
 public interface DashboardService {
 
-    PageConfigurationForm update(PageConfigurationForm pageConfigurationForm);
+    DashboardForm update(DashboardForm dashboardForm);
 
-    PageConfigurationForm configure(PageConfigurationForm pageConfigurationForm);
+    DashboardForm configure(DashboardForm dashboardForm);
 
 }

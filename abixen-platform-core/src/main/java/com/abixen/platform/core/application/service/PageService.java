@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.application.service;
 
-import com.abixen.platform.core.application.form.PageConfigurationForm;
+import com.abixen.platform.core.application.form.DashboardForm;
 import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.application.form.PageSearchForm;
 import com.abixen.platform.core.domain.model.Page;
@@ -33,7 +33,7 @@ public interface PageService {
 
     PageForm create(PageForm pageForm);
 
-    Page create(PageConfigurationForm pageConfigurationForm);
+    Page create(DashboardForm dashboardForm);
 
     Page update(Page page);
 
