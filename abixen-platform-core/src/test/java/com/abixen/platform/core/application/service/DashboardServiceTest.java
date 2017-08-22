@@ -35,10 +35,10 @@ import static org.junit.Assert.assertTrue;
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @Slf4j
-public class PageConfigurationServiceTest {
+public class DashboardServiceTest {
 
     @Autowired
-    private PageConfigurationService pageConfigurationService;
+    private DashboardService dashboardService;
 
     @Autowired
     private PageService pageService;
@@ -73,7 +73,7 @@ public class PageConfigurationServiceTest {
     public void getPageModel() {
         log.debug("getPageModel() id:" + samplePage.getId());
 
-        dto = pageConfigurationService.find(samplePage.getId());
+        //dto = dashboardService.find(samplePage.getId());
 
         assertNotNull(dto);
 

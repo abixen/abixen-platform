@@ -12,13 +12,13 @@
  * details.
  */
 
-package com.abixen.platform.core.application.service;
+package com.abixen.platform.core.interfaces.web.facade;
+
 
 import com.abixen.platform.core.application.dto.PageModelDto;
 import com.abixen.platform.core.application.form.PageConfigurationForm;
 
-
-public interface PageConfigurationService {
+public interface DashboardFacade {
 
     PageModelDto find(Long pageId);
 
@@ -27,5 +27,4 @@ public interface PageConfigurationService {
     PageConfigurationForm update(PageConfigurationForm pageConfigurationForm);
 
     PageConfigurationForm configure(PageConfigurationForm pageConfigurationForm);
-
 }

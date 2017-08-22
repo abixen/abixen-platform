@@ -15,21 +15,17 @@
 package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.core.application.dto.DashboardModuleDto;
-import com.abixen.platform.core.application.dto.PageDto;
-import com.abixen.platform.core.application.dto.PageModelDto;
 import com.abixen.platform.core.application.form.PageConfigurationForm;
+import com.abixen.platform.core.application.service.DashboardService;
 import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.ModuleService;
 import com.abixen.platform.core.application.service.ModuleTypeService;
-import com.abixen.platform.core.application.service.PageConfigurationService;
 import com.abixen.platform.core.application.service.PageService;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.ModuleBuilder;
 import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
-import com.abixen.platform.core.interfaces.web.facade.converter.ModuleTypeToModuleTypeDtoConverter;
-import com.abixen.platform.core.interfaces.web.facade.converter.PageToPageDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,68 +38,22 @@ import java.util.List;
 @Slf4j
 @Transactional
 @Service
-public class PageConfigurationServiceImpl implements PageConfigurationService {
+public class DashboardServiceImpl implements DashboardService {
 
     private final PageService pageService;
     private final ModuleService moduleService;
     private final ModuleTypeService moduleTypeService;
     private final LayoutService layoutService;
-    private final PageToPageDtoConverter pageToPageDtoConverter;
-    private final ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter;
 
     @Autowired
-    public PageConfigurationServiceImpl(PageService pageService,
-                                        ModuleService moduleService,
-                                        ModuleTypeService moduleTypeService,
-                                        LayoutService layoutService,
-                                        PageToPageDtoConverter pageToPageDtoConverter,
-                                        ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter) {
+    public DashboardServiceImpl(PageService pageService,
+                                ModuleService moduleService,
+                                ModuleTypeService moduleTypeService,
+                                LayoutService layoutService) {
         this.pageService = pageService;
         this.moduleService = moduleService;
         this.moduleTypeService = moduleTypeService;
         this.layoutService = layoutService;
-        this.pageToPageDtoConverter = pageToPageDtoConverter;
-        this.moduleTypeToModuleTypeDtoConverter = moduleTypeToModuleTypeDtoConverter;
-    }
-
-    @Override
-    public PageModelDto find(Long pageId) {
-        log.debug("find() - pageId: {}", pageId);
-
-        Page page = pageService.find(pageId);
-        log.debug("page.getLayout().getContent(): {}", page.getLayout().getContent());
-
-        List<Module> modules = moduleService.findAll(page);
-        List<DashboardModuleDto> dashboardModuleDtos = new ArrayList<>();
-
-        modules
-                .stream()
-                .forEach(module ->
-                        dashboardModuleDtos.add(new DashboardModuleDto(
-                                module.getId(),
-                                module.getDescription(),
-                                module.getModuleType().getName(),
-                                moduleTypeToModuleTypeDtoConverter.convert(module.getModuleType()),
-                                module.getTitle(),
-                                module.getRowIndex(),
-                                module.getColumnIndex(),
-                                module.getOrderIndex()
-                        ))
-                );
-
-        layoutService.convertPageLayoutToJson(page);
-        PageDto pageDto = pageToPageDtoConverter.convert(page);
-
-        return new PageModelDto(pageDto, dashboardModuleDtos);
-    }
-
-    @Override
-    public PageConfigurationForm create(PageConfigurationForm pageConfigurationForm) {
-        Page page = pageService.create(pageConfigurationForm);
-        layoutService.convertPageLayoutToJson(page);
-        PageDto pageDto = pageToPageDtoConverter.convert(page);
-
-        return new PageConfigurationForm(pageDto);
     }
 
     @Override
@@ -144,8 +94,6 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                 .stream()
                 .filter(dashboardModule -> dashboardModule.getId() != null)
                 .forEach(dashboardModule -> {
-                    log.debug("updateExistingModules() - dashboardModule: {}", dashboardModule);
-
                     Module module = moduleService.find(dashboardModule.getId());
                     module.changeDescription(dashboardModule.getDescription());
                     module.changeTitle(dashboardModule.getTitle());
@@ -161,8 +109,6 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
                 .stream()
                 .filter(dashboardModuleDto -> dashboardModuleDto.getId() == null)
                 .forEach(dashboardModuleDto -> {
-                            log.debug("createNonExistentModules() - dashboardModuleDto: {}", dashboardModuleDto);
-
                             ModuleType moduleType = moduleTypeService.find(dashboardModuleDto.getModuleType().getId());
 
                             Module module = new ModuleBuilder()
@@ -181,8 +127,6 @@ public class PageConfigurationServiceImpl implements PageConfigurationService {
 
     void validateConfiguration(PageConfigurationForm pageConfigurationForm, Page page) {
         boolean validationFailed = false;
-
-        log.debug("pageConfigurationForm.getPage()={}, page={}", pageConfigurationForm.getPage(), page);
 
         if (page.getDescription() == null && pageConfigurationForm.getPage().getDescription() != null) {
             validationFailed = true;
