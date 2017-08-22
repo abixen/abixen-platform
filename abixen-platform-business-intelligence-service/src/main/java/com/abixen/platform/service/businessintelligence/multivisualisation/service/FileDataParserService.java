@@ -12,11 +12,12 @@
  * details.
  */
 
+package com.abixen.platform.service.businessintelligence.multivisualisation.service;
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.service.impl;
+import com.abixen.platform.service.businessintelligence.multivisualisation.message.FileParserMessage;
+import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileDataParserService;
-
-public interface FileParserFactory {
-    FileDataParserService getParse(String extension);
+public interface FileDataParserService {
+    FileParserMessage<DataFileColumn> parseFile(MultipartFile multipartFile, Boolean readFirstColumnAsColumnName);
 }
