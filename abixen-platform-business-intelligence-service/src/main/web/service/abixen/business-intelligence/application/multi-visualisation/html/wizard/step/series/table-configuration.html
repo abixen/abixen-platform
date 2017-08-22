@@ -1,19 +1,17 @@
-<!-- header -->
 <div class="wizard-table-configuration">
-    <form role="form" name="configWizard.entityForm" novalidate>
+    <form role="form" name="wizardSeries.entityForm" novalidate>
     <div class="row wizard-table-configuration-content">
         <div class="col-lg-4 col-md-4 col-sm-12">
             <!-- series -->
             <div class="wizard-table-configuration-content-columns">
                 <div class="list-group">
-                    <a ng-repeat='column in configWizard.table.columns'
+                    <a ng-repeat='column in wizardSeries.table.columns'
                        ng-show="column.isValid"
-                       ng-click="configWizard.setColumnSelected(column.idx)"
-                       ng-class="{'active': column.idx == configWizard.table.columnSelected.idx}"
+                       ng-click="wizardSeries.setColumnSelected(column.idx)"
+                       ng-class="{'active': column.idx == wizardSeries.table.columnSelected.idx}"
                        class="list-group-item ">
                         <h5 class="list-group-item-heading">{{column.name}}</h5>
-                        <span ng-click="configWizard.table.toggleColumn(column.idx)">
-                           
+                        <span ng-click="wizardSeries.table.toggleColumn(column.idx)">
                             <i ng-class="column.isActive ? 'active': 'nonactive'"
                                class="fa fa-check pull-right"></i><span class="hidden-xs">&nbsp;</span>
                         </span>
@@ -21,15 +19,13 @@
                 </div>
             </div>
         </div>
-
         <div class="col-lg-4 col-md-4 col-sm-12">
             <!-- series details -->
             <div class="wizard-datasource-configuration-content-details">
                 <div class="row">
-
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <select class="form-control" name="singleSelect" id="operatorColumn"
-                                ng-model="configWizard.table.columnSelected.operator">
+                                ng-model="wizardSeries.table.columnSelected.operator">
                             <option value="">Operator</option>
                             <option value="add">Add</option>
                             <option value="divide">Divide</option>
@@ -39,13 +35,10 @@
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <input placeholder=" value" type="text" name="input"
-                               ng-model="configWizard.table.columnSelected.operatorValue"
+                               ng-model="wizardSeries.table.columnSelected.operatorValue"
                                ng-trim="true" class="form-control">
                     </div>
-
-
                 </div>
-
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12">
@@ -60,7 +53,7 @@
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="data in configWizard.table.columnPreviewData">
+                    <tr ng-repeat="data in wizardSeries.table.columnPreviewData">
                         <td>{{data.value}}</td>
                     </tr>
                     </tbody>

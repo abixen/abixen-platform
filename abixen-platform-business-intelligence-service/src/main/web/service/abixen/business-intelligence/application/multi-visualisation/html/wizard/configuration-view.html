@@ -1,0 +1,51 @@
+<div ng-controller="WizardInitController as wizardInit">
+    <div>
+        <ul class="nav nav-wizard">
+            <li ng-class="wizardInit.stepCurrent == '0' ? 'active': 'non-active'">
+                {{'module.multivisualisation.step.moduleType' | translate}}
+            </li>
+            <li ng-class="wizardInit.stepCurrent == '1' ? 'active': 'non-active'">
+                {{'module.multivisualisation.step.dataSource' | translate}}
+            </li>
+            <li ng-class="wizardInit.stepCurrent == '2' ? 'active': 'non-active'">
+                {{'module.multivisualisation.step.configuration' | translate}}
+            </li>
+            <li ng-class="wizardInit.stepCurrent == '3' ? 'active': 'non-active'">
+                {{'module.multivisualisation.step.preview' | translate}}
+            </li>
+        </ul>
+    </div>
+    <div>
+        <div class="chart-view-wizard-component step-content ui-layout-center ui-layout-pane ui-layout-pane-center">
+            <div ng-switch="wizardInit.stepCurrent">
+                <div ng-switch-when="0">
+                    <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/configuration-chart-type-step.html'"></div>
+                </div>
+                <div ng-switch-when="1">
+                    <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/configuration-datasource-step.html'"></div>
+                </div>
+                <div ng-switch-when="2">
+                    <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/configuration-series-step.html'"></div>
+                </div>
+                <div ng-switch-when="3">
+                    <div ng-include="'service/abixen/business-intelligence/application/multi-visualisation/html/wizard/step/configuration-preview-step.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-right bottom-prev-next">
+            <button class="btn nav-button pull-left" ng-disabled="wizardInit.stepCurrent==0"
+                    ng-click="wizardInit.prev()">
+                <i class="fa fa-chevron-circle-left">
+                </i><span class="hidden-xs">&nbsp;{{'module.multivisualisation.prev' | translate}}</span>
+            </button>
+            <button class="btn nav-button pull-right"
+                    ng-disabled="!wizardInit.canNext()" ng-click="wizardInit.next()">
+                <span class="hidden-xs">{{wizardInit.stepCurrent === wizardInit.stepMax? 'module.multivisualisation.save': 'module.multivisualisation.next' | translate}}&nbsp;</span>
+                <i class="fa fa-chevron-circle-right">
+                </i>
+            </button>
+        </div>
+    </div>
+</div>
