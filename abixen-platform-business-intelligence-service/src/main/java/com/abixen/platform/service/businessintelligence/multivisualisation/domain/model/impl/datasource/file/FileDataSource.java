@@ -37,6 +37,9 @@ public class FileDataSource extends DataSource implements Serializable {
     @Valid
     private DataFile dataFile;
 
+    FileDataSource() {
+    }
+
     @OneToMany(mappedBy = "fileDataSource", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FileDataSourceRow> rows = new HashSet<>();
 
@@ -44,7 +47,7 @@ public class FileDataSource extends DataSource implements Serializable {
         return dataFile;
     }
 
-    public void setDataFile(DataFile dataFile) {
+    void setDataFile(DataFile dataFile) {
         this.dataFile = dataFile;
     }
 
@@ -52,7 +55,15 @@ public class FileDataSource extends DataSource implements Serializable {
         return rows;
     }
 
-    public void setRows(Set<FileDataSourceRow> rows) {
+    void setRows(Set<FileDataSourceRow> rows) {
         this.rows = rows;
+    }
+
+    public void changeDataFile(DataFile dataFile) {
+        setDataFile(dataFile);
+    }
+
+    public void changeRows(Set<FileDataSourceRow> rows) {
+        setRows(rows);
     }
 }

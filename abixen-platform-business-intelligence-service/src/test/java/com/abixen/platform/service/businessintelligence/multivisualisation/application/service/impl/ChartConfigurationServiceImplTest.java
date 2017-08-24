@@ -19,7 +19,9 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumnBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.ChartConfigurationRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSetRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceColumnRepository;
@@ -111,15 +113,16 @@ public class ChartConfigurationServiceImplTest {
         DataSetChart dataSetChart = new DataSetChart();
         DataSetSeriesColumn dataSetSeriesColumnFirst = new DataSetSeriesColumn();
         dataSetSeriesColumnFirst.setName("");
-        DataSourceColumn dataSourceColumnFirst = new DataSourceColumn();
-        dataSourceColumnFirst.setDataValueType(DataValueType.STRING);
-        dataSourceColumnFirst.setName("");
-        dataSetSeriesColumnFirst.setDataSourceColumn(dataSourceColumnFirst);
+        DataSourceColumn dataSourceColumnFirst = new DataSourceColumnBuilder()
+                .details("")
+                .paramters(DataValueType.STRING, 1)
+                .build();
         dataSetChart.setDomainXSeriesColumn(dataSetSeriesColumnFirst);
         DataSetSeriesColumn dataSetSeriesColumnSecond = new DataSetSeriesColumn();
-        DataSourceColumn dataSourceColumnSecond = new DataSourceColumn();
-        dataSourceColumnSecond.setDataValueType(DataValueType.STRING);
-        dataSourceColumnSecond.setName("");
+        DataSourceColumn dataSourceColumnSecond = new DataSourceColumnBuilder()
+                .details("")
+                .paramters(DataValueType.STRING, 2)
+                .build();
         dataSetSeriesColumnSecond.setDataSourceColumn(dataSourceColumnSecond);
         Set<DataSetSeries> dataSetSeries = new HashSet<>();
         DataSetSeries dataSetSeries1 = new DataSetSeries();
@@ -128,14 +131,15 @@ public class ChartConfigurationServiceImplTest {
         dataSetSeries.add(dataSetSeries1);
         dataSetChart.setDataSetSeries(dataSetSeries);
         DataSetSeriesColumn dataSetSeriesColumnThird = new DataSetSeriesColumn();
-        DataSourceColumn dataSourceColumnThird = new DataSourceColumn();
-        dataSourceColumnThird.setDataValueType(DataValueType.STRING);
-        dataSourceColumnThird.setName("");
+        DataSourceColumn dataSourceColumnThird = new DataSourceColumnBuilder()
+                .details("")
+                .paramters(DataValueType.STRING, 3)
+                .build();
         dataSetSeriesColumnThird.setDataSourceColumn(dataSourceColumnThird);
         dataSetChart.setDomainZSeriesColumn(dataSetSeriesColumnThird);
-        dataSourceColumnFirst.setDataSource(dataSource);
-        dataSourceColumnSecond.setDataSource(dataSource);
-        dataSourceColumnThird.setDataSource(dataSource);
+        dataSourceColumnFirst.changeDataSource(dataSource);
+        dataSourceColumnSecond.changeDataSource(dataSource);
+        dataSourceColumnThird.changeDataSource(dataSource);
         dataSourceColumnRepository.save(dataSourceColumnFirst);
         dataSourceColumnRepository.save(dataSourceColumnSecond);
         dataSourceColumnRepository.save(dataSourceColumnThird);
@@ -145,26 +149,26 @@ public class ChartConfigurationServiceImplTest {
     }
 
     private DataSource prepareDataSource() {
-        DataSource dataSource = new DataSource();
-        dataSource.setName(DATASOURCE_NAME);
-        dataSource.setFilter(DATASOURCE_FILTER);
-        dataSource.setDescription(DATASOURCE_DESCRIPTION);
-        dataSource.setDataSourceType(DataSourceType.DB);
+        DataSource dataSource = new DataSourceBuilder()
+                .details(DATASOURCE_NAME, DATASOURCE_DESCRIPTION)
+                .paramters(DataSourceType.DB, DATASOURCE_FILTER)
+                .build();
         dataSource = dataSourceRepository.save(dataSource);
-        DataSourceColumn dataSourceColumnFirst = new DataSourceColumn();
-        dataSourceColumnFirst.setDataValueType(DataValueType.STRING);
-        dataSourceColumnFirst.setName("");
-        dataSourceColumnFirst.setDataSource(dataSource);
+        DataSourceColumn dataSourceColumnFirst = new DataSourceColumnBuilder()
+                .details("")
+                .paramters(DataValueType.STRING, 1)
+                .dataSource(dataSource)
+                .build();
         dataSourceColumnFirst = dataSourceColumnRepository.save(dataSourceColumnFirst);
-        DataSourceColumn dataSourceColumnSecond = new DataSourceColumn();
-        dataSourceColumnSecond.setDataValueType(DataValueType.STRING);
-        dataSourceColumnSecond.setName("");
-        dataSourceColumnSecond.setDataSource(dataSource);
+        DataSourceColumn dataSourceColumnSecond = new DataSourceColumnBuilder()
+                .details("")
+                .paramters(DataValueType.STRING, 2)
+                .build();
         dataSourceColumnSecond = dataSourceColumnRepository.save(dataSourceColumnSecond);
         Set<DataSourceColumn> dataSourceColumns = new HashSet<>();
         dataSourceColumns.add(dataSourceColumnFirst);
         dataSourceColumns.add(dataSourceColumnSecond);
-        dataSource.setColumns(dataSourceColumns);
+        dataSource.changeColumns(dataSourceColumns);
         return dataSourceRepository.save(dataSource);
     }
 }

@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumnBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.DataFileToDataFileDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
@@ -82,11 +83,10 @@ public class DataFileServiceImpl implements DataFileService {
         List<DataSourceColumn> result = new ArrayList<>();
         DataFile dataFile = dataFileRepository.getOne(dataFileId);
         for (DataFileColumn dataFileColumn : dataFile.getColumns()) {
-            DataSourceColumn dataSourceColumn = new DataSourceColumn();
-            dataSourceColumn.setName(dataFileColumn.getName());
-            dataSourceColumn.setPosition(dataFileColumn.getPosition());
-            dataSourceColumn.setDataValueType(dataFileColumn.getDataValueType());
-            result.add(dataSourceColumn);
+            result.add(new DataSourceColumnBuilder()
+                    .details(dataFileColumn.getName())
+                    .paramters(dataFileColumn.getDataValueType(), dataFileColumn.getPosition())
+                    .build());
         }
         return result;
     }

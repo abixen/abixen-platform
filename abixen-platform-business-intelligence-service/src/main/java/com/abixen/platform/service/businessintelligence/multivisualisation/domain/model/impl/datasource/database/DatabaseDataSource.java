@@ -43,12 +43,14 @@ public class DatabaseDataSource extends DataSource implements Serializable {
     @Column(name = "selected_table", nullable = true)
     private String table;
 
+    DatabaseDataSource() {
+    }
 
     public DatabaseConnection getDatabaseConnection() {
         return databaseConnection;
     }
 
-    public void setDatabaseConnection(DatabaseConnection databaseConnection) {
+    void setDatabaseConnection(DatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
 
@@ -57,7 +59,7 @@ public class DatabaseDataSource extends DataSource implements Serializable {
         return filter;
     }
 
-    public void setFilter(String filter) {
+    void setFilter(String filter) {
         this.filter = filter;
     }
 
@@ -65,8 +67,20 @@ public class DatabaseDataSource extends DataSource implements Serializable {
         return table;
     }
 
-    public void setTable(String table) {
+    void setTable(String table) {
         this.table = table;
+    }
+
+    public void changeDatabaseConnection(DatabaseConnection databaseConnection) {
+        setDatabaseConnection(databaseConnection);
+    }
+
+    public void changeFilter(String filter) {
+        setFilter(filter);
+    }
+
+    public void changeTable(String table) {
+        setTable(table);
     }
 
 
