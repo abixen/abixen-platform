@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -63,12 +63,11 @@ public class DataSourceColumn implements Serializable {
     @Valid
     private DataSource dataSource;
 
-
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(Long id) {
         this.id = id;
     }
 
@@ -76,7 +75,7 @@ public class DataSourceColumn implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -84,7 +83,7 @@ public class DataSourceColumn implements Serializable {
         return position;
     }
 
-    public void setPosition(Integer position) {
+    void setPosition(Integer position) {
         this.position = position;
     }
 
@@ -92,7 +91,7 @@ public class DataSourceColumn implements Serializable {
         return dataValueType;
     }
 
-    public void setDataValueType(DataValueType dataValueType) {
+    void setDataValueType(DataValueType dataValueType) {
         this.dataValueType = dataValueType;
     }
 
@@ -100,9 +99,21 @@ public class DataSourceColumn implements Serializable {
         return dataSource;
     }
 
-    public void setDataSource(DataSource dataSource) {
+    void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
+    public void changeDetails(String name) {
+        setName(name);
+    }
+
+    public void changeParameters(DataValueType dataValueType, Integer position) {
+        setDataValueType(dataValueType);
+        setPosition(position);
+    }
+
+    public void changeDataSource(DataSource dataSource) {
+        setDataSource(dataSource);
+    }
 
 }

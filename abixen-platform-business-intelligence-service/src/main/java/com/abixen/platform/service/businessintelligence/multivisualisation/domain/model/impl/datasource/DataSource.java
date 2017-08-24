@@ -66,12 +66,15 @@ public class DataSource extends AuditingModel implements Serializable {
     @Column(name = "filter", nullable = true)
     private String filter;
 
+    protected DataSource() {
+    }
+
     @Override
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(Long id) {
         this.id = id;
     }
 
@@ -79,7 +82,7 @@ public class DataSource extends AuditingModel implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -87,7 +90,7 @@ public class DataSource extends AuditingModel implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
@@ -95,17 +98,9 @@ public class DataSource extends AuditingModel implements Serializable {
         return columns;
     }
 
-    public void setColumns(Set<DataSourceColumn> columns) {
+    void setColumns(Set<DataSourceColumn> columns) {
         if (this.columns != null) {
             this.columns.clear();
-            this.columns.addAll(columns);
-        } else {
-            this.columns = columns;
-        }
-    }
-
-    public void addColumns(Set<DataSourceColumn> columns) {
-        if (this.columns != null) {
             this.columns.addAll(columns);
         } else {
             this.columns = columns;
@@ -122,7 +117,7 @@ public class DataSource extends AuditingModel implements Serializable {
         return dataSourceType;
     }
 
-    public void setDataSourceType(DataSourceType dataSourceType) {
+    void setDataSourceType(DataSourceType dataSourceType) {
         this.dataSourceType = dataSourceType;
     }
 
@@ -130,8 +125,22 @@ public class DataSource extends AuditingModel implements Serializable {
         return filter;
     }
 
-    public void setFilter(String filter) {
+    void setFilter(String filter) {
         this.filter = filter;
+    }
+
+    public void changeDetails(final String name, final String description) {
+        setName(name);
+        setDescription(description);
+    }
+
+    public void changeParameters(DataSourceType dataSourceType, String filter) {
+        setDataSourceType(dataSourceType);
+        setFilter(filter);
+    }
+
+    public void changeColumns(Set<DataSourceColumn> columns) {
+        setColumns(columns);
     }
 
 

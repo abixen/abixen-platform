@@ -15,16 +15,10 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.util.*;
 
 
 public interface DomainBuilderService {
-
-    DatabaseDataSourceBuilder newDatabaseDataSourceBuilderInstance(DatabaseDataSource databaseDataSource);
-
-    FileDataSourceBuilder newFileDataSourceBuilderInstance(FileDataSource fileDataSource);
 
     DataFileBuilder newDataFileBuilderInstance();
 
@@ -33,8 +27,6 @@ public interface DomainBuilderService {
     DataSetSeriesBuilder newDataSetSeriesBuilderInstance();
 
     DataSetSeriesColumnBuilder newDataSetSeriesColumnBuilderInstance();
-
-    DataSourceColumnBuilder newDataSourceColumnBuilderInstance();
 
     DataSourceValueBuilder newDataSourceValueBuilderInstance(DataValueType dataValueType);
 

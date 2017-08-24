@@ -16,6 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumnBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.infrastructure.exception.DataParsingException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.infrastructure.exception.DataSourceValueException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
@@ -91,10 +92,10 @@ public abstract class AbstractDatabaseService {
     private DataSourceColumn prepareDataSourceColumns(ResultSetMetaData rsmd, int i) throws SQLException {
         DataValueType dataValueType = DataValueType.valueOf(getValidColumnTypeName(i, rsmd));
         String name = rsmd.getColumnName(i);
-        DataSourceColumn dataSourceColumn = new DataSourceColumn();
-        dataSourceColumn.setName(name);
-        dataSourceColumn.setDataValueType(dataValueType);
-        return dataSourceColumn;
+        return new DataSourceColumnBuilder()
+                .details(name)
+                .paramters(dataValueType, i)
+                .build();
     }
 
     private ResultSetMetaData getDatabaseMetaData(Connection connection, String tableName) throws SQLException {
