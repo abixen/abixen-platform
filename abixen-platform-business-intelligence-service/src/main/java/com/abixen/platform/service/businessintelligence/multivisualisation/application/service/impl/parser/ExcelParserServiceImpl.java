@@ -23,6 +23,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueString;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.FileParserService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumnBuilder;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -75,14 +76,14 @@ public class ExcelParserServiceImpl implements FileParserService {
     private List<DataFileColumn> getColumns(Row headerRow, Sheet sheet, Boolean readFirstColumnAsColumnName) {
         List<DataFileColumn> dataFileColumns = new ArrayList<>();
         for (int i = 0; i < headerRow.getPhysicalNumberOfCells(); i++) {
-            DataFileColumn dataFileColumn = new DataFileColumn();
             int firstDataRow = readFirstColumnAsColumnName ? headerRowIndex + 1 : headerRowIndex;
             DataValueType columnType = getColumnTypeAsDataValueType(sheet.getRow(firstDataRow).getCell(i), i);
-            dataFileColumn.setDataValueType(columnType);
-            dataFileColumn.setPosition(i);
-            dataFileColumn.setName(getColumnNames(sheet, i, readFirstColumnAsColumnName));
-            dataFileColumn.setValues(getValues(sheet, i, columnType, firstDataRow));
-            dataFileColumns.add(dataFileColumn);
+            dataFileColumns.add((DataFileColumn) new DataFileColumnBuilder()
+                    .dataValueType(columnType)
+                    .values(getValues(sheet, i, columnType, firstDataRow))
+                    .name(getColumnNames(sheet, i, readFirstColumnAsColumnName))
+                    .position(i)
+                    .build());
         }
         return dataFileColumns;
     }

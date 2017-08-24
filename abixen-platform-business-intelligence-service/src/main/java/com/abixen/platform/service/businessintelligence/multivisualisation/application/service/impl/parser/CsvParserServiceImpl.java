@@ -21,16 +21,14 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.FileParserService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumnBuilder;
 import com.opencsv.CSVReader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @Service("csvParserService")
@@ -152,18 +150,22 @@ public class CsvParserServiceImpl implements FileParserService {
         List<DataValueType> columnTypes = getColumnTypeAsDataValueTypeList(msg, columnType);
         List<DataFileColumn> dataFileColumns = new ArrayList<>();
         for (int i = 0; i < columnTypes.size(); i++) {
-            DataFileColumn dataFileColumn = new DataFileColumn();
+            String name = null;
             if (header != null) {
-                dataFileColumn.setName(header[i]);
+                name = header[i];
             }
-            dataFileColumn.setDataValueType(columnTypes.get(i));
             List<DataValue> dataValues = new ArrayList<>();
             for (int j = 0; j < data.size(); j++) {
                 String[] lineAsList = data.get(j);
                 dataValues.add(parseAs(columnTypes.get(i), lineAsList[i].trim()));
             }
-            dataFileColumn.setValues(dataValues);
-            dataFileColumns.add(dataFileColumn);
+            dataFileColumns.add((DataFileColumn) new DataFileColumnBuilder()
+                    .dataValueType(columnTypes.get(i))
+                    .values(dataValues)
+                    .name(name)
+                    .position(i)
+                    .build()
+            );
         }
         return dataFileColumns;
     }

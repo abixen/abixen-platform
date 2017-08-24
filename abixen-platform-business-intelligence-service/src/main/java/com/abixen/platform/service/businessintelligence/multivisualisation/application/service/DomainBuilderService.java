@@ -20,8 +20,6 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 
 public interface DomainBuilderService {
 
-    DataFileBuilder newDataFileBuilderInstance();
-
     DataSetBuilder newDataSetBuilderInstance();
 
     DataSetSeriesBuilder newDataSetSeriesBuilderInstance();

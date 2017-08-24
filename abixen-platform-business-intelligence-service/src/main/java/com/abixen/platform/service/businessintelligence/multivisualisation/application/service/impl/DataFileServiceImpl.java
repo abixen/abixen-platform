@@ -16,6 +16,8 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumnBuilder;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileBuilder;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumnBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.DataFileToDataFileDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
@@ -30,7 +32,6 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataFileRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.FileDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataFileService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DomainBuilderService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.FileParserService;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -49,18 +51,15 @@ public class DataFileServiceImpl implements DataFileService {
 
     private final DataFileRepository dataFileRepository;
     private final FileDataSourceRepository fileDataSourceRepository;
-    private final DomainBuilderService domainBuilderService;
     private final FileParserFactory fileParserFactory;
     private final DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter;
 
     @Autowired
     public DataFileServiceImpl(FileDataSourceRepository fileDataSourceRepository,
                                FileParserFactory fileParserFactory,
-                               DomainBuilderService domainBuilderService,
                                DataFileRepository dataFileRepository,
                                DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter) {
         this.fileDataSourceRepository = fileDataSourceRepository;
-        this.domainBuilderService = domainBuilderService;
         this.fileParserFactory = fileParserFactory;
         this.dataFileRepository = dataFileRepository;
         this.dataFileToDataFileDtoConverter = dataFileToDataFileDtoConverter;
@@ -92,11 +91,27 @@ public class DataFileServiceImpl implements DataFileService {
     }
 
     @Override
-    public DataFile buildDataFile(DataFileForm fileDataForm) {
-        return domainBuilderService.newDataFileBuilderInstance()
-            .base(fileDataForm.getName(), fileDataForm.getDescription())
-            .data(fileDataForm.getColumns())
-            .build();
+    public DataFile buildDataFile(DataFileForm dataFileForm) {
+        DataFile dataFile = new DataFileBuilder()
+                .details(dataFileForm.getName(), dataFileForm.getDescription())
+                .columns(dataFileForm.getColumns().stream()
+                                .map(dataFileColumnDto -> (DataFileColumn) new DataFileColumnBuilder()
+                                        .dataValueType(dataFileColumnDto.getDataValueType())
+                                        .name(dataFileColumnDto.getName())
+                                        .values(dataFileColumnDto.getValues().stream()
+                                                .map(dataValueDto -> getObjForValue(dataValueDto.getValue().toString().trim()))
+                                                .collect(Collectors.toList()))
+                                        .position(dataFileColumnDto.getPosition())
+                                        .build()
+                                ).collect(Collectors.toSet()))
+                .build();
+        dataFile.getColumns()
+                .forEach(dataFileColumn -> {
+                    dataFileColumn.changeDataFile(dataFile);
+                    dataFileColumn.getValues().forEach(dataValue -> dataValue.setDataColumn(dataFileColumn));
+                });
+
+        return dataFile;
     }
 
     @Override
@@ -117,26 +132,23 @@ public class DataFileServiceImpl implements DataFileService {
         log.debug("updateDataFile() - fileDataForm: " + dataFileForm);
 
         DataFile dataFile = findDataFile(dataFileForm.getId());
-        dataFile.setName(dataFileForm.getName());
-        dataFile.setDescription(dataFileForm.getDescription());
-        List<DataFileColumn> columns = new ArrayList<>();
-        dataFileForm.getColumns().forEach(entity -> {
-            DataFileColumn dataFileColumn = new DataFileColumn();
-            dataFileColumn.setName(entity.getName());
-            List<DataValue> values = new ArrayList<>();
-            entity.getValues().forEach(child -> {
-                if (child != null && child.getValue() != null) {
-                    String value = child.getValue().toString().trim();
-                    DataValue dataValue = getObjForValue(value);
-                    dataValue.setDataColumn(dataFileColumn);
-                    values.add(dataValue);
-                }
-            });
-            dataFileColumn.setValues(values);
-            dataFileColumn.setDataFile(dataFile);
-            columns.add(dataFileColumn);
-        });
-        dataFile.setColumns(columns);
+        dataFile.changeDetails(dataFileForm.getName(), dataFileForm.getDescription());
+        dataFile.changeColumns(dataFileForm.getColumns().stream()
+                .map(dataFileColumnDto -> (DataFileColumn) new DataFileColumnBuilder()
+                        .dataValueType(dataFileColumnDto.getDataValueType())
+                        .name(dataFileColumnDto.getName())
+                        .values(dataFileColumnDto.getValues().stream()
+                                .map(dataValueDto -> getObjForValue(dataValueDto.getValue().toString().trim()))
+                                .collect(Collectors.toList()))
+                        .position(dataFileColumnDto.getPosition())
+                        .build()
+                ).collect(Collectors.toSet()));
+
+        dataFile.getColumns()
+                .forEach(dataFileColumn -> {
+                    dataFileColumn.changeDataFile(dataFile);
+                    dataFileColumn.getValues().forEach(dataValue -> dataValue.setDataColumn(dataFileColumn));
+                });
 
         return updateDataFile(dataFile);
     }
