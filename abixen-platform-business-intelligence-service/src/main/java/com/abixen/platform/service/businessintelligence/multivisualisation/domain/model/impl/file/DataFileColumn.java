@@ -39,7 +39,7 @@ public class DataFileColumn extends DataColumn {
         return dataFile;
     }
 
-    public void setDataFile(DataFile dataFile) {
+    void setDataFile(DataFile dataFile) {
         this.dataFile = dataFile;
     }
 
@@ -47,7 +47,15 @@ public class DataFileColumn extends DataColumn {
         return dataValueType;
     }
 
-    public void setDataValueType(DataValueType dataValueType) {
+    void setDataValueType(DataValueType dataValueType) {
         this.dataValueType = dataValueType;
+    }
+
+    public void changeDataFile(DataFile dataFile) {
+        setDataFile(dataFile);
+    }
+
+    public void changeDataValueType(DataValueType dataValueType) {
+        setDataValueType(dataValueType);
     }
 }

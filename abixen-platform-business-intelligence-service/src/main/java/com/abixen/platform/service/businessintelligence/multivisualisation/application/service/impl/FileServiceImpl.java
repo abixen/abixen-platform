@@ -49,7 +49,7 @@ public class FileServiceImpl implements FileService {
 
     private List<Map<String, DataValueDto>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm) {
         DataFile dataFile = fileDataSource.getDataFile();
-        int size = dataFile.getColumns().get(INDEX_OF_FIRST_ELEMENT).getValues().size();
+        int size = dataFile.getColumns().stream().findFirst().get().getValues().size();
         List<String> columnNames = getColumnNames(chartConfigurationForm);
         return getData(dataFile, size, columnNames);
     }

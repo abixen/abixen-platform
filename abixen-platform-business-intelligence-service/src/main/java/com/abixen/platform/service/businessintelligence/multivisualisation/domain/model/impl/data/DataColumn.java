@@ -46,7 +46,7 @@ public class DataColumn {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(Long id) {
         this.id = id;
     }
 
@@ -54,7 +54,7 @@ public class DataColumn {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -62,7 +62,7 @@ public class DataColumn {
         return position;
     }
 
-    public void setPosition(Integer position) {
+    void setPosition(Integer position) {
         this.position = position;
     }
 
@@ -70,7 +70,7 @@ public class DataColumn {
         return values;
     }
 
-    public void setValues(List<DataValue> values) {
+    void setValues(List<DataValue> values) {
         if (this.values != null) {
             this.values.clear();
             this.values.addAll(values);
@@ -79,17 +79,15 @@ public class DataColumn {
         }
     }
 
-    public void addValues(List<DataValue> values) {
-        if (this.values != null) {
-            this.values.addAll(values);
-        } else {
-            this.values = values;
-        }
+    public void changeName(String name) {
+        setName(name);
     }
 
-    public void removeValues(List<DataValue> values) {
-        if (this.values != null) {
-            this.values.removeAll(values);
-        }
+    public void changePosition(Integer position) {
+        setPosition(position);
+    }
+
+    public void changeValues(List<DataValue> values) {
+        setValues(values);
     }
 }

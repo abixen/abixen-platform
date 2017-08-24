@@ -21,8 +21,8 @@ import com.abixen.platform.common.util.ModelKeys;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "data_file")
@@ -42,13 +42,16 @@ public class DataFile extends AuditingModel implements Serializable {
     private String description;
 
     @OneToMany(mappedBy = "dataFile", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DataFileColumn> columns = new ArrayList<>();
+    private Set<DataFileColumn> columns = new HashSet<>();
+
+    DataFile() {
+    }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(Long id) {
         this.id = id;
     }
 
@@ -56,7 +59,7 @@ public class DataFile extends AuditingModel implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -64,15 +67,15 @@ public class DataFile extends AuditingModel implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
-    public List<DataFileColumn> getColumns() {
+    public Set<DataFileColumn> getColumns() {
         return columns;
     }
 
-    public void setColumns(List<DataFileColumn> columns) {
+    public void setColumns(Set<DataFileColumn> columns) {
         if (this.columns != null) {
             this.columns.clear();
             this.columns.addAll(columns);
@@ -81,17 +84,12 @@ public class DataFile extends AuditingModel implements Serializable {
         }
     }
 
-    public void addColumns(List<DataFileColumn> columns) {
-        if (this.columns != null) {
-            this.columns.addAll(columns);
-        } else {
-            this.columns = columns;
-        }
+    public void changeDetails(String name, String description) {
+        setName(name);
+        setDescription(description);
     }
 
-    public void removeColumns(List<DataFileColumn> columns) {
-        if (this.columns != null) {
-            this.columns.removeAll(columns);
-        }
+    public void changeColumns(Set<DataFileColumn> columns) {
+        setColumns(columns);
     }
 }
