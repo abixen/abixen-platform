@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.interfaces.web.application;
 
+import com.abixen.platform.core.application.service.UserManagementService;
 import com.abixen.platform.core.interfaces.web.common.AbstractUserController;
-import com.abixen.platform.core.interfaces.web.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApplicationUserController extends AbstractUserController {
 
     @Autowired
-    public ApplicationUserController(UserFacade userFacade) {
-        super(userFacade);
+    public ApplicationUserController(UserManagementService userManagementService) {
+        super(userManagementService);
     }
+
 }

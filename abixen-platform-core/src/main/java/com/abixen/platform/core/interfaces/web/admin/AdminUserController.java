@@ -20,8 +20,8 @@ import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.UserDto;
 import com.abixen.platform.core.application.form.UserRolesForm;
 import com.abixen.platform.core.application.form.UserSearchForm;
+import com.abixen.platform.core.application.service.UserManagementService;
 import com.abixen.platform.core.interfaces.web.common.AbstractUserController;
-import com.abixen.platform.core.interfaces.web.facade.UserFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,20 +43,20 @@ import java.util.List;
 @RequestMapping(value = "/api/control-panel/users")
 public class AdminUserController extends AbstractUserController {
 
-    private final UserFacade userFacade;
+    private final UserManagementService userManagementService;
 
     @Autowired
-    public AdminUserController(UserFacade userFacade) {
-        super(userFacade);
+    public AdminUserController(UserManagementService userManagementService) {
+        super(userManagementService);
 
-        this.userFacade = userFacade;
+        this.userManagementService = userManagementService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<UserDto> findAll(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
         log.debug("findAll()");
 
-        return userFacade.findAll(pageable, userSearchForm);
+        return userManagementService.findAllUsers(pageable, userSearchForm);
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.PUT)
@@ -68,7 +68,7 @@ public class AdminUserController extends AbstractUserController {
             return new FormValidationResultDto(userRolesForm, formErrors);
         }
 
-        UserRolesForm updatedUserRolesForm = userFacade.updateRoles(userRolesForm);
+        UserRolesForm updatedUserRolesForm = userManagementService.updateUserRoles(userRolesForm);
 
         return new FormValidationResultDto(updatedUserRolesForm);
     }
@@ -77,6 +77,7 @@ public class AdminUserController extends AbstractUserController {
     public UserDto find(@PathVariable("username") String username) {
         log.debug("getUserByUsername() - username: " + username);
 
-        return userFacade.find(username);
+        return userManagementService.findUser(username);
     }
+
 }

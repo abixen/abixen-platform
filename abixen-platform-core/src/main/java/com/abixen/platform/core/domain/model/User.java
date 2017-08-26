@@ -316,4 +316,9 @@ public class User extends AuditingModel {
         setSelectedLanguage(selectedLanguage);
     }
 
+    public void changeRoles(Set<Role> roles) {
+        getRoles().clear();
+        getRoles().addAll(roles);
+    }
+
 }

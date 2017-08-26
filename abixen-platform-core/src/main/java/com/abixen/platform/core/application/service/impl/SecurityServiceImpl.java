@@ -25,7 +25,7 @@ import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.AclEntryRepository;
 import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.application.service.SecurityService;
-import com.abixen.platform.core.application.service.UserService;
+import com.abixen.platform.core.domain.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

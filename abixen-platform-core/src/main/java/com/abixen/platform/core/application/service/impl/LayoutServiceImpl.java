@@ -25,7 +25,7 @@ import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.LayoutRepository;
 import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.SecurityService;
-import com.abixen.platform.core.application.service.UserService;
+import com.abixen.platform.core.domain.service.UserService;
 import com.abixen.platform.core.application.util.LayoutColumnUtil;
 import com.abixen.platform.core.application.util.LayoutRowUtil;
 import com.google.gson.Gson;

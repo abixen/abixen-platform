@@ -20,7 +20,7 @@ import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.application.service.SecuribleModelService;
 import com.abixen.platform.core.application.service.SecurityService;
-import com.abixen.platform.core.application.service.UserService;
+import com.abixen.platform.core.domain.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

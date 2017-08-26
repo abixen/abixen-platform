@@ -16,7 +16,7 @@ package com.abixen.platform.core.interfaces.web.intranet;
 
 
 import com.abixen.platform.core.interfaces.web.common.AbstractUserController;
-import com.abixen.platform.core.interfaces.web.facade.UserFacade;
+import com.abixen.platform.core.application.service.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IntranetUserController extends AbstractUserController {
 
     @Autowired
-    public IntranetUserController(UserFacade userFacade) {
+    public IntranetUserController(UserManagementService userFacade) {
         super(userFacade);
     }
 }

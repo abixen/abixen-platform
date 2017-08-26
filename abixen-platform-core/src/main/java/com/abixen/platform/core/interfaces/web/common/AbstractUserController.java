@@ -22,7 +22,7 @@ import com.abixen.platform.core.application.dto.UserDto;
 import com.abixen.platform.core.application.form.UserChangePasswordForm;
 import com.abixen.platform.core.application.form.UserForm;
 import com.abixen.platform.core.application.form.UserRolesForm;
-import com.abixen.platform.core.interfaces.web.facade.UserFacade;
+import com.abixen.platform.core.application.service.UserManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,17 +44,17 @@ import java.util.List;
 @Slf4j
 public abstract class AbstractUserController {
 
-    private final UserFacade userFacade;
+    private final UserManagementService userManagementService;
 
-    public AbstractUserController(UserFacade userFacade) {
-        this.userFacade = userFacade;
+    public AbstractUserController(UserManagementService userManagementService) {
+        this.userManagementService = userManagementService;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public UserDto find(@PathVariable Long id) {
         log.debug("getUser() - id: " + id);
 
-        return userFacade.find(id);
+        return userManagementService.findUser(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -66,7 +66,7 @@ public abstract class AbstractUserController {
             return new FormValidationResultDto(userForm, formErrors);
         }
 
-        UserForm createdUserForm = userFacade.create(userForm);
+        UserForm createdUserForm = userManagementService.createUser(userForm);
 
         return new FormValidationResultDto(createdUserForm);
     }
@@ -74,7 +74,7 @@ public abstract class AbstractUserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> delete(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
-        userFacade.delete(id);
+        userManagementService.deleteUser(id);
         return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
     }
 
@@ -87,26 +87,26 @@ public abstract class AbstractUserController {
             return new FormValidationResultDto(userForm, formErrors);
         }
 
-        UserForm updatedUserForm = userFacade.update(userForm);
+        UserForm updatedUserForm = userManagementService.updateUser(userForm);
 
         return new FormValidationResultDto(updatedUserForm);
     }
 
     @RequestMapping(value = "/{id}/avatar/{hash}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getAvatar(@PathVariable Long id, @PathVariable String hash) throws IOException {
-        return userFacade.getAvatar(hash);
+        return userManagementService.getUserAvatar(hash);
     }
 
     @RequestMapping(value = "/{id}/avatar", method = RequestMethod.POST)
     public UserDto updateAvatar(@PathVariable Long id, @RequestParam("avatarFile") MultipartFile avatarFile) throws IOException {
-        return userFacade.updateAvatar(id, avatarFile);
+        return userManagementService.updateUserAvatar(id, avatarFile);
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.GET)
     public UserRolesForm findRoles(@PathVariable Long id) {
         log.debug("getUserRoles() - id: " + id);
 
-        return userFacade.findRoles(id);
+        return userManagementService.findUserRoles(id);
     }
 
     @RequestMapping(value = "/{id}/password", method = RequestMethod.POST)
@@ -121,7 +121,7 @@ public abstract class AbstractUserController {
         UserChangePasswordForm userChangePasswordFormResult;
 
         try {
-            userChangePasswordFormResult = userFacade.changePassword(userChangePasswordForm);
+            userChangePasswordFormResult = userManagementService.changeUserPassword(userChangePasswordForm);
         } catch (UsernameNotFoundException e) {
             List<FormErrorDto> formErrors = new ArrayList<>();
             FormErrorDto formErrorDto = new FormErrorDto("currentPassword", "WrongPassword", "Wrong password", userChangePasswordForm.getCurrentPassword());
@@ -135,7 +135,8 @@ public abstract class AbstractUserController {
     @RequestMapping(value = "/selected-language/{selectedLanguage}", method = RequestMethod.PUT)
     public ResponseEntity<UserLanguage> updateSelectedLanguage(@PathVariable UserLanguage selectedLanguage) {
         log.debug("updateSelectedLanguage() for logged user : " + selectedLanguage);
-        UserLanguage updatedSelectedLanguage = userFacade.updateSelectedLanguage(selectedLanguage);
+        UserLanguage updatedSelectedLanguage = userManagementService.updateUserSelectedLanguage(selectedLanguage);
         return new ResponseEntity(updatedSelectedLanguage, HttpStatus.OK);
     }
+
 }

@@ -25,7 +25,7 @@ import com.abixen.platform.core.application.service.CommentService;
 import com.abixen.platform.core.application.service.ModuleService;
 import com.abixen.platform.core.application.service.RabbitMQOperations;
 import com.abixen.platform.core.application.service.SecurityService;
-import com.abixen.platform.core.application.service.UserService;
+import com.abixen.platform.core.domain.service.UserService;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.domain.model.User;

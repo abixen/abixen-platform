@@ -21,7 +21,7 @@ import com.abixen.platform.core.application.form.ModuleTypeSearchForm;
 import com.abixen.platform.core.application.service.ModuleTypeService;
 import com.abixen.platform.core.application.service.ResourceService;
 import com.abixen.platform.core.application.service.SecurityService;
-import com.abixen.platform.core.application.service.UserService;
+import com.abixen.platform.core.domain.service.UserService;
 import com.abixen.platform.core.domain.model.AdminSidebarItem;
 import com.abixen.platform.core.domain.model.AdminSidebarItemBuilder;
 import com.abixen.platform.core.domain.model.ModuleType;

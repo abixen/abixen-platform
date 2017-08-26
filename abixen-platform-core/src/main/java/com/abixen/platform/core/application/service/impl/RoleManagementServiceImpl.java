@@ -35,9 +35,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -129,13 +129,11 @@ public class RoleManagementServiceImpl implements RoleManagementService {
     public RolePermissionsForm updateRolePermissions(final RolePermissionsForm rolePermissionsForm) {
         log.debug("updateRolePermissions() - rolePermissionsForm: {}", rolePermissionsForm);
 
-        final Set<Permission> newPermissions = new HashSet<>();
-
-        for (RolePermissionDto rolePermissionDto : rolePermissionsForm.getRolePermissions()) {
-            if (rolePermissionDto.isSelected()) {
-                newPermissions.add(permissionService.find(rolePermissionDto.getPermission().getId()));
-            }
-        }
+        final Set<Permission> newPermissions = rolePermissionsForm.getRolePermissions()
+                .stream()
+                .filter(RolePermissionDto::isSelected)
+                .map(rolePermissionDto -> permissionService.find(rolePermissionDto.getPermission().getId()))
+                .collect(Collectors.toSet());
 
         final Role role = roleService.find(rolePermissionsForm.getRole().getId());
         role.changePermissions(newPermissions);
@@ -144,9 +142,9 @@ public class RoleManagementServiceImpl implements RoleManagementService {
         final RoleDto updatedRoleDto = roleToRoleDtoConverter.convert(updatedRole);
 
         final List<Permission> allPermissions = permissionService.findAll();
-        final List<PermissionDto> allPermissionDtos = permissionToPermissionDtoConverter.convertToList(allPermissions);
+        final List<PermissionDto> allPermissionsDto = permissionToPermissionDtoConverter.convertToList(allPermissions);
 
-        return new RolePermissionsForm(updatedRoleDto, allPermissionDtos);
+        return new RolePermissionsForm(updatedRoleDto, allPermissionsDto);
     }
 
 }

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.web.facade;
+package com.abixen.platform.core.application.service;
 
 
 import com.abixen.platform.common.model.enumtype.UserLanguage;
@@ -28,29 +28,32 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-public interface UserFacade {
+public interface UserManagementService {
 
-    UserDto find(Long id);
+    UserDto findUser(Long id);
 
-    UserDto find(String username);
+    UserDto findUser(String username);
 
-    Page<UserDto> findAll(Pageable pageable, UserSearchForm userSearchForm);
+    Page<UserDto> findAllUsers(Pageable pageable, UserSearchForm userSearchForm);
 
-    UserRolesForm findRoles(Long id);
+    UserRolesForm findUserRoles(Long id);
 
-    UserForm create(UserForm userForm);
+    UserForm createUser(UserForm userForm);
 
-    UserForm update(UserForm userForm);
+    UserForm updateUser(UserForm userForm);
 
-    UserRolesForm updateRoles(UserRolesForm userRolesForm);
+    UserRolesForm updateUserRoles(UserRolesForm userRolesForm);
 
-    void delete(Long id);
+    void deleteUser(Long id);
 
-    ResponseEntity<byte[]> getAvatar(String hash) throws IOException;
+    ResponseEntity<byte[]> getUserAvatar(String hash) throws IOException;
 
-    UserDto updateAvatar(Long id, MultipartFile avatarFile) throws IOException;
+    UserDto updateUserAvatar(Long id, MultipartFile avatarFile) throws IOException;
 
-    UserChangePasswordForm changePassword(UserChangePasswordForm userChangePasswordForm);
+    UserChangePasswordForm changeUserPassword(UserChangePasswordForm userChangePasswordForm);
 
-    UserLanguage updateSelectedLanguage(UserLanguage selectedLanguage);
+    UserLanguage updateUserSelectedLanguage(UserLanguage selectedLanguage);
+
+    void activate(String userHashKey);
+
 }
