@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.application.service;
+package com.abixen.platform.core.domain.service;
 
 import com.abixen.platform.common.model.enumtype.AclSidType;
 import com.abixen.platform.core.domain.model.AclSid;
@@ -20,6 +20,6 @@ import com.abixen.platform.core.domain.model.AclSid;
 
 public interface AclSidService {
 
-    AclSid createAclSid(AclSidType aclSidType, Long sidId);
+    AclSid create(AclSidType aclSidType, Long sidId);
 
 }

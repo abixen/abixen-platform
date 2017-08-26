@@ -12,10 +12,11 @@
  * details.
  */
 
-package com.abixen.platform.core.application.service
+package com.abixen.platform.core.application.domain.model.service
 
 import com.abixen.platform.common.model.enumtype.AclSidType
-import com.abixen.platform.core.application.service.impl.AclSidServiceImpl
+import com.abixen.platform.core.domain.service.AclSidService
+import com.abixen.platform.core.domain.service.impl.AclSidServiceImpl
 import com.abixen.platform.core.domain.model.AclSid
 import com.abixen.platform.core.domain.model.AclSidBuilder
 import com.abixen.platform.core.domain.repository.custom.AclSidRepository
@@ -45,7 +46,7 @@ class AclSidServiceTest extends Specification {
         aclSidRepository.save(aclSid) >> aclSid
 
         when:
-        AclSid createdAclSid = aclSidService.createAclSid(aclSidType, sidId)
+        AclSid createdAclSid = aclSidService.create(aclSidType, sidId)
 
         then:
         createdAclSid.sidId == sidId
@@ -53,4 +54,5 @@ class AclSidServiceTest extends Specification {
         1 * aclSidRepository.save(aclSid) >> aclSid
         0 * _
     }
+
 }

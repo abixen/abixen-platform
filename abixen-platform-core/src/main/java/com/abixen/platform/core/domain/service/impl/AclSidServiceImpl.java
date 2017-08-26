@@ -12,17 +12,19 @@
  * details.
  */
 
-package com.abixen.platform.core.application.service.impl;
+package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.common.model.enumtype.AclSidType;
 import com.abixen.platform.core.domain.model.AclSid;
 import com.abixen.platform.core.domain.model.AclSidBuilder;
 import com.abixen.platform.core.domain.repository.custom.AclSidRepository;
-import com.abixen.platform.core.application.service.AclSidService;
+import com.abixen.platform.core.domain.service.AclSidService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Transactional
 @Service
 public class AclSidServiceImpl implements AclSidService {
@@ -35,7 +37,9 @@ public class AclSidServiceImpl implements AclSidService {
     }
 
     @Override
-    public AclSid createAclSid(AclSidType aclSidType, Long sidId) {
+    public AclSid create(final AclSidType aclSidType, final Long sidId) {
+        log.debug("create() - aclSidType: {}, sidId: {}", aclSidType, sidId);
+
         AclSid aclSid = new AclSidBuilder()
                 .sidId(sidId)
                 .aclSidType(aclSidType)
@@ -43,4 +47,5 @@ public class AclSidServiceImpl implements AclSidService {
 
         return aclSidRepository.save(aclSid);
     }
+
 }

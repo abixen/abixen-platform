@@ -19,7 +19,7 @@ import com.abixen.platform.common.model.enumtype.AclSidType;
 import com.abixen.platform.core.application.form.RoleSearchForm;
 import com.abixen.platform.core.domain.model.Role;
 import com.abixen.platform.core.domain.repository.RoleRepository;
-import com.abixen.platform.core.application.service.AclSidService;
+import com.abixen.platform.core.domain.service.AclSidService;
 import com.abixen.platform.core.domain.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
@@ -69,7 +69,7 @@ public class RoleServiceImpl implements RoleService {
         log.debug("create() - role: {}", role);
 
         Role createdRole = roleRepository.save(role);
-        aclSidService.createAclSid(AclSidType.ROLE, createdRole.getId());
+        aclSidService.create(AclSidType.ROLE, createdRole.getId());
 
         return createdRole;
     }
