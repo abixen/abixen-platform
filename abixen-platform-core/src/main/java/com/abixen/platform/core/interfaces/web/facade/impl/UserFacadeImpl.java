@@ -22,7 +22,7 @@ import com.abixen.platform.core.application.form.UserForm;
 import com.abixen.platform.core.application.form.UserRolesForm;
 import com.abixen.platform.core.application.form.UserSearchForm;
 import com.abixen.platform.core.application.service.MailService;
-import com.abixen.platform.core.application.service.RoleService;
+import com.abixen.platform.core.domain.service.RoleService;
 import com.abixen.platform.core.application.service.SecurityService;
 import com.abixen.platform.core.application.service.UserService;
 import com.abixen.platform.core.domain.model.Role;

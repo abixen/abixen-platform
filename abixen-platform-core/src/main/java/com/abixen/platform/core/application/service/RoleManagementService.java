@@ -14,30 +14,28 @@
 
 package com.abixen.platform.core.application.service;
 
+import com.abixen.platform.core.application.dto.RoleDto;
 import com.abixen.platform.core.application.form.RoleForm;
 import com.abixen.platform.core.application.form.RolePermissionsForm;
 import com.abixen.platform.core.application.form.RoleSearchForm;
-import com.abixen.platform.core.domain.model.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
+public interface RoleManagementService {
 
-public interface RoleService {
+    RoleDto findRole(Long id);
 
-    Role find(Long id);
+    Page<RoleDto> findAllRoles(Pageable pageable, RoleSearchForm roleSearchForm);
 
-    List<Role> findAll();
+    RoleForm createRole(RoleForm roleForm);
 
-    Page<Role> findAll(Pageable pageable, RoleSearchForm roleSearchForm);
+    RoleForm updateRole(RoleForm roleForm);
 
-    Role create(RoleForm roleForm);
+    void deleteRole(Long id);
 
-    RoleForm update(RoleForm roleForm);
+    RolePermissionsForm findRolePermissions(Long id);
 
-    Role updatePermissions(RolePermissionsForm rolePermissionsForm);
-
-    void delete(Long id);
+    RolePermissionsForm updateRolePermissions(RolePermissionsForm rolePermissionsForm);
 
 }

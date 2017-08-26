@@ -20,8 +20,8 @@ import com.abixen.platform.common.model.enumtype.AclClassName;
 import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.core.application.form.DashboardForm;
+import com.abixen.platform.core.application.service.DashboardService;
 import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
-import com.abixen.platform.core.interfaces.web.facade.DashboardFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,17 +41,19 @@ import java.util.List;
 @RequestMapping(value = "/api/page-configurations")
 public class DashboardController {
 
-    private final DashboardFacade dashboardFacade;
+    private final DashboardService dashboardService;
 
     @Autowired
-    public DashboardController(DashboardFacade dashboardFacade) {
-        this.dashboardFacade = dashboardFacade;
+    public DashboardController(DashboardService dashboardService) {
+        this.dashboardService = dashboardService;
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_VIEW + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public DashboardDto find(@PathVariable Long id) {
-        return dashboardFacade.find(id);
+        log.debug("find() - id: {}", id);
+
+        return dashboardService.find(id);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
@@ -64,9 +66,9 @@ public class DashboardController {
             return new FormValidationResultDto(dashboardForm, formErrors);
         }
 
-        DashboardForm updatedDashboardForm = dashboardFacade.create(dashboardForm);
+        final DashboardForm cratedDashboardForm = dashboardService.create(dashboardForm);
 
-        return new FormValidationResultDto(updatedDashboardForm);
+        return new FormValidationResultDto(cratedDashboardForm);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
@@ -79,7 +81,7 @@ public class DashboardController {
             return new FormValidationResultDto(dashboardForm, formErrors);
         }
 
-        DashboardForm updatedDashboardForm = dashboardFacade.update(dashboardForm);
+        final DashboardForm updatedDashboardForm = dashboardService.update(dashboardForm);
 
         return new FormValidationResultDto(updatedDashboardForm);
     }
@@ -94,8 +96,9 @@ public class DashboardController {
             return new FormValidationResultDto(dashboardForm, formErrors);
         }
 
-        DashboardForm updatedDashboardForm = dashboardFacade.configure(dashboardForm);
+        final DashboardForm updatedDashboardForm = dashboardService.configure(dashboardForm);
 
         return new FormValidationResultDto(updatedDashboardForm);
     }
+
 }

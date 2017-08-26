@@ -101,4 +101,9 @@ public class Role extends AuditingModel {
         setName(name);
         setRoleType(type);
     }
+
+    public void changePermissions(Set<Permission> permissions) {
+        getPermissions().clear();
+        getPermissions().addAll(permissions);
+    }
 }

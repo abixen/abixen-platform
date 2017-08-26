@@ -37,7 +37,7 @@ import com.abixen.platform.core.domain.repository.*;
 import com.abixen.platform.core.domain.repository.custom.AclSidRepository;
 import com.abixen.platform.core.application.service.AclService;
 import com.abixen.platform.core.application.service.PermissionService;
-import com.abixen.platform.core.application.service.RoleService;
+import com.abixen.platform.core.domain.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

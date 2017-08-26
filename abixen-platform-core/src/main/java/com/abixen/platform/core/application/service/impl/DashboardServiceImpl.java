@@ -14,7 +14,10 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.core.application.converter.ModuleTypeToModuleTypeDtoConverter;
+import com.abixen.platform.core.application.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.DashboardModuleDto;
+import com.abixen.platform.core.application.dto.PageDto;
 import com.abixen.platform.core.application.form.DashboardForm;
 import com.abixen.platform.core.application.service.DashboardService;
 import com.abixen.platform.core.application.service.LayoutService;
@@ -26,6 +29,7 @@ import com.abixen.platform.core.domain.model.ModuleBuilder;
 import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
+import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,29 +48,81 @@ public class DashboardServiceImpl implements DashboardService {
     private final ModuleService moduleService;
     private final ModuleTypeService moduleTypeService;
     private final LayoutService layoutService;
+    private final PageToPageDtoConverter pageToPageDtoConverter;
+    private final ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter;
+
 
     @Autowired
     public DashboardServiceImpl(PageService pageService,
                                 ModuleService moduleService,
                                 ModuleTypeService moduleTypeService,
-                                LayoutService layoutService) {
+                                LayoutService layoutService,
+                                PageToPageDtoConverter pageToPageDtoConverter,
+                                ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter) {
         this.pageService = pageService;
         this.moduleService = moduleService;
         this.moduleTypeService = moduleTypeService;
         this.layoutService = layoutService;
+        this.pageToPageDtoConverter = pageToPageDtoConverter;
+        this.moduleTypeToModuleTypeDtoConverter = moduleTypeToModuleTypeDtoConverter;
     }
 
     @Override
-    public DashboardForm update(DashboardForm dashboardForm) {
+    public DashboardDto find(final Long pageId) {
+        log.debug("find() - pageId: {}", pageId);
+
+        Page page = pageService.find(pageId);
+
+        List<Module> modules = moduleService.findAll(page);
+        List<DashboardModuleDto> dashboardModules = new ArrayList<>();
+
+        modules
+                .stream()
+                .forEach(module ->
+                        dashboardModules.add(new DashboardModuleDto(
+                                module.getId(),
+                                module.getDescription(),
+                                module.getModuleType().getName(),
+                                moduleTypeToModuleTypeDtoConverter.convert(module.getModuleType()),
+                                module.getTitle(),
+                                module.getRowIndex(),
+                                module.getColumnIndex(),
+                                module.getOrderIndex()
+                        ))
+                );
+
+        layoutService.convertPageLayoutToJson(page);
+        PageDto pageDto = pageToPageDtoConverter.convert(page);
+
+        return new DashboardDto(pageDto, dashboardModules);
+    }
+
+    @Override
+    public DashboardForm create(final DashboardForm dashboardForm) {
+        log.debug("create() - dashboardForm: {}", dashboardForm);
+
+        Page page = pageService.create(dashboardForm);
+        layoutService.convertPageLayoutToJson(page);
+        PageDto pageDto = pageToPageDtoConverter.convert(page);
+
+        return new DashboardForm(pageDto);
+    }
+
+    @Override
+    public DashboardForm update(final DashboardForm dashboardForm) {
+        log.debug("update() - dashboardForm: {}", dashboardForm);
+
         return change(dashboardForm, false);
     }
 
     @Override
-    public DashboardForm configure(DashboardForm dashboardForm) {
+    public DashboardForm configure(final DashboardForm dashboardForm) {
+        log.debug("configure() - dashboardForm: {}", dashboardForm);
+
         return change(dashboardForm, true);
     }
 
-    DashboardForm change(DashboardForm dashboardForm, boolean configurationChangeType) {
+    private DashboardForm change(final DashboardForm dashboardForm, final boolean configurationChangeType) {
         List<Long> currentModulesIds = new ArrayList<>();
 
         Page page = pageService.find(dashboardForm.getPage().getId());
@@ -86,10 +142,11 @@ public class DashboardServiceImpl implements DashboardService {
 
         moduleService.deleteAllExcept(page, currentModulesIds);
 
+        //FIXME - create a new instance
         return dashboardForm;
     }
 
-    void updateExistingModules(List<DashboardModuleDto> dashboardModules, List<Long> modulesIds) {
+    private void updateExistingModules(final List<DashboardModuleDto> dashboardModules, final List<Long> modulesIds) {
         dashboardModules
                 .stream()
                 .filter(dashboardModule -> dashboardModule.getId() != null)
@@ -104,7 +161,7 @@ public class DashboardServiceImpl implements DashboardService {
                 });
     }
 
-    void createNonExistentModules(List<DashboardModuleDto> dashboardModuleDtos, Long pageId, List<Long> modulesIds) {
+    private void createNonExistentModules(final List<DashboardModuleDto> dashboardModuleDtos, final Long pageId, final List<Long> modulesIds) {
         dashboardModuleDtos
                 .stream()
                 .filter(dashboardModuleDto -> dashboardModuleDto.getId() == null)
@@ -125,7 +182,7 @@ public class DashboardServiceImpl implements DashboardService {
                 );
     }
 
-    void validateConfiguration(DashboardForm dashboardForm, Page page) {
+    private void validateConfiguration(final DashboardForm dashboardForm, final Page page) {
         boolean validationFailed = false;
 
         if (page.getDescription() == null && dashboardForm.getPage().getDescription() != null) {

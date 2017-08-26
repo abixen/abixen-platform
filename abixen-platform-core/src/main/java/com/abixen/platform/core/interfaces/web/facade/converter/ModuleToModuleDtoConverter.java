@@ -16,6 +16,8 @@ package com.abixen.platform.core.interfaces.web.facade.converter;
 
 
 import com.abixen.platform.common.converter.AbstractConverter;
+import com.abixen.platform.core.application.converter.ModuleTypeToModuleTypeDtoConverter;
+import com.abixen.platform.core.application.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.ModuleDto;
 import com.abixen.platform.core.domain.model.Module;
 import org.springframework.beans.factory.annotation.Autowired;

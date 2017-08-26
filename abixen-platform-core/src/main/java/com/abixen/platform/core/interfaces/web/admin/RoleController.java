@@ -14,23 +14,15 @@
 
 package com.abixen.platform.core.interfaces.web.admin;
 
-import com.abixen.platform.common.exception.PlatformRuntimeException;
-import com.abixen.platform.core.interfaces.web.facade.converter.PermissionToPermissionDtoConverter;
-import com.abixen.platform.core.interfaces.web.facade.converter.RoleToRoleDtoConverter;
 import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
-import com.abixen.platform.core.application.dto.PermissionDto;
+import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.RoleDto;
 import com.abixen.platform.core.application.form.RoleForm;
 import com.abixen.platform.core.application.form.RolePermissionsForm;
 import com.abixen.platform.core.application.form.RoleSearchForm;
-import com.abixen.platform.core.domain.model.Permission;
-import com.abixen.platform.core.domain.model.Role;
-import com.abixen.platform.core.application.service.PermissionService;
-import com.abixen.platform.core.application.service.RoleService;
-import com.abixen.platform.common.util.ValidationUtil;
+import com.abixen.platform.core.application.service.RoleManagementService;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,7 +30,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -48,109 +44,83 @@ import java.util.List;
 @RequestMapping(value = "/api/control-panel/roles")
 public class RoleController {
 
-    private final RoleService roleService;
-    private final PermissionService permissionService;
-    private final RoleToRoleDtoConverter roleToRoleDtoConverter;
-    private final PermissionToPermissionDtoConverter permissionToPermissionDtoConverter;
+    private final RoleManagementService roleManagementService;
 
     @Autowired
-    public RoleController(RoleService roleService,
-                          PermissionService permissionService,
-                          RoleToRoleDtoConverter roleToRoleDtoConverter,
-                          PermissionToPermissionDtoConverter permissionToPermissionDtoConverter) {
-        this.roleService = roleService;
-        this.permissionService = permissionService;
-        this.roleToRoleDtoConverter = roleToRoleDtoConverter;
-        this.permissionToPermissionDtoConverter = permissionToPermissionDtoConverter;
+    public RoleController(RoleManagementService roleManagementService) {
+        this.roleManagementService = roleManagementService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<RoleDto> getRoles(@PageableDefault(size = 1, page = 0) Pageable pageable, RoleSearchForm roleSearchForm) {
-        log.debug("getRoles()");
+    public Page<RoleDto> findAll(@PageableDefault(size = 1, page = 0) Pageable pageable, RoleSearchForm roleSearchForm) {
+        log.debug("findAll() - roleSearchForm: {}", roleSearchForm);
 
-        Page<Role> roles = roleService.findAll(pageable, roleSearchForm);
-        Page<RoleDto> roleDtos = roleToRoleDtoConverter.convertToPage(roles);
-
-        return roleDtos;
+        return roleManagementService.findAllRoles(pageable, roleSearchForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public RoleDto getRole(@PathVariable Long id) {
-        log.debug("getRole() - id: " + id);
+    public RoleDto find(@PathVariable Long id) {
+        log.debug("find() - id: {}", id);
 
-        Role role = roleService.find(id);
-        RoleDto roleDto = roleToRoleDtoConverter.convert(role);
-
-        return roleDto;
+        return roleManagementService.findRole(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto createRole(@RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
-        log.debug("save() - roleForm: " + roleForm);
+    public FormValidationResultDto create(@RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
+        log.debug("create() - roleForm: {}", roleForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(roleForm, formErrors);
         }
 
-        roleService.create(roleForm);
+        final RoleForm createdRoleForm = roleManagementService.createRole(roleForm);
 
-        return new FormValidationResultDto(roleForm);
+        return new FormValidationResultDto(createdRoleForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto updateRole(@PathVariable("id") Long id, @RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
-        log.debug("update() - id: " + id + ", roleForm: " + roleForm);
+    public FormValidationResultDto update(@PathVariable("id") Long id, @RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
+        log.debug("update() - id: {}, roleForm: {}", id, roleForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(roleForm, formErrors);
         }
 
-        return new FormValidationResultDto(roleService.update(roleForm));
+        final RoleForm updatedRoleForm = roleManagementService.updateRole(roleForm);
+
+        return new FormValidationResultDto(updatedRoleForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Boolean> deleteRole(@PathVariable("id") long id) {
-        log.debug("delete() - id: " + id);
-        try {
-            roleService.delete(id);
-        } catch (Throwable e) {
-            e.printStackTrace();
-            if (e.getCause() instanceof ConstraintViolationException) {
-                throw new PlatformRuntimeException("The role you want to remove is assigned to users.");
-            } else {
-                throw e;
-            }
-        }
-        return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+    public ResponseEntity<Boolean> delete(@PathVariable("id") long id) {
+        log.debug("delete() - id: {}", id);
+
+        roleManagementService.deleteRole(id);
+
+        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/permissions", method = RequestMethod.GET)
-    public RolePermissionsForm getRolePermissions(@PathVariable Long id) {
-        log.debug("getRolePermissionsForm() - id: " + id);
+    public RolePermissionsForm findPermissions(@PathVariable Long id) {
+        log.debug("findPermissions() - id: {}", id);
 
-        Role role = roleService.find(id);
-        List<Permission> allPermissions = permissionService.findAllPermissions();
-
-        RoleDto roleDto = roleToRoleDtoConverter.convert(role);
-        List<PermissionDto> allPermissionDtos = permissionToPermissionDtoConverter.convertToList(allPermissions);
-        RolePermissionsForm rolePermissionsForm = new RolePermissionsForm(roleDto, allPermissionDtos);
-
-        return rolePermissionsForm;
+        return roleManagementService.findRolePermissions(id);
     }
 
     @RequestMapping(value = "/{id}/permissions", method = RequestMethod.PUT)
-    public FormValidationResultDto updateRolePermissions(@PathVariable("id") Long id, @RequestBody @Valid RolePermissionsForm rolePermissionsForm, BindingResult bindingResult) {
-        log.debug("updateRolePermissions() - id: " + id + ", rolePermissionsForm: " + rolePermissionsForm);
+    public FormValidationResultDto updatePermissions(@PathVariable("id") Long id, @RequestBody @Valid RolePermissionsForm rolePermissionsForm, BindingResult bindingResult) {
+        log.debug("updatePermissions() - id: {}, rolePermissionsForm: {}", id, rolePermissionsForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(rolePermissionsForm, formErrors);
         }
 
-        roleService.updatePermissions(rolePermissionsForm);
+        final RolePermissionsForm updatedRolePermissionsForm = roleManagementService.updateRolePermissions(rolePermissionsForm);
 
-        return new FormValidationResultDto(rolePermissionsForm);
+        return new FormValidationResultDto(updatedRolePermissionsForm);
     }
+
 }

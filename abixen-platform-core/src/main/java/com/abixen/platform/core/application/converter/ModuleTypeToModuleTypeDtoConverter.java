@@ -12,12 +12,15 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.web.facade.converter;
+package com.abixen.platform.core.application.converter;
 
 
 import com.abixen.platform.common.converter.AbstractConverter;
 import com.abixen.platform.core.application.dto.ModuleTypeDto;
 import com.abixen.platform.core.domain.model.ModuleType;
+import com.abixen.platform.core.interfaces.web.facade.converter.AdminSidebarItemToAdminSidebarItemDtoConverter;
+import com.abixen.platform.core.interfaces.web.facade.converter.AuditingModelToAuditingDtoConverter;
+import com.abixen.platform.core.interfaces.web.facade.converter.ResourceToResourceDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

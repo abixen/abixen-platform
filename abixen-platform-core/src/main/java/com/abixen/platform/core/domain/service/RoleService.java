@@ -12,20 +12,28 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.web.facade;
+package com.abixen.platform.core.domain.service;
+
+import com.abixen.platform.core.application.form.RoleSearchForm;
+import com.abixen.platform.core.domain.model.Role;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 
-import com.abixen.platform.core.application.form.DashboardForm;
-import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
+public interface RoleService {
 
-public interface DashboardFacade {
+    Role find(Long id);
 
-    DashboardDto find(Long pageId);
+    List<Role> findAll();
 
-    DashboardForm create(DashboardForm dashboardForm);
+    Page<Role> findAll(Pageable pageable, RoleSearchForm roleSearchForm);
 
-    DashboardForm update(DashboardForm dashboardForm);
+    Role create(Role role);
 
-    DashboardForm configure(DashboardForm dashboardForm);
+    Role update(Role role);
+
+    void delete(Long id);
 
 }

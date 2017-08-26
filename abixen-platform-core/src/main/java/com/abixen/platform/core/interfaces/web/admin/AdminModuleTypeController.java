@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.interfaces.web.admin;
 
-import com.abixen.platform.core.interfaces.web.facade.converter.ModuleTypeToModuleTypeDtoConverter;
+import com.abixen.platform.core.application.converter.ModuleTypeToModuleTypeDtoConverter;
 import com.abixen.platform.core.application.dto.ModuleTypeDto;
 import com.abixen.platform.core.application.form.ModuleTypeSearchForm;
 import com.abixen.platform.core.domain.model.ModuleType;

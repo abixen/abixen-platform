@@ -15,9 +15,14 @@
 package com.abixen.platform.core.application.service;
 
 import com.abixen.platform.core.application.form.DashboardForm;
+import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
 
 
 public interface DashboardService {
+
+    DashboardDto find(Long pageId);
+
+    DashboardForm create(DashboardForm dashboardForm);
 
     DashboardForm update(DashboardForm dashboardForm);
 

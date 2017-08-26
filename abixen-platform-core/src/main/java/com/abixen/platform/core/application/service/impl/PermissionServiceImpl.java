@@ -19,38 +19,42 @@ import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.repository.PermissionRepository;
 import com.abixen.platform.core.application.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
+
 import java.util.List;
 
 @Slf4j
 @Service
 public class PermissionServiceImpl implements PermissionService {
 
-    @Resource
     private PermissionRepository permissionRepository;
+
+    @Autowired
+    public PermissionServiceImpl(PermissionRepository permissionRepository) {
+        this.permissionRepository = permissionRepository;
+    }
 
     @Override
     public Page<Permission> findAllPermissions(Pageable pageable, String jsonCriteria, PermissionSearchForm permissionSearchForm) throws NoSuchFieldException {
         log.debug("findAllPermissions() - pageable: " + pageable + ", jsonCriteria: " + jsonCriteria);
 
-        //TODO
-        //return permissionRepository.findAllByJsonCriteria(jsonCriteria, pageable);
         return permissionRepository.findAll(pageable, permissionSearchForm);
-
     }
 
     @Override
     public List<Permission> findAllPermissions() {
         log.debug("findAllPermissions()");
+
         return permissionRepository.findAll();
     }
 
     @Override
     public Permission findPermission(Long id) {
         log.debug("findPermission() - id: " + id);
+
         return permissionRepository.findOne(id);
     }
 

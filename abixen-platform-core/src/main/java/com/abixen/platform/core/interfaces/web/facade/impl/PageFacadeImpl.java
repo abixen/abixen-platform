@@ -21,7 +21,7 @@ import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.PageService;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.interfaces.web.facade.PageFacade;
-import com.abixen.platform.core.interfaces.web.facade.converter.PageToPageDtoConverter;
+import com.abixen.platform.core.application.converter.PageToPageDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
