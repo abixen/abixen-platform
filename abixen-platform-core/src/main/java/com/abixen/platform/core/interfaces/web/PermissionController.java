@@ -14,9 +14,9 @@
 
 package com.abixen.platform.core.interfaces.web;
 
+import com.abixen.platform.core.application.dto.PermissionDto;
 import com.abixen.platform.core.application.form.PermissionSearchForm;
-import com.abixen.platform.core.domain.model.Permission;
-import com.abixen.platform.core.application.service.PermissionService;
+import com.abixen.platform.core.application.service.PermissionManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,19 +33,19 @@ import java.io.IOException;
 @RequestMapping(value = "/api/control-panel/permissions")
 public class PermissionController {
 
+
+    private final PermissionManagementService permissionManagementService;
+
     @Autowired
-    private PermissionService permissionService;
+    public PermissionController(PermissionManagementService permissionManagementService) {
+        this.permissionManagementService = permissionManagementService;
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<Permission> getPermissions(@PageableDefault(size = 1, page = 0) Pageable pageable, PermissionSearchForm permissionSearchForm) throws IOException, NoSuchFieldException {
-        log.debug("getPermissions()");
+    public Page<PermissionDto> findAll(@PageableDefault(size = 1, page = 0) Pageable pageable, PermissionSearchForm permissionSearchForm) throws IOException, NoSuchFieldException {
+        log.debug("findAll()");
 
-        Page<Permission> permissions = permissionService.findAllPermissions(pageable, null, permissionSearchForm);
-        for (Permission permission : permissions) {
-            log.debug("permission: " + permission);
-        }
-
-        return permissions;
+        return permissionManagementService.findAllPermissions(pageable, permissionSearchForm);
     }
 
 }

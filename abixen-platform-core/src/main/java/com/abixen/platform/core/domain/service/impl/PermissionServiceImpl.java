@@ -12,50 +12,52 @@
  * details.
  */
 
-package com.abixen.platform.core.application.service.impl;
+package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.core.application.form.PermissionSearchForm;
 import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.repository.PermissionRepository;
-import com.abixen.platform.core.application.service.PermissionService;
+import com.abixen.platform.core.domain.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Slf4j
+@Transactional
 @Service
 public class PermissionServiceImpl implements PermissionService {
 
-    private PermissionRepository permissionRepository;
+    private final PermissionRepository permissionRepository;
 
     @Autowired
-    public PermissionServiceImpl(PermissionRepository permissionRepository) {
+    public PermissionServiceImpl(final PermissionRepository permissionRepository) {
         this.permissionRepository = permissionRepository;
     }
 
     @Override
-    public Page<Permission> findAllPermissions(Pageable pageable, String jsonCriteria, PermissionSearchForm permissionSearchForm) throws NoSuchFieldException {
-        log.debug("findAllPermissions() - pageable: " + pageable + ", jsonCriteria: " + jsonCriteria);
+    public Permission find(final Long id) {
+        log.debug("find() - id: {}", id);
 
-        return permissionRepository.findAll(pageable, permissionSearchForm);
+        return permissionRepository.findOne(id);
     }
 
     @Override
-    public List<Permission> findAllPermissions() {
-        log.debug("findAllPermissions()");
+    public List<Permission> findAll() {
+        log.debug("findAll()");
 
         return permissionRepository.findAll();
     }
 
     @Override
-    public Permission findPermission(Long id) {
-        log.debug("findPermission() - id: " + id);
+    public Page<Permission> findAll(final Pageable pageable, final PermissionSearchForm permissionSearchForm) {
+        log.debug("findAll() - pageable: {}, permissionSearchForm: {}", pageable, permissionSearchForm);
 
-        return permissionRepository.findOne(id);
+        return permissionRepository.findAll(pageable, permissionSearchForm);
     }
 
 }

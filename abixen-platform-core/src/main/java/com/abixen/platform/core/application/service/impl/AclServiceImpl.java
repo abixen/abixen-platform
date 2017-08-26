@@ -36,7 +36,7 @@ import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.domain.repository.*;
 import com.abixen.platform.core.domain.repository.custom.AclSidRepository;
 import com.abixen.platform.core.application.service.AclService;
-import com.abixen.platform.core.application.service.PermissionService;
+import com.abixen.platform.core.domain.service.PermissionService;
 import com.abixen.platform.core.domain.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -245,7 +245,7 @@ public class AclServiceImpl implements AclService {
             for (Long permissionId : newPermissionIds) {
                 AclEntry aclEntry = new AclEntryBuilder()
                         .aclSid(aclSid)
-                        .permission(permissionService.findPermission(permissionId))
+                        .permission(permissionService.find(permissionId))
                         .aclObjectIdentity(aclObjectIdentity)
                         .build();
                 aclEntryRepository.save(aclEntry);

@@ -14,19 +14,14 @@
 
 package com.abixen.platform.core.application.service;
 
+import com.abixen.platform.core.application.dto.PermissionDto;
 import com.abixen.platform.core.application.form.PermissionSearchForm;
-import com.abixen.platform.core.domain.model.Permission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
+public interface PermissionManagementService {
 
-public interface PermissionService {
+    Page<PermissionDto> findAllPermissions(Pageable pageable, PermissionSearchForm permissionSearchForm);
 
-    Page<Permission> findAllPermissions(Pageable pageable, String jsonCriteria, PermissionSearchForm permissionSearchForm) throws NoSuchFieldException;
-
-    List<Permission> findAllPermissions();
-
-    Permission findPermission(Long id);
 }

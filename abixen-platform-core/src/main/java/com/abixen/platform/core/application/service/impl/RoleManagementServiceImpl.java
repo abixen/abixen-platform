@@ -24,7 +24,7 @@ import com.abixen.platform.core.application.service.RoleManagementService;
 import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.model.Role;
 import com.abixen.platform.core.domain.model.RoleBuilder;
-import com.abixen.platform.core.application.service.PermissionService;
+import com.abixen.platform.core.domain.service.PermissionService;
 import com.abixen.platform.core.domain.service.RoleService;
 import com.abixen.platform.core.interfaces.web.facade.converter.PermissionToPermissionDtoConverter;
 import com.abixen.platform.core.interfaces.web.facade.converter.RoleToRoleDtoConverter;
@@ -117,7 +117,7 @@ public class RoleManagementServiceImpl implements RoleManagementService {
         log.debug("findRolePermissions() - id: {}", id);
 
         final Role role = roleService.find(id);
-        final List<Permission> allPermissions = permissionService.findAllPermissions();
+        final List<Permission> allPermissions = permissionService.findAll();
 
         final RoleDto roleDto = roleToRoleDtoConverter.convert(role);
         final List<PermissionDto> allPermissionDtos = permissionToPermissionDtoConverter.convertToList(allPermissions);
@@ -133,7 +133,7 @@ public class RoleManagementServiceImpl implements RoleManagementService {
 
         for (RolePermissionDto rolePermissionDto : rolePermissionsForm.getRolePermissions()) {
             if (rolePermissionDto.isSelected()) {
-                newPermissions.add(permissionService.findPermission(rolePermissionDto.getPermission().getId()));
+                newPermissions.add(permissionService.find(rolePermissionDto.getPermission().getId()));
             }
         }
 
@@ -143,7 +143,7 @@ public class RoleManagementServiceImpl implements RoleManagementService {
         final Role updatedRole = roleService.update(role);
         final RoleDto updatedRoleDto = roleToRoleDtoConverter.convert(updatedRole);
 
-        final List<Permission> allPermissions = permissionService.findAllPermissions();
+        final List<Permission> allPermissions = permissionService.findAll();
         final List<PermissionDto> allPermissionDtos = permissionToPermissionDtoConverter.convertToList(allPermissions);
 
         return new RolePermissionsForm(updatedRoleDto, allPermissionDtos);
