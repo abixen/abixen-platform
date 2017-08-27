@@ -58,14 +58,14 @@ public class DataFileFacadeImpl implements DataFileFacade {
 
     @Override
     public Page<DataFileDto> findAllDataFile(Pageable pageable) {
-        Page<DataFile> dataFiles = dataFileService.findAllDataFile(pageable);
+        Page<DataFile> dataFiles = dataFileService.findAll(pageable);
         Page<DataFileDto> dataFileDtos = dataFileToDataFileDtoConverter.convertToPage(dataFiles);
         return dataFileDtos;
     }
 
     @Override
     public DataFileDto findDataFile(Long id) {
-        DataFile dataFile = dataFileService.findDataFile(id);
+        DataFile dataFile = dataFileService.find(id);
         DataFileDto dataFileDto = dataFileToDataFileDtoConverter.convert(dataFile);
         return dataFileDto;
     }
@@ -79,26 +79,26 @@ public class DataFileFacadeImpl implements DataFileFacade {
 
     @Override
     public DataFileDto createDataFile(DataFileForm dataFileForm) {
-        DataFile dataFile = dataFileService.createDataFile(dataFileForm);
+        DataFile dataFile = dataFileService.create(dataFileForm);
         DataFileDto dataFileDto = dataFileToDataFileDtoConverter.convert(dataFile);
         return dataFileDto;
     }
 
     @Override
     public DataFileDto updateDataFile(DataFileForm dataFileForm) {
-        DataFile dataFile = dataFileService.updateDataFile(dataFileForm);
+        DataFile dataFile = dataFileService.update(dataFileForm);
         DataFileDto dataFileDto = dataFileToDataFileDtoConverter.convert(dataFile);
         return dataFileDto;
     }
 
     @Override
     public void deleteDataFile(Long id) {
-        dataFileService.delateFileData(id);
+        dataFileService.delete(id);
     }
 
     @Override
     public FileParserMessage<DataFileColumnDto> uploadAndParseFile(MultipartFile fileToParse, Boolean readFirstColumnAsColumnName) {
-        FileParserMessage<DataFileColumn> dataFileColumnFileParserMessage = dataFileService.uploadAndParseFile(fileToParse, readFirstColumnAsColumnName);
+        FileParserMessage<DataFileColumn> dataFileColumnFileParserMessage = dataFileService.parse(fileToParse, readFirstColumnAsColumnName);
         FileParserMessage<DataFileColumnDto> dataFileColumnDtoFileParserMessage = new FileParserMessage<>();
         dataFileColumnDtoFileParserMessage.setFileParseErrors(dataFileColumnFileParserMessage.getFileParseErrors());
         dataFileColumnDtoFileParserMessage.setData(dataFileColumnToDataFileColumnDtoConverter.convertToList(dataFileColumnFileParserMessage.getData()));

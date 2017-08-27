@@ -42,7 +42,7 @@ class CsvFileDataParserServiceImpl implements FileDataParserService {
     }
 
     @Override
-    public FileParserMessage<DataFileColumn> parseFile(final MultipartFile multipartFile, final Boolean readFirstColumnAsColumnName) {
+    public FileParserMessage<DataFileColumn> parse(final MultipartFile multipartFile, final Boolean readFirstColumnAsColumnName) {
         final FileParserMessage<DataFileColumn> msg = new FileParserMessage<>();
         final DataFileDto readedData = reader.read(multipartFile, readFirstColumnAsColumnName, msg);
         if (validator.valid(readedData, msg, readFirstColumnAsColumnName)) {

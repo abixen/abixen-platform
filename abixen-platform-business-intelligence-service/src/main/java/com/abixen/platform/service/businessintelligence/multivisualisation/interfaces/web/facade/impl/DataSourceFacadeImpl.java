@@ -47,39 +47,39 @@ public class DataSourceFacadeImpl implements DataSourceFacade {
 
     @Override
     public DataSourceDto findDataSource(Long dataSourceId) {
-        DataSource dataSource = dataSourceService.findDataSource(dataSourceId);
+        DataSource dataSource = dataSourceService.find(dataSourceId);
         DataSourceDto dataSourceDto = dataSourceToDataSourceDtoConverter.convert(dataSource);
         return dataSourceDto;
     }
 
     @Override
     public Page<DataSourceDto> findAllDataSources(Pageable pageable, DataSourceType dataSourceType) {
-        Page<DataSource> dataSources = dataSourceService.findAllDataSources(pageable, dataSourceType);
+        Page<DataSource> dataSources = dataSourceService.findAll(pageable, dataSourceType);
         Page<DataSourceDto> dataSourceDtos = dataSourceToDataSourceDtoConverter.convertToPage(dataSources);
         return dataSourceDtos;
     }
 
     @Override
     public DataSourceDto createDataSource(DataSourceForm dataSourceForm) {
-        DataSource dataSource = dataSourceService.createDataSource(dataSourceForm);
+        DataSource dataSource = dataSourceService.create(dataSourceForm);
         DataSourceDto dataSourceDto = dataSourceToDataSourceDtoConverter.convert(dataSource);
         return dataSourceDto;
     }
 
     @Override
     public DataSourceDto updateDataSource(DataSourceForm dataSourceForm) {
-        DataSource dataSource = dataSourceService.updateDataSource(dataSourceForm);
+        DataSource dataSource = dataSourceService.update(dataSourceForm);
         DataSourceDto dataSourceDto = dataSourceToDataSourceDtoConverter.convert(dataSource);
         return dataSourceDto;
     }
 
     @Override
     public List<Map<String, DataValueDto>> getPreviewData(DataSourceForm dataSourceForm) {
-        return dataSourceService.getPreviewData(dataSourceForm);
+        return dataSourceService.findPreviewData(dataSourceForm);
     }
 
     @Override
     public void deleteDataSource(Long dataSourceId) {
-        dataSourceService.deleteDataSource(dataSourceId);
+        dataSourceService.delete(dataSourceId);
     }
 }

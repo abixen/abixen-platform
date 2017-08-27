@@ -19,6 +19,21 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 
 public class DatabaseConnectionBuilder extends EntityBuilder<DatabaseConnection> {
 
+    @Override
+    public DatabaseConnection build() {
+        return super.build();
+    }
+
+    @Override
+    protected void initProduct() {
+        this.product = new DatabaseConnection();
+    }
+
+    @Override
+    protected DatabaseConnection assembleProduct() {
+        return super.assembleProduct();
+    }
+
     public DatabaseConnectionBuilder credentials(String username, String password) {
         this.product.setUsername(username);
         this.product.setPassword(password);
@@ -40,20 +55,5 @@ public class DatabaseConnectionBuilder extends EntityBuilder<DatabaseConnection>
         this.product.setDatabasePort(databasePort);
         this.product.setDatabaseName(databaseName);
         return this;
-    }
-
-    @Override
-    public DatabaseConnection build() {
-        return super.build();
-    }
-
-    @Override
-    protected void initProduct() {
-        this.product = new DatabaseConnection();
-    }
-
-    @Override
-    protected DatabaseConnection assembleProduct() {
-        return super.assembleProduct();
     }
 }

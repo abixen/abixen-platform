@@ -18,6 +18,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumnBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.ColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.RowDto;
@@ -35,20 +36,22 @@ public class FileDataPreparer {
         final List<DataFileColumn> dataFileColumns = new ArrayList<>();
         final List<RowDto> rows = readedData.getRows();
         for (int i = 0; i < columnTypes.size(); i++) {
-            final DataFileColumn dataFileColumn = new DataFileColumn();
+            String name = null;
             if (readFirstColumnAsColumnName) {
-                dataFileColumn.setName(rows.get(0).getColumns().get(i).getValue());
+                name = rows.get(0).getColumns().get(i).getValue();
             }
-            dataFileColumn.setDataValueType(columnTypes.get(i));
-            dataFileColumn.setPosition(i);
             final List<DataValue> dataValues = new ArrayList<>();
             int startIndexColumn = readFirstColumnAsColumnName ? 1 : 0;
             for (int j = startIndexColumn; j < rows.size(); j++) {
                 final RowDto rowDto = rows.get(j);
                 dataValues.add(parseAs(columnTypes.get(i), rowDto.getColumns().get(i).getValue().trim()));
             }
-            dataFileColumn.setValues(dataValues);
-            dataFileColumns.add(dataFileColumn);
+            dataFileColumns.add((DataFileColumn) new DataFileColumnBuilder()
+                    .dataValueType(columnTypes.get(i))
+                    .values(dataValues)
+                    .name(name)
+                    .position(i)
+                    .build());
         }
         return dataFileColumns;
     }
@@ -73,31 +76,31 @@ public class FileDataPreparer {
 
     private DataValue parseAsDate(final String element) {
         final DateFormat df = DateFormat.getDateInstance();
-        final DataValueDate dataValueDate = new DataValueDate();
         try {
-            dataValueDate.setValue(df.parse(element));
+            return new DataValueDateBuilder()
+                    .value(df.parse(element))
+                    .build();
         } catch (Exception e) {
             return null;
         }
-        return dataValueDate;
     }
 
     private DataValue parseAsString(final String element) {
-        final DataValueString dataValueString = new DataValueString();
-        dataValueString.setValue(element);
-        return dataValueString;
+        return new DataValueStringBuilder()
+                .value(element)
+                .build();
     }
 
     private DataValueInteger parseAsInteger(final String element) {
-        final DataValueInteger dataValueInteger = new DataValueInteger();
-        dataValueInteger.setValue(Integer.valueOf(element));
-        return dataValueInteger;
+        return new DataValueIntegerBuilder()
+                .value(Integer.valueOf(element))
+                .build();
     }
 
     private DataValueDouble parseAsDouble(final String element) {
-        final DataValueDouble dataValueDouble = new DataValueDouble();
-        dataValueDouble.setValue(Double.valueOf(element.replace(",", ".")));
-        return dataValueDouble;
+        return new DataValueDoubleBuilder()
+                .value(Double.valueOf(element.replace(",", ".")))
+                .build();
     }
 
 }

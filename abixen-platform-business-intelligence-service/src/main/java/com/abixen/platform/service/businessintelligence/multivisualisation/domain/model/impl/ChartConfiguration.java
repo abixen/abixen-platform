@@ -61,12 +61,15 @@ public class ChartConfiguration extends AuditingModel implements Serializable {
     @JoinColumn(name = "data_source_id", nullable = false)
     private DataSource dataSource;
 
+    ChartConfiguration() {
+    }
+
     @Override
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -74,7 +77,7 @@ public class ChartConfiguration extends AuditingModel implements Serializable {
         return moduleId;
     }
 
-    public void setModuleId(Long moduleId) {
+    void setModuleId(final Long moduleId) {
         this.moduleId = moduleId;
     }
 
@@ -82,7 +85,7 @@ public class ChartConfiguration extends AuditingModel implements Serializable {
         return chartType;
     }
 
-    public void setChartType(ChartType chartType) {
+    void setChartType(final ChartType chartType) {
         this.chartType = chartType;
     }
 
@@ -90,7 +93,7 @@ public class ChartConfiguration extends AuditingModel implements Serializable {
         return dataSetChart;
     }
 
-    public void setDataSetChart(DataSetChart dataSetChart) {
+    void setDataSetChart(final DataSetChart dataSetChart) {
         this.dataSetChart = dataSetChart;
     }
 
@@ -98,7 +101,7 @@ public class ChartConfiguration extends AuditingModel implements Serializable {
         return axisXName;
     }
 
-    public void setAxisXName(String axisXName) {
+    void setAxisXName(final String axisXName) {
         this.axisXName = axisXName;
     }
 
@@ -106,7 +109,7 @@ public class ChartConfiguration extends AuditingModel implements Serializable {
         return axisYName;
     }
 
-    public void setAxisYName(String axisYName) {
+    void setAxisYName(final String axisYName) {
         this.axisYName = axisYName;
     }
 
@@ -114,7 +117,7 @@ public class ChartConfiguration extends AuditingModel implements Serializable {
         return filter;
     }
 
-    public void setFilter(String filter) {
+    void setFilter(final String filter) {
         this.filter = filter;
     }
 
@@ -122,8 +125,27 @@ public class ChartConfiguration extends AuditingModel implements Serializable {
         return dataSource;
     }
 
-    public void setDataSource(DataSource dataSource) {
+    void setDataSource(final DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public void changeModuleId(final Long moduleId) {
+        setModuleId(moduleId);
+    }
+
+    public void changeChartParameters(final ChartType chartType, final DataSetChart dataSetChart) {
+        setChartType(chartType);
+        setDataSetChart(dataSetChart);
+    }
+
+    public void changeAxisNames(final String axisXName, final String axisYName) {
+        setAxisXName(axisXName);
+        setAxisYName(axisYName);
+    }
+
+    public void changeDataParameters(final String filter, final DataSource dataSource) {
+        setFilter(filter);
+        setDataSource(dataSource);
     }
 
 

@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -18,21 +18,6 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DatabaseConnectionRepository;
 
 public class DatabaseDataSourceBuilder extends DataSourceBuilder {
-
-    public DatabaseDataSourceBuilder databaseConnection(final Long databaseConnectionId, final DatabaseConnectionRepository repository) {
-        ((DatabaseDataSource) this.product).setDatabaseConnection(repository.findOne(databaseConnectionId));
-        return this;
-    }
-
-    public DatabaseDataSourceBuilder filter(final String filter) {
-        ((DatabaseDataSource) this.product).setFilter(filter);
-        return this;
-    }
-
-    public DatabaseDataSourceBuilder table(final String table) {
-        ((DatabaseDataSource) this.product).setTable(table);
-        return this;
-    }
 
     @Override
     public DatabaseDataSource build() {
@@ -47,5 +32,20 @@ public class DatabaseDataSourceBuilder extends DataSourceBuilder {
     @Override
     public DatabaseDataSource assembleProduct() {
         return (DatabaseDataSource) super.assembleProduct();
+    }
+
+    public DatabaseDataSourceBuilder databaseConnection(final Long databaseConnectionId, final DatabaseConnectionRepository repository) {
+        ((DatabaseDataSource) this.product).setDatabaseConnection(repository.findOne(databaseConnectionId));
+        return this;
+    }
+
+    public DatabaseDataSourceBuilder filter(final String filter) {
+        ((DatabaseDataSource) this.product).setFilter(filter);
+        return this;
+    }
+
+    public DatabaseDataSourceBuilder table(final String table) {
+        ((DatabaseDataSource) this.product).setTable(table);
+        return this;
     }
 }

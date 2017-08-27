@@ -24,7 +24,7 @@ public class DataSetChart extends DataSet {
 
     private static final long serialVersionUID = 1232457388531081321L;
 
-    public DataSetChart() {
+    DataSetChart() {
     }
 
 }

@@ -35,13 +35,13 @@ public class JsonFilterServiceImpl implements JsonFilterService {
     private static final int DATA_BEGIN_INDEX = 0;
 
     @Override
-    public String convertJsonToJpql(String jsonCriteria, ResultSetMetaData rsmd) throws SQLException {
+    public String convertJsonToJpql(String jsonCriteria, ResultSetMetaData resultSetMetaData) throws SQLException {
         Map<String, Object> jsonCriteriaMap = new Gson().fromJson(jsonCriteria, new TypeToken<HashMap<String, Object>>() {
         }.getType());
         String conditionString = "()";
         if (jsonCriteriaMap != null && jsonCriteriaMap.size() > 0) {
             List<Object> queryParameters = new ArrayList<Object>();
-            conditionString = convertJsonToJpqlRecursive(jsonCriteriaMap, queryParameters, getColumnTypeMapping(rsmd));
+            conditionString = convertJsonToJpqlRecursive(jsonCriteriaMap, queryParameters, getColumnTypeMapping(resultSetMetaData));
         }
         return !"()".equals(conditionString) ? conditionString : "1=1";
     }

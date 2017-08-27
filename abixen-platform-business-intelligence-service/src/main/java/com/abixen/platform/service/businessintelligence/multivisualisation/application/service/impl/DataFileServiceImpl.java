@@ -30,8 +30,6 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataFileRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.FileDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataFileService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DomainBuilderService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.FileParserService;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -66,72 +64,41 @@ public class DataFileServiceImpl implements DataFileService {
     }
 
     @Override
-    public Page<DataFile> getDataFile(String jsonCriteria, Pageable pageable) {
+    public Page<DataFile> find(String jsonCriteria, Pageable pageable) {
         Page<DataFile> result;
         result = dataFileRepository.findAll(pageable);
         return result;
     }
 
     @Override
-    public Page<DataFile> findAllDataFile(Pageable pageable) {
+    public DataFile find(Long id) {
+        log.debug("find() - id: " + id);
+        return dataFileRepository.findOne(id);
+    }
+
+    @Override
+    public Page<DataFile> findAll(Pageable pageable) {
         return dataFileRepository.findAll(pageable);
     }
 
     @Override
-    public List<DataSourceColumn> getDataFileColumns(Long dataFileId) {
-        List<DataSourceColumn> result = new ArrayList<>();
-        DataFile dataFile = dataFileRepository.getOne(dataFileId);
-        for (DataFileColumn dataFileColumn : dataFile.getColumns()) {
-            result.add(new DataSourceColumnBuilder()
-                    .details(dataFileColumn.getName())
-                    .paramters(dataFileColumn.getDataValueType(), dataFileColumn.getPosition())
-                    .build());
-        }
-        return result;
+    public DataFile create(DataFileForm dataFileForm) {
+        DataFile dataFile = build(dataFileForm);
+        return create(dataFile);
     }
 
     @Override
-    public DataFile buildDataFile(DataFileForm dataFileForm) {
-        DataFile dataFile = new DataFileBuilder()
-                .details(dataFileForm.getName(), dataFileForm.getDescription())
-                .columns(dataFileForm.getColumns().stream()
-                                .map(dataFileColumnDto -> (DataFileColumn) new DataFileColumnBuilder()
-                                        .dataValueType(dataFileColumnDto.getDataValueType())
-                                        .name(dataFileColumnDto.getName())
-                                        .values(dataFileColumnDto.getValues().stream()
-                                                .map(dataValueDto -> getObjForValue(dataValueDto.getValue().toString().trim()))
-                                                .collect(Collectors.toList()))
-                                        .position(dataFileColumnDto.getPosition())
-                                        .build()
-                                ).collect(Collectors.toSet()))
-                .build();
-        dataFile.getColumns()
-                .forEach(dataFileColumn -> {
-                    dataFileColumn.changeDataFile(dataFile);
-                    dataFileColumn.getValues().forEach(dataValue -> dataValue.setDataColumn(dataFileColumn));
-                });
-
-        return dataFile;
-    }
-
-    @Override
-    public DataFile createDataFile(DataFileForm dataFileForm) {
-        DataFile dataFile = buildDataFile(dataFileForm);
-        return createDataFile(dataFile);
-    }
-
-    @Override
-    public DataFile createDataFile(DataFile dataFile) {
-        log.debug("createDataFile() - dataFile: " + dataFile);
+    public DataFile create(DataFile dataFile) {
+        log.debug("create() - dataFile: " + dataFile);
         DataFile createdDataFile = dataFileRepository.save(dataFile);
         return createdDataFile;
     }
 
     @Override
-    public DataFile updateDataFile(DataFileForm dataFileForm) {
-        log.debug("updateDataFile() - fileDataForm: " + dataFileForm);
+    public DataFile update(DataFileForm dataFileForm) {
+        log.debug("update() - fileDataForm: " + dataFileForm);
 
-        DataFile dataFile = findDataFile(dataFileForm.getId());
+        DataFile dataFile = find(dataFileForm.getId());
         dataFile.changeDetails(dataFileForm.getName(), dataFileForm.getDescription());
         dataFile.changeColumns(dataFileForm.getColumns().stream()
                 .map(dataFileColumnDto -> (DataFileColumn) new DataFileColumnBuilder()
@@ -150,29 +117,60 @@ public class DataFileServiceImpl implements DataFileService {
                     dataFileColumn.getValues().forEach(dataValue -> dataValue.setDataColumn(dataFileColumn));
                 });
 
-        return updateDataFile(dataFile);
+        return update(dataFile);
     }
 
     @Override
-    public DataFile updateDataFile(DataFile fileData) {
-        log.debug("updateDataFile() - fileData: " + fileData);
+    public DataFile update(DataFile fileData) {
+        log.debug("update() - fileData: " + fileData);
         return dataFileRepository.save(fileData);
     }
 
     @Override
-    public DataFile findDataFile(Long id) {
-        log.debug("findDataFile() - id: " + id);
-        return dataFileRepository.findOne(id);
-    }
-
-    @Override
-    public void delateFileData(Long id) {
+    public void delete(Long id) {
         List<FileDataSource> relatedFileDataSources = fileDataSourceRepository.findByDataFile(dataFileRepository.getOne(id));
         if (relatedFileDataSources.isEmpty()) {
             dataFileRepository.delete(id);
         } else {
             throw new PlatformRuntimeException("You need to remove all data sources related to this data file");
         }
+    }
+
+    @Override
+    public DataFile build(DataFileForm dataFileForm) {
+        DataFile dataFile = new DataFileBuilder()
+                .details(dataFileForm.getName(), dataFileForm.getDescription())
+                .columns(dataFileForm.getColumns().stream()
+                        .map(dataFileColumnDto -> (DataFileColumn) new DataFileColumnBuilder()
+                                .dataValueType(dataFileColumnDto.getDataValueType())
+                                .name(dataFileColumnDto.getName())
+                                .values(dataFileColumnDto.getValues().stream()
+                                        .map(dataValueDto -> getObjForValue(dataValueDto.getValue().toString().trim()))
+                                        .collect(Collectors.toList()))
+                                .position(dataFileColumnDto.getPosition())
+                                .build()
+                        ).collect(Collectors.toSet()))
+                .build();
+        dataFile.getColumns()
+                .forEach(dataFileColumn -> {
+                    dataFileColumn.changeDataFile(dataFile);
+                    dataFileColumn.getValues().forEach(dataValue -> dataValue.setDataColumn(dataFileColumn));
+                });
+
+        return dataFile;
+    }
+
+    @Override
+    public List<DataSourceColumn> getDataFileColumns(Long dataFileId) {
+        List<DataSourceColumn> result = new ArrayList<>();
+        DataFile dataFile = dataFileRepository.getOne(dataFileId);
+        for (DataFileColumn dataFileColumn : dataFile.getColumns()) {
+            result.add(new DataSourceColumnBuilder()
+                    .details(dataFileColumn.getName())
+                    .paramters(dataFileColumn.getDataValueType(), dataFileColumn.getPosition())
+                    .build());
+        }
+        return result;
     }
 
     @Override
@@ -192,10 +190,10 @@ public class DataFileServiceImpl implements DataFileService {
     }
 
     @Override
-    public FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile multipartFile, Boolean readFirstColumnAsColumnName) {
+    public FileParserMessage<DataFileColumn> parse(MultipartFile multipartFile, Boolean readFirstColumnAsColumnName) {
         String fileName = multipartFile.getOriginalFilename();
         FileDataParserService fileDataParserService = fileParserFactory.getParse(fileName.substring(fileName.lastIndexOf(".")));
-        return fileDataParserService.parseFile(multipartFile, readFirstColumnAsColumnName);
+        return fileDataParserService.parse(multipartFile, readFirstColumnAsColumnName);
     }
 
     private DataValue getObjForValue(String value) {

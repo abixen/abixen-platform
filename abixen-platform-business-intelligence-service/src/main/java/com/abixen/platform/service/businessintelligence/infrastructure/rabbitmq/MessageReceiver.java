@@ -38,7 +38,7 @@ public class MessageReceiver {
 
         switch (message.getModuleTypeName()) {
             case "multi-visualisation":
-                chartConfigurationService.removeChartConfiguration(message.getModuleId());
+                chartConfigurationService.delete(message.getModuleId());
                 break;
             default:
                 throw new RuntimeException("Wrong moduleTypeName: " + message.getModuleTypeName());

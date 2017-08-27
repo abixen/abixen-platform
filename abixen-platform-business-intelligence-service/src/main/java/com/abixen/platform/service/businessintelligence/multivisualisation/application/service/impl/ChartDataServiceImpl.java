@@ -52,7 +52,7 @@ public class ChartDataServiceImpl implements ChartDataService {
 
     @Override
     public List<Map<String, DataValueDto>> getChartData(ChartConfigurationForm chartConfigurationForm, String seriesName) {
-        DataSource dataSource = dataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId());
+        DataSource dataSource = dataSourceService.find(chartConfigurationForm.getDataSource().getId());
         switch (dataSource.getDataSourceType()) {
             case DB : return getChartDataFromDatabaseDataSource(dataSource, chartConfigurationForm, seriesName);
             case FILE: return getChartDataFromFileDataSource(dataSource, chartConfigurationForm, seriesName);

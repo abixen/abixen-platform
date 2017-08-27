@@ -12,39 +12,37 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data;
+package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl;
 
 import com.abixen.platform.common.util.EntityBuilder;
 
-public class DataValueStringBuilder extends EntityBuilder<DataValueString> {
+import java.util.Set;
+
+public class DataSetBuilder extends EntityBuilder<DataSet> {
 
     @Override
-    public DataValueString build() {
+    public DataSet build() {
         return super.build();
     }
 
     @Override
     protected void initProduct() {
-        this.product = new DataValueString();
+        this.product = new DataSet();
     }
 
     @Override
-    protected DataValueString assembleProduct() {
+    protected DataSet assembleProduct() {
         return super.assembleProduct();
     }
 
-    public DataValueStringBuilder position(final Integer position) {
-        this.product.setPosition(position);
+    public DataSetBuilder domainSeries(final DataSetSeriesColumn domainXSeriesColumn, final DataSetSeriesColumn domainZSeriesColumn) {
+        this.product.setDomainXSeriesColumn(domainXSeriesColumn);
+        this.product.setDomainZSeriesColumn(domainZSeriesColumn);
         return this;
     }
 
-    public DataValueStringBuilder dataColumn(final DataColumn dataColumn) {
-        this.product.setDataColumn(dataColumn);
-        return this;
-    }
-
-    public DataValueStringBuilder value(final String value) {
-        this.product.setValue(value);
+    public DataSetBuilder dataSetSeries(final Set<DataSetSeries> dataSetSeries) {
+        this.product.setDataSetSeries(dataSetSeries);
         return this;
     }
 }

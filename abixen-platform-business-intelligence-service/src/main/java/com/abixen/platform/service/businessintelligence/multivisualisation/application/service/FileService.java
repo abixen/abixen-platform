@@ -25,5 +25,4 @@ public interface FileService {
 
     List<Map<String, DataValueDto>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName);
 
-
 }

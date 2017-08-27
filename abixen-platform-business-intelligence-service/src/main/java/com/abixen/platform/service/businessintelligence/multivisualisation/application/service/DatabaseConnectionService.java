@@ -25,23 +25,23 @@ import java.util.List;
 
 public interface DatabaseConnectionService {
 
-    Page<DatabaseConnection> findAllDatabaseConnections(Pageable pageable);
+    DatabaseConnection find(Long id);
 
-    DatabaseConnection findDatabaseConnection(Long id);
+    Page<DatabaseConnection> findAll(Pageable pageable);
 
-    void deleteDatabaseConnection(Long id);
+    DatabaseConnection create(DatabaseConnectionForm databaseConnectionForm);
 
-    DatabaseConnection buildDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
+    DatabaseConnection create(DatabaseConnection databaseConnection);
 
-    DatabaseConnection createDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
+    DatabaseConnection update(DatabaseConnectionForm databaseConnectionForm);
 
-    DatabaseConnection updateDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
+    DatabaseConnection update(DatabaseConnection databaseConnection);
 
-    DatabaseConnection createDatabaseConnection(DatabaseConnection databaseConnection);
+    void delete(Long id);
 
-    DatabaseConnection updateDatabaseConnection(DatabaseConnection databaseConnection);
+    DatabaseConnection build(DatabaseConnectionForm databaseConnectionForm);
 
-    void testDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
+    void testConnection(DatabaseConnectionForm databaseConnectionForm);
 
     List<String> getTables(Long databaseConnectionId);
 

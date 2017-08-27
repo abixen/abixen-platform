@@ -47,14 +47,14 @@ public class DataSetSeries implements Serializable {
     @JoinColumn(name = "data_set_id", nullable = false)
     private DataSet dataSet;
 
-    public DataSetSeries() {
+    DataSetSeries() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -62,7 +62,7 @@ public class DataSetSeries implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
@@ -70,7 +70,7 @@ public class DataSetSeries implements Serializable {
         return valueSeriesColumn;
     }
 
-    public void setValueSeriesColumn(DataSetSeriesColumn valueSeriesColumn) {
+    void setValueSeriesColumn(final DataSetSeriesColumn valueSeriesColumn) {
         this.valueSeriesColumn = valueSeriesColumn;
     }
 
@@ -78,7 +78,7 @@ public class DataSetSeries implements Serializable {
         return filter;
     }
 
-    public void setFilter(String filter) {
+    void setFilter(final String filter) {
         this.filter = filter;
     }
 
@@ -86,7 +86,20 @@ public class DataSetSeries implements Serializable {
         return dataSet;
     }
 
-    public void setDataSet(DataSet dataSet) {
+    void setDataSet(final DataSet dataSet) {
         this.dataSet = dataSet;
+    }
+
+    public void changeName(String name) {
+        setName(name);
+    }
+
+    public void changeValueSeriesColumn(DataSetSeriesColumn valueSeriesColumn) {
+        setValueSeriesColumn(valueSeriesColumn);
+    }
+
+    public void changeDataParameters(String filter, DataSet dataSet) {
+        setFilter(filter);
+        setDataSet(dataSet);
     }
 }

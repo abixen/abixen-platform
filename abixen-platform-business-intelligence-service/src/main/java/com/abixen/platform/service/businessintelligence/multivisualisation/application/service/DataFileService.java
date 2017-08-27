@@ -29,27 +29,27 @@ import java.util.Map;
 
 public interface DataFileService {
 
-    Page<DataFile> getDataFile(String jsonCriteria, Pageable pageable);
+    Page<DataFile> find(String jsonCriteria, Pageable pageable);
 
-    Page<DataFile> findAllDataFile(Pageable pageable);
+    DataFile find(Long id);
+
+    Page<DataFile> findAll(Pageable pageable);
+
+    DataFile create(DataFileForm dataFileForm);
+
+    DataFile create(DataFile dataFile);
+
+    DataFile update(DataFileForm dataFileForm);
+
+    DataFile update(DataFile dataFile);
+
+    void delete(Long id);
+
+    DataFile build(DataFileForm dataFileForm);
 
     List<DataSourceColumn> getDataFileColumns(Long dataFileId);
 
     List<Map<String, Integer>> getAllColumns(Long dataFileId);
 
-    DataFile buildDataFile(DataFileForm dataFileForm);
-
-    DataFile createDataFile(DataFileForm dataFileForm);
-
-    DataFile createDataFile(DataFile dataFile);
-
-    DataFile updateDataFile(DataFileForm dataFileForm);
-
-    DataFile updateDataFile(DataFile dataFile);
-
-    DataFile findDataFile(Long id);
-
-    void delateFileData(Long id);
-
-    FileParserMessage<DataFileColumn> uploadAndParseFile(MultipartFile fileToParse, Boolean readFirstColumnAsColumnName);
+    FileParserMessage<DataFileColumn> parse(MultipartFile fileToParse, Boolean readFirstColumnAsColumnName);
 }

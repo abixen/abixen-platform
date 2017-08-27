@@ -12,17 +12,17 @@ import java.util.Map;
 
 public interface DataSourceService {
 
-    DataSource findDataSource(Long id);
+    DataSource find(Long id);
 
-    Page<DataSource> findAllDataSources(Pageable pageable, DataSourceType dataSourceType);
+    Page<DataSource> findAll(Pageable pageable, DataSourceType dataSourceType);
 
-    DataSource createDataSource(DataSourceForm dataSourceForm);
+    DataSource create(DataSourceForm dataSourceForm);
 
-    DataSource updateDataSource(DataSourceForm dataSourceForm);
+    DataSource update(DataSourceForm dataSourceForm);
 
-    List<Map<String, DataValueDto>> getPreviewData(DataSourceForm dataSourceForm);
+    void delete(Long dataSourceId);
 
-    void deleteDataSource(Long dataSourceId);
+    List<Map<String, DataValueDto>> findPreviewData(DataSourceForm dataSourceForm);
 
     List<Map<String, Integer>> getAllColumns(Long dataSourceId);
 

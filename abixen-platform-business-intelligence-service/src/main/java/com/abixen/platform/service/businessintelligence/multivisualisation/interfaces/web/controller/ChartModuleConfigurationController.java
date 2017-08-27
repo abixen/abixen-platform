@@ -70,7 +70,7 @@ public class ChartModuleConfigurationController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
-        log.debug("createChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
+        log.debug("create() - chartConfigurationForm: " + chartConfigurationForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -86,7 +86,7 @@ public class ChartModuleConfigurationController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
-        log.debug("updateChartConfiguration() - id: " + id + ", chartConfigurationForm: " + chartConfigurationForm);
+        log.debug("update() - id: " + id + ", chartConfigurationForm: " + chartConfigurationForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);

@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2010-present Abixen Systems. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
@@ -20,7 +34,6 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseFactory;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DomainBuilderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,31 +50,28 @@ import java.util.stream.Collectors;
 public class DataSourceServiceImpl implements DataSourceService {
 
     private final DataSourceRepository dataSourceRepository;
-    private final DomainBuilderService domainBuilderService;
     private final DatabaseConnectionRepository databaseConnectionRepository;
     private final DataFileRepository dataFileRepository;
     private final DatabaseFactory databaseFactory;
 
     @Autowired
     public DataSourceServiceImpl(DataSourceRepository dataSourceRepository,
-                                 DomainBuilderService domainBuilderService,
                                  DatabaseConnectionRepository databaseConnectionRepository,
                                  DataFileRepository dataFileRepository,
                                  DatabaseFactory databaseFactory) {
         this.dataSourceRepository = dataSourceRepository;
-        this.domainBuilderService = domainBuilderService;
         this.databaseConnectionRepository = databaseConnectionRepository;
         this.dataFileRepository = dataFileRepository;
         this.databaseFactory = databaseFactory;
     }
 
     @Override
-    public DataSource findDataSource(Long id) {
+    public DataSource find(Long id) {
         return dataSourceRepository.findOne(id);
     }
 
     @Override
-    public Page<DataSource> findAllDataSources(Pageable pageable, DataSourceType dataSourceType) {
+    public Page<DataSource> findAll(Pageable pageable, DataSourceType dataSourceType) {
         if (dataSourceType != null) {
             return dataSourceRepository.findByDataSourceType(dataSourceType, pageable);
         } else {
@@ -70,26 +80,17 @@ public class DataSourceServiceImpl implements DataSourceService {
     }
 
     @Override
-    public DataSource createDataSource(DataSourceForm dataSourceForm) {
+    public DataSource create(DataSourceForm dataSourceForm) {
         return dataSourceRepository.save(buildDataSource(dataSourceForm));
     }
 
     @Override
-    public DataSource updateDataSource(DataSourceForm dataSourceForm) {
+    public DataSource update(DataSourceForm dataSourceForm) {
         return dataSourceRepository.save(buildDataSource(dataSourceForm));
     }
 
     @Override
-    public List<Map<String, DataValueDto>> getPreviewData(DataSourceForm dataSourceForm) {
-        DatabaseConnectionDto databaseConnection = ((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection();
-        DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
-        Connection connection = databaseService.getConnection(databaseConnection);
-        List<Map<String, DataValueDto>> dataSourcePreviewData = databaseService.getDataSourcePreview(connection, buildDataSource(dataSourceForm));
-        return dataSourcePreviewData;
-    }
-
-    @Override
-    public void deleteDataSource(Long dataSourceId) {
+    public void delete(Long dataSourceId) {
         dataSourceRepository.delete(dataSourceId);
     }
 
@@ -99,6 +100,15 @@ public class DataSourceServiceImpl implements DataSourceService {
         dataSourceRepository.findOne(dataSourceId)
                 .getColumns().forEach(dataSourceColumn -> mapColumnAndAddToResult(result, dataSourceColumn));
         return result;
+    }
+
+    @Override
+    public List<Map<String, DataValueDto>> findPreviewData(DataSourceForm dataSourceForm) {
+        DatabaseConnectionDto databaseConnection = ((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection();
+        DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
+        Connection connection = databaseService.getConnection(databaseConnection);
+        List<Map<String, DataValueDto>> dataSourcePreviewData = databaseService.getDataSourcePreview(connection, buildDataSource(dataSourceForm));
+        return dataSourcePreviewData;
     }
 
     private void mapColumnAndAddToResult(List<Map<String, Integer>> result, DataSourceColumn dataSourceColumn) {

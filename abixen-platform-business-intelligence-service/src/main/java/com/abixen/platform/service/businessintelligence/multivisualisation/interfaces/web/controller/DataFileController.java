@@ -69,7 +69,7 @@ public class DataFileController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createDataFile(@RequestBody @Valid DataFileForm fileDataForm, BindingResult bindingResult) {
-        log.debug("createDataSource() - fileDataSourceForm: " + fileDataForm);
+        log.debug("create() - fileDataSourceForm: " + fileDataForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -84,7 +84,7 @@ public class DataFileController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateDataFile(@PathVariable("id") Long id, @RequestBody @Valid DataFileForm dataFileForm, BindingResult bindingResult) {
-        log.debug("updateDataSource() - id: " + id + ", fileDataSourceForm: " + dataFileForm);
+        log.debug("update() - id: " + id + ", fileDataSourceForm: " + dataFileForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);

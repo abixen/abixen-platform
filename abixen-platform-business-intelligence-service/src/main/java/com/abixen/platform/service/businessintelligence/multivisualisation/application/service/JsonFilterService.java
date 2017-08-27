@@ -19,5 +19,6 @@ import java.sql.SQLException;
 
 public interface JsonFilterService {
 
-    String convertJsonToJpql(String jsonCriteria, ResultSetMetaData rsmd) throws SQLException;
+    String convertJsonToJpql(String jsonCriteria, ResultSetMetaData resultSetMetaData) throws SQLException;
+
 }

@@ -49,23 +49,57 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     }
 
     @Override
-    public Page<DatabaseConnection> findAllDatabaseConnections(Pageable pageable) {
+    public DatabaseConnection find(Long id) {
+        return dataSourceConnectionRepository.getOne(id);
+    }
+
+    @Override
+    public Page<DatabaseConnection> findAll(Pageable pageable) {
         return dataSourceConnectionRepository.findAll(pageable);
     }
 
     @Override
-    public DatabaseConnection findDatabaseConnection(Long id) {
-       return dataSourceConnectionRepository.getOne(id);
+    public DatabaseConnection create(DatabaseConnectionForm databaseConnectionForm) {
+        DatabaseConnection databaseConnection = build(databaseConnectionForm);
+        return update(create(databaseConnection));
     }
 
     @Override
-    public void deleteDatabaseConnection(Long id) {
+    public DatabaseConnection create(DatabaseConnection databaseConnection) {
+        log.debug("create() - databaseConnection: " + databaseConnection);
+        return dataSourceConnectionRepository.save(databaseConnection);
+    }
+
+    @Override
+    public DatabaseConnection update(DatabaseConnectionForm databaseConnectionForm) {
+        log.debug("update() - databaseConnectionForm: " + databaseConnectionForm);
+
+        DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionForm.getId());
+
+        databaseConnection.changeCredentials(databaseConnectionForm.getUsername(), databaseConnectionForm.getPassword());
+        databaseConnection.changeDatabase(databaseConnectionForm.getDatabaseType(),
+                databaseConnectionForm.getDatabaseHost(),
+                databaseConnectionForm.getDatabasePort(),
+                databaseConnectionForm.getDatabaseName());
+        databaseConnection.changeDetails(databaseConnectionForm.getName(), databaseConnectionForm.getDescription());
+
+        return update(databaseConnection);
+    }
+
+    @Override
+    public DatabaseConnection update(DatabaseConnection databaseConnection) {
+        log.debug("update() - databaseConnection: " + databaseConnection);
+        return dataSourceConnectionRepository.save(databaseConnection);
+    }
+
+    @Override
+    public void delete(Long id) {
         dataSourceConnectionRepository.delete(id);
     }
 
     @Override
-    public DatabaseConnection buildDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
-        log.debug("buildDatabaseConnection() - databaseConnectionForm: " + databaseConnectionForm);
+    public DatabaseConnection build(DatabaseConnectionForm databaseConnectionForm) {
+        log.debug("build() - databaseConnectionForm: " + databaseConnectionForm);
 
         return new DatabaseConnectionBuilder()
                 .credentials(databaseConnectionForm.getUsername(), databaseConnectionForm.getPassword())
@@ -78,41 +112,7 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     }
 
     @Override
-    public DatabaseConnection createDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
-        DatabaseConnection databaseConnection = buildDatabaseConnection(databaseConnectionForm);
-        return updateDatabaseConnection(createDatabaseConnection(databaseConnection));
-    }
-
-    @Override
-    public DatabaseConnection updateDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
-        log.debug("updateDatabaseConnection() - databaseConnectionForm: " + databaseConnectionForm);
-
-        DatabaseConnection databaseConnection = dataSourceConnectionRepository.findOne(databaseConnectionForm.getId());
-
-        databaseConnection.changeCredentials(databaseConnectionForm.getUsername(), databaseConnectionForm.getPassword());
-        databaseConnection.changeDatabase(databaseConnectionForm.getDatabaseType(),
-                databaseConnectionForm.getDatabaseHost(),
-                databaseConnectionForm.getDatabasePort(),
-                databaseConnectionForm.getDatabaseName());
-        databaseConnection.changeDetails(databaseConnectionForm.getName(), databaseConnectionForm.getDescription());
-
-        return updateDatabaseConnection(databaseConnection);
-    }
-
-    @Override
-    public DatabaseConnection createDatabaseConnection(DatabaseConnection databaseConnection) {
-        log.debug("createDatabaseConnection() - databaseConnection: " + databaseConnection);
-        return dataSourceConnectionRepository.save(databaseConnection);
-    }
-
-    @Override
-    public DatabaseConnection updateDatabaseConnection(DatabaseConnection databaseConnection) {
-        log.debug("updateDatabaseConnection() - databaseConnection: " + databaseConnection);
-        return dataSourceConnectionRepository.save(databaseConnection);
-    }
-
-    @Override
-    public void testDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
+    public void testConnection(DatabaseConnectionForm databaseConnectionForm) {
         databaseFactory.getDatabaseService(databaseConnectionForm.getDatabaseType()).getConnection(databaseConnectionForm);
     }
 

@@ -50,40 +50,40 @@ public class DatabaseConnectionFacadeImpl implements DatabaseConnectionFacade {
 
     @Override
     public Page<DatabaseConnectionDto> findAllDatabaseConnections(Pageable pageable) {
-        Page<DatabaseConnection> databaseConnections = databaseConnectionService.findAllDatabaseConnections(pageable);
+        Page<DatabaseConnection> databaseConnections = databaseConnectionService.findAll(pageable);
         Page<DatabaseConnectionDto> databaseConnectionDtos = databaseConnectionToDatabaseConnectionDtoConverter.convertToPage(databaseConnections);
         return databaseConnectionDtos;
     }
 
     @Override
     public DatabaseConnectionDto findDatabaseConnection(Long id) {
-        DatabaseConnection databaseConnection = databaseConnectionService.findDatabaseConnection(id);
+        DatabaseConnection databaseConnection = databaseConnectionService.find(id);
         DatabaseConnectionDto databaseConnectionDto = databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection);
         return databaseConnectionDto;
     }
 
     @Override
     public void deleteDatabaseConnection(Long id) {
-        databaseConnectionService.deleteDatabaseConnection(id);
+        databaseConnectionService.delete(id);
     }
 
     @Override
     public DatabaseConnectionDto createDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
-        DatabaseConnection databaseConnection = databaseConnectionService.createDatabaseConnection(databaseConnectionForm);
+        DatabaseConnection databaseConnection = databaseConnectionService.create(databaseConnectionForm);
         DatabaseConnectionDto databaseConnectionDto = databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection);
         return databaseConnectionDto;
     }
 
     @Override
     public DatabaseConnectionDto updateDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
-        DatabaseConnection databaseConnection = databaseConnectionService.updateDatabaseConnection(databaseConnectionForm);
+        DatabaseConnection databaseConnection = databaseConnectionService.update(databaseConnectionForm);
         DatabaseConnectionDto databaseConnectionDto = databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection);
         return databaseConnectionDto;
     }
 
     @Override
     public void testDatabaseConnection(DatabaseConnectionForm databaseConnectionForm) {
-        databaseConnectionService.testDatabaseConnection(databaseConnectionForm);
+        databaseConnectionService.testConnection(databaseConnectionForm);
     }
 
     @Override

@@ -40,21 +40,21 @@ public class ChartConfigurationFacadeImpl implements ChartConfigurationFacade {
 
     @Override
     public ChartConfigurationDto createChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
-        ChartConfiguration chartConfiguration = chartConfigurationService.createChartConfiguration(chartConfigurationForm);
+        ChartConfiguration chartConfiguration = chartConfigurationService.create(chartConfigurationForm);
         ChartConfigurationDto chartConfigurationDto = chartConfigurationToChartConfigurationDtoConverter.convert(chartConfiguration);
         return chartConfigurationDto;
     }
 
     @Override
     public ChartConfigurationDto updateChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
-        ChartConfiguration chartConfiguration = chartConfigurationService.updateChartConfiguration(chartConfigurationForm);
+        ChartConfiguration chartConfiguration = chartConfigurationService.update(chartConfigurationForm);
         ChartConfigurationDto chartConfigurationDto = chartConfigurationToChartConfigurationDtoConverter.convert(chartConfiguration);
         return chartConfigurationDto;
     }
 
     @Override
     public ChartConfigurationDto findChartConfiguration(Long moduleId) {
-        ChartConfiguration chartConfiguration = chartConfigurationService.findChartConfigurationByModuleId(moduleId);
+        ChartConfiguration chartConfiguration = chartConfigurationService.find(moduleId);
         ChartConfigurationDto chartConfigurationDto = chartConfigurationToChartConfigurationDtoConverter.convert(chartConfiguration);
         return chartConfigurationDto;
     }

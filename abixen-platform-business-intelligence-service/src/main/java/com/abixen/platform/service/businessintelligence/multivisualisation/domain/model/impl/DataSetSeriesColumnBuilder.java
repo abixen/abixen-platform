@@ -12,39 +12,37 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data;
+package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl;
 
 import com.abixen.platform.common.util.EntityBuilder;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.ColumnType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
 
-public class DataValueStringBuilder extends EntityBuilder<DataValueString> {
+public class DataSetSeriesColumnBuilder extends EntityBuilder<DataSetSeriesColumn> {
 
     @Override
-    public DataValueString build() {
+    public DataSetSeriesColumn build() {
         return super.build();
     }
 
     @Override
     protected void initProduct() {
-        this.product = new DataValueString();
+        this.product = new DataSetSeriesColumn();
     }
 
     @Override
-    protected DataValueString assembleProduct() {
+    protected DataSetSeriesColumn assembleProduct() {
         return super.assembleProduct();
     }
 
-    public DataValueStringBuilder position(final Integer position) {
-        this.product.setPosition(position);
+    public DataSetSeriesColumnBuilder name(final String name) {
+        this.product.setName(name);
         return this;
     }
 
-    public DataValueStringBuilder dataColumn(final DataColumn dataColumn) {
-        this.product.setDataColumn(dataColumn);
-        return this;
-    }
-
-    public DataValueStringBuilder value(final String value) {
-        this.product.setValue(value);
+    public DataSetSeriesColumnBuilder column(final ColumnType columnType, final DataSourceColumn dataSourceColumn) {
+        this.product.setType(columnType);
+        this.product.setDataSourceColumn(dataSourceColumn);
         return this;
     }
 }

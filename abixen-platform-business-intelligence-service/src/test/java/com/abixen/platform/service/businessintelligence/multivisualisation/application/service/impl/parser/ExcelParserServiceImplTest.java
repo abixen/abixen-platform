@@ -51,7 +51,7 @@ public class ExcelParserServiceImplTest {
         File testCSV = new File("src/test/resource/excelCorrect.xlsx");
         MockMultipartFile mockMultipartFile = new MockMultipartFile("test.xlsx", "test.xlsx", (String) null, Files.readAllBytes(Paths.get(testCSV.getPath())));
         //when
-        FileParserMessage<DataFileColumn> result = excelParserService.parseFile(mockMultipartFile, true);
+        FileParserMessage<DataFileColumn> result = excelParserService.parse(mockMultipartFile, true);
         //then
         assert result.getFileParseErrors().isEmpty() && !result.getData().isEmpty();
     }
@@ -61,7 +61,7 @@ public class ExcelParserServiceImplTest {
         File testCSV = new File("src/test/resource/excelWithDiffrentTypeInColumn.xlsx");
         MockMultipartFile mockMultipartFile = new MockMultipartFile("test.xlsx", "test.xlsx", (String) null, Files.readAllBytes(Paths.get(testCSV.getPath())));
         //when
-        FileParserMessage<DataFileColumn> result = excelParserService.parseFile(mockMultipartFile, true);
+        FileParserMessage<DataFileColumn> result = excelParserService.parse(mockMultipartFile, true);
         //then
         assert !result.getFileParseErrors().isEmpty() && result.getData().isEmpty();
     }
@@ -71,7 +71,7 @@ public class ExcelParserServiceImplTest {
         File testCSV = new File("src/test/resource/excelCorrect.xls");
         MockMultipartFile mockMultipartFile = new MockMultipartFile("test.xlsx", "test.xls", (String) null, Files.readAllBytes(Paths.get(testCSV.getPath())));
         //when
-        FileParserMessage<DataFileColumn> result = excelParserService.parseFile(mockMultipartFile, true);
+        FileParserMessage<DataFileColumn> result = excelParserService.parse(mockMultipartFile, true);
         //then
         assert result.getFileParseErrors().isEmpty() && !result.getData().isEmpty();
     }
@@ -81,7 +81,7 @@ public class ExcelParserServiceImplTest {
         File testCSV = new File("src/test/resource/excelWithDiffrentTypeInColumn.xls");
         MockMultipartFile mockMultipartFile = new MockMultipartFile("test.xlsx", "test.xls", (String) null, Files.readAllBytes(Paths.get(testCSV.getPath())));
         //when
-        FileParserMessage<DataFileColumn> result = excelParserService.parseFile(mockMultipartFile, true);
+        FileParserMessage<DataFileColumn> result = excelParserService.parse(mockMultipartFile, true);
         //then
         assert !result.getFileParseErrors().isEmpty() && result.getData().isEmpty();
     }

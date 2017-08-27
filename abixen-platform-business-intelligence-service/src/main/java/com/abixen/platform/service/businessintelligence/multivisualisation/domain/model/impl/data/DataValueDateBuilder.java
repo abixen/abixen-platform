@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -20,21 +20,6 @@ import java.util.Date;
 
 public class DataValueDateBuilder extends EntityBuilder<DataValueDate> {
 
-    public DataValueDateBuilder position(final Integer position) {
-        this.product.setPosition(position);
-        return this;
-    }
-
-    public DataValueDateBuilder dataColumn(final DataColumn dataColumn) {
-        this.product.setDataColumn(dataColumn);
-        return this;
-    }
-
-    public DataValueDateBuilder value(final Date value) {
-        this.product.setValue(value);
-        return this;
-    }
-
     @Override
     public DataValueDate build() {
         return super.build();
@@ -48,5 +33,20 @@ public class DataValueDateBuilder extends EntityBuilder<DataValueDate> {
     @Override
     protected DataValueDate assembleProduct() {
         return super.assembleProduct();
+    }
+
+    public DataValueDateBuilder position(final Integer position) {
+        this.product.setPosition(position);
+        return this;
+    }
+
+    public DataValueDateBuilder dataColumn(final DataColumn dataColumn) {
+        this.product.setDataColumn(dataColumn);
+        return this;
+    }
+
+    public DataValueDateBuilder value(final Date value) {
+        this.product.setValue(value);
+        return this;
     }
 }

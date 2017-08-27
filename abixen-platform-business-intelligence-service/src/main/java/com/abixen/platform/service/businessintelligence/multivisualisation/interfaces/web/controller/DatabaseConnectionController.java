@@ -62,7 +62,7 @@ public class DatabaseConnectionController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
-        log.debug("createDatabaseConnection() - databaseConnectionForm: " + databaseConnectionForm);
+        log.debug("create() - databaseConnectionForm: " + databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -77,7 +77,7 @@ public class DatabaseConnectionController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateDatabaseConnection(@PathVariable("id") Long id, @RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
-        log.debug("updateDatabaseConnection() - id: " + id + ", databaseConnectionForm: " + databaseConnectionForm);
+        log.debug("update() - id: " + id + ", databaseConnectionForm: " + databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -92,7 +92,7 @@ public class DatabaseConnectionController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     public FormValidationResultDto testDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
-        log.debug("testDatabaseConnection() - databaseConnectionForm: " + databaseConnectionForm);
+        log.debug("testConnection() - databaseConnectionForm: " + databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
