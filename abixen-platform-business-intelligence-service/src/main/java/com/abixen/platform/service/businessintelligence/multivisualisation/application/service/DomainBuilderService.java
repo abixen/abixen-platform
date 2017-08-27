@@ -14,7 +14,6 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.util.*;
 
 
@@ -25,7 +24,4 @@ public interface DomainBuilderService {
     DataSetSeriesBuilder newDataSetSeriesBuilderInstance();
 
     DataSetSeriesColumnBuilder newDataSetSeriesColumnBuilderInstance();
-
-    DataSourceValueBuilder newDataSourceValueBuilderInstance(DataValueType dataValueType);
-
 }

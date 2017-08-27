@@ -28,11 +28,14 @@ public class DataValueDouble extends DataValue<Double> {
     @Column(name = "value", nullable = true)
     private Double value;
 
+    DataValueDouble() {
+    }
+
     public Double getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    void setValue(final Double value) {
         this.value = value;
     }
 

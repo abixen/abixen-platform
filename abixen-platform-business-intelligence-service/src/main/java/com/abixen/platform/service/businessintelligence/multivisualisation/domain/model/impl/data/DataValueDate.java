@@ -28,12 +28,19 @@ public class DataValueDate extends DataValue<Date> {
     @Column(name = "value", nullable = true)
     private Date value;
 
+    DataValueDate() {
+    }
+
     public Date getValue() {
         return value;
     }
 
-    public void setValue(Date value) {
+    void setValue(final Date value) {
         this.value = value;
+    }
+
+    public void changeValue(Date value) {
+        setValue(value);
     }
 
 

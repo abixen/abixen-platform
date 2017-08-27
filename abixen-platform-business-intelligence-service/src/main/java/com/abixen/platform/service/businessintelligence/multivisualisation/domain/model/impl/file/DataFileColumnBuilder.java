@@ -19,12 +19,12 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 
 public class DataFileColumnBuilder extends DataColumnBuilder {
 
-    public DataFileColumnBuilder dataFile(DataFile dataFile) {
+    public DataFileColumnBuilder dataFile(final DataFile dataFile) {
         ((DataFileColumn) this.product).setDataFile(dataFile);
         return this;
     }
 
-    public DataFileColumnBuilder dataValueType(DataValueType dataValueType) {
+    public DataFileColumnBuilder dataValueType(final DataValueType dataValueType) {
         ((DataFileColumn) this.product).setDataValueType(dataValueType);
         return this;
     }

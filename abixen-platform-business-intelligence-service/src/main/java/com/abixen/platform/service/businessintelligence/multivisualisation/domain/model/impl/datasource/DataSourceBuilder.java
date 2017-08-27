@@ -21,19 +21,19 @@ import java.util.Set;
 
 public class DataSourceBuilder extends EntityBuilder<DataSource> {
 
-    public DataSourceBuilder details(String name, String description) {
+    public DataSourceBuilder details(final String name, final String description) {
         this.product.setName(name);
         this.product.setDescription(description);
         return this;
     }
 
-    public DataSourceBuilder paramters(DataSourceType dataSourceType, String filter) {
+    public DataSourceBuilder paramters(final DataSourceType dataSourceType, final String filter) {
         this.product.setDataSourceType(dataSourceType);
         this.product.setFilter(filter);
         return this;
     }
 
-    public DataSourceBuilder columns(Set<DataSourceColumn> dataSourceColumns) {
+    public DataSourceBuilder columns(final Set<DataSourceColumn> dataSourceColumns) {
         this.product.setColumns(dataSourceColumns);
         return this;
     }

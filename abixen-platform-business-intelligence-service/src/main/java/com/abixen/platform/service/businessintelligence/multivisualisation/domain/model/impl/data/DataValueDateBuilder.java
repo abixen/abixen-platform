@@ -12,38 +12,41 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file;
+package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data;
 
 import com.abixen.platform.common.util.EntityBuilder;
 
-import java.util.Set;
+import java.util.Date;
 
-public class DataFileBuilder extends EntityBuilder<DataFile> {
+public class DataValueDateBuilder extends EntityBuilder<DataValueDate> {
 
-    public DataFileBuilder details(final String name, final String description) {
-        this.product.setName(name);
-        this.product.setDescription(description);
+    public DataValueDateBuilder position(final Integer position) {
+        this.product.setPosition(position);
         return this;
     }
 
-    public DataFileBuilder columns(final Set<DataFileColumn> columns) {
-        this.product.setColumns(columns);
+    public DataValueDateBuilder dataColumn(final DataColumn dataColumn) {
+        this.product.setDataColumn(dataColumn);
         return this;
     }
 
+    public DataValueDateBuilder value(final Date value) {
+        this.product.setValue(value);
+        return this;
+    }
 
     @Override
-    public DataFile build() {
+    public DataValueDate build() {
         return super.build();
     }
 
     @Override
     protected void initProduct() {
-        this.product = new DataFile();
+        this.product = new DataValueDate();
     }
 
     @Override
-    protected DataFile assembleProduct() {
+    protected DataValueDate assembleProduct() {
         return super.assembleProduct();
     }
 }

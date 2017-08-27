@@ -17,10 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParseError;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValue;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueDate;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueDouble;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueString;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.FileParserService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumnBuilder;
@@ -115,21 +112,21 @@ public class ExcelParserServiceImpl implements FileParserService {
     }
 
     private DataValue parseAsDate(Cell cell) {
-        DataValueDate dataValueDate = new DataValueDate();
-        dataValueDate.setValue(cell.getDateCellValue());
-        return dataValueDate;
+        return new DataValueDateBuilder()
+                .value(cell.getDateCellValue())
+                .build();
     }
 
     private DataValue parseAsString(Cell cell) {
-        DataValueString dataValueString = new DataValueString();
-        dataValueString.setValue(cell.getStringCellValue());
-        return dataValueString;
+        return new DataValueStringBuilder()
+                .value(cell.getStringCellValue())
+                .build();
     }
 
     private DataValue parseAsDouble(Cell cell) {
-        DataValueDouble dataValueDouble = new DataValueDouble();
-        dataValueDouble.setValue(cell.getNumericCellValue());
-        return dataValueDouble;
+        return new DataValueDoubleBuilder()
+                .value(cell.getNumericCellValue())
+                .build();
     }
 
     private boolean validate(FileParserMessage<DataFileColumn> msg, Row headerRow, Sheet sheet, Boolean readFirstColumnAsColumnName) {

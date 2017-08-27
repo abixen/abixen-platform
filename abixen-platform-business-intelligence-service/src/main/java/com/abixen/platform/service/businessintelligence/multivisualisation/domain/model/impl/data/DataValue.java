@@ -60,7 +60,7 @@ public abstract class DataValue<E> extends Model {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -68,20 +68,29 @@ public abstract class DataValue<E> extends Model {
         return position;
     }
 
-    public void setPosition(Integer position) {
+    void setPosition(final Integer position) {
         this.position = position;
     }
 
     public abstract E getValue();
 
-    public abstract void setValue(E value);
+    abstract void setValue(final E value);
 
     public DataColumn getDataColumn() {
         return dataColumn;
     }
 
-    public void setDataColumn(DataColumn dataColumn) {
+    public void setDataColumn(final DataColumn dataColumn) {
         this.dataColumn = dataColumn;
     }
+
+    public void changePosition(final Integer position) {
+        setPosition(position);
+    }
+
+    public void changeDataColumn(final DataColumn dataColumn) {
+        setDataColumn(dataColumn);
+    }
+
 }
 

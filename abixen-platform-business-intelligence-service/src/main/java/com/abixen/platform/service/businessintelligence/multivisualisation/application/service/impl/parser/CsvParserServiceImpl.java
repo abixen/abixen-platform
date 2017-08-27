@@ -181,26 +181,26 @@ public class CsvParserServiceImpl implements FileParserService {
     }
 
     private DataValue parseAsDate(String element) {
-        DataValueDate dataValueDate = new DataValueDate();
-        dataValueDate.setValue(new Date(element));
-        return dataValueDate;
+        return new DataValueDateBuilder()
+                .value(new Date(element))
+                .build();
     }
 
     private DataValue parseAsString(String element) {
-        DataValueString dataValueString = new DataValueString();
-        dataValueString.setValue(element);
-        return dataValueString;
+        return new DataValueStringBuilder()
+                .value(element)
+                .build();
     }
 
     private DataValueInteger parseAsInteger(String element) {
-        DataValueInteger dataValueInteger = new DataValueInteger();
-        dataValueInteger.setValue(Integer.valueOf(element));
-        return dataValueInteger;
+        return new DataValueIntegerBuilder()
+                .value(Integer.valueOf(element))
+                .build();
     }
 
     private DataValueDouble parseAsDouble(String element) {
-        DataValueDouble dataValueDouble = new DataValueDouble();
-        dataValueDouble.setValue(Double.valueOf(element.replace(",", ".")));
-        return dataValueDouble;
+        return new DataValueDoubleBuilder()
+                .value(Double.valueOf(element.replace(",", ".")))
+                .build();
     }
 }

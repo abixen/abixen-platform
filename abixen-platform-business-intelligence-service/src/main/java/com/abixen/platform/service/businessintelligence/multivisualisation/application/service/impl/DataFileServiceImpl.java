@@ -15,16 +15,13 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumnBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumnBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.DataFileToDataFileDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValue;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueDouble;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueInteger;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueString;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile;
@@ -35,6 +32,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.FileParserService;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -199,25 +197,27 @@ public class DataFileServiceImpl implements DataFileService {
     }
 
     private DataValue getObjForValue(String value) {
-        DataValue dataValue;
         if (value == null) {
-            dataValue = new DataValueString();
-            dataValue.setValue("");
+            return new DataValueStringBuilder()
+                    .value(StringUtils.EMPTY)
+                    .build();
         } else {
             if (NumberUtils.isNumber(value)) {
                 if (Ints.tryParse(value) != null) {
-                    dataValue = new DataValueInteger();
-                    dataValue.setValue(Integer.parseInt(value));
+                    return new DataValueIntegerBuilder()
+                            .value(Integer.parseInt(value))
+                            .build();
                 } else {
-                    dataValue = new DataValueDouble();
-                    dataValue.setValue(Double.parseDouble(value));
+                    return new DataValueDoubleBuilder()
+                            .value(Double.parseDouble(value))
+                            .build();
                 }
             } else {
-                dataValue = new DataValueString();
-                dataValue.setValue(value);
+                return new DataValueStringBuilder()
+                        .value(value)
+                        .build();
             }
         }
-        return dataValue;
     }
 
 }

@@ -42,11 +42,14 @@ public class DataColumn {
     @OneToMany(mappedBy = "dataColumn", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DataValue> values = new ArrayList<>();
 
+    protected DataColumn() {
+    }
+
     public Long getId() {
         return id;
     }
 
-    void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -54,7 +57,7 @@ public class DataColumn {
         return name;
     }
 
-    void setName(String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
@@ -62,7 +65,7 @@ public class DataColumn {
         return position;
     }
 
-    void setPosition(Integer position) {
+    void setPosition(final Integer position) {
         this.position = position;
     }
 
@@ -70,7 +73,7 @@ public class DataColumn {
         return values;
     }
 
-    void setValues(List<DataValue> values) {
+    void setValues(final List<DataValue> values) {
         if (this.values != null) {
             this.values.clear();
             this.values.addAll(values);
@@ -79,15 +82,15 @@ public class DataColumn {
         }
     }
 
-    public void changeName(String name) {
+    public void changeName(final String name) {
         setName(name);
     }
 
-    public void changePosition(Integer position) {
+    public void changePosition(final Integer position) {
         setPosition(position);
     }
 
-    public void changeValues(List<DataValue> values) {
+    public void changeValues(final List<DataValue> values) {
         setValues(values);
     }
 }

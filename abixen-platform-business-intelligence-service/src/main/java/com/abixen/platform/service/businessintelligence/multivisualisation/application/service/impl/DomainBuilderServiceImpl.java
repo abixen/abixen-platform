@@ -14,7 +14,6 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DomainBuilderService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.util.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.util.impl.*;
@@ -37,29 +36,6 @@ public class DomainBuilderServiceImpl implements DomainBuilderService {
     @Override
     public DataSetSeriesColumnBuilder newDataSetSeriesColumnBuilderInstance() {
         return new DataSetSeriesColumnBuilderImpl();
-    }
-
-    @Override
-    public DataSourceValueBuilder newDataSourceValueBuilderInstance(DataValueType dataValueType) {
-        DataSourceValueBuilder dataSourceValueBuilder = null;
-        switch (dataValueType) {
-            case STRING:
-                dataSourceValueBuilder = new DataSourceValueStringBuilderImpl();
-                break;
-            case DATE:
-                dataSourceValueBuilder = new DataSourceValueDateBuilderImpl();
-                break;
-            case DOUBLE:
-                dataSourceValueBuilder = new DataSourceValueDoubleBuilderImpl();
-                break;
-            case INTEGER:
-                dataSourceValueBuilder = new DataSourceValueIntegerBuilderImpl();
-                break;
-            default:
-                break;
-        }
-        return dataSourceValueBuilder;
-
     }
 
 }

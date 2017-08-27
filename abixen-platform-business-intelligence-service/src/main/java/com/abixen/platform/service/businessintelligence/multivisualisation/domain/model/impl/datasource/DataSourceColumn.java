@@ -35,9 +35,6 @@ public class DataSourceColumn implements Serializable {
 
     private static final long serialVersionUID = 8078651909903181737L;
 
-    public DataSourceColumn() {
-    }
-
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "data_source_column_seq", strategy = GenerationType.SEQUENCE)
@@ -63,11 +60,14 @@ public class DataSourceColumn implements Serializable {
     @Valid
     private DataSource dataSource;
 
+    DataSourceColumn() {
+    }
+
     public Long getId() {
         return id;
     }
 
-    void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -75,7 +75,7 @@ public class DataSourceColumn implements Serializable {
         return name;
     }
 
-    void setName(String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
@@ -83,7 +83,7 @@ public class DataSourceColumn implements Serializable {
         return position;
     }
 
-    void setPosition(Integer position) {
+    void setPosition(final Integer position) {
         this.position = position;
     }
 
@@ -91,7 +91,7 @@ public class DataSourceColumn implements Serializable {
         return dataValueType;
     }
 
-    void setDataValueType(DataValueType dataValueType) {
+    void setDataValueType(final DataValueType dataValueType) {
         this.dataValueType = dataValueType;
     }
 
@@ -99,20 +99,20 @@ public class DataSourceColumn implements Serializable {
         return dataSource;
     }
 
-    void setDataSource(DataSource dataSource) {
+    void setDataSource(final DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    public void changeDetails(String name) {
+    public void changeDetails(final String name) {
         setName(name);
     }
 
-    public void changeParameters(DataValueType dataValueType, Integer position) {
+    public void changeParameters(final DataValueType dataValueType, final Integer position) {
         setDataValueType(dataValueType);
         setPosition(position);
     }
 
-    public void changeDataSource(DataSource dataSource) {
+    public void changeDataSource(final DataSource dataSource) {
         setDataSource(dataSource);
     }
 

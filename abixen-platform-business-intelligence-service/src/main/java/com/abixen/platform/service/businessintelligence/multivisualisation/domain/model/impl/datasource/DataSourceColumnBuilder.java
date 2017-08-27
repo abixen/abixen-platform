@@ -19,18 +19,18 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 
 public class DataSourceColumnBuilder extends EntityBuilder<DataSourceColumn> {
 
-    public DataSourceColumnBuilder details(String name) {
+    public DataSourceColumnBuilder details(final String name) {
         this.product.setName(name);
         return this;
     }
 
-    public DataSourceColumnBuilder paramters(DataValueType dataValueType, Integer position) {
+    public DataSourceColumnBuilder paramters(final DataValueType dataValueType, final Integer position) {
         this.product.setDataValueType(dataValueType);
         this.product.setPosition(position);
         return this;
     }
 
-    public DataSourceColumnBuilder dataSource(DataSource dataSource) {
+    public DataSourceColumnBuilder dataSource(final DataSource dataSource) {
         this.product.setDataSource(dataSource);
         return this;
     }

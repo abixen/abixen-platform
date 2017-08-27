@@ -21,12 +21,12 @@ import java.util.Set;
 
 public class FileDataSourceBuilder extends DataSourceBuilder {
 
-    public FileDataSourceBuilder rows(Set<FileDataSourceRow> rowa) {
+    public FileDataSourceBuilder rows(final Set<FileDataSourceRow> rowa) {
         ((FileDataSource) this.product).setRows(rowa);
         return this;
     }
 
-    public FileDataSourceBuilder dataFile(Long dataFileId, DataFileRepository repository) {
+    public FileDataSourceBuilder dataFile(final Long dataFileId, final DataFileRepository repository) {
         ((FileDataSource) this.product).setDataFile(repository.findOne(dataFileId));
         return this;
     }
