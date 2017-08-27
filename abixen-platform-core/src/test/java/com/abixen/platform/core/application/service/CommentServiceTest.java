@@ -19,6 +19,7 @@ import com.abixen.platform.core.domain.model.Layout;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.model.Page;
+import com.abixen.platform.core.domain.service.ModuleService;
 import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration;
 import com.abixen.platform.core.application.form.CommentForm;
 import com.abixen.platform.core.domain.repository.CommentRepository;

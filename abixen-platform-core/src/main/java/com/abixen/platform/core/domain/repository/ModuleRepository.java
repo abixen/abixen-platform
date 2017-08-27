@@ -35,6 +35,7 @@ public interface ModuleRepository extends PlatformJpaRepository<Module, Long> {
         return findAll(pageable, moduleSearchForm, user, AclClassName.MODULE, permissionName);
     }
 
+    //FIXME - replace to @Query
     List<Module> findByPage(Page page);
 
     @Query("FROM Module m WHERE m.page = :page AND m.id NOT IN (:ids)")

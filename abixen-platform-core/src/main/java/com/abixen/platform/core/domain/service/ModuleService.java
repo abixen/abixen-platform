@@ -12,12 +12,11 @@
  * details.
  */
 
-package com.abixen.platform.core.application.service;
+package com.abixen.platform.core.domain.service;
 
-import com.abixen.platform.core.application.form.ModuleForm;
 import com.abixen.platform.core.application.form.ModuleSearchForm;
 import com.abixen.platform.core.domain.model.Module;
-import com.abixen.platform.core.domain.model.Page;
+import com.abixen.platform.core.domain.model.User;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -27,17 +26,16 @@ public interface ModuleService {
 
     Module find(Long id);
 
-    List<Module> findAll(Page page);
+    List<Module> findAll(com.abixen.platform.core.domain.model.Page page);
 
-    org.springframework.data.domain.Page<Module> findAll(Pageable pageable, ModuleSearchForm moduleSearchForm);
+    org.springframework.data.domain.Page<Module> findAll(Pageable pageable, ModuleSearchForm moduleSearchForm, User authorizedUser);
 
     Module create(Module module);
 
     Module update(Module module);
 
-    ModuleForm update(ModuleForm moduleForm);
-
-    void deleteAllExcept(Page page, List<Long> ids);
-
     void deleteAll(List<Module> modules);
+
+    void deleteAllExcept(com.abixen.platform.core.domain.model.Page page, List<Long> ids);
+
 }

@@ -55,12 +55,15 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> findAll() {
+        log.debug("findAll()");
+
         return roleRepository.findAll();
     }
 
     @Override
     public Page<Role> findAll(final Pageable pageable, final RoleSearchForm roleSearchForm) {
-        log.debug("findAll() - pageable: " + pageable);
+        log.debug("findAll() - pageable: {}, roleSearchForm: {}", pageable, roleSearchForm);
+
         return roleRepository.findAll(pageable, roleSearchForm);
     }
 
