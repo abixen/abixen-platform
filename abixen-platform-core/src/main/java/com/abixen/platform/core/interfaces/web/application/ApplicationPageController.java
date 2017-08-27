@@ -15,8 +15,8 @@
 package com.abixen.platform.core.interfaces.web.application;
 
 import com.abixen.platform.core.application.dto.PageDto;
+import com.abixen.platform.core.application.service.PageManagementService;
 import com.abixen.platform.core.interfaces.web.common.AbstractPageController;
-import com.abixen.platform.core.interfaces.web.facade.PageFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,19 +30,19 @@ import java.util.List;
 @RequestMapping(value = "/api/application/pages")
 public class ApplicationPageController extends AbstractPageController {
 
-    private final PageFacade pageFacade;
+    private final PageManagementService pageManagementService;
 
     @Autowired
-    public ApplicationPageController(PageFacade pageFacade) {
-        super(pageFacade);
-        this.pageFacade = pageFacade;
+    public ApplicationPageController(PageManagementService pageManagementService) {
+        super(pageManagementService);
+        this.pageManagementService = pageManagementService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<PageDto> findAll() {
         log.debug("findAll()");
 
-        return pageFacade.findAll();
+        return pageManagementService.findAllPages();
     }
 
 }

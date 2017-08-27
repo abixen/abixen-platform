@@ -12,8 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.web.facade;
-
+package com.abixen.platform.core.application.service;
 
 import com.abixen.platform.core.application.dto.PageDto;
 import com.abixen.platform.core.application.form.PageForm;
@@ -22,18 +21,19 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface PageFacade {
 
-    PageDto find(Long id);
+public interface PageManagementService {
 
-    List<PageDto> findAll();
+    PageDto findPage(Long id);
 
-    org.springframework.data.domain.Page<PageDto> findAll(Pageable pageable, PageSearchForm pageSearchForm);
+    List<PageDto> findAllPages();
 
-    PageForm create(PageForm pageForm);
+    org.springframework.data.domain.Page<PageDto> findAllPages(Pageable pageable, PageSearchForm pageSearchForm);
 
-    PageForm update(PageForm pageForm);
+    PageForm createPage(PageForm pageForm);
 
-    void delete(Long id);
+    PageForm updatePage(PageForm pageForm);
+
+    void deletePage(Long id);
 
 }

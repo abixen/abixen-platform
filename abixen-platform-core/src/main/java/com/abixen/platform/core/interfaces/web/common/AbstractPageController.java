@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.interfaces.web.common;
 
-import com.abixen.platform.core.interfaces.web.facade.PageFacade;
+import com.abixen.platform.core.application.service.PageManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,19 +27,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Slf4j
 public abstract class AbstractPageController {
 
-    private final PageFacade pageFacade;
+    private final PageManagementService pageManagementService;
 
-    public AbstractPageController(PageFacade pageFacade) {
-        this.pageFacade = pageFacade;
+    public AbstractPageController(PageManagementService pageManagementService) {
+        this.pageManagementService = pageManagementService;
     }
 
 
     @PreAuthorize("hasPermission(#id, 'com.abixen.platform.core.domain.model.impl.Page', 'PAGE_DELETE')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> delete(@PathVariable("id") long id) {
-        log.debug("delete() - id: " + id);
-        pageFacade.delete(id);
-        return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+        log.debug("delete() - id: {}", id);
+        pageManagementService.deletePage(id);
+
+        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
     }
 
 }

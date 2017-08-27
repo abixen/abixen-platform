@@ -41,7 +41,7 @@ public class DashboardServiceTest {
     private DashboardService dashboardService;
 
     @Autowired
-    private PageService pageService;
+    private PageManagementService pageService;
 
     @Autowired
     private PageToPageDtoConverter pageToPageDtoConverter;

@@ -14,6 +14,8 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.application.converter.ModuleTypeToModuleTypeDtoConverter;
 import com.abixen.platform.core.application.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.DashboardModuleDto;
@@ -23,15 +25,17 @@ import com.abixen.platform.core.application.service.DashboardService;
 import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.ModuleService;
 import com.abixen.platform.core.application.service.ModuleTypeService;
-import com.abixen.platform.core.application.service.PageService;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.ModuleBuilder;
 import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.model.Page;
+import com.abixen.platform.core.domain.model.PageBuilder;
+import com.abixen.platform.core.domain.service.PageService;
 import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
 import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,13 +101,22 @@ public class DashboardServiceImpl implements DashboardService {
         return new DashboardDto(pageDto, dashboardModules);
     }
 
+    @PreAuthorize("hasPermission('" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
     @Override
     public DashboardForm create(final DashboardForm dashboardForm) {
         log.debug("create() - dashboardForm: {}", dashboardForm);
 
-        Page page = pageService.create(dashboardForm);
-        layoutService.convertPageLayoutToJson(page);
-        PageDto pageDto = pageToPageDtoConverter.convert(page);
+        final Page page = new PageBuilder()
+                .layout(layoutService.findLayout(dashboardForm.getPage().getLayout().getId()))
+                .title(dashboardForm.getPage().getTitle())
+                .description(dashboardForm.getPage().getDescription())
+                .icon(dashboardForm.getPage().getIcon())
+                .build();
+
+        final Page createdPage = pageService.create(page);
+        layoutService.convertPageLayoutToJson(createdPage);
+
+        final PageDto pageDto = pageToPageDtoConverter.convert(page);
 
         return new DashboardForm(pageDto);
     }

@@ -158,4 +158,11 @@ public class ModuleServiceImpl implements ModuleService {
 
         return moduleRepository.findAllSecured(pageable, moduleSearchForm, authorizedUser, PermissionName.MODULE_VIEW);
     }
+
+    @Override
+    public void deleteAll(List<Module> modules) {
+        log.debug("deleteAll() - modules: {}", modules);
+
+        moduleRepository.deleteInBatch(modules);
+    }
 }

@@ -12,12 +12,11 @@
  * details.
  */
 
-package com.abixen.platform.core.application.service;
+package com.abixen.platform.core.domain.service;
 
-import com.abixen.platform.core.application.form.DashboardForm;
-import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.application.form.PageSearchForm;
 import com.abixen.platform.core.domain.model.Page;
+import com.abixen.platform.core.domain.model.User;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -27,17 +26,13 @@ public interface PageService {
 
     Page find(Long id);
 
-    List<Page> findAll();
+    List<Page> findAll(User authorizedUser);
 
-    org.springframework.data.domain.Page<Page> findAll(Pageable pageable, PageSearchForm pageSearchForm);
+    org.springframework.data.domain.Page<Page> findAll(Pageable pageable, PageSearchForm pageSearchForm, User authorizedUser);
 
-    PageForm create(PageForm pageForm);
-
-    Page create(DashboardForm dashboardForm);
+    Page create(Page page);
 
     Page update(Page page);
-
-    PageForm update(PageForm pageForm);
 
     void delete(Long id);
 
