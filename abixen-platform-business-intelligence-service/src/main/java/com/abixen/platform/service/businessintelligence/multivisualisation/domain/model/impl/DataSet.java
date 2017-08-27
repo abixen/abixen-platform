@@ -46,12 +46,15 @@ public class DataSet extends Model {
     @OneToMany(mappedBy = "dataSet", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<DataSetSeries> dataSetSeries = new HashSet<>();
 
+    DataSet() {
+    }
+
     @Override
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -59,7 +62,7 @@ public class DataSet extends Model {
         return domainXSeriesColumn;
     }
 
-    public void setDomainXSeriesColumn(DataSetSeriesColumn domainXSeriesColumn) {
+    void setDomainXSeriesColumn(final DataSetSeriesColumn domainXSeriesColumn) {
         this.domainXSeriesColumn = domainXSeriesColumn;
     }
 
@@ -67,7 +70,7 @@ public class DataSet extends Model {
         return domainZSeriesColumn;
     }
 
-    public void setDomainZSeriesColumn(DataSetSeriesColumn domainZSeriesColumn) {
+    void setDomainZSeriesColumn(final DataSetSeriesColumn domainZSeriesColumn) {
         this.domainZSeriesColumn = domainZSeriesColumn;
     }
 
@@ -75,8 +78,17 @@ public class DataSet extends Model {
         return dataSetSeries;
     }
 
-    public void setDataSetSeries(Set<DataSetSeries> dataSetSeries) {
+    void setDataSetSeries(final Set<DataSetSeries> dataSetSeries) {
         this.dataSetSeries = dataSetSeries;
+    }
+
+    public void changeDomainSeries(final DataSetSeriesColumn domainXSeriesColumn, final DataSetSeriesColumn domainZSeriesColumn) {
+        setDomainXSeriesColumn(domainXSeriesColumn);
+        setDomainZSeriesColumn(domainZSeriesColumn);
+    }
+
+    public void changeDataSetSeries(final Set<DataSetSeries> dataSetSeries) {
+        setDataSetSeries(dataSetSeries);
     }
 
 }

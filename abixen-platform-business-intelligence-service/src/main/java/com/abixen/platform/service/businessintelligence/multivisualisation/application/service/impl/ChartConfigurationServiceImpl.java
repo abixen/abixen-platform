@@ -14,12 +14,13 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.ChartConfigurationToChartConfigurationDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetChartDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetSeriesColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetSeriesDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.ChartConfiguration;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.ChartConfigurationRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceColumnRepository;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationDomainBuilderService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,46 +28,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java.util.Optional.ofNullable;
+
 @Slf4j
 @Transactional
 @Service
 public class ChartConfigurationServiceImpl implements ChartConfigurationService {
 
     private final ChartConfigurationRepository chartConfigurationRepository;
-    private final ChartConfigurationDomainBuilderService chartConfigurationDomainBuilderService;
     private final DataSourceService dataSourceService;
     private final DataSourceColumnRepository dataSourceColumnRepository;
-    private final ChartConfigurationToChartConfigurationDtoConverter chartConfigurationToChartConfigurationDtoConverter;
 
     @Autowired
     public ChartConfigurationServiceImpl(ChartConfigurationRepository chartConfigurationRepository,
-                                         ChartConfigurationDomainBuilderService chartConfigurationDomainBuilderService,
                                          DataSourceService dataSourceService,
-                                         DataSourceColumnRepository dataSourceColumnRepository,
-                                         ChartConfigurationToChartConfigurationDtoConverter chartConfigurationToChartConfigurationDtoConverter) {
+                                         DataSourceColumnRepository dataSourceColumnRepository) {
         this.chartConfigurationRepository = chartConfigurationRepository;
-        this.chartConfigurationDomainBuilderService = chartConfigurationDomainBuilderService;
         this.dataSourceService = dataSourceService;
         this.dataSourceColumnRepository = dataSourceColumnRepository;
-        this.chartConfigurationToChartConfigurationDtoConverter = chartConfigurationToChartConfigurationDtoConverter;
     }
 
     @Override
     public ChartConfiguration buildChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
         log.debug("buildChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
-        return chartConfigurationDomainBuilderService.newChartConfigurationBuilderInstance()
-                .basic(chartConfigurationForm.getModuleId(), chartConfigurationForm.getChartType())
-                .data(chartConfigurationForm.getDataSetChart(), dataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
-                .axis(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
-                .filter(chartConfigurationForm.getFilter())
+        return new ChartConfigurationBuilder()
+                .moduleId(chartConfigurationForm.getModuleId())
+                .chartParameters(chartConfigurationForm.getChartType(), buildDataSetChart(chartConfigurationForm.getDataSetChart()))
+                .dataParameters(chartConfigurationForm.getFilter(), dataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()))
+                .axisNames(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
                 .build();
     }
 
+
     @Override
     public ChartConfiguration createChartConfiguration(ChartConfigurationForm chartConfigurationForm) {
+        log.debug("createChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
         ChartConfiguration chartConfiguration = buildChartConfiguration(chartConfigurationForm);
-        ChartConfiguration createdChartConfiguration = createChartConfiguration(chartConfiguration);
-        return createdChartConfiguration;
+
+        return createChartConfiguration(chartConfiguration);
     }
 
     @Override
@@ -74,19 +76,18 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
         log.debug("updateChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
 
         ChartConfiguration chartConfiguration = findChartConfigurationByModuleId(chartConfigurationForm.getModuleId());
-        ChartConfiguration chartConfigurationUpdated = chartConfigurationDomainBuilderService.newChartConfigurationBuilderForUpdateInstance(chartConfiguration)
-                .basic(chartConfigurationForm.getModuleId(), chartConfigurationForm.getChartType())
-                .data(chartConfigurationForm.getDataSetChart(), dataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()), dataSourceColumnRepository)
-                .axis(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName())
-                .filter(chartConfigurationForm.getFilter())
-                .build();
+        chartConfiguration.changeModuleId(chartConfigurationForm.getModuleId());
+        chartConfiguration.changeAxisNames(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName());
+        chartConfiguration.changeChartParameters(chartConfigurationForm.getChartType(), buildDataSetChart(chartConfigurationForm.getDataSetChart()));
+        chartConfiguration.changeDataParameters(chartConfigurationForm.getFilter(), dataSourceService.findDataSource(chartConfigurationForm.getDataSource().getId()));
 
-        ChartConfiguration updatedChartConfiguration = updateChartConfiguration(chartConfigurationUpdated);
-        return updatedChartConfiguration;
+        return chartConfiguration;
     }
 
     @Override
     public ChartConfiguration findChartConfigurationByModuleId(Long moduleId) {
+        log.debug("findChartConfigurationByModuleId() - moduleId: " + moduleId);
+
         return chartConfigurationRepository.findByModuleId(moduleId);
     }
 
@@ -94,8 +95,9 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     public ChartConfiguration createChartConfiguration(ChartConfiguration chartConfiguration) {
         log.debug("createChartConfiguration() - chartConfiguration: " + chartConfiguration);
         chartConfiguration.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
-            dataSetSeries.setDataSet(chartConfiguration.getDataSetChart());
+            dataSetSeries.changeDataParameters(dataSetSeries.getFilter(), chartConfiguration.getDataSetChart());
         });
+
         return chartConfigurationRepository.save(chartConfiguration);
     }
 
@@ -103,8 +105,9 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
     public ChartConfiguration updateChartConfiguration(ChartConfiguration chartConfiguration) {
         log.debug("updateChartConfiguration() - chartConfiguration: " + chartConfiguration);
         chartConfiguration.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
-            dataSetSeries.setDataSet(chartConfiguration.getDataSetChart());
+            dataSetSeries.changeDataParameters(dataSetSeries.getFilter(), chartConfiguration.getDataSetChart());
         });
+
         return chartConfigurationRepository.save(chartConfiguration);
     }
 
@@ -115,5 +118,38 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
         if (chartConfiguration != null) {
             chartConfigurationRepository.delete(chartConfiguration);
         }
+    }
+
+    private DataSetChart buildDataSetChart(DataSetChartDto dataSetChartDto) {
+        DataSetChart dataSetChart = new DataSetChartBuilder()
+                .dataSetSeries(dataSetChartDto.getDataSetSeries().stream()
+                        .map(buildDataSetSeries())
+                        .collect(Collectors.toSet()))
+                .domainSeries(buildDataSetSeriesColumn(dataSetChartDto.getDomainXSeriesColumn()),
+                        ofNullable(dataSetChartDto.getDomainZSeriesColumn())
+                        .map(this::buildDataSetSeriesColumn)
+                        .orElse(null))
+                .build();
+
+        dataSetChart.getDataSetSeries().forEach(
+                dataSetSeries -> dataSetSeries.changeDataParameters(dataSetSeries.getFilter(), dataSetChart)
+        );
+
+        return dataSetChart;
+    }
+
+    private Function<DataSetSeriesDto, DataSetSeries> buildDataSetSeries() {
+        return dataSetSeriesDto -> new DataSetSeriesBuilder()
+                .dataParameters(dataSetSeriesDto.getFilter(), null)
+                .valueSeriesColumn(buildDataSetSeriesColumn(dataSetSeriesDto.getValueSeriesColumn()))
+                .name(dataSetSeriesDto.getName())
+                .build();
+    }
+
+    private DataSetSeriesColumn buildDataSetSeriesColumn(DataSetSeriesColumnDto dataSetSeriesColumnDto) {
+        return new DataSetSeriesColumnBuilder()
+                .name(dataSetSeriesColumnDto.getName())
+                .column(dataSetSeriesColumnDto.getType(), dataSourceColumnRepository.findOne(dataSetSeriesColumnDto.getDataSourceColumn().getId()))
+                .build();
     }
 }

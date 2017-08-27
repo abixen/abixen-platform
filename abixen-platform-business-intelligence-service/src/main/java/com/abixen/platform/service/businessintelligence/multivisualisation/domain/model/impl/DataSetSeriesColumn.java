@@ -47,11 +47,14 @@ public class DataSetSeriesColumn implements Serializable {
     @JoinColumn(name = "data_source_column_id", nullable = false)
     private DataSourceColumn dataSourceColumn;
 
+    DataSetSeriesColumn() {
+    }
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -59,7 +62,7 @@ public class DataSetSeriesColumn implements Serializable {
         return type;
     }
 
-    public void setType(ColumnType type) {
+    void setType(final ColumnType type) {
         this.type = type;
     }
 
@@ -67,7 +70,7 @@ public class DataSetSeriesColumn implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
@@ -75,7 +78,16 @@ public class DataSetSeriesColumn implements Serializable {
         return dataSourceColumn;
     }
 
-    public void setDataSourceColumn(DataSourceColumn dataSourceColumn) {
+    void setDataSourceColumn(final DataSourceColumn dataSourceColumn) {
         this.dataSourceColumn = dataSourceColumn;
+    }
+
+    public void changeName(final String name) {
+        setName(name);
+    }
+
+    public void changeColumn(final ColumnType columnType, final DataSourceColumn dataSourceColumn) {
+        setType(columnType);
+        setDataSourceColumn(dataSourceColumn);
     }
 }

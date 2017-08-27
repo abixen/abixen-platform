@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
 import com.abixen.platform.service.businessintelligence.infrastructure.configuration.PlatformModuleConfiguration;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.ColumnType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.*;
@@ -27,6 +28,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceColumnRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationService;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,8 +42,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.ChartType.LINE_AND_BAR_WITH_FOCUS_CHART;
+import static java.util.Arrays.asList;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @Service
@@ -96,54 +100,42 @@ public class ChartConfigurationServiceImplTest {
 
 
     private ChartConfiguration prepareChartConfiguration() {
-        ChartConfiguration chartConfiguration = new ChartConfiguration();
-        chartConfiguration.setAxisXName(AXIS_X_NAME);
-        chartConfiguration.setAxisYName(AXIS_Y_NAME);
-        chartConfiguration.setFilter(FILTER);
-        chartConfiguration.setChartType(LINE_AND_BAR_WITH_FOCUS_CHART);
-        chartConfiguration.setId(ID);
-        chartConfiguration.setModuleId(MODULE_ID);
         DataSource dataSource = prepareDataSource();
-        chartConfiguration.setDataSource(dataSource);
-        chartConfiguration.setDataSetChart(prepareDataSetChart(dataSource));
-        return chartConfiguration;
+        return new ChartConfigurationBuilder()
+                .axisNames(AXIS_X_NAME, AXIS_Y_NAME)
+                .chartParameters(LINE_AND_BAR_WITH_FOCUS_CHART,  prepareDataSetChart(dataSource))
+                .dataParameters(FILTER, dataSource)
+                .moduleId(MODULE_ID)
+                .build();
     }
 
     private DataSetChart prepareDataSetChart(DataSource dataSource) {
-        DataSetChart dataSetChart = new DataSetChart();
-        DataSetSeriesColumn dataSetSeriesColumnFirst = new DataSetSeriesColumn();
-        dataSetSeriesColumnFirst.setName("");
-        DataSourceColumn dataSourceColumnFirst = new DataSourceColumnBuilder()
-                .details("")
-                .paramters(DataValueType.STRING, 1)
+        List<DataSourceColumn> dataSourceColumnList = dataSource.getColumns().stream()
+                .collect(Collectors.toList());
+
+        DataSetChart dataSetChart = new DataSetChartBuilder()
+                .domainSeries(
+                        new DataSetSeriesColumnBuilder()
+                                .name(StringUtils.EMPTY)
+                                .column(ColumnType.X, dataSourceColumnList.get(0))
+                                .build(),
+                        new DataSetSeriesColumnBuilder()
+                                .name(StringUtils.EMPTY)
+                                .column(ColumnType.Z, dataSourceColumnList.get(1))
+                                .build())
+                .dataSetSeries(new HashSet<>(asList(new DataSetSeriesBuilder()
+                        .valueSeriesColumn(new DataSetSeriesColumnBuilder()
+                                .name(StringUtils.EMPTY)
+                                .column(ColumnType.Z, dataSourceColumnList.get(2))
+                                .build())
+                        .name(StringUtils.EMPTY)
+                        .build())))
                 .build();
-        dataSetChart.setDomainXSeriesColumn(dataSetSeriesColumnFirst);
-        DataSetSeriesColumn dataSetSeriesColumnSecond = new DataSetSeriesColumn();
-        DataSourceColumn dataSourceColumnSecond = new DataSourceColumnBuilder()
-                .details("")
-                .paramters(DataValueType.STRING, 2)
-                .build();
-        dataSetSeriesColumnSecond.setDataSourceColumn(dataSourceColumnSecond);
-        Set<DataSetSeries> dataSetSeries = new HashSet<>();
-        DataSetSeries dataSetSeries1 = new DataSetSeries();
-        dataSetSeries1.setName("");
-        dataSetSeries1.setValueSeriesColumn(dataSetSeriesColumnSecond);
-        dataSetSeries.add(dataSetSeries1);
-        dataSetChart.setDataSetSeries(dataSetSeries);
-        DataSetSeriesColumn dataSetSeriesColumnThird = new DataSetSeriesColumn();
-        DataSourceColumn dataSourceColumnThird = new DataSourceColumnBuilder()
-                .details("")
-                .paramters(DataValueType.STRING, 3)
-                .build();
-        dataSetSeriesColumnThird.setDataSourceColumn(dataSourceColumnThird);
-        dataSetChart.setDomainZSeriesColumn(dataSetSeriesColumnThird);
-        dataSourceColumnFirst.changeDataSource(dataSource);
-        dataSourceColumnSecond.changeDataSource(dataSource);
-        dataSourceColumnThird.changeDataSource(dataSource);
-        dataSourceColumnRepository.save(dataSourceColumnFirst);
-        dataSourceColumnRepository.save(dataSourceColumnSecond);
-        dataSourceColumnRepository.save(dataSourceColumnThird);
-        dataSetSeries1.setDataSet(dataSetChart);
+
+        dataSetChart.getDataSetSeries().forEach(
+                dataSetSeries -> dataSetSeries.changeDataParameters(dataSetSeries.getFilter(), dataSetChart)
+        );
+
         dataSetRepository.save(dataSetChart);
         return dataSetChart;
     }
@@ -163,11 +155,18 @@ public class ChartConfigurationServiceImplTest {
         DataSourceColumn dataSourceColumnSecond = new DataSourceColumnBuilder()
                 .details("")
                 .paramters(DataValueType.STRING, 2)
+                .dataSource(dataSource)
+                .build();
+        DataSourceColumn dataSourceColumnThird = new DataSourceColumnBuilder()
+                .details("")
+                .paramters(DataValueType.STRING, 2)
+                .dataSource(dataSource)
                 .build();
         dataSourceColumnSecond = dataSourceColumnRepository.save(dataSourceColumnSecond);
         Set<DataSourceColumn> dataSourceColumns = new HashSet<>();
         dataSourceColumns.add(dataSourceColumnFirst);
         dataSourceColumns.add(dataSourceColumnSecond);
+        dataSourceColumns.add(dataSourceColumnThird);
         dataSource.changeColumns(dataSourceColumns);
         return dataSourceRepository.save(dataSource);
     }

@@ -20,7 +20,6 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseFactory;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DomainBuilderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,19 +36,16 @@ import java.util.stream.Collectors;
 public class DataSourceServiceImpl implements DataSourceService {
 
     private final DataSourceRepository dataSourceRepository;
-    private final DomainBuilderService domainBuilderService;
     private final DatabaseConnectionRepository databaseConnectionRepository;
     private final DataFileRepository dataFileRepository;
     private final DatabaseFactory databaseFactory;
 
     @Autowired
     public DataSourceServiceImpl(DataSourceRepository dataSourceRepository,
-                                 DomainBuilderService domainBuilderService,
                                  DatabaseConnectionRepository databaseConnectionRepository,
                                  DataFileRepository dataFileRepository,
                                  DatabaseFactory databaseFactory) {
         this.dataSourceRepository = dataSourceRepository;
-        this.domainBuilderService = domainBuilderService;
         this.databaseConnectionRepository = databaseConnectionRepository;
         this.dataFileRepository = dataFileRepository;
         this.databaseFactory = databaseFactory;

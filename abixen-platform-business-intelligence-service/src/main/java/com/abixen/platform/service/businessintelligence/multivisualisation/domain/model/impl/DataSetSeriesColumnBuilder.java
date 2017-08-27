@@ -12,43 +12,37 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.application.util.impl;
+package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl;
 
 import com.abixen.platform.common.util.EntityBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.ColumnType;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.DataSetSeriesColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.util.DataSetSeriesColumnBuilder;
 
+public class DataSetSeriesColumnBuilder extends EntityBuilder<DataSetSeriesColumn> {
 
-public class DataSetSeriesColumnBuilderImpl extends EntityBuilder<DataSetSeriesColumn> implements DataSetSeriesColumnBuilder {
-
-
-    @Override
-    public DataSetSeriesColumnBuilder create() {
-        return this;
-    }
-
-    @Override
-    public DataSetSeriesColumnBuilder name(String name) {
+    public DataSetSeriesColumnBuilder name(final String name) {
         this.product.setName(name);
         return this;
     }
 
-    @Override
-    public DataSetSeriesColumnBuilder dataSourceColumn(DataSourceColumn dataSourceColumn) {
+    public DataSetSeriesColumnBuilder column(final ColumnType columnType, final DataSourceColumn dataSourceColumn) {
+        this.product.setType(columnType);
         this.product.setDataSourceColumn(dataSourceColumn);
         return this;
     }
 
     @Override
-    public DataSetSeriesColumnBuilder columnType(ColumnType columnType) {
-        this.product.setType(columnType);
-        return this;
+    public DataSetSeriesColumn build() {
+        return super.build();
     }
 
     @Override
     protected void initProduct() {
         this.product = new DataSetSeriesColumn();
+    }
+
+    @Override
+    protected DataSetSeriesColumn assembleProduct() {
+        return super.assembleProduct();
     }
 }
