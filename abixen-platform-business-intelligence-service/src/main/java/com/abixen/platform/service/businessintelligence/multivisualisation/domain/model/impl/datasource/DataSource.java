@@ -74,7 +74,7 @@ public class DataSource extends AuditingModel implements Serializable {
         return id;
     }
 
-    void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -82,7 +82,7 @@ public class DataSource extends AuditingModel implements Serializable {
         return name;
     }
 
-    void setName(String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
@@ -90,7 +90,7 @@ public class DataSource extends AuditingModel implements Serializable {
         return description;
     }
 
-    void setDescription(String description) {
+    void setDescription(final String description) {
         this.description = description;
     }
 
@@ -98,7 +98,7 @@ public class DataSource extends AuditingModel implements Serializable {
         return columns;
     }
 
-    void setColumns(Set<DataSourceColumn> columns) {
+    void setColumns(final Set<DataSourceColumn> columns) {
         if (this.columns != null) {
             this.columns.clear();
             this.columns.addAll(columns);
@@ -107,7 +107,7 @@ public class DataSource extends AuditingModel implements Serializable {
         }
     }
 
-    public void removeColumns(Set<DataSourceColumn> columns) {
+    public void removeColumns(final Set<DataSourceColumn> columns) {
         if (this.columns != null) {
             this.columns.removeAll(columns);
         }
@@ -117,7 +117,7 @@ public class DataSource extends AuditingModel implements Serializable {
         return dataSourceType;
     }
 
-    void setDataSourceType(DataSourceType dataSourceType) {
+    void setDataSourceType(final DataSourceType dataSourceType) {
         this.dataSourceType = dataSourceType;
     }
 
@@ -125,7 +125,7 @@ public class DataSource extends AuditingModel implements Serializable {
         return filter;
     }
 
-    void setFilter(String filter) {
+    void setFilter(final String filter) {
         this.filter = filter;
     }
 
@@ -134,12 +134,12 @@ public class DataSource extends AuditingModel implements Serializable {
         setDescription(description);
     }
 
-    public void changeParameters(DataSourceType dataSourceType, String filter) {
+    public void changeParameters(final DataSourceType dataSourceType, final String filter) {
         setDataSourceType(dataSourceType);
         setFilter(filter);
     }
 
-    public void changeColumns(Set<DataSourceColumn> columns) {
+    public void changeColumns(final Set<DataSourceColumn> columns) {
         setColumns(columns);
     }
 

@@ -47,7 +47,7 @@ public class FileDataSource extends DataSource implements Serializable {
         return dataFile;
     }
 
-    void setDataFile(DataFile dataFile) {
+    void setDataFile(final DataFile dataFile) {
         this.dataFile = dataFile;
     }
 
@@ -55,15 +55,15 @@ public class FileDataSource extends DataSource implements Serializable {
         return rows;
     }
 
-    void setRows(Set<FileDataSourceRow> rows) {
+    void setRows(final Set<FileDataSourceRow> rows) {
         this.rows = rows;
     }
 
-    public void changeDataFile(DataFile dataFile) {
+    public void changeDataFile(final DataFile dataFile) {
         setDataFile(dataFile);
     }
 
-    public void changeRows(Set<FileDataSourceRow> rows) {
+    public void changeRows(final Set<FileDataSourceRow> rows) {
         setRows(rows);
     }
 }

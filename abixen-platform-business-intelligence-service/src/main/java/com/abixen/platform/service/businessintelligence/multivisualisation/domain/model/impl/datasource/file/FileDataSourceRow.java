@@ -43,11 +43,14 @@ public class FileDataSourceRow {
     @Valid
     private DataSource fileDataSource;
 
+    FileDataSourceRow() {
+    }
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -55,7 +58,7 @@ public class FileDataSourceRow {
         return rowNumber;
     }
 
-    public void setRowNumber(Integer rowNumber) {
+    public void setRowNumber(final Integer rowNumber) {
         this.rowNumber = rowNumber;
     }
 
@@ -63,7 +66,7 @@ public class FileDataSourceRow {
         return fileDataSource;
     }
 
-    public void setFileDataSource(DataSource fileDataSource) {
+    public void setFileDataSource(final DataSource fileDataSource) {
         this.fileDataSource = fileDataSource;
     }
 }

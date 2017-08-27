@@ -35,11 +35,14 @@ public class DataFileColumn extends DataColumn {
     @NotNull
     private DataValueType dataValueType = DataValueType.STRING;
 
+    DataFileColumn() {
+    }
+
     public DataFile getDataFile() {
         return dataFile;
     }
 
-    void setDataFile(DataFile dataFile) {
+    void setDataFile(final DataFile dataFile) {
         this.dataFile = dataFile;
     }
 
@@ -47,15 +50,15 @@ public class DataFileColumn extends DataColumn {
         return dataValueType;
     }
 
-    void setDataValueType(DataValueType dataValueType) {
+    void setDataValueType(final DataValueType dataValueType) {
         this.dataValueType = dataValueType;
     }
 
-    public void changeDataFile(DataFile dataFile) {
+    public void changeDataFile(final DataFile dataFile) {
         setDataFile(dataFile);
     }
 
-    public void changeDataValueType(DataValueType dataValueType) {
+    public void changeDataValueType(final DataValueType dataValueType) {
         setDataValueType(dataValueType);
     }
 }

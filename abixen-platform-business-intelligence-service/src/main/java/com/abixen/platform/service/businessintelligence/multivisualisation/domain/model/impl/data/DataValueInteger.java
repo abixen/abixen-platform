@@ -28,11 +28,14 @@ public class DataValueInteger extends DataValue<Integer> {
     @Column(name = "value", nullable = true)
     private Integer value;
 
+    DataValueInteger() {
+    }
+
     public Integer getValue() {
         return value;
     }
 
-    public void setValue(Integer value) {
+    void setValue(final Integer value) {
         this.value = value;
     }
 

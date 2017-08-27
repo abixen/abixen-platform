@@ -19,17 +19,17 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 
 public class DatabaseDataSourceBuilder extends DataSourceBuilder {
 
-    public DatabaseDataSourceBuilder databaseConnection(Long databaseConnectionId, DatabaseConnectionRepository repository) {
+    public DatabaseDataSourceBuilder databaseConnection(final Long databaseConnectionId, final DatabaseConnectionRepository repository) {
         ((DatabaseDataSource) this.product).setDatabaseConnection(repository.findOne(databaseConnectionId));
         return this;
     }
 
-    public DatabaseDataSourceBuilder filter(String filter) {
+    public DatabaseDataSourceBuilder filter(final String filter) {
         ((DatabaseDataSource) this.product).setFilter(filter);
         return this;
     }
 
-    public DatabaseDataSourceBuilder table(String table) {
+    public DatabaseDataSourceBuilder table(final String table) {
         ((DatabaseDataSource) this.product).setTable(table);
         return this;
     }

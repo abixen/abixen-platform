@@ -59,7 +59,7 @@ public class DatabaseDataSource extends DataSource implements Serializable {
         return filter;
     }
 
-    void setFilter(String filter) {
+    void setFilter(final String filter) {
         this.filter = filter;
     }
 
@@ -67,7 +67,7 @@ public class DatabaseDataSource extends DataSource implements Serializable {
         return table;
     }
 
-    void setTable(String table) {
+    void setTable(final String table) {
         this.table = table;
     }
 
@@ -75,11 +75,11 @@ public class DatabaseDataSource extends DataSource implements Serializable {
         setDatabaseConnection(databaseConnection);
     }
 
-    public void changeFilter(String filter) {
+    public void changeFilter(final String filter) {
         setFilter(filter);
     }
 
-    public void changeTable(String table) {
+    public void changeTable(final String table) {
         setTable(table);
     }
 

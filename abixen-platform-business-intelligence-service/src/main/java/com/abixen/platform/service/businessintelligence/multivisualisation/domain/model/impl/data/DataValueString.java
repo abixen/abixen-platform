@@ -31,12 +31,15 @@ public class DataValueString extends DataValue<String> {
     @Column(name = "value", length = ModelKeys.DATASOURCE_VALUE_STRING_MAX_LENGTH, nullable = true)
     private String value;
 
+    DataValueString() {
+    }
+
     public String getValue() {
         return value;
     }
 
     @Override
-    public void setValue(String value) {
+    void setValue(final String value) {
         this.value = value;
     }
 }

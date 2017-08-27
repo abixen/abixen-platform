@@ -20,17 +20,17 @@ import java.util.List;
 
 public class DataColumnBuilder extends EntityBuilder<DataColumn> {
 
-    public DataColumnBuilder name(String name) {
+    public DataColumnBuilder name(final String name) {
         this.product.setName(name);
         return this;
     }
 
-    public DataColumnBuilder position(Integer position) {
+    public DataColumnBuilder position(final Integer position) {
         this.product.setPosition(position);
         return this;
     }
 
-    public DataColumnBuilder values(List<DataValue> values) {
+    public DataColumnBuilder values(final List<DataValue> values) {
         this.product.setValues(values);
         return this;
     }

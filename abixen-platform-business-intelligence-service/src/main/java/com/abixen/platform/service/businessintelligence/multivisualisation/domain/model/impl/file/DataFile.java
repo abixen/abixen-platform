@@ -51,7 +51,7 @@ public class DataFile extends AuditingModel implements Serializable {
         return id;
     }
 
-    void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -59,7 +59,7 @@ public class DataFile extends AuditingModel implements Serializable {
         return name;
     }
 
-    void setName(String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
@@ -67,7 +67,7 @@ public class DataFile extends AuditingModel implements Serializable {
         return description;
     }
 
-    void setDescription(String description) {
+    void setDescription(final String description) {
         this.description = description;
     }
 
@@ -75,7 +75,7 @@ public class DataFile extends AuditingModel implements Serializable {
         return columns;
     }
 
-    public void setColumns(Set<DataFileColumn> columns) {
+    public void setColumns(final Set<DataFileColumn> columns) {
         if (this.columns != null) {
             this.columns.clear();
             this.columns.addAll(columns);
@@ -84,12 +84,12 @@ public class DataFile extends AuditingModel implements Serializable {
         }
     }
 
-    public void changeDetails(String name, String description) {
+    public void changeDetails(final String name, final String description) {
         setName(name);
         setDescription(description);
     }
 
-    public void changeColumns(Set<DataFileColumn> columns) {
+    public void changeColumns(final Set<DataFileColumn> columns) {
         setColumns(columns);
     }
 }
