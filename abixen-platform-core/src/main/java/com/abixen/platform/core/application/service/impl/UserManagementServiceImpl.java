@@ -34,7 +34,7 @@ import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.model.UserBuilder;
 import com.abixen.platform.core.domain.service.RoleService;
 import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
-import com.abixen.platform.core.interfaces.web.facade.converter.RoleToRoleDtoConverter;
+import com.abixen.platform.core.application.converter.RoleToRoleDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.LocaleUtils;

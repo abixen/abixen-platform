@@ -32,7 +32,7 @@ import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.domain.model.PageBuilder;
 import com.abixen.platform.core.domain.service.PageService;
 import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
-import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
+import com.abixen.platform.core.application.dto.DashboardDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

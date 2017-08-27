@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.service;
 
 import com.abixen.platform.core.application.form.DashboardForm;
-import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
+import com.abixen.platform.core.application.dto.DashboardDto;
 
 
 public interface DashboardService {

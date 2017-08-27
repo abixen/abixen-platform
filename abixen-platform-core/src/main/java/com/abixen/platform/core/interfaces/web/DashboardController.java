@@ -21,7 +21,7 @@ import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.core.application.form.DashboardForm;
 import com.abixen.platform.core.application.service.DashboardService;
-import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
+import com.abixen.platform.core.application.dto.DashboardDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

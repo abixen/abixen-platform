@@ -21,7 +21,7 @@ import com.abixen.platform.core.domain.model.CommentVote;
 import com.abixen.platform.core.domain.model.CommentVoteBuilder;
 import com.abixen.platform.core.domain.repository.CommentRepository;
 import com.abixen.platform.core.domain.repository.CommentVoteRepository;
-import com.abixen.platform.core.interfaces.web.facade.converter.CommentVoteToCommentVoteDtoConverter;
+import com.abixen.platform.core.application.converter.CommentVoteToCommentVoteDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

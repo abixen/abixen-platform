@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.interfaces.web.admin;
 
-import com.abixen.platform.core.interfaces.web.facade.converter.ResourceToResourceDtoConverter;
+import com.abixen.platform.core.application.converter.ResourceToResourceDtoConverter;
 import com.abixen.platform.core.application.dto.ResourceDto;
 import com.abixen.platform.core.domain.model.Resource;
 import com.abixen.platform.core.application.service.ResourceService;

@@ -18,8 +18,6 @@ package com.abixen.platform.core.application.converter;
 import com.abixen.platform.common.converter.AbstractConverter;
 import com.abixen.platform.core.application.dto.UserDto;
 import com.abixen.platform.core.domain.model.User;
-import com.abixen.platform.core.interfaces.web.facade.converter.AuditingModelToAuditingDtoConverter;
-import com.abixen.platform.core.interfaces.web.facade.converter.RoleToRoleDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

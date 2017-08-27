@@ -14,7 +14,7 @@
 package com.abixen.platform.core.application.service;
 
 import com.abixen.platform.core.application.dto.LayoutDto;
-import com.abixen.platform.core.interfaces.web.facade.dto.DashboardDto;
+import com.abixen.platform.core.application.dto.DashboardDto;
 import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.application.converter.PageToPageDtoConverter;

@@ -12,40 +12,40 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.web.facade.converter;
+package com.abixen.platform.core.application.converter;
 
 
 import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.core.application.dto.CommentVoteDto;
-import com.abixen.platform.core.domain.model.CommentVote;
+import com.abixen.platform.core.application.dto.LayoutDto;
+import com.abixen.platform.core.domain.model.Layout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-
 @Component
-public class CommentVoteToCommentVoteDtoConverter extends AbstractConverter<CommentVote, CommentVoteDto> {
+public class LayoutToLayoutDtoConverter extends AbstractConverter<Layout, LayoutDto> {
 
     private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
 
     @Autowired
-    public CommentVoteToCommentVoteDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+    public LayoutToLayoutDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
         this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
     }
 
     @Override
-    public CommentVoteDto convert(CommentVote commentVote, Map<String, Object> parameters) {
-        CommentVoteDto commentVoteDto = new CommentVoteDto();
+    public LayoutDto convert(Layout layout, Map<String, Object> parameters) {
+        LayoutDto layoutDto = new LayoutDto();
 
-        commentVoteDto
-                .setId(commentVote.getId())
-                .setCommentId(commentVote.getComment().getId())
-                .setCommentVoteType(commentVote.getCommentVoteType());
+        layoutDto
+                .setId(layout.getId())
+                .setTitle(layout.getTitle())
+                .setContent(layout.getContent())
+                .setIconFileName(layout.getIconFileName())
+                .setContentAsJson(layout.getContentAsJson());
 
+        auditingModelToAuditingDtoConverter.convert(layout, layoutDto);
 
-        auditingModelToAuditingDtoConverter.convert(commentVote, commentVoteDto);
-
-        return commentVoteDto;
+        return layoutDto;
     }
 }

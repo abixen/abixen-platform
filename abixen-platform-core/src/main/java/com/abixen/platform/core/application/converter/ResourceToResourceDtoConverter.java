@@ -12,40 +12,40 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.web.facade.converter;
+package com.abixen.platform.core.application.converter;
 
 
 import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.core.application.dto.LayoutDto;
-import com.abixen.platform.core.domain.model.Layout;
+import com.abixen.platform.core.application.dto.ResourceDto;
+import com.abixen.platform.core.domain.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+
 @Component
-public class LayoutToLayoutDtoConverter extends AbstractConverter<Layout, LayoutDto> {
+public class ResourceToResourceDtoConverter extends AbstractConverter<Resource, ResourceDto> {
 
     private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
 
     @Autowired
-    public LayoutToLayoutDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+    public ResourceToResourceDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
         this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
     }
 
     @Override
-    public LayoutDto convert(Layout layout, Map<String, Object> parameters) {
-        LayoutDto layoutDto = new LayoutDto();
+    public ResourceDto convert(Resource resource, Map<String, Object> parameters) {
+        ResourceDto resourceDto = new ResourceDto();
 
-        layoutDto
-                .setId(layout.getId())
-                .setTitle(layout.getTitle())
-                .setContent(layout.getContent())
-                .setIconFileName(layout.getIconFileName())
-                .setContentAsJson(layout.getContentAsJson());
+        resourceDto.setId(resource.getId());
+        resourceDto.setRelativeUrl(resource.getRelativeUrl());
+        resourceDto.setResourcePageLocation(resource.getResourcePageLocation());
+        resourceDto.setResourcePage(resource.getResourcePage());
+        resourceDto.setResourceType(resource.getResourceType());
 
-        auditingModelToAuditingDtoConverter.convert(layout, layoutDto);
+        auditingModelToAuditingDtoConverter.convert(resource, resourceDto);
 
-        return layoutDto;
+        return resourceDto;
     }
 }

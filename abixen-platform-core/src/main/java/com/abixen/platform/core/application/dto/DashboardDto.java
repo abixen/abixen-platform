@@ -12,10 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.web.facade.dto;
-
-import com.abixen.platform.core.application.dto.DashboardModuleDto;
-import com.abixen.platform.core.application.dto.PageDto;
+package com.abixen.platform.core.application.dto;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

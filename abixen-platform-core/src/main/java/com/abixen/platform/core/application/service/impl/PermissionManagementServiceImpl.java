@@ -19,7 +19,7 @@ import com.abixen.platform.core.application.form.PermissionSearchForm;
 import com.abixen.platform.core.application.service.PermissionManagementService;
 import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.service.PermissionService;
-import com.abixen.platform.core.interfaces.web.facade.converter.PermissionToPermissionDtoConverter;
+import com.abixen.platform.core.application.converter.PermissionToPermissionDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

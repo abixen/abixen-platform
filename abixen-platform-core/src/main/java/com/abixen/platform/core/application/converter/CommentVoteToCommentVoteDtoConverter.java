@@ -12,12 +12,12 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.web.facade.converter;
+package com.abixen.platform.core.application.converter;
 
 
 import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.core.application.dto.ResourceDto;
-import com.abixen.platform.core.domain.model.Resource;
+import com.abixen.platform.core.application.dto.CommentVoteDto;
+import com.abixen.platform.core.domain.model.CommentVote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,27 +25,27 @@ import java.util.Map;
 
 
 @Component
-public class ResourceToResourceDtoConverter extends AbstractConverter<Resource, ResourceDto> {
+public class CommentVoteToCommentVoteDtoConverter extends AbstractConverter<CommentVote, CommentVoteDto> {
 
     private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
 
     @Autowired
-    public ResourceToResourceDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+    public CommentVoteToCommentVoteDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
         this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
     }
 
     @Override
-    public ResourceDto convert(Resource resource, Map<String, Object> parameters) {
-        ResourceDto resourceDto = new ResourceDto();
+    public CommentVoteDto convert(CommentVote commentVote, Map<String, Object> parameters) {
+        CommentVoteDto commentVoteDto = new CommentVoteDto();
 
-        resourceDto.setId(resource.getId());
-        resourceDto.setRelativeUrl(resource.getRelativeUrl());
-        resourceDto.setResourcePageLocation(resource.getResourcePageLocation());
-        resourceDto.setResourcePage(resource.getResourcePage());
-        resourceDto.setResourceType(resource.getResourceType());
+        commentVoteDto
+                .setId(commentVote.getId())
+                .setCommentId(commentVote.getComment().getId())
+                .setCommentVoteType(commentVote.getCommentVoteType());
 
-        auditingModelToAuditingDtoConverter.convert(resource, resourceDto);
 
-        return resourceDto;
+        auditingModelToAuditingDtoConverter.convert(commentVote, commentVoteDto);
+
+        return commentVoteDto;
     }
 }
