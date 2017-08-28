@@ -14,14 +14,12 @@
 
 package com.abixen.platform.core.domain.service;
 
-import com.abixen.platform.common.model.enumtype.AclSidType;
-import com.abixen.platform.core.domain.model.AclSid;
+import com.abixen.platform.core.domain.model.AclClass;
+import com.abixen.platform.core.domain.model.AclObjectIdentity;
 
 
-public interface AclSidService {
+public interface AclObjectIdentityService {
 
-    AclSid find(AclSidType aclSidType, Long sidId);
-
-    AclSid create(AclSidType aclSidType, Long sidId);
+    AclObjectIdentity find(AclClass aclClass, Long objectId);
 
 }

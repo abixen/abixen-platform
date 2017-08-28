@@ -14,8 +14,10 @@
 
 package com.abixen.platform.core.domain.service;
 
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.application.form.PermissionSearchForm;
 import com.abixen.platform.core.domain.model.Permission;
+import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,7 +28,11 @@ public interface PermissionService {
 
     Permission find(Long id);
 
+    Permission find(PermissionName permissionName);
+
     List<Permission> findAll();
+
+    List<Permission> findAll(final PermissionAclClassCategory permissionAclClassCategory);
 
     Page<Permission> findAll(Pageable pageable, PermissionSearchForm permissionSearchForm);
 

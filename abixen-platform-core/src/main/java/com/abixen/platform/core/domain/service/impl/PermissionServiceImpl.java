@@ -14,8 +14,10 @@
 
 package com.abixen.platform.core.domain.service.impl;
 
+import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.application.form.PermissionSearchForm;
 import com.abixen.platform.core.domain.model.Permission;
+import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
 import com.abixen.platform.core.domain.repository.PermissionRepository;
 import com.abixen.platform.core.domain.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,10 +49,24 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
+    public Permission find(final PermissionName permissionName) {
+        log.debug("find() - permissionName: {}", permissionName);
+
+        return permissionRepository.findByPermissionName(permissionName);
+    }
+
+    @Override
     public List<Permission> findAll() {
         log.debug("findAll()");
 
         return permissionRepository.findAll();
+    }
+
+    @Override
+    public List<Permission> findAll(final PermissionAclClassCategory permissionAclClassCategory) {
+        log.debug("findAll() - permissionAclClassCategory: {}", permissionAclClassCategory);
+
+        return permissionRepository.findAllByPermissionAclClassCategory(permissionAclClassCategory);
     }
 
     @Override

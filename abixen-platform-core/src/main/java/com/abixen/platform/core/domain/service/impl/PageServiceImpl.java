@@ -16,7 +16,7 @@ package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.core.application.form.PageSearchForm;
-import com.abixen.platform.core.application.service.AclService;
+import com.abixen.platform.core.domain.service.AclService;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.domain.model.User;
@@ -77,7 +77,7 @@ public class PageServiceImpl implements PageService {
 
         final Page createdPage = pageRepository.save(page);
 
-        aclService.insertDefaultAcl(createdPage, new ArrayList<PermissionName>() {
+        aclService.createDefaultAcl(createdPage, new ArrayList<PermissionName>() {
             {
                 add(PermissionName.PAGE_VIEW);
                 add(PermissionName.PAGE_EDIT);

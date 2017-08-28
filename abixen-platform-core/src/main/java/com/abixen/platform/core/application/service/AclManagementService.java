@@ -12,16 +12,15 @@
  * details.
  */
 
-package com.abixen.platform.core.domain.service;
-
-import com.abixen.platform.common.model.enumtype.AclSidType;
-import com.abixen.platform.core.domain.model.AclSid;
+package com.abixen.platform.core.application.service;
 
 
-public interface AclSidService {
+import com.abixen.platform.core.application.dto.AclRolesPermissionsDto;
 
-    AclSid find(AclSidType aclSidType, Long sidId);
+public interface AclManagementService {
 
-    AclSid create(AclSidType aclSidType, Long sidId);
+    AclRolesPermissionsDto findAclRolesPermissions(String permissionAclClassCategoryName, Long objectId);
+
+    AclRolesPermissionsDto updateAclRolesPermissions(AclRolesPermissionsDto aclRolesPermissionsDto, String permissionAclClassCategoryName, Long objectId);
 
 }

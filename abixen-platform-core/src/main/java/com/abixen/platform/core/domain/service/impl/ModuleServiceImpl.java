@@ -18,7 +18,7 @@ import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
 import com.abixen.platform.common.rabbitmq.message.RabbitMQRemoveModuleMessage;
 import com.abixen.platform.core.application.form.ModuleSearchForm;
-import com.abixen.platform.core.application.service.AclService;
+import com.abixen.platform.core.domain.service.AclService;
 import com.abixen.platform.core.application.service.CommentService;
 import com.abixen.platform.core.application.service.RabbitMQOperations;
 import com.abixen.platform.core.domain.model.Module;
@@ -85,7 +85,7 @@ public class ModuleServiceImpl implements ModuleService {
 
         final Module createdModule = moduleRepository.save(module);
 
-        aclService.insertDefaultAcl(createdModule, new ArrayList<PermissionName>() {
+        aclService.createDefaultAcl(createdModule, new ArrayList<PermissionName>() {
             {
                 add(PermissionName.MODULE_VIEW);
                 add(PermissionName.MODULE_EDIT);

@@ -14,14 +14,11 @@
 
 package com.abixen.platform.core.domain.service;
 
-import com.abixen.platform.common.model.enumtype.AclSidType;
-import com.abixen.platform.core.domain.model.AclSid;
 
+import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
 
-public interface AclSidService {
+public interface PermissionAclClassCategoryService {
 
-    AclSid find(AclSidType aclSidType, Long sidId);
-
-    AclSid create(AclSidType aclSidType, Long sidId);
+    PermissionAclClassCategory find(String permissionAclClassCategoryName);
 
 }

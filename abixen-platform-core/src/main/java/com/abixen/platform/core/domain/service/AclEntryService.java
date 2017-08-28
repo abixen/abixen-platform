@@ -14,14 +14,20 @@
 
 package com.abixen.platform.core.domain.service;
 
-import com.abixen.platform.common.model.enumtype.AclSidType;
+import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.core.domain.model.AclEntry;
+import com.abixen.platform.core.domain.model.AclObjectIdentity;
 import com.abixen.platform.core.domain.model.AclSid;
 
+import java.util.List;
 
-public interface AclSidService {
 
-    AclSid find(AclSidType aclSidType, Long sidId);
+public interface AclEntryService {
 
-    AclSid create(AclSidType aclSidType, Long sidId);
+    List<AclEntry> findAll(final AclClassName aclClassName, final Long objectId);
+
+    AclEntry create(AclEntry aclEntry);
+
+    void deleteAll(AclObjectIdentity aclObjectIdentity, AclSid aclSid);
 
 }

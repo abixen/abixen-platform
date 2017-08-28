@@ -14,14 +14,14 @@
 
 package com.abixen.platform.core.domain.service;
 
-import com.abixen.platform.common.model.enumtype.AclSidType;
-import com.abixen.platform.core.domain.model.AclSid;
+import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.core.domain.model.SecurableModel;
+
+import java.util.List;
 
 
-public interface AclSidService {
+public interface AclService {
 
-    AclSid find(AclSidType aclSidType, Long sidId);
-
-    AclSid create(AclSidType aclSidType, Long sidId);
+    void createDefaultAcl(SecurableModel securableModel, List<PermissionName> permissionNames);
 
 }

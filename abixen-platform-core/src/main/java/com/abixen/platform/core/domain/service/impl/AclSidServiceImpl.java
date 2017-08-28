@@ -36,6 +36,14 @@ public class AclSidServiceImpl implements AclSidService {
         this.aclSidRepository = aclSidRepository;
     }
 
+
+    @Override
+    public AclSid find(final AclSidType aclSidType, final Long sidId) {
+        log.debug("find() - aclSidType: {}, sidId: {}", aclSidType, sidId);
+
+        return aclSidRepository.findBySidTypeAndSidId(aclSidType, sidId);
+    }
+
     @Override
     public AclSid create(final AclSidType aclSidType, final Long sidId) {
         log.debug("create() - aclSidType: {}, sidId: {}", aclSidType, sidId);

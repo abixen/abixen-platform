@@ -15,29 +15,40 @@
 package com.abixen.platform.core.interfaces.web;
 
 import com.abixen.platform.core.application.dto.AclRolesPermissionsDto;
-import com.abixen.platform.core.application.service.AclService;
+import com.abixen.platform.core.application.service.AclManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/control-panel/acls")
 public class AclController {
 
+    private final AclManagementService aclManagementService;
+
     @Autowired
-    private AclService aclService;
+    public AclController(AclManagementService aclManagementService) {
+        this.aclManagementService = aclManagementService;
+    }
+
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public AclRolesPermissionsDto getAclRolesPermissionsDto(@RequestParam("permissionAclClassCategoryName") String permissionAclClassCategoryName, @RequestParam("objectId") Long objectId) {
-        log.debug("getAclRolesPermissionsDto()");
-        return aclService.getAclRolesPermissionsDto(permissionAclClassCategoryName, objectId);
+    public AclRolesPermissionsDto find(@RequestParam("permissionAclClassCategoryName") String permissionAclClassCategoryName, @RequestParam("objectId") Long objectId) {
+        log.debug("find() - permissionAclClassCategoryName: {}, objectId: {}", permissionAclClassCategoryName, objectId);
+
+        return aclManagementService.findAclRolesPermissions(permissionAclClassCategoryName, objectId);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public AclRolesPermissionsDto updateAclRolesPermissions(@RequestParam("permissionAclClassCategoryName") String permissionAclClassCategoryName, @RequestParam("objectId") Long objectId, @RequestBody AclRolesPermissionsDto aclRolesPermissionsDto) {
-        log.debug("updateAclRolesPermissions() - aclRolesPermissionsDto: " + aclRolesPermissionsDto);
-        return aclService.updateAclRolesPermissionsDto(aclRolesPermissionsDto, permissionAclClassCategoryName, objectId);
+    public AclRolesPermissionsDto update(@RequestParam("permissionAclClassCategoryName") String permissionAclClassCategoryName, @RequestParam("objectId") Long objectId, @RequestBody AclRolesPermissionsDto aclRolesPermissionsDto) {
+        log.debug("update() - permissionAclClassCategoryName: {}, objectId: {}, aclRolesPermissionsDto: {}", permissionAclClassCategoryName, objectId, aclRolesPermissionsDto);
+
+        return aclManagementService.updateAclRolesPermissions(aclRolesPermissionsDto, permissionAclClassCategoryName, objectId);
     }
 
 }
