@@ -14,10 +14,8 @@
 
 package com.abixen.platform.core.interfaces.web.application;
 
-import com.abixen.platform.core.application.converter.LayoutToLayoutDtoConverter;
 import com.abixen.platform.core.application.dto.LayoutDto;
-import com.abixen.platform.core.domain.model.Layout;
-import com.abixen.platform.core.application.service.LayoutService;
+import com.abixen.platform.core.application.service.LayoutManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,29 +30,25 @@ import java.util.List;
 @RequestMapping(value = "/api/application/layouts")
 public class ApplicationLayoutController {
 
-    private final LayoutService layoutService;
-    private final LayoutToLayoutDtoConverter layoutToLayoutDtoConverter;
+    private final LayoutManagementService layoutManagementService;
+
 
     @Autowired
-    public ApplicationLayoutController(LayoutService layoutService,
-                                       LayoutToLayoutDtoConverter layoutToLayoutDtoConverter) {
-        this.layoutService = layoutService;
-        this.layoutToLayoutDtoConverter = layoutToLayoutDtoConverter;
+    public ApplicationLayoutController(LayoutManagementService layoutManagementService) {
+        this.layoutManagementService = layoutManagementService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<LayoutDto> getDashboardLayouts() {
-        log.debug("getLayouts()");
+    public List<LayoutDto> findAllDashboardLayouts() {
+        log.debug("findAllDashboardLayouts()");
 
-        List<Layout> layouts = layoutService.findAllLayouts();
-        List<LayoutDto> layoutDtos = layoutToLayoutDtoConverter.convertToList(layouts);
-        log.debug("getLayouts() count" + (layouts != null ? layouts.size() : 0));
-        for (LayoutDto layout : layoutDtos) {
-            log.debug("layout: " + layout);
+        final List<LayoutDto> layouts = layoutManagementService.findAllLayouts();
 
-            String html = layout.getContent();
-            layout.setContent(layoutService.htmlLayoutToJson(html));
+        for (LayoutDto layout : layouts) {
+            layout.setContent(layout.getContentAsJson());
         }
-        return layoutDtos;
+
+        return layouts;
     }
+
 }

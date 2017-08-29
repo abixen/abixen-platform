@@ -21,12 +21,12 @@ import com.abixen.platform.core.application.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.PageDto;
 import com.abixen.platform.core.application.form.PageForm;
 import com.abixen.platform.core.application.form.PageSearchForm;
-import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.PageManagementService;
 import com.abixen.platform.core.application.service.SecurityService;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.domain.model.PageBuilder;
 import com.abixen.platform.core.domain.model.User;
+import com.abixen.platform.core.domain.service.LayoutService;
 import com.abixen.platform.core.domain.service.PageService;
 import com.abixen.platform.core.domain.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -83,10 +83,6 @@ public class PageManagementServiceImpl implements PageManagementService {
 
         final List<Page> pages = pageService.findAll(authorizedUser);
 
-        pages.forEach(page -> {
-            layoutService.convertPageLayoutToJson(page);
-        });
-
         return pageToPageDtoConverter.convertToList(pages);
     }
 
@@ -107,7 +103,7 @@ public class PageManagementServiceImpl implements PageManagementService {
         log.debug("createPage() - pageForm: {}", pageForm);
 
         final Page page = new PageBuilder()
-                .layout(layoutService.findLayout(pageForm.getLayout().getId()))
+                .layout(layoutService.find(pageForm.getLayout().getId()))
                 .title(pageForm.getTitle())
                 .description(pageForm.getDescription())
                 .icon(pageForm.getIcon())
@@ -128,7 +124,7 @@ public class PageManagementServiceImpl implements PageManagementService {
         page.changeTitle(pageForm.getTitle());
         page.changeDescription(pageForm.getDescription());
         page.changeIcon(pageForm.getIcon());
-        page.changeLayout(layoutService.findLayout(pageForm.getLayout().getId()));
+        page.changeLayout(layoutService.find(pageForm.getLayout().getId()));
 
         final Page updatedPage = pageService.update(page);
         final PageDto updatedPageDto = pageToPageDtoConverter.convert(updatedPage);

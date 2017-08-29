@@ -17,10 +17,19 @@ package com.abixen.platform.core.application.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
 import com.abixen.platform.core.application.dto.LayoutDto;
+import com.abixen.platform.core.application.util.LayoutColumnUtil;
+import com.abixen.platform.core.application.util.LayoutRowUtil;
 import com.abixen.platform.core.domain.model.Layout;
+import com.google.gson.Gson;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -42,10 +51,32 @@ public class LayoutToLayoutDtoConverter extends AbstractConverter<Layout, Layout
                 .setTitle(layout.getTitle())
                 .setContent(layout.getContent())
                 .setIconFileName(layout.getIconFileName())
-                .setContentAsJson(layout.getContentAsJson());
+                .setContentAsJson(convertHtmlToJson(layout.getContent()));
 
         auditingModelToAuditingDtoConverter.convert(layout, layoutDto);
 
         return layoutDto;
     }
+
+    private String convertHtmlToJson(final String html) {
+        final Document doc = Jsoup.parse(html);
+        final Elements htmlRows = doc.getElementsByClass("row");
+        final List<LayoutRowUtil> rowUtilList = new ArrayList<>();
+
+        for (Element row : htmlRows) {
+            final Document rowDoc = Jsoup.parse(row.toString());
+            final Elements htmlColumns = rowDoc.getElementsByClass("column");
+            final List<LayoutColumnUtil> columnUtilList = new ArrayList<>();
+
+            for (Element column : htmlColumns) {
+                final String styleClass = column.attr("class");
+                columnUtilList.add(new LayoutColumnUtil(styleClass.substring(styleClass.indexOf(" ") + 1)));
+            }
+
+            rowUtilList.add(new LayoutRowUtil(columnUtilList));
+        }
+
+        return "{\"rows\":" + new Gson().toJson(rowUtilList) + "}";
+    }
+
 }

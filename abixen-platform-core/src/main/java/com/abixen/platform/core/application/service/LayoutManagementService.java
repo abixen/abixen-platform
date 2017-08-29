@@ -14,35 +14,31 @@
 
 package com.abixen.platform.core.application.service;
 
+import com.abixen.platform.core.application.dto.LayoutDto;
 import com.abixen.platform.core.application.form.LayoutForm;
 import com.abixen.platform.core.application.form.LayoutSearchForm;
-import com.abixen.platform.core.domain.model.Layout;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.util.List;
 
 
-public interface LayoutService {
+public interface LayoutManagementService {
 
-    Layout createLayout(Layout layout);
+    LayoutDto findLayout(Long id);
 
-    Layout updateLayout(Layout layout);
+    List<LayoutDto> findAllLayouts();
+
+    Page<LayoutDto> findAllLayouts(Pageable pageable, LayoutSearchForm layoutSearchForm);
+
+    LayoutForm createLayout(LayoutForm layoutForm);
 
     LayoutForm updateLayout(LayoutForm layoutForm);
 
     void deleteLayout(Long id);
 
-    String htmlLayoutToJson(String htmlString);
+    LayoutDto changeLayoutIcon(Long id, MultipartFile iconFile) throws IOException;
 
-    Page<Layout> findAllLayouts(Pageable pageable, LayoutSearchForm layoutSearchForm);
-
-    List<Layout> findAllLayouts();
-
-    Layout findLayout(Long id);
-
-    Layout changeIcon(Long id, MultipartFile iconFile) throws IOException;
-
-    void convertPageLayoutToJson(com.abixen.platform.core.domain.model.Page page);
 }

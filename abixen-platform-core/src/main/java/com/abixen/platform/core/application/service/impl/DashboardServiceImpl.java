@@ -23,13 +23,13 @@ import com.abixen.platform.core.application.dto.DashboardModuleDto;
 import com.abixen.platform.core.application.dto.PageDto;
 import com.abixen.platform.core.application.form.DashboardForm;
 import com.abixen.platform.core.application.service.DashboardService;
-import com.abixen.platform.core.application.service.LayoutService;
 import com.abixen.platform.core.application.service.ModuleTypeService;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.ModuleBuilder;
 import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.domain.model.PageBuilder;
+import com.abixen.platform.core.domain.service.LayoutService;
 import com.abixen.platform.core.domain.service.ModuleService;
 import com.abixen.platform.core.domain.service.PageService;
 import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
@@ -95,7 +95,6 @@ public class DashboardServiceImpl implements DashboardService {
                         ))
                 );
 
-        layoutService.convertPageLayoutToJson(page);
         PageDto pageDto = pageToPageDtoConverter.convert(page);
 
         return new DashboardDto(pageDto, dashboardModules);
@@ -107,16 +106,15 @@ public class DashboardServiceImpl implements DashboardService {
         log.debug("create() - dashboardForm: {}", dashboardForm);
 
         final Page page = new PageBuilder()
-                .layout(layoutService.findLayout(dashboardForm.getPage().getLayout().getId()))
+                .layout(layoutService.find(dashboardForm.getPage().getLayout().getId()))
                 .title(dashboardForm.getPage().getTitle())
                 .description(dashboardForm.getPage().getDescription())
                 .icon(dashboardForm.getPage().getIcon())
                 .build();
 
         final Page createdPage = pageService.create(page);
-        layoutService.convertPageLayoutToJson(createdPage);
 
-        final PageDto pageDto = pageToPageDtoConverter.convert(page);
+        final PageDto pageDto = pageToPageDtoConverter.convert(createdPage);
 
         return new DashboardForm(pageDto);
     }
@@ -147,7 +145,7 @@ public class DashboardServiceImpl implements DashboardService {
         page.changeDescription(dashboardForm.getPage().getDescription());
         page.changeTitle(dashboardForm.getPage().getTitle());
         page.changeIcon(dashboardForm.getPage().getIcon());
-        page.changeLayout(layoutService.findLayout(dashboardForm.getPage().getLayout().getId()));
+        page.changeLayout(layoutService.find(dashboardForm.getPage().getLayout().getId()));
         pageService.update(page);
 
         updateExistingModules(dashboardForm.getDashboardModuleDtos(), currentModulesIds);

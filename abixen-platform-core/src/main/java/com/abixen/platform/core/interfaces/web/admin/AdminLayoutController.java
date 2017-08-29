@@ -14,15 +14,13 @@
 
 package com.abixen.platform.core.interfaces.web.admin;
 
-import com.abixen.platform.core.application.converter.LayoutToLayoutDtoConverter;
 import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.LayoutDto;
 import com.abixen.platform.core.application.form.LayoutForm;
 import com.abixen.platform.core.application.form.LayoutSearchForm;
-import com.abixen.platform.core.domain.model.Layout;
-import com.abixen.platform.core.application.service.LayoutService;
-import com.abixen.platform.common.util.ValidationUtil;
+import com.abixen.platform.core.application.service.LayoutManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,7 +29,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -44,68 +47,70 @@ import java.util.List;
 @RequestMapping(value = "/api/control-panel/layouts")
 public class AdminLayoutController {
 
-    private final LayoutService layoutService;
-    private final LayoutToLayoutDtoConverter layoutToLayoutDtoConverter;
+    private final LayoutManagementService layoutManagementService;
+
 
     @Autowired
-    public AdminLayoutController(LayoutService layoutService,
-                                 LayoutToLayoutDtoConverter layoutToLayoutDtoConverter) {
-        this.layoutService = layoutService;
-        this.layoutToLayoutDtoConverter = layoutToLayoutDtoConverter;
+    public AdminLayoutController(LayoutManagementService layoutManagementService) {
+        this.layoutManagementService = layoutManagementService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<LayoutDto> getLayouts(@PageableDefault(size = 1) Pageable pageable, LayoutSearchForm layoutSearchForm) {
-        log.debug("getLayouts()");
+    public Page<LayoutDto> findAll(@PageableDefault(size = 1) Pageable pageable, LayoutSearchForm layoutSearchForm) {
+        log.debug("findAll() - pageable: {}, layoutSearchForm: {}", pageable, layoutSearchForm);
 
-        Page<Layout> layouts = layoutService.findAllLayouts(pageable, layoutSearchForm);
-
-        for (Layout layout : layouts) {
-            String html = layout.getContent();
-            layout.changeContent(layoutService.htmlLayoutToJson(html));
-        }
-
-        Page<LayoutDto> layoutDtos = layoutToLayoutDtoConverter.convertToPage(layouts);
-
-        return layoutDtos;
+        return layoutManagementService.findAllLayouts(pageable, layoutSearchForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public LayoutDto getLayout(@PathVariable Long id) {
-        log.debug("getLayout() - id: {}", id);
+    public LayoutDto find(@PathVariable Long id) {
+        log.debug("find() - id: {}", id);
 
-        Layout layout = layoutService.findLayout(id);
-        return layoutToLayoutDtoConverter.convert(layout);
+        return layoutManagementService.findLayout(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto createLayout(@RequestBody Layout layout) {
-        log.debug("save() - layout: {}", layout);
-        Layout createdLayout = layoutService.createLayout(layout);
-        return new FormValidationResultDto(new LayoutForm(createdLayout));
-    }
+    public FormValidationResultDto create(@RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
+        log.debug("create() - layoutForm: {}", layoutForm);
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    FormValidationResultDto updateLayout(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(layoutForm, formErrors);
         }
-        LayoutForm layoutFormResult = layoutService.updateLayout(layoutForm);
-        return new FormValidationResultDto(layoutFormResult);
 
+        final LayoutForm createdLayoutForm = layoutManagementService.createLayout(layoutForm);
+
+        return new FormValidationResultDto(createdLayoutForm);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Boolean> deleteLayout(@PathVariable("id") long id) {
-        log.debug("delete() - id: {}", id);
-        layoutService.deleteLayout(id);
-        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    FormValidationResultDto update(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
+        log.debug("update() - id: {}, layoutForm: {}", id, layoutForm);
+
+        if (bindingResult.hasErrors()) {
+            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultDto(layoutForm, formErrors);
+        }
+
+        final LayoutForm updatedLayoutForm = layoutManagementService.updateLayout(layoutForm);
+
+        return new FormValidationResultDto(updatedLayoutForm);
     }
 
     @RequestMapping(value = "/{id}/icon", method = RequestMethod.POST)
-    public LayoutDto updateLayoutIcon(@PathVariable Long id, @RequestParam("iconFile") MultipartFile iconFile) throws IOException {
-        Layout layout = layoutService.changeIcon(id, iconFile);
-        return layoutToLayoutDtoConverter.convert(layout);
+    public LayoutDto updateIcon(@PathVariable Long id, @RequestParam("iconFile") MultipartFile iconFile) throws IOException {
+        log.debug("updateIcon() - id: {}", id);
+
+        return layoutManagementService.changeLayoutIcon(id, iconFile);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Boolean> delete(@PathVariable("id") long id) {
+        log.debug("delete() - id: {}", id);
+
+        layoutManagementService.deleteLayout(id);
+
+        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
+    }
+
 }

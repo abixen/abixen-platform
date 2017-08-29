@@ -21,7 +21,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 
 @Entity
@@ -46,9 +45,6 @@ public class Layout extends AuditingModel implements SecurableModel {
 
     @Column(name = "icon_file_name", length = LAYOUT_ICON_FILE_NAME_MAX_LENGTH, nullable = false)
     private String iconFileName;
-
-    @Transient
-    private String contentAsJson;
 
     Layout() {
     }
@@ -86,14 +82,6 @@ public class Layout extends AuditingModel implements SecurableModel {
         this.iconFileName = iconFileName;
     }
 
-    public String getContentAsJson() {
-        return contentAsJson;
-    }
-
-    public void setContentAsJson(String contentAsJson) {
-        this.contentAsJson = contentAsJson;
-    }
-
     public void changeTitle(String title) {
         setTitle(title);
     }
@@ -105,4 +93,5 @@ public class Layout extends AuditingModel implements SecurableModel {
     public void changeIconFileName(String iconFileName) {
         setIconFileName(iconFileName);
     }
+
 }
