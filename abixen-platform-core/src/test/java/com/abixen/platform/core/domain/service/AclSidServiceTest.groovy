@@ -12,10 +12,9 @@
  * details.
  */
 
-package com.abixen.platform.core.application.domain.model.service
+package com.abixen.platform.core.domain.service
 
 import com.abixen.platform.common.model.enumtype.AclSidType
-import com.abixen.platform.core.domain.service.AclSidService
 import com.abixen.platform.core.domain.service.impl.AclSidServiceImpl
 import com.abixen.platform.core.domain.model.AclSid
 import com.abixen.platform.core.domain.model.AclSidBuilder

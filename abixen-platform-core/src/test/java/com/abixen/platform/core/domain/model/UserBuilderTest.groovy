@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.abixen.platform.core.application.domain.model
+package com.abixen.platform.core.domain.model
 
 import com.abixen.platform.common.model.enumtype.RoleType
 import com.abixen.platform.common.model.enumtype.UserGender
