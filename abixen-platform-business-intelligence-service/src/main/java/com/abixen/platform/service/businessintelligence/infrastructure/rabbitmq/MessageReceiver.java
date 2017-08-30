@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.infrastructure.rabbitmq;
 
 import com.abixen.platform.common.rabbitmq.message.RabbitMQRemoveModuleMessage;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -27,10 +27,10 @@ public class MessageReceiver {
 
     private CountDownLatch latch = new CountDownLatch(1);
 
-    private final ChartConfigurationService chartConfigurationService;
+    private final ChartConfigurationManagementService chartConfigurationManagementService;
 
-    public MessageReceiver(ChartConfigurationService chartConfigurationService) {
-        this.chartConfigurationService = chartConfigurationService;
+    public MessageReceiver(ChartConfigurationManagementService chartConfigurationManagementService) {
+        this.chartConfigurationManagementService = chartConfigurationManagementService;
     }
 
     public void receiveMessage(RabbitMQRemoveModuleMessage message) {
@@ -38,7 +38,7 @@ public class MessageReceiver {
 
         switch (message.getModuleTypeName()) {
             case "multi-visualisation":
-                chartConfigurationService.delete(message.getModuleId());
+                chartConfigurationManagementService.deleteChartConfiguration(message.getModuleId());
                 break;
             default:
                 throw new RuntimeException("Wrong moduleTypeName: " + message.getModuleTypeName());

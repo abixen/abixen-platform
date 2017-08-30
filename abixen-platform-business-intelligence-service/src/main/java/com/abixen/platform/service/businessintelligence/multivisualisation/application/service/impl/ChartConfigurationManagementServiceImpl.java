@@ -14,15 +14,17 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.ChartConfigurationDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetChartDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetSeriesColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetSeriesDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationManagementService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.ChartConfigurationRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceColumnRepository;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.ChartConfigurationService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.ChartConfigurationToChartConfigurationDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,79 +38,65 @@ import static java.util.Optional.ofNullable;
 @Slf4j
 @Transactional
 @Service
-public class ChartConfigurationServiceImpl implements ChartConfigurationService {
+public class ChartConfigurationManagementServiceImpl implements ChartConfigurationManagementService {
 
-    private final ChartConfigurationRepository chartConfigurationRepository;
     private final DataSourceService dataSourceService;
+    private final ChartConfigurationService chartConfigurationService;
     private final DataSourceColumnRepository dataSourceColumnRepository;
+    private final ChartConfigurationToChartConfigurationDtoConverter chartConfigurationToChartConfigurationDtoConverter;
+
 
     @Autowired
-    public ChartConfigurationServiceImpl(ChartConfigurationRepository chartConfigurationRepository,
-                                         DataSourceService dataSourceService,
-                                         DataSourceColumnRepository dataSourceColumnRepository) {
-        this.chartConfigurationRepository = chartConfigurationRepository;
-        this.dataSourceService = dataSourceService;
+    public ChartConfigurationManagementServiceImpl(ChartConfigurationService chartConfigurationService,
+                                                   DataSourceService dataSourceService,
+                                                   DataSourceColumnRepository dataSourceColumnRepository,
+                                                   ChartConfigurationToChartConfigurationDtoConverter chartConfigurationToChartConfigurationDtoConverter) {
         this.dataSourceColumnRepository = dataSourceColumnRepository;
+        this.dataSourceService = dataSourceService;
+        this.chartConfigurationService = chartConfigurationService;
+        this.chartConfigurationToChartConfigurationDtoConverter = chartConfigurationToChartConfigurationDtoConverter;
     }
 
     @Override
-    public ChartConfiguration find(final Long moduleId) {
-        log.debug("find() - moduleId: {}", moduleId);
+    public ChartConfigurationDto findChartConfiguration(final Long moduleId) {
+        log.debug("findChartConfiguration() - moduleId: {}", moduleId);
 
-        return chartConfigurationRepository.findByModuleId(moduleId);
+        final ChartConfiguration chartConfiguration = chartConfigurationService.find(moduleId);
+
+        return chartConfigurationToChartConfigurationDtoConverter.convert(chartConfiguration);
     }
 
     @Override
-    public ChartConfiguration create(final ChartConfiguration chartConfiguration) {
-        log.debug("create() - chartConfiguration: {}", chartConfiguration);
-        chartConfiguration.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
-            dataSetSeries.changeDataParameters(dataSetSeries.getFilter(), chartConfiguration.getDataSetChart());
-        });
+    public ChartConfigurationDto createChartConfiguration(final ChartConfigurationForm chartConfigurationForm) {
+        log.debug("createChartConfiguration() - chartConfigurationForm: {}", chartConfigurationForm);
 
-        return chartConfigurationRepository.save(chartConfiguration);
+        ChartConfiguration chartConfiguration = build(chartConfigurationForm);
+        final ChartConfiguration updatedChartConfiguration = chartConfigurationService.create(chartConfiguration);
+
+        return chartConfigurationToChartConfigurationDtoConverter.convert(updatedChartConfiguration);
     }
 
-    @Override
-    public ChartConfiguration create(final ChartConfigurationForm chartConfigurationForm) {
-        log.debug("create() - chartConfigurationForm: {}", chartConfigurationForm);
-        final ChartConfiguration chartConfiguration = build(chartConfigurationForm);
-
-        return create(chartConfiguration);
-    }
 
     @Override
-    public ChartConfiguration update(final ChartConfigurationForm chartConfigurationForm) {
-        log.debug("update() - chartConfigurationForm: {}", chartConfigurationForm);
+    public ChartConfigurationDto updateChartConfiguration(final ChartConfigurationForm chartConfigurationForm) {
+        log.debug("createChartConfiguration() - chartConfigurationForm: {}", chartConfigurationForm);
 
-        final ChartConfiguration chartConfiguration = find(chartConfigurationForm.getModuleId());
+        final ChartConfiguration chartConfiguration = chartConfigurationService.find(chartConfigurationForm.getModuleId());
         chartConfiguration.changeModuleId(chartConfigurationForm.getModuleId());
         chartConfiguration.changeAxisNames(chartConfigurationForm.getAxisXName(), chartConfigurationForm.getAxisYName());
         chartConfiguration.changeChartParameters(chartConfigurationForm.getChartType(), buildDataSetChart(chartConfigurationForm.getDataSetChart()));
         chartConfiguration.changeDataParameters(chartConfigurationForm.getFilter(), dataSourceService.find(chartConfigurationForm.getDataSource().getId()));
 
-        return chartConfiguration;
+        final ChartConfiguration createdChartConfiguration = chartConfigurationService.update(chartConfiguration);
+
+        return chartConfigurationToChartConfigurationDtoConverter.convert(createdChartConfiguration);
     }
 
     @Override
-    public ChartConfiguration update(final ChartConfiguration chartConfiguration) {
-        log.debug("update() - chartConfiguration: {}", chartConfiguration);
-        chartConfiguration.getDataSetChart().getDataSetSeries().forEach(dataSetSeries -> {
-            dataSetSeries.changeDataParameters(dataSetSeries.getFilter(), chartConfiguration.getDataSetChart());
-        });
-
-        return chartConfigurationRepository.save(chartConfiguration);
+    public void deleteChartConfiguration(final Long moduleId) {
+        chartConfigurationService.delete(moduleId);
     }
 
-    @Override
-    public void delete(final Long moduleId) {
-        log.debug("delete - moduleId: {}", moduleId);
-        ChartConfiguration chartConfiguration = chartConfigurationRepository.findByModuleId(moduleId);
-        if (chartConfiguration != null) {
-            chartConfigurationRepository.delete(chartConfiguration);
-        }
-    }
-
-    @Override
     public ChartConfiguration build(final ChartConfigurationForm chartConfigurationForm) {
         log.debug("build() - chartConfigurationForm: {}", chartConfigurationForm);
         return new ChartConfigurationBuilder()
@@ -126,8 +114,8 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
                         .collect(Collectors.toSet()))
                 .domainSeries(buildDataSetSeriesColumn(dataSetChartDto.getDomainXSeriesColumn()),
                         ofNullable(dataSetChartDto.getDomainZSeriesColumn())
-                        .map(this::buildDataSetSeriesColumn)
-                        .orElse(null))
+                                .map(this::buildDataSetSeriesColumn)
+                                .orElse(null))
                 .build();
 
         dataSetChart.getDataSetSeries().forEach(
@@ -151,4 +139,5 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
                 .column(dataSetSeriesColumnDto.getType(), dataSourceColumnRepository.findOne(dataSetSeriesColumnDto.getDataSourceColumn().getId()))
                 .build();
     }
+
 }

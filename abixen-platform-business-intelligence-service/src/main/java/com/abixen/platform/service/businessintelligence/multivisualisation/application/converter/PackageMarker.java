@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
 public final class PackageMarker {
 }

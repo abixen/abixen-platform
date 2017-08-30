@@ -21,8 +21,8 @@ import com.abixen.platform.common.model.enumtype.PermissionName;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.ChartConfigurationDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.ChartConfigurationFacade;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationManagementService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +41,11 @@ import java.util.List;
 @RequestMapping(value = "/api/service/abixen/business-intelligence/application/multi-visualisation/configuration")
 public class ChartModuleConfigurationController {
 
-    private final ChartConfigurationFacade chartConfigurationFacade;
+    private final ChartConfigurationManagementService chartConfigurationManagementService;
 
     @Autowired
-    public ChartModuleConfigurationController(ChartConfigurationFacade chartConfigurationFacade) {
-        this.chartConfigurationFacade = chartConfigurationFacade;
+    public ChartModuleConfigurationController(ChartConfigurationManagementService chartConfigurationManagementService) {
+        this.chartConfigurationManagementService = chartConfigurationManagementService;
     }
 
     @PreAuthorize("hasPermission(#moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
@@ -53,7 +53,7 @@ public class ChartModuleConfigurationController {
     public ChartConfigurationForm findChartConfigurationForm(@PathVariable Long moduleId) {
         log.debug("getChartConfigurationForm() - moduleId: " + moduleId);
 
-        ChartConfigurationDto chartConfiguration = chartConfigurationFacade.findChartConfiguration(moduleId);
+        ChartConfigurationDto chartConfiguration = chartConfigurationManagementService.findChartConfiguration(moduleId);
 
         ChartConfigurationForm chartConfigurationForm;
 
@@ -70,14 +70,14 @@ public class ChartModuleConfigurationController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
-        log.debug("create() - chartConfigurationForm: " + chartConfigurationForm);
+        log.debug("createChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(chartConfigurationForm, formErrors);
         }
 
-        chartConfigurationFacade.createChartConfiguration(chartConfigurationForm);
+        chartConfigurationManagementService.createChartConfiguration(chartConfigurationForm);
 
         return new FormValidationResultDto(chartConfigurationForm);
     }
@@ -86,14 +86,14 @@ public class ChartModuleConfigurationController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
-        log.debug("update() - id: " + id + ", chartConfigurationForm: " + chartConfigurationForm);
+        log.debug("updateChartConfiguration() - id: " + id + ", chartConfigurationForm: " + chartConfigurationForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(chartConfigurationForm, formErrors);
         }
 
-        chartConfigurationFacade.updateChartConfiguration(chartConfigurationForm);
+        chartConfigurationManagementService.updateChartConfiguration(chartConfigurationForm);
 
         return new FormValidationResultDto(chartConfigurationForm);
     }

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.ChartConfigurationDto;

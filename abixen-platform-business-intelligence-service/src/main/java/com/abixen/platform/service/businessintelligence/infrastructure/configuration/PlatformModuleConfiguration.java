@@ -27,6 +27,7 @@ import static com.abixen.platform.service.businessintelligence.infrastructure.co
         basePackageClasses  = {
         PackageMarker.class,
         com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.PackageMarker.class,
+        com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.PackageMarker.class,
         com.abixen.platform.service.businessintelligence.multivisualisation.application.service.PackageMarker.class,
         com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl.parser.PackageMarker.class,
         com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl.parser.preparer.PackageMarker.class,
@@ -35,7 +36,7 @@ import static com.abixen.platform.service.businessintelligence.infrastructure.co
         com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.client.controller.PackageMarker.class,
         com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.controller.PackageMarker.class,
         com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.PackageMarker.class
+        com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.PackageMarker.class
         })
 public class PlatformModuleConfiguration {
 

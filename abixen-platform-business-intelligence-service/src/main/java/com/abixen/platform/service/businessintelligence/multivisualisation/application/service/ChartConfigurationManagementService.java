@@ -12,16 +12,18 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.service;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.ChartConfigurationDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
 
-public interface ChartConfigurationFacade {
+public interface ChartConfigurationManagementService {
+
+    ChartConfigurationDto findChartConfiguration(Long id);
 
     ChartConfigurationDto createChartConfiguration(ChartConfigurationForm chartConfigurationForm);
 
     ChartConfigurationDto updateChartConfiguration(ChartConfigurationForm chartConfigurationForm);
 
-    ChartConfigurationDto findChartConfiguration(Long moduleId);
+    void deleteChartConfiguration(Long moduleId);
 }

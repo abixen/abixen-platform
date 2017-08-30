@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.DatabaseConnectionToDatabaseConnectionDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DatabaseConnectionToDatabaseConnectionDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource;

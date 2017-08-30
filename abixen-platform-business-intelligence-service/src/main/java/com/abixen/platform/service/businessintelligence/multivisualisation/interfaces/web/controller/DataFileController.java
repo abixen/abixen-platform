@@ -69,7 +69,7 @@ public class DataFileController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createDataFile(@RequestBody @Valid DataFileForm fileDataForm, BindingResult bindingResult) {
-        log.debug("create() - fileDataSourceForm: " + fileDataForm);
+        log.debug("createChartConfiguration() - fileDataSourceForm: " + fileDataForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -84,7 +84,7 @@ public class DataFileController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateDataFile(@PathVariable("id") Long id, @RequestBody @Valid DataFileForm dataFileForm, BindingResult bindingResult) {
-        log.debug("update() - id: " + id + ", fileDataSourceForm: " + dataFileForm);
+        log.debug("updateChartConfiguration() - id: " + id + ", fileDataSourceForm: " + dataFileForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -109,7 +109,7 @@ public class DataFileController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteFileData(@PathVariable("id") long id) {
-        log.debug("delete() - id: " + id);
+        log.debug("deleteChartConfiguration() - id: " + id);
         dataFileFacade.deleteDataFile(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }

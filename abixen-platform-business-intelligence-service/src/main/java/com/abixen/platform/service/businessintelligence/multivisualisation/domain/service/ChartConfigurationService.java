@@ -12,25 +12,17 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.application.service;
+package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.ChartConfiguration;
-
 
 public interface ChartConfigurationService {
 
     ChartConfiguration find(Long id);
 
-    ChartConfiguration create(ChartConfigurationForm chartConfigurationForm);
-
     ChartConfiguration create(ChartConfiguration chartConfiguration);
-
-    ChartConfiguration update(ChartConfigurationForm chartConfigurationForm);
 
     ChartConfiguration update(ChartConfiguration chartConfiguration);
 
     void delete(Long moduleId);
-
-    ChartConfiguration build(ChartConfigurationForm chartConfigurationForm);
 }

@@ -62,7 +62,7 @@ public class DatabaseConnectionController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
-        log.debug("create() - databaseConnectionForm: " + databaseConnectionForm);
+        log.debug("createChartConfiguration() - databaseConnectionForm: " + databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -77,7 +77,7 @@ public class DatabaseConnectionController {
     @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateDatabaseConnection(@PathVariable("id") Long id, @RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
-        log.debug("update() - id: " + id + ", databaseConnectionForm: " + databaseConnectionForm);
+        log.debug("updateChartConfiguration() - id: " + id + ", databaseConnectionForm: " + databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -117,7 +117,7 @@ public class DatabaseConnectionController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteFileData(@PathVariable("id") long id) {
-        log.debug("delete() - id: " + id);
+        log.debug("deleteChartConfiguration() - id: " + id);
         databaseConnectionFacade.deleteDatabaseConnection(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }

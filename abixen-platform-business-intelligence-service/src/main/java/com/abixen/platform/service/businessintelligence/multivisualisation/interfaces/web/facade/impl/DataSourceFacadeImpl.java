@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.impl;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.DataSourceFacade;
-import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.DataSourceToDataSourceDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DataSourceToDataSourceDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataSourceForm;
