@@ -20,7 +20,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumnBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumnBuilder;
-import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.DataFileToDataFileDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DataFileToDataFileDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
@@ -72,7 +72,7 @@ public class DataFileServiceImpl implements DataFileService {
 
     @Override
     public DataFile find(Long id) {
-        log.debug("find() - id: " + id);
+        log.debug("findChartConfiguration() - id: " + id);
         return dataFileRepository.findOne(id);
     }
 

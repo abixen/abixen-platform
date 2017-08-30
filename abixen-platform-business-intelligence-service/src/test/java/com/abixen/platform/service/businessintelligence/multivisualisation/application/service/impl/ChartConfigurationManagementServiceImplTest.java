@@ -27,7 +27,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSetRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceColumnRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceRepository;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationManagementService;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +52,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PlatformModuleConfiguration.class)
-public class ChartConfigurationServiceImplTest {
+public class ChartConfigurationManagementServiceImplTest {
     private static final String AXIS_X_NAME = "axisXName";
     private static final String AXIS_Y_NAME = "axisYName";
     private static final String FILTER = "filter";
@@ -66,7 +66,7 @@ public class ChartConfigurationServiceImplTest {
     private ChartConfigurationRepository chartConfigurationRepository;
 
     @Autowired
-    private ChartConfigurationService chartConfigurationService;
+    private ChartConfigurationManagementService chartConfigurationManagementService;
 
     @Autowired
     private DataSourceColumnRepository dataSourceColumnRepository;
@@ -90,7 +90,7 @@ public class ChartConfigurationServiceImplTest {
         ChartConfiguration givenChartConfiguration = prepareChartConfiguration();
         ChartConfiguration savedChartConfiguration = chartConfigurationRepository.save(givenChartConfiguration);
         chartConfigurationRepository.flush();
-        chartConfigurationService.delete(savedChartConfiguration.getModuleId());
+        chartConfigurationManagementService.deleteChartConfiguration(savedChartConfiguration.getModuleId());
         chartConfigurationRepository.flush();
         entityManager.clear();
         ChartConfiguration deletedChartConfiguration = chartConfigurationRepository.findOne(savedChartConfiguration.getId());

@@ -99,7 +99,7 @@ public class DataSourceController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteDataSource(@PathVariable("id") long id) {
-        log.debug("delete() - id: " + id);
+        log.debug("deleteChartConfiguration() - id: " + id);
         dataSourceFacade.deleteDataSource(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }

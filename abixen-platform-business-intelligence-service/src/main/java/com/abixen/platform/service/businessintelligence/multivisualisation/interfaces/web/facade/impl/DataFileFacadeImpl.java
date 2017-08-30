@@ -14,9 +14,9 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.impl;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.DataFileColumnToDataFileColumnDtoConverter;
-import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.DataFileToDataFileDtoConverter;
-import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.converter.DataSourceColumnToDataSourceColumnDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DataFileColumnToDataFileColumnDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DataFileToDataFileDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DataSourceColumnToDataSourceColumnDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
