@@ -122,6 +122,8 @@ public class RoleManagementServiceImpl implements RoleManagementService {
         final RoleDto roleDto = roleToRoleDtoConverter.convert(role);
         final List<PermissionDto> allPermissionDtos = permissionToPermissionDtoConverter.convertToList(allPermissions);
 
+        log.info("--{}", roleDto);
+
         return new RolePermissionsForm(roleDto, allPermissionDtos);
     }
 

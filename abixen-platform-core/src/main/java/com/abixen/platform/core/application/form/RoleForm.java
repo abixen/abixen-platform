@@ -39,6 +39,7 @@ public class RoleForm implements Form {
     public RoleForm(Role role) {
         this.id = role.getId();
         this.name = role.getName();
+        this.roleType = role.getRoleType();
     }
 
     public String getName() {
