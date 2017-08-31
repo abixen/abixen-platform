@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.application.service.impl;
+package com.abixen.platform.core.interfaces.queue;
 
 import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
 import com.abixen.platform.core.application.service.RabbitMQOperations;
