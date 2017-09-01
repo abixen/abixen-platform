@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceBuilder;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DatabaseConnectionRepository;
 
 public class DatabaseDataSourceBuilder extends DataSourceBuilder {
 
@@ -34,8 +34,8 @@ public class DatabaseDataSourceBuilder extends DataSourceBuilder {
         return (DatabaseDataSource) super.assembleProduct();
     }
 
-    public DatabaseDataSourceBuilder databaseConnection(final Long databaseConnectionId, final DatabaseConnectionRepository repository) {
-        ((DatabaseDataSource) this.product).setDatabaseConnection(repository.findOne(databaseConnectionId));
+    public DatabaseDataSourceBuilder databaseConnection(final DatabaseConnection databaseConnection) {
+        ((DatabaseDataSource) this.product).setDatabaseConnection(databaseConnection);
         return this;
     }
 

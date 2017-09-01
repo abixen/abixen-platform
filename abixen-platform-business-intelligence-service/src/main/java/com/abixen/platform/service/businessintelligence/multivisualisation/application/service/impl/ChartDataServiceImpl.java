@@ -23,6 +23,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.*;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceService;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
