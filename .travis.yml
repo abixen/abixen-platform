@@ -16,6 +16,7 @@ branches:
   only:
   - master
   - ddd-core
+  - v-1-0-wave-2-refactor
 
 script:
   - ./travis/script/build.sh
