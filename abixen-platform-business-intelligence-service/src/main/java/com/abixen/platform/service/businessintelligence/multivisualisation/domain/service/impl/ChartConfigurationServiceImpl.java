@@ -37,7 +37,7 @@ public class ChartConfigurationServiceImpl implements ChartConfigurationService 
 
     @Override
     public ChartConfiguration find(final Long moduleId) {
-        log.debug("find() - moduleId: {}", moduleId);
+        log.debug("findDatabaseConnection() - moduleId: {}", moduleId);
 
         return chartConfigurationRepository.findByModuleId(moduleId);
     }

@@ -12,16 +12,11 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.application.service;
+package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
-
 
 public interface DatabaseConnectionService {
 
@@ -29,21 +24,9 @@ public interface DatabaseConnectionService {
 
     Page<DatabaseConnection> findAll(Pageable pageable);
 
-    DatabaseConnection create(DatabaseConnectionForm databaseConnectionForm);
-
     DatabaseConnection create(DatabaseConnection databaseConnection);
-
-    DatabaseConnection update(DatabaseConnectionForm databaseConnectionForm);
 
     DatabaseConnection update(DatabaseConnection databaseConnection);
 
     void delete(Long id);
-
-    DatabaseConnection build(DatabaseConnectionForm databaseConnectionForm);
-
-    void testConnection(DatabaseConnectionForm databaseConnectionForm);
-
-    List<String> getTables(Long databaseConnectionId);
-
-    List<DataSourceColumn> getTableColumns(Long databaseConnectionId, String table);
 }

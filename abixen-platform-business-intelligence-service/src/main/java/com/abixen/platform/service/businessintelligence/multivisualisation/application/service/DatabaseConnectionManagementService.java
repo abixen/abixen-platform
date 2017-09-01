@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.service;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto;
@@ -22,22 +22,22 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface DatabaseConnectionFacade {
 
-    Page<DatabaseConnectionDto> findAllDatabaseConnections(Pageable pageable);
+public interface DatabaseConnectionManagementService {
 
-    DatabaseConnectionDto findDatabaseConnection(Long id);
+    DatabaseConnectionDto findDatabaseConnection(final Long id);
 
-    void deleteDatabaseConnection(Long id);
+    Page<DatabaseConnectionDto> findAllDatabaseConnection(final Pageable pageable);
 
-    DatabaseConnectionDto createDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
+    DatabaseConnectionDto createDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm);
 
-    DatabaseConnectionDto updateDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
+    DatabaseConnectionDto updateDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm);
 
-    void testDatabaseConnection(DatabaseConnectionForm databaseConnectionForm);
+    void deleteDatabaseConnection(final Long id);
 
-    List<String> getTables(Long databaseConnectionId);
+    void testDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm);
 
-    List<DataSourceColumnDto> getTableColumns(Long databaseConnectionId, String table);
+    List<String> findTablesInDatabase(final Long databaseConnectionId);
 
+    List<DataSourceColumnDto> findTableColumnsFromDatabase(final Long databaseConnectionId, final String table);
 }
