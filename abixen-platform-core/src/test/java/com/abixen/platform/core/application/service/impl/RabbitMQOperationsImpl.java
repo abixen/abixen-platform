@@ -12,11 +12,22 @@
  * details.
  */
 
-package com.abixen.platform.common.rabbitmq.message;
+package com.abixen.platform.core.application.service.impl;
 
-import java.io.Serializable;
+import com.abixen.platform.common.rabbitmq.message.QueueMessage;
 
+import com.abixen.platform.core.application.service.QueueOperations;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.AmqpException;
+import org.springframework.stereotype.Service;
 
-public abstract class RabbitMQMessage implements Serializable {
+@Slf4j
+@Service
+public class RabbitMQOperationsImpl implements QueueOperations {
+
+    @Override
+    public void convertAndSend(String routingKey, QueueMessage rabbitMQMessage) throws AmqpException {
+        log.info("This is mockup. The message has been sent.");
+    }
 
 }
