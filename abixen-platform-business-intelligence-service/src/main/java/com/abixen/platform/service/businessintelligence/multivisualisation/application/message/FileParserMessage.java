@@ -21,6 +21,14 @@ public class FileParserMessage<T> {
     private List<T> data = new ArrayList<T>();
     private List<FileParseError> fileParseErrors = new ArrayList<>();
 
+    public FileParserMessage() {
+    }
+
+    public FileParserMessage(List<T> data, List<FileParseError> fileParseErrors) {
+        this.data = data;
+        this.fileParseErrors = fileParseErrors;
+    }
+
     public List<T> getData() {
         return data;
     }

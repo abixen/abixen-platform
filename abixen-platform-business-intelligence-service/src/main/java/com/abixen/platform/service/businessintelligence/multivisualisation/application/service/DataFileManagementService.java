@@ -14,11 +14,11 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service;
 
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,29 +27,23 @@ import java.util.List;
 import java.util.Map;
 
 
-public interface DataFileService {
+public interface DataFileManagementService {
 
-    Page<DataFile> find(String jsonCriteria, Pageable pageable);
+    DataFileDto findDataFile(final Long id);
 
-    DataFile find(Long id);
+    Page<DataFileDto> findDataFile(final String jsonCriteria, final Pageable pageable);
 
-    Page<DataFile> findAll(Pageable pageable);
+    Page<DataFileDto> findAllDataFile(final Pageable pageable);
 
-    DataFile create(DataFileForm dataFileForm);
+    DataFileDto createDataFile(final DataFileForm dataFileForm);
 
-    DataFile create(DataFile dataFile);
+    DataFileDto updateDataFile(final DataFileForm dataFileForm);
 
-    DataFile update(DataFileForm dataFileForm);
+    void deleteDataFile(final Long id);
 
-    DataFile update(DataFile dataFile);
+    List<DataSourceColumnDto> findDataFileColumns(final Long dataFileId);
 
-    void delete(Long id);
+    List<Map<String, Integer>> findAllColumns(final Long dataFileId);
 
-    DataFile build(DataFileForm dataFileForm);
-
-    List<DataSourceColumn> getDataFileColumns(Long dataFileId);
-
-    List<Map<String, Integer>> getAllColumns(Long dataFileId);
-
-    FileParserMessage<DataFileColumn> parse(MultipartFile fileToParse, Boolean readFirstColumnAsColumnName);
+    FileParserMessage<DataFileColumnDto> parse(final MultipartFile fileToParse, final Boolean readFirstColumnAsColumnName);
 }

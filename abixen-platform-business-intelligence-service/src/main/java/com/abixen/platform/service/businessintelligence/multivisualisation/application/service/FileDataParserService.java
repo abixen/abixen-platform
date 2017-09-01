@@ -19,5 +19,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import org.springframework.web.multipart.MultipartFile;
 
 public interface FileDataParserService {
-    FileParserMessage<DataFileColumn> parse(MultipartFile multipartFile, Boolean readFirstColumnAsColumnName);
+
+    FileParserMessage<DataFileColumn> parse(final MultipartFile multipartFile, final Boolean readFirstColumnAsColumnName);
+
 }
