@@ -19,12 +19,12 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetSeriesColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetSeriesDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationManagementService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceColumnRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.ChartConfigurationService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.ChartConfigurationToChartConfigurationDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

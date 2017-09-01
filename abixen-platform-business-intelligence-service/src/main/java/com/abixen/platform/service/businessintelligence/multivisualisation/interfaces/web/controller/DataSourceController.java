@@ -19,10 +19,10 @@ import com.abixen.platform.common.dto.FormErrorDto;
 import com.abixen.platform.common.dto.FormValidationResultDto;
 import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.common.util.ValidationUtil;
-import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.DataSourceFacade;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataSourceForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceManagementService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
@@ -45,21 +45,21 @@ import java.util.Map;
 @RequestMapping(value = "/api/service/abixen/business-intelligence/control-panel/multi-visualisation/data-sources")
 public class DataSourceController {
 
-    private final DataSourceFacade dataSourceFacade;
+    private final DataSourceManagementService dataSourceManagementService;
 
     @Autowired
-    public DataSourceController(DataSourceFacade dataSourceFacade) {
-        this.dataSourceFacade = dataSourceFacade;
+    public DataSourceController(DataSourceManagementService dataSourceManagementService) {
+        this.dataSourceManagementService = dataSourceManagementService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<DataSourceDto> findAllDataSources(@RequestParam(value = "dataSourceType", required = false) DataSourceType dataSourceType, @PageableDefault(size = 1, page = 0) Pageable pageable) {
-        return dataSourceFacade.findAllDataSources(pageable, dataSourceType);
+        return dataSourceManagementService.findAllDataSource(pageable, dataSourceType);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public DataSourceDto findDataSource(@PathVariable Long id) {
-        return dataSourceFacade.findDataSource(id);
+        return dataSourceManagementService.findDataSource(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -68,7 +68,7 @@ public class DataSourceController {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(dataSourceForm, formErrors);
         }
-        dataSourceFacade.createDataSource(dataSourceForm);
+        dataSourceManagementService.createDataSource(dataSourceForm);
 
         return new FormValidationResultDto(dataSourceForm);
     }
@@ -80,7 +80,7 @@ public class DataSourceController {
             return new FormValidationResultDto(dataSourceForm, formErrors);
         }
         try {
-            dataSourceFacade.updateDataSource(dataSourceForm);
+            dataSourceManagementService.updateDataSource(dataSourceForm);
         } catch (Throwable e) {
             log.error(e.getMessage());
             if (e.getCause() instanceof ConstraintViolationException) {
@@ -94,13 +94,13 @@ public class DataSourceController {
 
     @RequestMapping(value = "/preview", method = RequestMethod.POST)
     public  List<Map<String, DataValueDto>> getPreviewData(@RequestBody @Valid DataSourceForm dataSourceForm) {
-        return dataSourceFacade.getPreviewData(dataSourceForm);
+        return dataSourceManagementService.findPreviewData(dataSourceForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteDataSource(@PathVariable("id") long id) {
         log.debug("deleteChartConfiguration() - id: " + id);
-        dataSourceFacade.deleteDataSource(id);
+        dataSourceManagementService.deleteDataSource(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 }

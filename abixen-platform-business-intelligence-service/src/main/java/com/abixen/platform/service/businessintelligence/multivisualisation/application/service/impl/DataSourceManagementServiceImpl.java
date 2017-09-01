@@ -15,6 +15,8 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DataSourceToDataSourceDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataSourceForm;
@@ -29,11 +31,12 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataFileRepository;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceRepository;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DatabaseConnectionRepository;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceManagementService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseFactory;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DatabaseConnectionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,73 +49,98 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
-public class DataSourceServiceImpl implements DataSourceService {
+public class DataSourceManagementServiceImpl implements DataSourceManagementService {
 
-    private final DataSourceRepository dataSourceRepository;
-    private final DatabaseConnectionRepository databaseConnectionRepository;
-    private final DataFileRepository dataFileRepository;
+    private final DataSourceService dataSourceService;
+    private final DatabaseConnectionService databaseConnectionService;
     private final DatabaseFactory databaseFactory;
+    private final DataFileRepository dataFileRepository;
+    private final DataSourceToDataSourceDtoConverter dataSourceToDataSourceDtoConverter;
 
     @Autowired
-    public DataSourceServiceImpl(DataSourceRepository dataSourceRepository,
-                                 DatabaseConnectionRepository databaseConnectionRepository,
-                                 DataFileRepository dataFileRepository,
-                                 DatabaseFactory databaseFactory) {
-        this.dataSourceRepository = dataSourceRepository;
-        this.databaseConnectionRepository = databaseConnectionRepository;
+    public DataSourceManagementServiceImpl(DataSourceService dataSourceService,
+                                           DatabaseConnectionService databaseConnectionService,
+                                           DataFileRepository dataFileRepository,
+                                           DatabaseFactory databaseFactory,
+                                           DataSourceToDataSourceDtoConverter dataSourceToDataSourceDtoConverter) {
+        this.dataSourceService = dataSourceService;
+        this.databaseConnectionService = databaseConnectionService;
         this.dataFileRepository = dataFileRepository;
         this.databaseFactory = databaseFactory;
+        this.dataSourceToDataSourceDtoConverter = dataSourceToDataSourceDtoConverter;
     }
 
     @Override
-    public DataSource find(Long id) {
-        return dataSourceRepository.findOne(id);
+    public DataSourceDto findDataSource(final Long id) {
+        log.debug("DataSourceManagementService - findDataSource() - id: {}", id);
+
+        final DataSource dataSource = dataSourceService.find(id);
+
+        return dataSourceToDataSourceDtoConverter.convert(dataSource);
     }
 
     @Override
-    public Page<DataSource> findAll(Pageable pageable, DataSourceType dataSourceType) {
-        if (dataSourceType != null) {
-            return dataSourceRepository.findByDataSourceType(dataSourceType, pageable);
-        } else {
-            return dataSourceRepository.findAll(pageable);
-        }
+    public Page<DataSourceDto> findAllDataSource(final Pageable pageable, final DataSourceType dataSourceType) {
+        log.debug("DataSourceManagementService - findAllDataSource() - pageable: {}, dataSourceType: {}", pageable, dataSourceType);
+
+        final Page<DataSource> dataSources = dataSourceService.findAll(pageable, dataSourceType);
+
+        return dataSourceToDataSourceDtoConverter.convertToPage(dataSources);
     }
 
     @Override
-    public DataSource create(DataSourceForm dataSourceForm) {
-        return dataSourceRepository.save(buildDataSource(dataSourceForm));
+    public DataSourceDto createDataSource(final DataSourceForm dataSourceForm) {
+        log.debug("DataSourceManagementService - createDataSource() - dataSourceForm: {}", dataSourceForm);
+
+        final DataSource dataSource = dataSourceService.create(buildDataSource(dataSourceForm));
+
+        return dataSourceToDataSourceDtoConverter.convert(dataSource);
     }
 
     @Override
-    public DataSource update(DataSourceForm dataSourceForm) {
-        return dataSourceRepository.save(buildDataSource(dataSourceForm));
+    public DataSourceDto updateDataSource(final DataSourceForm dataSourceForm) {
+        log.debug("DataSourceManagementService - updateDataSource() - dataSourceForm: {}", dataSourceForm);
+
+        final DataSource dataSource = dataSourceService.find(dataSourceForm.getId());
+        final DataSource updatedDataSource = dataSourceService.update(buildUpdateDataSource(dataSource, dataSourceForm));
+
+        return dataSourceToDataSourceDtoConverter.convert(updatedDataSource);
     }
 
     @Override
-    public void delete(Long dataSourceId) {
-        dataSourceRepository.delete(dataSourceId);
+    public void deleteDataSource(final Long id) {
+        log.debug("DataSourceManagementService - deleteDataSource() - id: {}", id);
+
+        dataSourceService.delete(id);
     }
 
     @Override
-    public List<Map<String, Integer>> getAllColumns(Long dataSourceId) {
-        List<Map<String, Integer>> result = new ArrayList<>();
-        dataSourceRepository.findOne(dataSourceId)
+    public List<Map<String, Integer>> findAllColumnsInDataSource(final Long dataSourceId) {
+        log.debug("DataSourceManagementService - findAllColumnsInDataSource() - dataSourceId: {}", dataSourceId);
+
+        final List<Map<String, Integer>> result = new ArrayList<>();
+        dataSourceService.find(dataSourceId)
                 .getColumns().forEach(dataSourceColumn -> mapColumnAndAddToResult(result, dataSourceColumn));
+
         return result;
     }
 
     @Override
-    public List<Map<String, DataValueDto>> findPreviewData(DataSourceForm dataSourceForm) {
-        DatabaseConnectionDto databaseConnection = ((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection();
-        DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
-        Connection connection = databaseService.getConnection(databaseConnection);
-        List<Map<String, DataValueDto>> dataSourcePreviewData = databaseService.getDataSourcePreview(connection, buildDataSource(dataSourceForm));
+    public List<Map<String, DataValueDto>> findPreviewData(final DataSourceForm dataSourceForm) {
+        log.debug("DataSourceManagementService - findPreviewData() - dataSourceForm: {}", dataSourceForm);
+
+        final DatabaseConnectionDto databaseConnection = ((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection();
+        final DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
+        final Connection connection = databaseService.getConnection(databaseConnection);
+        final List<Map<String, DataValueDto>> dataSourcePreviewData = databaseService.getDataSourcePreview(connection, buildDataSource(dataSourceForm));
+
         return dataSourcePreviewData;
     }
 
     private void mapColumnAndAddToResult(List<Map<String, Integer>> result, DataSourceColumn dataSourceColumn) {
-        Map<String, Integer> column = new HashMap<>(1);
+        final Map<String, Integer> column = new HashMap<>(1);
         column.put(dataSourceColumn.getName(), dataSourceColumn.getPosition());
         result.add(column);
     }
@@ -120,7 +148,7 @@ public class DataSourceServiceImpl implements DataSourceService {
     private DataSource buildDataSource(DataSourceForm dataSourceForm) {
         DataSource dataSource = null;
         if (dataSourceForm.getId() != null) {
-            dataSource = dataSourceRepository.findOne(dataSourceForm.getId());
+            dataSource = dataSourceService.find(dataSourceForm.getId());
         }
         if (dataSource == null) {
             return buildNewDataSource(dataSourceForm);
@@ -136,7 +164,7 @@ public class DataSourceServiceImpl implements DataSourceService {
                 databaseDataSource.changeDetails(dataSourceForm.getName(), dataSourceForm.getDescription());
                 databaseDataSource.changeFilter(((DatabaseDataSourceForm) dataSourceForm).getFilter());
                 databaseDataSource.changeTable(((DatabaseDataSourceForm) dataSourceForm).getTable());
-                databaseDataSource.changeDatabaseConnection(databaseConnectionRepository.findOne(((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection().getId()));
+                databaseDataSource.changeDatabaseConnection(databaseConnectionService.find(((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection().getId()));
                 databaseDataSource.changeColumns(dataSourceForm.getColumns().stream()
                         .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
                                 .details(dataSourceColumnDto.getName())
@@ -167,7 +195,7 @@ public class DataSourceServiceImpl implements DataSourceService {
         switch (dataSourceForm.getDataSourceType()) {
             case DB:
                 DataSource databaseDatasource = new DatabaseDataSourceBuilder()
-                        .databaseConnection(((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection().getId(), databaseConnectionRepository)
+                        .databaseConnection(databaseConnectionService.find(((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection().getId()))
                         .table(((DatabaseDataSourceForm) dataSourceForm).getTable())
                         .filter(((DatabaseDataSourceForm) dataSourceForm).getFilter())
                         .details(dataSourceForm.getName(), dataSourceForm.getDescription())
