@@ -15,12 +15,12 @@
 package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.common.model.enumtype.PermissionName;
-import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
-import com.abixen.platform.common.rabbitmq.message.RabbitMQRemoveModuleMessage;
+import com.abixen.platform.common.rabbitmq.message.QueueMessage;
+import com.abixen.platform.common.rabbitmq.message.QueueRemoveModuleMessage;
 import com.abixen.platform.core.application.form.ModuleSearchForm;
 import com.abixen.platform.core.domain.service.AclService;
 import com.abixen.platform.core.application.service.CommentService;
-import com.abixen.platform.core.application.service.RabbitMQOperations;
+import com.abixen.platform.core.application.service.QueueOperations;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.ModuleRepository;
@@ -45,13 +45,13 @@ public class ModuleServiceImpl implements ModuleService {
     private final AclService aclService;
     private final CommentService commentService;
     private final ModuleRepository moduleRepository;
-    private final RabbitMQOperations rabbitMQOperations;
+    private final QueueOperations rabbitMQOperations;
 
     @Autowired
     public ModuleServiceImpl(AclService aclService,
                              CommentService commentService,
                              ModuleRepository moduleRepository,
-                             RabbitMQOperations rabbitMQOperations) {
+                             QueueOperations rabbitMQOperations) {
         this.aclService = aclService;
         this.commentService = commentService;
         this.moduleRepository = moduleRepository;
@@ -132,7 +132,7 @@ public class ModuleServiceImpl implements ModuleService {
         moduleRepository.removeAllExcept(page, ids);
 
         modules.forEach(module -> {
-            RabbitMQMessage removeMessage = new RabbitMQRemoveModuleMessage(module.getId(), module.getModuleType().getName());
+            QueueMessage removeMessage = new QueueRemoveModuleMessage(module.getId(), module.getModuleType().getName());
             rabbitMQOperations.convertAndSend(module.getModuleType().getServiceId(), removeMessage);
         });
     }
@@ -146,7 +146,7 @@ public class ModuleServiceImpl implements ModuleService {
         moduleRepository.removeAll(page);
 
         modules.forEach(module -> {
-            RabbitMQMessage removeMessage = new RabbitMQRemoveModuleMessage(module.getId(), module.getModuleType().getName());
+            QueueMessage removeMessage = new QueueRemoveModuleMessage(module.getId(), module.getModuleType().getName());
             rabbitMQOperations.convertAndSend(module.getModuleType().getServiceId(), removeMessage);
         });
     }

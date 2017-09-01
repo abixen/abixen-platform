@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.interfaces.queue;
 
-import com.abixen.platform.common.rabbitmq.message.RabbitMQMessage;
-import com.abixen.platform.core.application.service.RabbitMQOperations;
+import com.abixen.platform.common.rabbitmq.message.QueueMessage;
+import com.abixen.platform.core.application.service.QueueOperations;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import static com.abixen.platform.common.util.PlatformProfiles.DEV;
 
 @Profile({DEV, DOCKER})
 @Service
-public class RabbitMQOperationsImpl implements RabbitMQOperations {
+public class RabbitMQOperationsImpl implements QueueOperations {
 
     private final RabbitTemplate rabbitTemplate;
 
@@ -38,7 +38,7 @@ public class RabbitMQOperationsImpl implements RabbitMQOperations {
     }
 
     @Override
-    public void convertAndSend(String routingKey, RabbitMQMessage rabbitMQMessage) throws AmqpException {
+    public void convertAndSend(String routingKey, QueueMessage rabbitMQMessage) throws AmqpException {
         rabbitTemplate.convertAndSend(routingKey, rabbitMQMessage);
     }
 }

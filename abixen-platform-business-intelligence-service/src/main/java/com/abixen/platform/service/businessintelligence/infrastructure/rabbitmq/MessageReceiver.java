@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.infrastructure.rabbitmq;
 
-import com.abixen.platform.common.rabbitmq.message.RabbitMQRemoveModuleMessage;
+import com.abixen.platform.common.rabbitmq.message.QueueRemoveModuleMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,7 @@ public class MessageReceiver {
         this.chartConfigurationManagementService = chartConfigurationManagementService;
     }
 
-    public void receiveMessage(RabbitMQRemoveModuleMessage message) {
+    public void receiveMessage(QueueRemoveModuleMessage message) {
         log.debug("receiveRabbitMQRemoveModuleMessage: moduleId={}, moduleTypeName={}", message.getModuleId(), message.getModuleTypeName());
 
         switch (message.getModuleTypeName()) {

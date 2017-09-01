@@ -20,16 +20,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RabbitMQRemoveModuleMessage extends RabbitMQMessage {
+public class QueueRemoveModuleMessage extends QueueMessage {
 
     private Long moduleId;
     private String moduleTypeName;
 
 
-    public RabbitMQRemoveModuleMessage() {
+    public QueueRemoveModuleMessage() {
     }
 
-    public RabbitMQRemoveModuleMessage(Long moduleId, String moduleTypeName) {
+    public QueueRemoveModuleMessage(Long moduleId, String moduleTypeName) {
         this.moduleId = moduleId;
         this.moduleTypeName = moduleTypeName;
     }
