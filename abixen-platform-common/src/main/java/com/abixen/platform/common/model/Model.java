@@ -66,14 +66,20 @@ public abstract class Model implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null)
+            return false;
+        if (!getClass().isAssignableFrom(o.getClass())) {
             return false;
         }
-        Model baseModel = (Model) o;
-        if (!(getClass().equals(baseModel.getClass()))) {
-            return false;
-        }
-        if (!(getId().equals(baseModel.getId()))) {
+        Model other = (Model) o;
+        if (getId() == null) {
+            if (other.getId() != null) {
+                return false;
+            }
+        } else if (!getId().equals(other.getId())) {
             return false;
         }
         return true;

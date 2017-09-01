@@ -23,7 +23,8 @@
         <postgresql.version>9.3-1102-jdbc4</postgresql.version>
         <spring-session.version>1.2.2.RELEASE</spring-session.version>
         <log4j2.version>2.5</log4j2.version>
-        <start-class>com.abixen.platform.service.businessintelligence.PlatformBusinessIntelligenceServiceApplication</start-class>
+        <start-class>com.abixen.platform.service.businessintelligence.PlatformBusinessIntelligenceServiceApplication
+        </start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen</docker.image.prefix>
     </properties>
@@ -157,11 +158,15 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>6.0.5</version>
         </dependency>
-        <dependency>
-            <groupId>com.oracle</groupId>
+        <!-- Due to Oracle license restrictions, the Oracle jdbc driver is not available
+             from the public Maven repository. To use the Oracle jdbc driver with Maven
+             please download and install it manually into your Maven local repository.
+             Then uncomment this dependency -->
+        <!-- <dependency>
+            <groupId>oracle</groupId>
             <artifactId>ojdbc6</artifactId>
-            <version>12.1.0.1-atlassian-hosted</version>
-        </dependency>
+            <version>12.1.0.1</version>
+        </dependency> -->
         <dependency>
             <groupId>com.microsoft</groupId>
             <artifactId>sqljdbc4</artifactId>

@@ -97,39 +97,26 @@ also some companies about the project and its ideas.
 
 There are some known issues. We work on fixes and improvements.
 
-* Not all security parts have yet been implemented
 * Not all translations are done
 * Multi Visualisation Service needs some user interface improvement and optimization. Also needs more tests.
-* Web Content Service has yet been finished
 * In some places CSS is not perfect
 * There is a small technical debt (non functional issue)
 
 # Release plan
 
-## Version 1.0
-Before release the first version of Abixen Platform we have to fix several issues.
-We are going to release the first version in May 2017. 
+## Version 1.0.0-RC1
+Before release the first version of Abixen Platform we have to add some features from backlog and fix several issues.
+We are going to release the first RC version in mid of October 2017. 
 
-## Version 1.1
-We are going to add a support to loading data in Business Intelligence microservice from MongoDB.
-Very important for us is a feedback from the Abixen Platform's Community. 
-That's why we would like to improve the application having remarks based on the first version.
-The release is planned in June 2017.
-
-## Version 1.2
-This version will bring a support for Angular 2. 
-Developers will get an opportunity to develop their custom functional microservices using Angular 2. 
-Also a next part of improvements and bug fixes.
-The release is planned for the Q3 2017.
-
-## Version 1.3
-The plan for the 1.3 version is an empower of custom permissions creation for microservices. 
-The release is planned for the Q3 2017.
+## Version 1.0.0-GA1
+The release is planned at the end of October 2017.
 
 ## Next versions
 All depends on the Community feedback and needs. But we are going to extend Business Intelligence Service moving it into Big Data analysis.
-Also we would like to add a support of creation a frontend layer of microservices using ReactJS.
-In this way developers would have the choice between clear JavaScript, jQuery, AngularJS, Angular 2 and ReactJS. 
+Also we would like to add a support of creation a frontend layer of microservices using Angular 2, Angular 4 and ReactJS.
+In this way developers would have the choice between clear JavaScript, jQuery, AngularJS, Angular 2, Angular 4 and ReactJS. 
+Will bring a next part of improvements and bug fixes.
+Developers will get an empower of custom permissions creation for microservices. 
 
 # Get it started
 The documentation is available under https://github.com/abixen/abixen-platform/wiki page.

@@ -6,6 +6,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/import/import.xml">
 
+    <property name="context" value="integration-test" context="integrationTest"/>
+    <property name="context" value="prod" context="prod"/>
+
     <changeSet author="MariuszKumor" id="import-v1" runAlways="false" runOnChange="true">
 
         <preConditions onFail="HALT">
@@ -31,102 +34,102 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM module_type_admin_sidebar_item</sqlCheck>
         </preConditions>
 
-        <loadData file="liquibase/import/data/user-data.csv"
+        <loadData file="liquibase/import/${context}/user-data.csv"
                   separator=";"
                   tableName="user_">
         </loadData>
 
-        <loadData file="liquibase/import/data/role-data.csv"
+        <loadData file="liquibase/import/${context}/role-data.csv"
                   separator=";"
                   tableName="role_">
         </loadData>
 
-        <loadData file="liquibase/import/data/user-role-data.csv"
+        <loadData file="liquibase/import/${context}/user-role-data.csv"
                   separator=";"
                   tableName="user_role">
         </loadData>
 
-        <loadData file="liquibase/import/data/acl-class-data.csv"
+        <loadData file="liquibase/import/${context}/acl-class-data.csv"
                   separator=";"
                   tableName="acl_class">
         </loadData>
 
-        <loadData file="liquibase/import/data/permission-acl-class-category-data.csv"
+        <loadData file="liquibase/import/${context}/permission-acl-class-category-data.csv"
                   separator=";"
                   tableName="permission_acl_class_category">
         </loadData>
 
-        <loadData file="liquibase/import/data/permission-general-category-data.csv"
+        <loadData file="liquibase/import/${context}/permission-general-category-data.csv"
                   separator=";"
                   tableName="permission_general_category">
         </loadData>
 
-        <loadData file="liquibase/import/data/permission-data.csv"
+        <loadData file="liquibase/import/${context}/permission-data.csv"
                   separator=";"
                   tableName="permission">
         </loadData>
 
-        <loadData file="liquibase/import/data/role-permission-data.csv"
+        <loadData file="liquibase/import/${context}/role-permission-data.csv"
                   separator=";"
                   tableName="role_permission">
         </loadData>
 
-        <loadData file="liquibase/import/data/acl-sid-data.csv"
+        <loadData file="liquibase/import/${context}/acl-sid-data.csv"
                   separator=";"
                   tableName="acl_sid">
         </loadData>
 
-        <loadData file="liquibase/import/data/acl-object-identity-data.csv"
+        <loadData file="liquibase/import/${context}/acl-object-identity-data.csv"
                   separator=";"
                   tableName="acl_object_identity">
         </loadData>
 
-        <loadData file="liquibase/import/data/acl-entry-data.csv"
+        <loadData file="liquibase/import/${context}/acl-entry-data.csv"
                   separator=";"
                   tableName="acl_entry">
         </loadData>
 
-        <loadData file="liquibase/import/data/module-type-data.csv"
+        <loadData file="liquibase/import/${context}/module-type-data.csv"
                   separator=";"
                   tableName="module_type">
         </loadData>
 
-        <loadData file="liquibase/import/data/resource-data.csv"
+        <loadData file="liquibase/import/${context}/resource-data.csv"
                   separator=";"
                   tableName="resource">
         </loadData>
 
-        <loadData file="liquibase/import/data/layout-data.csv"
+        <loadData file="liquibase/import/${context}/layout-data.csv"
                   separator=";"
                   tableName="layout">
         </loadData>
 
-        <loadData file="liquibase/import/data/page-data.csv"
+        <loadData file="liquibase/import/${context}/page-data.csv"
                   separator=";"
                   tableName="page">
         </loadData>
 
-        <loadData file="liquibase/import/data/module-data.csv"
+        <loadData file="liquibase/import/${context}/module-data.csv"
                   separator=";"
                   tableName="module">
         </loadData>
         
-        <loadData file="liquibase/import/data/comment-data.csv"
+        <loadData file="liquibase/import/${context}/comment-data.csv"
                   separator=";"
                   tableName="comment">
         </loadData>
 
-        <loadData file="liquibase/import/data/comment-vote-data.csv"
+        <loadData file="liquibase/import/${context}/comment-vote-data.csv"
                   separator=";"
                   tableName="comment_vote">
         </loadData>
 
-        <loadData file="liquibase/import/data/admin-sidebar-item-data.csv"
+        <loadData file="liquibase/import/${context}/admin-sidebar-item-data.csv"
                   separator=";"
                   tableName="admin_sidebar_item">
         </loadData>
 
-        <loadData file="liquibase/import/data/module-type-admin-sidebar-item-changelog.csv"
+        <loadData file="liquibase/import/${context}/module-type-admin-sidebar-item-changelog.csv"
                   separator=";"
                   tableName="module_type_admin_sidebar_item">
         </loadData>
