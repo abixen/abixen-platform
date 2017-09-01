@@ -18,11 +18,11 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 
 public interface ChartConfigurationService {
 
-    ChartConfiguration find(Long id);
+    ChartConfiguration find(final Long id);
 
-    ChartConfiguration create(ChartConfiguration chartConfiguration);
+    ChartConfiguration create(final ChartConfiguration chartConfiguration);
 
-    ChartConfiguration update(ChartConfiguration chartConfiguration);
+    ChartConfiguration update(final ChartConfiguration chartConfiguration);
 
-    void delete(Long moduleId);
+    void delete(final Long moduleId);
 }
