@@ -21,9 +21,9 @@ import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.facade.DataFileFacade;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataFileManagementService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,25 +45,25 @@ import java.util.List;
 public class DataFileController {
 
     public static final int DEFAULT_PAGE_SIZE = 20;
-    private final DataFileFacade dataFileFacade;
+    private final DataFileManagementService dataFileManagementService;
 
     @Autowired
-    public DataFileController(DataFileFacade dataFileFacade) {
-        this.dataFileFacade = dataFileFacade;
+    public DataFileController(DataFileManagementService dataFileManagementService) {
+        this.dataFileManagementService = dataFileManagementService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<DataFileDto> findDataFile(@PageableDefault(size = DEFAULT_PAGE_SIZE, page = 0) Pageable pageable) {
         log.debug("getDatabaseDataSources()");
 
-        Page<DataFileDto> dataSources = dataFileFacade.findAllDataFile(pageable);
+        Page<DataFileDto> dataSources = dataFileManagementService.findAllDataFile(pageable);
 
         return dataSources;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public DataFileDto findDataFile(@PathVariable Long id) {
-        return dataFileFacade.findDataFile(id);
+        return dataFileManagementService.findDataFile(id);
     }
 
     @JsonView(WebModelJsonSerialize.class)
@@ -76,7 +76,7 @@ public class DataFileController {
             return new FormValidationResultDto(fileDataForm, formErrors);
         }
 
-        dataFileFacade.createDataFile(fileDataForm);
+        dataFileManagementService.createDataFile(fileDataForm);
 
         return new FormValidationResultDto(fileDataForm);
     }
@@ -91,7 +91,7 @@ public class DataFileController {
             return new FormValidationResultDto(dataFileForm, formErrors);
         }
 
-        dataFileFacade.updateDataFile(dataFileForm);
+        dataFileManagementService.updateDataFile(dataFileForm);
 
         return new FormValidationResultDto(dataFileForm);
     }
@@ -99,18 +99,20 @@ public class DataFileController {
     @RequestMapping(value = "/{id}/columns", method = RequestMethod.GET)
     public List<DataSourceColumnDto> getTableColumns(@PathVariable("id") Long id) {
         log.debug("getTableColumns()");
-        return dataFileFacade.getDataFileColumns(id);
+        return dataFileManagementService.findDataFileColumns(id);
     }
 
     @RequestMapping(value = "/parse/{readFirstColumnAsColumnName}", method = RequestMethod.POST)
     public FileParserMessage<DataFileColumnDto> uploadAndParseFile(@PathVariable("readFirstColumnAsColumnName") Boolean readFirstColumnAsColumnName, @RequestParam("file") MultipartFile uploadedFile) {
-        return dataFileFacade.uploadAndParseFile(uploadedFile, readFirstColumnAsColumnName);
+        return dataFileManagementService.parse(uploadedFile, readFirstColumnAsColumnName);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteFileData(@PathVariable("id") long id) {
         log.debug("deleteChartConfiguration() - id: " + id);
-        dataFileFacade.deleteDataFile(id);
+
+        dataFileManagementService.deleteDataFile(id);
+
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
