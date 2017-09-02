@@ -15,6 +15,7 @@
 package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.domain.model.AclEntry;
 import com.abixen.platform.core.domain.model.AclObjectIdentity;
 import com.abixen.platform.core.domain.model.AclSid;
@@ -22,14 +23,13 @@ import com.abixen.platform.core.domain.repository.AclEntryRepository;
 import com.abixen.platform.core.domain.service.AclEntryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformDomainService
 public class AclEntryServiceImpl implements AclEntryService {
 
     private final AclEntryRepository aclEntryRepository;

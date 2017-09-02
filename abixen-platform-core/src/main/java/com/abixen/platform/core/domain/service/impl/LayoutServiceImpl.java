@@ -15,6 +15,7 @@
 package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.application.form.LayoutSearchForm;
 import com.abixen.platform.core.domain.model.Layout;
 import com.abixen.platform.core.domain.model.User;
@@ -24,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.List;
 
 @Transactional
 @Slf4j
-@Service
+@PlatformDomainService
 public class LayoutServiceImpl implements LayoutService {
 
     private final LayoutRepository layoutRepository;

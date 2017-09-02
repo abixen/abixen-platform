@@ -14,32 +14,32 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.core.domain.model.SecurableModel;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.AclSidType;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
+import com.abixen.platform.common.infrastructure.security.PlatformUser;
+import com.abixen.platform.core.application.service.SecurityService;
 import com.abixen.platform.core.domain.model.AclEntry;
 import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.model.Role;
+import com.abixen.platform.core.domain.model.SecurableModel;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.AclEntryRepository;
-import com.abixen.platform.common.infrastructure.security.PlatformUser;
-import com.abixen.platform.core.application.service.SecurityService;
 import com.abixen.platform.core.domain.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Service
 @Transactional
+@PlatformApplicationService
 public class SecurityServiceImpl implements SecurityService {
 
     private final UserService userService;

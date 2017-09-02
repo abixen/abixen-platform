@@ -15,13 +15,14 @@
 package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.common.infrastructure.security.PlatformUser;
+import com.abixen.platform.core.application.converter.ModuleTypeToModuleTypeDtoConverter;
 import com.abixen.platform.core.application.dto.ModuleTypeDto;
 import com.abixen.platform.core.application.form.ModuleTypeSearchForm;
 import com.abixen.platform.core.application.service.ModuleTypeService;
 import com.abixen.platform.core.application.service.ResourceService;
 import com.abixen.platform.core.application.service.SecurityService;
-import com.abixen.platform.core.domain.service.UserService;
 import com.abixen.platform.core.domain.model.AdminSidebarItem;
 import com.abixen.platform.core.domain.model.AdminSidebarItemBuilder;
 import com.abixen.platform.core.domain.model.ModuleType;
@@ -30,15 +31,14 @@ import com.abixen.platform.core.domain.model.Resource;
 import com.abixen.platform.core.domain.model.ResourceBuilder;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.ModuleTypeRepository;
+import com.abixen.platform.core.domain.service.UserService;
 import com.abixen.platform.core.infrastructure.configuration.properties.RegisteredModuleServicesConfigurationProperties;
 import com.abixen.platform.core.infrastructure.integration.ModuleConfigurationIntegrationClient;
 import com.abixen.platform.core.interfaces.client.ModulesConfigurationProperties;
-import com.abixen.platform.core.application.converter.ModuleTypeToModuleTypeDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ import java.util.List;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformApplicationService
 public class ModuleTypeServiceImpl implements ModuleTypeService {
 
     private final ModuleTypeRepository moduleTypeRepository;

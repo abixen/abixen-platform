@@ -16,6 +16,7 @@ package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.common.infrastructure.security.PlatformUser;
 import com.abixen.platform.core.application.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.PageDto;
@@ -34,7 +35,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -42,7 +42,7 @@ import java.util.List;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformApplicationService
 public class PageManagementServiceImpl implements PageManagementService {
 
     private final PageService pageService;

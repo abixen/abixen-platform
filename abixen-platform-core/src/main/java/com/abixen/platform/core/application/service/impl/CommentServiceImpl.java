@@ -14,23 +14,23 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.core.domain.model.CommentBuilder;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.core.application.converter.CommentToCommentDtoConverter;
 import com.abixen.platform.core.application.dto.CommentDto;
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;
-import com.abixen.platform.common.domain.model.enumtype.AclClassName;
-import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.core.application.service.CommentService;
+import com.abixen.platform.core.application.service.CommentVoteService;
 import com.abixen.platform.core.domain.model.Comment;
+import com.abixen.platform.core.domain.model.CommentBuilder;
 import com.abixen.platform.core.domain.repository.CommentRepository;
 import com.abixen.platform.core.domain.repository.ModuleRepository;
 import com.abixen.platform.core.domain.repository.UserRepository;
-import com.abixen.platform.core.application.service.CommentService;
-import com.abixen.platform.core.application.service.CommentVoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
@@ -44,7 +44,7 @@ import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformApplicationService
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;

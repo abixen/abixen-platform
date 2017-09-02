@@ -17,6 +17,7 @@ package com.abixen.platform.core.domain.service.impl;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.AclSidType;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.domain.model.AclClass;
 import com.abixen.platform.core.domain.model.AclEntry;
 import com.abixen.platform.core.domain.model.AclEntryBuilder;
@@ -32,14 +33,13 @@ import com.abixen.platform.core.domain.service.AclSidService;
 import com.abixen.platform.core.domain.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformDomainService
 public class AclServiceImpl implements AclService {
 
     private final PermissionService permissionService;

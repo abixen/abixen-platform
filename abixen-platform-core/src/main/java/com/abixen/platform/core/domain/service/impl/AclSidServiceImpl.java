@@ -15,18 +15,18 @@
 package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.AclSidType;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.domain.model.AclSid;
 import com.abixen.platform.core.domain.model.AclSidBuilder;
 import com.abixen.platform.core.domain.repository.custom.AclSidRepository;
 import com.abixen.platform.core.domain.service.AclSidService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformDomainService
 public class AclSidServiceImpl implements AclSidService {
 
     private final AclSidRepository aclSidRepository;

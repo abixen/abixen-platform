@@ -14,17 +14,17 @@
 
 package com.abixen.platform.core.domain.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
 import com.abixen.platform.core.domain.repository.PermissionAclClassCategoryRepository;
 import com.abixen.platform.core.domain.service.PermissionAclClassCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformDomainService
 public class PermissionAclClassCategoryServiceImpl implements PermissionAclClassCategoryService {
 
     private final PermissionAclClassCategoryRepository permissionAclClassCategoryRepository;

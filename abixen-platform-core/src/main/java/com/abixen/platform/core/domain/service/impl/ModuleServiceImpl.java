@@ -15,21 +15,21 @@
 package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.common.interfaces.queue.message.QueueMessage;
 import com.abixen.platform.common.interfaces.queue.message.QueueRemoveModuleMessage;
 import com.abixen.platform.core.application.form.ModuleSearchForm;
-import com.abixen.platform.core.domain.service.AclService;
 import com.abixen.platform.core.application.service.CommentService;
 import com.abixen.platform.core.application.service.QueueOperations;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.ModuleRepository;
+import com.abixen.platform.core.domain.service.AclService;
 import com.abixen.platform.core.domain.service.ModuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformDomainService
 public class ModuleServiceImpl implements ModuleService {
 
 

@@ -14,20 +14,20 @@
 
 package com.abixen.platform.core.domain.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.application.exception.UserActivationException;
 import com.abixen.platform.core.application.form.UserSearchForm;
 import com.abixen.platform.core.application.service.PasswordGeneratorService;
-import com.abixen.platform.core.domain.service.UserService;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.UserRepository;
+import com.abixen.platform.core.domain.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 @Slf4j
-@Service
+@PlatformDomainService
 public class UserServiceImpl implements UserService {
 
     private static final int GENERATOR_LENGTH = 12;

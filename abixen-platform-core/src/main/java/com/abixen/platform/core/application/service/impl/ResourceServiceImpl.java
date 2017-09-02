@@ -14,19 +14,19 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
+import com.abixen.platform.core.application.service.ResourceService;
 import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.repository.ResourceRepository;
-import com.abixen.platform.core.application.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Slf4j
-@Service
+@PlatformApplicationService
 public class ResourceServiceImpl implements ResourceService {
 
     @Resource

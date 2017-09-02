@@ -14,23 +14,23 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
+import com.abixen.platform.core.application.converter.PermissionToPermissionDtoConverter;
 import com.abixen.platform.core.application.dto.PermissionDto;
 import com.abixen.platform.core.application.form.PermissionSearchForm;
 import com.abixen.platform.core.application.service.PermissionManagementService;
 import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.service.PermissionService;
-import com.abixen.platform.core.application.converter.PermissionToPermissionDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Slf4j
 @Transactional
-@Service
+@PlatformApplicationService
 public class PermissionManagementServiceImpl implements PermissionManagementService {
 
     private final PermissionService permissionService;

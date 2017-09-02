@@ -14,8 +14,9 @@
 
 package com.abixen.platform.core.domain.service.impl;
 
-import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.common.domain.model.enumtype.AclSidType;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
+import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.core.application.form.RoleSearchForm;
 import com.abixen.platform.core.domain.model.Role;
 import com.abixen.platform.core.domain.repository.RoleRepository;
@@ -26,14 +27,13 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformDomainService
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;

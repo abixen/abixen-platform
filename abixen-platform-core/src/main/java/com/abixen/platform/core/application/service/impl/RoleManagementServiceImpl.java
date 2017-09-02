@@ -14,6 +14,9 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
+import com.abixen.platform.core.application.converter.PermissionToPermissionDtoConverter;
+import com.abixen.platform.core.application.converter.RoleToRoleDtoConverter;
 import com.abixen.platform.core.application.dto.PermissionDto;
 import com.abixen.platform.core.application.dto.RoleDto;
 import com.abixen.platform.core.application.dto.RolePermissionDto;
@@ -26,13 +29,10 @@ import com.abixen.platform.core.domain.model.Role;
 import com.abixen.platform.core.domain.model.RoleBuilder;
 import com.abixen.platform.core.domain.service.PermissionService;
 import com.abixen.platform.core.domain.service.RoleService;
-import com.abixen.platform.core.application.converter.PermissionToPermissionDtoConverter;
-import com.abixen.platform.core.application.converter.RoleToRoleDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformApplicationService
 public class RoleManagementServiceImpl implements RoleManagementService {
 
     private final RoleService roleService;
