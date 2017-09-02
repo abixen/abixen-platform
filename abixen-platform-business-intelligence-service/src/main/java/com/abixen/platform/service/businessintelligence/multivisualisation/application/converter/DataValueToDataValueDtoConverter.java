@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
 import com.abixen.platform.common.application.converter.AbstractConverter;
-import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValue;
 import org.springframework.stereotype.Component;

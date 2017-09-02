@@ -17,8 +17,6 @@ package com.abixen.platform.core.application.converter;
 
 import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.core.application.dto.LayoutDto;
-import com.abixen.platform.core.application.util.LayoutColumnUtil;
-import com.abixen.platform.core.application.util.LayoutRowUtil;
 import com.abixen.platform.core.domain.model.Layout;
 import com.google.gson.Gson;
 import org.jsoup.Jsoup;
@@ -61,22 +59,22 @@ public class LayoutToLayoutDtoConverter extends AbstractConverter<Layout, Layout
     private String convertHtmlToJson(final String html) {
         final Document doc = Jsoup.parse(html);
         final Elements htmlRows = doc.getElementsByClass("row");
-        final List<LayoutRowUtil> rowUtilList = new ArrayList<>();
+        final List<LayoutRow> layoutRows = new ArrayList<>();
 
         for (Element row : htmlRows) {
             final Document rowDoc = Jsoup.parse(row.toString());
             final Elements htmlColumns = rowDoc.getElementsByClass("column");
-            final List<LayoutColumnUtil> columnUtilList = new ArrayList<>();
+            final List<LayoutColumn> layoutColumns = new ArrayList<>();
 
             for (Element column : htmlColumns) {
                 final String styleClass = column.attr("class");
-                columnUtilList.add(new LayoutColumnUtil(styleClass.substring(styleClass.indexOf(" ") + 1)));
+                layoutColumns.add(new LayoutColumn(styleClass.substring(styleClass.indexOf(" ") + 1)));
             }
 
-            rowUtilList.add(new LayoutRowUtil(columnUtilList));
+            layoutRows.add(new LayoutRow(layoutColumns));
         }
 
-        return "{\"rows\":" + new Gson().toJson(rowUtilList) + "}";
+        return "{\"rows\":" + new Gson().toJson(layoutRows) + "}";
     }
 
 }

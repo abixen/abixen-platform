@@ -14,11 +14,12 @@
 
 package com.abixen.platform.core.application.service;
 
-import com.abixen.platform.common.rabbitmq.message.QueueMessage;
+import com.abixen.platform.common.interfaces.queue.message.QueueMessage;
 import org.springframework.amqp.AmqpException;
 
 
 public interface QueueOperations {
 
-    void convertAndSend(String routingKey, QueueMessage rabbitMQMessage) throws AmqpException;
+    void convertAndSend(String routingKey, QueueMessage queueMessage) throws AmqpException;
+
 }

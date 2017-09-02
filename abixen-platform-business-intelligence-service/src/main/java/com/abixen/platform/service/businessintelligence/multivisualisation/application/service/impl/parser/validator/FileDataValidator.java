@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl.parser.validator;
 
-import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;

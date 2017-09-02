@@ -16,8 +16,8 @@ package com.abixen.platform.core.domain.repository.custom.impl.specification;
 
 
 import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
-import com.abixen.platform.common.form.search.SearchField;
-import com.abixen.platform.common.form.search.SearchForm;
+import com.abixen.platform.common.domain.model.search.SearchField;
+import com.abixen.platform.common.domain.model.search.SearchForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 

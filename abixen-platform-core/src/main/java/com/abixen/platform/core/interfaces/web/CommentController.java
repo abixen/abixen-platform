@@ -20,7 +20,7 @@ import com.abixen.platform.common.application.dto.FormValidationResultDto;
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;
 import com.abixen.platform.core.application.service.CommentService;
-import com.abixen.platform.common.util.ValidationUtil;
+import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;

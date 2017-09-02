@@ -18,7 +18,7 @@ package com.abixen.platform.core.domain.model;
 import com.abixen.platform.common.domain.model.enumtype.ResourcePage;
 import com.abixen.platform.common.domain.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.common.domain.model.enumtype.ResourceType;
-import com.abixen.platform.common.domain.model.utils.EntityBuilder;
+import com.abixen.platform.common.domain.model.EntityBuilder;
 
 
 public class ResourceBuilder extends EntityBuilder<Resource> {

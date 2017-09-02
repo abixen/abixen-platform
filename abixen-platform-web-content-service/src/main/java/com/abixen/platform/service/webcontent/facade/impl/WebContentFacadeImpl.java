@@ -15,7 +15,7 @@
 package com.abixen.platform.service.webcontent.facade.impl;
 
 import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
-import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.service.webcontent.converter.WebContentToWebContentDtoConverter;
 import com.abixen.platform.service.webcontent.dto.WebContentDto;
 import com.abixen.platform.service.webcontent.facade.WebContentFacade;

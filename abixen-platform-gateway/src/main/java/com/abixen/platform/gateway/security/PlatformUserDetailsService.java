@@ -14,7 +14,7 @@
 
 package com.abixen.platform.gateway.security;
 
-import com.abixen.platform.common.security.PlatformUser;
+import com.abixen.platform.common.infrastructure.security.PlatformUser;
 import com.abixen.platform.gateway.integration.UserIntegrationClient;
 import com.abixen.platform.gateway.model.Role;
 import com.abixen.platform.gateway.model.User;

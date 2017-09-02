@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
-import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DataSourceToDataSourceDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto;

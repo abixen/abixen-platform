@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.rabbitmq;
 
-import com.abixen.platform.common.rabbitmq.message.QueueRemoveModuleMessage;
+import com.abixen.platform.common.interfaces.queue.message.QueueRemoveModuleMessage;
 import com.abixen.platform.service.webcontent.service.WebContentModuleConfigurationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

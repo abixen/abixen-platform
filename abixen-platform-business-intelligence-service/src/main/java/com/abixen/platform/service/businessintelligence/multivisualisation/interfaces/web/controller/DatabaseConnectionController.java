@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.inte
 
 import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.common.application.dto.FormValidationResultDto;
-import com.abixen.platform.common.util.ValidationUtil;
+import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DatabaseConnectionForm;

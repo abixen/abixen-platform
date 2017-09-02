@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.application.form;
 
-import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.common.domain.model.enumtype.UserGender;
 import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import com.abixen.platform.core.domain.model.User;

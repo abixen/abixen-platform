@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.encoder;
 
-import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

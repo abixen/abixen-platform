@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.infrastructure.configuration;
 
-import com.abixen.platform.common.configuration.AbstractSleuthConfiguration;
+import com.abixen.platform.common.infrastructure.configuration.AbstractSleuthConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration

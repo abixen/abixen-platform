@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.application.form;
 
-import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.core.application.dto.LayoutDto;
 import com.abixen.platform.core.application.dto.PageDto;
 

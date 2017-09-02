@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.common.security.PlatformUser;
+import com.abixen.platform.common.infrastructure.security.PlatformUser;
 import com.abixen.platform.core.application.converter.ModuleToModuleDtoConverter;
 import com.abixen.platform.core.application.dto.ModuleDto;
 import com.abixen.platform.core.application.form.ModuleForm;

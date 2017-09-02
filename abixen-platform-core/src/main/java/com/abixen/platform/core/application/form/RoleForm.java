@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.application.form;
 
-import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.common.domain.model.enumtype.RoleType;
 import com.abixen.platform.core.domain.model.Role;
 import org.hibernate.validator.constraints.Length;

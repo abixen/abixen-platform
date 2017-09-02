@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl;
 
-import com.abixen.platform.common.util.ModelKeys;
+import com.abixen.platform.common.infrastructure.util.ModelKeys;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.infrastructure.rabbitmq;
 
-import com.abixen.platform.common.rabbitmq.message.QueueRemoveModuleMessage;
+import com.abixen.platform.common.interfaces.queue.message.QueueRemoveModuleMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
