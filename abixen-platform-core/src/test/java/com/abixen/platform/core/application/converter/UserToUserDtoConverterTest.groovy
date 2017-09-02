@@ -58,6 +58,7 @@ class UserToUserDtoConverterTest extends Specification {
                 .registrationIp("127.0.0.1")
                 .roles(role)
                 .build()
+        user.id = 1L
 
         roleToRoleDtoConverter.convertToSet(roles) >> roleDtos
 
@@ -66,6 +67,7 @@ class UserToUserDtoConverterTest extends Specification {
 
         then:
         userDto != null
+        userDto.id == user.id
         userDto.username == user.username
         userDto.password == user.password
         userDto.firstName == user.firstName
