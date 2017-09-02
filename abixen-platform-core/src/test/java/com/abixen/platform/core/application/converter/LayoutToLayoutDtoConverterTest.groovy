@@ -63,6 +63,9 @@ class LayoutToLayoutDtoConverterTest extends Specification {
         layoutDto.iconFileName == layout.iconFileName
         layoutDto.contentAsJson == jsonContent
 
+        1 * auditingModelToAuditingDtoConverter.convert(_, _)
+        0 * _
+
         where:
         contentType | htmlContent          || jsonContent
         "wrong"     | WRONG_HTML_CONTENT   || JSON_FOR_WRONG_CONTENT
