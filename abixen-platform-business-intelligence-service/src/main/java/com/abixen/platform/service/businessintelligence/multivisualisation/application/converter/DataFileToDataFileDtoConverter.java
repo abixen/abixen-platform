@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
-import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +27,13 @@ import java.util.Map;
 public class DataFileToDataFileDtoConverter extends AbstractConverter<DataFile, DataFileDto> {
 
     private final DataFileColumnToDataFileColumnDtoConverter dataFileColumnToDataFileColumnDtoConverter;
-    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
 
     @Autowired
     public DataFileToDataFileDtoConverter(DataFileColumnToDataFileColumnDtoConverter dataFileColumnToDataFileColumnDtoConverter,
-                                          AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+                                          AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter) {
         this.dataFileColumnToDataFileColumnDtoConverter = dataFileColumnToDataFileColumnDtoConverter;
-        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+        this.auditingModelToSimpleAuditingDtoConverter = auditingModelToSimpleAuditingDtoConverter;
     }
 
     @Override
@@ -49,8 +49,9 @@ public class DataFileToDataFileDtoConverter extends AbstractConverter<DataFile, 
                 .setDescription(dataFile.getDescription())
                 .setColumns(dataFileColumnToDataFileColumnDtoConverter.convertToList(dataFile.getColumns()));
 
-        auditingModelToAuditingDtoConverter.convert(dataFile, dataFileDto);
+        auditingModelToSimpleAuditingDtoConverter.convert(dataFile, dataFileDto);
 
         return dataFileDto;
     }
+
 }

@@ -14,22 +14,24 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.controller;
 
-import com.abixen.platform.common.dto.FormErrorDto;
-import com.abixen.platform.common.dto.FormValidationResultDto;
-import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.application.dto.FormErrorDto;
+import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.common.util.ValidationUtil;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.ChartConfigurationDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationManagementService;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -67,7 +69,6 @@ public class ChartModuleConfigurationController {
     }
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
         log.debug("createChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
@@ -83,7 +84,6 @@ public class ChartModuleConfigurationController {
     }
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
         log.debug("updateChartConfiguration() - id: " + id + ", chartConfigurationForm: " + chartConfigurationForm);

@@ -15,13 +15,11 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,21 +33,17 @@ import static com.abixen.platform.service.businessintelligence.multivisualisatio
         @JsonSubTypes.Type(value = FileDataSourceForm.class, name = "FILE")})
 public class DataSourceForm implements Form {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Long id;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     @Size(max = NAME_MAX_LENGTH)
     private String name;
 
-    @JsonView(WebModelJsonSerialize.class)
     @Size(max = DESCRIPTION_MAX_LENGTH)
     private String description;
 
     private DataSourceType dataSourceType;
 
-    @JsonView(WebModelJsonSerialize.class)
     @NotNull
     private Set<DataSourceColumnDto> columns;
 
@@ -103,7 +97,5 @@ public class DataSourceForm implements Form {
     public void setColumns(Set<DataSourceColumnDto> columns) {
         this.columns = columns;
     }
-
-
 
 }

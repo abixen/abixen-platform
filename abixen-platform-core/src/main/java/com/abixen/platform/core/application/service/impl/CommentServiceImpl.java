@@ -19,8 +19,8 @@ import com.abixen.platform.core.application.converter.CommentToCommentDtoConvert
 import com.abixen.platform.core.application.dto.CommentDto;
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;
-import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.core.domain.model.Comment;
 import com.abixen.platform.core.domain.repository.CommentRepository;
 import com.abixen.platform.core.domain.repository.ModuleRepository;

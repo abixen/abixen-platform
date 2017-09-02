@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.dto;
 
 
-import com.abixen.platform.common.model.enumtype.CommentVoteType;
+import com.abixen.platform.common.domain.model.enumtype.CommentVoteType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

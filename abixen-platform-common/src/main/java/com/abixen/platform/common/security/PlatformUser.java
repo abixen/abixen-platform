@@ -14,7 +14,7 @@
 
 package com.abixen.platform.common.security;
 
-import com.abixen.platform.common.model.enumtype.UserLanguage;
+import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 

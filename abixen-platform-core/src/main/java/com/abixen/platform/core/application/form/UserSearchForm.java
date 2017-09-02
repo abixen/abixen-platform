@@ -16,8 +16,8 @@ package com.abixen.platform.core.application.form;
 
 import com.abixen.platform.common.form.search.SearchField;
 import com.abixen.platform.common.form.search.SearchForm;
-import com.abixen.platform.common.model.enumtype.UserGender;
-import com.abixen.platform.common.model.enumtype.UserLanguage;
+import com.abixen.platform.common.domain.model.enumtype.UserGender;
+import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

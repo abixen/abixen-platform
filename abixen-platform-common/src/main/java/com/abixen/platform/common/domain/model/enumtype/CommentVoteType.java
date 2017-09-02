@@ -12,20 +12,20 @@
  * details.
  */
 
-package com.abixen.platform.common.model.enumtype;
+package com.abixen.platform.common.domain.model.enumtype;
 
 
-public enum UserGender {
+public enum CommentVoteType {
 
-    MALE("male"), FEMALE("female");
+    POSITIVE("POSITIVE"), NEGATIVE("NEGATIVE");
 
-    private final String gender;
+    private final String name;
 
-    public String getGender() {
-        return gender;
+    public String getName() {
+        return name;
     }
 
-    private UserGender(String gender) {
-        this.gender = gender;
+    private CommentVoteType(String name) {
+        this.name = name;
     }
 }

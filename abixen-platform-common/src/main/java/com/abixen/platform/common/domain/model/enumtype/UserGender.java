@@ -11,19 +11,21 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.abixen.platform.common.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
+package com.abixen.platform.common.domain.model.enumtype;
 
-@Getter
-@Setter
-@Accessors(chain = true)
-@ToString
-public class UserDto {
 
-    private Long id;
-    private String username;
+public enum UserGender {
+
+    MALE("male"), FEMALE("female");
+
+    private final String gender;
+
+    public String getGender() {
+        return gender;
+    }
+
+    private UserGender(String gender) {
+        this.gender = gender;
+    }
 }

@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.doma
 
 import com.abixen.platform.common.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType;
-import com.abixen.platform.common.model.audit.AuditingModel;
+import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -32,7 +32,7 @@ import java.util.Set;
 @Table(name = "data_source")
 @Inheritance(strategy = InheritanceType.JOINED)
 @SequenceGenerator(sequenceName = "data_source_seq", name = "data_source_seq", allocationSize = 1)
-public class DataSource extends AuditingModel implements Serializable {
+public class DataSource extends SimpleAuditingModel implements Serializable {
 
     private static final long serialVersionUID = -1420930478759410093L;
 

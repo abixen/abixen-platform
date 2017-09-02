@@ -13,14 +13,10 @@
  */
 package com.abixen.platform.core.domain.model
 
-import com.abixen.platform.common.model.enumtype.RoleType
-import com.abixen.platform.common.model.enumtype.UserGender
-import com.abixen.platform.common.model.enumtype.UserLanguage
-import com.abixen.platform.common.model.enumtype.UserState
-import com.abixen.platform.core.domain.model.Role
-import com.abixen.platform.core.domain.model.RoleBuilder
-import com.abixen.platform.core.domain.model.User
-import com.abixen.platform.core.domain.model.UserBuilder
+import com.abixen.platform.common.domain.model.enumtype.RoleType
+import com.abixen.platform.common.domain.model.enumtype.UserGender
+import com.abixen.platform.common.domain.model.enumtype.UserLanguage
+import com.abixen.platform.common.domain.model.enumtype.UserState
 import spock.lang.Specification
 
 class UserBuilderTest extends Specification {

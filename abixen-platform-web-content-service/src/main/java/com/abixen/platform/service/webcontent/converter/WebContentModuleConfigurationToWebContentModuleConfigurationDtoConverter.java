@@ -13,8 +13,8 @@
  */
 package com.abixen.platform.service.webcontent.converter;
 
-import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigurationDto;
 import com.abixen.platform.service.webcontent.model.impl.WebContentModuleConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +25,11 @@ import java.util.Map;
 @Component
 public class WebContentModuleConfigurationToWebContentModuleConfigurationDtoConverter extends AbstractConverter<WebContentModuleConfig, WebContentModuleConfigurationDto> {
 
-    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
-    private final WebContentToWebContentDtoConverter webContentToWebContentDtoConverter;
+    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
 
     @Autowired
-    public WebContentModuleConfigurationToWebContentModuleConfigurationDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter,
-                                                                                    WebContentToWebContentDtoConverter webContentToWebContentDtoConverter) {
-        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
-        this.webContentToWebContentDtoConverter = webContentToWebContentDtoConverter;
+    public WebContentModuleConfigurationToWebContentModuleConfigurationDtoConverter(AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter) {
+        this.auditingModelToSimpleAuditingDtoConverter = auditingModelToSimpleAuditingDtoConverter;
     }
 
     @Override
@@ -47,8 +44,9 @@ public class WebContentModuleConfigurationToWebContentModuleConfigurationDtoConv
                 .setModuleId(webContentModuleConfig.getModuleId())
                 .setContentId(webContentModuleConfig.getWebContent().getId());
 
-        auditingModelToAuditingDtoConverter.convert(webContentModuleConfig, webContentModuleConfigurationDto);
+        auditingModelToSimpleAuditingDtoConverter.convert(webContentModuleConfig, webContentModuleConfigurationDto);
 
         return webContentModuleConfigurationDto;
     }
+
 }

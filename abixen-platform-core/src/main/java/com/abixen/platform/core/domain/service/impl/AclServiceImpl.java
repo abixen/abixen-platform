@@ -14,9 +14,9 @@
 
 package com.abixen.platform.core.domain.service.impl;
 
-import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.common.model.enumtype.AclSidType;
-import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.AclSidType;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.core.domain.model.AclClass;
 import com.abixen.platform.core.domain.model.AclEntry;
 import com.abixen.platform.core.domain.model.AclEntryBuilder;

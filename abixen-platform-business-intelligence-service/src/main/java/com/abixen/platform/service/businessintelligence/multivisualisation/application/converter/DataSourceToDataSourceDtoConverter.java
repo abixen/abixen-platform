@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
-import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.common.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseDataSourceDto;
@@ -31,19 +31,19 @@ import java.util.Map;
 @Component
 public class DataSourceToDataSourceDtoConverter extends AbstractConverter<DataSource, DataSourceDto> {
 
-    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
     private final DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
     private final DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
     private final FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter;
     private final DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter;
 
     @Autowired
-    public DataSourceToDataSourceDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter,
+    public DataSourceToDataSourceDtoConverter(AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter,
                                               DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter,
                                               DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter,
                                               FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter,
                                               DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter) {
-        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+        this.auditingModelToSimpleAuditingDtoConverter = auditingModelToSimpleAuditingDtoConverter;
         this.databaseConnectionToDatabaseConnectionDtoConverter = databaseConnectionToDatabaseConnectionDtoConverter;
         this.dataSourceColumnToDataSourceColumnDtoConverter = dataSourceColumnToDataSourceColumnDtoConverter;
         this.fileDataSourceRowToFileDataSourceRowDtoConverter = fileDataSourceRowToFileDataSourceRowDtoConverter;
@@ -84,7 +84,7 @@ public class DataSourceToDataSourceDtoConverter extends AbstractConverter<DataSo
             default:
                 throw new PlatformRuntimeException("DataSource type not supported");
         }
-        auditingModelToAuditingDtoConverter.convert(dataSource, dataSourceDto);
+        auditingModelToSimpleAuditingDtoConverter.convert(dataSource, dataSourceDto);
 
         return dataSourceDto;
     }

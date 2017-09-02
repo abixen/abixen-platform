@@ -15,7 +15,7 @@
 package com.abixen.platform.common.security;
 
 import com.abixen.platform.common.integration.SecurityIntegrationClient;
-import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;

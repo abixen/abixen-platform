@@ -12,46 +12,38 @@
  * details.
  */
 
-package com.abixen.platform.common.converter;
+package com.abixen.platform.common.application.converter;
 
 
-import com.abixen.platform.common.dto.AuditingDto;
-import com.abixen.platform.common.dto.UserDto;
+import com.abixen.platform.common.application.dto.SimpleAuditingDto;
+import com.abixen.platform.common.application.dto.SimpleUserDto;
 import com.abixen.platform.common.integration.UserIntegrationClient;
-import com.abixen.platform.common.model.User;
-import com.abixen.platform.common.model.audit.AuditingModel;
+import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class AuditingModelToAuditingDtoConverter {
+public class AuditingModelToSimpleAuditingDtoConverter {
 
     private final UserIntegrationClient userIntegrationClient;
 
     @Autowired
-    public AuditingModelToAuditingDtoConverter(UserIntegrationClient userIntegrationClient) {
+    public AuditingModelToSimpleAuditingDtoConverter(UserIntegrationClient userIntegrationClient) {
         this.userIntegrationClient = userIntegrationClient;
     }
 
-    public AuditingDto convert(AuditingModel auditingModel, AuditingDto auditingDto) {
-        UserDto createdByDto = null;
-        UserDto lastModifiedByDto = null;
+    public SimpleAuditingDto convert(SimpleAuditingModel auditingModel, SimpleAuditingDto auditingDto) {
+        SimpleUserDto createdByDto = null;
+        SimpleUserDto lastModifiedByDto = null;
 
         if (auditingModel.getCreatedById() != null) {
-            User createdBy = userIntegrationClient.getUserById(auditingModel.getCreatedById());
-            createdByDto = new UserDto();
-            createdByDto.setId(createdBy.getId());
-            createdByDto.setUsername(createdBy.getUsername());
+            createdByDto = userIntegrationClient.getUserById(auditingModel.getCreatedById());
 
         }
         if (auditingModel.getLastModifiedById() != null) {
-            User lastModifiedBy = userIntegrationClient.getUserById(auditingModel.getLastModifiedById());
-            lastModifiedByDto = new UserDto();
-            lastModifiedByDto.setId(lastModifiedBy.getId());
-            lastModifiedByDto.setUsername(lastModifiedBy.getUsername());
+            lastModifiedByDto = userIntegrationClient.getUserById(auditingModel.getLastModifiedById());
         }
-
 
         auditingDto
                 .setCreatedBy(createdByDto)
@@ -61,4 +53,5 @@ public class AuditingModelToAuditingDtoConverter {
 
         return auditingDto;
     }
+
 }

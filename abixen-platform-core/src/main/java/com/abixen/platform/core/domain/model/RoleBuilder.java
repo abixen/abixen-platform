@@ -15,8 +15,8 @@
 package com.abixen.platform.core.domain.model;
 
 
-import com.abixen.platform.common.model.enumtype.RoleType;
-import com.abixen.platform.common.util.EntityBuilder;
+import com.abixen.platform.common.domain.model.enumtype.RoleType;
+import com.abixen.platform.common.domain.model.utils.EntityBuilder;
 
 
 public class RoleBuilder extends EntityBuilder<Role> {

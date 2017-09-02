@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.service.impl;
 
-import com.abixen.platform.common.model.enumtype.AclSidType;
+import com.abixen.platform.common.domain.model.enumtype.AclSidType;
 import com.abixen.platform.core.domain.model.AclSid;
 import com.abixen.platform.core.domain.model.AclSidBuilder;
 import com.abixen.platform.core.domain.repository.custom.AclSidRepository;

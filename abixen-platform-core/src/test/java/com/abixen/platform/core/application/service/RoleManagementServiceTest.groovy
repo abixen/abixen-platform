@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.application.service
 
-import com.abixen.platform.common.model.enumtype.RoleType
+import com.abixen.platform.common.domain.model.enumtype.RoleType
 import com.abixen.platform.core.application.converter.PermissionToPermissionDtoConverter
 import com.abixen.platform.core.application.converter.RoleToRoleDtoConverter
 import com.abixen.platform.core.application.dto.PermissionDto

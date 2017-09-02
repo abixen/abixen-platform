@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.dto;
 
 
-import com.abixen.platform.common.dto.AuditingDto;
+import com.abixen.platform.common.application.dto.SimpleAuditingDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,7 +27,7 @@ import java.util.List;
 @Setter
 @Accessors(chain = true)
 @ToString
-public class DataFileDto extends AuditingDto {
+public class DataFileDto extends SimpleAuditingDto {
     private Long id;
     private List<DataFileColumnDto> columns;
     private String name;

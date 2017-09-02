@@ -14,9 +14,9 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.model.enumtype.UserGender;
-import com.abixen.platform.common.model.enumtype.UserLanguage;
-import com.abixen.platform.common.model.enumtype.UserState;
+import com.abixen.platform.common.domain.model.enumtype.UserGender;
+import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
+import com.abixen.platform.common.domain.model.enumtype.UserState;
 import com.abixen.platform.core.application.exception.UserActivationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

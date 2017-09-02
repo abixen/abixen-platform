@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.model;
+package com.abixen.platform.common.domain.model;
 
 import java.io.Serializable;
 import java.lang.reflect.AccessibleObject;

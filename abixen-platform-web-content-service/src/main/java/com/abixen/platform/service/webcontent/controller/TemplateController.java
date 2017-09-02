@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.webcontent.controller;
 
-import com.abixen.platform.common.dto.FormErrorDto;
-import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.dto.FormErrorDto;
+import com.abixen.platform.common.application.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.service.webcontent.dto.TemplateDto;
 import com.abixen.platform.service.webcontent.facade.TemplateFacade;

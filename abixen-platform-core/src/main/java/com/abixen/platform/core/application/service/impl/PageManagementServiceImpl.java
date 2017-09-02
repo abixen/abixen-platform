@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.common.security.PlatformUser;
 import com.abixen.platform.core.application.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.PageDto;

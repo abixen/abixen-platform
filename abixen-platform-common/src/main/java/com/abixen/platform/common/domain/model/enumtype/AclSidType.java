@@ -12,40 +12,20 @@
  * details.
  */
 
-package com.abixen.platform.common.model;
-
-import com.abixen.platform.common.model.enumtype.RoleType;
+package com.abixen.platform.common.domain.model.enumtype;
 
 
-public class Role extends Model {
+public enum AclSidType {
 
-    private Long id;
-    private RoleType roleType;
-    private String name;
+    ROLE("ROLE"), OWNER("OWNER");
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setRoleType(RoleType roleType) {
-        this.roleType = roleType;
-    }
-
-    public RoleType getRoleType() {
-        return roleType;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private final String name;
 
     public String getName() {
         return name;
     }
 
+    private AclSidType(String name) {
+        this.name = name;
+    }
 }

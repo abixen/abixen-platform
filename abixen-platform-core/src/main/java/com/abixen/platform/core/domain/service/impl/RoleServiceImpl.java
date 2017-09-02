@@ -15,7 +15,7 @@
 package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.common.exception.PlatformRuntimeException;
-import com.abixen.platform.common.model.enumtype.AclSidType;
+import com.abixen.platform.common.domain.model.enumtype.AclSidType;
 import com.abixen.platform.core.application.form.RoleSearchForm;
 import com.abixen.platform.core.domain.model.Role;
 import com.abixen.platform.core.domain.repository.RoleRepository;

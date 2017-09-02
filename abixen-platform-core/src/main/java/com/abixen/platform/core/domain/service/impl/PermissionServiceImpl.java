@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.service.impl;
 
-import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.core.application.form.PermissionSearchForm;
 import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.model.PermissionAclClassCategory;

@@ -12,8 +12,29 @@
  * details.
  */
 
-package com.abixen.platform.common.util;
+package com.abixen.platform.common.domain.model.utils;
 
 
-public class WebModelJsonSerialize {
+
+public abstract class EntityBuilder<T> {
+
+    protected T product;
+
+    {
+        initProduct();
+    }
+
+    public T build() {
+        T product = assembleProduct();
+        T temp = product;
+        initProduct();
+        return temp;
+    }
+
+    protected abstract void initProduct();
+
+    protected T assembleProduct() {
+        return this.product;
+    }
+
 }

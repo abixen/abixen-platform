@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.model.Model;
-import com.abixen.platform.common.model.enumtype.AclSidType;
+import com.abixen.platform.common.domain.model.Model;
+import com.abixen.platform.common.domain.model.enumtype.AclSidType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

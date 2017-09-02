@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.converter;
 
 
-import com.abixen.platform.common.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.core.application.dto.UserDto;
 import com.abixen.platform.core.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +41,10 @@ public class UserToUserDtoConverter extends AbstractConverter<User, UserDto> {
     public UserDto convert(User user, Map<String, Object> parameters) {
         UserDto userDto = new UserDto();
 
-
         userDto
                 .setId(user.getId())
                 .setUsername(user.getUsername())
+                //FIXME - do we need password in Dto?
                 .setPassword(user.getPassword())
                 .setScreenName(user.getScreenName())
                 .setFirstName(user.getFirstName())
@@ -63,4 +63,5 @@ public class UserToUserDtoConverter extends AbstractConverter<User, UserDto> {
 
         return userDto;
     }
+
 }

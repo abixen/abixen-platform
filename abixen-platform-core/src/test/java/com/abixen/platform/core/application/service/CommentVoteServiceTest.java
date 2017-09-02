@@ -13,7 +13,7 @@
  */
 package com.abixen.platform.core.application.service;
 
-import com.abixen.platform.common.model.enumtype.CommentVoteType;
+import com.abixen.platform.common.domain.model.enumtype.CommentVoteType;
 import com.abixen.platform.core.application.dto.CommentDto;
 import com.abixen.platform.core.application.dto.CommentVoteDto;
 import com.abixen.platform.core.application.form.CommentForm;

@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
-import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection;
 import org.springframework.stereotype.Component;
@@ -25,10 +25,10 @@ import java.util.Map;
 @Component
 public class DatabaseConnectionToDatabaseConnectionDtoConverter extends AbstractConverter<DatabaseConnection, DatabaseConnectionDto> {
 
-    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
 
-    public DatabaseConnectionToDatabaseConnectionDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
-        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+    public DatabaseConnectionToDatabaseConnectionDtoConverter(AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter) {
+        this.auditingModelToSimpleAuditingDtoConverter = auditingModelToSimpleAuditingDtoConverter;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class DatabaseConnectionToDatabaseConnectionDtoConverter extends Abstract
                 .setUsername(databaseConnection.getUsername())
                 .setPassword(databaseConnection.getPassword());
 
-        auditingModelToAuditingDtoConverter.convert(databaseConnection, databaseConnectionDto);
+        auditingModelToSimpleAuditingDtoConverter.convert(databaseConnection, databaseConnectionDto);
 
         return databaseConnectionDto;
     }

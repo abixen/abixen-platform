@@ -17,7 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.doma
 import com.abixen.platform.common.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.converter.ConnectionPasswordConverter;
-import com.abixen.platform.common.model.audit.AuditingModel;
+import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -29,7 +29,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "database_connection")
 @SequenceGenerator(sequenceName = "database_connection_seq", name = "database_connection_seq", allocationSize = 1)
-public class DatabaseConnection extends AuditingModel implements Serializable {
+public class DatabaseConnection extends SimpleAuditingModel implements Serializable {
 
     private static final long serialVersionUID = -1411930471159410093L;
 

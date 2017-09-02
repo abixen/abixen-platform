@@ -15,8 +15,8 @@
 package com.abixen.platform.core.application.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.model.enumtype.UserGender;
-import com.abixen.platform.common.model.enumtype.UserLanguage;
+import com.abixen.platform.common.domain.model.enumtype.UserGender;
+import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import com.abixen.platform.core.domain.model.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;

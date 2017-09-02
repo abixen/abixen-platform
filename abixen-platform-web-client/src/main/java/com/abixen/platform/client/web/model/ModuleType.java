@@ -14,7 +14,7 @@
 
 package com.abixen.platform.client.web.model;
 
-import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.domain.model.Model;
 
 import java.util.List;
 

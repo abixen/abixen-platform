@@ -12,9 +12,9 @@
  * details.
  */
 
-package com.abixen.platform.common.model.audit;
+package com.abixen.platform.common.domain.model.audit;
 
-import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.domain.model.Model;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -32,7 +32,7 @@ import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AuditingModel extends Model implements AuditingModelBase {
+public abstract class SimpleAuditingModel extends Model {
 
     @CreatedBy
     @Column(name = "created_by_id")
@@ -52,42 +52,34 @@ public abstract class AuditingModel extends Model implements AuditingModelBase {
 
     public abstract Long getId();
 
-    @Override
     public Long getCreatedById() {
         return createdById;
     }
 
-    @Override
     public void setCreatedById(Long createdById) {
         this.createdById = createdById;
     }
 
-    @Override
     public Date getCreatedDate() {
         return createdDate;
     }
 
-    @Override
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
-    @Override
     public Long getLastModifiedById() {
         return lastModifiedById;
     }
 
-    @Override
     public void setLastModifiedById(Long lastModifiedById) {
         this.lastModifiedById = lastModifiedById;
     }
 
-    @Override
     public Date getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    @Override
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
@@ -141,4 +133,5 @@ public abstract class AuditingModel extends Model implements AuditingModelBase {
 
         return result.toString();
     }
+
 }

@@ -14,16 +14,16 @@
 
 package com.abixen.platform.service.businessintelligence.infrastructure.configuration;
 
+import com.abixen.platform.common.application.dto.SimpleUserDto;
 import com.abixen.platform.common.client.UserClient;
-import com.abixen.platform.common.model.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Component
 public class TestUserClient implements UserClient {
     @Override
-    public User getUserById(@PathVariable("id") Long id) {
-        User user = new User();
+    public SimpleUserDto getUserById(@PathVariable("id") Long id) {
+        SimpleUserDto user = new SimpleUserDto();
         user.setId(1L);
         user.setUsername("joe.brown@abixen.com");
         return user;

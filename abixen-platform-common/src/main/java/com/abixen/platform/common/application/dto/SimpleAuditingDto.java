@@ -12,20 +12,22 @@
  * details.
  */
 
-package com.abixen.platform.common.model.enumtype;
+package com.abixen.platform.common.application.dto;
 
 
-public enum ResourcePageLocation {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
-    HEADER("HEADER"), BODY("BODY");
+import java.util.Date;
 
-    private final String name;
+@Getter
+@Setter
+@Accessors(chain = true)
+public abstract class SimpleAuditingDto {
 
-    public String getName() {
-        return name;
-    }
-
-    private ResourcePageLocation(String name) {
-        this.name = name;
-    }
+    private SimpleUserDto createdBy;
+    private Date createdDate;
+    private SimpleUserDto lastModifiedBy;
+    private Date lastModifiedDate;
 }
