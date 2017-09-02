@@ -14,7 +14,7 @@
 
 package com.abixen.platform.common.client;
 
-import com.abixen.platform.common.model.User;
+import com.abixen.platform.common.application.dto.SimpleUserDto;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface UserClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/api-intranet/users/{id}")
-    User getUserById(@PathVariable("id") Long id);
+    SimpleUserDto getUserById(@PathVariable("id") Long id);
 
 }

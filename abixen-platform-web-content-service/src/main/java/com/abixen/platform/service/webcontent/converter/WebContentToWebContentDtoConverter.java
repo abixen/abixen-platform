@@ -14,7 +14,7 @@
 package com.abixen.platform.service.webcontent.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
+import com.abixen.platform.common.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.webcontent.dto.AdvancedWebContentDto;
 import com.abixen.platform.service.webcontent.dto.SimpleWebContentDto;
 import com.abixen.platform.service.webcontent.dto.StructureDto;
@@ -29,13 +29,13 @@ import java.util.Map;
 @Component
 public class WebContentToWebContentDtoConverter extends AbstractConverter<WebContent, WebContentDto> {
 
-    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
     private final StructureToStructureDtoConverter structureToStructureDtoConverter;
 
     @Autowired
-    public WebContentToWebContentDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter,
+    public WebContentToWebContentDtoConverter(AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter,
                                               StructureToStructureDtoConverter structureToStructureDtoConverter) {
-        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+        this.auditingModelToSimpleAuditingDtoConverter = auditingModelToSimpleAuditingDtoConverter;
         this.structureToStructureDtoConverter = structureToStructureDtoConverter;
     }
 
@@ -68,8 +68,9 @@ public class WebContentToWebContentDtoConverter extends AbstractConverter<WebCon
             default:
         }
 
-        auditingModelToAuditingDtoConverter.convert(webContent, webContentDto);
+        auditingModelToSimpleAuditingDtoConverter.convert(webContent, webContentDto);
 
         return webContentDto;
     }
+
 }

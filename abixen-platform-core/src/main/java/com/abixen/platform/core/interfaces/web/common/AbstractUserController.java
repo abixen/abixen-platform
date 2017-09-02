@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.interfaces.web.common;
 
-import com.abixen.platform.common.dto.FormErrorDto;
-import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.dto.FormErrorDto;
+import com.abixen.platform.common.application.dto.FormValidationResultDto;
 import com.abixen.platform.common.model.enumtype.UserLanguage;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.UserDto;

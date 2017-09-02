@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.doma
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.ChartType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource;
-import com.abixen.platform.common.model.audit.AuditingModel;
+import com.abixen.platform.common.model.audit.SimpleAuditingModel;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -26,7 +26,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "chart_configuration")
 @SequenceGenerator(sequenceName = "chart_configuration_seq", name = "chart_configuration_seq", allocationSize = 1)
-public class ChartConfiguration extends AuditingModel implements Serializable {
+public class ChartConfiguration extends SimpleAuditingModel implements Serializable {
 
     private static final long serialVersionUID = -1420930478759410093L;
 

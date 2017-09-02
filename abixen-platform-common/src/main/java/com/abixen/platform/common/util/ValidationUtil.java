@@ -14,7 +14,7 @@
 
 package com.abixen.platform.common.util;
 
-import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.application.dto.FormErrorDto;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 

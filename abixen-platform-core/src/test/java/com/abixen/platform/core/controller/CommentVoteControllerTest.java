@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.controller;
 
-import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.common.model.enumtype.CommentVoteType;
 import com.abixen.platform.core.application.dto.CommentDto;
 import com.abixen.platform.core.application.dto.CommentVoteDto;

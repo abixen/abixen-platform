@@ -11,19 +11,23 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.abixen.platform.common.dto;
+
+package com.abixen.platform.common.application.dto;
+
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
+
+import java.util.Date;
 
 @Getter
 @Setter
 @Accessors(chain = true)
-@ToString
-public class UserDto {
+public abstract class SimpleAuditingDto {
 
-    private Long id;
-    private String username;
+    private SimpleUserDto createdBy;
+    private Date createdDate;
+    private SimpleUserDto lastModifiedBy;
+    private Date lastModifiedDate;
 }

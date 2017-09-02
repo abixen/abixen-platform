@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.model.impl;
 
-import com.abixen.platform.common.model.audit.AuditingModel;
+import com.abixen.platform.common.model.audit.SimpleAuditingModel;
 import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
 import org.hibernate.annotations.Type;
 
@@ -25,7 +25,7 @@ import java.io.Serializable;
 @Table(name = "web_content")
 @SequenceGenerator(sequenceName = "web_content_seq", name = "web_content_seq", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
-public class WebContent extends AuditingModel implements Serializable {
+public class WebContent extends SimpleAuditingModel implements Serializable {
 
     private static final long serialVersionUID = 994392175080662107L;
 

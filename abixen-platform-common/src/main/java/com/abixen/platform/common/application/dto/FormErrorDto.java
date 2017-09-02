@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.dto;
+package com.abixen.platform.common.application.dto;
 
 import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonView;

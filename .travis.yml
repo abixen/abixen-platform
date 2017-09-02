@@ -15,8 +15,8 @@ env:
 branches:
   only:
   - master
-  - ddd-core
   - v-1-0-wave-2-refactor
+  - model-simplification
 
 script:
   - ./travis/script/build.sh

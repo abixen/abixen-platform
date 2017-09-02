@@ -15,8 +15,8 @@
 package com.abixen.platform.core.interfaces.web;
 
 
-import com.abixen.platform.common.dto.FormErrorDto;
-import com.abixen.platform.common.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.dto.FormErrorDto;
+import com.abixen.platform.common.application.dto.FormValidationResultDto;
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;
 import com.abixen.platform.core.application.service.CommentService;

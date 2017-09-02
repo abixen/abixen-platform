@@ -14,7 +14,7 @@
 package com.abixen.platform.service.webcontent.converter;
 
 import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
+import com.abixen.platform.common.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.webcontent.dto.TemplateDto;
 import com.abixen.platform.service.webcontent.model.impl.Template;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +25,11 @@ import java.util.Map;
 @Component
 public class TemplateToTemplateDtoConverter extends AbstractConverter<Template, TemplateDto> {
 
-    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
 
     @Autowired
-    public TemplateToTemplateDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
-        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+    public TemplateToTemplateDtoConverter(AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter) {
+        this.auditingModelToSimpleAuditingDtoConverter = auditingModelToSimpleAuditingDtoConverter;
     }
     @Override
     public TemplateDto convert(Template template, Map<String, Object> parameters) {
@@ -39,8 +39,9 @@ public class TemplateToTemplateDtoConverter extends AbstractConverter<Template, 
                 .setName(template.getName())
                 .setContent(template.getContent());
 
-        auditingModelToAuditingDtoConverter.convert(template, templateDto);
+        auditingModelToSimpleAuditingDtoConverter.convert(template, templateDto);
 
         return templateDto;
     }
+
 }

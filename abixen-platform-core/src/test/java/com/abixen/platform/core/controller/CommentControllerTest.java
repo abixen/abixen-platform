@@ -14,10 +14,9 @@
 
 package com.abixen.platform.core.controller;
 
-import com.abixen.platform.common.dto.FormErrorDto;
+import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.core.domain.model.CommentBuilder;
 import com.abixen.platform.core.domain.model.ModuleBuilder;
-import com.abixen.platform.core.infrastructure.configuration.PlatformConfiguration;
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;
 import com.abixen.platform.core.domain.model.Comment;
@@ -33,7 +32,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.service.impl;
 
-import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
+import com.abixen.platform.common.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.webcontent.converter.WebContentToWebContentDtoConverter;
 import com.abixen.platform.service.webcontent.form.AdvancedWebContentForm;
 import com.abixen.platform.service.webcontent.form.SimpleWebContentForm;
@@ -42,13 +42,13 @@ public class WebContentServiceImpl implements WebContentService {
     private final WebContentRepository webContentRepository;
     private final StructureService structureService;
     private final WebContentToWebContentDtoConverter webContentToWebContentDtoConverter;
-    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToAuditingDtoConverter;
 
     @Autowired
     public WebContentServiceImpl(WebContentRepository webContentRepository,
                                  StructureService structureService,
                                  WebContentToWebContentDtoConverter webContentToWebContentDtoConverter,
-                                 AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+                                 AuditingModelToSimpleAuditingDtoConverter auditingModelToAuditingDtoConverter) {
         this.webContentRepository = webContentRepository;
         this.structureService = structureService;
         this.webContentToWebContentDtoConverter = webContentToWebContentDtoConverter;

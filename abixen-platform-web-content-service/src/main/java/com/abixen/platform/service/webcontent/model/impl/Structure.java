@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.model.impl;
 
-import com.abixen.platform.common.model.audit.AuditingModel;
+import com.abixen.platform.common.model.audit.SimpleAuditingModel;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -24,7 +24,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "structure")
 @SequenceGenerator(sequenceName = "structure_seq", name = "structure_seq", allocationSize = 1)
-public class Structure extends AuditingModel implements Serializable {
+public class Structure extends SimpleAuditingModel implements Serializable {
 
     private static final long serialVersionUID = 1443021404845246701L;
 

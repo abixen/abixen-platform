@@ -41,10 +41,10 @@ public class UserToUserDtoConverter extends AbstractConverter<User, UserDto> {
     public UserDto convert(User user, Map<String, Object> parameters) {
         UserDto userDto = new UserDto();
 
-
         userDto
                 .setId(user.getId())
                 .setUsername(user.getUsername())
+                //FIXME - do we need password in Dto?
                 .setPassword(user.getPassword())
                 .setScreenName(user.getScreenName())
                 .setFirstName(user.getFirstName())
@@ -63,4 +63,5 @@ public class UserToUserDtoConverter extends AbstractConverter<User, UserDto> {
 
         return userDto;
     }
+
 }
