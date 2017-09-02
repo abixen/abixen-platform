@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.common.model.enumtype.AclSidType;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.AclSidType;
 import com.abixen.platform.core.application.converter.PermissionToPermissionDtoConverter;
 import com.abixen.platform.core.application.converter.RoleToRoleDtoConverter;
 import com.abixen.platform.core.application.dto.AclPermissionDto;

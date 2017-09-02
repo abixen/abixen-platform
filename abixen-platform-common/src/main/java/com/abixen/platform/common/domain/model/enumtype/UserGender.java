@@ -12,20 +12,20 @@
  * details.
  */
 
-package com.abixen.platform.common.model.enumtype;
+package com.abixen.platform.common.domain.model.enumtype;
 
 
-public enum ResourcePageLocation {
+public enum UserGender {
 
-    HEADER("HEADER"), BODY("BODY");
+    MALE("male"), FEMALE("female");
 
-    private final String name;
+    private final String gender;
 
-    public String getName() {
-        return name;
+    public String getGender() {
+        return gender;
     }
 
-    private ResourcePageLocation(String name) {
-        this.name = name;
+    private UserGender(String gender) {
+        this.gender = gender;
     }
 }

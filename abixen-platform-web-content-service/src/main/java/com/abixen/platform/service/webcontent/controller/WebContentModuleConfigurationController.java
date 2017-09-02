@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.webcontent.controller;
 
-import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.service.webcontent.dto.WebContentModuleConfigurationDto;
 import com.abixen.platform.service.webcontent.facade.WebContentModuleConfigurationFacade;
 import com.abixen.platform.service.webcontent.form.WebContentModuleConfigForm;

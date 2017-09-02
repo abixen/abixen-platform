@@ -14,9 +14,9 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.model.enumtype.ResourcePage;
-import com.abixen.platform.common.model.enumtype.ResourcePageLocation;
-import com.abixen.platform.common.model.enumtype.ResourceType;
+import com.abixen.platform.common.domain.model.enumtype.ResourcePage;
+import com.abixen.platform.common.domain.model.enumtype.ResourcePageLocation;
+import com.abixen.platform.common.domain.model.enumtype.ResourceType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

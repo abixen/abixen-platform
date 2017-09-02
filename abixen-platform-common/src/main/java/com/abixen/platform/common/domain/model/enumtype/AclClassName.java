@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.model.enumtype;
+package com.abixen.platform.common.domain.model.enumtype;
 
 
 public enum AclClassName {

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.interfaces.web.common;
 
-import com.abixen.platform.common.model.enumtype.RoleType;
+import com.abixen.platform.common.domain.model.enumtype.RoleType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

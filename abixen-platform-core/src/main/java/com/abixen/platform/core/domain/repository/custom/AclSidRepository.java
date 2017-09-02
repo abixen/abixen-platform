@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.repository.custom;
 
-import com.abixen.platform.common.model.enumtype.AclSidType;
+import com.abixen.platform.common.domain.model.enumtype.AclSidType;
 import com.abixen.platform.core.domain.model.AclSid;
 import org.springframework.data.jpa.repository.JpaRepository;
 

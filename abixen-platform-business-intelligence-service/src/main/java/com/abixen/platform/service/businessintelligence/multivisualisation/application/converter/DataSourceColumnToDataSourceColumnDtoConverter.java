@@ -13,7 +13,7 @@
  */
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
-import com.abixen.platform.common.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
 import org.springframework.stereotype.Component;

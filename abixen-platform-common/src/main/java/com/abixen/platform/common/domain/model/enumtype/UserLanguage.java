@@ -12,19 +12,20 @@
  * details.
  */
 
-package com.abixen.platform.common.model.enumtype;
+package com.abixen.platform.common.domain.model.enumtype;
 
 
-public enum UserState {
-    CREATED("created"), DELETED("deleted"), ACTIVE("active"), SUSPENDED("suspended");
+public enum UserLanguage {
 
-    private final String name;
+    ENGLISH("EN"), POLISH("PL"), RUSSIAN("RU"), SPANISH("ES"), UKRAINIAN("UA");
 
-    public String getName() {
-        return name;
+    private final String selectedLanguage;
+
+    public String getSelectedLanguage() {
+        return selectedLanguage;
     }
 
-    private UserState(String name) {
-        this.name = name;
+    private UserLanguage(String selectedLanguage) {
+        this.selectedLanguage = selectedLanguage;
     }
 }

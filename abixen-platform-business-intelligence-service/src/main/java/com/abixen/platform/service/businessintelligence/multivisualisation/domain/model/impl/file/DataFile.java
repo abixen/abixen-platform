@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file;
 
 
-import com.abixen.platform.common.model.audit.SimpleAuditingModel;
+import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 import com.abixen.platform.common.util.ModelKeys;
 
 import javax.persistence.*;

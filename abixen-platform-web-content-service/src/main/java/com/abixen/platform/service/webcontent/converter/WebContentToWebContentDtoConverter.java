@@ -13,8 +13,8 @@
  */
 package com.abixen.platform.service.webcontent.converter;
 
-import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.common.converter.AuditingModelToSimpleAuditingDtoConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.webcontent.dto.AdvancedWebContentDto;
 import com.abixen.platform.service.webcontent.dto.SimpleWebContentDto;
 import com.abixen.platform.service.webcontent.dto.StructureDto;

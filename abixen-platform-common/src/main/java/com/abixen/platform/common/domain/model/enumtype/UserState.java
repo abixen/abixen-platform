@@ -12,29 +12,19 @@
  * details.
  */
 
-package com.abixen.platform.common.util;
+package com.abixen.platform.common.domain.model.enumtype;
 
 
+public enum UserState {
+    CREATED("created"), DELETED("deleted"), ACTIVE("active"), SUSPENDED("suspended");
 
-public abstract class EntityBuilder<T> {
+    private final String name;
 
-    protected T product;
-
-    {
-        initProduct();
+    public String getName() {
+        return name;
     }
 
-    public T build() {
-        T product = assembleProduct();
-        T temp = product;
-        initProduct();
-        return temp;
+    private UserState(String name) {
+        this.name = name;
     }
-
-    protected abstract void initProduct();
-
-    protected T assembleProduct() {
-        return this.product;
-    }
-
 }

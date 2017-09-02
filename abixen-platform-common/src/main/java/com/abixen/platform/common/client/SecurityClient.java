@@ -14,7 +14,7 @@
 
 package com.abixen.platform.common.client;
 
-import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

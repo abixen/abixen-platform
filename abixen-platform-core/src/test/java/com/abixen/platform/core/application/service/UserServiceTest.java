@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.application.service;
 
-import com.abixen.platform.common.model.enumtype.UserGender;
-import com.abixen.platform.common.model.enumtype.UserLanguage;
+import com.abixen.platform.common.domain.model.enumtype.UserGender;
+import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import com.abixen.platform.core.application.form.UserChangePasswordForm;
 import com.abixen.platform.core.application.form.UserSearchForm;
 import com.abixen.platform.core.domain.model.User;

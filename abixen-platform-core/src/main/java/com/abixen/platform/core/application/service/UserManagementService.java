@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.service;
 
 
-import com.abixen.platform.common.model.enumtype.UserLanguage;
+import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import com.abixen.platform.core.application.dto.UserDto;
 import com.abixen.platform.core.application.form.UserChangePasswordForm;
 import com.abixen.platform.core.application.form.UserForm;

@@ -12,20 +12,20 @@
  * details.
  */
 
-package com.abixen.platform.common.model.enumtype;
+package com.abixen.platform.common.domain.model.enumtype;
 
 
-public enum UserLanguage {
+public enum RoleType {
 
-    ENGLISH("EN"), POLISH("PL"), RUSSIAN("RU"), SPANISH("ES"), UKRAINIAN("UA");
+    ROLE_ADMIN("ROLE_ADMIN"), ROLE_USER("ROLE_USER");
 
-    private final String selectedLanguage;
+    private final String name;
 
-    public String getSelectedLanguage() {
-        return selectedLanguage;
+    public String getName() {
+        return name;
     }
 
-    private UserLanguage(String selectedLanguage) {
-        this.selectedLanguage = selectedLanguage;
+    private RoleType(String name) {
+        this.name = name;
     }
 }

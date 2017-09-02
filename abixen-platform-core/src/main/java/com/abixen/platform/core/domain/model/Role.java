@@ -15,7 +15,7 @@
 package com.abixen.platform.core.domain.model;
 
 
-import com.abixen.platform.common.model.enumtype.RoleType;
+import com.abixen.platform.common.domain.model.enumtype.RoleType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.CascadeType;

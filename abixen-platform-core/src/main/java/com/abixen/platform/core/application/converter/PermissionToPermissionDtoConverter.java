@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.converter;
 
 
-import com.abixen.platform.common.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.core.application.dto.PermissionDto;
 import com.abixen.platform.core.domain.model.Permission;
 import org.springframework.stereotype.Component;

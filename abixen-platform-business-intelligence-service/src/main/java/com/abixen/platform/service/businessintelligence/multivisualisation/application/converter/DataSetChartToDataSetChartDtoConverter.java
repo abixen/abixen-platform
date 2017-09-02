@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
-import com.abixen.platform.common.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetChartDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.DataSetChart;
 import org.springframework.beans.factory.annotation.Autowired;

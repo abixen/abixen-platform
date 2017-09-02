@@ -15,9 +15,9 @@
 package com.abixen.platform.common.configuration.properties;
 
 
-import com.abixen.platform.common.model.enumtype.ResourcePage;
-import com.abixen.platform.common.model.enumtype.ResourcePageLocation;
-import com.abixen.platform.common.model.enumtype.ResourceType;
+import com.abixen.platform.common.domain.model.enumtype.ResourcePage;
+import com.abixen.platform.common.domain.model.enumtype.ResourcePageLocation;
+import com.abixen.platform.common.domain.model.enumtype.ResourceType;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -14,8 +14,8 @@
 
 package com.abixen.platform.gateway.model;
 
-import com.abixen.platform.common.model.Model;
-import com.abixen.platform.common.model.enumtype.RoleType;
+import com.abixen.platform.common.domain.model.Model;
+import com.abixen.platform.common.domain.model.enumtype.RoleType;
 
 
 public class Role extends Model {

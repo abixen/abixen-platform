@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data;
 
-import com.abixen.platform.common.util.EntityBuilder;
+import com.abixen.platform.common.domain.model.utils.EntityBuilder;
 
 public class DataValueDoubleBuilder extends EntityBuilder<DataValueDouble> {
 

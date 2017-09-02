@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl;
 
-import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.domain.model.Model;
 
 import javax.persistence.*;
 import java.util.HashSet;

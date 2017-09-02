@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.service.impl;
 
-import com.abixen.platform.common.converter.AuditingModelToSimpleAuditingDtoConverter;
+import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.webcontent.converter.WebContentToWebContentDtoConverter;
 import com.abixen.platform.service.webcontent.form.AdvancedWebContentForm;
 import com.abixen.platform.service.webcontent.form.SimpleWebContentForm;

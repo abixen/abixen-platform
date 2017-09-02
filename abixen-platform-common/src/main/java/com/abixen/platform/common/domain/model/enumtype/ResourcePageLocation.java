@@ -12,12 +12,12 @@
  * details.
  */
 
-package com.abixen.platform.common.model.enumtype;
+package com.abixen.platform.common.domain.model.enumtype;
 
 
-public enum CommentVoteType {
+public enum ResourcePageLocation {
 
-    POSITIVE("POSITIVE"), NEGATIVE("NEGATIVE");
+    HEADER("HEADER"), BODY("BODY");
 
     private final String name;
 
@@ -25,7 +25,7 @@ public enum CommentVoteType {
         return name;
     }
 
-    private CommentVoteType(String name) {
+    private ResourcePageLocation(String name) {
         this.name = name;
     }
 }

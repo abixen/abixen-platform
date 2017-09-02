@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
-import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.common.converter.AuditingModelToSimpleAuditingDtoConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection;
 import org.springframework.stereotype.Component;

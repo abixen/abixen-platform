@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.converter;
+package com.abixen.platform.common.application.converter;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

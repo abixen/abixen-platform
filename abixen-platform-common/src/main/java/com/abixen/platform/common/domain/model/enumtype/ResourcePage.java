@@ -12,12 +12,12 @@
  * details.
  */
 
-package com.abixen.platform.common.model.enumtype;
+package com.abixen.platform.common.domain.model.enumtype;
 
 
-public enum RoleType {
+public enum ResourcePage {
 
-    ROLE_ADMIN("ROLE_ADMIN"), ROLE_USER("ROLE_USER");
+    APPLICATION("APPLICATION"), ADMIN("ADMIN");
 
     private final String name;
 
@@ -25,7 +25,7 @@ public enum RoleType {
         return name;
     }
 
-    private RoleType(String name) {
+    private ResourcePage(String name) {
         this.name = name;
     }
 }

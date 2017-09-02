@@ -15,7 +15,7 @@
 package com.abixen.platform.core.application.form;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.model.enumtype.CommentVoteType;
+import com.abixen.platform.common.domain.model.enumtype.CommentVoteType;
 import com.abixen.platform.core.application.dto.CommentVoteDto;
 import lombok.Getter;
 import lombok.Setter;

@@ -16,8 +16,8 @@ package com.abixen.platform.core.interfaces.web;
 
 import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.common.application.dto.FormValidationResultDto;
-import com.abixen.platform.common.model.enumtype.AclClassName;
-import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.common.util.ValidationUtil;
 import com.abixen.platform.core.application.form.DashboardForm;
 import com.abixen.platform.core.application.service.DashboardService;

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.service.impl;
 
-import com.abixen.platform.common.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.core.domain.model.AclClass;
 import com.abixen.platform.core.domain.repository.AclClassRepository;
 import com.abixen.platform.core.domain.service.AclClassService;

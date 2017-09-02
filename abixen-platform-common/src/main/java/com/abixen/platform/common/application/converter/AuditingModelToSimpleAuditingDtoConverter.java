@@ -12,13 +12,13 @@
  * details.
  */
 
-package com.abixen.platform.common.converter;
+package com.abixen.platform.common.application.converter;
 
 
 import com.abixen.platform.common.application.dto.SimpleAuditingDto;
 import com.abixen.platform.common.application.dto.SimpleUserDto;
 import com.abixen.platform.common.integration.UserIntegrationClient;
-import com.abixen.platform.common.model.audit.SimpleAuditingModel;
+import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

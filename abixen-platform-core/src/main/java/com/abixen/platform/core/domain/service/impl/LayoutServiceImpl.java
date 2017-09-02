@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.service.impl;
 
-import com.abixen.platform.common.model.enumtype.PermissionName;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.core.application.form.LayoutSearchForm;
 import com.abixen.platform.core.domain.model.Layout;
 import com.abixen.platform.core.domain.model.User;

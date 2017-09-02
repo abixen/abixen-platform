@@ -17,7 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.doma
 import com.abixen.platform.common.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.converter.ConnectionPasswordConverter;
-import com.abixen.platform.common.model.audit.SimpleAuditingModel;
+import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;

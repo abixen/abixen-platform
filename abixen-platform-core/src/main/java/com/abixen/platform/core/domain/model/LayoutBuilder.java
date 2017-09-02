@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.util.EntityBuilder;
+import com.abixen.platform.common.domain.model.utils.EntityBuilder;
 
 
 public class LayoutBuilder extends EntityBuilder<Layout> {

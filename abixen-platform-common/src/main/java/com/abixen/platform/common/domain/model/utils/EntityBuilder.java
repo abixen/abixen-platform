@@ -12,20 +12,29 @@
  * details.
  */
 
-package com.abixen.platform.common.model.enumtype;
+package com.abixen.platform.common.domain.model.utils;
 
 
-public enum ResourcePage {
 
-    APPLICATION("APPLICATION"), ADMIN("ADMIN");
+public abstract class EntityBuilder<T> {
 
-    private final String name;
+    protected T product;
 
-    public String getName() {
-        return name;
+    {
+        initProduct();
     }
 
-    private ResourcePage(String name) {
-        this.name = name;
+    public T build() {
+        T product = assembleProduct();
+        T temp = product;
+        initProduct();
+        return temp;
     }
+
+    protected abstract void initProduct();
+
+    protected T assembleProduct() {
+        return this.product;
+    }
+
 }

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl;
 
-import com.abixen.platform.common.util.EntityBuilder;
+import com.abixen.platform.common.domain.model.utils.EntityBuilder;
 
 public class DataSetSeriesBuilder extends EntityBuilder<DataSetSeries> {
 

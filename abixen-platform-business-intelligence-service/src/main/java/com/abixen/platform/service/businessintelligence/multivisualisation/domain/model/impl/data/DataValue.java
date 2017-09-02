@@ -26,7 +26,7 @@
  */
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data;
 
-import com.abixen.platform.common.model.Model;
+import com.abixen.platform.common.domain.model.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
