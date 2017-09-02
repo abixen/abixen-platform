@@ -14,26 +14,16 @@
 
 package com.abixen.platform.common.application.dto;
 
-import com.abixen.platform.common.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.validation.FieldError;
 
 public class FormErrorDto {
 
-    @JsonView(WebModelJsonSerialize.class)
     private String field;
-
-    @JsonView(WebModelJsonSerialize.class)
     private String code;
-
-    @JsonView(WebModelJsonSerialize.class)
     private String message;
-
-    @JsonView(WebModelJsonSerialize.class)
     private Object rejectedValue;
 
     public FormErrorDto() {
-
     }
 
     public FormErrorDto(FieldError fieldError) {
@@ -81,6 +71,5 @@ public class FormErrorDto {
     public void setRejectedValue(Object rejectedValue) {
         this.rejectedValue = rejectedValue;
     }
-
 
 }

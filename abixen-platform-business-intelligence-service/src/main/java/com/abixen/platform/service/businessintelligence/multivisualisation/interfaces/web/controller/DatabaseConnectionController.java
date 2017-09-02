@@ -17,12 +17,10 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.inte
 import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.common.application.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseConnectionManagementService;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,7 +29,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -61,7 +63,6 @@ public class DatabaseConnectionController {
         return databaseConnectionManagementService.findDatabaseConnection(id);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("DatabaseConnectionController - createDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
@@ -76,7 +77,6 @@ public class DatabaseConnectionController {
         return new FormValidationResultDto(databaseConnectionForm);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateDatabaseConnection(@PathVariable("id") Long id, @RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("DatabaseConnectionController - updateDatabaseConnection() - id: {}, databaseConnectionForm: {}", id, databaseConnectionForm);
@@ -99,7 +99,6 @@ public class DatabaseConnectionController {
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     public FormValidationResultDto testDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("DatabaseConnectionController - testDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
@@ -125,6 +124,5 @@ public class DatabaseConnectionController {
         log.debug("DatabaseConnectionController - getTableColumns() - id: {}, table: {}", id, tableName);
         return databaseConnectionManagementService.findTableColumnsFromDatabase(id, tableName);
     }
-
 
 }

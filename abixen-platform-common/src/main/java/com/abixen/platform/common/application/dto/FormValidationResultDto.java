@@ -15,8 +15,6 @@
 package com.abixen.platform.common.application.dto;
 
 import com.abixen.platform.common.form.Form;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +22,8 @@ import java.util.List;
 
 public class FormValidationResultDto {
 
-    @JsonView(WebModelJsonSerialize.class)
     private Form form;
 
-    @JsonView(WebModelJsonSerialize.class)
     private List<FormErrorDto> formErrors;
 
     public FormValidationResultDto(Form form, List<FormErrorDto> formErrors) {
@@ -41,7 +37,6 @@ public class FormValidationResultDto {
     }
 
     public FormValidationResultDto() {
-
     }
 
     public Form getForm() {
@@ -59,6 +54,5 @@ public class FormValidationResultDto {
     public void setFormErrora(List<FormErrorDto> formErrors) {
         this.formErrors = formErrors;
     }
-
 
 }

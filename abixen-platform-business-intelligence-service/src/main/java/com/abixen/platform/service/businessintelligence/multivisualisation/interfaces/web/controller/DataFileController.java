@@ -17,14 +17,12 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.inte
 import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.common.application.dto.FormValidationResultDto;
 import com.abixen.platform.common.util.ValidationUtil;
-import com.abixen.platform.common.util.WebModelJsonSerialize;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataFileForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataFileManagementService;
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +31,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -66,7 +69,6 @@ public class DataFileController {
         return dataFileManagementService.findDataFile(id);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createDataFile(@RequestBody @Valid DataFileForm fileDataForm, BindingResult bindingResult) {
         log.debug("createChartConfiguration() - fileDataSourceForm: " + fileDataForm);
@@ -81,7 +83,6 @@ public class DataFileController {
         return new FormValidationResultDto(fileDataForm);
     }
 
-    @JsonView(WebModelJsonSerialize.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateDataFile(@PathVariable("id") Long id, @RequestBody @Valid DataFileForm dataFileForm, BindingResult bindingResult) {
         log.debug("updateChartConfiguration() - id: " + id + ", fileDataSourceForm: " + dataFileForm);
