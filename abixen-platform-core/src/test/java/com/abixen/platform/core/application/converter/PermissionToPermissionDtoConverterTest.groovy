@@ -19,7 +19,6 @@ import com.abixen.platform.core.domain.model.Permission
 import com.abixen.platform.core.domain.model.PermissionAclClassCategory
 import com.abixen.platform.core.domain.model.PermissionGeneralCategory
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class PermissionToPermissionDtoConverterTest extends Specification {
 
@@ -30,7 +29,6 @@ class PermissionToPermissionDtoConverterTest extends Specification {
     }
 
 
-    @Unroll
     void "should convert Permission entity to PermissionDto"() {
         given:
         final Permission permission = [

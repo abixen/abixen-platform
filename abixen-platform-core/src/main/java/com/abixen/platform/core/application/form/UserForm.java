@@ -18,12 +18,16 @@ import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.common.domain.model.enumtype.UserGender;
 import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import com.abixen.platform.core.domain.model.User;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Getter
+@Setter
 public class UserForm implements Form {
 
     private Long id;
@@ -64,87 +68,14 @@ public class UserForm implements Form {
     public UserForm(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
+        this.screenName = user.getScreenName();
         this.firstName = user.getFirstName();
+        this.middleName = user.getMiddleName();
         this.lastName = user.getLastName();
+        this.jobTitle = user.getJobTitle();
+        this.selectedLanguage = user.getSelectedLanguage();
+        this.birthday = user.getBirthday();
+        this.gender = user.getGender();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getScreenName() {
-        return screenName;
-    }
-
-    public void setScreenName(String screenName) {
-        this.screenName = screenName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getJobTitle() {
-        return jobTitle;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
-    }
-
-    public UserLanguage getSelectedLanguage() {
-        return selectedLanguage;
-    }
-
-    public void setSelectedLanguage(UserLanguage selectedLanguage) {
-        this.selectedLanguage = selectedLanguage;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public UserGender getGender() {
-        return gender;
-    }
-
-    public void setGender(UserGender gender) {
-        this.gender = gender;
-    }
 }

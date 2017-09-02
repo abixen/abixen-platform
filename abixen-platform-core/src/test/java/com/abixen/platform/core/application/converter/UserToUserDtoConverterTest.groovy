@@ -24,7 +24,6 @@ import com.abixen.platform.core.domain.model.RoleBuilder
 import com.abixen.platform.core.domain.model.User
 import com.abixen.platform.core.domain.model.UserBuilder
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class UserToUserDtoConverterTest extends Specification {
 
@@ -39,7 +38,6 @@ class UserToUserDtoConverterTest extends Specification {
     }
 
 
-    @Unroll
     void "should convert User entity to UserDto"() {
         given:
         final Role role = new RoleBuilder()
