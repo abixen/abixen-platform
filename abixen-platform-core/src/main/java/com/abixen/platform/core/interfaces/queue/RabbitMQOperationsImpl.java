@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.interfaces.queue;
 
-import com.abixen.platform.common.rabbitmq.message.QueueMessage;
+import com.abixen.platform.common.interfaces.queue.message.QueueMessage;
 import com.abixen.platform.core.application.service.QueueOperations;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

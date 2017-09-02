@@ -12,8 +12,8 @@
  * details.
  */
 
-package com.abixen.platform.common.form.search;
+package com.abixen.platform.common.application.form;
 
-public interface SearchForm {
+public interface Form {
 
 }

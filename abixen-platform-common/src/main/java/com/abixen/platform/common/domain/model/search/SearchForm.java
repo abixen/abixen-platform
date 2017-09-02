@@ -12,11 +12,8 @@
  * details.
  */
 
-package com.abixen.platform.common.rabbitmq.message;
+package com.abixen.platform.common.domain.model.search;
 
-import java.io.Serializable;
-
-
-public abstract class QueueMessage implements Serializable {
+public interface SearchForm {
 
 }

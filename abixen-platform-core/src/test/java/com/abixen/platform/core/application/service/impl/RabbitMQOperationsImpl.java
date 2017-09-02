@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.common.rabbitmq.message.QueueMessage;
+import com.abixen.platform.common.interfaces.queue.message.QueueMessage;
 
 import com.abixen.platform.core.application.service.QueueOperations;
 import lombok.extern.slf4j.Slf4j;

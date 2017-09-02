@@ -12,26 +12,29 @@
  * details.
  */
 
-package com.abixen.platform.common.rabbitmq.message;
-
-import lombok.Getter;
-import lombok.Setter;
+package com.abixen.platform.common.domain.model;
 
 
-@Getter
-@Setter
-public class QueueRemoveModuleMessage extends QueueMessage {
 
-    private Long moduleId;
-    private String moduleTypeName;
+public abstract class EntityBuilder<T> {
 
+    protected T product;
 
-    public QueueRemoveModuleMessage() {
+    {
+        initProduct();
     }
 
-    public QueueRemoveModuleMessage(Long moduleId, String moduleTypeName) {
-        this.moduleId = moduleId;
-        this.moduleTypeName = moduleTypeName;
+    public T build() {
+        T product = assembleProduct();
+        T temp = product;
+        initProduct();
+        return temp;
+    }
+
+    protected abstract void initProduct();
+
+    protected T assembleProduct() {
+        return this.product;
     }
 
 }

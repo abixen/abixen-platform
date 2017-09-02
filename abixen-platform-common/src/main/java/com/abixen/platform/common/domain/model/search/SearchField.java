@@ -12,29 +12,24 @@
  * details.
  */
 
-package com.abixen.platform.common.domain.model.utils;
+package com.abixen.platform.common.domain.model.search;
 
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public abstract class EntityBuilder<T> {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface SearchField {
 
-    protected T product;
+    Operator operator() default Operator.LIKE;
 
-    {
-        initProduct();
+    String domainField() default "";
+
+    enum Operator {
+        EQUALS,
+        LIKE;
     }
-
-    public T build() {
-        T product = assembleProduct();
-        T temp = product;
-        initProduct();
-        return temp;
-    }
-
-    protected abstract void initProduct();
-
-    protected T assembleProduct() {
-        return this.product;
-    }
-
 }

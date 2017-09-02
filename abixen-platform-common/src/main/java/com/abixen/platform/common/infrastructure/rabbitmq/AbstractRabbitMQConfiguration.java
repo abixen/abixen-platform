@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.rabbitmq;
+package com.abixen.platform.common.infrastructure.rabbitmq;
 
 
 import org.aopalliance.aop.Advice;
@@ -43,7 +43,7 @@ public abstract class AbstractRabbitMQConfiguration {
     @Bean
     SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
                                              MessageListenerAdapter listenerAdapter) {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        final SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(queueName);
         container.setMessageListener(listenerAdapter);
@@ -55,6 +55,8 @@ public abstract class AbstractRabbitMQConfiguration {
                         .backOffOptions(initialInterval, multiplier, maxInterval)
                         .build()
         });
+
         return container;
     }
+
 }

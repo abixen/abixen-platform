@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.infrastructure.configuration;
 
-import com.abixen.platform.common.rabbitmq.AbstractRabbitMQConfiguration;
+import com.abixen.platform.common.infrastructure.rabbitmq.AbstractRabbitMQConfiguration;
 import com.abixen.platform.service.businessintelligence.infrastructure.rabbitmq.MessageReceiver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.infrastructure.repository.impl;
 
-import com.abixen.platform.common.form.search.SearchForm;
+import com.abixen.platform.common.domain.model.search.SearchForm;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.core.domain.model.User;

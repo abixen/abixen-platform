@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.application.form;
 
-import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.core.application.dto.PermissionDto;
 import com.abixen.platform.core.application.dto.RoleDto;

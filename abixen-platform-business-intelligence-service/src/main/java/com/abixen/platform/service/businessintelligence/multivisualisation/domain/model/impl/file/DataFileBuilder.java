@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file;
 
-import com.abixen.platform.common.domain.model.utils.EntityBuilder;
+import com.abixen.platform.common.domain.model.EntityBuilder;
 
 import java.util.Set;
 

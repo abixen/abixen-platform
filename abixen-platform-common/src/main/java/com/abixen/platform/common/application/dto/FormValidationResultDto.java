@@ -14,7 +14,7 @@
 
 package com.abixen.platform.common.application.dto;
 
-import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.application.form.Form;
 
 import java.util.ArrayList;
 import java.util.List;

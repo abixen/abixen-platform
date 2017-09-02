@@ -12,8 +12,26 @@
  * details.
  */
 
-package com.abixen.platform.common.form;
+package com.abixen.platform.common.interfaces.queue.message;
 
-public interface Form {
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+public class QueueRemoveModuleMessage extends QueueMessage {
+
+    private Long moduleId;
+    private String moduleTypeName;
+
+
+    public QueueRemoveModuleMessage() {
+    }
+
+    public QueueRemoveModuleMessage(Long moduleId, String moduleTypeName) {
+        this.moduleId = moduleId;
+        this.moduleTypeName = moduleTypeName;
+    }
 
 }

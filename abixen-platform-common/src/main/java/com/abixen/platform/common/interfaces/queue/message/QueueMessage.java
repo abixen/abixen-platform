@@ -12,24 +12,11 @@
  * details.
  */
 
-package com.abixen.platform.common.form.search;
+package com.abixen.platform.common.interfaces.queue.message;
+
+import java.io.Serializable;
 
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+public abstract class QueueMessage implements Serializable {
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface SearchField {
-
-    Operator operator() default Operator.LIKE;
-
-    String domainField() default "";
-
-    enum Operator {
-        EQUALS,
-        LIKE;
-    }
 }

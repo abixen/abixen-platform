@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.form;
 
-import com.abixen.platform.common.form.Form;
+import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile;
 

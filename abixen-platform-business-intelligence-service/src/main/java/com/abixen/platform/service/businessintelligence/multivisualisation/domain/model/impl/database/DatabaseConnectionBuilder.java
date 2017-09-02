@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database;
 
-import com.abixen.platform.common.domain.model.utils.EntityBuilder;
+import com.abixen.platform.common.domain.model.EntityBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType;
 
 public class DatabaseConnectionBuilder extends EntityBuilder<DatabaseConnection> {
