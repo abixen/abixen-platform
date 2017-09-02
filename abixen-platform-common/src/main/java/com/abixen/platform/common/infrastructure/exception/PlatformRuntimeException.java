@@ -12,16 +12,23 @@
  * details.
  */
 
-package com.abixen.platform.common.configuration;
+package com.abixen.platform.common.infrastructure.exception;
 
 
-import org.springframework.cloud.sleuth.Sampler;
-import org.springframework.context.annotation.Bean;
+public class PlatformRuntimeException extends RuntimeException {
+    public PlatformRuntimeException() {
+        super();
+    }
 
-public abstract class AbstractSleuthConfiguration {
+    public PlatformRuntimeException(String s) {
+        super(s);
+    }
 
-    @Bean
-    Sampler sampler() {
-        return span -> true;
+    public PlatformRuntimeException(String s, Throwable throwable) {
+        super(s, throwable);
+    }
+
+    public PlatformRuntimeException(Throwable throwable) {
+        super(throwable);
     }
 }

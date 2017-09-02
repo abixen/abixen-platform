@@ -16,7 +16,7 @@ package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
-import com.abixen.platform.common.security.PlatformUser;
+import com.abixen.platform.common.infrastructure.security.PlatformUser;
 import com.abixen.platform.core.application.converter.LayoutToLayoutDtoConverter;
 import com.abixen.platform.core.application.dto.LayoutDto;
 import com.abixen.platform.core.application.form.LayoutForm;

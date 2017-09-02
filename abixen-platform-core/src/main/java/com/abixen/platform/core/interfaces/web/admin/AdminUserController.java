@@ -16,7 +16,7 @@ package com.abixen.platform.core.interfaces.web.admin;
 
 import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.common.application.dto.FormValidationResultDto;
-import com.abixen.platform.common.util.ValidationUtil;
+import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.UserDto;
 import com.abixen.platform.core.application.form.UserRolesForm;
 import com.abixen.platform.core.application.form.UserSearchForm;

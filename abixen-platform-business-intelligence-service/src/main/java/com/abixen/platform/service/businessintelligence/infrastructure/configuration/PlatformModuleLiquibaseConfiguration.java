@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.infrastructure.configuration;
 
-import com.abixen.platform.common.configuration.AbstractLiquibaseConfiguration;
+import com.abixen.platform.common.infrastructure.configuration.AbstractLiquibaseConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 

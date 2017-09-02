@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.util;
+package com.abixen.platform.common.infrastructure.util;
 
 
 public final class ModelKeys {

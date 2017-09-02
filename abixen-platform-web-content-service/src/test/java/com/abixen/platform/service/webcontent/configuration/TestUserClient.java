@@ -15,7 +15,7 @@
 package com.abixen.platform.service.webcontent.configuration;
 
 import com.abixen.platform.common.application.dto.SimpleUserDto;
-import com.abixen.platform.common.client.UserClient;
+import com.abixen.platform.common.interfaces.client.UserClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 

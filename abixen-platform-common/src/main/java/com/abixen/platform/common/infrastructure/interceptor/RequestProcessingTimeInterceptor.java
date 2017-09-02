@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.interceptor;
+package com.abixen.platform.common.infrastructure.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -12,23 +12,12 @@
  * details.
  */
 
-package com.abixen.platform.common.util;
-
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.abixen.platform.common.infrastructure.util;
 
 
-public class ValidationUtil {
+public final class PlatformProfiles {
 
-    public static List<FormErrorDto> extractFormErrors(BindingResult result) {
-        List<FormErrorDto> formErrors = new ArrayList<>();
-        for (FieldError fieldError : result.getFieldErrors()) {
-            formErrors.add(new FormErrorDto(fieldError));
-        }
-        return formErrors;
-    }
+    public static final String DEV = "dev";
+
+    public static final String DOCKER = "docker";
 }

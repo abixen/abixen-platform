@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.configuration.properties;
+package com.abixen.platform.common.infrastructure.configuration.properties;
 
 
 import javax.validation.constraints.NotNull;

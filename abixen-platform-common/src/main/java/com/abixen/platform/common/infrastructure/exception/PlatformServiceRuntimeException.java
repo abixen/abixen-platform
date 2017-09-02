@@ -12,27 +12,23 @@
  * details.
  */
 
-package com.abixen.platform.common.security;
+package com.abixen.platform.common.infrastructure.exception;
 
+public class PlatformServiceRuntimeException extends PlatformRuntimeException {
 
-import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+    public PlatformServiceRuntimeException() {
+        super();
+    }
 
+    public PlatformServiceRuntimeException(String s) {
+        super(s);
+    }
 
-@JsonSerialize(as = PlatformWebUser.class)
-public interface PlatformWebUser {
+    public PlatformServiceRuntimeException(String s, Throwable throwable) {
+        super(s, throwable);
+    }
 
-    Long getId();
-
-    String getUsername();
-
-    String getFirstname();
-
-    String getLastname();
-
-    boolean isAdmin();
-
-    UserLanguage getSelectedLanguage();
-
-    String getAvatarFileName();
+    public PlatformServiceRuntimeException(Throwable throwable) {
+        super(throwable);
+    }
 }

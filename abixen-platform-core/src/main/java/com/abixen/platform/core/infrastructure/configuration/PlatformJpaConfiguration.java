@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.infrastructure.configuration;
 
-import com.abixen.platform.common.configuration.AbstractJpaConfiguration;
-import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
+import com.abixen.platform.common.infrastructure.configuration.AbstractJpaConfiguration;
+import com.abixen.platform.common.infrastructure.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import com.abixen.platform.core.infrastructure.security.PlatformAuditorAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

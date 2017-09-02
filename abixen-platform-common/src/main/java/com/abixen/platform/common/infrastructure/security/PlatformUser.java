@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.security;
+package com.abixen.platform.common.infrastructure.security;
 
 import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import org.springframework.security.core.GrantedAuthority;

@@ -27,8 +27,8 @@ import org.springframework.context.annotation.Profile;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.abixen.platform.common.util.PlatformProfiles.DOCKER;
-import static com.abixen.platform.common.util.PlatformProfiles.DEV;
+import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DOCKER;
+import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DEV;
 
 
 @Profile({DEV, DOCKER})

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database;
 
-import com.abixen.platform.common.util.ModelKeys;
+import com.abixen.platform.common.infrastructure.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.converter.ConnectionPasswordConverter;
 import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;

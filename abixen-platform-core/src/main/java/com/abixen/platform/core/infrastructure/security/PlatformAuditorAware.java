@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.infrastructure.security;
 
-import com.abixen.platform.common.security.PlatformUser;
+import com.abixen.platform.common.infrastructure.security.PlatformUser;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.application.service.SecurityService;
 import com.abixen.platform.core.domain.service.UserService;

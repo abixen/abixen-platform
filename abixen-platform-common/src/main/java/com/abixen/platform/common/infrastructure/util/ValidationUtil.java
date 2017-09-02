@@ -12,23 +12,23 @@
  * details.
  */
 
-package com.abixen.platform.common.exception;
+package com.abixen.platform.common.infrastructure.util;
 
-public class PlatformServiceRuntimeException extends PlatformRuntimeException {
+import com.abixen.platform.common.application.dto.FormErrorDto;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
-    public PlatformServiceRuntimeException() {
-        super();
-    }
+import java.util.ArrayList;
+import java.util.List;
 
-    public PlatformServiceRuntimeException(String s) {
-        super(s);
-    }
 
-    public PlatformServiceRuntimeException(String s, Throwable throwable) {
-        super(s, throwable);
-    }
+public class ValidationUtil {
 
-    public PlatformServiceRuntimeException(Throwable throwable) {
-        super(throwable);
+    public static List<FormErrorDto> extractFormErrors(BindingResult result) {
+        List<FormErrorDto> formErrors = new ArrayList<>();
+        for (FieldError fieldError : result.getFieldErrors()) {
+            formErrors.add(new FormErrorDto(fieldError));
+        }
+        return formErrors;
     }
 }

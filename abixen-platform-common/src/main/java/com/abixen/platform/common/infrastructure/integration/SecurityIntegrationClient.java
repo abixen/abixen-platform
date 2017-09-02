@@ -12,9 +12,9 @@
  * details.
  */
 
-package com.abixen.platform.common.integration;
+package com.abixen.platform.common.infrastructure.integration;
 
-import com.abixen.platform.common.client.SecurityClient;
+import com.abixen.platform.common.interfaces.client.SecurityClient;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;

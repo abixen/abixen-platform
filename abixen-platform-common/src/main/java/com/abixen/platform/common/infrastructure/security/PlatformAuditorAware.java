@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.security;
+package com.abixen.platform.common.infrastructure.security;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

@@ -12,9 +12,9 @@
  * details.
  */
 
-package com.abixen.platform.common.security;
+package com.abixen.platform.common.infrastructure.security;
 
-import com.abixen.platform.common.integration.SecurityIntegrationClient;
+import com.abixen.platform.common.infrastructure.integration.SecurityIntegrationClient;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.NotImplementedException;

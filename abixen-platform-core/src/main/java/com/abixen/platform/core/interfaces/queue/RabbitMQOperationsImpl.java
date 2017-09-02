@@ -22,8 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import static com.abixen.platform.common.util.PlatformProfiles.DOCKER;
-import static com.abixen.platform.common.util.PlatformProfiles.DEV;
+import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DOCKER;
+import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DEV;
 
 
 @Profile({DEV, DOCKER})

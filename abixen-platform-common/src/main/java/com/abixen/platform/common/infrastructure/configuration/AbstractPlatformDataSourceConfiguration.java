@@ -12,14 +12,13 @@
  * details.
  */
 
-package com.abixen.platform.common.configuration;
+package com.abixen.platform.common.infrastructure.configuration;
 
-import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
+import com.abixen.platform.common.infrastructure.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseDataSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 

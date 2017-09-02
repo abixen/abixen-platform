@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.configuration;
+package com.abixen.platform.common.infrastructure.configuration;
 
 
 import liquibase.integration.spring.SpringLiquibase;

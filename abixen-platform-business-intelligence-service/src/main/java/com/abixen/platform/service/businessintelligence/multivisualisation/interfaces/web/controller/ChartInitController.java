@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.inte
 
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
-import com.abixen.platform.common.security.PlatformWebUser;
+import com.abixen.platform.common.infrastructure.security.PlatformWebUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;

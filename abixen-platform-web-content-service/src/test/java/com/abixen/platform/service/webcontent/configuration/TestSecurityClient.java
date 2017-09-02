@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.configuration;
 
-import com.abixen.platform.common.client.SecurityClient;
+import com.abixen.platform.common.interfaces.client.SecurityClient;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;

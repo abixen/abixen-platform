@@ -12,10 +12,10 @@
  * details.
  */
 
-package com.abixen.platform.common.integration;
+package com.abixen.platform.common.infrastructure.integration;
 
 import com.abixen.platform.common.application.dto.SimpleUserDto;
-import com.abixen.platform.common.client.UserClient;
+import com.abixen.platform.common.interfaces.client.UserClient;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

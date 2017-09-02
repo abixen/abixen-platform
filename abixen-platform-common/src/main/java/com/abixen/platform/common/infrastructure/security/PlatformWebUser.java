@@ -12,12 +12,27 @@
  * details.
  */
 
-package com.abixen.platform.common.util;
+package com.abixen.platform.common.infrastructure.security;
 
 
-public final class PlatformProfiles {
+import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-    public static final String DEV = "dev";
 
-    public static final String DOCKER = "docker";
+@JsonSerialize(as = PlatformWebUser.class)
+public interface PlatformWebUser {
+
+    Long getId();
+
+    String getUsername();
+
+    String getFirstname();
+
+    String getLastname();
+
+    boolean isAdmin();
+
+    UserLanguage getSelectedLanguage();
+
+    String getAvatarFileName();
 }
