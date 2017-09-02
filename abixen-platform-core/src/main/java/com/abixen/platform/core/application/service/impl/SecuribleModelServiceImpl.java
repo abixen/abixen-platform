@@ -14,21 +14,21 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
-import com.abixen.platform.core.domain.model.SecurableModel;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
+import com.abixen.platform.core.application.service.SecuribleModelService;
+import com.abixen.platform.core.domain.model.SecurableModel;
 import com.abixen.platform.core.domain.repository.LayoutRepository;
 import com.abixen.platform.core.domain.repository.ModuleRepository;
 import com.abixen.platform.core.domain.repository.PageRepository;
-import com.abixen.platform.core.application.service.SecuribleModelService;
+import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
-@Service
 @Transactional
+@PlatformApplicationService
 public class SecuribleModelServiceImpl implements SecuribleModelService {
 
     private final ModuleRepository moduleRepository;

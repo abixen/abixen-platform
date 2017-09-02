@@ -14,8 +14,9 @@
 
 package com.abixen.platform.core.application.service.impl;
 
-import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformMailConfigurationProperties;
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.core.application.service.MailService;
+import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformMailConfigurationProperties;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
@@ -23,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.context.ServletContextAware;
 
@@ -37,7 +37,7 @@ import java.io.File;
 import java.util.Map;
 
 @Slf4j
-@Service
+@PlatformApplicationService
 public class MailServiceImpl implements MailService, ServletContextAware {
 
     //FIXME - unused?

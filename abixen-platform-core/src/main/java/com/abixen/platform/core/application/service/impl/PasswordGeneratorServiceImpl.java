@@ -14,14 +14,14 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.core.application.service.PasswordGeneratorService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 @Slf4j
-@Service
+@PlatformApplicationService
 public class PasswordGeneratorServiceImpl implements PasswordGeneratorService {
 
     private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

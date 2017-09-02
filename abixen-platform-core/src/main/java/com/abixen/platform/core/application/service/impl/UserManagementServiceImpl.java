@@ -15,7 +15,9 @@
 package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.common.infrastructure.security.PlatformUser;
+import com.abixen.platform.core.application.converter.RoleToRoleDtoConverter;
 import com.abixen.platform.core.application.converter.UserToUserDtoConverter;
 import com.abixen.platform.core.application.dto.RoleDto;
 import com.abixen.platform.core.application.dto.UserDto;
@@ -27,14 +29,13 @@ import com.abixen.platform.core.application.form.UserSearchForm;
 import com.abixen.platform.core.application.service.MailService;
 import com.abixen.platform.core.application.service.SecurityService;
 import com.abixen.platform.core.application.service.UserManagementService;
-import com.abixen.platform.core.domain.service.UserService;
 import com.abixen.platform.core.application.util.IpAddressUtil;
 import com.abixen.platform.core.domain.model.Role;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.model.UserBuilder;
 import com.abixen.platform.core.domain.service.RoleService;
+import com.abixen.platform.core.domain.service.UserService;
 import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
-import com.abixen.platform.core.application.converter.RoleToRoleDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.LocaleUtils;
@@ -50,7 +51,6 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -69,7 +69,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformApplicationService
 public class UserManagementServiceImpl implements UserManagementService {
 
     private final UserService userService;

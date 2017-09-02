@@ -16,6 +16,7 @@ package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.common.infrastructure.security.PlatformUser;
 import com.abixen.platform.core.application.converter.LayoutToLayoutDtoConverter;
 import com.abixen.platform.core.application.dto.LayoutDto;
@@ -37,7 +38,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -48,7 +48,7 @@ import java.util.List;
 
 
 @Slf4j
-@Service
+@PlatformApplicationService
 public class LayoutManagementImplService implements LayoutManagementService {
 
     private final SecurityService securityService;

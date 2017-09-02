@@ -64,4 +64,5 @@ class UserBuilderTest extends Specification {
         user.state == UserState.CREATED
         user.avatarFileName == null
     }
+
 }

@@ -12,18 +12,17 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.infrastructure.configuration;
+package com.abixen.platform.common.infrastructure.annotation;
 
+import org.springframework.stereotype.Service;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class PlatformModulesPackages {
-
-
-    public static final String COMMON = "com.abixen.platform.common";
-
-    public static final String CLIENT = COMMON + ".interfaces.client";
-
+@Service
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE})
+public @interface PlatformApplicationService {
 }

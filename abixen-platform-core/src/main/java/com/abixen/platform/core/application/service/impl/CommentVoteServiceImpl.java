@@ -14,6 +14,8 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
+import com.abixen.platform.core.application.converter.CommentVoteToCommentVoteDtoConverter;
 import com.abixen.platform.core.application.dto.CommentVoteDto;
 import com.abixen.platform.core.application.form.CommentVoteForm;
 import com.abixen.platform.core.application.service.CommentVoteService;
@@ -21,10 +23,8 @@ import com.abixen.platform.core.domain.model.CommentVote;
 import com.abixen.platform.core.domain.model.CommentVoteBuilder;
 import com.abixen.platform.core.domain.repository.CommentRepository;
 import com.abixen.platform.core.domain.repository.CommentVoteRepository;
-import com.abixen.platform.core.application.converter.CommentVoteToCommentVoteDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformApplicationService
 public class CommentVoteServiceImpl implements CommentVoteService {
 
     private final CommentVoteRepository commentVoteRepository;

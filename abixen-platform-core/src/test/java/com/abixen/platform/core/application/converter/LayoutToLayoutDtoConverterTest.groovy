@@ -52,16 +52,21 @@ class LayoutToLayoutDtoConverterTest extends Specification {
                 .content(htmlContent)
                 .iconFileName("iconFileName")
                 .build()
+        layout.id = 1L
 
         when:
         final LayoutDto layoutDto = layoutToLayoutDtoConverter.convert(layout)
 
         then:
         layoutDto != null
+        layoutDto.id == layoutDto.id
         layoutDto.title == layout.title
         layoutDto.content == layout.content
         layoutDto.iconFileName == layout.iconFileName
         layoutDto.contentAsJson == jsonContent
+
+        1 * auditingModelToAuditingDtoConverter.convert(_, _)
+        0 * _
 
         where:
         contentType | htmlContent          || jsonContent

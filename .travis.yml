@@ -17,6 +17,7 @@ branches:
   - master
   - v-1-0-wave-2-refactor
   - model-simplification
+  - tests
 
 script:
   - ./travis/script/build.sh

@@ -16,6 +16,7 @@ package com.abixen.platform.core.application.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.core.application.converter.ModuleTypeToModuleTypeDtoConverter;
 import com.abixen.platform.core.application.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.DashboardDto;
@@ -36,7 +37,6 @@ import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ import java.util.List;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformApplicationService
 public class DashboardServiceImpl implements DashboardService {
 
     private final PageService pageService;

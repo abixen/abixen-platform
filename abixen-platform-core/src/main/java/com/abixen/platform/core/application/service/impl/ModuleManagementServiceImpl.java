@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.application.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.common.infrastructure.security.PlatformUser;
 import com.abixen.platform.core.application.converter.ModuleToModuleDtoConverter;
 import com.abixen.platform.core.application.dto.ModuleDto;
@@ -28,10 +29,9 @@ import com.abixen.platform.core.domain.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 @Slf4j
-@Service
+@PlatformApplicationService
 public class ModuleManagementServiceImpl implements ModuleManagementService {
 
     private final SecurityService securityService;

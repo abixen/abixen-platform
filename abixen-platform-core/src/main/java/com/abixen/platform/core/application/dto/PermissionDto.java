@@ -33,6 +33,7 @@ public class PermissionDto {
     private PermissionName permissionName;
     private String title;
     private String description;
+    //FIXME - use Dto
     private PermissionAclClassCategory permissionAclClassCategory;
     private PermissionGeneralCategory permissionGeneralCategory;
 }

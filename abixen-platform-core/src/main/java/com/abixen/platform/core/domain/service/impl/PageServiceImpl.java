@@ -15,18 +15,18 @@
 package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.application.form.PageSearchForm;
-import com.abixen.platform.core.domain.service.AclService;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.repository.PageRepository;
+import com.abixen.platform.core.domain.service.AclService;
 import com.abixen.platform.core.domain.service.ModuleService;
 import com.abixen.platform.core.domain.service.PageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ import java.util.List;
 
 @Slf4j
 @Transactional
-@Service
+@PlatformDomainService
 public class PageServiceImpl implements PageService {
 
     private final AclService aclService;
