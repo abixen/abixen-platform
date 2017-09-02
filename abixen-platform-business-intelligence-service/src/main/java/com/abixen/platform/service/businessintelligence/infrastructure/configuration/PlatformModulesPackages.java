@@ -24,6 +24,6 @@ public class PlatformModulesPackages {
 
     public static final String COMMON = "com.abixen.platform.common";
 
-    public static final String CLIENT = COMMON + ".client";
+    public static final String CLIENT = COMMON + ".interfaces.client";
 
 }
