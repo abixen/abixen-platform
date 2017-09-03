@@ -33,7 +33,7 @@ public interface DataFileManagementService {
 
     Page<DataFileDto> findDataFile(final String jsonCriteria, final Pageable pageable);
 
-    Page<DataFileDto> findAllDataFile(final Pageable pageable);
+    Page<DataFileDto> findAllDataFiles(final Pageable pageable);
 
     DataFileDto createDataFile(final DataFileForm dataFileForm);
 
@@ -41,7 +41,7 @@ public interface DataFileManagementService {
 
     void deleteDataFile(final Long id);
 
-    List<DataSourceColumnDto> findDataFileColumns(final Long dataFileId);
+    List<DataSourceColumnDto> findAllDataFileColumns(final Long dataFileId);
 
     List<Map<String, Integer>> findAllColumns(final Long dataFileId);
 

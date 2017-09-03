@@ -47,7 +47,7 @@ import java.util.List;
 @RequestMapping(value = "/api/service/abixen/business-intelligence/control-panel/multi-visualisation/file-data")
 public class DataFileController {
 
-    public static final int DEFAULT_PAGE_SIZE = 20;
+    private static final int DEFAULT_PAGE_SIZE = 20;
     private final DataFileManagementService dataFileManagementService;
 
     @Autowired
@@ -56,22 +56,24 @@ public class DataFileController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<DataFileDto> findDataFile(@PageableDefault(size = DEFAULT_PAGE_SIZE, page = 0) Pageable pageable) {
-        log.debug("getDatabaseDataSources()");
+    public Page<DataFileDto> findAllDataFile(@PageableDefault(size = DEFAULT_PAGE_SIZE, page = 0) Pageable pageable) {
+        log.debug("findAllDataFile() - pageable: {}", pageable);
 
-        Page<DataFileDto> dataSources = dataFileManagementService.findAllDataFile(pageable);
+        final Page<DataFileDto> dataSources = dataFileManagementService.findAllDataFiles(pageable);
 
         return dataSources;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public DataFileDto findDataFile(@PathVariable Long id) {
+        log.debug("findDataFile() - id: {}", id);
+
         return dataFileManagementService.findDataFile(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createDataFile(@RequestBody @Valid DataFileForm fileDataForm, BindingResult bindingResult) {
-        log.debug("createChartConfiguration() - fileDataSourceForm: " + fileDataForm);
+        log.debug("createDataFile() - fileDataForm: {}, bindingResult: {}", fileDataForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -85,7 +87,7 @@ public class DataFileController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateDataFile(@PathVariable("id") Long id, @RequestBody @Valid DataFileForm dataFileForm, BindingResult bindingResult) {
-        log.debug("updateChartConfiguration() - id: " + id + ", fileDataSourceForm: " + dataFileForm);
+        log.debug("updateDataFile() - id: {}, dataFileForm: {}, bindingResult: {}", id, dataFileForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -98,19 +100,22 @@ public class DataFileController {
     }
 
     @RequestMapping(value = "/{id}/columns", method = RequestMethod.GET)
-    public List<DataSourceColumnDto> getTableColumns(@PathVariable("id") Long id) {
-        log.debug("getTableColumns()");
-        return dataFileManagementService.findDataFileColumns(id);
+    public List<DataSourceColumnDto> findTableColumns(@PathVariable("id") Long id) {
+        log.debug("findTableColumns() - id: {}", id);
+
+        return dataFileManagementService.findAllDataFileColumns(id);
     }
 
     @RequestMapping(value = "/parse/{readFirstColumnAsColumnName}", method = RequestMethod.POST)
     public FileParserMessage<DataFileColumnDto> uploadAndParseFile(@PathVariable("readFirstColumnAsColumnName") Boolean readFirstColumnAsColumnName, @RequestParam("file") MultipartFile uploadedFile) {
+        log.debug("uploadAndParseFile() - readFirstColumnAsColumnName: {}, uploadedFile: {}", readFirstColumnAsColumnName, uploadedFile);
+
         return dataFileManagementService.parse(uploadedFile, readFirstColumnAsColumnName);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteFileData(@PathVariable("id") long id) {
-        log.debug("deleteChartConfiguration() - id: " + id);
+        log.debug("deleteFileData() - id: {}", id);
 
         dataFileManagementService.deleteDataFile(id);
 

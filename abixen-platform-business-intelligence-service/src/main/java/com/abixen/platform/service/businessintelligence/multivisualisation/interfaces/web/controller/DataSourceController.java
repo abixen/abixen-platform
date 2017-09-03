@@ -54,16 +54,22 @@ public class DataSourceController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<DataSourceDto> findAllDataSources(@RequestParam(value = "dataSourceType", required = false) DataSourceType dataSourceType, @PageableDefault(size = 1, page = 0) Pageable pageable) {
+        log.debug("findAllDataSources() - dataSourceType:{}, pageable: {}", dataSourceType, pageable);
+
         return dataSourceManagementService.findAllDataSource(pageable, dataSourceType);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public DataSourceDto findDataSource(@PathVariable Long id) {
+        log.debug("findDataSource() - id: {}", id);
+
         return dataSourceManagementService.findDataSource(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createDataSource(@RequestBody @Valid DataSourceForm dataSourceForm, BindingResult bindingResult) {
+        log.debug("createDataSource() - dataSourceForm: {}, bindingResult: {}", dataSourceForm, bindingResult);
+
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(dataSourceForm, formErrors);
@@ -75,6 +81,8 @@ public class DataSourceController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateDataSource(@PathVariable("id") Long id, @RequestBody @Valid DataSourceForm dataSourceForm, BindingResult bindingResult) {
+        log.debug("updateDataSource() - dataSourceForm: {}, bindingResult: {}", dataSourceForm, bindingResult);
+
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(dataSourceForm, formErrors);
@@ -93,14 +101,18 @@ public class DataSourceController {
     }
 
     @RequestMapping(value = "/preview", method = RequestMethod.POST)
-    public  List<Map<String, DataValueDto>> getPreviewData(@RequestBody @Valid DataSourceForm dataSourceForm) {
+    public  List<Map<String, DataValueDto>> findPreviewData(@RequestBody @Valid DataSourceForm dataSourceForm) {
+        log.debug("findPreviewData() - dataSourceForm: {}", dataSourceForm);
+
         return dataSourceManagementService.findPreviewData(dataSourceForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteDataSource(@PathVariable("id") long id) {
-        log.debug("deleteChartConfiguration() - id: " + id);
+        log.debug("deleteDataSource() - id: {}", id);
+
         dataSourceManagementService.deleteDataSource(id);
+
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 }

@@ -74,7 +74,7 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
 
     @Override
     public DataSourceDto findDataSource(final Long id) {
-        log.debug("DataSourceManagementService - findDataSource() - id: {}", id);
+        log.debug("findDataSource() - id: {}", id);
 
         final DataSource dataSource = dataSourceService.find(id);
 
@@ -83,7 +83,7 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
 
     @Override
     public Page<DataSourceDto> findAllDataSource(final Pageable pageable, final DataSourceType dataSourceType) {
-        log.debug("DataSourceManagementService - findAllDataSource() - pageable: {}, dataSourceType: {}", pageable, dataSourceType);
+        log.debug("findAllDataSource() - pageable: {}, dataSourceType: {}", pageable, dataSourceType);
 
         final Page<DataSource> dataSources = dataSourceService.findAll(pageable, dataSourceType);
 
@@ -92,7 +92,7 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
 
     @Override
     public DataSourceDto createDataSource(final DataSourceForm dataSourceForm) {
-        log.debug("DataSourceManagementService - createDataSource() - dataSourceForm: {}", dataSourceForm);
+        log.debug("createDataSource() - dataSourceForm: {}", dataSourceForm);
 
         final DataSource dataSource = dataSourceService.create(buildDataSource(dataSourceForm));
 
@@ -101,7 +101,7 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
 
     @Override
     public DataSourceDto updateDataSource(final DataSourceForm dataSourceForm) {
-        log.debug("DataSourceManagementService - updateDataSource() - dataSourceForm: {}", dataSourceForm);
+        log.debug("updateDataSource() - dataSourceForm: {}", dataSourceForm);
 
         final DataSource dataSource = dataSourceService.find(dataSourceForm.getId());
         final DataSource updatedDataSource = dataSourceService.update(buildUpdateDataSource(dataSource, dataSourceForm));
@@ -111,14 +111,14 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
 
     @Override
     public void deleteDataSource(final Long id) {
-        log.debug("DataSourceManagementService - deleteDataSource() - id: {}", id);
+        log.debug("deleteDataSource() - id: {}", id);
 
         dataSourceService.delete(id);
     }
 
     @Override
     public List<Map<String, Integer>> findAllColumnsInDataSource(final Long dataSourceId) {
-        log.debug("DataSourceManagementService - findAllColumnsInDataSource() - dataSourceId: {}", dataSourceId);
+        log.debug("findAllColumnsInDataSource() - dataSourceId: {}", dataSourceId);
 
         final List<Map<String, Integer>> result = new ArrayList<>();
         dataSourceService.find(dataSourceId)
@@ -129,7 +129,7 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
 
     @Override
     public List<Map<String, DataValueDto>> findPreviewData(final DataSourceForm dataSourceForm) {
-        log.debug("DataSourceManagementService - findPreviewData() - dataSourceForm: {}", dataSourceForm);
+        log.debug("findPreviewData() - dataSourceForm: {}", dataSourceForm);
 
         final DatabaseConnectionDto databaseConnection = ((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection();
         final DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());

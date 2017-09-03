@@ -33,7 +33,7 @@ public class ChartInitController {
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public PlatformWebUser init(@PathVariable Long id) {
-        log.debug("init() - id:" + id);
+        log.debug("init() - id: {}", id);
 
         return (PlatformWebUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }

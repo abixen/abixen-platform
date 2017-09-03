@@ -53,19 +53,21 @@ public class DatabaseConnectionController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<DatabaseConnectionDto> findAllDatabaseConnections(@PageableDefault(size = 1, page = 0) Pageable pageable) {
-        log.debug("DatabaseConnectionController - findAllDatabaseConnections() - pageable: {}", pageable);
-        return databaseConnectionManagementService.findAllDatabaseConnection(pageable);
+        log.debug("findAllDatabaseConnections() - pageable: {}", pageable);
+
+        return databaseConnectionManagementService.findAllDatabaseConnections(pageable);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public DatabaseConnectionDto findDatabaseConnection(@PathVariable Long id) {
-        log.debug("DatabaseConnectionController - findDatabaseConnection() - id: {}", id);
+        log.debug("findDatabaseConnection() - id: {}", id);
+
         return databaseConnectionManagementService.findDatabaseConnection(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
-        log.debug("DatabaseConnectionController - createDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
+        log.debug("createDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -79,7 +81,7 @@ public class DatabaseConnectionController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateDatabaseConnection(@PathVariable("id") Long id, @RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
-        log.debug("DatabaseConnectionController - updateDatabaseConnection() - id: {}, databaseConnectionForm: {}", id, databaseConnectionForm);
+        log.debug("updateDatabaseConnection() - id: {}, databaseConnectionForm: {}", id, databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -93,7 +95,8 @@ public class DatabaseConnectionController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteDatabaseConnection(@PathVariable("id") long id) {
-        log.debug("DatabaseConnectionController - deleteDatabaseConnection() - id: {}", id);
+        log.debug("deleteDatabaseConnection() - id: {}", id);
+
         databaseConnectionManagementService.deleteDatabaseConnection(id);
 
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
@@ -101,7 +104,7 @@ public class DatabaseConnectionController {
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     public FormValidationResultDto testDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
-        log.debug("DatabaseConnectionController - testDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
+        log.debug("testDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -114,14 +117,16 @@ public class DatabaseConnectionController {
     }
 
     @RequestMapping(value = "/{id}/tables", method = RequestMethod.GET)
-    public List<String> getTables(@PathVariable("id") Long id) {
-        log.debug("DatabaseConnectionController - getTables() - id: {}", id);
+    public List<String> findTables(@PathVariable("id") Long id) {
+        log.debug("findTables() - id: {}", id);
+
         return databaseConnectionManagementService.findTablesInDatabase(id);
     }
 
     @RequestMapping(value = "/{id}/tables/{tableName}/columns", method = RequestMethod.GET)
-    public List<DataSourceColumnDto> getTableColumns(@PathVariable("id") Long id, @PathVariable("tableName") String tableName) {
-        log.debug("DatabaseConnectionController - getTableColumns() - id: {}, table: {}", id, tableName);
+    public List<DataSourceColumnDto> findTableColumns(@PathVariable("id") Long id, @PathVariable("tableName") String tableName) {
+        log.debug("findTableColumns() - id: {}, table: {}", id, tableName);
+
         return databaseConnectionManagementService.findTableColumnsFromDatabase(id, tableName);
     }
 
