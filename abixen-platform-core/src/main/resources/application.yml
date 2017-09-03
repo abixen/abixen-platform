@@ -1,3 +1,6 @@
+platform:
+  core:
+    version: @project.version@
 spring:
   application:
     name: abixen-platform-core
