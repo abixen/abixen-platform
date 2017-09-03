@@ -134,7 +134,7 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
         final DatabaseConnectionDto databaseConnection = ((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection();
         final DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         final Connection connection = databaseService.getConnection(databaseConnection);
-        final List<Map<String, DataValueDto>> dataSourcePreviewData = databaseService.getDataSourcePreview(connection, buildDataSource(dataSourceForm));
+        final List<Map<String, DataValueDto>> dataSourcePreviewData = databaseService.findDataSourcePreview(connection, buildDataSource(dataSourceForm));
 
         return dataSourcePreviewData;
     }

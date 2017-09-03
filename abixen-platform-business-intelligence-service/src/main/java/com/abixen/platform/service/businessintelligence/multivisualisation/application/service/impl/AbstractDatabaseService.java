@@ -65,7 +65,7 @@ public abstract class AbstractDatabaseService {
     @Autowired
     private JsonFilterService jsonFilterService;
 
-    public List<DataSourceColumn> getColumns(Connection connection, String tableName) {
+    public List<DataSourceColumn> findColumns(Connection connection, String tableName) {
 
         List<DataSourceColumn> columns = new ArrayList<>();
 
@@ -105,7 +105,7 @@ public abstract class AbstractDatabaseService {
         return rs.getMetaData();
     }
 
-    public List<String> getTables(Connection connection) {
+    public List<String> findTables(Connection connection) {
 
         final int objectTypeIndex = 4;
         final int objectNameIndex = 3;
@@ -138,10 +138,10 @@ public abstract class AbstractDatabaseService {
         return true;
     }
 
-    public List<Map<String, DataValueDto>> getChartData(Connection connection,
-                                                        DataSource dataSource,
-                                                        ChartConfigurationForm chartConfigurationForm,
-                                                        String seriesName) {
+    public List<Map<String, DataValueDto>> findChartData(Connection connection,
+                                                         DataSource dataSource,
+                                                         ChartConfigurationForm chartConfigurationForm,
+                                                         String seriesName) {
         return seriesName != null ? getChartDataPreview(connection, (DatabaseDataSource) dataSource, chartConfigurationForm, seriesName)
                 : getChartData(connection, (DatabaseDataSource) dataSource, chartConfigurationForm);
     }
@@ -188,7 +188,7 @@ public abstract class AbstractDatabaseService {
         return getData(connection, databaseDataSource, chartColumnsSet, chartConfigurationForm, chartLimit);
     }
 
-    public List<Map<String, DataValueDto>> getDataSourcePreview(Connection connection, DataSource dataSource) {
+    public List<Map<String, DataValueDto>> findDataSourcePreview(Connection connection, DataSource dataSource) {
         Set<String> dataSourceColumnsSet = new HashSet<>();
 
         dataSource.getColumns().forEach(column -> {

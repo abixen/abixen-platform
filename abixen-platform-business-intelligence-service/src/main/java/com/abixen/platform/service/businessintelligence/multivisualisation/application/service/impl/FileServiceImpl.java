@@ -42,7 +42,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<Map<String, DataValueDto>> getChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
+    public List<Map<String, DataValueDto>> findChartData(FileDataSource fileDataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
         return seriesName != null ? getChartDataPreview(fileDataSource, chartConfigurationForm, seriesName)
                 : getChartData(fileDataSource, chartConfigurationForm);
     }

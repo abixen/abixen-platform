@@ -23,6 +23,6 @@ import java.util.List;
 
 public interface ChartDataService {
 
-    List<Map<String, DataValueDto>> getChartData(ChartConfigurationForm chartConfigurationForm, String seriesName);
+    List<Map<String, DataValueDto>> findChartData(final ChartConfigurationForm chartConfigurationForm, final String seriesName);
 
 }
