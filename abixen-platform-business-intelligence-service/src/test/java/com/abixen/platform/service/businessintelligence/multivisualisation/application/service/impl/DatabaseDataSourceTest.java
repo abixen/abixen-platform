@@ -80,7 +80,7 @@ public class DatabaseDataSourceTest {
 
         Connection connection = databaseService.getConnection(databaseConnection);
 
-        List<String> tables = databaseService.getTables(connection);
+        List<String> tables = databaseService.findTables(connection);
 
         tables.forEach(log::debug);
 

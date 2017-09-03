@@ -70,7 +70,7 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
 
     @Override
     public DataFileDto findDataFile(final Long id) {
-        log.debug("DataFileManagementService = findDataFile() - id: {}", id);
+        log.debug("findDataFile() - id: {}", id);
 
         final DataFile dataFile = dataFileService.find(id);
 
@@ -79,7 +79,7 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
 
     @Override
     public Page<DataFileDto> findDataFile(final String jsonCriteria, final Pageable pageable) {
-        log.debug("DataFileManagementService = findDataFile() - jsonCriteria: {}, pageable: {}", jsonCriteria, pageable);
+        log.debug("findDataFile() - jsonCriteria: {}, pageable: {}", jsonCriteria, pageable);
 
         final Page<DataFile> dataFiles = dataFileService.findAll(pageable);
 
@@ -87,26 +87,26 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
     }
 
     @Override
-    public Page<DataFileDto> findAllDataFile(final Pageable pageable) {
-        log.debug("DataFileManagementService = findDataFile() - pageable: {}", pageable);
+    public Page<DataFileDto> findAllDataFiles(final Pageable pageable) {
+        log.debug("findAllDataFiles() - pageable: {}", pageable);
 
-        Page<DataFile> dataFiles = dataFileService.findAll(pageable);
+        final Page<DataFile> dataFiles = dataFileService.findAll(pageable);
 
         return dataFileToDataFileDtoConverter.convertToPage(dataFiles);
     }
 
     @Override
     public DataFileDto createDataFile(final DataFileForm dataFileForm) {
-        log.debug("DataFileManagementService = createDataFile() - dataFileForm: {}", dataFileForm);
+        log.debug("createDataFile() - dataFileForm: {}", dataFileForm);
 
-        DataFile dataFile = dataFileService.create(build(dataFileForm));
+        final DataFile dataFile = dataFileService.create(build(dataFileForm));
 
         return dataFileToDataFileDtoConverter.convert(dataFile);
     }
 
     @Override
     public DataFileDto updateDataFile(final DataFileForm dataFileForm) {
-        log.debug("DataFileManagementService = updateDataFile() - dataFileForm: {}", dataFileForm);
+        log.debug("updateDataFile() - dataFileForm: {}", dataFileForm);
 
         final DataFile dataFile = dataFileService.find(dataFileForm.getId());
         dataFile.changeDetails(dataFileForm.getName(), dataFileForm.getDescription());
@@ -134,14 +134,14 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
 
     @Override
     public void deleteDataFile(final Long id) {
-        log.debug("DataFileManagementService = deleteDataFile() - id: {}", id);
+        log.debug("deleteDataFile() - id: {}", id);
 
         dataFileService.delete(id);
     }
 
     @Override
-    public List<DataSourceColumnDto> findDataFileColumns(final Long dataFileId) {
-        log.debug("DataFileManagementService = findDataFileColumns() - dataFileId: {}", dataFileId);
+    public List<DataSourceColumnDto> findAllDataFileColumns(final Long dataFileId) {
+        log.debug("findAllDataFileColumns() - dataFileId: {}", dataFileId);
 
         final List<DataSourceColumn> result = new ArrayList<>();
         final DataFile dataFile = dataFileService.find(dataFileId);
@@ -157,7 +157,7 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
 
     @Override
     public List<Map<String, Integer>> findAllColumns(final Long dataFileId) {
-        log.debug("DataFileManagementService = findAllColumns() - dataFileId: {}", dataFileId);
+        log.debug("findAllColumns() - dataFileId: {}", dataFileId);
 
         final List<Map<String, Integer>> result = new ArrayList<>();
         final DataFile dataFile = dataFileService.find(dataFileId);
@@ -175,13 +175,13 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
 
     @Override
     public FileParserMessage<DataFileColumnDto> parse(final MultipartFile multipartFile, final Boolean readFirstColumnAsColumnName) {
-        log.debug("DataFileManagementService = parse() - multipartFile: {}, readFirstColumnAsColumnName: {}", multipartFile, readFirstColumnAsColumnName);
+        log.debug("parse() - multipartFile: {}, readFirstColumnAsColumnName: {}", multipartFile, readFirstColumnAsColumnName);
 
         final String fileName = multipartFile.getOriginalFilename();
         final FileDataParserService fileDataParserService = fileParserFactory.getParse(fileName.substring(fileName.lastIndexOf(".")));
         final FileParserMessage<DataFileColumn> result = fileDataParserService.parse(multipartFile, readFirstColumnAsColumnName);
 
-        return new FileParserMessage<>(dataFileColumnToDataFileColumnDtoConverter.convertToList(result.getData()), result.getFileParseErrors());
+        return new FileParserMessage(dataFileColumnToDataFileColumnDtoConverter.convertToList(result.getData()), result.getFileParseErrors());
     }
 
     public DataFile build(final DataFileForm dataFileForm) {

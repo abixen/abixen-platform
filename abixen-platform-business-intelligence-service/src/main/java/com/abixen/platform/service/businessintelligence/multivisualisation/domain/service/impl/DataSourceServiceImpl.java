@@ -39,39 +39,39 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Override
     public DataSource find(final Long id) {
-        log.debug("DataSourceService - find() - id: {}", id);
+        log.debug("find() - id: {}", id);
 
         return dataSourceRepository.findOne(id);
     }
 
     @Override
     public Page<DataSource> findAll(final Pageable pageable, final DataSourceType dataSourceType) {
-        log.debug("DataSourceService - findAll() - pageable: {}, dataSourceType", pageable, dataSourceType);
+        log.debug("findAll() - pageable: {}, dataSourceType", pageable, dataSourceType);
 
-        if (dataSourceType != null) {
-            return dataSourceRepository.findByDataSourceType(dataSourceType, pageable);
-        } else {
+        if (dataSourceType == null) {
             return dataSourceRepository.findAll(pageable);
         }
+
+        return dataSourceRepository.findByDataSourceType(dataSourceType, pageable);
     }
 
     @Override
     public DataSource create(final DataSource dataSource) {
-        log.debug("DataSourceService - create() - dataSource {}", dataSource);
+        log.debug("create() - dataSource {}", dataSource);
 
         return dataSourceRepository.save(dataSource);
     }
 
     @Override
     public DataSource update(final DataSource dataSource) {
-        log.debug("DataSourceService - update() - dataSource {}", dataSource);
+        log.debug("update() - dataSource {}", dataSource);
 
         return dataSourceRepository.save(dataSource);
     }
 
     @Override
     public void delete(final Long id) {
-        log.debug("DataSourceService - delete() - id {}", id);
+        log.debug("delete() - id {}", id);
 
         dataSourceRepository.delete(id);
     }

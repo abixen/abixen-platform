@@ -58,17 +58,16 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
 
     @Override
     public DatabaseConnectionDto findDatabaseConnection(final Long id) {
-        log.debug("DatabaseConnectionManagementService - findDatabaseConnection() - id: {}", id);
+        log.debug("findDatabaseConnection() - id: {}", id);
 
         final DatabaseConnection databaseConnection = databaseConnectionService.find(id);
 
         return databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection);
-
     }
 
     @Override
-    public Page<DatabaseConnectionDto> findAllDatabaseConnection(final Pageable pageable) {
-        log.debug("DatabaseConnectionManagementService - findAllDatabaseConnection() - pageable: {}", pageable);
+    public Page<DatabaseConnectionDto> findAllDatabaseConnections(final Pageable pageable) {
+        log.debug("findAllDatabaseConnections() - pageable: {}", pageable);
 
         final Page<DatabaseConnection> databaseConnections = databaseConnectionService.findAll(pageable);
 
@@ -77,7 +76,7 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
 
     @Override
     public DatabaseConnectionDto createDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm) {
-        log.debug("DatabaseConnectionManagementService - createDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
+        log.debug("createDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
         final DatabaseConnection databaseConnection = databaseConnectionService.create(build(databaseConnectionForm));
 
@@ -86,7 +85,7 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
 
     @Override
     public DatabaseConnectionDto updateDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm) {
-        log.debug("DatabaseConnectionManagementService - updateDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
+        log.debug("updateDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
         final DatabaseConnection databaseConnection = databaseConnectionService.find(databaseConnectionForm.getId());
 
@@ -104,12 +103,13 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
 
     @Override
     public void deleteDatabaseConnection(final Long id) {
-        log.debug("DatabaseConnectionManagementService - deleteDatabaseConnection() - id: {}", id);
+        log.debug("deleteDatabaseConnection() - id: {}", id);
+
         databaseConnectionService.delete(id);
     }
 
     public DatabaseConnection build(final DatabaseConnectionForm databaseConnectionForm) {
-        log.debug("DatabaseConnectionManagementService - build() - databaseConnectionForm: {}", databaseConnectionForm);
+        log.debug("build() - databaseConnectionForm: {}", databaseConnectionForm);
 
         return new DatabaseConnectionBuilder()
                 .credentials(databaseConnectionForm.getUsername(), databaseConnectionForm.getPassword())
@@ -123,13 +123,13 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
 
     @Override
     public void testDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm) {
-        log.debug("DatabaseConnectionManagementService - testDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
+        log.debug("testDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
         databaseFactory.getDatabaseService(databaseConnectionForm.getDatabaseType()).getConnection(databaseConnectionForm);
     }
 
     @Override
     public List<String> findTablesInDatabase(final Long databaseConnectionId) {
-        log.debug("DatabaseConnectionManagementService - findTablesInDatabase() - databaseConnectionId: {}", databaseConnectionId);
+        log.debug("findTablesInDatabase() - databaseConnectionId: {}", databaseConnectionId);
 
         final DatabaseConnection databaseConnection = databaseConnectionService.find(databaseConnectionId);
         final DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
@@ -140,7 +140,7 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
 
     @Override
     public List<DataSourceColumnDto> findTableColumnsFromDatabase(final Long databaseConnectionId, final String table) {
-        log.debug("DatabaseConnectionManagementService - findTableColumnsFromDatabase() - databaseConnectionId: {}, table: {}", databaseConnectionId, table);
+        log.debug("findTableColumnsFromDatabase() - databaseConnectionId: {}, table: {}", databaseConnectionId, table);
 
         final DatabaseConnection databaseConnection = databaseConnectionService.find(databaseConnectionId);
         final DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());

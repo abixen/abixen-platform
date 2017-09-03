@@ -53,25 +53,21 @@ public class ChartModuleConfigurationController {
     @PreAuthorize("hasPermission(#moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "/{moduleId}", method = RequestMethod.GET)
     public ChartConfigurationForm findChartConfigurationForm(@PathVariable Long moduleId) {
-        log.debug("getChartConfigurationForm() - moduleId: " + moduleId);
+        log.debug("findChartConfigurationForm() - moduleId: {}", moduleId);
 
-        ChartConfigurationDto chartConfiguration = chartConfigurationManagementService.findChartConfiguration(moduleId);
-
-        ChartConfigurationForm chartConfigurationForm;
+        final ChartConfigurationDto chartConfiguration = chartConfigurationManagementService.findChartConfiguration(moduleId);
 
         if (chartConfiguration == null) {
             return null;
-        } else {
-            chartConfigurationForm = new ChartConfigurationForm(chartConfiguration);
         }
 
-        return chartConfigurationForm;
+        return new ChartConfigurationForm(chartConfiguration);
     }
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultDto createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
-        log.debug("createChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
+        log.debug("createChartConfiguration() - chartConfigurationForm: {}", chartConfigurationForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -86,7 +82,7 @@ public class ChartModuleConfigurationController {
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public FormValidationResultDto updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
-        log.debug("updateChartConfiguration() - id: " + id + ", chartConfigurationForm: " + chartConfigurationForm);
+        log.debug("updateChartConfiguration() - id: {}, chartConfigurationForm: {}", id, chartConfigurationForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);

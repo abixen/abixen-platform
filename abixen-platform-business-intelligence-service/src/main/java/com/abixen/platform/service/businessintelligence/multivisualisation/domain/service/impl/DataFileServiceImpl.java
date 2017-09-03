@@ -44,21 +44,21 @@ public class DataFileServiceImpl implements DataFileService {
 
     @Override
     public DataFile find(final Long id) {
-        log.debug("DataFileService - find() - id: {}", id);
+        log.debug("find() - id: {}", id);
 
         return dataFileRepository.findOne(id);
     }
 
     @Override
     public Page<DataFile> find(final String jsonCriteria, final Pageable pageable) {
-        log.debug("DataFileService - find() - jsonCriteria: {}, pageable: {}", jsonCriteria, pageable);
+        log.debug("find() - jsonCriteria: {}, pageable: {}", jsonCriteria, pageable);
 
         return dataFileRepository.findAll(pageable);
     }
 
     @Override
     public Page<DataFile> findAll(final Pageable pageable) {
-        log.debug("DataFileService - find() - pageable: {}",  pageable);
+        log.debug("find() - pageable: {}",  pageable);
 
         return dataFileRepository.findAll(pageable);
     }
@@ -66,21 +66,21 @@ public class DataFileServiceImpl implements DataFileService {
 
     @Override
     public DataFile create(final DataFile dataFile) {
-        log.debug("DataFileService - create() - dataFile: {}",  dataFile);
+        log.debug("create() - dataFile: {}",  dataFile);
 
         return dataFileRepository.save(dataFile);
     }
 
     @Override
     public DataFile update(final DataFile dataFile) {
-        log.debug("DataFileService - update() - dataFile: {}", dataFile);
+        log.debug("update() - dataFile: {}", dataFile);
 
         return dataFileRepository.save(dataFile);
     }
 
     @Override
     public void delete(final Long id) {
-        log.debug("DataFileService - delete() - id: {}", id);
+        log.debug("delete() - id: {}", id);
 
         final List<FileDataSource> relatedFileDataSources = fileDataSourceRepository.findByDataFile(dataFileRepository.getOne(id));
         if (relatedFileDataSources.isEmpty()) {

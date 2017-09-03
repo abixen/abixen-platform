@@ -27,7 +27,7 @@ public interface DatabaseConnectionManagementService {
 
     DatabaseConnectionDto findDatabaseConnection(final Long id);
 
-    Page<DatabaseConnectionDto> findAllDatabaseConnection(final Pageable pageable);
+    Page<DatabaseConnectionDto> findAllDatabaseConnections(final Pageable pageable);
 
     DatabaseConnectionDto createDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm);
 
