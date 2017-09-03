@@ -12,22 +12,14 @@
  * details.
  */
 
-package com.abixen.platform.core.controller
+package com.abixen.platform.core
 
-import com.abixen.platform.core.AbstractPlatformIT
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
+import spock.lang.Specification
 
-class CommentControllerIT extends AbstractPlatformIT {
 
-
-    void "sample test"() {
-
-        given:
-
-        int a = 1
-        when:
-        a++
-
-        then:
-        a == 2
-    }
+@ActiveProfiles("test")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+abstract class AbstractPlatformIT extends Specification {
 }
