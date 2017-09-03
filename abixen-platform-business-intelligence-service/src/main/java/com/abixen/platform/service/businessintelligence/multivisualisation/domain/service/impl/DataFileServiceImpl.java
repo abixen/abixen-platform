@@ -14,31 +14,31 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataFileRepository;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.FileDataSourceRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataFileService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.FileDataSourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Slf4j
-@Service
+@PlatformDomainService
 public class DataFileServiceImpl implements DataFileService {
 
     private final DataFileRepository dataFileRepository;
-    private final FileDataSourceRepository fileDataSourceRepository;
+    private final FileDataSourceService fileDataSourceService;
 
     @Autowired
-    public DataFileServiceImpl(FileDataSourceRepository fileDataSourceRepository,
+    public DataFileServiceImpl(FileDataSourceService fileDataSourceService,
                                DataFileRepository dataFileRepository) {
-        this.fileDataSourceRepository = fileDataSourceRepository;
+        this.fileDataSourceService = fileDataSourceService;
         this.dataFileRepository = dataFileRepository;
     }
 
@@ -82,7 +82,7 @@ public class DataFileServiceImpl implements DataFileService {
     public void delete(final Long id) {
         log.debug("delete() - id: {}", id);
 
-        final List<FileDataSource> relatedFileDataSources = fileDataSourceRepository.findByDataFile(dataFileRepository.getOne(id));
+        final List<FileDataSource> relatedFileDataSources = fileDataSourceService.find(dataFileRepository.findOne(id));
         if (relatedFileDataSources.isEmpty()) {
             dataFileRepository.delete(id);
         } else {
