@@ -75,11 +75,12 @@ public class DashboardServiceImpl implements DashboardService {
     public DashboardDto find(final Long pageId) {
         log.debug("find() - pageId: {}", pageId);
 
-        Page page = pageService.find(pageId);
+        final Page page = pageService.find(pageId);
 
-        List<Module> modules = moduleService.findAll(page);
-        List<DashboardModuleDto> dashboardModules = new ArrayList<>();
+        final List<Module> modules = moduleService.findAll(page);
+        final List<DashboardModuleDto> dashboardModules = new ArrayList<>();
 
+        //FIXME - use converter
         modules
                 .stream()
                 .forEach(module ->
@@ -136,7 +137,7 @@ public class DashboardServiceImpl implements DashboardService {
     private DashboardForm change(final DashboardForm dashboardForm, final boolean configurationChangeType) {
         List<Long> currentModulesIds = new ArrayList<>();
 
-        Page page = pageService.find(dashboardForm.getPage().getId());
+        final Page page = pageService.find(dashboardForm.getPage().getId());
 
         if (configurationChangeType) {
             validateConfiguration(dashboardForm, page);
