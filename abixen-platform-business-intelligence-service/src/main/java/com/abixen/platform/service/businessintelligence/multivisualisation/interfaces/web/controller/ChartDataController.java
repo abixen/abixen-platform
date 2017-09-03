@@ -19,6 +19,7 @@ import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartDataService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/service/abixen/business-intelligence/application/multi-visualisation/data")
 public class ChartDataController {
@@ -41,13 +43,17 @@ public class ChartDataController {
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "/{seriesName}", method = RequestMethod.POST)
     public List<Map<String, DataValueDto>> findDataForChart(@PathVariable String seriesName, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
-        return chartDataService.getChartData(chartConfigurationForm, seriesName);
+        log.debug("findDataForChart() - seriesName: {}, chartConfigurationForm: {}", seriesName, chartConfigurationForm);
+
+        return chartDataService.findChartData(chartConfigurationForm, seriesName);
     }
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public List<Map<String, DataValueDto>> findDataForChart(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm) {
-        return chartDataService.getChartData(chartConfigurationForm, null);
+        log.debug("findDataForChart() - chartConfigurationForm: {}", chartConfigurationForm);
+
+        return chartDataService.findChartData(chartConfigurationForm, null);
     }
 
 }

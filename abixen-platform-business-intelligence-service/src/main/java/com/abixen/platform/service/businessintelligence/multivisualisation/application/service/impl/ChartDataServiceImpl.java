@@ -24,6 +24,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ import java.sql.Connection;
 import java.util.Map;
 import java.util.List;
 
+@Slf4j
 @Service
 public class ChartDataServiceImpl implements ChartDataService {
 
@@ -41,35 +43,37 @@ public class ChartDataServiceImpl implements ChartDataService {
     private final DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
 
     @Autowired
-    public ChartDataServiceImpl(DatabaseFactory databaseFactory,
-                                FileService fileService,
+    public ChartDataServiceImpl(FileService fileService,
                                 DataSourceService dataSourceService,
+                                DatabaseFactory databaseFactory,
                                 DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter) {
-        this.databaseFactory = databaseFactory;
         this.fileService = fileService;
         this.dataSourceService = dataSourceService;
+        this.databaseFactory = databaseFactory;
         this.databaseConnectionToDatabaseConnectionDtoConverter = databaseConnectionToDatabaseConnectionDtoConverter;
     }
 
     @Override
-    public List<Map<String, DataValueDto>> getChartData(ChartConfigurationForm chartConfigurationForm, String seriesName) {
-        DataSource dataSource = dataSourceService.find(chartConfigurationForm.getDataSource().getId());
+    public List<Map<String, DataValueDto>> findChartData(final ChartConfigurationForm chartConfigurationForm, final String seriesName) {
+        log.debug("findChartData() - chartConfigurationForm: {}, seriesName: {}", chartConfigurationForm, seriesName);
+
+        final DataSource dataSource = dataSourceService.find(chartConfigurationForm.getDataSource().getId());
         switch (dataSource.getDataSourceType()) {
-            case DB : return getChartDataFromDatabaseDataSource(dataSource, chartConfigurationForm, seriesName);
-            case FILE: return getChartDataFromFileDataSource(dataSource, chartConfigurationForm, seriesName);
+            case DB : return findChartDataInDatabaseDataSource(dataSource, chartConfigurationForm, seriesName);
+            case FILE: return findChartDataInFileDataSource(dataSource, chartConfigurationForm, seriesName);
             default: throw new NotImplementedException();
         }
     }
 
-    private List<Map<String, DataValueDto>> getChartDataFromDatabaseDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
-        DatabaseConnection databaseConnection = ((DatabaseDataSource) dataSource).getDatabaseConnection();
-        DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
-        Connection connection = databaseService.getConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection));
-        return databaseService.getChartData(connection, dataSource, chartConfigurationForm, seriesName);
+    private List<Map<String, DataValueDto>> findChartDataInDatabaseDataSource(final DataSource dataSource, final ChartConfigurationForm chartConfigurationForm, final String seriesName) {
+        final DatabaseConnection databaseConnection = ((DatabaseDataSource) dataSource).getDatabaseConnection();
+        final DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
+        final Connection connection = databaseService.getConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection));
+        return databaseService.findChartData(connection, dataSource, chartConfigurationForm, seriesName);
     }
 
-    private List<Map<String, DataValueDto>> getChartDataFromFileDataSource(DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName) {
-        return fileService.getChartData(((FileDataSource) dataSource), chartConfigurationForm, seriesName);
+    private List<Map<String, DataValueDto>> findChartDataInFileDataSource(final DataSource dataSource, final ChartConfigurationForm chartConfigurationForm, final String seriesName) {
+        return fileService.findChartData(((FileDataSource) dataSource), chartConfigurationForm, seriesName);
     }
 
 }

@@ -32,12 +32,12 @@ public interface DatabaseService {
 
     Connection getConnection(DatabaseConnectionForm databaseConnectionForm);
 
-    List<DataSourceColumn> getColumns(Connection connection, String tableName);
+    List<DataSourceColumn> findColumns(Connection connection, String tableName);
 
-    List<String> getTables(Connection connection);
+    List<String> findTables(Connection connection);
 
-    List<Map<String, DataValueDto>> getChartData(Connection connection, DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName);
+    List<Map<String, DataValueDto>> findChartData(Connection connection, DataSource dataSource, ChartConfigurationForm chartConfigurationForm, String seriesName);
 
-    List<Map<String, DataValueDto>> getDataSourcePreview(Connection connection, DataSource dataSource);
+    List<Map<String, DataValueDto>> findDataSourcePreview(Connection connection, DataSource dataSource);
 
 }

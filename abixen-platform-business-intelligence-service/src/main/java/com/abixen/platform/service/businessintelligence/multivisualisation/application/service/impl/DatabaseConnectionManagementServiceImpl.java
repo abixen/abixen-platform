@@ -135,7 +135,7 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
         final DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         final Connection connection = databaseService.getConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection));
 
-        return databaseService.getTables(connection);
+        return databaseService.findTables(connection);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
         final DatabaseConnection databaseConnection = databaseConnectionService.find(databaseConnectionId);
         final DatabaseService databaseService = databaseFactory.getDatabaseService(databaseConnection.getDatabaseType());
         final Connection connection = databaseService.getConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection));
-        final List<DataSourceColumn> tableColumns = databaseService.getColumns(connection, table);
+        final List<DataSourceColumn> tableColumns = databaseService.findColumns(connection, table);
 
         return dataSourceColumnToDataSourceColumnDtoConverter.convertToList(tableColumns);
     }

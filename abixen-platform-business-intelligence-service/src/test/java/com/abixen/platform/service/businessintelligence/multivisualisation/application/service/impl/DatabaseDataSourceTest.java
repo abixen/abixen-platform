@@ -84,7 +84,7 @@ public class DatabaseDataSourceTest {
 
         tables.forEach(log::debug);
 
-        List<String> columns = databaseService.getColumns(connection, "products_sale");
+        List<String> columns = databaseService.findColumns(connection, "products_sale");
 
         columns.forEach(log::debug);
 
