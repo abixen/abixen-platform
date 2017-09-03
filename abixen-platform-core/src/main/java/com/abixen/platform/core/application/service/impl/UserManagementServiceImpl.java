@@ -35,7 +35,7 @@ import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.model.UserBuilder;
 import com.abixen.platform.core.domain.service.RoleService;
 import com.abixen.platform.core.domain.service.UserService;
-import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import com.abixen.platform.core.infrastructure.configuration.properties.PlatformResourceConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.LocaleUtils;
@@ -76,7 +76,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     private final MailService mailService;
     private final MessageSource messageSource;
     private final UserToUserDtoConverter userToUserDtoConverter;
-    private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+    private final PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
     private final SecurityService securityService;
     private final RoleService roleService;
     private final RoleToRoleDtoConverter roleToRoleDtoConverter;
@@ -86,7 +86,7 @@ public class UserManagementServiceImpl implements UserManagementService {
                                      MailService mailService,
                                      MessageSource messageSource,
                                      UserToUserDtoConverter userToUserDtoConverter,
-                                     AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
+                                     PlatformResourceConfigurationProperties platformResourceConfigurationProperties,
                                      SecurityService securityService,
                                      RoleService roleService,
                                      RoleToRoleDtoConverter roleToRoleDtoConverter) {

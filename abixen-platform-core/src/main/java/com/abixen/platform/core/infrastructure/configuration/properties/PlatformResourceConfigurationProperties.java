@@ -14,19 +14,53 @@
 
 package com.abixen.platform.core.infrastructure.configuration.properties;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 
-import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DOCKER;
-import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DEV;
-
-@Profile({DEV, DOCKER})
+@Getter
+@Setter
 @Component
 @EnableConfigurationProperties(PlatformResourceConfigurationProperties.class)
-@ConfigurationProperties(prefix = "platform.core.resource", locations = {"bootstrap.yml"})
-public class PlatformResourceConfigurationProperties extends AbstractPlatformResourceConfigurationProperties {
+@ConfigurationProperties(prefix = "platform.core.resource")
+public class PlatformResourceConfigurationProperties {
+
+    @NotNull
+    private String imageLibraryDirectory;
+
+    @NotNull
+    private String themesDirectory;
+
+    public String getImageLibraryDirectory() {
+        return resolvePath(imageLibraryDirectory);
+    }
+
+    public String getThemesDirectory() {
+        return resolvePath(themesDirectory);
+    }
+
+    public void setImageLibraryDirectory(String imageLibraryDirectory) {
+        this.imageLibraryDirectory = imageLibraryDirectory;
+    }
+
+    public void setThemesDirectory(String themesDirectory) {
+        this.themesDirectory = themesDirectory;
+    }
+
+    private String resolvePath(String path) {
+        String resolvedPath = path;
+        if (path.contains("${baseDir}")) {
+            resolvedPath = resolveBaseDirPath(resolvedPath);
+        }
+        return resolvedPath;
+    }
+
+    private String resolveBaseDirPath(String path) {
+        return path.replace("${baseDir}", System.getProperty("user.dir"));
+    }
 
 }

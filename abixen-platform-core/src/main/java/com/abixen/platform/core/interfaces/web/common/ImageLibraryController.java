@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.interfaces.web.common;
 
-import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import com.abixen.platform.core.infrastructure.configuration.properties.PlatformResourceConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -37,7 +38,7 @@ import java.io.InputStream;
 public class ImageLibraryController {
 
     @Autowired
-    private AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+    private PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     @RequestMapping(value = "layout/{fileName}/", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImage(@PathVariable String fileName) throws IOException {

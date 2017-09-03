@@ -25,3 +25,6 @@ platform:
           starttls:
             enable: true
         debug: true
+    resource:
+      imageLibraryDirectory: /data/image-library
+      themesDirectory: /data/themes
