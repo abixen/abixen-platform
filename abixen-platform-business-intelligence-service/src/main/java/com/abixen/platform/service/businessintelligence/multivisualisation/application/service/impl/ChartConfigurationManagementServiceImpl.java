@@ -21,9 +21,9 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.ChartConfigurationManagementService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceColumnRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.ChartConfigurationService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.ChartConfigurationToChartConfigurationDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceColumnService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,16 +42,16 @@ public class ChartConfigurationManagementServiceImpl implements ChartConfigurati
 
     private final DataSourceService dataSourceService;
     private final ChartConfigurationService chartConfigurationService;
-    private final DataSourceColumnRepository dataSourceColumnRepository;
+    private final DataSourceColumnService dataSourceColumnService;
     private final ChartConfigurationToChartConfigurationDtoConverter chartConfigurationToChartConfigurationDtoConverter;
 
 
     @Autowired
     public ChartConfigurationManagementServiceImpl(ChartConfigurationService chartConfigurationService,
                                                    DataSourceService dataSourceService,
-                                                   DataSourceColumnRepository dataSourceColumnRepository,
+                                                   DataSourceColumnService dataSourceColumnService,
                                                    ChartConfigurationToChartConfigurationDtoConverter chartConfigurationToChartConfigurationDtoConverter) {
-        this.dataSourceColumnRepository = dataSourceColumnRepository;
+        this.dataSourceColumnService = dataSourceColumnService;
         this.dataSourceService = dataSourceService;
         this.chartConfigurationService = chartConfigurationService;
         this.chartConfigurationToChartConfigurationDtoConverter = chartConfigurationToChartConfigurationDtoConverter;
@@ -136,7 +136,7 @@ public class ChartConfigurationManagementServiceImpl implements ChartConfigurati
     private DataSetSeriesColumn buildDataSetSeriesColumn(final DataSetSeriesColumnDto dataSetSeriesColumnDto) {
         return new DataSetSeriesColumnBuilder()
                 .name(dataSetSeriesColumnDto.getName())
-                .column(dataSetSeriesColumnDto.getType(), dataSourceColumnRepository.findOne(dataSetSeriesColumnDto.getDataSourceColumn().getId()))
+                .column(dataSetSeriesColumnDto.getType(), dataSourceColumnService.find(dataSetSeriesColumnDto.getDataSourceColumn().getId()))
                 .build();
     }
 
