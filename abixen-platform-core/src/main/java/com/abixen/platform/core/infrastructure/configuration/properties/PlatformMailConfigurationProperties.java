@@ -14,19 +14,96 @@
 
 package com.abixen.platform.core.infrastructure.configuration.properties;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DEV;
-import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DOCKER;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
-@Profile({DEV, DOCKER})
+@Getter
+@Setter
 @Component
 @EnableConfigurationProperties(PlatformMailConfigurationProperties.class)
-@ConfigurationProperties(prefix = "platform.core.mail.outgoing", locations = {"bootstrap.yml"})
-public class PlatformMailConfigurationProperties extends AbstractPlatformMailConfigurationProperties {
+@ConfigurationProperties(prefix = "platform.core.mail.outgoing")
+public class PlatformMailConfigurationProperties {
+
+    private static final int MIN_PORT_NUMBER = 0;
+
+    private static final int MAX_PORT_NUMBER = 65535;
+
+    @NotNull
+    private String host;
+
+    @NotNull
+    @Min(MIN_PORT_NUMBER)
+    @Max(MAX_PORT_NUMBER)
+    private Integer port;
+
+    @NotNull
+    private Boolean debug;
+
+    @NotNull
+    private PlatformMailConfigurationProperties.User user;
+
+    @NotNull
+    private PlatformMailConfigurationProperties.Transport transport;
+
+    @NotNull
+    private PlatformMailConfigurationProperties.Smtp smtp;
+
+    @Getter
+    @Setter
+    @Accessors(chain = true)
+    public static class User {
+
+        @NotNull
+        private String username;
+
+        @NotNull
+        private String name;
+
+        @NotNull
+        private String password;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Transport {
+
+        @NotNull
+        private String protocol;
+    }
+
+    @Getter
+    @Setter
+    @Accessors(chain = true)
+    public static class Smtp {
+
+        @NotNull
+        private Boolean auth;
+
+        @NotNull
+        private PlatformMailConfigurationProperties.Smtp.Starttls starttls;
+
+        @Getter
+        @Setter
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public static class Starttls {
+
+            @NotNull
+            private Boolean enable;
+        }
+    }
 
 }

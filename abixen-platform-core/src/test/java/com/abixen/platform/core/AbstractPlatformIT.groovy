@@ -12,20 +12,14 @@
  * details.
  */
 
-package com.abixen.platform.core.infrastructure.configuration.properties;
+package com.abixen.platform.core
 
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
+import spock.lang.Specification
 
-import javax.annotation.PostConstruct;
 
-@Component
-@Primary
-public class PlatformTestResourceConfigurationProperties extends AbstractPlatformResourceConfigurationProperties {
-
-    @PostConstruct
-    public void init() {
-        setImageLibraryDirectory("${baseDir}/../data/image-library/");
-    }
-
+@ActiveProfiles("test")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+abstract class AbstractPlatformIT extends Specification {
 }

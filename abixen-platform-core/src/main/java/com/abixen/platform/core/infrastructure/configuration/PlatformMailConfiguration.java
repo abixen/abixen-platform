@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.infrastructure.configuration;
 
-import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformMailConfigurationProperties;
+import com.abixen.platform.core.infrastructure.configuration.properties.PlatformMailConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ import java.util.Properties;
 public class PlatformMailConfiguration {
 
     @Autowired
-    private AbstractPlatformMailConfigurationProperties platformMailConfigurationProperties;
+    private PlatformMailConfigurationProperties platformMailConfigurationProperties;
 
     @Bean
     public JavaMailSender javaMailService() {

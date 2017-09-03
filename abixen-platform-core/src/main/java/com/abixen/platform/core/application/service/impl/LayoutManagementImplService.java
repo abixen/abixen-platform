@@ -29,7 +29,7 @@ import com.abixen.platform.core.domain.model.LayoutBuilder;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.service.LayoutService;
 import com.abixen.platform.core.domain.service.UserService;
-import com.abixen.platform.core.infrastructure.configuration.properties.AbstractPlatformResourceConfigurationProperties;
+import com.abixen.platform.core.infrastructure.configuration.properties.PlatformResourceConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class LayoutManagementImplService implements LayoutManagementService {
     private final SecurityService securityService;
     private final UserService userService;
     private final LayoutService layoutService;
-    private final AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties;
+    private final PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
     private final LayoutToLayoutDtoConverter layoutToLayoutDtoConverter;
 
 
@@ -62,7 +62,7 @@ public class LayoutManagementImplService implements LayoutManagementService {
     public LayoutManagementImplService(SecurityService securityService,
                                        UserService userService,
                                        LayoutService layoutService,
-                                       AbstractPlatformResourceConfigurationProperties platformResourceConfigurationProperties,
+                                       PlatformResourceConfigurationProperties platformResourceConfigurationProperties,
                                        LayoutToLayoutDtoConverter layoutToLayoutDtoConverter) {
         this.securityService = securityService;
         this.userService = userService;
@@ -149,10 +149,11 @@ public class LayoutManagementImplService implements LayoutManagementService {
         log.debug("changeLayoutIcon() - id: {}, iconFile: {}", id, iconFile);
 
         final Layout layout = layoutService.find(id);
-        final File currentAvatarFile = new File(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/layout-miniature/" + layout.getIconFileName());
+        //FIXME - rename to thumbnail
+        final File currentThumbnailFile = new File(platformResourceConfigurationProperties.getImageLibraryDirectory() + "/layout-miniature/" + layout.getIconFileName());
 
-        if (currentAvatarFile.exists()) {
-            if (!currentAvatarFile.delete()) {
+        if (currentThumbnailFile.exists()) {
+            if (!currentThumbnailFile.delete()) {
                 throw new FileExistsException();
             }
         }

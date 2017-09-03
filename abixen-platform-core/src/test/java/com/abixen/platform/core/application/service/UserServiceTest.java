@@ -21,7 +21,7 @@ import com.abixen.platform.core.application.form.UserSearchForm;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.domain.model.UserBuilder;
 import com.abixen.platform.core.domain.service.UserService;
-import com.abixen.platform.core.infrastructure.configuration.properties.PlatformTestResourceConfigurationProperties;
+import com.abixen.platform.core.infrastructure.configuration.properties.PlatformResourceConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -57,7 +57,7 @@ public class UserServiceTest {
     private UserService userService;
 
     @Autowired
-    private PlatformTestResourceConfigurationProperties platformResourceConfigurationProperties;
+    private PlatformResourceConfigurationProperties platformResourceConfigurationProperties;
 
     private File avatarFile;
 
@@ -152,7 +152,7 @@ public class UserServiceTest {
 
         User updatedUser = null;
         //try {
-            //updatedUser = userService.changeAvatar(user.getId(), newAvatarFile);
+        //updatedUser = userService.changeAvatar(user.getId(), newAvatarFile);
         // catch (IOException e) {
         //    e.printStackTrace();
         //}

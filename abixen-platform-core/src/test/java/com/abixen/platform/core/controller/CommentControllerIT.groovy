@@ -14,13 +14,9 @@
 
 package com.abixen.platform.core.controller
 
-import org.springframework.boot.test.context.SpringBootTest
-import spock.lang.Specification
+import com.abixen.platform.core.AbstractPlatformIT
 
-@SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
-)
-class CommentControllerIT extends Specification {
+class CommentControllerIT extends AbstractPlatformIT {
 
 
     void "sample test"() {
