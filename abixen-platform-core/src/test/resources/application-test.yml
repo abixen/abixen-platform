@@ -27,4 +27,3 @@ platform:
         debug: true
     resource:
       imageLibraryDirectory: /data/image-library
-      themesDirectory: /data/themes

@@ -32,23 +32,12 @@ public class PlatformResourceConfigurationProperties {
     @NotNull
     private String imageLibraryDirectory;
 
-    @NotNull
-    private String themesDirectory;
-
     public String getImageLibraryDirectory() {
         return resolvePath(imageLibraryDirectory);
     }
 
-    public String getThemesDirectory() {
-        return resolvePath(themesDirectory);
-    }
-
     public void setImageLibraryDirectory(String imageLibraryDirectory) {
         this.imageLibraryDirectory = imageLibraryDirectory;
-    }
-
-    public void setThemesDirectory(String themesDirectory) {
-        this.themesDirectory = themesDirectory;
     }
 
     private String resolvePath(String path) {
