@@ -41,6 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -75,11 +76,12 @@ public class DashboardServiceImpl implements DashboardService {
     public DashboardDto find(final Long pageId) {
         log.debug("find() - pageId: {}", pageId);
 
-        Page page = pageService.find(pageId);
+        final Page page = pageService.find(pageId);
 
-        List<Module> modules = moduleService.findAll(page);
-        List<DashboardModuleDto> dashboardModules = new ArrayList<>();
+        final List<Module> modules = moduleService.findAll(page);
+        final List<DashboardModuleDto> dashboardModules = new ArrayList<>();
 
+        //FIXME - use converter
         modules
                 .stream()
                 .forEach(module ->
@@ -134,9 +136,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     private DashboardForm change(final DashboardForm dashboardForm, final boolean configurationChangeType) {
-        List<Long> currentModulesIds = new ArrayList<>();
-
-        Page page = pageService.find(dashboardForm.getPage().getId());
+        final Page page = pageService.find(dashboardForm.getPage().getId());
 
         if (configurationChangeType) {
             validateConfiguration(dashboardForm, page);
@@ -148,8 +148,12 @@ public class DashboardServiceImpl implements DashboardService {
         page.changeLayout(layoutService.find(dashboardForm.getPage().getLayout().getId()));
         pageService.update(page);
 
-        updateExistingModules(dashboardForm.getDashboardModuleDtos(), currentModulesIds);
-        createNonExistentModules(dashboardForm.getDashboardModuleDtos(), dashboardForm.getPage().getId(), currentModulesIds);
+        final List<Long> updatedModulesIds = updateExistingModules(dashboardForm.getDashboardModuleDtos());
+        final List<Long> createdModulesIds = createNonExistentModules(dashboardForm.getDashboardModuleDtos(), dashboardForm.getPage().getId());
+
+        final List<Long> currentModulesIds = new ArrayList<>();
+        currentModulesIds.addAll(updatedModulesIds);
+        currentModulesIds.addAll(createdModulesIds);
 
         moduleService.deleteAllExcept(page, currentModulesIds);
 
@@ -157,40 +161,43 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardForm;
     }
 
-    private void updateExistingModules(final List<DashboardModuleDto> dashboardModules, final List<Long> modulesIds) {
-        dashboardModules
+    private List<Long> updateExistingModules(final List<DashboardModuleDto> dashboardModules) {
+        return dashboardModules
                 .stream()
                 .filter(dashboardModule -> dashboardModule.getId() != null)
-                .forEach(dashboardModule -> {
+                .map(dashboardModule -> {
                     Module module = moduleService.find(dashboardModule.getId());
                     module.changeDescription(dashboardModule.getDescription());
                     module.changeTitle(dashboardModule.getTitle());
                     module.changePositionIndexes(dashboardModule.getRowIndex(), dashboardModule.getColumnIndex(), dashboardModule.getOrderIndex());
 
                     moduleService.update(module);
-                    modulesIds.add(module.getId());
-                });
+
+                    return module.getId();
+                })
+                .collect(Collectors.toList());
     }
 
-    private void createNonExistentModules(final List<DashboardModuleDto> dashboardModuleDtos, final Long pageId, final List<Long> modulesIds) {
-        dashboardModuleDtos
+    private List<Long> createNonExistentModules(final List<DashboardModuleDto> dashboardModuleDtos, final Long pageId) {
+        return dashboardModuleDtos
                 .stream()
                 .filter(dashboardModuleDto -> dashboardModuleDto.getId() == null)
-                .forEach(dashboardModuleDto -> {
-                            ModuleType moduleType = moduleTypeService.find(dashboardModuleDto.getModuleType().getId());
+                .map(dashboardModuleDto -> {
+                    ModuleType moduleType = moduleTypeService.find(dashboardModuleDto.getModuleType().getId());
 
-                            Module module = new ModuleBuilder()
-                                    .positionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex())
-                                    .title(dashboardModuleDto.getTitle())
-                                    .moduleType(moduleType)
-                                    .page(pageService.find(pageId))
-                                    .description((dashboardModuleDto.getDescription()))
-                                    .build();
+                    Module module = new ModuleBuilder()
+                            .positionIndexes(dashboardModuleDto.getRowIndex(), dashboardModuleDto.getColumnIndex(), dashboardModuleDto.getOrderIndex())
+                            .title(dashboardModuleDto.getTitle())
+                            .moduleType(moduleType)
+                            .page(pageService.find(pageId))
+                            .description((dashboardModuleDto.getDescription()))
+                            .build();
 
-                            dashboardModuleDto.setId(moduleService.create(module).getId());
-                            modulesIds.add(dashboardModuleDto.getId());
-                        }
-                );
+                    dashboardModuleDto.setId(moduleService.create(module).getId());
+
+                    return dashboardModuleDto.getId();
+                })
+                .collect(Collectors.toList());
     }
 
     private void validateConfiguration(final DashboardForm dashboardForm, final Page page) {
