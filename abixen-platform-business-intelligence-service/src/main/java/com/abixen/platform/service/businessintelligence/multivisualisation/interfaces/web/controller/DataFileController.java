@@ -80,9 +80,9 @@ public class DataFileController {
             return new FormValidationResultDto(fileDataForm, formErrors);
         }
 
-        dataFileManagementService.createDataFile(fileDataForm);
+        final DataFileForm createdFileDataForm = dataFileManagementService.createDataFile(fileDataForm);
 
-        return new FormValidationResultDto(fileDataForm);
+        return new FormValidationResultDto(createdFileDataForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -94,9 +94,9 @@ public class DataFileController {
             return new FormValidationResultDto(dataFileForm, formErrors);
         }
 
-        dataFileManagementService.updateDataFile(dataFileForm);
+        final DataFileForm updatedFileDataForm = dataFileManagementService.updateDataFile(dataFileForm);
 
-        return new FormValidationResultDto(dataFileForm);
+        return new FormValidationResultDto(updatedFileDataForm);
     }
 
     @RequestMapping(value = "/{id}/columns", method = RequestMethod.GET)

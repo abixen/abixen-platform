@@ -22,6 +22,9 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DatabaseDataSourceForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.FileDataSourceForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceManagementService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseFactory;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
@@ -31,9 +34,6 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataFileRepository;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceManagementService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseFactory;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DatabaseConnectionService;
 import lombok.extern.slf4j.Slf4j;
@@ -93,10 +93,10 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
     public DataSourceForm createDataSource(final DataSourceForm dataSourceForm) {
         log.debug("createDataSource() - dataSourceForm: {}", dataSourceForm);
 
-        final DataSource savedDataSource = dataSourceService.create(buildDataSource(dataSourceForm));
-        final DataSourceDto convertedDataSource = dataSourceToDataSourceDtoConverter.convert(savedDataSource);
+        final DataSource createdDataSource = dataSourceService.create(buildDataSource(dataSourceForm));
+        final DataSourceDto createdDataSourceDto = dataSourceToDataSourceDtoConverter.convert(createdDataSource);
 
-        return new DataSourceForm(convertedDataSource);
+        return new DataSourceForm(createdDataSourceDto);
     }
 
     @Override
@@ -105,9 +105,9 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
 
         final DataSource dataSource = dataSourceService.find(dataSourceForm.getId());
         final DataSource updatedDataSource = dataSourceService.update(buildUpdateDataSource(dataSource, dataSourceForm));
-        final DataSourceDto convertedDataSource = dataSourceToDataSourceDtoConverter.convert(updatedDataSource);
+        final DataSourceDto updatedDataSourceDto = dataSourceToDataSourceDtoConverter.convert(updatedDataSource);
 
-        return new DataSourceForm(convertedDataSource);
+        return new DataSourceForm(updatedDataSourceDto);
     }
 
     @Override
@@ -153,7 +153,8 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
                 return buildDatabaseDataSource((DatabaseDataSourceForm) dataSourceForm);
             case FILE:
                 return buildFileDataSource((FileDataSourceForm) dataSourceForm);
-            default: throw new PlatformRuntimeException("Type of data source not recognized");
+            default:
+                throw new PlatformRuntimeException("Type of data source not recognized");
         }
     }
 
@@ -163,7 +164,8 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
                 return updateDatabaseDataSource((DatabaseDataSource) dataSource, (DatabaseDataSourceForm) dataSourceForm);
             case FILE:
                 return updateFileDataSource((FileDataSource) dataSource, (FileDataSourceForm) dataSourceForm);
-            default: throw new PlatformRuntimeException("Type of data source not recognized");
+            default:
+                throw new PlatformRuntimeException("Type of data source not recognized");
         }
     }
 
@@ -209,7 +211,7 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
                 .paramters(fileDataSourceForm.getDataSourceType(), null)
                 .build();
         fileDataSource.getColumns()
-            .forEach(column -> column.changeDataSource(fileDataSource));
+                .forEach(column -> column.changeDataSource(fileDataSource));
         return fileDataSource;
     }
 

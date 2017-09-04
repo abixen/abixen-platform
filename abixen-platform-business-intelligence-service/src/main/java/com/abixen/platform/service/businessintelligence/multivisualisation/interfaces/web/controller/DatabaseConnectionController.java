@@ -74,9 +74,9 @@ public class DatabaseConnectionController {
             return new FormValidationResultDto(databaseConnectionForm, formErrors);
         }
 
-        final DatabaseConnectionForm databaseConnection = databaseConnectionManagementService.createDatabaseConnection(databaseConnectionForm);
+        final DatabaseConnectionForm createdDatabaseConnectionForm = databaseConnectionManagementService.createDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto(databaseConnection);
+        return new FormValidationResultDto(createdDatabaseConnectionForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -88,9 +88,9 @@ public class DatabaseConnectionController {
             return new FormValidationResultDto(databaseConnectionForm, formErrors);
         }
 
-        databaseConnectionManagementService.updateDatabaseConnection(databaseConnectionForm);
+        final DatabaseConnectionForm updatedDatabaseConnectionForm = databaseConnectionManagementService.updateDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto(databaseConnectionForm);
+        return new FormValidationResultDto(updatedDatabaseConnectionForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -99,7 +99,7 @@ public class DatabaseConnectionController {
 
         databaseConnectionManagementService.deleteDatabaseConnection(id);
 
-        return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)

@@ -74,9 +74,10 @@ public class DataSourceController {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(dataSourceForm, formErrors);
         }
-        dataSourceManagementService.createDataSource(dataSourceForm);
 
-        return new FormValidationResultDto(dataSourceForm);
+        final DataSourceForm createdDataSourceForm = dataSourceManagementService.createDataSource(dataSourceForm);
+
+        return new FormValidationResultDto(createdDataSourceForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -87,6 +88,8 @@ public class DataSourceController {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
             return new FormValidationResultDto(dataSourceForm, formErrors);
         }
+
+        //FIXME - move to domain
         try {
             dataSourceManagementService.updateDataSource(dataSourceForm);
         } catch (Throwable e) {

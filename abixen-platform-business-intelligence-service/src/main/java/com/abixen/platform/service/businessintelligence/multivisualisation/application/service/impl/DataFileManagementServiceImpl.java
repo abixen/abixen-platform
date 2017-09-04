@@ -91,10 +91,10 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
     public DataFileForm createDataFile(final DataFileForm dataFileForm) {
         log.debug("createDataFile() - dataFileForm: {}", dataFileForm);
 
-        final DataFile savedDataFile = dataFileService.create(build(dataFileForm));
-        final DataFileDto convertedDataFile = dataFileToDataFileDtoConverter.convert(savedDataFile);
+        final DataFile createdDataFile = dataFileService.create(build(dataFileForm));
+        final DataFileDto createdDataFileDto = dataFileToDataFileDtoConverter.convert(createdDataFile);
 
-        return new DataFileForm(convertedDataFile);
+        return new DataFileForm(createdDataFileDto);
     }
 
     @Override
@@ -120,10 +120,10 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
                     dataFileColumn.getValues().forEach(dataValue -> dataValue.setDataColumn(dataFileColumn));
                 });
 
-        final DataFile updateDataFile = dataFileService.update(dataFile);
-        final DataFileDto convertDataFile = dataFileToDataFileDtoConverter.convert(updateDataFile);
+        final DataFile updatedDataFile = dataFileService.update(dataFile);
+        final DataFileDto updatedDataFileDto = dataFileToDataFileDtoConverter.convert(updatedDataFile);
 
-        return new DataFileForm(convertDataFile);
+        return new DataFileForm(updatedDataFileDto);
     }
 
     @Override
