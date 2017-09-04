@@ -23,7 +23,6 @@ import java.util.List;
 
 public interface FileDataSourceRepository extends JpaRepository<FileDataSource, Long> {
 
-    FileDataSource findByName(String name);
-
     List<FileDataSource> findByDataFile(DataFile dataFile);
+
 }
