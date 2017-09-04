@@ -15,16 +15,16 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DataSourceColumnToDataSourceColumnDtoConverter;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DatabaseConnectionToDatabaseConnectionDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseConnectionManagementService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnectionBuilder;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DatabaseConnectionToDatabaseConnectionDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseConnectionManagementService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseFactory;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnectionBuilder;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DatabaseConnectionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,10 +78,10 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
     public DatabaseConnectionForm createDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm) {
         log.debug("createDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
-        final DatabaseConnection savedDatabaseConnection = databaseConnectionService.create(build(databaseConnectionForm));
-        final DatabaseConnectionDto convertedDatabaseConnection = databaseConnectionToDatabaseConnectionDtoConverter.convert(savedDatabaseConnection);
+        final DatabaseConnection createdDatabaseConnection = databaseConnectionService.create(build(databaseConnectionForm));
+        final DatabaseConnectionDto createdDatabaseConnectionDto = databaseConnectionToDatabaseConnectionDtoConverter.convert(createdDatabaseConnection);
 
-        return new DatabaseConnectionForm(convertedDatabaseConnection);
+        return new DatabaseConnectionForm(createdDatabaseConnectionDto);
     }
 
     @Override
@@ -98,9 +98,9 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
         databaseConnection.changeDetails(databaseConnectionForm.getName(), databaseConnectionForm.getDescription());
 
         final DatabaseConnection updatedDatabaseConnection = databaseConnectionService.update(databaseConnection);
-        final DatabaseConnectionDto convertedDatabaseConnection = databaseConnectionToDatabaseConnectionDtoConverter.convert(updatedDatabaseConnection);
+        final DatabaseConnectionDto updatedDatabaseConnectionDto = databaseConnectionToDatabaseConnectionDtoConverter.convert(updatedDatabaseConnection);
 
-        return new DatabaseConnectionForm(convertedDatabaseConnection);
+        return new DatabaseConnectionForm(updatedDatabaseConnectionDto);
     }
 
     @Override
