@@ -28,6 +28,8 @@
         <spock.version>1.1-groovy-2.4</spock.version>
         <cglib.version>3.2.5</cglib.version>
         <gmavenplus.version>1.5</gmavenplus.version>
+        <maven.failsafe.version>2.18.1</maven.failsafe.version>
+        <maven.surefire.version>2.20</maven.surefire.version>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen</docker.image.prefix>
     </properties>
@@ -388,6 +390,36 @@
                         </configuration>
                         <goals>
                             <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <includes>**/*Test.*</includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven.failsafe.version}</version>
+                <configuration>
+                    <skip>false</skip>
+                    <includes>**/*IT.*</includes>
+                    <classpathDependencyExcludes>
+                        <classpathDependencyExclude>org.springframework.session:spring-session</classpathDependencyExclude>
+                    </classpathDependencyExcludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run-integration-tests</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
                         </goals>
                     </execution>
                 </executions>
