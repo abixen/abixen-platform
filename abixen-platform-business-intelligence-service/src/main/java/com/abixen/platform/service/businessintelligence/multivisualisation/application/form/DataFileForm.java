@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileDto;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -70,10 +70,11 @@ public class DataFileForm implements Form {
         super();
     }
 
-    public DataFileForm(DataFile dataFile) {
-        this.setId(dataFile.getId());
-        this.setName(dataFile.getName());
-        this.setDescription(dataFile.getDescription());
+    public DataFileForm(DataFileDto dataFileDto) {
+        this.setId(dataFileDto.getId());
+        this.setName(dataFileDto.getName());
+        this.setDescription(dataFileDto.getDescription());
+        this.setColumns(dataFileDto.getColumns());
     }
 
 }

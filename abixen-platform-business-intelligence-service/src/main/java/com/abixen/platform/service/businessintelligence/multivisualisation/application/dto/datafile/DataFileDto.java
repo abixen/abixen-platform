@@ -12,17 +12,34 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile;
-import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
+public class DataFileDto {
 
-public interface FileDataSourceRepository extends JpaRepository<FileDataSource, Long> {
+    private RowDto rowTypes;
+    private List<RowDto> rows = new ArrayList<>();
 
-    List<FileDataSource> findByDataFile(DataFile dataFile);
+    public RowDto getRowTypes() {
+        return rowTypes;
+    }
 
+    public void setRowTypes(RowDto rowTypes) {
+        this.rowTypes = rowTypes;
+    }
+
+    public List<RowDto> getRows() {
+        return rows;
+    }
+
+    public void setRows(List<RowDto> rows) {
+        this.rows = rows;
+    }
+
+    public void addRow(RowDto rowDto) {
+        rows.add(rowDto);
+    }
 }

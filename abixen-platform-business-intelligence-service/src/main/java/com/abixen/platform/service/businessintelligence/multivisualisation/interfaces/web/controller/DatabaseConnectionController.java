@@ -74,9 +74,9 @@ public class DatabaseConnectionController {
             return new FormValidationResultDto(databaseConnectionForm, formErrors);
         }
 
-        databaseConnectionManagementService.createDatabaseConnection(databaseConnectionForm);
+        final DatabaseConnectionForm databaseConnection = databaseConnectionManagementService.createDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto(databaseConnectionForm);
+        return new FormValidationResultDto(databaseConnection);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

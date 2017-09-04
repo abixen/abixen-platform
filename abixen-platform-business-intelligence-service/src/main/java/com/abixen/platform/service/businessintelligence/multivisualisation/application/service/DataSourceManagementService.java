@@ -16,14 +16,12 @@ public interface DataSourceManagementService {
 
     Page<DataSourceDto> findAllDataSource(final Pageable pageable, final DataSourceType dataSourceType);
 
-    DataSourceDto createDataSource(final DataSourceForm dataSourceForm);
+    DataSourceForm createDataSource(final DataSourceForm dataSourceForm);
 
-    DataSourceDto updateDataSource(final DataSourceForm dataSourceForm);
+    DataSourceForm updateDataSource(final DataSourceForm dataSourceForm);
 
     void deleteDataSource(final Long dataSourceId);
 
     List<Map<String, DataValueDto>> findPreviewData(final DataSourceForm dataSourceForm);
-
-    List<Map<String, Integer>> findAllColumnsInDataSource(final Long dataSourceId);
 
 }

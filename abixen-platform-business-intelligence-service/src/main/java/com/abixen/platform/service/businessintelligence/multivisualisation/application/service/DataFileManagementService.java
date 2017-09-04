@@ -24,26 +24,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
-
 
 public interface DataFileManagementService {
 
     DataFileDto findDataFile(final Long id);
 
-    Page<DataFileDto> findDataFile(final String jsonCriteria, final Pageable pageable);
-
     Page<DataFileDto> findAllDataFiles(final Pageable pageable);
 
-    DataFileDto createDataFile(final DataFileForm dataFileForm);
+    DataFileForm createDataFile(final DataFileForm dataFileForm);
 
-    DataFileDto updateDataFile(final DataFileForm dataFileForm);
+    DataFileForm updateDataFile(final DataFileForm dataFileForm);
 
     void deleteDataFile(final Long id);
 
     List<DataSourceColumnDto> findAllDataFileColumns(final Long dataFileId);
-
-    List<Map<String, Integer>> findAllColumns(final Long dataFileId);
 
     FileParserMessage<DataFileColumnDto> parse(final MultipartFile fileToParse, final Boolean readFirstColumnAsColumnName);
 }

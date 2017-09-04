@@ -12,12 +12,21 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
-import org.springframework.data.jpa.repository.JpaRepository;
+public class ColumnDto {
 
+    private String value;
 
-public interface DataSourceColumnRepository extends JpaRepository<DataSourceColumn, Long> {
+    public ColumnDto(String value) {
+        this.value = value;
+    }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

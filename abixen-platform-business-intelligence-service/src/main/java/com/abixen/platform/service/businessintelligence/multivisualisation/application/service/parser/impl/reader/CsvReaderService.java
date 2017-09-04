@@ -12,12 +12,13 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.parser.impl.reader;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.DataFileDto;
+import org.springframework.web.multipart.MultipartFile;
 
+public interface CsvReaderService {
 
-public interface DataSourceColumnRepository extends JpaRepository<DataSourceColumn, Long> {
-
+    DataFileDto read(final MultipartFile multipartFile, final Boolean readFirstColumnAsColumnName, final FileParserMessage msg);
 }

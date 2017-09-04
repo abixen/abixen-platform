@@ -12,12 +12,10 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType;
 
-
-public interface DataSourceColumnRepository extends JpaRepository<DataSourceColumn, Long> {
-
+public interface DatabaseFactory {
+    DatabaseService getDatabaseService(DatabaseType databaseType);
 }

@@ -18,6 +18,8 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.DatabaseConnectionToDatabaseConnectionDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseFactory;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection;

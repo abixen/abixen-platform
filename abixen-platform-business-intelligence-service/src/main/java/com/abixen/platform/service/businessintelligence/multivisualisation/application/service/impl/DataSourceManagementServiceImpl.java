@@ -32,8 +32,8 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataFileRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceManagementService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseFactory;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseFactory;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DatabaseConnectionService;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,22 +90,24 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
     }
 
     @Override
-    public DataSourceDto createDataSource(final DataSourceForm dataSourceForm) {
+    public DataSourceForm createDataSource(final DataSourceForm dataSourceForm) {
         log.debug("createDataSource() - dataSourceForm: {}", dataSourceForm);
 
-        final DataSource dataSource = dataSourceService.create(buildDataSource(dataSourceForm));
+        final DataSource savedDataSource = dataSourceService.create(buildDataSource(dataSourceForm));
+        final DataSourceDto convertedDataSource = dataSourceToDataSourceDtoConverter.convert(savedDataSource);
 
-        return dataSourceToDataSourceDtoConverter.convert(dataSource);
+        return new DataSourceForm(convertedDataSource);
     }
 
     @Override
-    public DataSourceDto updateDataSource(final DataSourceForm dataSourceForm) {
+    public DataSourceForm updateDataSource(final DataSourceForm dataSourceForm) {
         log.debug("updateDataSource() - dataSourceForm: {}", dataSourceForm);
 
         final DataSource dataSource = dataSourceService.find(dataSourceForm.getId());
         final DataSource updatedDataSource = dataSourceService.update(buildUpdateDataSource(dataSource, dataSourceForm));
+        final DataSourceDto convertedDataSource = dataSourceToDataSourceDtoConverter.convert(updatedDataSource);
 
-        return dataSourceToDataSourceDtoConverter.convert(updatedDataSource);
+        return new DataSourceForm(convertedDataSource);
     }
 
     @Override
@@ -114,17 +115,6 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
         log.debug("deleteDataSource() - id: {}", id);
 
         dataSourceService.delete(id);
-    }
-
-    @Override
-    public List<Map<String, Integer>> findAllColumnsInDataSource(final Long dataSourceId) {
-        log.debug("findAllColumnsInDataSource() - dataSourceId: {}", dataSourceId);
-
-        final List<Map<String, Integer>> result = new ArrayList<>();
-        dataSourceService.find(dataSourceId)
-                .getColumns().forEach(dataSourceColumn -> mapColumnAndAddToResult(result, dataSourceColumn));
-
-        return result;
     }
 
     @Override
@@ -157,76 +147,89 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
         }
     }
 
-    private DataSource buildUpdateDataSource(DataSource dataSource, DataSourceForm dataSourceForm) {
+    private DataSource buildNewDataSource(DataSourceForm dataSourceForm) {
         switch (dataSourceForm.getDataSourceType()) {
             case DB:
-                DatabaseDataSource databaseDataSource = (DatabaseDataSource) dataSource;
-                databaseDataSource.changeDetails(dataSourceForm.getName(), dataSourceForm.getDescription());
-                databaseDataSource.changeFilter(((DatabaseDataSourceForm) dataSourceForm).getFilter());
-                databaseDataSource.changeTable(((DatabaseDataSourceForm) dataSourceForm).getTable());
-                databaseDataSource.changeDatabaseConnection(databaseConnectionService.find(((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection().getId()));
-                databaseDataSource.changeColumns(dataSourceForm.getColumns().stream()
-                        .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
-                                .details(dataSourceColumnDto.getName())
-                                .paramters(dataSourceColumnDto.getDataValueType(), dataSourceColumnDto.getPosition())
-                                .dataSource(databaseDataSource)
-                                .build())
-                        .collect(Collectors.toSet()));
-                return databaseDataSource;
+                return buildDatabaseDataSource((DatabaseDataSourceForm) dataSourceForm);
             case FILE:
-                FileDataSource fileDataSource = (FileDataSource) dataSource;
-                FileDataSourceForm fileDataSourceForm = (FileDataSourceForm) dataSourceForm;
-                fileDataSource.changeDetails(fileDataSourceForm.getName(), fileDataSourceForm.getDescription());
-                fileDataSource.changeParameters(fileDataSourceForm.getDataSourceType(), null);
-                fileDataSource.changeDataFile(dataFileRepository.findOne(fileDataSourceForm.getDataFile().getId()));
-                fileDataSource.changeColumns(fileDataSourceForm.getColumns().stream()
-                        .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
-                                .details(dataSourceColumnDto.getName())
-                                .dataSource(fileDataSource)
-                                .paramters(dataSourceColumnDto.getDataValueType(), dataSourceColumnDto.getPosition())
-                                .build())
-                        .collect(Collectors.toSet()));
-                return fileDataSource;
+                return buildFileDataSource((FileDataSourceForm) dataSourceForm);
             default: throw new PlatformRuntimeException("Type of data source not recognized");
         }
     }
 
-    private DataSource buildNewDataSource(DataSourceForm dataSourceForm) {
+    private DataSource buildUpdateDataSource(DataSource dataSource, DataSourceForm dataSourceForm) {
         switch (dataSourceForm.getDataSourceType()) {
             case DB:
-                DataSource databaseDatasource = new DatabaseDataSourceBuilder()
-                        .databaseConnection(databaseConnectionService.find(((DatabaseDataSourceForm) dataSourceForm).getDatabaseConnection().getId()))
-                        .table(((DatabaseDataSourceForm) dataSourceForm).getTable())
-                        .filter(((DatabaseDataSourceForm) dataSourceForm).getFilter())
-                        .details(dataSourceForm.getName(), dataSourceForm.getDescription())
-                        .paramters(dataSourceForm.getDataSourceType(), ((DatabaseDataSourceForm) dataSourceForm).getFilter())
-                        .columns(dataSourceForm.getColumns().stream()
-                                .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
-                                        .details(dataSourceColumnDto.getName())
-                                        .paramters(dataSourceColumnDto.getDataValueType(), dataSourceColumnDto.getPosition())
-                                        .build())
-                                .collect(Collectors.toSet()))
-                        .build();
-                databaseDatasource.getColumns()
-                        .forEach(column -> column.changeDataSource(databaseDatasource));
-                return databaseDatasource;
+                return updateDatabaseDataSource((DatabaseDataSource) dataSource, (DatabaseDataSourceForm) dataSourceForm);
             case FILE:
-                DataSource fileDataSource = new FileDataSourceBuilder()
-                        .dataFile(((FileDataSourceForm) dataSourceForm).getDataFile().getId(), dataFileRepository)
-                        .columns(dataSourceForm.getColumns().stream()
-                                .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
-                                        .details(dataSourceColumnDto.getName())
-                                        .paramters(dataSourceColumnDto.getDataValueType(), dataSourceColumnDto.getPosition())
-                                        .build())
-                                .collect(Collectors.toSet()))
-                        .details(dataSourceForm.getName(), dataSourceForm.getDescription())
-                        .paramters(dataSourceForm.getDataSourceType(), null)
-                        .build();
-                fileDataSource.getColumns()
-                    .forEach(column -> column.changeDataSource(fileDataSource));
-                return fileDataSource;
+                return updateFileDataSource((FileDataSource) dataSource, (FileDataSourceForm) dataSourceForm);
             default: throw new PlatformRuntimeException("Type of data source not recognized");
         }
+    }
+
+    private DataSource updateFileDataSource(FileDataSource fileDataSource, FileDataSourceForm fileDataSourceForm) {
+        fileDataSource.changeDetails(fileDataSourceForm.getName(), fileDataSourceForm.getDescription());
+        fileDataSource.changeParameters(fileDataSourceForm.getDataSourceType(), null);
+        fileDataSource.changeDataFile(dataFileRepository.findOne(fileDataSourceForm.getDataFile().getId()));
+        fileDataSource.changeColumns(fileDataSourceForm.getColumns().stream()
+                .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
+                        .details(dataSourceColumnDto.getName())
+                        .dataSource(fileDataSource)
+                        .paramters(dataSourceColumnDto.getDataValueType(), dataSourceColumnDto.getPosition())
+                        .build())
+                .collect(Collectors.toSet()));
+        return fileDataSource;
+    }
+
+    private DataSource updateDatabaseDataSource(DatabaseDataSource dataSource, DatabaseDataSourceForm dataSourceForm) {
+        dataSource.changeDetails(dataSourceForm.getName(), dataSourceForm.getDescription());
+        dataSource.changeFilter(dataSourceForm.getFilter());
+        dataSource.changeTable(dataSourceForm.getTable());
+        dataSource.changeDatabaseConnection(databaseConnectionService.find(dataSourceForm.getDatabaseConnection().getId()));
+        dataSource.changeColumns(dataSourceForm.getColumns().stream()
+                .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
+                        .details(dataSourceColumnDto.getName())
+                        .paramters(dataSourceColumnDto.getDataValueType(), dataSourceColumnDto.getPosition())
+                        .dataSource(dataSource)
+                        .build())
+                .collect(Collectors.toSet()));
+        return dataSource;
+    }
+
+    private DataSource buildFileDataSource(FileDataSourceForm fileDataSourceForm) {
+        DataSource fileDataSource = new FileDataSourceBuilder()
+                .dataFile(fileDataSourceForm.getDataFile().getId(), dataFileRepository)
+                .columns(fileDataSourceForm.getColumns().stream()
+                        .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
+                                .details(dataSourceColumnDto.getName())
+                                .paramters(dataSourceColumnDto.getDataValueType(), dataSourceColumnDto.getPosition())
+                                .build())
+                        .collect(Collectors.toSet()))
+                .details(fileDataSourceForm.getName(), fileDataSourceForm.getDescription())
+                .paramters(fileDataSourceForm.getDataSourceType(), null)
+                .build();
+        fileDataSource.getColumns()
+            .forEach(column -> column.changeDataSource(fileDataSource));
+        return fileDataSource;
+    }
+
+    private DataSource buildDatabaseDataSource(DatabaseDataSourceForm databaseDataSourceForm) {
+        DataSource databaseDatasource = new DatabaseDataSourceBuilder()
+                .databaseConnection(databaseConnectionService.find(databaseDataSourceForm.getDatabaseConnection().getId()))
+                .table(databaseDataSourceForm.getTable())
+                .filter(databaseDataSourceForm.getFilter())
+                .details(databaseDataSourceForm.getName(), databaseDataSourceForm.getDescription())
+                .paramters(databaseDataSourceForm.getDataSourceType(), databaseDataSourceForm.getFilter())
+                .columns(databaseDataSourceForm.getColumns().stream()
+                        .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
+                                .details(dataSourceColumnDto.getName())
+                                .paramters(dataSourceColumnDto.getDataValueType(), dataSourceColumnDto.getPosition())
+                                .build())
+                        .collect(Collectors.toSet()))
+                .build();
+        databaseDatasource.getColumns()
+                .forEach(column -> column.changeDataSource(databaseDatasource));
+        return databaseDatasource;
     }
 
 }

@@ -18,7 +18,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 import com.abixen.platform.service.businessintelligence.multivisualisation.infrastructure.exception.DatabaseConnectionException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DatabaseConnectionForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseService;
 import com.abixen.platform.service.businessintelligence.infrastructure.configuration.PlatformModuleConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;

@@ -19,7 +19,8 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.FileDataParserService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.parser.FileDataParserService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.parser.FileParserFactory;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumnBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileBuilder;
@@ -78,15 +79,6 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
     }
 
     @Override
-    public Page<DataFileDto> findDataFile(final String jsonCriteria, final Pageable pageable) {
-        log.debug("findDataFile() - jsonCriteria: {}, pageable: {}", jsonCriteria, pageable);
-
-        final Page<DataFile> dataFiles = dataFileService.findAll(pageable);
-
-        return dataFileToDataFileDtoConverter.convertToPage(dataFiles);
-    }
-
-    @Override
     public Page<DataFileDto> findAllDataFiles(final Pageable pageable) {
         log.debug("findAllDataFiles() - pageable: {}", pageable);
 
@@ -96,16 +88,17 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
     }
 
     @Override
-    public DataFileDto createDataFile(final DataFileForm dataFileForm) {
+    public DataFileForm createDataFile(final DataFileForm dataFileForm) {
         log.debug("createDataFile() - dataFileForm: {}", dataFileForm);
 
-        final DataFile dataFile = dataFileService.create(build(dataFileForm));
+        final DataFile savedDataFile = dataFileService.create(build(dataFileForm));
+        final DataFileDto convertedDataFile = dataFileToDataFileDtoConverter.convert(savedDataFile);
 
-        return dataFileToDataFileDtoConverter.convert(dataFile);
+        return new DataFileForm(convertedDataFile);
     }
 
     @Override
-    public DataFileDto updateDataFile(final DataFileForm dataFileForm) {
+    public DataFileForm updateDataFile(final DataFileForm dataFileForm) {
         log.debug("updateDataFile() - dataFileForm: {}", dataFileForm);
 
         final DataFile dataFile = dataFileService.find(dataFileForm.getId());
@@ -128,8 +121,9 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
                 });
 
         final DataFile updateDataFile = dataFileService.update(dataFile);
+        final DataFileDto convertDataFile = dataFileToDataFileDtoConverter.convert(updateDataFile);
 
-        return dataFileToDataFileDtoConverter.convert(updateDataFile);
+        return new DataFileForm(convertDataFile);
     }
 
     @Override
@@ -153,24 +147,6 @@ public class DataFileManagementServiceImpl implements DataFileManagementService 
         }
 
         return dataSourceColumnToDataSourceColumnDtoConverter.convertToList(result);
-    }
-
-    @Override
-    public List<Map<String, Integer>> findAllColumns(final Long dataFileId) {
-        log.debug("findAllColumns() - dataFileId: {}", dataFileId);
-
-        final List<Map<String, Integer>> result = new ArrayList<>();
-        final DataFile dataFile = dataFileService.find(dataFileId);
-        int position = 0;
-        for (DataFileColumn dataFileColumn : dataFile.getColumns()) {
-            String name = dataFileColumn.getName();
-            Map<String, Integer> column = new HashMap<>(1);
-            column.put(name, position);
-            result.add(column);
-            position++;
-        }
-
-        return result;
     }
 
     @Override

@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
  *
@@ -11,13 +12,25 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-
-package com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository;
-
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
-import org.springframework.data.jpa.repository.JpaRepository;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile;
 
 
-public interface DataSourceColumnRepository extends JpaRepository<DataSourceColumn, Long> {
+import java.util.ArrayList;
+import java.util.List;
 
+public class RowDto {
+
+    private List<ColumnDto> columns = new ArrayList<>();
+
+    public List<ColumnDto> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(List<ColumnDto> columns) {
+        this.columns = columns;
+    }
+
+    public void addColumn(ColumnDto column) {
+        columns.add(column);
+    }
 }

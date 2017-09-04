@@ -47,7 +47,7 @@ public class DataFileToDataFileDtoConverter extends AbstractConverter<DataFile, 
         dataFileDto.setId(dataFile.getId())
                 .setName(dataFile.getName())
                 .setDescription(dataFile.getDescription())
-                .setColumns(dataFileColumnToDataFileColumnDtoConverter.convertToList(dataFile.getColumns()));
+                .setColumns(dataFileColumnToDataFileColumnDtoConverter.convertToSet(dataFile.getColumns()));
 
         auditingModelToSimpleAuditingDtoConverter.convert(dataFile, dataFileDto);
 
