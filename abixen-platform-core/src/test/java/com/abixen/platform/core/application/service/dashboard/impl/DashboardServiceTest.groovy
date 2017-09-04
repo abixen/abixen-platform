@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.application.service
+package com.abixen.platform.core.application.service.dashboard.impl
 
 import com.abixen.platform.core.application.converter.ModuleTypeToModuleTypeDtoConverter
 import com.abixen.platform.core.application.converter.PageToPageDtoConverter
@@ -21,39 +21,35 @@ import com.abixen.platform.core.application.dto.LayoutDto
 import com.abixen.platform.core.application.dto.ModuleTypeDto
 import com.abixen.platform.core.application.dto.PageDto
 import com.abixen.platform.core.application.form.DashboardForm
-import com.abixen.platform.core.application.service.impl.DashboardServiceImpl
+import com.abixen.platform.core.application.service.dashboard.DashboardService
 import com.abixen.platform.core.domain.model.Layout
 import com.abixen.platform.core.domain.model.Module
 import com.abixen.platform.core.domain.model.ModuleType
 import com.abixen.platform.core.domain.model.Page
 import com.abixen.platform.core.domain.model.PageBuilder
 import com.abixen.platform.core.domain.service.LayoutService
-import com.abixen.platform.core.domain.service.ModuleService
 import com.abixen.platform.core.domain.service.PageService
 import spock.lang.Specification
 
 class DashboardServiceTest extends Specification {
 
     private PageService pageService
-    private ModuleService moduleService
-    private ModuleTypeService moduleTypeService
     private LayoutService layoutService
+    private DashboardModuleService dashboardModuleService
     private PageToPageDtoConverter pageToPageDtoConverter
     private ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter
     private DashboardService dashboardService
 
     void setup() {
         pageService = Mock()
-        moduleService = Mock()
-        moduleTypeService = Mock()
         layoutService = Mock()
+        dashboardModuleService = Mock()
         pageToPageDtoConverter = Mock()
         moduleTypeToModuleTypeDtoConverter = Mock()
         dashboardService = new DashboardServiceImpl(
                 pageService,
-                moduleService,
-                moduleTypeService,
                 layoutService,
+                dashboardModuleService,
                 pageToPageDtoConverter,
                 moduleTypeToModuleTypeDtoConverter
         )
@@ -79,7 +75,7 @@ class DashboardServiceTest extends Specification {
         pageDto.id = pageId
 
         pageService.find(pageId) >> page
-        moduleService.findAll(page) >> modules
+        dashboardModuleService.findAllModules(page) >> modules
         moduleTypeToModuleTypeDtoConverter.convert(moduleType0) >> moduleTypeDto0
         moduleTypeToModuleTypeDtoConverter.convert(moduleType1) >> moduleTypeDto1
         pageToPageDtoConverter.convert(page) >> pageDto
@@ -97,7 +93,7 @@ class DashboardServiceTest extends Specification {
         dashboardDto.dashboardModuleDtos[1].moduleType == moduleTypeDto1
 
         1 * pageService.find(pageId) >> page
-        1 * moduleService.findAll(page) >> modules
+        1 * dashboardModuleService.findAllModules(page) >> modules
         1 * moduleTypeToModuleTypeDtoConverter.convert(moduleType0) >> moduleTypeDto0
         1 * moduleTypeToModuleTypeDtoConverter.convert(moduleType1) >> moduleTypeDto1
         1 * pageToPageDtoConverter.convert(page) >> pageDto
