@@ -24,50 +24,54 @@ import spock.lang.Specification
 
 class DataFileToDataFileDtoConverterTest extends Specification {
 
-    private static final String NAME = "name"
-    public static final HashSet<DataFileColumn> COLUMNS = new HashSet<DataFileColumn>()
-    public static final String DESCRIPTION = "description"
-
-
-    private DataFileColumnToDataFileColumnDtoConverter dataFileColumnToDataFileColumnDtoConverter;
-    private AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
-    private DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter;
+    private AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter
+    private DataFileColumnToDataFileColumnDtoConverter dataFileColumnToDataFileColumnDtoConverter
+    private DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter
 
     void setup() {
-        auditingModelToSimpleAuditingDtoConverter = Mock();
-        dataFileColumnToDataFileColumnDtoConverter = Mock();
-        dataFileToDataFileDtoConverter = new DataFileToDataFileDtoConverter(dataFileColumnToDataFileColumnDtoConverter, auditingModelToSimpleAuditingDtoConverter);
+        dataFileColumnToDataFileColumnDtoConverter = Mock()
+        auditingModelToSimpleAuditingDtoConverter = Mock()
+        dataFileToDataFileDtoConverter = new DataFileToDataFileDtoConverter(dataFileColumnToDataFileColumnDtoConverter, auditingModelToSimpleAuditingDtoConverter)
     }
 
-    void "should return null when dataFile is null"() {
+    void "should return null when DataFile is null"() {
         given:
-        final DataFile dataFile = null;
+        final DataFile dataFile = null
 
         when:
-        final DataFileDto result = dataFileToDataFileDtoConverter.convert(dataFile)
+        final DataFileDto dataFileDto = dataFileToDataFileDtoConverter.convert(dataFile)
 
         then:
-        result == null;
+        dataFileDto == null
     }
 
     void "should convert DataFile to DataFileDto"() {
         given:
+        final DataFileColumn dataFileColumn = [] as DataFileColumn
+        final Set<DataFileColumn> dataFileColumns = Collections.singleton(dataFileColumn)
         final DataFile dataFile = new DataFileBuilder()
-                .details(NAME, DESCRIPTION)
-                .columns(COLUMNS)
+                .details("name", "description")
+                .columns(dataFileColumns)
                 .build()
 
+        final DataFileColumnDto dataFileColumnDto = new DataFileColumnDto()
+        final Set<DataFileColumnDto> dataFileColumnDtos = Collections.singleton(dataFileColumnDto)
 
-
-        final Set<DataFileColumnDto> dataFileColumnDtoSet = dataFileColumnToDataFileColumnDtoConverter.convertToSet(COLUMNS)
+        dataFileColumnToDataFileColumnDtoConverter.convertToSet(dataFileColumns) >> dataFileColumnDtos
 
         when:
-        final DataFileDto result = dataFileToDataFileDtoConverter.convert(dataFile);
+        final DataFileDto dataFileDto = dataFileToDataFileDtoConverter.convert(dataFile)
 
         then:
-        result.id == dataFile.id;
-        result.name == dataFile.name;
-        result.description == dataFile.description;
-        result.columns == dataFileColumnDtoSet;
+        dataFileDto != null
+        dataFileDto.id == dataFile.id
+        dataFileDto.name == dataFile.name
+        dataFileDto.description == dataFile.description
+        dataFileDto.columns == dataFileColumnDtos
+
+        1 * dataFileColumnToDataFileColumnDtoConverter.convertToSet(dataFileColumns) >> dataFileColumnDtos
+        1 * auditingModelToSimpleAuditingDtoConverter.convert(_, _)
+        0 * _
     }
+
 }
