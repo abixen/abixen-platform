@@ -25,25 +25,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseFactoryImpl implements DatabaseFactory {
 
-    @Autowired
-    @Qualifier("databasePostgresService")
-    private DatabaseService databasePostgresService;
+    private final DatabaseService databasePostgresService;
+    private final DatabaseService databaseH2Service;
+    private final DatabaseService databaseMySQLService;
+    private final DatabaseService databaseOracleService;
+    private final DatabaseService databaseMSSQLService;
 
     @Autowired
-    @Qualifier("databaseH2Service")
-    private DatabaseService databaseH2Service;
-
-    @Autowired
-    @Qualifier("databaseMySQLService")
-    private DatabaseService databaseMySQLService;
-
-    @Autowired
-    @Qualifier("databaseOracleService")
-    private DatabaseService databaseOracleService;
-
-    @Autowired
-    @Qualifier("databaseMSSQLService")
-    private DatabaseService databaseMSSQLService;
+    public DatabaseFactoryImpl(@Qualifier("databasePostgresService") DatabaseService databasePostgresService,
+                               @Qualifier("databaseH2Service") DatabaseService databaseH2Service,
+                               @Qualifier("databaseMySQLService") DatabaseService databaseMySQLService,
+                               @Qualifier("databaseOracleService") DatabaseService databaseOracleService,
+                               @Qualifier("databaseMSSQLService") DatabaseService databaseMSSQLService) {
+        this.databasePostgresService = databasePostgresService;
+        this.databaseH2Service = databaseH2Service;
+        this.databaseMySQLService = databaseMySQLService;
+        this.databaseOracleService = databaseOracleService;
+        this.databaseMSSQLService = databaseMSSQLService;
+    }
 
     @Override
     public DatabaseService getDatabaseService(DatabaseType databaseType) {
