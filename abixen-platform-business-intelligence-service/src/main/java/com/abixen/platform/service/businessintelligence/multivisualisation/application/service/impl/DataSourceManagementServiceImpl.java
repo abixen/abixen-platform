@@ -43,7 +43,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,22 +90,24 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
     }
 
     @Override
-    public DataSourceDto createDataSource(final DataSourceForm dataSourceForm) {
+    public DataSourceForm createDataSource(final DataSourceForm dataSourceForm) {
         log.debug("createDataSource() - dataSourceForm: {}", dataSourceForm);
 
-        final DataSource dataSource = dataSourceService.create(buildDataSource(dataSourceForm));
+        final DataSource savedDataSource = dataSourceService.create(buildDataSource(dataSourceForm));
+        final DataSourceDto convertedDataSource = dataSourceToDataSourceDtoConverter.convert(savedDataSource);
 
-        return dataSourceToDataSourceDtoConverter.convert(dataSource);
+        return new DataSourceForm(convertedDataSource);
     }
 
     @Override
-    public DataSourceDto updateDataSource(final DataSourceForm dataSourceForm) {
+    public DataSourceForm updateDataSource(final DataSourceForm dataSourceForm) {
         log.debug("updateDataSource() - dataSourceForm: {}", dataSourceForm);
 
         final DataSource dataSource = dataSourceService.find(dataSourceForm.getId());
         final DataSource updatedDataSource = dataSourceService.update(buildUpdateDataSource(dataSource, dataSourceForm));
+        final DataSourceDto convertedDataSource = dataSourceToDataSourceDtoConverter.convert(updatedDataSource);
 
-        return dataSourceToDataSourceDtoConverter.convert(updatedDataSource);
+        return new DataSourceForm(convertedDataSource);
     }
 
     @Override
@@ -114,17 +115,6 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
         log.debug("deleteDataSource() - id: {}", id);
 
         dataSourceService.delete(id);
-    }
-
-    @Override
-    public List<Map<String, Integer>> findAllColumnsInDataSource(final Long dataSourceId) {
-        log.debug("findAllColumnsInDataSource() - dataSourceId: {}", dataSourceId);
-
-        final List<Map<String, Integer>> result = new ArrayList<>();
-        dataSourceService.find(dataSourceId)
-                .getColumns().forEach(dataSourceColumn -> mapColumnAndAddToResult(result, dataSourceColumn));
-
-        return result;
     }
 
     @Override

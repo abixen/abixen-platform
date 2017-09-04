@@ -75,16 +75,17 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
     }
 
     @Override
-    public DatabaseConnectionDto createDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm) {
+    public DatabaseConnectionForm createDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm) {
         log.debug("createDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
-        final DatabaseConnection databaseConnection = databaseConnectionService.create(build(databaseConnectionForm));
+        final DatabaseConnection savedDatabaseConnection = databaseConnectionService.create(build(databaseConnectionForm));
+        final DatabaseConnectionDto convertedDatabaseConnection = databaseConnectionToDatabaseConnectionDtoConverter.convert(savedDatabaseConnection);
 
-        return databaseConnectionToDatabaseConnectionDtoConverter.convert(databaseConnection);
+        return new DatabaseConnectionForm(convertedDatabaseConnection);
     }
 
     @Override
-    public DatabaseConnectionDto updateDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm) {
+    public DatabaseConnectionForm updateDatabaseConnection(final DatabaseConnectionForm databaseConnectionForm) {
         log.debug("updateDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
         final DatabaseConnection databaseConnection = databaseConnectionService.find(databaseConnectionForm.getId());
@@ -97,8 +98,9 @@ public class DatabaseConnectionManagementServiceImpl implements DatabaseConnecti
         databaseConnection.changeDetails(databaseConnectionForm.getName(), databaseConnectionForm.getDescription());
 
         final DatabaseConnection updatedDatabaseConnection = databaseConnectionService.update(databaseConnection);
+        final DatabaseConnectionDto convertedDatabaseConnection = databaseConnectionToDatabaseConnectionDtoConverter.convert(updatedDatabaseConnection);
 
-        return databaseConnectionToDatabaseConnectionDtoConverter.convert(updatedDatabaseConnection);
+        return new DatabaseConnectionForm(convertedDatabaseConnection);
     }
 
     @Override

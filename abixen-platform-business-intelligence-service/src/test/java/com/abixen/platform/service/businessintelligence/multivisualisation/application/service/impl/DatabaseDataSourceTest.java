@@ -65,7 +65,7 @@ public class DatabaseDataSourceTest {
         databaseConnectionForm.setUsername("postgres");
         databaseConnectionForm.setPassword("postgres");
 
-        DatabaseConnectionDto createdDatabaseConnection = databaseConnectionManagementService.createDatabaseConnection(databaseConnectionForm);
+        DatabaseConnectionForm createdDatabaseConnection = databaseConnectionManagementService.createDatabaseConnection(databaseConnectionForm);
 
         assertNotNull(createdDatabaseConnection);
     }

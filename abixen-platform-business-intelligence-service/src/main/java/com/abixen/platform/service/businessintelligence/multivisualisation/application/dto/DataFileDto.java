@@ -21,7 +21,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,7 +29,7 @@ import java.util.List;
 @ToString
 public class DataFileDto extends SimpleAuditingDto {
     private Long id;
-    private List<DataFileColumnDto> columns;
+    private Set<DataFileColumnDto> columns;
     private String name;
     private String description;
 
