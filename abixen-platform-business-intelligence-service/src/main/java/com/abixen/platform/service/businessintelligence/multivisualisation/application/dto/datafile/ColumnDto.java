@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile;
 
 public class ColumnDto {
 

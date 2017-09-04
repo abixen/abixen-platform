@@ -19,9 +19,9 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl.parser.reader.ExcelReaderService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.ColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.DataFileDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.RowDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.ColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.DataFileDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.RowDto;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.ss.usermodel.*;

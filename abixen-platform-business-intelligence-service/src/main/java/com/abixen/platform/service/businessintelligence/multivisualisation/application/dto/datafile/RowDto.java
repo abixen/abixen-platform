@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
  *
@@ -11,35 +12,25 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-
-package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile;
+package com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataFileDto {
+public class RowDto {
 
-    private RowDto rowTypes;
-    private List<RowDto> rows = new ArrayList<>();
+    private List<ColumnDto> columns = new ArrayList<>();
 
-    public RowDto getRowTypes() {
-        return rowTypes;
+    public List<ColumnDto> getColumns() {
+        return columns;
     }
 
-    public void setRowTypes(RowDto rowTypes) {
-        this.rowTypes = rowTypes;
+    public void setColumns(List<ColumnDto> columns) {
+        this.columns = columns;
     }
 
-    public List<RowDto> getRows() {
-        return rows;
-    }
-
-    public void setRows(List<RowDto> rows) {
-        this.rows = rows;
-    }
-
-    public void addRow(RowDto rowDto) {
-        rows.add(rowDto);
+    public void addColumn(ColumnDto column) {
+        columns.add(column);
     }
 }

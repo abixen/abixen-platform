@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl.parser.reader;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.DataFileDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.DataFileDto;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface CsvReaderService {

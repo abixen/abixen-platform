@@ -18,9 +18,9 @@ import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeExcept
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.ColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.DataFileDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.RowDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.ColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.DataFileDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.RowDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

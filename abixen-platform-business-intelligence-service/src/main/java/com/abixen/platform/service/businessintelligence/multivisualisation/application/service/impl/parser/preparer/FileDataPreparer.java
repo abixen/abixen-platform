@@ -19,9 +19,9 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumnBuilder;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.ColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.DataFileDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.RowDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.ColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.DataFileDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.RowDto;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;

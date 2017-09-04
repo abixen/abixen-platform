@@ -18,9 +18,9 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParseError;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.impl.parser.reader.CsvReaderService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.ColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.DataFileDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.dataFile.RowDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.ColumnDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.DataFileDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.datafile.RowDto;
 import com.opencsv.CSVReader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
