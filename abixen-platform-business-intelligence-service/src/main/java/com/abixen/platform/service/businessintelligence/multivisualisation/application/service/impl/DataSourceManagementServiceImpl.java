@@ -32,8 +32,8 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataFileRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DataSourceManagementService;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseFactory;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.DatabaseService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseFactory;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DatabaseConnectionService;
 import lombok.extern.slf4j.Slf4j;

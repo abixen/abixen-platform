@@ -19,7 +19,8 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.FileDataParserService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.parser.FileDataParserService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.parser.FileParserFactory;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumnBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileBuilder;
