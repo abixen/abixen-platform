@@ -19,11 +19,11 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 
 public interface ChartConfigurationManagementService {
 
-    ChartConfigurationDto findChartConfiguration(Long id);
+    ChartConfigurationDto findChartConfiguration(final Long id);
 
-    ChartConfigurationDto createChartConfiguration(ChartConfigurationForm chartConfigurationForm);
+    ChartConfigurationForm createChartConfiguration(final ChartConfigurationForm chartConfigurationForm);
 
-    ChartConfigurationDto updateChartConfiguration(ChartConfigurationForm chartConfigurationForm);
+    ChartConfigurationForm updateChartConfiguration(final ChartConfigurationForm chartConfigurationForm);
 
-    void deleteChartConfiguration(Long moduleId);
+    void deleteChartConfiguration(final Long moduleId);
 }
