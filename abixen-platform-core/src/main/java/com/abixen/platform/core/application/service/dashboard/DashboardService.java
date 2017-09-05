@@ -12,10 +12,10 @@
  * details.
  */
 
-package com.abixen.platform.core.application.service;
+package com.abixen.platform.core.application.service.dashboard;
 
-import com.abixen.platform.core.application.form.DashboardForm;
 import com.abixen.platform.core.application.dto.DashboardDto;
+import com.abixen.platform.core.application.form.DashboardForm;
 
 
 public interface DashboardService {

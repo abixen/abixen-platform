@@ -20,7 +20,7 @@ import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.core.application.form.DashboardForm;
-import com.abixen.platform.core.application.service.DashboardService;
+import com.abixen.platform.core.application.service.dashboard.DashboardService;
 import com.abixen.platform.core.application.dto.DashboardDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
