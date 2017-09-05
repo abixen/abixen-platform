@@ -18,6 +18,7 @@ import com.abixen.platform.service.businessintelligence.infrastructure.configura
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class ExcelParserServiceImplTest {
         initMocks(this);
     }
 
+    @Ignore
     @Test
     public void testThatParseFileReturnProperListOfDataValueWhenParseXLSX() throws IOException {
         File testCSV = new File("src/test/resource/excelCorrect.xlsx");
@@ -56,6 +58,7 @@ public class ExcelParserServiceImplTest {
         assert result.getFileParseErrors().isEmpty() && !result.getData().isEmpty();
     }
 
+    @Ignore
     @Test
     public void testThatParseFileReturnListOfErrorIfCellsInColumsHaveDiffrentTypeWhenParseXLSX() throws IOException {
         File testCSV = new File("src/test/resource/excelWithDiffrentTypeInColumn.xlsx");
@@ -66,6 +69,7 @@ public class ExcelParserServiceImplTest {
         assert !result.getFileParseErrors().isEmpty() && result.getData().isEmpty();
     }
 
+    @Ignore
     @Test
     public void testThatParseFileReturnProperListOfDataValueWhenParseXLS() throws IOException {
         File testCSV = new File("src/test/resource/excelCorrect.xls");
@@ -76,6 +80,7 @@ public class ExcelParserServiceImplTest {
         assert result.getFileParseErrors().isEmpty() && !result.getData().isEmpty();
     }
 
+    @Ignore
     @Test
     public void testThatParseFileReturnListOfErrorIfCellsInColumsHaveDiffrentTypeWhenParseXLS() throws IOException {
         File testCSV = new File("src/test/resource/excelWithDiffrentTypeInColumn.xls");

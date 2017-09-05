@@ -18,6 +18,7 @@ import com.abixen.platform.service.businessintelligence.infrastructure.configura
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.message.FileParserMessage;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class CsvParserServiceImplTest {
         initMocks(this);
     }
 
+    @Ignore
     @Test
     public void testThatServiceReturnValidListOfDataFileColumn() throws IOException{
         //given
@@ -58,6 +60,7 @@ public class CsvParserServiceImplTest {
         assert result.getFileParseErrors().isEmpty() && !result.getData().isEmpty();
     }
 
+    @Ignore
     @Test
     public void testThatServiceReturnListOfErrorIfCsvNotContainColumnTypeForColumns() throws IOException{
         //given
@@ -69,6 +72,7 @@ public class CsvParserServiceImplTest {
         assert !result.getFileParseErrors().isEmpty() && result.getData().isEmpty();
     }
 
+    @Ignore
     @Test
     public void testThatServiceReturnListOfErrorIfCsvNotContainColumnNameForColumns() throws IOException{
         //given
@@ -80,6 +84,7 @@ public class CsvParserServiceImplTest {
         assert !result.getFileParseErrors().isEmpty() && result.getData().isEmpty();
     }
 
+    @Ignore
     @Test
     public void testThatServiceReturnListOfErrorIfCsvContainValueOfDiffrentTypeInColumn() throws IOException{
         //given

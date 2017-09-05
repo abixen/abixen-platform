@@ -17,26 +17,11 @@ package com.abixen.platform.service.businessintelligence.infrastructure.configur
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import static com.abixen.platform.service.businessintelligence.infrastructure.configuration.PlatformModulesPackages.*;
-
 
 @Configuration
-@ComponentScan(
-        basePackages = {COMMON},
-
-        basePackageClasses  = {
-        PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.application.service.PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.application.service.parser.PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.application.service.parser.impl.preparer.PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.application.service.parser.impl.reader.PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.application.service.parser.impl.validator.PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.client.controller.PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web.controller.PackageMarker.class,
-        com.abixen.platform.service.businessintelligence.multivisualisation.application.converter.PackageMarker.class
-        })
+@ComponentScan(basePackages = PlatformModuleConfiguration.COMMON_PACKAGE)
 public class PlatformModuleConfiguration {
+
+    static final String COMMON_PACKAGE = "com.abixen.platform.common";
 
 }
