@@ -17,7 +17,7 @@ package com.abixen.platform.core.application.service.dashboard.impl;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
-import com.abixen.platform.core.application.converter.ModuleTypeToModuleTypeDtoConverter;
+import com.abixen.platform.core.application.converter.ModuleToDashboardModuleDtoConverter;
 import com.abixen.platform.core.application.converter.PageToPageDtoConverter;
 import com.abixen.platform.core.application.dto.DashboardDto;
 import com.abixen.platform.core.application.dto.DashboardModuleDto;
@@ -48,7 +48,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final LayoutService layoutService;
     private final DashboardModuleService dashboardModuleService;
     private final PageToPageDtoConverter pageToPageDtoConverter;
-    private final ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter;
+    private final ModuleToDashboardModuleDtoConverter moduleToDashboardModuleDtoConverter;
 
 
     @Autowired
@@ -56,12 +56,12 @@ public class DashboardServiceImpl implements DashboardService {
                                 LayoutService layoutService,
                                 DashboardModuleService dashboardModuleService,
                                 PageToPageDtoConverter pageToPageDtoConverter,
-                                ModuleTypeToModuleTypeDtoConverter moduleTypeToModuleTypeDtoConverter) {
+                                ModuleToDashboardModuleDtoConverter moduleToDashboardModuleDtoConverter) {
         this.pageService = pageService;
         this.layoutService = layoutService;
         this.dashboardModuleService = dashboardModuleService;
         this.pageToPageDtoConverter = pageToPageDtoConverter;
-        this.moduleTypeToModuleTypeDtoConverter = moduleTypeToModuleTypeDtoConverter;
+        this.moduleToDashboardModuleDtoConverter = moduleToDashboardModuleDtoConverter;
     }
 
     @Override
@@ -69,27 +69,10 @@ public class DashboardServiceImpl implements DashboardService {
         log.debug("find() - pageId: {}", pageId);
 
         final Page page = pageService.find(pageId);
-
         final List<Module> modules = dashboardModuleService.findAllModules(page);
-        final List<DashboardModuleDto> dashboardModules = new ArrayList<>();
 
-        //FIXME - use converter
-        modules
-                .stream()
-                .forEach(module ->
-                        dashboardModules.add(new DashboardModuleDto(
-                                module.getId(),
-                                module.getDescription(),
-                                module.getModuleType().getName(),
-                                moduleTypeToModuleTypeDtoConverter.convert(module.getModuleType()),
-                                module.getTitle(),
-                                module.getRowIndex(),
-                                module.getColumnIndex(),
-                                module.getOrderIndex()
-                        ))
-                );
-
-        PageDto pageDto = pageToPageDtoConverter.convert(page);
+        final PageDto pageDto = pageToPageDtoConverter.convert(page);
+        final List<DashboardModuleDto> dashboardModules = moduleToDashboardModuleDtoConverter.convertToList(modules);
 
         return new DashboardDto(pageDto, dashboardModules);
     }

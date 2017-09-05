@@ -15,13 +15,10 @@
 package com.abixen.platform.core.application.dto;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.List;
 
 
-public class DashboardDto implements Serializable {
-
-    private final long serialVersionUID = -7437477767491577712L;
+public class DashboardDto {
 
     @NotNull
     private PageDto page;
@@ -52,4 +49,5 @@ public class DashboardDto implements Serializable {
     public void setDashboardModuleDtos(List<DashboardModuleDto> dashboardModuleDtos) {
         this.dashboardModuleDtos = dashboardModuleDtos;
     }
+
 }
