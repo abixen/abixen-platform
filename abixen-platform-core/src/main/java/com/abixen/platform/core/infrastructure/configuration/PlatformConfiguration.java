@@ -14,19 +14,10 @@
 
 package com.abixen.platform.core.infrastructure.configuration;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@ComponentScan(basePackageClasses = {
-        PackageMarker.class,
-        com.abixen.platform.core.domain.repository.PackageMarker.class,
-        com.abixen.platform.core.infrastructure.integration.PackageMarker.class,
-        com.abixen.platform.core.application.service.PackageMarker.class,
-        com.abixen.platform.core.interfaces.web.PackageMarker.class,
-        com.abixen.platform.core.application.converter.PackageMarker.class
-})
 public class PlatformConfiguration {
 
 }
