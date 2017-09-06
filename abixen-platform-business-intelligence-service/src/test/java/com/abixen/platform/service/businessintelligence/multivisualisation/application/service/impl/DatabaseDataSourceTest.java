@@ -22,6 +22,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.service.database.DatabaseService;
 import com.abixen.platform.service.businessintelligence.infrastructure.configuration.PlatformModuleConfiguration;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class DatabaseDataSourceTest {
     private DatabaseConnectionRepository databaseConnectionRepository;
 
 
+    @Ignore
     @Test
     public void createDataSourceConnection() {
         log.debug("createDataSourceConnection()");

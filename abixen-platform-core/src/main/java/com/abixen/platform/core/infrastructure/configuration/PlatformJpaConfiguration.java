@@ -16,6 +16,7 @@ package com.abixen.platform.core.infrastructure.configuration;
 
 import com.abixen.platform.common.infrastructure.configuration.AbstractJpaConfiguration;
 import com.abixen.platform.common.infrastructure.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
+import com.abixen.platform.core.PlatformApplication;
 import com.abixen.platform.core.infrastructure.security.PlatformAuditorAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -32,16 +33,17 @@ import javax.sql.DataSource;
 @Import(PlatformDataSourceConfiguration.class)
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "platformAuditorAware")
-@EnableJpaRepositories(basePackageClasses = com.abixen.platform.core.domain.repository.PackageMarker.class,
+@EnableJpaRepositories(basePackageClasses = PlatformApplication.class,
         repositoryFactoryBeanClass = PlatformJpaRepositoryFactoryBean.class)
 public class PlatformJpaConfiguration extends AbstractJpaConfiguration {
 
     @Autowired
     public PlatformJpaConfiguration(DataSource dataSource, AbstractPlatformJdbcConfigurationProperties platformJdbcConfiguration) {
-        super(dataSource, platformJdbcConfiguration, com.abixen.platform.core.domain.model.PackageMarker.class.getPackage().getName());
+        super(dataSource, platformJdbcConfiguration, PlatformApplication.class.getPackage().getName());
     }
 
     public AuditorAware platformAuditorAware() {
         return new PlatformAuditorAware();
     }
+
 }
