@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.doma
 
 
 public enum DataSourceType {
-    FILE("FILE"), DB("DB");
+    FILE("FILE"), DB("DB"), OTHER("OTHER");
 
     private final String name;
 

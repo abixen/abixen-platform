@@ -200,7 +200,7 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
 
     private DataSource buildFileDataSource(FileDataSourceForm fileDataSourceForm) {
         DataSource fileDataSource = new FileDataSourceBuilder()
-                .dataFile(fileDataSourceForm.getDataFile().getId(), dataFileRepository)
+                .dataFile(dataFileRepository.findOne(fileDataSourceForm.getDataFile().getId()))
                 .columns(fileDataSourceForm.getColumns().stream()
                         .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
                                 .details(dataSourceColumnDto.getName())

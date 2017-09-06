@@ -64,10 +64,10 @@ class DataFileToDataFileDtoConverterTest extends Specification {
 
         then:
         dataFileDto != null
-        dataFileDto.id == dataFile.id
-        dataFileDto.name == dataFile.name
-        dataFileDto.description == dataFile.description
-        dataFileDto.columns == dataFileColumnDtos
+        dataFileDto.getId() == dataFile.getId()
+        dataFileDto.getName() == dataFile.getName()
+        dataFileDto.getDescription() == dataFile.getDescription()
+        dataFileDto.getColumns() == dataFileColumnDtos
 
         1 * dataFileColumnToDataFileColumnDtoConverter.convertToSet(dataFileColumns) >> dataFileColumnDtos
         1 * auditingModelToSimpleAuditingDtoConverter.convert(_, _)

@@ -15,11 +15,8 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
 import com.abixen.platform.common.application.converter.AbstractConverter;
-import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseDataSourceDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.FileDataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
@@ -31,23 +28,14 @@ import java.util.Map;
 @Component
 public class DataSourceToDataSourceDtoConverter extends AbstractConverter<DataSource, DataSourceDto> {
 
-    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
-    private final DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter;
-    private final DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
-    private final FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter;
-    private final DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter;
+    private final DatabaseDataSourceToDatabaseDataSourceDtoConverter databaseDataSourceToDatabaseDataSourceDtoConverter;
+    private final FileDataSourceToFileDataSourceDtoConverter fileDataSourceToFileDataSourceDtoConverter;
 
     @Autowired
-    public DataSourceToDataSourceDtoConverter(AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter,
-                                              DatabaseConnectionToDatabaseConnectionDtoConverter databaseConnectionToDatabaseConnectionDtoConverter,
-                                              DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter,
-                                              FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter,
-                                              DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter) {
-        this.auditingModelToSimpleAuditingDtoConverter = auditingModelToSimpleAuditingDtoConverter;
-        this.databaseConnectionToDatabaseConnectionDtoConverter = databaseConnectionToDatabaseConnectionDtoConverter;
-        this.dataSourceColumnToDataSourceColumnDtoConverter = dataSourceColumnToDataSourceColumnDtoConverter;
-        this.fileDataSourceRowToFileDataSourceRowDtoConverter = fileDataSourceRowToFileDataSourceRowDtoConverter;
-        this.dataFileToDataFileDtoConverter = dataFileToDataFileDtoConverter;
+    public DataSourceToDataSourceDtoConverter(DatabaseDataSourceToDatabaseDataSourceDtoConverter databaseDataSourceToDatabaseDataSourceDtoConverter,
+                                              FileDataSourceToFileDataSourceDtoConverter fileDataSourceToFileDataSourceDtoConverter) {
+        this.databaseDataSourceToDatabaseDataSourceDtoConverter = databaseDataSourceToDatabaseDataSourceDtoConverter;
+        this.fileDataSourceToFileDataSourceDtoConverter = fileDataSourceToFileDataSourceDtoConverter;
     }
 
     @Override
@@ -56,36 +44,11 @@ public class DataSourceToDataSourceDtoConverter extends AbstractConverter<DataSo
             return null;
         }
 
-        DataSourceDto dataSourceDto = null;
-
         switch (dataSource.getDataSourceType()) {
-            case DB:
-                dataSourceDto = new DatabaseDataSourceDto();
-                ((DatabaseDataSourceDto) dataSourceDto).setDatabaseConnection(databaseConnectionToDatabaseConnectionDtoConverter.convert(((DatabaseDataSource) dataSource).getDatabaseConnection()))
-                        .setFilter((dataSource).getFilter())
-                        .setTable(((DatabaseDataSource) dataSource).getTable())
-                        .setId(dataSource.getId())
-                        .setDataSourceType(dataSource.getDataSourceType())
-                        .setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(dataSource.getColumns()))
-                        .setName(dataSource.getName())
-                        .setDescription(dataSource.getDescription());
-                break;
-            case FILE:
-                dataSourceDto = new FileDataSourceDto();
-                ((FileDataSourceDto) dataSourceDto).setDataFile(dataFileToDataFileDtoConverter.convert(((FileDataSource) dataSource).getDataFile()))
-                        .setRows(fileDataSourceRowToFileDataSourceRowDtoConverter.convertToSet(((FileDataSource) dataSource).getRows()))
-                        .setFilter((dataSource).getFilter())
-                        .setId(dataSource.getId())
-                        .setDataSourceType(dataSource.getDataSourceType())
-                        .setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(dataSource.getColumns()))
-                        .setName(dataSource.getName())
-                        .setDescription(dataSource.getDescription());
-                break;
+            case DB: return databaseDataSourceToDatabaseDataSourceDtoConverter.convert((DatabaseDataSource) dataSource);
+            case FILE: return fileDataSourceToFileDataSourceDtoConverter.convert((FileDataSource) dataSource);
             default:
                 throw new PlatformRuntimeException("DataSource type not supported");
         }
-        auditingModelToSimpleAuditingDtoConverter.convert(dataSource, dataSourceDto);
-
-        return dataSourceDto;
     }
 }

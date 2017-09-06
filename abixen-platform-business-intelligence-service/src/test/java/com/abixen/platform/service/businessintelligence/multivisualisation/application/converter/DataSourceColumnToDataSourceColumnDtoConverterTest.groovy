@@ -22,41 +22,40 @@ import spock.lang.Specification
 
 class DataSourceColumnToDataSourceColumnDtoConverterTest extends Specification {
 
-    private static final String NAME = "name"
-    private static final DataValueType DATA_VALUE_TYPE = DataValueType.STRING
-    private static final int POSITION = 1
-
-    private DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
+    private DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter
 
     void setup() {
-        dataSourceColumnToDataSourceColumnDtoConverter = new DataSourceColumnToDataSourceColumnDtoConverter();
+        dataSourceColumnToDataSourceColumnDtoConverter = new DataSourceColumnToDataSourceColumnDtoConverter()
     }
 
-    void "should return null when dataSourceColumn is null"() {
+    void "should return null when DataSourceColumn is null"() {
         given:
-        final DataSourceColumn dataSourceColumn = null;
+        final DataSourceColumn dataSourceColumn = null
 
         when:
         final DataSourceColumnDto result = dataSourceColumnToDataSourceColumnDtoConverter.convert(dataSourceColumn)
 
         then:
-        result == null;
+        result == null
     }
 
     void "should convert DataSourceColumn to DataSourceColumnDto"() {
         given:
         final DataSourceColumn dataSourceColumn = new DataSourceColumnBuilder()
-                        .details(NAME)
-                        .paramters(DATA_VALUE_TYPE, POSITION)
+                        .details("name")
+                        .paramters(DataValueType.DATE, 1)
                         .build()
 
         when:
-        final DataSourceColumnDto result = dataSourceColumnToDataSourceColumnDtoConverter.convert(dataSourceColumn);
+        final DataSourceColumnDto dataSourceColumnDto = dataSourceColumnToDataSourceColumnDtoConverter.convert(dataSourceColumn)
 
         then:
-        result.name == dataSourceColumn.name;
-        result.dataValueType == dataSourceColumn.dataValueType;
-        result.position == dataSourceColumn.position;
+        dataSourceColumnDto != null
+        dataSourceColumnDto.getName() == dataSourceColumn.getName()
+        dataSourceColumnDto.getDataValueType() == dataSourceColumn.getDataValueType()
+        dataSourceColumnDto.getPosition() == dataSourceColumn.getPosition()
+
+        0 * _
     }
 }
 

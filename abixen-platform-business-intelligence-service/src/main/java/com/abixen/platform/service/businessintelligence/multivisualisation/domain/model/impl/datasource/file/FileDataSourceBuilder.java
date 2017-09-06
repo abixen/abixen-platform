@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file;
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceBuilder;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataFileRepository;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile;
 
 import java.util.Set;
 
@@ -26,8 +26,8 @@ public class FileDataSourceBuilder extends DataSourceBuilder {
         return this;
     }
 
-    public FileDataSourceBuilder dataFile(final Long dataFileId, final DataFileRepository repository) {
-        ((FileDataSource) this.product).setDataFile(repository.findOne(dataFileId));
+    public FileDataSourceBuilder dataFile(final DataFile dataFile) {
+        ((FileDataSource) this.product).setDataFile(dataFile);
         return this;
     }
 

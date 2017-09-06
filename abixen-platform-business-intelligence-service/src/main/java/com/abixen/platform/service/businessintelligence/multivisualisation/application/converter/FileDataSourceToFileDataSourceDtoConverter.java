@@ -15,6 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter;
 
 import com.abixen.platform.common.application.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.FileDataSourceDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,17 @@ import java.util.Map;
 @Component
 public class FileDataSourceToFileDataSourceDtoConverter extends AbstractConverter<FileDataSource, FileDataSourceDto> {
 
+    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
     private final FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter;
     private final DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter;
     private final DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter;
 
     @Autowired
-    public FileDataSourceToFileDataSourceDtoConverter(FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter,
+    public FileDataSourceToFileDataSourceDtoConverter(AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter,
+                                                      FileDataSourceRowToFileDataSourceRowDtoConverter fileDataSourceRowToFileDataSourceRowDtoConverter,
                                                       DataSourceColumnToDataSourceColumnDtoConverter dataSourceColumnToDataSourceColumnDtoConverter,
                                                       DataFileToDataFileDtoConverter dataFileToDataFileDtoConverter) {
+        this.auditingModelToSimpleAuditingDtoConverter = auditingModelToSimpleAuditingDtoConverter;
         this.fileDataSourceRowToFileDataSourceRowDtoConverter = fileDataSourceRowToFileDataSourceRowDtoConverter;
         this.dataSourceColumnToDataSourceColumnDtoConverter = dataSourceColumnToDataSourceColumnDtoConverter;
         this.dataFileToDataFileDtoConverter = dataFileToDataFileDtoConverter;
@@ -44,14 +48,18 @@ public class FileDataSourceToFileDataSourceDtoConverter extends AbstractConverte
             return null;
         }
 
-        FileDataSourceDto fileDataSourceDto = new FileDataSourceDto();
-        fileDataSourceDto.setId(fileDataSource.getId());
-        fileDataSourceDto.setName(fileDataSource.getName());
-        fileDataSourceDto.setFilter(fileDataSource.getFilter());
-        fileDataSourceDto.setDescription(fileDataSource.getDescription());
-        fileDataSourceDto.setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(fileDataSource.getColumns()));
-        fileDataSourceDto.setRows(fileDataSourceRowToFileDataSourceRowDtoConverter.convertToSet(fileDataSource.getRows()));
-        fileDataSourceDto.setDataFile(dataFileToDataFileDtoConverter.convert(fileDataSource.getDataFile()));
+        FileDataSourceDto fileDataSourceDto = (FileDataSourceDto) new FileDataSourceDto()
+                .setRows(fileDataSourceRowToFileDataSourceRowDtoConverter.convertToSet(fileDataSource.getRows()))
+                .setDataFile(dataFileToDataFileDtoConverter.convert(fileDataSource.getDataFile()))
+                .setId(fileDataSource.getId())
+                .setName(fileDataSource.getName())
+                .setFilter(fileDataSource.getFilter())
+                .setDescription(fileDataSource.getDescription())
+                .setDataSourceType(fileDataSource.getDataSourceType())
+                .setColumns(dataSourceColumnToDataSourceColumnDtoConverter.convertToSet(fileDataSource.getColumns()));
+
+        auditingModelToSimpleAuditingDtoConverter.convert(fileDataSource, fileDataSourceDto);
+
         return fileDataSourceDto;
     }
 }
