@@ -31,7 +31,7 @@ class DatabaseDataSourceFormTest extends Specification {
         final DataSourceColumnDto dataSourceColumnDto = [] as DataSourceColumnDto
         final Set<DataSourceColumnDto> dataSourceColumnDtos = Collections.singleton(dataSourceColumnDto)
 
-        final DatabaseDataSourceDto databaseDataSourceDto = new DatabaseDataSourceDto()
+        final DatabaseDataSourceDto databaseDataSourceDto = (DatabaseDataSourceDto) new DatabaseDataSourceDto()
                 .setDatabaseConnection(databaseConnectionDto)
                 .setTable("table")
                 .setId(1L)

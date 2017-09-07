@@ -22,9 +22,11 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Slf4j
+@Transactional
 @PlatformDomainService
 public class FileDataSourceServiceImpl implements FileDataSourceService {
 

@@ -14,18 +14,18 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.*;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.ChartConfigurationRepository;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.ChartConfigurationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Slf4j
 @Transactional
-@Service
+@PlatformDomainService
 public class ChartConfigurationServiceImpl implements ChartConfigurationService {
 
     private final ChartConfigurationRepository chartConfigurationRepository;
