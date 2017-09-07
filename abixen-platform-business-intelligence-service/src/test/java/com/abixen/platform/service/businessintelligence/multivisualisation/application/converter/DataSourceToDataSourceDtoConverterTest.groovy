@@ -92,17 +92,4 @@ class DataSourceToDataSourceDtoConverterTest extends Specification {
         1 * fileDataSourceToFileDataSourceDtoConverter.convert((FileDataSource) dataSource) >> fileDataSourceDto
         0 * _
     }
-
-    void "should thrown exception when dataSourceType isn't File or DB"() {
-        given:
-        final DataSource dataSource = new DataSourceBuilder()
-                .paramters(DataSourceType.OTHER, "filter")
-                .build()
-
-        when:
-        dataSourceToDataSourceDtoConverter.convert(dataSource)
-
-        then:
-        final PlatformRuntimeException platformRuntimeException = thrown()
-    }
 }

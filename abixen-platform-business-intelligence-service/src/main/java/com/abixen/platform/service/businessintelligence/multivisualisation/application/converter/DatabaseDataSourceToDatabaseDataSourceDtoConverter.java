@@ -47,7 +47,7 @@ public class DatabaseDataSourceToDatabaseDataSourceDtoConverter extends Abstract
             return null;
         }
 
-        if (!databaseDataSource.getDataSourceType().equals(DataSourceType.DB)) {
+        if (!DataSourceType.DB.equals(databaseDataSource.getDataSourceType())) {
             throw new PlatformRuntimeException("Invalid DataSource type for DatabaseDataSource");
         }
 

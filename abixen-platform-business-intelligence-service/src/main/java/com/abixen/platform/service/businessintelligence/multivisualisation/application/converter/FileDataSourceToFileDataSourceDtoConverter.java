@@ -48,7 +48,7 @@ public class FileDataSourceToFileDataSourceDtoConverter extends AbstractConverte
             return null;
         }
 
-        FileDataSourceDto fileDataSourceDto = (FileDataSourceDto) new FileDataSourceDto()
+        final FileDataSourceDto fileDataSourceDto = (FileDataSourceDto) new FileDataSourceDto()
                 .setRows(fileDataSourceRowToFileDataSourceRowDtoConverter.convertToSet(fileDataSource.getRows()))
                 .setDataFile(dataFileToDataFileDtoConverter.convert(fileDataSource.getDataFile()))
                 .setId(fileDataSource.getId())

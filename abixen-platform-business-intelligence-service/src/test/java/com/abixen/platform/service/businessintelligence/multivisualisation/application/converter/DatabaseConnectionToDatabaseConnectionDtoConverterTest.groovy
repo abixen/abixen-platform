@@ -44,7 +44,7 @@ class DatabaseConnectionToDatabaseConnectionDtoConverterTest extends Specificati
 
     void "should convert DatabaseConnection to DatabaseConnectionDto"() {
         given:
-        DatabaseConnection databaseConnection = new DatabaseConnectionBuilder()
+        final DatabaseConnection databaseConnection = new DatabaseConnectionBuilder()
             .credentials("username", "password")
             .database(DatabaseType.H2, "databaseHost", 1, "databaseName")
             .details("name", "description")

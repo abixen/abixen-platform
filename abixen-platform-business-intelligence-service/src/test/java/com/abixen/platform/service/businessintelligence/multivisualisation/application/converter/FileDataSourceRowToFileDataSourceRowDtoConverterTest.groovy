@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.FileDataSourceRowDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceRow
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceRowBuilder
+
 import spock.lang.Specification
 
 class FileDataSourceRowToFileDataSourceRowDtoConverterTest extends Specification {
@@ -40,9 +40,7 @@ class FileDataSourceRowToFileDataSourceRowDtoConverterTest extends Specification
 
     void "should convert FileDataSourceRow to FileDataSourceRowDto"() {
         given:
-        final FileDataSourceRow fileDataSourceRow = new FileDataSourceRowBuilder()
-            .rowNumeber(1)
-            .build()
+        final FileDataSourceRow fileDataSourceRow = [rowNumber:1] as FileDataSourceRow
 
         when:
         final FileDataSourceRowDto fileDataSourceRowDto = fileDataSourceRowToFileDataSourceRowDtoConverter.convert(fileDataSourceRow)
