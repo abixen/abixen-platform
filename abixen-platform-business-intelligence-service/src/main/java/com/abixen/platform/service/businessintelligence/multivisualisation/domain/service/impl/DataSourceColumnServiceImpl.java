@@ -21,11 +21,14 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
+
 @Slf4j
+@Transactional
 @PlatformDomainService
 public class DataSourceColumnServiceImpl implements DataSourceColumnService {
 
-    private DataSourceColumnRepository dataSourceColumnRepository;
+    private final DataSourceColumnRepository dataSourceColumnRepository;
 
     @Autowired
     public DataSourceColumnServiceImpl(DataSourceColumnRepository dataSourceColumnRepository) {

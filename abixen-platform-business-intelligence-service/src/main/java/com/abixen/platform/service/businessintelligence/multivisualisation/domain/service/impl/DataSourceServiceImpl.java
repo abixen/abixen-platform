@@ -14,6 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.impl;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceRepository;
@@ -22,11 +23,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 
 @Slf4j
-@Service
+@Transactional
+@PlatformDomainService
 public class DataSourceServiceImpl implements DataSourceService {
 
     private final DataSourceRepository dataSourceRepository;

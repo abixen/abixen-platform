@@ -23,8 +23,6 @@ public interface DataFileService {
 
     DataFile find(final Long id);
 
-    Page<DataFile> find(final String jsonCriteria, final Pageable pageable);
-
     Page<DataFile> findAll(final Pageable pageable);
 
     DataFile create(final DataFile dataFile);

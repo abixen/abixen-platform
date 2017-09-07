@@ -26,9 +26,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Slf4j
+@Transactional
 @PlatformDomainService
 public class DataFileServiceImpl implements DataFileService {
 
@@ -47,13 +49,6 @@ public class DataFileServiceImpl implements DataFileService {
         log.debug("find() - id: {}", id);
 
         return dataFileRepository.findOne(id);
-    }
-
-    @Override
-    public Page<DataFile> find(final String jsonCriteria, final Pageable pageable) {
-        log.debug("find() - jsonCriteria: {}, pageable: {}", jsonCriteria, pageable);
-
-        return dataFileRepository.findAll(pageable);
     }
 
     @Override
