@@ -50,7 +50,7 @@ public class FileDataSourceRow {
         return id;
     }
 
-    public void setId(final Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -58,7 +58,7 @@ public class FileDataSourceRow {
         return rowNumber;
     }
 
-    public void setRowNumber(final Integer rowNumber) {
+    void setRowNumber(final Integer rowNumber) {
         this.rowNumber = rowNumber;
     }
 
@@ -66,7 +66,15 @@ public class FileDataSourceRow {
         return fileDataSource;
     }
 
-    public void setFileDataSource(final DataSource fileDataSource) {
+    void setFileDataSource(final DataSource fileDataSource) {
         this.fileDataSource = fileDataSource;
+    }
+
+    void changeRowNumeber(final Integer rowNumber) {
+        setRowNumber(rowNumber);
+    }
+
+    void changeFileDataSource(final DataSource fileDataSource) {
+        setFileDataSource(fileDataSource);
     }
 }

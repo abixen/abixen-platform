@@ -67,18 +67,18 @@ public class ChartConfigurationManagementServiceImpl implements ChartConfigurati
     }
 
     @Override
-    public ChartConfigurationDto createChartConfiguration(final ChartConfigurationForm chartConfigurationForm) {
+    public ChartConfigurationForm createChartConfiguration(final ChartConfigurationForm chartConfigurationForm) {
         log.debug("createChartConfiguration() - chartConfigurationForm: {}", chartConfigurationForm);
 
-        ChartConfiguration chartConfiguration = build(chartConfigurationForm);
-        final ChartConfiguration updatedChartConfiguration = chartConfigurationService.create(chartConfiguration);
+        final ChartConfiguration createdChartConfiguration = chartConfigurationService.create(build(chartConfigurationForm));
+        final ChartConfigurationDto createdChartConfigurationDto = chartConfigurationToChartConfigurationDtoConverter.convert(createdChartConfiguration);
 
-        return chartConfigurationToChartConfigurationDtoConverter.convert(updatedChartConfiguration);
+        return new ChartConfigurationForm(createdChartConfigurationDto);
     }
 
 
     @Override
-    public ChartConfigurationDto updateChartConfiguration(final ChartConfigurationForm chartConfigurationForm) {
+    public ChartConfigurationForm updateChartConfiguration(final ChartConfigurationForm chartConfigurationForm) {
         log.debug("createChartConfiguration() - chartConfigurationForm: {}", chartConfigurationForm);
 
         final ChartConfiguration chartConfiguration = chartConfigurationService.find(chartConfigurationForm.getModuleId());
@@ -87,9 +87,10 @@ public class ChartConfigurationManagementServiceImpl implements ChartConfigurati
         chartConfiguration.changeChartParameters(chartConfigurationForm.getChartType(), buildDataSetChart(chartConfigurationForm.getDataSetChart()));
         chartConfiguration.changeDataParameters(chartConfigurationForm.getFilter(), dataSourceService.find(chartConfigurationForm.getDataSource().getId()));
 
-        final ChartConfiguration createdChartConfiguration = chartConfigurationService.update(chartConfiguration);
+        final ChartConfiguration updatedChartConfiguration = chartConfigurationService.update(chartConfiguration);
+        final ChartConfigurationDto updatedChartConfigurationDto = chartConfigurationToChartConfigurationDtoConverter.convert(updatedChartConfiguration);
 
-        return chartConfigurationToChartConfigurationDtoConverter.convert(createdChartConfiguration);
+        return new ChartConfigurationForm(updatedChartConfigurationDto);
     }
 
     @Override

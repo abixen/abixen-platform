@@ -74,9 +74,9 @@ public class ChartModuleConfigurationController {
             return new FormValidationResultDto(chartConfigurationForm, formErrors);
         }
 
-        chartConfigurationManagementService.createChartConfiguration(chartConfigurationForm);
+        final ChartConfigurationForm createdChartConfigurationForm = chartConfigurationManagementService.createChartConfiguration(chartConfigurationForm);
 
-        return new FormValidationResultDto(chartConfigurationForm);
+        return new FormValidationResultDto(createdChartConfigurationForm);
     }
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
@@ -89,9 +89,9 @@ public class ChartModuleConfigurationController {
             return new FormValidationResultDto(chartConfigurationForm, formErrors);
         }
 
-        chartConfigurationManagementService.updateChartConfiguration(chartConfigurationForm);
+        final ChartConfigurationForm updatedChartConfigurationForm = chartConfigurationManagementService.updateChartConfiguration(chartConfigurationForm);
 
-        return new FormValidationResultDto(chartConfigurationForm);
+        return new FormValidationResultDto(updatedChartConfigurationForm);
     }
 
 }
