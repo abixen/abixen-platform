@@ -33,7 +33,7 @@ class ChartConfigurationServiceImplTest extends Specification {
 
     }
 
-    def "should find ChartConfiguration"() {
+    void "should find ChartConfiguration"() {
         given:
         final Long moduleId = 1L
 
@@ -52,7 +52,7 @@ class ChartConfigurationServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should create ChartConfiguration"() {
+    void "should create ChartConfiguration"() {
         given:
         final DataSource dataSource = [] as DataSource
         final DataSetChart dataSetChart = [] as DataSetChart
@@ -84,7 +84,7 @@ class ChartConfigurationServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should update ChartConfiguration"() {
+    void "should update ChartConfiguration"() {
         given:
         final DataSource dataSource = [] as DataSource
         final DataSetChart dataSetChart = [] as DataSetChart
@@ -116,7 +116,7 @@ class ChartConfigurationServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should delete ChartConfiguration when ChartConfiguration exist"() {
+    void "should delete ChartConfiguration when ChartConfiguration exist"() {
         given:
         final Long moduleId = 1L
 
@@ -133,7 +133,7 @@ class ChartConfigurationServiceImplTest extends Specification {
         0 * _
     }
 
-    def "shouldn't delete ChartConfiguration when ChartConfiguration not exist"() {
+    void "shouldn't delete ChartConfiguration when ChartConfiguration not exist"() {
         given:
         final Long moduleId = 1L
 

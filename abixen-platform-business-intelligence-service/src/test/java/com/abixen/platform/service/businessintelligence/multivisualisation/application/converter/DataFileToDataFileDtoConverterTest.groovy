@@ -49,6 +49,7 @@ class DataFileToDataFileDtoConverterTest extends Specification {
         given:
         final DataFileColumn dataFileColumn = [] as DataFileColumn
         final Set<DataFileColumn> dataFileColumns = Collections.singleton(dataFileColumn)
+
         final DataFile dataFile = new DataFileBuilder()
                 .details("name", "description")
                 .columns(dataFileColumns)

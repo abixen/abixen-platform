@@ -34,7 +34,7 @@ class DatabaseConnectionServiceImplTest extends Specification {
         databaseConnectionService = new DatabaseConnectionServiceImpl(databaseConnectionRepository)
     }
 
-    def "should find DatabaseConnection"() {
+    void "should find DatabaseConnection"() {
         given:
         final Long id = 1L
 
@@ -53,7 +53,7 @@ class DatabaseConnectionServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should findAll DatabaseConnection"() {
+    void "should findAll DatabaseConnection"() {
         given:
         final Pageable pageable = new PageRequest(0, 1)
 
@@ -73,7 +73,7 @@ class DatabaseConnectionServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should create DatabaseConnection"() {
+    void "should create DatabaseConnection"() {
         given:
         final DatabaseConnection databaseConnection = new DatabaseConnectionBuilder()
                 .credentials("username", "password")
@@ -102,7 +102,7 @@ class DatabaseConnectionServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should update DatabaseConnection"() {
+    void "should update DatabaseConnection"() {
         given:
         final DatabaseConnection databaseConnection = new DatabaseConnectionBuilder()
                 .credentials("username", "password")
@@ -131,7 +131,7 @@ class DatabaseConnectionServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should delete DatabaseConnection"() {
+    void "should delete DatabaseConnection"() {
         given:
         final Long id = 1L
 
