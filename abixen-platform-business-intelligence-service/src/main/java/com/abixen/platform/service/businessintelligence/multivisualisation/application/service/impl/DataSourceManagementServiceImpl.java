@@ -33,7 +33,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.domai
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSourceBuilder;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceBuilder;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataFileRepository;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataFileService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceService;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DatabaseConnectionService;
 import lombok.extern.slf4j.Slf4j;
@@ -55,18 +55,18 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
     private final DataSourceService dataSourceService;
     private final DatabaseConnectionService databaseConnectionService;
     private final DatabaseFactory databaseFactory;
-    private final DataFileRepository dataFileRepository;
+    private final DataFileService dataFileService;
     private final DataSourceToDataSourceDtoConverter dataSourceToDataSourceDtoConverter;
 
     @Autowired
     public DataSourceManagementServiceImpl(DataSourceService dataSourceService,
                                            DatabaseConnectionService databaseConnectionService,
-                                           DataFileRepository dataFileRepository,
+                                           DataFileService dataFileService,
                                            DatabaseFactory databaseFactory,
                                            DataSourceToDataSourceDtoConverter dataSourceToDataSourceDtoConverter) {
         this.dataSourceService = dataSourceService;
         this.databaseConnectionService = databaseConnectionService;
-        this.dataFileRepository = dataFileRepository;
+        this.dataFileService = dataFileService;
         this.databaseFactory = databaseFactory;
         this.dataSourceToDataSourceDtoConverter = dataSourceToDataSourceDtoConverter;
     }
@@ -172,7 +172,7 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
     private DataSource updateFileDataSource(FileDataSource fileDataSource, FileDataSourceForm fileDataSourceForm) {
         fileDataSource.changeDetails(fileDataSourceForm.getName(), fileDataSourceForm.getDescription());
         fileDataSource.changeParameters(fileDataSourceForm.getDataSourceType(), null);
-        fileDataSource.changeDataFile(dataFileRepository.findOne(fileDataSourceForm.getDataFile().getId()));
+        fileDataSource.changeDataFile(dataFileService.find(fileDataSourceForm.getDataFile().getId()));
         fileDataSource.changeColumns(fileDataSourceForm.getColumns().stream()
                 .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
                         .details(dataSourceColumnDto.getName())
@@ -200,7 +200,7 @@ public class DataSourceManagementServiceImpl implements DataSourceManagementServ
 
     private DataSource buildFileDataSource(FileDataSourceForm fileDataSourceForm) {
         DataSource fileDataSource = new FileDataSourceBuilder()
-                .dataFile(dataFileRepository.findOne(fileDataSourceForm.getDataFile().getId()))
+                .dataFile(dataFileService.find(fileDataSourceForm.getDataFile().getId()))
                 .columns(fileDataSourceForm.getColumns().stream()
                         .map(dataSourceColumnDto -> new DataSourceColumnBuilder()
                                 .details(dataSourceColumnDto.getName())
