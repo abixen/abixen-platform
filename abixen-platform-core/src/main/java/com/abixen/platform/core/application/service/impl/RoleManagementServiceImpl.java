@@ -99,7 +99,8 @@ public class RoleManagementServiceImpl implements RoleManagementService {
         log.debug("updateRole() - roleForm: {}", roleForm);
 
         final Role role = roleService.find(roleForm.getId());
-        role.changeDetails(role.getName(), roleForm.getRoleType());
+        role.changeDetails(roleForm.getName(), roleForm.getRoleType());
+
         final Role updatedRole = roleService.update(role);
 
         return new RoleForm(updatedRole);
