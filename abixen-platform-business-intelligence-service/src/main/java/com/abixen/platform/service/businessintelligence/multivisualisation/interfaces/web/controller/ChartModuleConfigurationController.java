@@ -66,32 +66,32 @@ public class ChartModuleConfigurationController {
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
+    public FormValidationResultDto<ChartConfigurationForm> createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
         log.debug("createChartConfiguration() - chartConfigurationForm: {}", chartConfigurationForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(chartConfigurationForm, formErrors);
+            return new FormValidationResultDto<>(chartConfigurationForm, formErrors);
         }
 
         final ChartConfigurationForm createdChartConfigurationForm = chartConfigurationManagementService.createChartConfiguration(chartConfigurationForm);
 
-        return new FormValidationResultDto(createdChartConfigurationForm);
+        return new FormValidationResultDto<>(createdChartConfigurationForm);
     }
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
+    public FormValidationResultDto<ChartConfigurationForm> updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
         log.debug("updateChartConfiguration() - id: {}, chartConfigurationForm: {}", id, chartConfigurationForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(chartConfigurationForm, formErrors);
+            return new FormValidationResultDto<>(chartConfigurationForm, formErrors);
         }
 
         final ChartConfigurationForm updatedChartConfigurationForm = chartConfigurationManagementService.updateChartConfiguration(chartConfigurationForm);
 
-        return new FormValidationResultDto(updatedChartConfigurationForm);
+        return new FormValidationResultDto<>(updatedChartConfigurationForm);
     }
 
 }

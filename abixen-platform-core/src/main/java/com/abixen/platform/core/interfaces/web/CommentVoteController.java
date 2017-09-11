@@ -17,14 +17,18 @@ package com.abixen.platform.core.interfaces.web;
 
 import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.CommentVoteDto;
 import com.abixen.platform.core.application.form.CommentVoteForm;
 import com.abixen.platform.core.application.service.CommentVoteService;
-import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -45,13 +49,13 @@ public class CommentVoteController {
 
     //FixME not sure we really need this method
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto updateCommentVote(@RequestBody @Valid CommentVoteForm commentVoteForm, BindingResult bindingResult) {
+    public FormValidationResultDto<CommentVoteForm> updateCommentVote(@RequestBody @Valid CommentVoteForm commentVoteForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(commentVoteForm, formErrors);
+            return new FormValidationResultDto<>(commentVoteForm, formErrors);
         }
         CommentVoteForm updatedForm = commentVoteService.updateCommentVote(commentVoteForm);
-        return new FormValidationResultDto(updatedForm);
+        return new FormValidationResultDto<>(updatedForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

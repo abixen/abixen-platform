@@ -72,31 +72,31 @@ public class DataFileController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto createDataFile(@RequestBody @Valid DataFileForm fileDataForm, BindingResult bindingResult) {
+    public FormValidationResultDto<DataFileForm> createDataFile(@RequestBody @Valid DataFileForm fileDataForm, BindingResult bindingResult) {
         log.debug("createDataFile() - fileDataForm: {}, bindingResult: {}", fileDataForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(fileDataForm, formErrors);
+            return new FormValidationResultDto<>(fileDataForm, formErrors);
         }
 
         final DataFileForm createdFileDataForm = dataFileManagementService.createDataFile(fileDataForm);
 
-        return new FormValidationResultDto(createdFileDataForm);
+        return new FormValidationResultDto<>(createdFileDataForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto updateDataFile(@PathVariable("id") Long id, @RequestBody @Valid DataFileForm dataFileForm, BindingResult bindingResult) {
+    public FormValidationResultDto<DataFileForm> updateDataFile(@PathVariable("id") Long id, @RequestBody @Valid DataFileForm dataFileForm, BindingResult bindingResult) {
         log.debug("updateDataFile() - id: {}, dataFileForm: {}, bindingResult: {}", id, dataFileForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(dataFileForm, formErrors);
+            return new FormValidationResultDto<>(dataFileForm, formErrors);
         }
 
         final DataFileForm updatedFileDataForm = dataFileManagementService.updateDataFile(dataFileForm);
 
-        return new FormValidationResultDto(updatedFileDataForm);
+        return new FormValidationResultDto<>(updatedFileDataForm);
     }
 
     @RequestMapping(value = "/{id}/columns", method = RequestMethod.GET)

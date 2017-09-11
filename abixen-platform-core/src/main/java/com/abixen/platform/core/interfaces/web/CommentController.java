@@ -17,14 +17,19 @@ package com.abixen.platform.core.interfaces.web;
 
 import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;
 import com.abixen.platform.core.application.service.CommentService;
-import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -47,23 +52,23 @@ public class CommentController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto createComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
+    public FormValidationResultDto<CommentForm> createComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(commentForm, formErrors);
+            return new FormValidationResultDto<>(commentForm, formErrors);
         }
         CommentForm savedForm = commentService.createComment(commentForm);
-        return new FormValidationResultDto(savedForm);
+        return new FormValidationResultDto<>(savedForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto updateComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
+    public FormValidationResultDto<CommentForm> updateComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(commentForm, formErrors);
+            return new FormValidationResultDto<>(commentForm, formErrors);
         }
         CommentForm updatedForm = commentService.updateComment(commentForm);
-        return new FormValidationResultDto(updatedForm);
+        return new FormValidationResultDto<>(updatedForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

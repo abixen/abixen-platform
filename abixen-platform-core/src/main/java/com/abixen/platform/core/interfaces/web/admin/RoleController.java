@@ -66,31 +66,31 @@ public class RoleController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto create(@RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
+    public FormValidationResultDto<RoleForm> create(@RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
         log.debug("create() - roleForm: {}", roleForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(roleForm, formErrors);
+            return new FormValidationResultDto<>(roleForm, formErrors);
         }
 
         final RoleForm createdRoleForm = roleManagementService.createRole(roleForm);
 
-        return new FormValidationResultDto(createdRoleForm);
+        return new FormValidationResultDto<>(createdRoleForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto update(@PathVariable("id") Long id, @RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
+    public FormValidationResultDto<RoleForm> update(@PathVariable("id") Long id, @RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
         log.debug("update() - id: {}, roleForm: {}", id, roleForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(roleForm, formErrors);
+            return new FormValidationResultDto<>(roleForm, formErrors);
         }
 
         final RoleForm updatedRoleForm = roleManagementService.updateRole(roleForm);
 
-        return new FormValidationResultDto(updatedRoleForm);
+        return new FormValidationResultDto<>(updatedRoleForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -99,7 +99,7 @@ public class RoleController {
 
         roleManagementService.deleteRole(id);
 
-        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/permissions", method = RequestMethod.GET)
@@ -110,17 +110,17 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/{id}/permissions", method = RequestMethod.PUT)
-    public FormValidationResultDto updatePermissions(@PathVariable("id") Long id, @RequestBody @Valid RolePermissionsForm rolePermissionsForm, BindingResult bindingResult) {
+    public FormValidationResultDto<RolePermissionsForm> updatePermissions(@PathVariable("id") Long id, @RequestBody @Valid RolePermissionsForm rolePermissionsForm, BindingResult bindingResult) {
         log.debug("updatePermissions() - id: {}, rolePermissionsForm: {}", id, rolePermissionsForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(rolePermissionsForm, formErrors);
+            return new FormValidationResultDto<>(rolePermissionsForm, formErrors);
         }
 
         final RolePermissionsForm updatedRolePermissionsForm = roleManagementService.updateRolePermissions(rolePermissionsForm);
 
-        return new FormValidationResultDto(updatedRolePermissionsForm);
+        return new FormValidationResultDto<>(updatedRolePermissionsForm);
     }
 
 }

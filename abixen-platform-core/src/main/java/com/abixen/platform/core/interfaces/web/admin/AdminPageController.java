@@ -67,31 +67,31 @@ public class AdminPageController extends AbstractPageController {
 
     @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.domain.model.impl.Page', 'PAGE_ADD')")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto create(@RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
+    public FormValidationResultDto<PageForm> create(@RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("create() - pageForm: {}", pageForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(pageForm, formErrors);
+            return new FormValidationResultDto<>(pageForm, formErrors);
         }
 
         final PageForm pageFormResult = pageManagementService.createPage(pageForm);
 
-        return new FormValidationResultDto(pageFormResult);
+        return new FormValidationResultDto<>(pageFormResult);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto update(@PathVariable("id") Long id, @RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
+    public FormValidationResultDto<PageForm> update(@PathVariable("id") Long id, @RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("update() - id: {}, pageForm: {}", id, pageForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(pageForm, formErrors);
+            return new FormValidationResultDto<>(pageForm, formErrors);
         }
 
         final PageForm pageFormResult = pageManagementService.updatePage(pageForm);
 
-        return new FormValidationResultDto(pageFormResult);
+        return new FormValidationResultDto<>(pageFormResult);
     }
 
 }

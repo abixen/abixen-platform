@@ -70,31 +70,31 @@ public class AdminLayoutController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto create(@RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
+    public FormValidationResultDto<LayoutForm> create(@RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
         log.debug("create() - layoutForm: {}", layoutForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(layoutForm, formErrors);
+            return new FormValidationResultDto<>(layoutForm, formErrors);
         }
 
         final LayoutForm createdLayoutForm = layoutManagementService.createLayout(layoutForm);
 
-        return new FormValidationResultDto(createdLayoutForm);
+        return new FormValidationResultDto<>(createdLayoutForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    FormValidationResultDto update(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
+    FormValidationResultDto<LayoutForm> update(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
         log.debug("update() - id: {}, layoutForm: {}", id, layoutForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(layoutForm, formErrors);
+            return new FormValidationResultDto<>(layoutForm, formErrors);
         }
 
         final LayoutForm updatedLayoutForm = layoutManagementService.updateLayout(layoutForm);
 
-        return new FormValidationResultDto(updatedLayoutForm);
+        return new FormValidationResultDto<>(updatedLayoutForm);
     }
 
     @RequestMapping(value = "/{id}/icon", method = RequestMethod.POST)
@@ -110,7 +110,7 @@ public class AdminLayoutController {
 
         layoutManagementService.deleteLayout(id);
 
-        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 
 }

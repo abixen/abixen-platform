@@ -20,18 +20,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FormValidationResultDto {
+public class FormValidationResultDto<T extends Form> {
 
-    private Form form;
+    private T form;
 
     private List<FormErrorDto> formErrors;
 
-    public FormValidationResultDto(Form form, List<FormErrorDto> formErrors) {
+    public FormValidationResultDto(T form, List<FormErrorDto> formErrors) {
         this.form = form;
         this.formErrors = formErrors;
     }
 
-    public FormValidationResultDto(Form form) {
+    public FormValidationResultDto(T form) {
         this.form = form;
         this.formErrors = new ArrayList<>();
     }
@@ -39,11 +39,11 @@ public class FormValidationResultDto {
     public FormValidationResultDto() {
     }
 
-    public Form getForm() {
+    public T getForm() {
         return form;
     }
 
-    public void setForm(Form form) {
+    public void setForm(T form) {
         this.form = form;
     }
 
@@ -51,7 +51,7 @@ public class FormValidationResultDto {
         return formErrors;
     }
 
-    public void setFormErrora(List<FormErrorDto> formErrors) {
+    public void setFormErrors(List<FormErrorDto> formErrors) {
         this.formErrors = formErrors;
     }
 

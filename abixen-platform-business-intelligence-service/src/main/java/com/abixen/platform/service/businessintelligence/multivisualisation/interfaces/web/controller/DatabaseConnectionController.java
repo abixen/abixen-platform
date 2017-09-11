@@ -66,31 +66,31 @@ public class DatabaseConnectionController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto createDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
+    public FormValidationResultDto<DatabaseConnectionForm> createDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("createDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(databaseConnectionForm, formErrors);
+            return new FormValidationResultDto<>(databaseConnectionForm, formErrors);
         }
 
         final DatabaseConnectionForm createdDatabaseConnectionForm = databaseConnectionManagementService.createDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto(createdDatabaseConnectionForm);
+        return new FormValidationResultDto<>(createdDatabaseConnectionForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto updateDatabaseConnection(@PathVariable("id") Long id, @RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
+    public FormValidationResultDto<DatabaseConnectionForm> updateDatabaseConnection(@PathVariable("id") Long id, @RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("updateDatabaseConnection() - id: {}, databaseConnectionForm: {}", id, databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(databaseConnectionForm, formErrors);
+            return new FormValidationResultDto<>(databaseConnectionForm, formErrors);
         }
 
         final DatabaseConnectionForm updatedDatabaseConnectionForm = databaseConnectionManagementService.updateDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto(updatedDatabaseConnectionForm);
+        return new FormValidationResultDto<>(updatedDatabaseConnectionForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -99,21 +99,21 @@ public class DatabaseConnectionController {
 
         databaseConnectionManagementService.deleteDatabaseConnection(id);
 
-        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public FormValidationResultDto testDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
+    public FormValidationResultDto<DatabaseConnectionForm> testDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("testDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(databaseConnectionForm, formErrors);
+            return new FormValidationResultDto<>(databaseConnectionForm, formErrors);
         }
 
         databaseConnectionManagementService.testDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto(databaseConnectionForm);
+        return new FormValidationResultDto<>(databaseConnectionForm);
     }
 
     @RequestMapping(value = "/{id}/tables", method = RequestMethod.GET)
