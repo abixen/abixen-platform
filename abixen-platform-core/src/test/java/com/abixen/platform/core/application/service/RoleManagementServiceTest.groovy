@@ -130,13 +130,15 @@ class RoleManagementServiceTest extends Specification {
     void "should update role"() {
         given:
         final Role role = new RoleBuilder()
-                .name("name")
+                .name("oldName")
                 .type(RoleType.ROLE_USER)
                 .build();
 
         final Long roleId = 1L
-        final RoleForm roleForm = new RoleForm(role)
+        final RoleForm roleForm = new RoleForm()
         roleForm.setId(roleId)
+        roleForm.setName("newName")
+        roleForm.setRoleType(RoleType.ROLE_ADMIN)
 
         roleService.find(roleId) >> role
         roleService.update(role) >> role
