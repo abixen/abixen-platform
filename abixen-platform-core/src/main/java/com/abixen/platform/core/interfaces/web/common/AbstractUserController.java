@@ -58,38 +58,38 @@ public abstract class AbstractUserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto create(@RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
+    public FormValidationResultDto<UserForm> create(@RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
         log.debug("save() - userForm: " + userForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(userForm, formErrors);
+            return new FormValidationResultDto<>(userForm, formErrors);
         }
 
         UserForm createdUserForm = userManagementService.createUser(userForm);
 
-        return new FormValidationResultDto(createdUserForm);
+        return new FormValidationResultDto<>(createdUserForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> delete(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
         userManagementService.deleteUser(id);
-        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto update(@PathVariable Long id, @RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
+    public FormValidationResultDto<UserForm> update(@PathVariable Long id, @RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
         log.debug("update() - id: " + id + ", userForm: " + userForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(userForm, formErrors);
+            return new FormValidationResultDto<>(userForm, formErrors);
         }
 
         UserForm updatedUserForm = userManagementService.updateUser(userForm);
 
-        return new FormValidationResultDto(updatedUserForm);
+        return new FormValidationResultDto<>(updatedUserForm);
     }
 
     @RequestMapping(value = "/{id}/avatar/{hash}", method = RequestMethod.GET)
@@ -110,12 +110,12 @@ public abstract class AbstractUserController {
     }
 
     @RequestMapping(value = "/{id}/password", method = RequestMethod.POST)
-    public FormValidationResultDto changePassword(@PathVariable Long id, @RequestBody @Valid UserChangePasswordForm userChangePasswordForm, BindingResult bindingResult) {
+    public FormValidationResultDto<UserChangePasswordForm> changePassword(@PathVariable Long id, @RequestBody @Valid UserChangePasswordForm userChangePasswordForm, BindingResult bindingResult) {
         log.debug("changePassword() - id: " + id + ", changeUserPasswordForm: " + userChangePasswordForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(userChangePasswordForm, formErrors);
+            return new FormValidationResultDto<>(userChangePasswordForm, formErrors);
         }
 
         UserChangePasswordForm userChangePasswordFormResult;
@@ -126,17 +126,17 @@ public abstract class AbstractUserController {
             List<FormErrorDto> formErrors = new ArrayList<>();
             FormErrorDto formErrorDto = new FormErrorDto("currentPassword", "WrongPassword", "Wrong password", userChangePasswordForm.getCurrentPassword());
             formErrors.add(formErrorDto);
-            return new FormValidationResultDto(userChangePasswordForm, formErrors);
+            return new FormValidationResultDto<>(userChangePasswordForm, formErrors);
         }
 
-        return new FormValidationResultDto(userChangePasswordFormResult);
+        return new FormValidationResultDto<>(userChangePasswordFormResult);
     }
 
     @RequestMapping(value = "/selected-language/{selectedLanguage}", method = RequestMethod.PUT)
     public ResponseEntity<UserLanguage> updateSelectedLanguage(@PathVariable UserLanguage selectedLanguage) {
         log.debug("updateSelectedLanguage() for logged user : " + selectedLanguage);
         UserLanguage updatedSelectedLanguage = userManagementService.updateUserSelectedLanguage(selectedLanguage);
-        return new ResponseEntity(updatedSelectedLanguage, HttpStatus.OK);
+        return new ResponseEntity<>(updatedSelectedLanguage, HttpStatus.OK);
     }
 
 }

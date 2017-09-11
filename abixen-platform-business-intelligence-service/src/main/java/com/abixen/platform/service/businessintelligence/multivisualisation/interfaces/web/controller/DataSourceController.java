@@ -33,7 +33,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -67,26 +72,26 @@ public class DataSourceController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto createDataSource(@RequestBody @Valid DataSourceForm dataSourceForm, BindingResult bindingResult) {
+    public FormValidationResultDto<DataSourceForm> createDataSource(@RequestBody @Valid DataSourceForm dataSourceForm, BindingResult bindingResult) {
         log.debug("createDataSource() - dataSourceForm: {}, bindingResult: {}", dataSourceForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(dataSourceForm, formErrors);
+            return new FormValidationResultDto<>(dataSourceForm, formErrors);
         }
 
         final DataSourceForm createdDataSourceForm = dataSourceManagementService.createDataSource(dataSourceForm);
 
-        return new FormValidationResultDto(createdDataSourceForm);
+        return new FormValidationResultDto<>(createdDataSourceForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto updateDataSource(@PathVariable("id") Long id, @RequestBody @Valid DataSourceForm dataSourceForm, BindingResult bindingResult) {
+    public FormValidationResultDto<DataSourceForm> updateDataSource(@PathVariable("id") Long id, @RequestBody @Valid DataSourceForm dataSourceForm, BindingResult bindingResult) {
         log.debug("updateDataSource() - dataSourceForm: {}, bindingResult: {}", dataSourceForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(dataSourceForm, formErrors);
+            return new FormValidationResultDto<>(dataSourceForm, formErrors);
         }
 
         //FIXME - move to domain
@@ -100,11 +105,11 @@ public class DataSourceController {
                 throw e;
             }
         }
-        return new FormValidationResultDto(dataSourceForm);
+        return new FormValidationResultDto<>(dataSourceForm);
     }
 
     @RequestMapping(value = "/preview", method = RequestMethod.POST)
-    public  List<Map<String, DataValueDto>> findPreviewData(@RequestBody @Valid DataSourceForm dataSourceForm) {
+    public List<Map<String, DataValueDto>> findPreviewData(@RequestBody @Valid DataSourceForm dataSourceForm) {
         log.debug("findPreviewData() - dataSourceForm: {}", dataSourceForm);
 
         return dataSourceManagementService.findPreviewData(dataSourceForm);

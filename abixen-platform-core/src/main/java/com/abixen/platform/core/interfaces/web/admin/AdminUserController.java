@@ -60,17 +60,17 @@ public class AdminUserController extends AbstractUserController {
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.PUT)
-    public FormValidationResultDto updateRoles(@PathVariable("id") Long id, @RequestBody @Valid UserRolesForm userRolesForm, BindingResult bindingResult) {
+    public FormValidationResultDto<UserRolesForm> updateRoles(@PathVariable("id") Long id, @RequestBody @Valid UserRolesForm userRolesForm, BindingResult bindingResult) {
         log.debug("updateRoles() - id: " + id + ", userRolesForm: " + userRolesForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(userRolesForm, formErrors);
+            return new FormValidationResultDto<>(userRolesForm, formErrors);
         }
 
         UserRolesForm updatedUserRolesForm = userManagementService.updateUserRoles(userRolesForm);
 
-        return new FormValidationResultDto(updatedUserRolesForm);
+        return new FormValidationResultDto<>(updatedUserRolesForm);
     }
 
     @RequestMapping(value = "/custom/username/{username}/", method = RequestMethod.GET)

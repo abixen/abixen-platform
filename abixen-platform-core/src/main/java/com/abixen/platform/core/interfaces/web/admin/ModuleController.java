@@ -62,17 +62,17 @@ public class ModuleController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto updateM(@PathVariable("id") Long id, @RequestBody @Valid ModuleForm moduleForm, BindingResult bindingResult) {
+    public FormValidationResultDto<ModuleForm> updateM(@PathVariable("id") Long id, @RequestBody @Valid ModuleForm moduleForm, BindingResult bindingResult) {
         log.debug("update() - id: {}, moduleForm: {}", id, moduleForm);
 
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto(moduleForm, formErrors);
+            return new FormValidationResultDto<>(moduleForm, formErrors);
         }
 
         final ModuleForm updatedModuleForm = moduleManagementService.updateModule(moduleForm);
 
-        return new FormValidationResultDto(updatedModuleForm);
+        return new FormValidationResultDto<>(updatedModuleForm);
     }
 
 }
