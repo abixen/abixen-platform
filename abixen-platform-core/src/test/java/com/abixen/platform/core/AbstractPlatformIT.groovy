@@ -22,4 +22,8 @@ import spock.lang.Specification
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 abstract class AbstractPlatformIT extends Specification {
+
+    protected static final String ADMIN_USERNAME = "joe.brown@abixen.com"
+    protected static final String ADMIN_PASSWORD = "password"
+
 }
