@@ -48,6 +48,7 @@ class DataFileColumnToDataFileColumnDtoConverterTest extends Specification {
         given:
         final DataValue dataValue = [] as DataValueString
         final List<DataValue> dataValues = Collections.singletonList(dataValue)
+
         final DataFileColumn dataFileColumn = new DataFileColumnBuilder()
                 .dataValueType(DataValueType.DATE)
                 .name("name")

@@ -28,7 +28,7 @@ class DataSourceColumnServiceImplTest extends Specification {
         dataSourceColumnService = new DataSourceColumnServiceImpl(dataSourceColumnRepository)
     }
 
-    def "should find DataSourceColumn"() {
+    void "should find DataSourceColumn"() {
         given:
         final Long id = 1L
 

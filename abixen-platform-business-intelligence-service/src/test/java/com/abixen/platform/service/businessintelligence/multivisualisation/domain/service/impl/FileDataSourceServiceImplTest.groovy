@@ -29,7 +29,7 @@ class FileDataSourceServiceImplTest extends Specification {
         fileDataSourceService = new FileDataSourceServiceImpl(fileDataSourceRepository)
     }
 
-    def "should find FileDataSource"() {
+    void "should find FileDataSource"() {
         given:
         final DataFile dataFile = [] as DataFile
 

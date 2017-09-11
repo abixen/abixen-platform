@@ -40,7 +40,7 @@ class DataFileServiceImplTest extends Specification {
         dataFileService = new DataFileServiceImpl(fileDataSourceService, dataFileRepository)
     }
 
-    def "should find DataFile"() {
+    void "should find DataFile"() {
         given:
         final Long id = 1L
 
@@ -59,7 +59,7 @@ class DataFileServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should findAll DataFiles"() {
+    void "should findAll DataFiles"() {
         given:
         final Pageable pageable = new PageRequest(0, 1)
 
@@ -79,7 +79,7 @@ class DataFileServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should create DataFile"() {
+    void "should create DataFile"() {
         given:
         final DataFileColumn dataFileColumn = [] as DataFileColumn
         final Set<DataFileColumn> dataFileColumns = Collections.singleton(dataFileColumn)
@@ -104,7 +104,7 @@ class DataFileServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should update DataFile"() {
+    void "should update DataFile"() {
         given:
         final DataFileColumn dataFileColumn = [] as DataFileColumn
         final Set<DataFileColumn> dataFileColumns = Collections.singleton(dataFileColumn)
@@ -129,7 +129,7 @@ class DataFileServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should delete DataFile when list of related file data sources is empty"() {
+    void "should delete DataFile when list of related file data sources is empty"() {
         given:
         final Long id = 1L
 
@@ -149,7 +149,7 @@ class DataFileServiceImplTest extends Specification {
         0 * _
     }
 
-    def "should throw exception on delete DataFile when list of related file data sources is not empty"() {
+    void "should throw exception on delete DataFile when list of related file data sources is not empty"() {
         given:
         final Long id = 1L
 
