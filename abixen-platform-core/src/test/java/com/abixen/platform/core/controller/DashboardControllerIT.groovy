@@ -14,11 +14,15 @@
 
 package com.abixen.platform.core.controller
 
+import com.abixen.platform.common.application.dto.FormValidationResultDto
 import com.abixen.platform.core.AbstractPlatformIT
 import com.abixen.platform.core.application.dto.DashboardDto
 import com.abixen.platform.core.application.dto.DashboardModuleDto
 import com.abixen.platform.core.application.dto.LayoutDto
 import com.abixen.platform.core.application.dto.PageDto
+import com.abixen.platform.core.application.form.DashboardForm
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.web.client.TestRestTemplate
@@ -32,6 +36,7 @@ class DashboardControllerIT extends AbstractPlatformIT {
 
     @Autowired
     private TestRestTemplate template
+
 
     void setup() {
     }
@@ -98,6 +103,48 @@ class DashboardControllerIT extends AbstractPlatformIT {
         dashboardModuleDto2.getRowIndex() == 1
         dashboardModuleDto2.getType() == "multi-visualisation"
         dashboardModuleDto2.getFrontendId() == null
+    }
+
+    void "should create dashboard page"() {
+
+        given:
+        final LayoutDto layoutDto = new LayoutDto()
+                .setId(1L)
+        final PageDto pageDto = new PageDto()
+                .setDescription("Test description")
+                .setIcon("Test icon")
+                .setTitle("Test title")
+                .setLayout(layoutDto)
+        final DashboardForm dashboardForm = new DashboardForm(pageDto)
+
+        when:
+        final ResponseEntity<String> responseEntity = template
+                .withBasicAuth(ADMIN_USERNAME, ADMIN_PASSWORD)
+                .postForEntity("http://localhost:${port}/api/page-configurations/", dashboardForm, String.class)
+
+        then:
+        responseEntity.getStatusCode() == HttpStatus.OK
+
+        final ObjectMapper mapper = new ObjectMapper();
+        final FormValidationResultDto<DashboardForm> formValidationResultDto = mapper.readValue(responseEntity.getBody(),
+                new TypeReference<FormValidationResultDto<DashboardForm>>() {
+                });
+
+        formValidationResultDto.getFormErrors().size() == 0
+        formValidationResultDto.getForm() != null
+
+        final PageDto createdPageDto = formValidationResultDto.getForm().getPage()
+        createdPageDto.getId() == 8L
+        createdPageDto.getDescription() == pageDto.getDescription()
+        createdPageDto.getTitle() == pageDto.getTitle()
+        createdPageDto.getIcon() == pageDto.getIcon()
+
+        final LayoutDto createdLayoutDto = createdPageDto.getLayout()
+        createdLayoutDto.getId() == 1L
+        createdLayoutDto.getTitle() == "1 (100)"
+        createdLayoutDto.getIconFileName() == "layout-icon-1.png"
+        createdLayoutDto.getContent() == "<div class=\"row\"><div class=\"column col-md-12\"></div></div>"
+        createdLayoutDto.getContentAsJson() == "{\"rows\":[{\"columns\":[{\"styleClass\":\"col-md-12\"}]}]}"
     }
 
 }
