@@ -14,8 +14,6 @@
 
 package com.abixen.platform.core.application.service.dashboard.impl;
 
-import com.abixen.platform.common.domain.model.enumtype.AclClassName;
-import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.core.application.converter.ModuleToDashboardModuleDtoConverter;
 import com.abixen.platform.core.application.converter.PageToPageDtoConverter;
@@ -32,7 +30,6 @@ import com.abixen.platform.core.domain.service.PageService;
 import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -77,7 +74,6 @@ public class DashboardServiceImpl implements DashboardService {
         return new DashboardDto(pageDto, dashboardModules);
     }
 
-    @PreAuthorize("hasPermission('" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
     @Override
     public DashboardForm create(final DashboardForm dashboardForm) {
         log.debug("create() - dashboardForm: {}", dashboardForm);
