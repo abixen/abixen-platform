@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.controller;
+package com.abixen.platform.core.interfaces;
 
 import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.core.domain.model.CommentBuilder;

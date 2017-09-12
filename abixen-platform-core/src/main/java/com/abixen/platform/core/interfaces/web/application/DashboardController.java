@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.interfaces.web;
+package com.abixen.platform.core.interfaces.web.application;
 
 import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.common.application.dto.FormValidationResultDto;

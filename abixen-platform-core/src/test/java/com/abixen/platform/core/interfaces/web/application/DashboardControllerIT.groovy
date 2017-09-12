@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.core.controller
+package com.abixen.platform.core.interfaces.web.application
 
 import com.abixen.platform.common.application.dto.FormValidationResultDto
 import com.abixen.platform.core.AbstractPlatformIT
