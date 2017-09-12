@@ -15,6 +15,8 @@
 package com.abixen.platform.core.domain.service.impl;
 
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.AclSidType;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.domain.model.AclEntry;
 import com.abixen.platform.core.domain.model.AclObjectIdentity;
@@ -44,6 +46,20 @@ public class AclEntryServiceImpl implements AclEntryService {
         log.debug("findAll() - aclClassName: {}, objectId: {}", aclClassName, objectId);
 
         return aclEntryRepository.findAll();
+    }
+
+    @Override
+    public List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, Long sidId, AclClassName aclClassName, Long objectId) {
+        log.debug("findAll() - permissionName: {}, aclSidType: {}, sidId: {}, aclClassName: {}, objectId: {}", permissionName, aclSidType, sidId, aclClassName, objectId);
+
+        return aclEntryRepository.findAll(permissionName, aclSidType, sidId, aclClassName, objectId);
+    }
+
+    @Override
+    public List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, List<Long> sidIds, AclClassName aclClassName, Long objectId) {
+        log.debug("findAll() - permissionName: {}, aclSidType: {}, sidIds: {}, aclClassName: {}, objectId: {}", permissionName, aclSidType, sidIds, aclClassName, objectId);
+
+        return aclEntryRepository.findAll(permissionName, aclSidType, sidIds, aclClassName, objectId);
     }
 
     @Override
