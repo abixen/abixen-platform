@@ -15,8 +15,6 @@
     <changeSet author="KonradWisniewski" id="import-v1" runAlways="false" runOnChange="true">
 
         <preConditions onFail="HALT">
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_selling_data</sqlCheck>
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_cash_flow_data</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM database_connection</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM database_data_source</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_source</sqlCheck>
@@ -26,13 +24,6 @@
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_set_chart</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_set_series</sqlCheck>
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM data_set_series_column</sqlCheck>
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_multi_visualisation_data</sqlCheck>
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_visualisation_data</sqlCheck>
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_something_data</sqlCheck>
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM chart_sample_visualisation_data</sqlCheck>
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_sales_in_stores_data</sqlCheck>
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_sales_in_stores_global_data</sqlCheck>
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM sample_sales_per_employers_data</sqlCheck>
         </preConditions>
 
         <loadData file="liquibase/import/data/${databaseConnectionFile}.csv"
@@ -54,15 +45,6 @@
                   separator=";"
                   tableName="data_source_column">
         </loadData>
-
-        <loadData file="liquibase/import/data/sample-selling-data.csv"
-                  separator=";"
-                  tableName="sample_selling_data">
-        </loadData>
-        <loadData file="liquibase/import/data/sample-cash-flow-data.csv"
-                  separator=";"
-                  tableName="sample_cash_flow_data">
-        </loadData>
         <loadData file="liquibase/import/data/data-set-series-column-data.csv"
                   separator=";"
                   tableName="data_set_series_column">
@@ -82,34 +64,6 @@
         <loadData file="liquibase/import/data/data-set-series-data.csv"
                   separator=";"
                   tableName="data_set_series">
-        </loadData>
-        <loadData file="liquibase/import/data/sample-visualisation-data.csv"
-                  separator=";"
-                  tableName="sample_visualisation_data">
-        </loadData>
-        <loadData file="liquibase/import/data/sample-multi-visualisation-data.csv"
-                  separator=";"
-                  tableName="sample_multi_visualisation_data">
-        </loadData>
-        <loadData file="liquibase/import/data/sample-something-data.csv"
-                  separator=";"
-                  tableName="sample_something_data">
-        </loadData>
-        <loadData file="liquibase/import/data/chart-sample-visualisation-data.csv"
-                  separator=";"
-                  tableName="chart_sample_visualisation_data">
-        </loadData>
-        <loadData file="liquibase/import/data/sample-sales-in-store-data.csv"
-                  separator=";"
-                  tableName="sample_sales_in_stores_data">
-        </loadData>
-        <loadData file="liquibase/import/data/sample-sales-in-stores-global-data.csv"
-                  separator=";"
-                  tableName="sample_sales_in_stores_global_data">
-        </loadData>
-        <loadData file="liquibase/import/data/sample-sales-per-employers-data.csv"
-                  separator=";"
-                  tableName="sample_sales_per_employers_data">
         </loadData>
     </changeSet>
 </databaseChangeLog>

@@ -44,6 +44,7 @@ import java.util.List;
 @RequestMapping(value = "/api/service/abixen/business-intelligence/control-panel/multi-visualisation/database-connections")
 public class DatabaseConnectionController {
 
+    private static final int DEFAULT_PAGE_SIZE = 20;
     private final DatabaseConnectionManagementService databaseConnectionManagementService;
 
     @Autowired
@@ -52,7 +53,7 @@ public class DatabaseConnectionController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<DatabaseConnectionDto> findAllDatabaseConnections(@PageableDefault(size = 1, page = 0) Pageable pageable) {
+    public Page<DatabaseConnectionDto> findAllDatabaseConnections(@PageableDefault(size = DEFAULT_PAGE_SIZE, page = 0) Pageable pageable) {
         log.debug("findAllDatabaseConnections() - pageable: {}", pageable);
 
         return databaseConnectionManagementService.findAllDatabaseConnections(pageable);
