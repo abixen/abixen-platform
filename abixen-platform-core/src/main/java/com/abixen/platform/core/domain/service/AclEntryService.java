@@ -15,6 +15,8 @@
 package com.abixen.platform.core.domain.service;
 
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.domain.model.enumtype.AclSidType;
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.core.domain.model.AclEntry;
 import com.abixen.platform.core.domain.model.AclObjectIdentity;
 import com.abixen.platform.core.domain.model.AclSid;
@@ -25,6 +27,10 @@ import java.util.List;
 public interface AclEntryService {
 
     List<AclEntry> findAll(final AclClassName aclClassName, final Long objectId);
+
+    List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, Long sidId, AclClassName aclClassName, Long objectId);
+
+    List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, List<Long> sidIds, AclClassName aclClassName, Long objectId);
 
     AclEntry create(AclEntry aclEntry);
 

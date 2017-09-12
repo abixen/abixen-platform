@@ -25,7 +25,7 @@ import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.model.Role;
 import com.abixen.platform.core.domain.model.SecurableModel;
 import com.abixen.platform.core.domain.model.User;
-import com.abixen.platform.core.domain.repository.AclEntryRepository;
+import com.abixen.platform.core.domain.service.AclEntryService;
 import com.abixen.platform.core.domain.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,18 +43,18 @@ import java.util.List;
 public class SecurityServiceImpl implements SecurityService {
 
     private final UserService userService;
-    private final AclEntryRepository aclEntryRepository;
+    private final AclEntryService aclEntryService;
 
     @Autowired
     public SecurityServiceImpl(UserService userService,
-                               AclEntryRepository aclEntryRepository) {
+                               AclEntryService aclEntryService) {
         this.userService = userService;
-        this.aclEntryRepository = aclEntryRepository;
+        this.aclEntryService = aclEntryService;
 
     }
 
     @Override
-    public Boolean hasUserPermissionToObject(User user, PermissionName permissionName, SecurableModel securableModel) {
+    public Boolean hasUserPermissionToObject(final User user, final PermissionName permissionName, final SecurableModel securableModel) {
         if (user == null) {
             throw new IllegalArgumentException("User can not be null.");
         }
@@ -69,11 +69,11 @@ public class SecurityServiceImpl implements SecurityService {
             return true;
         }
 
-        List<Long> userRoleIds = new ArrayList<>();
+        final List<Long> userRoleIds = new ArrayList<>();
         for (Role role : user.getRoles()) {
             userRoleIds.add(role.getId());
         }
-        List<AclEntry> rolesAclEntries = aclEntryRepository.findAll(permissionName, AclSidType.ROLE, userRoleIds, AclClassName.getByName(securableModel.getClass().getCanonicalName()), securableModel.getId());
+        final List<AclEntry> rolesAclEntries = aclEntryService.findAll(permissionName, AclSidType.ROLE, userRoleIds, AclClassName.getByName(securableModel.getClass().getCanonicalName()), securableModel.getId());
 
         if (rolesAclEntries.size() > 0) {
             if (log.isDebugEnabled()) {
@@ -83,7 +83,7 @@ public class SecurityServiceImpl implements SecurityService {
         }
 
         if (securableModel.getCreatedBy() != null && securableModel.getCreatedBy().getId().equals(user.getId())) {
-            List<AclEntry> ownerAclEntries = aclEntryRepository.findAll(permissionName, AclSidType.OWNER, 0L, AclClassName.getByName(securableModel.getClass().getCanonicalName()), securableModel.getId());
+            List<AclEntry> ownerAclEntries = aclEntryService.findAll(permissionName, AclSidType.OWNER, 0L, AclClassName.getByName(securableModel.getClass().getCanonicalName()), securableModel.getId());
             if (ownerAclEntries.size() > 0) {
                 if (log.isDebugEnabled()) {
                     log.debug("User " + user.getUsername() + " has permission " + permissionName + " to object " + securableModel.getClass().getCanonicalName() + "[id=" + securableModel.getId() + "] based on that he is the owner.");
@@ -122,13 +122,13 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public Boolean hasUserRole(User user, Role role) {
+    public Boolean hasUserRole(final User user, final Role role) {
         return user.getRoles().contains(role);
     }
 
     @Override
     public PlatformUser getAuthorizedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             return (PlatformUser) authentication.getPrincipal();
         }
@@ -137,9 +137,9 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public boolean hasPermission(String username, SecurableModel securibleObject, String permissionName) {
-        User user = userService.find(username);
+        final User user = userService.find(username);
 
-        boolean hasPermission = hasUserPermissionToObject(user, PermissionName.valueOf(permissionName), securibleObject);
+        final boolean hasPermission = hasUserPermissionToObject(user, PermissionName.valueOf(permissionName), securibleObject);
         log.debug("hasPermission: " + hasPermission);
 
         return hasPermission;
