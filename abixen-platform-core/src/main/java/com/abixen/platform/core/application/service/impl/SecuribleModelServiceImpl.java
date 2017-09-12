@@ -18,9 +18,9 @@ import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.core.application.service.SecuribleModelService;
 import com.abixen.platform.core.domain.model.SecurableModel;
-import com.abixen.platform.core.domain.repository.LayoutRepository;
-import com.abixen.platform.core.domain.repository.ModuleRepository;
-import com.abixen.platform.core.domain.repository.PageRepository;
+import com.abixen.platform.core.domain.service.LayoutService;
+import com.abixen.platform.core.domain.service.ModuleService;
+import com.abixen.platform.core.domain.service.PageService;
 import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +31,17 @@ import org.springframework.transaction.annotation.Transactional;
 @PlatformApplicationService
 public class SecuribleModelServiceImpl implements SecuribleModelService {
 
-    private final ModuleRepository moduleRepository;
-    private final PageRepository pageRepository;
-    private final LayoutRepository layoutRepository;
+    private final ModuleService moduleService;
+    private final PageService pageService;
+    private final LayoutService layoutService;
 
     @Autowired
-    public SecuribleModelServiceImpl(ModuleRepository moduleRepository,
-                                     PageRepository pageRepository,
-                                     LayoutRepository layoutRepository) {
-        this.moduleRepository = moduleRepository;
-        this.pageRepository = pageRepository;
-        this.layoutRepository = layoutRepository;
+    public SecuribleModelServiceImpl(ModuleService moduleService,
+                                     PageService pageService,
+                                     LayoutService layoutService) {
+        this.moduleService = moduleService;
+        this.pageService = pageService;
+        this.layoutService = layoutService;
     }
 
     @Override
@@ -52,13 +52,13 @@ public class SecuribleModelServiceImpl implements SecuribleModelService {
 
         switch (aclClassName) {
             case PAGE:
-                securibleObject = pageRepository.findOne(securableObjectId);
+                securibleObject = pageService.find(securableObjectId);
                 break;
             case MODULE:
-                securibleObject = moduleRepository.findOne(securableObjectId);
+                securibleObject = moduleService.find(securableObjectId);
                 break;
             case LAYOUT:
-                securibleObject = layoutRepository.findOne(securableObjectId);
+                securibleObject = layoutService.find(securableObjectId);
                 break;
             default:
                 throw new PlatformCoreException("Unsupported aclClassName value: " + aclClassName);
