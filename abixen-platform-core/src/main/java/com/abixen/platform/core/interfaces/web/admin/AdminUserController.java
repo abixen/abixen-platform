@@ -17,6 +17,7 @@ package com.abixen.platform.core.interfaces.web.admin;
 import com.abixen.platform.common.application.dto.FormErrorDto;
 import com.abixen.platform.common.application.dto.FormValidationResultDto;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
+import com.abixen.platform.common.interfaces.web.PlatformPageImpl;
 import com.abixen.platform.core.application.dto.UserDto;
 import com.abixen.platform.core.application.form.UserRolesForm;
 import com.abixen.platform.core.application.form.UserSearchForm;
@@ -53,10 +54,12 @@ public class AdminUserController extends AbstractUserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<UserDto> findAll(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
+    public PlatformPageImpl<UserDto> findAll(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
         log.debug("findAll()");
 
-        return userManagementService.findAllUsers(pageable, userSearchForm);
+        Page<UserDto> userDtos = userManagementService.findAllUsers(pageable, userSearchForm);
+
+        return new PlatformPageImpl<>(userDtos);
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.PUT)
