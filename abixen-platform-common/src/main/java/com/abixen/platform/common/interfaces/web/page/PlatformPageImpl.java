@@ -12,9 +12,10 @@
  * details.
  */
 
-package com.abixen.platform.common.interfaces.web;
+package com.abixen.platform.common.interfaces.web.page;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,7 @@ import java.util.List;
 @Getter
 @Setter
 public class PlatformPageImpl<T> extends PageImpl<T> {
+
     private int number;
     private int size;
     private int totalPages;
@@ -55,6 +57,11 @@ public class PlatformPageImpl<T> extends PageImpl<T> {
         this.last = page.isLast();
         this.content = page.getContent();
         this.sort = page.getSort();
+    }
+
+    @JsonDeserialize(using = PlatformSortDeserializer.class)
+    public void setSort(Sort sort) {
+        this.sort = sort;
     }
 
 }
