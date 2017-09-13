@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        logicalFilePath="liquibase/changelog/multi-visualisation/changelog.xml">
+
+    <include file="liquibase/changelog/data/multi-visualisation-sequences-changelog.xml"/>
+    <include file="liquibase/changelog/data/sample-selling-data-changelog.xml"/>
+    <include file="liquibase/changelog/data/sample-sales-in-stores-data-changelog.xml"/>
+    <include file="liquibase/changelog/data/sample-sales-in-stores-global-data-changelog.xml"/>
+    <include file="liquibase/changelog/data/sample-cash-flow-data-changelog.xml"/>
+    <include file="liquibase/changelog/data/sample-something-data-changelog.xml"/>
+    <include file="liquibase/changelog/data/sample-multi-visualisation-data-changelog.xml"/>
+    <include file="liquibase/changelog/data/sample-visualisation-data-changelog.xml"/>
+    <include file="liquibase/changelog/data/sample-chart-visualisation-data-changelog.xml"/>
+    <include file="liquibase/changelog/data/sample-sales-per-employers-changelog.xml"/>
+
+</databaseChangeLog>

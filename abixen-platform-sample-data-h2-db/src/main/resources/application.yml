@@ -1,0 +1,17 @@
+liquibase:
+  change-log: "classpath:liquibase/master-changelog.xml"
+
+server:
+    port: 9875
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:abixen-platform-sample-data-h2-db
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+
