@@ -96,7 +96,9 @@ pre.edit {
 .dashboard-modal.module-fullscreen .modal-dialog {
   width: 98%;
 }
-
+#module-full-screen.module{
+  margin-bottom:8px;
+}
 .module {
   background: #FFFFFF;
   @include border-radius(5px);

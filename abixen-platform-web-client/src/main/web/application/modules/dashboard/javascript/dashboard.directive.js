@@ -224,9 +224,13 @@
                         var dashboardContainer = angular.element(document.getElementById('dashboard-container'));
                         var moduleContent = angular.element(document.getElementById('module-content-' + moduleId));
                         var module = angular.element('<div class="container-fluid modules-wrapper custom-column-container ng-scope ng-isolate-scope" id="platform-dashboard-row-full-screen"><div class="column ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope col-md-12"><div id="module-full-screen" class="module"></div></div></div>');
+
                         dashboardContainer.append(module);
                         var moduleFullScreen = angular.element(document.getElementById('module-full-screen'));
                         moduleFullScreen.append(moduleContent);
+                        // get height of window and subtract top toolbar height from it and subtract twice as toolbar margin from it
+                        var topBar = document.getElementsByClassName('top-bar')[0];
+                        moduleFullScreen[0].style.height = (window.innerHeight - topBar.offsetHeight - parseInt(getComputedStyle( topBar.children[0]).marginBottom)-8)+'px';
                     } else {
                         dashboardSubContainer.removeClass('hidden');
                         var moduleContent = angular.element(document.getElementById('module-content-' + moduleId));
