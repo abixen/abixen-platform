@@ -158,9 +158,12 @@
                 });
                 $scope.toggleFullScreenMode = function () {
                     $scope.moduleState.fullScreenMode = !$scope.moduleState.fullScreenMode;
+                    if ($scope.moduleState.fullScreenMode && $scope.moduleState.isCollapsed) {
+                        $scope.moduleState.isCollapsed = false;
+                    }
 
-                    function onModeChanged(){
-                        $scope.$broadcast(platformParameters.events.REDRAW_MODULE);
+                    function onModeChanged(args) {
+                        $scope.$broadcast(platformParameters.events.REDRAW_MODULE, args);
                     }
 
                     $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.moduleState.fullScreenMode, onModeChanged);
