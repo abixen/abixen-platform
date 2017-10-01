@@ -236,10 +236,16 @@
                         var moduleHeaderHeight = parseInt(moduleFullScreen[0].getElementsByClassName('module-header')[0].offsetHeight);
                         // new height of content
                         newContainerHeight = moduleFullScreenNewHeight - moduleHeaderHeight;
+                        var moduleBody = moduleFullScreen[0].getElementsByClassName('module-body')[0];
+                        moduleBody.style.height = newContainerHeight + 'px';
+                        moduleBody.style.overflow = 'auto';
                     } else {
                         dashboardSubContainer.removeClass('hidden');
                         var moduleContent = angular.element(document.getElementById('module-content-' + moduleId));
                         var module = angular.element(document.getElementById('module-' + moduleId));
+                        var moduleBody = moduleContent[0].getElementsByClassName('module-body')[0];
+                        moduleBody.style.height = '';
+                        moduleBody.style.overflow = '';
                         module.append(moduleContent);
                         var moduleFullScreen = angular.element(document.getElementById('platform-dashboard-row-full-screen'));
                         moduleFullScreen.remove();
