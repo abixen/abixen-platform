@@ -15,7 +15,8 @@
 package com.abixen.platform.common.infrastructure.configuration;
 
 import com.abixen.platform.common.infrastructure.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
-import org.apache.commons.dbcp.BasicDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseDataSource;
 import org.springframework.context.annotation.Bean;
@@ -29,11 +30,13 @@ public abstract class AbstractPlatformDataSourceConfiguration {
     @Bean(destroyMethod = "close")
     @LiquibaseDataSource
     public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(platformJdbcConfiguration.getDriverClassName());
-        dataSource.setUrl(platformJdbcConfiguration.getDatabaseUrl());
-        dataSource.setUsername(platformJdbcConfiguration.getUsername());
-        dataSource.setPassword(platformJdbcConfiguration.getPassword());
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(platformJdbcConfiguration.getDatabaseUrl());
+        config.setUsername(platformJdbcConfiguration.getUsername());
+        config.setPassword(platformJdbcConfiguration.getPassword());
+        config.setDriverClassName(platformJdbcConfiguration.getDriverClassName());
+        //config.setConnectionTestQuery("SELECT 1");
+        HikariDataSource dataSource = new HikariDataSource(config);
         return dataSource;
     }
 }
