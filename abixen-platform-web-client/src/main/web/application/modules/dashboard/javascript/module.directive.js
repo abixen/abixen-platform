@@ -105,7 +105,7 @@
                 };
 
                 $scope.sendModuleEvent = function (event) {
-                    $scope.$broadcast(event);
+                    $scope.$broadcast(event, $scope.moduleContainerHeight);
                 };
             } else {
                 $log.debug('Module not found');
@@ -162,8 +162,9 @@
                         $scope.moduleState.isCollapsed = false;
                     }
 
-                    function onModeChanged(args) {
-                        $scope.$broadcast(platformParameters.events.REDRAW_MODULE, args);
+                    function onModeChanged(containerHeight) {
+                        $scope.moduleContainerHeight = containerHeight;
+                        $scope.$broadcast(platformParameters.events.REDRAW_MODULE, containerHeight);
                     }
 
                     $scope.$emit('FULL_SCREEN_MODE', $scope.definition.wid, $scope.moduleState.fullScreenMode, onModeChanged);

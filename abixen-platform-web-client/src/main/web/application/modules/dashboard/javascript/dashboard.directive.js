@@ -216,6 +216,22 @@
             },
             link: function ($scope) {
 
+                function getFullScreenContainerHeight() {
+                    var topBar = document.getElementsByClassName('top-bar')[0];
+                    var moduleFullScreenHeight = (window.innerHeight - topBar.offsetHeight - parseInt(getComputedStyle(topBar.children[0]).marginBottom) - 8);
+                    return moduleFullScreenHeight;
+                }
+                function getFullScreenContainerBodyHeight() {
+                    var moduleFullScreen = angular.element(document.getElementById('module-full-screen'));
+                    // get height of window and subtract top toolbar height from it and subtract toolbar margin from it
+                    var topBar = document.getElementsByClassName('top-bar')[0];
+                    // new height of full screen mode
+                    var moduleFullScreenNewHeight = (window.innerHeight - topBar.offsetHeight - parseInt(getComputedStyle(topBar.children[0]).marginBottom) - 8);
+                    var moduleHeaderHeight = parseInt(moduleFullScreen[0].getElementsByClassName('module-header')[0].offsetHeight);
+                    // new height of content
+                    return moduleFullScreenNewHeight - moduleHeaderHeight;
+                }
+
                 $scope.$on('FULL_SCREEN_MODE', function (event, moduleId, fullScreenMode, callback) {
                     var dashboardSubContainer = angular.element(document.getElementById('dashboard-sub-container'));
                     var newContainerHeight = 450;
@@ -228,14 +244,9 @@
                         dashboardContainer.append(module);
                         var moduleFullScreen = angular.element(document.getElementById('module-full-screen'));
                         moduleFullScreen.append(moduleContent);
-                        // get height of window and subtract top toolbar height from it and subtract toolbar margin from it
-                        var topBar = document.getElementsByClassName('top-bar')[0];
-                        // new height of full screen mode
-                        var moduleFullScreenNewHeight = (window.innerHeight - topBar.offsetHeight - parseInt(getComputedStyle(topBar.children[0]).marginBottom) - 8);
-                        moduleFullScreen[0].style.height = moduleFullScreenNewHeight + 'px';
-                        var moduleHeaderHeight = parseInt(moduleFullScreen[0].getElementsByClassName('module-header')[0].offsetHeight);
+                        moduleFullScreen[0].style.height = getFullScreenContainerHeight() + 'px';
                         // new height of content
-                        newContainerHeight = moduleFullScreenNewHeight - moduleHeaderHeight;
+                        newContainerHeight = getFullScreenContainerBodyHeight();
                         var moduleBody = moduleFullScreen[0].getElementsByClassName('module-body')[0];
                         moduleBody.style.height = newContainerHeight + 'px';
                         moduleBody.style.overflow = 'auto';
@@ -250,7 +261,7 @@
                         var moduleFullScreen = angular.element(document.getElementById('platform-dashboard-row-full-screen'));
                         moduleFullScreen.remove();
                     }
-                    callback({ containerHeight: newContainerHeight });
+                    callback(newContainerHeight);
                 });
             },
             templateUrl: 'application/modules/dashboard/html/dashboard.html'
