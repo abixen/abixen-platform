@@ -85,14 +85,16 @@
             $scope.$emit(platformParameters.events.VIEW_MODE_READY);
         });
 
-        $scope.$on(SHOW_SUBVIEW_CHART_EVENT, function () {
+        $scope.$on(SHOW_SUBVIEW_CHART_EVENT, function (event, containerHeight) {
             $log.log('SHOW_SUBVIEW_CHART_EVENT');
             multivisualisationModuleInit.subview = SUBVIEW_CHART;
+            multivisualisationModuleInit.containerHeight = containerHeight;
         });
 
-        $scope.$on(SHOW_SUBVIEW_TABLE_EVENT, function () {
+        $scope.$on(SHOW_SUBVIEW_TABLE_EVENT, function (event, containerHeight) {
             $log.log('SHOW_SUBVIEW_TABLE_EVENT');
             multivisualisationModuleInit.subview = SUBVIEW_TABLE;
+            multivisualisationModuleInit.containerHeight = containerHeight;
         });
 
         function registerSubviewConfigurationIcons() {

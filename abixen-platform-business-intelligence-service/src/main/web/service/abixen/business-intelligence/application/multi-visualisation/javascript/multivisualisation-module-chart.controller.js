@@ -73,6 +73,9 @@
 
                 if (chartParams != null) {
                     multivisualisationModuleChart.options = chartParams.options;
+                    if($scope.multivisualisationModuleInit.containerHeight){
+                        multivisualisationModuleChart.options.chart.height = $scope.multivisualisationModuleInit.containerHeight;
+                    }
                     multivisualisationModuleChart.data = chartParams.data;
                 }
                 $scope.$emit(platformParameters.events.STOP_REQUEST);
@@ -88,10 +91,10 @@
             moduleResponseErrorHandler.handle(error, $scope);
         }
 
-        function onRedrawModule(event, args) {
-            // if args and args.containerHeight provided then change chart height
-            if (args && args.containerHeight) {
-                $scope.multivisualisationModuleChart.options.chart.height = args.containerHeight;
+        function onRedrawModule(event, containerHeight) {
+            // if containerHeight provided then change chart height
+            if (containerHeight) {
+                $scope.multivisualisationModuleChart.options.chart.height = containerHeight;
             }
             multivisualisationModuleChart.api.update();
         }
