@@ -1,5 +1,6 @@
 language: java
-sudo: false
+sudo: required
+dist: trusty
 jdk:
   - oraclejdk8
 install: true
@@ -15,6 +16,8 @@ env:
 branches:
   only:
   - master
+  - tests-and-refactor
+  - v-1-0-wave-2-refactor
 
 script:
   - ./travis/script/build.sh

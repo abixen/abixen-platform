@@ -15,7 +15,7 @@
 package com.abixen.platform.service.webcontent.util;
 
 
-import com.abixen.platform.common.util.EntityBuilder;
+import com.abixen.platform.common.domain.model.EntityBuilder;
 import com.abixen.platform.service.webcontent.model.enumtype.WebContentType;
 import com.abixen.platform.service.webcontent.model.impl.SimpleWebContent;
 

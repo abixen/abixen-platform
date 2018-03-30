@@ -21,11 +21,11 @@
         <a title="Change module's location" class="adf-move" ng-if="editMode && !moduleState.fullScreenMode">
             <i class="fa fa-fw fa-arrows"></i>
         </a>
-        <a title="Collapse module" ng-show="!moduleState.isCollapsed"
+        <a title="Collapse module" ng-show="!moduleState.fullScreenMode && !moduleState.isCollapsed"
            ng-click="moduleState.isCollapsed = !moduleState.isCollapsed">
             <i class="fa fa-minus"></i>
         </a>
-        <a title="Expand module" ng-show="moduleState.isCollapsed"
+        <a title="Expand module" ng-show="!moduleState.fullScreenMode && moduleState.isCollapsed"
            ng-click="moduleState.isCollapsed = !moduleState.isCollapsed">
             <i class="fa fa-plus"></i>
         </a>

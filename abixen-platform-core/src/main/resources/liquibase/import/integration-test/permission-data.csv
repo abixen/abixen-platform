@@ -1,0 +1,29 @@
+id;created_date;last_modified_date;description;permission_acl_class_category_id;permission_general_category_id;permission_name;title;created_by_id;last_modified_by_id
+1;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to view a page.;3;1;PAGE_VIEW;Page View;NULL;NULL
+2;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to add a page.;3;1;PAGE_ADD;Page Add;NULL;NULL
+3;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to edit a page.;3;1;PAGE_EDIT;Page Edit;NULL;NULL
+4;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to delete a page.;3;1;PAGE_DELETE;Page Delete;NULL;NULL
+5;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to configure a page.;3;1;PAGE_CONFIGURATION;Page Configuration;NULL;NULL
+6;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to change permissions to a page.;3;1;PAGE_PERMISSION;Page Permission;NULL;NULL
+
+7;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to view a module.;2;1;MODULE_VIEW;Module View;NULL;NULL
+8;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to add a module.;2;1;MODULE_ADD;Module Add;NULL;NULL
+9;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to edit a module.;2;1;MODULE_EDIT;Module Edit;NULL;NULL
+10;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to delete a module.;2;1;MODULE_DELETE;Module Delete;NULL;NULL
+11;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to configure a module.;2;1;MODULE_CONFIGURATION;Module Configuration;NULL;NULL
+12;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to change permissions to a module.;2;1;MODULE_PERMISSION;Module Permission;NULL;NULL
+
+13;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to view a layout.;1;1;LAYOUT_VIEW;Layout View;NULL;NULL
+14;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to add a alyout.;1;1;LAYOUT_ADD;Layout Add;NULL;NULL
+15;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to edit a layout.;1;1;LAYOUT_EDIT;Layout Edit;NULL;NULL
+16;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to delete a layout.;1;1;LAYOUT_DELETE;Layout Delete;NULL;NULL
+17;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to change permissions to a page.;1;1;LAYOUT_PERMISSION;Layout Permission;NULL;NULL
+
+18;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to view a module type on the available modules list.;6;1;MODULE_TYPE_VIEW;Module Type View;NULL;NULL
+19;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to add an instance of the module type.;6;1;MODULE_TYPE_ADD;Module Type Add;NULL;NULL
+20;2017-01-08 00:00:00;2017-01-08 00:00:00;Allows to change permissions to a module type.;6;1;MODULE_TYPE_PERMISSION;Module Type Permission;NULL;NULL
+
+21;2017-02-17 00:00:00;2017-02-17 00:00:00;Allows to view module comments.;2;1;MODULE_COMMENT_VIEW;Module Comments View;NULL;NULL
+22;2017-02-17 00:00:00;2017-02-17 00:00:00;Allows to add module comments.;2;1;MODULE_COMMENT_ADD;Module Comments Add;NULL;NULL
+23;2017-02-17 00:00:00;2017-02-17 00:00:00;Allows to edit module comments.;2;1;MODULE_COMMENT_EDIT;Module Comments Edit;NULL;NULL
+24;2017-02-18 00:00:00;2017-02-18 00:00:00;Allows to delete module comments.;2;1;MODULE_COMMENT_DELETE;Module Comments Delete;NULL;NULL

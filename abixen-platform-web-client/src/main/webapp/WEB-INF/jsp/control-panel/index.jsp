@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
-<%@ page import="com.abixen.platform.common.model.enumtype.ResourcePageLocation" %>
-<%@ page import="com.abixen.platform.common.model.enumtype.ResourcePage" %>
-<%@ page import="com.abixen.platform.common.model.enumtype.ResourceType" %>
+<%@ page import="com.abixen.platform.common.domain.model.enumtype.ResourcePageLocation" %>
+<%@ page import="com.abixen.platform.common.domain.model.enumtype.ResourcePage" %>
+<%@ page import="com.abixen.platform.common.domain.model.enumtype.ResourceType" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html ng-app="platformAdminApplication">

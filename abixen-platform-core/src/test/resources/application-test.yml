@@ -1,0 +1,29 @@
+liquibase:
+  contexts: integrationTest
+  change-log: "classpath:liquibase/master-changelog.xml"
+
+platform:
+  core:
+    jdbc:
+      driverClassName: org.h2.Driver
+      dialect: org.hibernate.dialect.H2Dialect
+      databaseUrl: jdbc:h2:mem:abixen_platform_core;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password:
+    mail:
+      outgoing:
+        host: abixen.home.pl
+        port: 587
+        user:
+          username: test
+          name: test
+          password: test
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
+    resource:
+      imageLibraryDirectory: /data/image-library

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.service.impl;
 
-import com.abixen.platform.common.exception.PlatformServiceRuntimeException;
+import com.abixen.platform.common.infrastructure.exception.PlatformServiceRuntimeException;
 import com.abixen.platform.service.webcontent.configuration.PlatformWebContentServiceConfiguration;
 import com.abixen.platform.service.webcontent.converter.StructureToStructureDtoConverter;
 import com.abixen.platform.service.webcontent.converter.TemplateToTemplateDtoConverter;

@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.webcontent.facade.impl;
 
-import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
-import com.abixen.platform.common.exception.PlatformRuntimeException;
+import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
+import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.service.webcontent.converter.WebContentToWebContentDtoConverter;
 import com.abixen.platform.service.webcontent.dto.WebContentDto;
 import com.abixen.platform.service.webcontent.facade.WebContentFacade;
@@ -52,15 +52,15 @@ public class WebContentFacadeImpl implements WebContentFacade {
 
     private final WebContentService webContentService;
     private final WebContentToWebContentDtoConverter webContentToWebContentDtoConverter;
-    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
 
     @Autowired
     public WebContentFacadeImpl(WebContentService webContentService,
                                 WebContentToWebContentDtoConverter webContentToWebContentDtoConverter,
-                                AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+                                AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter) {
         this.webContentService = webContentService;
         this.webContentToWebContentDtoConverter = webContentToWebContentDtoConverter;
-        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+        this.auditingModelToSimpleAuditingDtoConverter = auditingModelToSimpleAuditingDtoConverter;
     }
 
     @Override
@@ -126,7 +126,7 @@ public class WebContentFacadeImpl implements WebContentFacade {
                 .setType(advancedWebContent.getType())
                 .setContent(content);
 
-        auditingModelToAuditingDtoConverter.convert(advancedWebContent, webContentDto);
+        auditingModelToSimpleAuditingDtoConverter.convert(advancedWebContent, webContentDto);
 
         return webContentDto;
     }

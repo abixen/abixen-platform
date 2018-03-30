@@ -1,0 +1,2 @@
+id;created_date;last_modified_date;name;angular_js_name_application;angular_js_name_admin;description;title;init_url;service_id;created_by_id;last_modified_by_id
+1;2017-01-08 00:00:00;2017-01-08 00:00:00;multi-visualisation;platformChartModule;multiVisualisationModule;This is a multi visualisation module;Multi Visualisation;/service/abixen/business-intelligence/application/multi-visualisation/html/index.html;abixen-platform-business-intelligence-service;1;1

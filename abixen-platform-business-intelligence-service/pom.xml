@@ -25,6 +25,11 @@
         <log4j2.version>2.5</log4j2.version>
         <start-class>com.abixen.platform.service.businessintelligence.PlatformBusinessIntelligenceServiceApplication
         </start-class>
+        <spock.version>1.1-groovy-2.4</spock.version>
+        <cglib.version>3.2.5</cglib.version>
+        <gmavenplus.version>1.5</gmavenplus.version>
+        <maven.failsafe.version>2.18.1</maven.failsafe.version>
+        <maven.surefire.version>2.20</maven.surefire.version>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen</docker.image.prefix>
     </properties>
@@ -231,6 +236,25 @@
             <version>3.15</version>
         </dependency>
 
+        <!-- Tests -->
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${spock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+            <version>${spock.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>${cglib.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -291,6 +315,29 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>${gmavenplus.version}</version>
+                <configuration>
+                    <testSources>
+                        <testSource>
+                            <directory>${project.basedir}/src/test/java</directory>
+                            <includes>
+                                <include>**/*.groovy</include>
+                            </includes>
+                        </testSource>
+                    </testSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>${docker.plugin.version}</version>
@@ -343,6 +390,36 @@
                         </configuration>
                         <goals>
                             <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <includes>**/*Test.*</includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven.failsafe.version}</version>
+                <configuration>
+                    <skip>false</skip>
+                    <includes>**/*IT.*</includes>
+                    <classpathDependencyExcludes>
+                        <classpathDependencyExclude>org.springframework.session:spring-session</classpathDependencyExclude>
+                    </classpathDependencyExcludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run-integration-tests</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
                         </goals>
                     </execution>
                 </executions>

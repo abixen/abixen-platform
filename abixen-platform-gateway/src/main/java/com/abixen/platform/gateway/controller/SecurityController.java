@@ -14,7 +14,7 @@
 
 package com.abixen.platform.gateway.controller;
 
-import com.abixen.platform.common.security.PlatformWebUser;
+import com.abixen.platform.common.infrastructure.security.PlatformWebUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;

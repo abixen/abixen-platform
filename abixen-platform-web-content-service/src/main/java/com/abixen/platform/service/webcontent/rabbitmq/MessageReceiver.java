@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.rabbitmq;
 
-import com.abixen.platform.common.rabbitmq.message.RabbitMQRemoveModuleMessage;
+import com.abixen.platform.common.interfaces.queue.message.QueueRemoveModuleMessage;
 import com.abixen.platform.service.webcontent.service.WebContentModuleConfigurationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class MessageReceiver {
         this.webContentModuleConfigurationService = webContentModuleConfigurationService;
     }
 
-    public void receiveMessage(RabbitMQRemoveModuleMessage message) {
+    public void receiveMessage(QueueRemoveModuleMessage message) {
         log.debug("receiveRabbitMQRemoveModuleMessage: moduleId={}, moduleTypeName={}", message.getModuleId(), message.getModuleTypeName());
 
         switch (message.getModuleTypeName()) {

@@ -218,24 +218,39 @@
 
                 $scope.$on('FULL_SCREEN_MODE', function (event, moduleId, fullScreenMode, callback) {
                     var dashboardSubContainer = angular.element(document.getElementById('dashboard-sub-container'));
-
+                    var newContainerHeight = 450;
                     if (fullScreenMode) {
                         dashboardSubContainer.addClass('hidden');
                         var dashboardContainer = angular.element(document.getElementById('dashboard-container'));
                         var moduleContent = angular.element(document.getElementById('module-content-' + moduleId));
                         var module = angular.element('<div class="container-fluid modules-wrapper custom-column-container ng-scope ng-isolate-scope" id="platform-dashboard-row-full-screen"><div class="column ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope col-md-12"><div id="module-full-screen" class="module"></div></div></div>');
+
                         dashboardContainer.append(module);
                         var moduleFullScreen = angular.element(document.getElementById('module-full-screen'));
                         moduleFullScreen.append(moduleContent);
+                        // get height of window and subtract top toolbar height from it and subtract toolbar margin from it
+                        var topBar = document.getElementsByClassName('top-bar')[0];
+                        // new height of full screen mode
+                        var moduleFullScreenNewHeight = (window.innerHeight - topBar.offsetHeight - parseInt(getComputedStyle(topBar.children[0]).marginBottom) - 8);
+                        moduleFullScreen[0].style.height = moduleFullScreenNewHeight + 'px';
+                        var moduleHeaderHeight = parseInt(moduleFullScreen[0].getElementsByClassName('module-header')[0].offsetHeight);
+                        // new height of content
+                        newContainerHeight = moduleFullScreenNewHeight - moduleHeaderHeight;
+                        var moduleBody = moduleFullScreen[0].getElementsByClassName('module-body')[0];
+                        moduleBody.style.height = newContainerHeight + 'px';
+                        moduleBody.style.overflow = 'auto';
                     } else {
                         dashboardSubContainer.removeClass('hidden');
                         var moduleContent = angular.element(document.getElementById('module-content-' + moduleId));
                         var module = angular.element(document.getElementById('module-' + moduleId));
+                        var moduleBody = moduleContent[0].getElementsByClassName('module-body')[0];
+                        moduleBody.style.height = '';
+                        moduleBody.style.overflow = '';
                         module.append(moduleContent);
                         var moduleFullScreen = angular.element(document.getElementById('platform-dashboard-row-full-screen'));
                         moduleFullScreen.remove();
                     }
-                    callback();
+                    callback({ containerHeight: newContainerHeight });
                 });
             },
             templateUrl: 'application/modules/dashboard/html/dashboard.html'

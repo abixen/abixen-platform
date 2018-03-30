@@ -1,0 +1,7 @@
+id;acl_class_id;name;title;description
+1;1;layout;Layout;Layout
+2;2;module;Module;Module
+3;3;page;Page;Page
+4;4;role;Role;Role
+5;5;user;User;User
+6;6;moduleType;Module Types;Module Types

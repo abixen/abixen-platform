@@ -314,6 +314,7 @@
         }
 
         function setDataSourceSelected(dataSource) {
+            dataSource.classType = dataSource.dataSourceType;
             configWizard.chartConfiguration.dataSource = dataSource;
         }
 

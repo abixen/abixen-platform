@@ -11,10 +11,11 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.abixen.platform.service.webcontent.converter;
 
-import com.abixen.platform.common.converter.AbstractConverter;
-import com.abixen.platform.common.converter.AuditingModelToAuditingDtoConverter;
+import com.abixen.platform.common.application.converter.AbstractConverter;
+import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.service.webcontent.dto.StructureDto;
 import com.abixen.platform.service.webcontent.model.impl.Structure;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,13 @@ import java.util.Map;
 @Component
 public class StructureToStructureDtoConverter extends AbstractConverter<Structure, StructureDto> {
 
-    private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
+    private final AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter;
     private final TemplateToTemplateDtoConverter templateToTemplateDtoConverter;
 
     @Autowired
-    public StructureToStructureDtoConverter(AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter,
+    public StructureToStructureDtoConverter(AuditingModelToSimpleAuditingDtoConverter auditingModelToSimpleAuditingDtoConverter,
                                             TemplateToTemplateDtoConverter templateToTemplateDtoConverter) {
-        this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+        this.auditingModelToSimpleAuditingDtoConverter = auditingModelToSimpleAuditingDtoConverter;
         this.templateToTemplateDtoConverter = templateToTemplateDtoConverter;
     }
 
@@ -44,8 +45,9 @@ public class StructureToStructureDtoConverter extends AbstractConverter<Structur
                 .setName(structure.getName())
                 .setTemplate(templateToTemplateDtoConverter.convert(structure.getTemplate()));
 
-        auditingModelToAuditingDtoConverter.convert(structure, structureDto);
+        auditingModelToSimpleAuditingDtoConverter.convert(structure, structureDto);
 
         return structureDto;
     }
+
 }

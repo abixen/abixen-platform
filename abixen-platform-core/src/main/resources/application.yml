@@ -1,3 +1,6 @@
+platform:
+  core:
+    version: @project.version@
 spring:
   application:
     name: abixen-platform-core
@@ -9,3 +12,6 @@ spring:
   cache:
     ehcache:
       config: classpath:ehcache.xml
+liquibase:
+  contexts: prod
+  change-log: "classpath:liquibase/master-changelog.xml"

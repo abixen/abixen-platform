@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.configuration;
 
-import com.abixen.platform.common.rabbitmq.AbstractRabbitMQConfiguration;
+import com.abixen.platform.common.infrastructure.rabbitmq.AbstractRabbitMQConfiguration;
 import com.abixen.platform.service.webcontent.rabbitmq.MessageReceiver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
@@ -22,8 +22,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import static com.abixen.platform.common.util.PlatformProfiles.DEV;
-import static com.abixen.platform.common.util.PlatformProfiles.DOCKER;
+import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DEV;
+import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DOCKER;
 
 
 @Profile({DEV, DOCKER})

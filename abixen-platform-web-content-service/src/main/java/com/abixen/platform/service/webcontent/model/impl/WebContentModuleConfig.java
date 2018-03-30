@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.model.impl;
 
-import com.abixen.platform.common.model.audit.AuditingModel;
+import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,7 +23,7 @@ import java.io.Serializable;
 @Table(name = "web_content_module_config")
 @SequenceGenerator(sequenceName = "web_content_module_config_seq", name = "web_content_module_config_seq", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
-public class WebContentModuleConfig extends AuditingModel implements Serializable {
+public class WebContentModuleConfig extends SimpleAuditingModel implements Serializable {
 
     @Id
     @Column(name = "id")

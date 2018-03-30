@@ -15,8 +15,8 @@
 package com.abixen.platform.service.webcontent.configuration.properties;
 
 
-import com.abixen.platform.common.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
-import com.abixen.platform.common.util.PlatformProfiles;
+import com.abixen.platform.common.infrastructure.configuration.properties.AbstractPlatformJdbcConfigurationProperties;
+import com.abixen.platform.common.infrastructure.util.PlatformProfiles;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Profile;

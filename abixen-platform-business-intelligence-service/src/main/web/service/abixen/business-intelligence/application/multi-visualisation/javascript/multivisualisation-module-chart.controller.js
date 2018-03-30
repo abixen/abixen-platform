@@ -47,13 +47,13 @@
         if ($scope.moduleId) {
             $scope.$emit(platformParameters.events.START_REQUEST);
 
-            ChartModuleConfiguration.get({id: $scope.moduleId})
+            ChartModuleConfiguration.get({ id: $scope.moduleId })
                 .$promise
                 .then(onGetResult, onGetError);
         }
 
         function onGetResult(moduleConfiguration) {
-            if(!moduleConfiguration.id){
+            if (!moduleConfiguration.id) {
                 $scope.$emit(platformParameters.events.STOP_REQUEST);
                 $scope.$emit(platformParameters.events.MODULE_CONFIGURATION_MISSING);
                 return;
@@ -88,7 +88,11 @@
             moduleResponseErrorHandler.handle(error, $scope);
         }
 
-        function onRedrawModule() {
+        function onRedrawModule(event, args) {
+            // if args and args.containerHeight provided then change chart height
+            if (args && args.containerHeight) {
+                $scope.multivisualisationModuleChart.options.chart.height = args.containerHeight;
+            }
             multivisualisationModuleChart.api.update();
         }
 

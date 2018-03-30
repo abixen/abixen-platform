@@ -1,0 +1,2 @@
+id;created_date;last_modified_date;selected_language;first_name;last_name;password;hash_key;avatar_file_name;registration_ip;screen_name;state;username;created_by_id;last_modified_by_id
+1;2017-01-08 00:00:00;2017-01-08 00:00:00;ENGLISH;Joe;Brown;$2a$10$sTqNSmgY2BDQVp9A01LQ4OF7AaJW9QQTOHCH.h1XdtL0sIaSplOOu;$1a$10$sTqNSmgY2BDQVp9A01LQ4OF7AaJW9QQTOHCH.h1XdtL0sIaSplOOu;NULL;127.0.0.1;Joe Brown Admin;ACTIVE;joe.brown@abixen.com;NULL;NULL
