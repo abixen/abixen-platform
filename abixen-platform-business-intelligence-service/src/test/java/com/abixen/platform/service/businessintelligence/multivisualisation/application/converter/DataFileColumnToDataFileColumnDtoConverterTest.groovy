@@ -16,11 +16,10 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileColumnDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValue
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueString
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumnBuilder
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.DataValueType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data.DataValue
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data.DataValueString
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.file.DataFileColumn
 import spock.lang.Specification
 
 class DataFileColumnToDataFileColumnDtoConverterTest extends Specification {
@@ -49,7 +48,7 @@ class DataFileColumnToDataFileColumnDtoConverterTest extends Specification {
         final DataValue dataValue = [] as DataValueString
         final List<DataValue> dataValues = Collections.singletonList(dataValue)
 
-        final DataFileColumn dataFileColumn = new DataFileColumnBuilder()
+        final DataFileColumn dataFileColumn = DataFileColumn.builder()
                 .dataValueType(DataValueType.DATE)
                 .name("name")
                 .position(1)
@@ -75,4 +74,5 @@ class DataFileColumnToDataFileColumnDtoConverterTest extends Specification {
         1 * dataValueToDataValueDtoConverter.convertToList(dataValues) >> dataValueDtos
         0 * _
     }
+
 }

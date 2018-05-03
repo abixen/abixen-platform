@@ -15,7 +15,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceColumn;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

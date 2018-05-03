@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.ChartConfigurationDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.ChartConfiguration;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.ChartConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,13 +25,13 @@ import java.util.Map;
 @Component
 public class ChartConfigurationToChartConfigurationDtoConverter extends AbstractConverter<ChartConfiguration, ChartConfigurationDto> {
 
-    private final DataSetChartToDataSetChartDtoConverter dataSetChartToDataSetChartDtoConverter;
+    private final DataSetToDataSetDtoConverter dataSetToDataSetDtoConverter;
     private final DataSourceToDataSourceDtoConverter dataSourceToDataSourceDtoConverter;
 
     @Autowired
-    public ChartConfigurationToChartConfigurationDtoConverter(DataSetChartToDataSetChartDtoConverter dataSetChartToDataSetChartDtoConverter,
+    public ChartConfigurationToChartConfigurationDtoConverter(DataSetToDataSetDtoConverter dataSetToDataSetDtoConverter,
                                                               DataSourceToDataSourceDtoConverter dataSourceToDataSourceDtoConverter) {
-        this.dataSetChartToDataSetChartDtoConverter = dataSetChartToDataSetChartDtoConverter;
+        this.dataSetToDataSetDtoConverter = dataSetToDataSetDtoConverter;
         this.dataSourceToDataSourceDtoConverter = dataSourceToDataSourceDtoConverter;
     }
 
@@ -49,7 +49,7 @@ public class ChartConfigurationToChartConfigurationDtoConverter extends Abstract
                 .setAxisYName(chartConfiguration.getAxisYName())
                 .setFilter(chartConfiguration.getFilter())
                 .setChartType(chartConfiguration.getChartType())
-                .setDataSetChart(dataSetChartToDataSetChartDtoConverter.convert(chartConfiguration.getDataSetChart()))
+                .setDataSet(dataSetToDataSetDtoConverter.convert(chartConfiguration.getDataSet()))
                 .setDataSource(dataSourceToDataSourceDtoConverter.convert(chartConfiguration.getDataSource()));
 
         return chartConfigurationDto;

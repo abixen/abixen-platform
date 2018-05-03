@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.1.RELEASE</version>
+        <version>1.5.7.RELEASE</version>
     </parent>
 
     <properties>
@@ -33,7 +33,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.RELEASE</version>
+                <version>Dalston.SR3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -98,7 +98,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-redis</artifactId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -201,7 +201,7 @@
                         <id>validate</id>
                         <phase>validate</phase>
                         <configuration>
-                            <configLocation>../checkstyle.xml</configLocation>
+                            <configLocation>../../abixen-platform/checkstyle.xml</configLocation>
                             <encoding>UTF-8</encoding>
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>true</failsOnError>

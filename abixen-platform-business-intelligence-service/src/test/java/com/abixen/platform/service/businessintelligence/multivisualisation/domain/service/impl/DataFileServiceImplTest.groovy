@@ -15,11 +15,11 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.impl
 
 import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileBuilder
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFileColumn
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.file.FileDataSource
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.file.DataFile
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.file.DataFileColumn
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataFileRepository
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataFileService
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.FileDataSourceService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -32,12 +32,12 @@ class DataFileServiceImplTest extends Specification {
 
     private DataFileRepository dataFileRepository
     private FileDataSourceService fileDataSourceService
-    private DataFileServiceImpl dataFileService
+    private DataFileService dataFileService
 
     void setup() {
         dataFileRepository = Mock()
         fileDataSourceService = Mock()
-        dataFileService = new DataFileServiceImpl(fileDataSourceService, dataFileRepository)
+        dataFileService = new DataFileService(fileDataSourceService, dataFileRepository)
     }
 
     void "should find DataFile"() {
@@ -83,7 +83,7 @@ class DataFileServiceImplTest extends Specification {
         given:
         final DataFileColumn dataFileColumn = [] as DataFileColumn
         final Set<DataFileColumn> dataFileColumns = Collections.singleton(dataFileColumn)
-        final DataFile dataFile = new DataFileBuilder()
+        final DataFile dataFile = DataFile.builder()
                 .details("name", "description")
                 .columns(dataFileColumns)
                 .build()
@@ -108,7 +108,7 @@ class DataFileServiceImplTest extends Specification {
         given:
         final DataFileColumn dataFileColumn = [] as DataFileColumn
         final Set<DataFileColumn> dataFileColumns = Collections.singleton(dataFileColumn)
-        final DataFile dataFile = new DataFileBuilder()
+        final DataFile dataFile = DataFile.builder()
                 .details("name", "description")
                 .columns(dataFileColumns)
                 .build()
@@ -170,4 +170,5 @@ class DataFileServiceImplTest extends Specification {
         1 * fileDataSourceService.find(dataFile) >> relatedFileDataSources
         0 * _
     }
+
 }

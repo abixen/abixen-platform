@@ -19,7 +19,6 @@ import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import com.abixen.platform.core.application.form.UserChangePasswordForm;
 import com.abixen.platform.core.application.form.UserSearchForm;
 import com.abixen.platform.core.domain.model.User;
-import com.abixen.platform.core.domain.model.UserBuilder;
 import com.abixen.platform.core.domain.service.UserService;
 import com.abixen.platform.core.infrastructure.configuration.properties.PlatformResourceConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +64,7 @@ public class UserServiceTest {
     @Test
     public void createUser() {
         log.debug("create()");
-        UserBuilder userBuilder = new UserBuilder();
+        User.Builder userBuilder = User.builder();
         userBuilder.credentials("username", "password");
         userBuilder.screenName("screenName");
         userBuilder.personalData("firstName", "middleName", "lastName");
@@ -83,7 +82,7 @@ public class UserServiceTest {
         log.debug("changePassword() positive case");
         String newpassword = "newPassword";
 
-        UserBuilder userBuilder = new UserBuilder();
+        User.Builder userBuilder = User.builder();
         userBuilder.credentials("usernameA", "password");
         userBuilder.screenName("screenNameA");
         userBuilder.personalData("firstName", "middleName", "lastName");
@@ -111,7 +110,7 @@ public class UserServiceTest {
         log.debug("changePassword() negative case");
         String newpassword = "newPassword";
 
-        UserBuilder userBuilder = new UserBuilder();
+        User.Builder userBuilder = User.builder();
         userBuilder.credentials("usernameB", "password");
         userBuilder.screenName("screenNameB");
         userBuilder.personalData("firstName", "middleName", "lastName");
@@ -132,7 +131,7 @@ public class UserServiceTest {
     public void changeUserAvatar() throws IOException {
         log.debug("changeAvatar() positive case");
 
-        UserBuilder userBuilder = new UserBuilder();
+        User.Builder userBuilder = User.builder();
         userBuilder.credentials("usernameC", "password");
         userBuilder.screenName("screenNameC");
         userBuilder.personalData("firstName", "middleName", "lastName");
@@ -183,7 +182,7 @@ public class UserServiceTest {
     @Test
     public void updateSelectedLanguage() {
 
-        UserBuilder userBuilder = new UserBuilder();
+        User.Builder userBuilder = User.builder();
         userBuilder.credentials("usertestlang", "password");
         userBuilder.screenName("screentestlang");
         userBuilder.personalData("firstName", "middleName", "lastName");

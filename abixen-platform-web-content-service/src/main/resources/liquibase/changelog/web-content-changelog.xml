@@ -6,9 +6,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/changelog/web-content-changelog.xml">
 
-    <property name="clob.type" value="varchar(2147483647)" dbms="h2"/>
-    <property name="clob.type" value="clob" dbms="mysql, postgresql, oracle, mssql, sybase, asany, db2, derby, hsqldb, informix, firebird, sqlite"/>
-
     <changeSet id="web-content-sequence-v1" author="AdamTurski">
         <createSequence sequenceName="web_content_seq" startValue="3"/>
     </changeSet>
@@ -24,7 +21,7 @@
             <column name="title" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="content" type="${clob.type}">
+            <column name="content" type="longvarchar">
                 <constraints nullable="false"/>
             </column>
             <column name="created_by_id" type="bigint"/>

@@ -1,3 +1,8 @@
 spring:
   application:
     name: abixen-platform-gateway
+
+abixen:
+  platform:
+    gateway:
+      version: @project.version@

@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.form
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseType
 import spock.lang.Specification
 
 class DatabaseConnectionFormTest extends Specification {

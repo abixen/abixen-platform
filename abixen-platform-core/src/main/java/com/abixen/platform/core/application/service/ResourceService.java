@@ -14,19 +14,38 @@
 
 package com.abixen.platform.core.application.service;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationService;
 import com.abixen.platform.core.domain.model.ModuleType;
-import com.abixen.platform.core.domain.model.Resource;
+import com.abixen.platform.core.domain.repository.ResourceRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.annotation.Resource;
 import java.util.List;
 
+@Slf4j
+@PlatformApplicationService
+public class ResourceService {
 
-public interface ResourceService {
+    @Resource
+    private ResourceRepository resourceRepository;
 
-    List<Resource> findAllResources();
+    public List<com.abixen.platform.core.domain.model.Resource> findAllResources() {
+        return resourceRepository.findAll();
+    }
 
-    void updateResource(ModuleType moduleType, List<Resource> newResources);
+    public void updateResource(ModuleType moduleType, List<com.abixen.platform.core.domain.model.Resource> newResources) {
 
-    Page<Resource> findAllResources(Long moduleId, Pageable pageable);
+        resourceRepository.deleteAll(moduleType);
+
+        newResources.forEach(resource -> {
+            resourceRepository.save(resource);
+        });
+    }
+
+    public Page<com.abixen.platform.core.domain.model.Resource> findAllResources(Long moduleId, Pageable pageable) {
+        return this.resourceRepository.findAll(moduleId, pageable);
+    }
+
 }

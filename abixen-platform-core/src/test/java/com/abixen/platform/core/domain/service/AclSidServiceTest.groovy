@@ -15,10 +15,8 @@
 package com.abixen.platform.core.domain.service
 
 import com.abixen.platform.common.domain.model.enumtype.AclSidType
-import com.abixen.platform.core.domain.service.impl.AclSidServiceImpl
 import com.abixen.platform.core.domain.model.AclSid
-import com.abixen.platform.core.domain.model.AclSidBuilder
-import com.abixen.platform.core.domain.repository.custom.AclSidRepository
+import com.abixen.platform.core.domain.repository.AclSidRepository
 import spock.lang.Specification
 
 
@@ -29,7 +27,7 @@ class AclSidServiceTest extends Specification {
 
     void setup() {
         aclSidRepository = Mock()
-        aclSidService = new AclSidServiceImpl(aclSidRepository)
+        aclSidService = new AclSidService(aclSidRepository)
     }
 
     void "should create AclSid"() {
@@ -37,7 +35,7 @@ class AclSidServiceTest extends Specification {
         final AclSidType aclSidType = AclSidType.OWNER
         final Long sidId = 1L
 
-        final AclSid aclSid = new AclSidBuilder()
+        final AclSid aclSid = AclSid.builder()
                 .sidId(sidId)
                 .aclSidType(aclSidType)
                 .build();

@@ -20,7 +20,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -30,7 +31,7 @@ public class CommentDto extends AuditingDto {
 
     private Long id;
     private String message;
-    private List<CommentVoteDto> votes;
+    private Set<CommentVoteDto> votes = new HashSet<>();
     private CommentDto parent;
     private ModuleDto module;
 

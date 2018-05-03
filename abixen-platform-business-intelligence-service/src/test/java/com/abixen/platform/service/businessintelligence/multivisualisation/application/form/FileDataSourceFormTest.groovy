@@ -17,7 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.FileDataSourceDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceType
 import spock.lang.Specification
 
 class FileDataSourceFormTest extends Specification {

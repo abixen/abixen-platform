@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.dto;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.ChartType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.ChartType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,10 +28,9 @@ public class ChartConfigurationDto {
     private Long id;
     private Long moduleId;
     private ChartType chartType;
-    private DataSetChartDto dataSetChart;
+    private DataSetDto dataSet;
     private String axisXName;
     private String axisYName;
     private String filter;
     private DataSourceDto dataSource;
-
 }

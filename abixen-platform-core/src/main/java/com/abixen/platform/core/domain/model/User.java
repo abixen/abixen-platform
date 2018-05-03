@@ -14,10 +14,11 @@
 
 package com.abixen.platform.core.domain.model;
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
 import com.abixen.platform.common.domain.model.enumtype.UserGender;
 import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import com.abixen.platform.common.domain.model.enumtype.UserState;
-import com.abixen.platform.core.application.exception.UserActivationException;
+import com.abixen.platform.core.domain.exception.UserActivationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.commons.io.FileExistsException;
@@ -48,11 +49,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+//FIXME - remove it
 @JsonSerialize(as = User.class)
 @Entity
 @Table(name = "user_")
 @SequenceGenerator(sequenceName = "user_seq", name = "user_seq", allocationSize = 1)
-public class User extends AuditingModel {
+public final class User extends AuditingModel {
 
     public static final int USERNAME_MAX_LENGTH = 32;
     public static final int USERNAME_MIN_LENGTH = 3;
@@ -127,7 +129,7 @@ public class User extends AuditingModel {
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "role_id", nullable = false, updatable = false)})
     private Set<Role> roles = new HashSet<>();
 
-    User() {
+    private User() {
     }
 
     @Override
@@ -135,7 +137,7 @@ public class User extends AuditingModel {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -143,7 +145,7 @@ public class User extends AuditingModel {
         return username;
     }
 
-    void setUsername(String username) {
+    private void setUsername(String username) {
         this.username = username;
     }
 
@@ -151,7 +153,7 @@ public class User extends AuditingModel {
         return password;
     }
 
-    void setPassword(String password) {
+    private void setPassword(String password) {
         this.password = password;
     }
 
@@ -159,7 +161,7 @@ public class User extends AuditingModel {
         return screenName;
     }
 
-    void setScreenName(String screenName) {
+    private void setScreenName(String screenName) {
         this.screenName = screenName;
     }
 
@@ -167,7 +169,7 @@ public class User extends AuditingModel {
         return firstName;
     }
 
-    void setFirstName(String firstName) {
+    private void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -175,7 +177,7 @@ public class User extends AuditingModel {
         return middleName;
     }
 
-    void setMiddleName(String middleName) {
+    private void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
 
@@ -183,7 +185,7 @@ public class User extends AuditingModel {
         return lastName;
     }
 
-    void setLastName(String lastName) {
+    private void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -191,7 +193,7 @@ public class User extends AuditingModel {
         return jobTitle;
     }
 
-    void setJobTitle(String jobTitle) {
+    private void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
 
@@ -199,7 +201,7 @@ public class User extends AuditingModel {
         return birthday;
     }
 
-    void setBirthday(Date birthday) {
+    private void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -207,7 +209,7 @@ public class User extends AuditingModel {
         return gender;
     }
 
-    void setGender(UserGender gender) {
+    private void setGender(UserGender gender) {
         this.gender = gender;
     }
 
@@ -215,7 +217,7 @@ public class User extends AuditingModel {
         return selectedLanguage;
     }
 
-    void setSelectedLanguage(UserLanguage selectedLanguage) {
+    private void setSelectedLanguage(UserLanguage selectedLanguage) {
         this.selectedLanguage = selectedLanguage;
     }
 
@@ -223,7 +225,7 @@ public class User extends AuditingModel {
         return avatarFileName;
     }
 
-    void setAvatarFileName(String avatarFileName) {
+    private void setAvatarFileName(String avatarFileName) {
         this.avatarFileName = avatarFileName;
     }
 
@@ -231,7 +233,7 @@ public class User extends AuditingModel {
         return registrationIp;
     }
 
-    void setRegistrationIp(String registrationIp) {
+    private void setRegistrationIp(String registrationIp) {
         this.registrationIp = registrationIp;
     }
 
@@ -239,7 +241,7 @@ public class User extends AuditingModel {
         return state;
     }
 
-    void setState(UserState state) {
+    private void setState(UserState state) {
         this.state = state;
     }
 
@@ -247,7 +249,7 @@ public class User extends AuditingModel {
         return roles;
     }
 
-    void setRoles(Set<Role> roles) {
+    private void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -255,7 +257,7 @@ public class User extends AuditingModel {
         return hashKey;
     }
 
-    void setHashKey(String hashKey) {
+    private void setHashKey(String hashKey) {
         this.hashKey = hashKey;
     }
 
@@ -288,7 +290,7 @@ public class User extends AuditingModel {
     }
 
     public void changePassword(String currentPassword, String newPassword) {
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        final PasswordEncoder encoder = new BCryptPasswordEncoder();
         if (!encoder.matches(currentPassword, getPassword())) {
             throw new UsernameNotFoundException("Wrong username and / or password.");
         }
@@ -297,16 +299,16 @@ public class User extends AuditingModel {
     }
 
     public void changeAvatar(String imageLibraryDirectory, MultipartFile avatarFile) throws IOException {
-        File currentAvatarFile = new File(imageLibraryDirectory + "/user-avatar/" + getAvatarFileName());
+        final File currentAvatarFile = new File(imageLibraryDirectory + "/user-avatar/" + getAvatarFileName());
         if (currentAvatarFile.exists()) {
             if (!currentAvatarFile.delete()) {
                 throw new FileExistsException();
             }
         }
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String newAvatarFileName = encoder.encode(avatarFile.getName() + new Date().getTime()).replaceAll("\"", "s").replaceAll("/", "a").replace(".", "sde");
-        File newAvatarFile = new File(imageLibraryDirectory + "/user-avatar/" + newAvatarFileName);
-        FileOutputStream out = new FileOutputStream(newAvatarFile);
+        final PasswordEncoder encoder = new BCryptPasswordEncoder();
+        final String newAvatarFileName = encoder.encode(avatarFile.getName() + new Date().getTime()).replaceAll("\"", "s").replaceAll("/", "a").replace(".", "sde");
+        final File newAvatarFile = new File(imageLibraryDirectory + "/user-avatar/" + newAvatarFileName);
+        final FileOutputStream out = new FileOutputStream(newAvatarFile);
         out.write(avatarFile.getBytes());
         out.close();
         setAvatarFileName(newAvatarFileName);
@@ -319,6 +321,66 @@ public class User extends AuditingModel {
     public void changeRoles(Set<Role> roles) {
         getRoles().clear();
         getRoles().addAll(roles);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<User> {
+
+        private Builder() {
+        }
+
+        @Override
+        protected void initProduct() {
+            this.product = new User();
+        }
+
+        public Builder credentials(String username, String password) {
+            PasswordEncoder encoder = new BCryptPasswordEncoder();
+            this.product.setUsername(username);
+            this.product.setPassword(encoder.encode(password));
+            this.product.setHashKey(encoder.encode(username + password + new Date()).replace("/", "."));
+            this.product.setState(UserState.CREATED);
+            return this;
+        }
+
+        public Builder screenName(String screenName) {
+            this.product.setScreenName(screenName);
+            return this;
+        }
+
+        public Builder personalData(String firstName, String middleName, String lastName) {
+            this.product.setFirstName(firstName);
+            this.product.setMiddleName(middleName);
+            this.product.setLastName(lastName);
+            return this;
+        }
+
+        public Builder additionalData(Date birthday, String jobTitle, UserLanguage language, UserGender gender) {
+            this.product.setBirthday(birthday);
+            this.product.setJobTitle(jobTitle);
+            this.product.setSelectedLanguage(language);
+            this.product.setGender(gender);
+            return this;
+        }
+
+        //FIXME unused?
+        public Builder roles(Role... roles) {
+            Set<Role> rolesSet = new HashSet<>();
+            for (Role role : roles) {
+                rolesSet.add(role);
+            }
+            this.product.setRoles(rolesSet);
+            return this;
+        }
+
+        public Builder registrationIp(String registrationIp) {
+            this.product.setRegistrationIp(registrationIp);
+            return this;
+        }
+
     }
 
 }

@@ -6,9 +6,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/changelog/multi-visualisation/data-source-changelog.xml">
 
-    <property name="clob.type" value="varchar(2147483647)" dbms="h2"/>
-    <property name="clob.type" value="clob" dbms="mysql, postgresql, oracle, mssql, sybase, asany, db2, derby, hsqldb, informix, firebird, sqlite"/>
-
     <changeSet author="MariuszKumor" id="data-source-v1">
         <createTable tableName="data_source">
             <column name="id" type="bigint">
@@ -22,7 +19,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="varchar(1000)"/>
-            <column name="filter" type="${clob.type}"/>
+            <column name="filter" type="longvarchar"/>
             <column name="name" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>

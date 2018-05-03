@@ -14,6 +14,8 @@
 
 package com.abixen.platform.core.domain.model;
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +28,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "layout")
 @SequenceGenerator(sequenceName = "layout_seq", name = "layout_seq", allocationSize = 1)
-public class Layout extends AuditingModel implements SecurableModel {
+public final class Layout extends AuditingModel implements SecurableModel {
 
     public static final int LAYOUT_TITLE_MAX_LENGTH = 40;
     public static final int LAYOUT_CONTENT_MAX_LENGTH = 4000;
@@ -46,7 +48,7 @@ public class Layout extends AuditingModel implements SecurableModel {
     @Column(name = "icon_file_name", length = LAYOUT_ICON_FILE_NAME_MAX_LENGTH, nullable = false)
     private String iconFileName;
 
-    Layout() {
+    private Layout() {
     }
 
     @Override
@@ -54,7 +56,7 @@ public class Layout extends AuditingModel implements SecurableModel {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -62,7 +64,7 @@ public class Layout extends AuditingModel implements SecurableModel {
         return content;
     }
 
-    void setContent(String content) {
+    private void setContent(String content) {
         this.content = content;
     }
 
@@ -70,7 +72,7 @@ public class Layout extends AuditingModel implements SecurableModel {
         return title;
     }
 
-    void setTitle(String title) {
+    private void setTitle(String title) {
         this.title = title;
     }
 
@@ -78,7 +80,7 @@ public class Layout extends AuditingModel implements SecurableModel {
         return iconFileName;
     }
 
-    void setIconFileName(String iconFileName) {
+    private void setIconFileName(String iconFileName) {
         this.iconFileName = iconFileName;
     }
 
@@ -92,6 +94,34 @@ public class Layout extends AuditingModel implements SecurableModel {
 
     public void changeIconFileName(String iconFileName) {
         setIconFileName(iconFileName);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<Layout> {
+
+        @Override
+        protected void initProduct() {
+            this.product = new Layout();
+        }
+
+        public Builder title(String title) {
+            this.product.setTitle(title);
+            return this;
+        }
+
+        public Builder content(String content) {
+            this.product.setContent(content);
+            return this;
+        }
+
+        public Builder iconFileName(String iconFileName) {
+            this.product.setIconFileName(iconFileName);
+            return this;
+        }
+
     }
 
 }

@@ -1,0 +1,2 @@
+id;created_by_id;created_date;last_modified_by_id;last_modified_date;database_host;database_name;database_port;database_type;description;name;password;username
+1;NULL;NULL;NULL;NULL;localhost;./db/business-intelligence-demo-data;8000;H2;Connection to the internal h2 db; Sample connection to internal h2 db;;sa

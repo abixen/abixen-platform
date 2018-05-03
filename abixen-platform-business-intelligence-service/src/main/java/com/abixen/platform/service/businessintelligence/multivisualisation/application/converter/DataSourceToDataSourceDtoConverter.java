@@ -17,9 +17,9 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.file.FileDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

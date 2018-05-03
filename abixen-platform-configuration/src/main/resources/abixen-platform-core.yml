@@ -14,6 +14,22 @@ platform:
         -
           serviceId: abixen-platform-web-content-service
 
+spring:
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      bindings:
+        deleteModule:
+          destination: module.core.dx
+      rabbit:
+        bindings:
+          deleteModule:
+            producer:
+              exchangeType: direct
+              bindQueue: false
+              routingKeyExpression: 'headers.simpDestination'
+
 
 ---
 

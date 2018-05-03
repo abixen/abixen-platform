@@ -16,13 +16,13 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseType;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import static com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection.*;
+import static com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseConnection.*;
 
 
 public class DatabaseConnectionForm implements Form {

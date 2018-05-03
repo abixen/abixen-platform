@@ -17,9 +17,12 @@ package com.abixen.platform.core.domain.repository;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.core.domain.model.AclClass;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 
 public interface AclClassRepository extends JpaRepository<AclClass, Long> {
 
-    AclClass findByAclClassName(AclClassName aclClassName);
+    @Query("FROM AclClass ac WHERE ac.aclClassName = ?1")
+    AclClass find(AclClassName aclClassName);
+
 }

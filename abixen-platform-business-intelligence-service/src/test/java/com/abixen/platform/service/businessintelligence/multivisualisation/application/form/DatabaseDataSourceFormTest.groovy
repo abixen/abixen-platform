@@ -17,9 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseDataSourceDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSource
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceType
 import spock.lang.Specification
 
 class DatabaseDataSourceFormTest extends Specification {

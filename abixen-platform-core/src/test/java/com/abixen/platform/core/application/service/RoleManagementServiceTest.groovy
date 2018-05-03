@@ -22,10 +22,8 @@ import com.abixen.platform.core.application.dto.RoleDto
 import com.abixen.platform.core.application.form.RoleForm
 import com.abixen.platform.core.application.form.RolePermissionsForm
 import com.abixen.platform.core.application.form.RoleSearchForm
-import com.abixen.platform.core.application.service.impl.RoleManagementServiceImpl
 import com.abixen.platform.core.domain.model.Permission
 import com.abixen.platform.core.domain.model.Role
-import com.abixen.platform.core.domain.model.RoleBuilder
 import com.abixen.platform.core.domain.service.PermissionService
 import com.abixen.platform.core.domain.service.RoleService
 import org.springframework.data.domain.Page
@@ -49,7 +47,7 @@ class RoleManagementServiceTest extends Specification {
         permissionService = Mock()
         roleToRoleDtoConverter = Mock()
         permissionToPermissionDtoConverter = Mock()
-        roleManagementService = new RoleManagementServiceImpl(roleService,
+        roleManagementService = new RoleManagementService(roleService,
                 permissionService,
                 roleToRoleDtoConverter,
                 permissionToPermissionDtoConverter)
@@ -58,7 +56,7 @@ class RoleManagementServiceTest extends Specification {
 
     void "should find role"() {
         given:
-        final Role role = new RoleBuilder()
+        final Role role = Role.builder()
                 .name("name")
                 .type(RoleType.ROLE_USER)
                 .build()
@@ -81,7 +79,7 @@ class RoleManagementServiceTest extends Specification {
 
     void "should find all roles"() {
         given:
-        final Role role = new RoleBuilder()
+        final Role role = Role.builder()
                 .name("name")
                 .type(RoleType.ROLE_USER)
                 .build()
@@ -108,7 +106,7 @@ class RoleManagementServiceTest extends Specification {
 
     void "should create role"() {
         given:
-        final Role role = new RoleBuilder()
+        final Role role = Role.builder()
                 .name("name")
                 .type(RoleType.ROLE_USER)
                 .build();
@@ -129,7 +127,7 @@ class RoleManagementServiceTest extends Specification {
 
     void "should update role"() {
         given:
-        final Role role = new RoleBuilder()
+        final Role role = Role.builder()
                 .name("oldName")
                 .type(RoleType.ROLE_USER)
                 .build();
@@ -171,7 +169,7 @@ class RoleManagementServiceTest extends Specification {
         final Permission permission = Permission.newInstance()
         final List<Permission> permissions = Collections.singletonList(permission)
         final Set<Permission> permissionsSet = Collections.singleton(permission)
-        final Role role = new RoleBuilder()
+        final Role role = Role.builder()
                 .name("name")
                 .type(RoleType.ROLE_USER)
                 .build();

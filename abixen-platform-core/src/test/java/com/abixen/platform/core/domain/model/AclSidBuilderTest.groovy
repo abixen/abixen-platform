@@ -25,7 +25,7 @@ class AclSidBuilderTest extends Specification {
         final AclSidType sidType = AclSidType.OWNER
 
         when:
-        AclSid aclSid = new AclSidBuilder()
+        AclSid aclSid = AclSid.builder()
                 .sidId(sidId)
                 .aclSidType(sidType)
                 .build()

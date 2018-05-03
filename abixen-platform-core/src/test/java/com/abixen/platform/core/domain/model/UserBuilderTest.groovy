@@ -34,13 +34,13 @@ class UserBuilderTest extends Specification {
         final UserLanguage language = UserLanguage.ENGLISH
         final UserGender gender = UserGender.MALE
         final Date birthday = new Date()
-        final Role role = new RoleBuilder()
+        final Role role = Role.builder()
                 .name("name")
                 .type(RoleType.ROLE_USER)
                 .build();
 
         when:
-        User user = new UserBuilder()
+        final User user = User.builder()
                 .credentials(username, password)
                 .personalData(firstName, middleName, lastName)
                 .additionalData(birthday, jobTitle, language, gender)

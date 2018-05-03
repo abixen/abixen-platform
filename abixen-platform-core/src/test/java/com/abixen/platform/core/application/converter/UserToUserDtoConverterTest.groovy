@@ -20,9 +20,7 @@ import com.abixen.platform.common.domain.model.enumtype.UserLanguage
 import com.abixen.platform.core.application.dto.RoleDto
 import com.abixen.platform.core.application.dto.UserDto
 import com.abixen.platform.core.domain.model.Role
-import com.abixen.platform.core.domain.model.RoleBuilder
 import com.abixen.platform.core.domain.model.User
-import com.abixen.platform.core.domain.model.UserBuilder
 import spock.lang.Specification
 
 class UserToUserDtoConverterTest extends Specification {
@@ -40,7 +38,7 @@ class UserToUserDtoConverterTest extends Specification {
 
     void "should convert User entity to UserDto"() {
         given:
-        final Role role = new RoleBuilder()
+        final Role role = Role.builder()
                 .name("name")
                 .type(RoleType.ROLE_USER)
                 .build()
@@ -48,7 +46,7 @@ class UserToUserDtoConverterTest extends Specification {
         final RoleDto roleDto = new RoleDto()
         final Set<RoleDto> roleDtos = Collections.singleton(roleDto)
 
-        final User user = new UserBuilder()
+        final User user = User.builder()
                 .credentials("username", "password")
                 .personalData("firstName", "middleName", "lastName")
                 .additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE)

@@ -22,13 +22,13 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface CommentVoteRepository  extends JpaRepository<CommentVote, Long> {
+public interface CommentVoteRepository extends JpaRepository<CommentVote, Long> {
+
+    @Query("FROM CommentVote v WHERE v.comment.id = :commentId")
+    List<CommentVote> findAll(@Param("commentId") Long commentId);
 
     @Modifying(clearAutomatically = true)
     @Query("DELETE FROM CommentVote cv WHERE cv.comment.id IN (:commentIds)")
-    void deleteByCommentId(@Param("commentIds") List<Long> commentIds);
-
-    @Query("FROM CommentVote v WHERE v.comment.id = :commentId")
-    List<CommentVote> findVotesForComment(@Param("commentId") Long commentId);
+    void deleteAll(@Param("commentIds") List<Long> commentIds);
 
 }

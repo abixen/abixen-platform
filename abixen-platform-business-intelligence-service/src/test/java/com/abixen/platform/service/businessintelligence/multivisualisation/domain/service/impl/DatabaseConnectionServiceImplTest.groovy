@@ -14,10 +14,10 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.impl
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnectionBuilder
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseConnection
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DatabaseConnectionRepository
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DatabaseConnectionService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
@@ -27,11 +27,11 @@ import spock.lang.Specification
 class DatabaseConnectionServiceImplTest extends Specification {
 
     private DatabaseConnectionRepository databaseConnectionRepository
-    private DatabaseConnectionServiceImpl databaseConnectionService
+    private DatabaseConnectionService databaseConnectionService
 
     void setup() {
         databaseConnectionRepository = Mock()
-        databaseConnectionService = new DatabaseConnectionServiceImpl(databaseConnectionRepository)
+        databaseConnectionService = new DatabaseConnectionService(databaseConnectionRepository)
     }
 
     void "should find DatabaseConnection"() {
@@ -75,7 +75,7 @@ class DatabaseConnectionServiceImplTest extends Specification {
 
     void "should create DatabaseConnection"() {
         given:
-        final DatabaseConnection databaseConnection = new DatabaseConnectionBuilder()
+        final DatabaseConnection databaseConnection = DatabaseConnection.builder()
                 .credentials("username", "password")
                 .database(DatabaseType.H2, "databaseHost", 1, "databaseName")
                 .details("name", "description")
@@ -104,7 +104,7 @@ class DatabaseConnectionServiceImplTest extends Specification {
 
     void "should update DatabaseConnection"() {
         given:
-        final DatabaseConnection databaseConnection = new DatabaseConnectionBuilder()
+        final DatabaseConnection databaseConnection = DatabaseConnection.builder()
                 .credentials("username", "password")
                 .database(DatabaseType.H2, "databaseHost", 1, "databaseName")
                 .details("name", "description")

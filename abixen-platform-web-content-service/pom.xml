@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.1.RELEASE</version>
+        <version>1.5.7.RELEASE</version>
     </parent>
 
     <properties>
@@ -22,7 +22,13 @@
         <abixen-platform-common.version>1.0-SNAPSHOT</abixen-platform-common.version>
         <postgresql.version>9.3-1102-jdbc4</postgresql.version>
         <spring-session.version>1.2.2.RELEASE</spring-session.version>
-        <start-class>com.abixen.platform.service.webcontent.PlatformWebContentApplication</start-class>
+        <spring.cloud.contract.version>1.1.3.RELEASE</spring.cloud.contract.version>
+        <start-class>com.abixen.platform.service.webcontent.WebContentServiceApplication</start-class>
+        <spock.version>1.1-groovy-2.4</spock.version>
+        <cglib.version>3.2.5</cglib.version>
+        <gmavenplus.version>1.5</gmavenplus.version>
+        <maven.failsafe.version>2.18.1</maven.failsafe.version>
+        <maven.surefire.version>2.20</maven.surefire.version>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen</docker.image.prefix>
         <log4j2.version>2.5</log4j2.version>
@@ -34,7 +40,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.RELEASE</version>
+                <version>Dalston.SR3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -95,7 +101,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-redis</artifactId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -132,6 +138,12 @@
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>
             <version>1.1.4.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+            <scope>test</scope>
         </dependency>
 
 
@@ -195,6 +207,25 @@
             <version>${log4j-slf4j-version}</version>
         </dependency>
 
+        <!-- Tests -->
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${spock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+            <version>${spock.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>${cglib.version}</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 
@@ -243,7 +274,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.4.1.RELEASE</version>
+                <version>1.5.7.RELEASE</version>
                 <configuration>
                     <addResources>true</addResources>
                 </configuration>
@@ -251,6 +282,29 @@
                     <execution>
                         <goals>
                             <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>${gmavenplus.version}</version>
+                <configuration>
+                    <testSources>
+                        <testSource>
+                            <directory>${project.basedir}/src/test/java</directory>
+                            <includes>
+                                <include>**/*.groovy</include>
+                            </includes>
+                        </testSource>
+                    </testSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -301,13 +355,55 @@
                         <id>validate</id>
                         <phase>validate</phase>
                         <configuration>
-                            <configLocation>../checkstyle.xml</configLocation>
+                            <configLocation>../../abixen-platform/checkstyle.xml</configLocation>
                             <encoding>UTF-8</encoding>
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>true</failsOnError>
                         </configuration>
                         <goals>
                             <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <includes>**/*Test.*</includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven.failsafe.version}</version>
+                <configuration>
+                    <skip>false</skip>
+                    <includes>**/*IT.*</includes>
+                    <classpathDependencyExcludes>
+                        <classpathDependencyExclude>org.springframework.session:spring-session</classpathDependencyExclude>
+                    </classpathDependencyExcludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run-integration-tests</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>${spring.cloud.contract.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>convert</goal>
                         </goals>
                     </execution>
                 </executions>

@@ -15,9 +15,8 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumnBuilder
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.DataValueType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceColumn
 import spock.lang.Specification
 
 class DataSourceColumnToDataSourceColumnDtoConverterTest extends Specification {
@@ -41,9 +40,9 @@ class DataSourceColumnToDataSourceColumnDtoConverterTest extends Specification {
 
     void "should convert DataSourceColumn to DataSourceColumnDto"() {
         given:
-        final DataSourceColumn dataSourceColumn = new DataSourceColumnBuilder()
+        final DataSourceColumn dataSourceColumn = DataSourceColumn.builder()
                         .details("name")
-                        .paramters(DataValueType.DATE, 1)
+                        .parameters(DataValueType.DATE, 1)
                         .build()
 
         when:

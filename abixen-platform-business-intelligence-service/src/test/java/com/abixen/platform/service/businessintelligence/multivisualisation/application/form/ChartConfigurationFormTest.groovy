@@ -15,9 +15,9 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.form
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.ChartConfigurationDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetChartDto
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.ChartType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.ChartType
 import spock.lang.Specification
 
 class ChartConfigurationFormTest extends Specification {
@@ -25,13 +25,13 @@ class ChartConfigurationFormTest extends Specification {
     void "should build ChartConfigurationForm from ChartConfigurationDto"() {
         given:
         final DataSourceDto dataSource = [] as DataSourceDto
-        final DataSetChartDto dataSetChart = [] as DataSetChartDto
+        final DataSetDto dataSet = DataSetDto.builder().build()
 
         final ChartConfigurationDto chartConfigurationDto = new ChartConfigurationDto()
                 .setAxisXName("axisXName")
                 .setAxisYName("axisYName")
                 .setChartType(ChartType.CUMULATIVE_LINE)
-                .setDataSetChart(dataSetChart)
+                .setDataSet(dataSet)
                 .setDataSource(dataSource)
                 .setFilter("filter")
                 .setId(1L)
@@ -48,7 +48,7 @@ class ChartConfigurationFormTest extends Specification {
         chartConfigurationForm.getAxisXName() == chartConfigurationDto.getAxisXName()
         chartConfigurationForm.getAxisYName() == chartConfigurationDto.getAxisYName()
         chartConfigurationForm.getChartType() == chartConfigurationDto.getChartType()
-        chartConfigurationForm.getDataSetChart() == chartConfigurationDto.getDataSetChart()
+        chartConfigurationForm.getDataSet() == chartConfigurationDto.getDataSet()
         chartConfigurationForm.getDataSource() == chartConfigurationDto.getDataSource()
 
         0 * _

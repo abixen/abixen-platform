@@ -16,7 +16,6 @@ package com.abixen.platform.core.application.converter
 
 import com.abixen.platform.core.application.dto.LayoutDto
 import com.abixen.platform.core.domain.model.Layout
-import com.abixen.platform.core.domain.model.LayoutBuilder
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -47,7 +46,7 @@ class LayoutToLayoutDtoConverterTest extends Specification {
     @Unroll
     void "should convert Layout entity to LayoutDto with #contentType html content"() {
         given:
-        final Layout layout = new LayoutBuilder()
+        final Layout layout = Layout.builder()
                 .title("title")
                 .content(htmlContent)
                 .iconFileName("iconFileName")

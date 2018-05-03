@@ -14,22 +14,22 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.impl
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.ChartType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.ChartConfiguration
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.ChartConfigurationBuilder
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.DataSetChart
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.ChartConfiguration
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.ChartType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.DataSet
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSource
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.ChartConfigurationRepository
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.ChartConfigurationService
 import spock.lang.Specification
 
 class ChartConfigurationServiceImplTest extends Specification {
 
     private ChartConfigurationRepository chartConfigurationRepository
-    private ChartConfigurationServiceImpl chartConfigurationService
+    private ChartConfigurationService chartConfigurationService
 
     void setup() {
         chartConfigurationRepository = Mock()
-        chartConfigurationService = new ChartConfigurationServiceImpl(chartConfigurationRepository)
+        chartConfigurationService = new ChartConfigurationService(chartConfigurationRepository)
 
     }
 
@@ -55,13 +55,13 @@ class ChartConfigurationServiceImplTest extends Specification {
     void "should create ChartConfiguration"() {
         given:
         final DataSource dataSource = [] as DataSource
-        final DataSetChart dataSetChart = [] as DataSetChart
+        final DataSet dataSet = [] as DataSet
 
-        final ChartConfiguration chartConfiguration = new ChartConfigurationBuilder()
+        final ChartConfiguration chartConfiguration = ChartConfiguration.builder()
                 .axisNames("axisXName", "axisYName")
                 .moduleId(1L)
                 .dataParameters("filter", dataSource)
-                .chartParameters(ChartType.CUMULATIVE_LINE, dataSetChart)
+                .chartParameters(ChartType.CUMULATIVE_LINE, dataSet)
                 .build()
 
         chartConfigurationRepository.save(chartConfiguration) >> chartConfiguration
@@ -77,7 +77,7 @@ class ChartConfigurationServiceImplTest extends Specification {
         createdChartConfiguration.getAxisYName() == chartConfiguration.getAxisYName()
         createdChartConfiguration.getChartType() == chartConfiguration.getChartType()
         createdChartConfiguration.getFilter() == chartConfiguration.getFilter()
-        createdChartConfiguration.getDataSetChart() == chartConfiguration.getDataSetChart()
+        createdChartConfiguration.getDataSet() == chartConfiguration.getDataSet()
         createdChartConfiguration.getDataSource() == chartConfiguration.getDataSource()
 
         1 * chartConfigurationRepository.save(chartConfiguration) >> chartConfiguration
@@ -87,13 +87,13 @@ class ChartConfigurationServiceImplTest extends Specification {
     void "should update ChartConfiguration"() {
         given:
         final DataSource dataSource = [] as DataSource
-        final DataSetChart dataSetChart = [] as DataSetChart
+        final DataSet dataSet = [] as DataSet
 
-        final ChartConfiguration chartConfiguration = new ChartConfigurationBuilder()
+        final ChartConfiguration chartConfiguration = ChartConfiguration.builder()
                 .axisNames("axisXName", "axisYName")
                 .moduleId(1L)
                 .dataParameters("filter", dataSource)
-                .chartParameters(ChartType.CUMULATIVE_LINE, dataSetChart)
+                .chartParameters(ChartType.CUMULATIVE_LINE, dataSet)
                 .build()
 
         chartConfigurationRepository.save(chartConfiguration) >> chartConfiguration
@@ -109,7 +109,7 @@ class ChartConfigurationServiceImplTest extends Specification {
         createdChartConfiguration.getAxisYName() == chartConfiguration.getAxisYName()
         createdChartConfiguration.getChartType() == chartConfiguration.getChartType()
         createdChartConfiguration.getFilter() == chartConfiguration.getFilter()
-        createdChartConfiguration.getDataSetChart() == chartConfiguration.getDataSetChart()
+        createdChartConfiguration.getDataSet() == chartConfiguration.getDataSet()
         createdChartConfiguration.getDataSource() == chartConfiguration.getDataSource()
 
         1 * chartConfigurationRepository.save(chartConfiguration) >> chartConfiguration
@@ -146,4 +146,5 @@ class ChartConfigurationServiceImplTest extends Specification {
         1 * chartConfigurationRepository.findByModuleId(moduleId) >> null
         0 * _
     }
+
 }

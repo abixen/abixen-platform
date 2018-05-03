@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.abixen.platform.common.domain.model.EntityBuilder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,11 +32,10 @@ import javax.persistence.Table;
 import java.util.List;
 
 
-@JsonSerialize(as = ModuleType.class)
 @Entity
 @Table(name = "module_type")
 @SequenceGenerator(sequenceName = "module_type_seq", name = "module_type_seq", allocationSize = 1)
-public class ModuleType extends AuditingModel implements SecurableModel {
+public final class ModuleType extends AuditingModel implements SecurableModel {
 
     public static final int MODULETYPE_NAME_MIN_LENGTH = 5;
     public static final int MODULETYPE_NAME_MAX_LENGTH = 20;
@@ -89,7 +88,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
                     updatable = false)})
     private List<AdminSidebarItem> adminSidebarItems;
 
-    ModuleType() {
+    private ModuleType() {
     }
 
     @Override
@@ -97,7 +96,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -105,7 +104,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
         return name;
     }
 
-    void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -113,7 +112,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
         return angularJsNameApplication;
     }
 
-    void setAngularJsNameApplication(String angularJsNameApplication) {
+    private void setAngularJsNameApplication(String angularJsNameApplication) {
         this.angularJsNameApplication = angularJsNameApplication;
     }
 
@@ -121,7 +120,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
         return angularJsNameAdmin;
     }
 
-    void setAngularJsNameAdmin(String angularJsNameAdmin) {
+    private void setAngularJsNameAdmin(String angularJsNameAdmin) {
         this.angularJsNameAdmin = angularJsNameAdmin;
     }
 
@@ -129,7 +128,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
         return title;
     }
 
-    void setTitle(String title) {
+    private void setTitle(String title) {
         this.title = title;
     }
 
@@ -137,7 +136,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
         return description;
     }
 
-    void setDescription(String description) {
+    private void setDescription(String description) {
         this.description = description;
     }
 
@@ -145,7 +144,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
         return initUrl;
     }
 
-    void setInitUrl(String initUrl) {
+    private void setInitUrl(String initUrl) {
         this.initUrl = initUrl;
     }
 
@@ -153,7 +152,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
         return serviceId;
     }
 
-    void setServiceId(String serviceId) {
+    private void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -161,7 +160,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
         return resources;
     }
 
-    void setResources(List<Resource> resources) {
+    private void setResources(List<Resource> resources) {
         this.resources = resources;
     }
 
@@ -169,7 +168,7 @@ public class ModuleType extends AuditingModel implements SecurableModel {
         return adminSidebarItems;
     }
 
-    void setAdminSidebarItems(List<AdminSidebarItem> adminSidebarItems) {
+    private void setAdminSidebarItems(List<AdminSidebarItem> adminSidebarItems) {
         this.adminSidebarItems = adminSidebarItems;
     }
 
@@ -187,5 +186,53 @@ public class ModuleType extends AuditingModel implements SecurableModel {
 
     public void changeAdminSidebarItems(List<AdminSidebarItem> adminSidebarItems) {
         setAdminSidebarItems(adminSidebarItems);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<ModuleType> {
+
+        private Builder() {
+        }
+
+        @Override
+        protected void initProduct() {
+            this.product = new ModuleType();
+        }
+
+        @Override
+        protected ModuleType assembleProduct() {
+            return this.product;
+        }
+
+        public Builder basic(String name, String title, String description) {
+            this.product.setName(name);
+            this.product.setTitle(title);
+            this.product.setDescription(description);
+            return this;
+        }
+
+        public Builder angular(String angularJsNameApplication, String angularJsNameAdmin) {
+            this.product.setAngularJsNameApplication(angularJsNameApplication);
+            this.product.setAngularJsNameAdmin(angularJsNameAdmin);
+            return this;
+        }
+
+        public Builder initUrl(String initUrl) {
+            this.product.setInitUrl(initUrl);
+            return this;
+        }
+
+        public Builder serviceId(String serviceId) {
+            this.product.setServiceId(serviceId);
+            return this;
+        }
+
+        public Builder adminSidebarItems(List<AdminSidebarItem> adminSidebarItems) {
+            this.product.setAdminSidebarItems(adminSidebarItems);
+            return this;
+        }
     }
 }

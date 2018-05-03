@@ -7,3 +7,8 @@ turbine:
     clusterConfig: AbixenPlatform
   appConfig: abixen-platform-core,abixen-platform-business-intelligence-service,abixen-platform-gateway
   clusterNameExpression: new String("default")
+
+abixen:
+  platform:
+    hystrix:
+      version: @project.version@

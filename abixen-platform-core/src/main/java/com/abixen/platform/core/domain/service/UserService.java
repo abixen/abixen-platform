@@ -14,28 +14,91 @@
 
 package com.abixen.platform.core.domain.service;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.application.form.UserSearchForm;
+import com.abixen.platform.core.application.service.PasswordGeneratorService;
+import com.abixen.platform.core.domain.exception.UserActivationException;
 import com.abixen.platform.core.domain.model.User;
+import com.abixen.platform.core.domain.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class UserService {
 
-public interface UserService {
+    private static final int GENERATOR_LENGTH = 12;
+    private static final int GENERATOR_NO_OF_CAPS_ALPHA = 2;
+    private static final int GENERATOR_NO_OF_DIGITS = 8;
+    private static final int GENERATOR_NO_OF_SPECIAL_CHARS = 2;
 
-    User find(Long id);
+    private final UserRepository userRepository;
+    private final PasswordGeneratorService passwordGeneratorService;
 
-    User find(String username);
+    @Autowired
+    public UserService(UserRepository userRepository,
+                       PasswordGeneratorService passwordGeneratorService) {
+        this.userRepository = userRepository;
+        this.passwordGeneratorService = passwordGeneratorService;
+    }
 
-    Page<User> findAll(Pageable pageable, UserSearchForm userSearchForm);
+    public User find(final Long id) {
+        log.debug("find() - id: {}", id);
 
-    User create(User user);
+        return userRepository.findOne(id);
+    }
 
-    User update(User user);
+    public User find(final String username) {
+        log.debug("find() - username: {}", username);
 
-    void delete(Long id);
+        return userRepository.findByUsername(username);
+    }
 
-    void activate(String userHashKey);
+    public Page<User> findAll(final Pageable pageable, final UserSearchForm userSearchForm) {
+        log.debug("findAll() - pageable: {}, userSearchForm: {}", pageable, userSearchForm);
 
-    String generatePassword();
+        return userRepository.findAll(pageable, userSearchForm);
+    }
+
+    public User create(final User user) {
+        log.debug("create() - user: {}", user);
+
+        return userRepository.save(user);
+    }
+
+    public User update(final User user) {
+        log.debug("update() - user: {}", user);
+
+        return userRepository.save(user);
+    }
+
+    public void delete(final Long id) {
+        log.debug("delete() - id: {}", id);
+
+        userRepository.delete(id);
+    }
+
+    public void activate(final String userHashKey) {
+        log.info("Activation user with hash key {}", userHashKey);
+
+        final User user = userRepository.findByHashKey(userHashKey);
+
+        if (user == null) {
+            log.error("Cannot activate user with hash key {}. Wrong hash key.", userHashKey);
+            throw new UserActivationException("Cannot activate user because a hash key is wrong.");
+        }
+
+        user.activate();
+
+        userRepository.save(user);
+    }
+
+    public String generatePassword() {
+        return passwordGeneratorService.generate(GENERATOR_LENGTH, GENERATOR_NO_OF_CAPS_ALPHA, GENERATOR_NO_OF_DIGITS, GENERATOR_NO_OF_SPECIAL_CHARS);
+    }
 
 }

@@ -14,10 +14,30 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceColumnRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public interface DataSourceColumnService {
+import javax.transaction.Transactional;
 
-    DataSourceColumn find(final Long id);
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class DataSourceColumnService {
+
+    private final DataSourceColumnRepository dataSourceColumnRepository;
+
+    @Autowired
+    public DataSourceColumnService(DataSourceColumnRepository dataSourceColumnRepository) {
+        this.dataSourceColumnRepository = dataSourceColumnRepository;
+    }
+
+    public DataSourceColumn find(Long id) {
+        log.debug("find() - id: {}", id);
+
+        return dataSourceColumnRepository.findOne(id);
+    }
 
 }

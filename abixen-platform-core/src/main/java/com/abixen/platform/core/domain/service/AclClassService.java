@@ -15,11 +15,29 @@
 package com.abixen.platform.core.domain.service;
 
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.domain.model.AclClass;
+import com.abixen.platform.core.domain.repository.AclClassRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class AclClassService {
 
-public interface AclClassService {
+    private final AclClassRepository aclClassRepository;
 
-    AclClass find(AclClassName aclClassName);
+    @Autowired
+    public AclClassService(AclClassRepository aclClassRepository) {
+        this.aclClassRepository = aclClassRepository;
+    }
+
+    public AclClass find(final AclClassName aclClassName) {
+        log.debug("find() - aclClassName: {}", aclClassName);
+
+        return aclClassRepository.find(aclClassName);
+    }
 
 }

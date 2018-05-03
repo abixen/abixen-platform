@@ -14,6 +14,8 @@
 
 package com.abixen.platform.core.domain.model;
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +32,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "acl_entry")
 @SequenceGenerator(sequenceName = "acl_entry_seq", name = "acl_entry_seq", allocationSize = 1)
-public class AclEntry extends AuditingModel {
+public final class AclEntry extends AuditingModel {
 
     /**
      *
@@ -54,7 +56,7 @@ public class AclEntry extends AuditingModel {
     @ManyToOne(fetch = FetchType.EAGER)
     private AclSid aclSid;
 
-    AclEntry() {
+    private AclEntry() {
     }
 
     @Override
@@ -62,7 +64,7 @@ public class AclEntry extends AuditingModel {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -70,7 +72,7 @@ public class AclEntry extends AuditingModel {
         return permission;
     }
 
-    void setPermission(Permission permission) {
+    private void setPermission(Permission permission) {
         this.permission = permission;
     }
 
@@ -78,7 +80,7 @@ public class AclEntry extends AuditingModel {
         return aclObjectIdentity;
     }
 
-    void setAclObjectIdentity(AclObjectIdentity aclObjectIdentity) {
+    private void setAclObjectIdentity(AclObjectIdentity aclObjectIdentity) {
         this.aclObjectIdentity = aclObjectIdentity;
     }
 
@@ -86,7 +88,38 @@ public class AclEntry extends AuditingModel {
         return aclSid;
     }
 
-    void setAclSid(AclSid aclSid) {
+    private void setAclSid(AclSid aclSid) {
         this.aclSid = aclSid;
     }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<AclEntry> {
+
+        private Builder() {
+        }
+
+        @Override
+        protected void initProduct() {
+            this.product = new AclEntry();
+        }
+
+        public Builder permission(Permission permission) {
+            this.product.setPermission(permission);
+            return this;
+        }
+
+        public Builder aclObjectIdentity(AclObjectIdentity aclObjectIdentity) {
+            this.product.setAclObjectIdentity(aclObjectIdentity);
+            return this;
+        }
+
+        public Builder aclSid(AclSid aclSid) {
+            this.product.setAclSid(aclSid);
+            return this;
+        }
+    }
+
 }

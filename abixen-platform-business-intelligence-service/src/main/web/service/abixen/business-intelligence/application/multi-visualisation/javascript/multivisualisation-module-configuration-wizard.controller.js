@@ -126,7 +126,7 @@
 
         function prepareFilterForDomain(configuration) {
             $log.debug("configuration", configuration);
-            configuration.filter = parseObjToJsonCriteriaAsString(configuration.dataSetChart.domainXSeriesColumn);
+            configuration.filter = parseObjToJsonCriteriaAsString(configuration.dataSet.domainXSeriesColumn);
             return configuration
         }
 
@@ -221,11 +221,11 @@
 
             configWizard.chartConfiguration.dataSource.columns.sort(compare).forEach(function (column) {
                 var isActive = false;
-                if (configWizard.chartConfiguration.dataSetChart && configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn !== null) {
-                    isActive = configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name === column.name;
+                if (configWizard.chartConfiguration.dataSet && configWizard.chartConfiguration.dataSet.domainXSeriesColumn.dataSourceColumn !== null) {
+                    isActive = configWizard.chartConfiguration.dataSet.domainXSeriesColumn.dataSourceColumn.name === column.name;
                 }
-                if (isActive === false && configWizard.chartConfiguration.dataSetChart && configWizard.chartConfiguration.dataSetChart.dataSetSeries !== null) {
-                    configWizard.chartConfiguration.dataSetChart.dataSetSeries.forEach(function (series) {
+                if (isActive === false && configWizard.chartConfiguration.dataSet && configWizard.chartConfiguration.dataSet.dataSetSeries !== null) {
+                    configWizard.chartConfiguration.dataSet.dataSetSeries.forEach(function (series) {
                         if (isActive === false && series.valueSeriesColumn.name === column.name) {
                             isActive = true;
                         }
@@ -283,7 +283,7 @@
                 $log.log('CharData.query: ', data);
                 data.forEach(function (el) {
                     configWizard.chart.seriesPreviewData.push({
-                        x: el[configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value,
+                        x: el[configWizard.chartConfiguration.dataSet.domainXSeriesColumn.dataSourceColumn.name].value,
                         y: el[configWizard.dataSetSeriesSelected.valueSeriesColumn.dataSourceColumn.name].value
                     });
                 })
@@ -354,7 +354,7 @@
                 dataSource: configWizard.chartConfiguration.dataSource,
                 moduleId: configWizard.chartConfiguration.moduleId,
                 id: configWizard.chartConfiguration.id,
-                dataSetChart: {
+                dataSet: {
                     dataSetSeries: [],
                     domainXSeriesColumn: null,
                     domainZSeriesColumn: null
@@ -366,7 +366,7 @@
                 $log.debug('column: ', column);
                 if (column.isActive === true) {
                     if (i === 0) {
-                        tableConfiguration.dataSetChart.domainXSeriesColumn = {
+                        tableConfiguration.dataSet.domainXSeriesColumn = {
                             id: null,
                             name: '',
                             type: 'X',
@@ -374,7 +374,7 @@
                         };
                         i++
                     } else {
-                        tableConfiguration.dataSetChart.dataSetSeries.push({
+                        tableConfiguration.dataSet.dataSetSeries.push({
                             id: null,
                             name: column.dataSourceColumn.name,
                             isValid: true,
@@ -431,7 +431,7 @@
                         moduleId: $scope.moduleId,
                         axisXName: '', //TODO maybe null, not '' ?
                         axisYName: '',
-                        dataSetChart: {
+                        dataSet: {
                             dataSetSeries: [],
                             domainXSeriesColumn: {
                                 id: null,
@@ -442,10 +442,10 @@
                         }
                     }
                 } else {
-                    if (configWizard.chartConfiguration.dataSetChart) {
-                        buildObjFromJson(configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn, configWizard.chartConfiguration.filter);
-                        if (configWizard.chartConfiguration.dataSetChart.dataSetSeries.length > 0){
-                            setDataSetSeriesSelected(configWizard.chartConfiguration.dataSetChart.dataSetSeries[0]);
+                    if (configWizard.chartConfiguration.dataSet) {
+                        buildObjFromJson(configWizard.chartConfiguration.dataSet.domainXSeriesColumn, configWizard.chartConfiguration.filter);
+                        if (configWizard.chartConfiguration.dataSet.dataSetSeries.length > 0){
+                            setDataSetSeriesSelected(configWizard.chartConfiguration.dataSet.dataSetSeries[0]);
                         }
                     }
                 }
@@ -453,33 +453,33 @@
     }
 
         function initDataSetSeries() {
-            if (!configWizard.chartConfiguration.dataSetChart){
-                configWizard.chartConfiguration.dataSetChart = {};
+            if (!configWizard.chartConfiguration.dataSet){
+                configWizard.chartConfiguration.dataSet = {};
             }
-            if (!configWizard.chartConfiguration.dataSetChart.dataSetSeries){
-                configWizard.chartConfiguration.dataSetChart.dataSetSeries = [];
+            if (!configWizard.chartConfiguration.dataSet.dataSetSeries){
+                configWizard.chartConfiguration.dataSet.dataSetSeries = [];
             }
-            if (configWizard.chartConfiguration.dataSetChart.dataSetSeries.length === 0) {
+            if (configWizard.chartConfiguration.dataSet.dataSetSeries.length === 0) {
                 addDataSetSeries();
             } else {
                 if (configWizard.dataSetSeriesSelected === undefined || configWizard.dataSetSeriesSelected === null) {
-                    setDataSetSeriesSelected(configWizard.chartConfiguration.dataSetChart.dataSetSeries[0]);
+                    setDataSetSeriesSelected(configWizard.chartConfiguration.dataSet.dataSetSeries[0]);
                 }
             }
         }
 
         function addDataSetSeries() {
-            $log.log('moduleConfigurationWizardStep series', configWizard.chartConfiguration.dataSetChart.dataSetSeries);
+            $log.log('moduleConfigurationWizardStep series', configWizard.chartConfiguration.dataSet.dataSetSeries);
 
-            if (configWizard.chartConfiguration.dataSetChart.dataSetSeries === undefined) {
-                configWizard.chartConfiguration.dataSetChart.dataSetSeries = [];
+            if (configWizard.chartConfiguration.dataSet.dataSetSeries === undefined) {
+                configWizard.chartConfiguration.dataSet.dataSetSeries = [];
             }
 
-            if (configWizard.chartConfiguration.dataSetChart.dataSetSeries.length == 0) {
+            if (configWizard.chartConfiguration.dataSet.dataSetSeries.length == 0) {
                 seriesNumber = 1;
             }
 
-            configWizard.chartConfiguration.dataSetChart.dataSetSeries.push({
+            configWizard.chartConfiguration.dataSet.dataSetSeries.push({
                 id: null,
                 name: ('Series ' + seriesNumber),
                 isValid: true,
@@ -494,28 +494,28 @@
             seriesNumber++;
 
             if (configWizard.dataSetSeriesSelected == null) {
-                setDataSetSeriesSelected(configWizard.chartConfiguration.dataSetChart.dataSetSeries[0]);
+                setDataSetSeriesSelected(configWizard.chartConfiguration.dataSet.dataSetSeries[0]);
             }
         }
 
         function removeDataSetSeries(dataSetSeries) {
             $log.log('moduleConfigurationWizardStep removeSeries ', dataSetSeries);
 
-            var index = configWizard.chartConfiguration.dataSetChart.dataSetSeries.indexOf(dataSetSeries);
+            var index = configWizard.chartConfiguration.dataSet.dataSetSeries.indexOf(dataSetSeries);
 
-            if (index + 1 < configWizard.chartConfiguration.dataSetChart.dataSetSeries.length) {
-                var nextDataSetSeries = configWizard.chartConfiguration.dataSetChart.dataSetSeries[index + 1];
+            if (index + 1 < configWizard.chartConfiguration.dataSet.dataSetSeries.length) {
+                var nextDataSetSeries = configWizard.chartConfiguration.dataSet.dataSetSeries[index + 1];
                 setDataSetSeriesSelected(nextDataSetSeries);
             } else if (index > 0) {
-                var prevDataSetSeries = configWizard.chartConfiguration.dataSetChart.dataSetSeries[index - 1];
+                var prevDataSetSeries = configWizard.chartConfiguration.dataSet.dataSetSeries[index - 1];
                 setDataSetSeriesSelected(prevDataSetSeries);
             } else {
                 setDataSetSeriesSelected(null);
-                configWizard.chartConfiguration.dataSetChart.dataSetSeries = [];
+                configWizard.chartConfiguration.dataSet.dataSetSeries = [];
             }
 
-            if (configWizard.chartConfiguration.dataSetChart.dataSetSeries !== []) {
-                configWizard.chartConfiguration.dataSetChart.dataSetSeries.splice(index, 1);
+            if (configWizard.chartConfiguration.dataSet.dataSetSeries !== []) {
+                configWizard.chartConfiguration.dataSet.dataSetSeries.splice(index, 1);
             }
 
             //TODO - select previous
@@ -570,7 +570,7 @@
         }
 
         function resetFilters() {
-            var domainSeries = configWizard.chartConfiguration.dataSetChart.domainXSeriesColumn;
+            var domainSeries = configWizard.chartConfiguration.dataSet.domainXSeriesColumn;
             if (!domainSeries.filterObj) {
                 domainSeries.filterObj = {};
             }

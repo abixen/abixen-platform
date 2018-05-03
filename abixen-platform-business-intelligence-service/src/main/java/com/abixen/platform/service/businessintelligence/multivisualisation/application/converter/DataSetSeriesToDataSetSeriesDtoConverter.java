@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetSeriesDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.DataSetSeries;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.DataSetSeries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

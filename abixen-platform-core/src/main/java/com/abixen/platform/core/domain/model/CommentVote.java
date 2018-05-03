@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
 import com.abixen.platform.common.domain.model.enumtype.CommentVoteType;
 
 import javax.persistence.Column;
@@ -32,7 +33,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "comment_vote")
 @SequenceGenerator(sequenceName = "comment_vote_seq", name = "comment_vote_seq", allocationSize = 1)
-public class CommentVote extends AuditingModel {
+public final class CommentVote extends AuditingModel {
 
     @Id
     @Column(name = "id")
@@ -47,7 +48,7 @@ public class CommentVote extends AuditingModel {
     @Column(name = "comment_vote_type", nullable = false)
     private CommentVoteType commentVoteType;
 
-    CommentVote() {
+    private CommentVote() {
     }
 
     @Override
@@ -55,7 +56,7 @@ public class CommentVote extends AuditingModel {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -63,7 +64,7 @@ public class CommentVote extends AuditingModel {
         return comment;
     }
 
-    void setComment(Comment comment) {
+    private void setComment(Comment comment) {
         this.comment = comment;
     }
 
@@ -71,11 +72,36 @@ public class CommentVote extends AuditingModel {
         return commentVoteType;
     }
 
-    void setCommentVoteType(CommentVoteType commentVoteType) {
+    private void setCommentVoteType(CommentVoteType commentVoteType) {
         this.commentVoteType = commentVoteType;
     }
 
     public void changeType(CommentVoteType commentVoteType) {
         setCommentVoteType(commentVoteType);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<CommentVote> {
+
+        private Builder() {
+        }
+
+        @Override
+        protected void initProduct() {
+            this.product = new CommentVote();
+        }
+
+        public Builder type(CommentVoteType commentVoteType) {
+            this.product.setCommentVoteType(commentVoteType);
+            return this;
+        }
+
+        public Builder comment(Comment comment) {
+            this.product.setComment(comment);
+            return this;
+        }
     }
 }

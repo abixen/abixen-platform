@@ -17,7 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValue;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data.DataValue;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -33,23 +33,27 @@ public class DataValueToDataValueDtoConverter extends AbstractConverter<DataValu
         }
 
         if (dataValue.getValue() instanceof Integer) {
-            DataValueDto<Integer> integerDataValueDto = new DataValueDto<Integer>();
+            DataValueDto<Integer> integerDataValueDto = new DataValueDto<>();
             integerDataValueDto.setValue((Integer) dataValue.getValue());
+
             return integerDataValueDto;
         }
         if (dataValue.getValue() instanceof Double) {
-            DataValueDto<Double> doubleDataValueDto = new DataValueDto<Double>();
+            DataValueDto<Double> doubleDataValueDto = new DataValueDto<>();
             doubleDataValueDto.setValue((Double) dataValue.getValue());
+
             return doubleDataValueDto;
         }
         if (dataValue.getValue() instanceof String) {
-            DataValueDto<String> stringDataValueDto = new DataValueDto<String>();
+            DataValueDto<String> stringDataValueDto = new DataValueDto<>();
             stringDataValueDto.setValue((String) dataValue.getValue());
+
             return stringDataValueDto;
         }
         if (dataValue.getValue() instanceof Date) {
-            DataValueDto<Date> dateDataValueDto = new DataValueDto<Date>();
+            DataValueDto<Date> dateDataValueDto = new DataValueDto<>();
             dateDataValueDto.setValue((Date) dataValue.getValue());
+
             return dateDataValueDto;
         }
         throw new PlatformRuntimeException("Value type not recognized.");

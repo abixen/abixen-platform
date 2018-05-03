@@ -19,12 +19,11 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.FileDataSourceDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.FileDataSourceRowDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceBuilder
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceRow
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceColumn
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.file.FileDataSource
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.file.FileDataSourceRow
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.file.DataFile
 import spock.lang.Specification
 
 class FileDataSourceToFileDataSourceDtoConverterTest extends Specification {
@@ -67,11 +66,11 @@ class FileDataSourceToFileDataSourceDtoConverterTest extends Specification {
         final DataSourceColumn dataSourceColumn = [] as DataSourceColumn
         final Set<DataSourceColumn> dataSourceColumns = Collections.singleton(dataSourceColumn)
 
-        final FileDataSource fileDataSource = new FileDataSourceBuilder()
+        final FileDataSource fileDataSource = FileDataSource.builder()
             .rows(fileDataSourceRows)
             .dataFile(dataFile)
             .details("name", "description")
-            .paramters(DataSourceType.FILE, "filter")
+            .parameters(DataSourceType.FILE, "filter")
             .columns(dataSourceColumns)
             .build()
 

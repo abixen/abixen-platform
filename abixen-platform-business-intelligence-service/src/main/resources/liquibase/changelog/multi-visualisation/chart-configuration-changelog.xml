@@ -6,9 +6,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         logicalFilePath="liquibase/changelog/multi-visualisation/chart-configuration-changelog.xml">
 
-    <property name="clob.type" value="varchar(2147483647)" dbms="h2"/>
-    <property name="clob.type" value="clob" dbms="mysql, postgresql, oracle, mssql, sybase, asany, db2, derby, hsqldb, informix, firebird, sqlite"/>
-
     <changeSet author="MariuszKumor" id="chart-configuration-v1">
         <createTable tableName="chart_configuration">
             <column name="id" type="bigint">
@@ -24,14 +21,14 @@
             <column name="axis_y_name" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
-            <column name="filter" type="${clob.type}"/>
+            <column name="filter" type="longvarchar"/>
             <column name="chart_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="module_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="data_set_chart_id" type="bigint">
+            <column name="data_set_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="data_source_id" type="bigint">
@@ -48,8 +45,8 @@
             <column name="data_source_id"/>
         </createIndex>
 
-        <createIndex indexName="idx__chart_configuration__data_set_chart_id" tableName="chart_configuration">
-            <column name="data_set_chart_id"/>
+        <createIndex indexName="idx__chart_configuration__data_set_id" tableName="chart_configuration">
+            <column name="data_set_id"/>
         </createIndex>
 
         <addForeignKeyConstraint baseColumnNames="data_source_id" baseTableName="chart_configuration"
@@ -58,11 +55,11 @@
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="data_source"/>
 
-        <addForeignKeyConstraint baseColumnNames="data_set_chart_id" baseTableName="chart_configuration"
-                                 constraintName="fk__data_set_chart_id__chart_configuration__data_set_chart"
+        <addForeignKeyConstraint baseColumnNames="data_set_id" baseTableName="chart_configuration"
+                                 constraintName="fk__data_set_id__chart_configuration__data_set"
                                  deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
-                                 referencedColumnNames="id" referencedTableName="data_set_chart"/>
+                                 referencedColumnNames="id" referencedTableName="data_set"/>
 
     </changeSet>
 

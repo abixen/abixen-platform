@@ -1,3 +1,7 @@
 spring:
   application:
     name: abixen-platform-configuration
+abixen:
+  platform:
+    configuration:
+      version: @project.version@

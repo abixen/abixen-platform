@@ -1,3 +1,8 @@
 spring:
   application:
     name: abixen-platform-web-client
+
+abixen:
+  platform:
+    webclient:
+      version: @project.version@

@@ -14,8 +14,10 @@
 
 package com.abixen.platform.core.domain.model;
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,15 +26,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "comment")
 @SequenceGenerator(sequenceName = "comment_seq", name = "comment_seq", allocationSize = 1)
-public class Comment extends AuditingModel {
+public final class Comment extends AuditingModel {
 
     public static final int COMMENT_MESSAGE_MIN_LENGTH = 1;
     public static final int COMMENT_MESSAGE_MAX_LENGTH = 1000;
@@ -56,7 +61,10 @@ public class Comment extends AuditingModel {
     @NotNull
     private Module module;
 
-    Comment() {
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CommentVote> votes = new HashSet<>();
+
+    private Comment() {
     }
 
     @Override
@@ -64,7 +72,7 @@ public class Comment extends AuditingModel {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -72,7 +80,7 @@ public class Comment extends AuditingModel {
         return message;
     }
 
-    void setMessage(String message) {
+    private void setMessage(String message) {
         this.message = message;
     }
 
@@ -80,7 +88,7 @@ public class Comment extends AuditingModel {
         return parent;
     }
 
-    void setParent(Comment parent) {
+    private void setParent(Comment parent) {
         this.parent = parent;
     }
 
@@ -88,11 +96,50 @@ public class Comment extends AuditingModel {
         return module;
     }
 
-    void setModule(Module module) {
+    private void setModule(Module module) {
         this.module = module;
     }
 
     public void changeMessage(String message) {
         setMessage(message);
     }
+
+    public Set<CommentVote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<CommentVote> votes) {
+        this.votes = votes;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<Comment> {
+
+        private Builder() {
+        }
+
+        @Override
+        protected void initProduct() {
+            this.product = new Comment();
+        }
+
+        public Builder message(String message) {
+            this.product.setMessage(message);
+            return this;
+        }
+
+        public Builder parent(Comment comment) {
+            this.product.setParent(comment);
+            return this;
+        }
+
+        public Builder module(Module module) {
+            this.product.setModule(module);
+            return this;
+        }
+    }
+
 }

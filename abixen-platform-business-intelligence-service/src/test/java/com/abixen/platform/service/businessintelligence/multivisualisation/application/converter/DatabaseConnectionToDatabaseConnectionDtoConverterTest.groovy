@@ -16,9 +16,8 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnectionBuilder
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseConnection
 import spock.lang.Specification
 
 class DatabaseConnectionToDatabaseConnectionDtoConverterTest extends Specification {
@@ -44,7 +43,7 @@ class DatabaseConnectionToDatabaseConnectionDtoConverterTest extends Specificati
 
     void "should convert DatabaseConnection to DatabaseConnectionDto"() {
         given:
-        final DatabaseConnection databaseConnection = new DatabaseConnectionBuilder()
+        final DatabaseConnection databaseConnection = DatabaseConnection.builder()
             .credentials("username", "password")
             .database(DatabaseType.H2, "databaseHost", 1, "databaseName")
             .details("name", "description")

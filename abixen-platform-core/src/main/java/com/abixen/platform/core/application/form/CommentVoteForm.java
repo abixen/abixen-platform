@@ -17,6 +17,7 @@ package com.abixen.platform.core.application.form;
 import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.common.domain.model.enumtype.CommentVoteType;
 import com.abixen.platform.core.application.dto.CommentVoteDto;
+import com.abixen.platform.core.application.dto.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,6 +34,8 @@ public class CommentVoteForm implements Form {
 
     private Long commentId;
 
+    private UserDto createdBy;
+
     public CommentVoteForm() {
     }
 
@@ -40,6 +43,7 @@ public class CommentVoteForm implements Form {
         this.id = commentVote.getId();
         this.commentId = commentVote.getCommentId();
         this.commentVoteType = commentVote.getCommentVoteType();
+        this.createdBy = commentVote.getCreatedBy();
     }
 
 }

@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

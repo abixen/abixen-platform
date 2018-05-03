@@ -16,11 +16,12 @@ package com.abixen.platform.core.domain.repository;
 
 import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.jpa.repository.Query;
 
 
 public interface PermissionAclClassCategoryRepository extends JpaRepository<PermissionAclClassCategory, Long> {
 
-    PermissionAclClassCategory findByName(String name);
+    @Query("FROM PermissionAclClassCategory pacc WHERE pacc.name = ?1")
+    PermissionAclClassCategory find(String name);
 
 }

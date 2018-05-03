@@ -16,9 +16,9 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.ChartConfigurationDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetChartDto;
+import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.ChartType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.ChartType;
 
 import javax.validation.constraints.NotNull;
 
@@ -34,7 +34,7 @@ public class ChartConfigurationForm implements Form {
     private ChartType chartType;
 
     @NotNull
-    private DataSetChartDto dataSetChart;
+    private DataSetDto dataSet;
 
     @NotNull
     private String axisXName;
@@ -54,7 +54,7 @@ public class ChartConfigurationForm implements Form {
         this.id = chartConfiguration.getId();
         this.moduleId = chartConfiguration.getModuleId();
         this.chartType = chartConfiguration.getChartType();
-        this.dataSetChart = chartConfiguration.getDataSetChart();
+        this.dataSet = chartConfiguration.getDataSet();
         this.axisXName = chartConfiguration.getAxisXName();
         this.axisYName = chartConfiguration.getAxisYName();
         this.dataSource = chartConfiguration.getDataSource();
@@ -85,12 +85,12 @@ public class ChartConfigurationForm implements Form {
         this.chartType = chartType;
     }
 
-    public DataSetChartDto getDataSetChart() {
-        return dataSetChart;
+    public DataSetDto getDataSet() {
+        return dataSet;
     }
 
-    public void setDataSetChart(DataSetChartDto dataSetChart) {
-        this.dataSetChart = dataSetChart;
+    public void setDataSet(DataSetDto dataSet) {
+        this.dataSet = dataSet;
     }
 
     public String getAxisXName() {

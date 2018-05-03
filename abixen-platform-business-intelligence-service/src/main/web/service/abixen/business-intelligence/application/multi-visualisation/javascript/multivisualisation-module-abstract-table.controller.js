@@ -36,17 +36,17 @@ function MultivisualisationModuleAbstractTableController(extendedController, $lo
     function getTableColumns() {
         var columns = [
             {
-                field: multivisualisationModuleTable.chartConfiguration.dataSetChart.domainXSeriesColumn.dataSourceColumn.name + '.value',
+                field: multivisualisationModuleTable.chartConfiguration.dataSet.domainXSeriesColumn.dataSourceColumn.name + '.value',
                 name: 'Domain',
                 cellClass: 'cell-align-right',
                 enableSorting: false
             }
         ];
 
-        for (var i = 0; i < multivisualisationModuleTable.chartConfiguration.dataSetChart.dataSetSeries.length; i++) {
+        for (var i = 0; i < multivisualisationModuleTable.chartConfiguration.dataSet.dataSetSeries.length; i++) {
             var column = {
-                field: multivisualisationModuleTable.chartConfiguration.dataSetChart.dataSetSeries[i].valueSeriesColumn.dataSourceColumn.name + '.value',
-                name: multivisualisationModuleTable.chartConfiguration.dataSetChart.dataSetSeries[i].name,
+                field: multivisualisationModuleTable.chartConfiguration.dataSet.dataSetSeries[i].valueSeriesColumn.dataSourceColumn.name + '.value',
+                name: multivisualisationModuleTable.chartConfiguration.dataSet.dataSetSeries[i].name,
                 cellClass: 'cell-align-right',
                 enableSorting: false
             };

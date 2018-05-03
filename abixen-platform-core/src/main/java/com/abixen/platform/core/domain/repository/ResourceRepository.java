@@ -25,10 +25,11 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ResourceRepository extends JpaRepository<Resource, Long> {
 
+    @Query("FROM Resource r WHERE r.moduleType.id = ?1")
+    Page<Resource> findAll(Long moduleId, Pageable pageable);
+
     @Modifying
     @Query("DELETE FROM Resource r WHERE r.moduleType = ?1")
-    void deleteResources(ModuleType moduleType);
+    void deleteAll(ModuleType moduleType);
 
-    @Query("FROM Resource r WHERE r.moduleType.id = ?1")
-    Page<Resource> findAllResources(Long moduleId, Pageable pageable);
 }

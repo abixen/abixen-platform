@@ -1,0 +1,4 @@
+abixen:
+  platform:
+    eureka:
+      version: @project.version@

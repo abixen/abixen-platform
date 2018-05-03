@@ -14,11 +14,12 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.impl
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceBuilder
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSource
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceColumn
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.file.FileDataSource
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceRepository
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
@@ -28,11 +29,11 @@ import spock.lang.Specification
 class DataSourceServiceImplTest extends Specification {
 
     private DataSourceRepository dataSourceRepository
-    private DataSourceServiceImpl dataSourceService
+    private DataSourceService dataSourceService
 
     void setup() {
         dataSourceRepository = Mock()
-        dataSourceService = new DataSourceServiceImpl(dataSourceRepository)
+        dataSourceService = new DataSourceService(dataSourceRepository)
     }
 
     void "should find DataSource"() {
@@ -103,8 +104,8 @@ class DataSourceServiceImplTest extends Specification {
         final DataSourceColumn dataSourceColumn = [] as DataSourceColumn
         final Set<DataSourceColumn> dataSourceColumns = Collections.singleton(dataSourceColumn)
 
-        final DataSource dataSource = new FileDataSourceBuilder()
-                .paramters(DataSourceType.FILE, "filter")
+        final DataSource dataSource = FileDataSource.builder()
+                .parameters(DataSourceType.FILE, "filter")
                 .details("name", "description")
                 .columns(dataSourceColumns)
                 .build()
@@ -132,8 +133,8 @@ class DataSourceServiceImplTest extends Specification {
         final DataSourceColumn dataSourceColumn = [] as DataSourceColumn
         final Set<DataSourceColumn> dataSourceColumns = Collections.singleton(dataSourceColumn)
 
-        final DataSource dataSource = new FileDataSourceBuilder()
-                .paramters(DataSourceType.FILE, "filter")
+        final DataSource dataSource = FileDataSource.builder()
+                .parameters(DataSourceType.FILE, "filter")
                 .details("name", "description")
                 .columns(dataSourceColumns)
                 .build()

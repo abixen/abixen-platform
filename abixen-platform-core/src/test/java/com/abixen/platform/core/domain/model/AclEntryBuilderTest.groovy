@@ -33,7 +33,7 @@ class AclEntryBuilderTest extends Specification {
         aclSid.sidType = AclSidType.ROLE;
 
         when:
-        AclEntry aclEntry = new AclEntryBuilder()
+        final AclEntry aclEntry = AclEntry.builder()
                 .permission(permission)
                 .aclObjectIdentity(aclObjectIdentity)
                 .aclSid(aclSid)

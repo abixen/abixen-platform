@@ -57,7 +57,7 @@ public class AdminUserController extends AbstractUserController {
     public PlatformPageImpl<UserDto> findAll(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
         log.debug("findAll()");
 
-        Page<UserDto> userDtos = userManagementService.findAllUsers(pageable, userSearchForm);
+        final Page<UserDto> userDtos = userManagementService.findAllUsers(pageable, userSearchForm);
 
         return new PlatformPageImpl<>(userDtos);
     }
@@ -71,7 +71,7 @@ public class AdminUserController extends AbstractUserController {
             return new FormValidationResultDto<>(userRolesForm, formErrors);
         }
 
-        UserRolesForm updatedUserRolesForm = userManagementService.updateUserRoles(userRolesForm);
+        final UserRolesForm updatedUserRolesForm = userManagementService.updateUserRoles(userRolesForm);
 
         return new FormValidationResultDto<>(updatedUserRolesForm);
     }

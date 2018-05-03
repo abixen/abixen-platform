@@ -1,4 +1,4 @@
-id;module_id;axis_x_name;axis_y_name;chart_type;data_set_chart_id;data_source_id;created_by_id;last_modified_by_id;created_date;last_modified_date
+id;module_id;axis_x_name;axis_y_name;chart_type;data_set_id;data_source_id;created_by_id;last_modified_by_id;created_date;last_modified_date
 1;3;Date; Sales [$];LINE;1;3;1;2;Null;Null
 2;4;Axis X; Axis Y;PIE;2;6;1;2;Null;Null
 3;8;Date; Sales;CUMULATIVE_LINE_TABLE;3;1;1;2;Null;Null

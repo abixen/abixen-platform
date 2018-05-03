@@ -14,11 +14,12 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.ChartConfiguration;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.ChartConfiguration;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface ChartConfigurationRepository extends JpaRepository<ChartConfiguration, Long> {
 
     ChartConfiguration findByModuleId(Long moduleId);
+
 }

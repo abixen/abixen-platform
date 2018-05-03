@@ -17,7 +17,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 import com.abixen.platform.common.application.form.Form;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -25,8 +25,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-import static com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource.DESCRIPTION_MAX_LENGTH;
-import static com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource.NAME_MAX_LENGTH;
+import static com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSource.DESCRIPTION_MAX_LENGTH;
+import static com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSource.NAME_MAX_LENGTH;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "classType")
 @JsonSubTypes({@JsonSubTypes.Type(value = DatabaseDataSourceForm.class, name = "DB"),

@@ -8,9 +8,6 @@
 
     <changeSet author="MariuszKumor" id="data-set-v1">
         <createTable tableName="data_set">
-            <column name="type" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>

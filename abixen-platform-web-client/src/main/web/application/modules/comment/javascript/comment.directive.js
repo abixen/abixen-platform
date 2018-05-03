@@ -212,9 +212,9 @@
             CommentVote.save(newVote)
                 .$promise.then(function (data) {
                     if (angular.isUndefined(comment.commentItem.voteDtos) || comment.commentItem.voteDtos === null) {
-                        comment.commentItem.voteDtos = [data];
+                        comment.commentItem.voteDtos = [data.form];
                     } else {
-                        comment.commentItem.voteDtos.push(data);
+                        comment.commentItem.voteDtos.push(data.form);
                     }
                     comment.commentItem.votePos = comment.commentItem.votePos + 1;
                     comment.canVote = false;
@@ -228,9 +228,9 @@
             CommentVote.save(newVote)
                 .$promise.then(function (data) {
                     if (angular.isUndefined(comment.commentItem.voteDtos) || comment.commentItem.voteDtos === null) {
-                        comment.commentItem.voteDtos = [data];
+                        comment.commentItem.voteDtos = [data.form];
                     } else {
-                        comment.commentItem.voteDtos.push(data);
+                        comment.commentItem.voteDtos.push(data.form);
                     }
                     comment.commentItem.voteNeg = comment.commentItem.voteNeg + 1;
                     comment.canVote = false;

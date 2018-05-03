@@ -18,7 +18,6 @@ import com.abixen.platform.core.application.dto.LayoutDto
 import com.abixen.platform.core.application.dto.PageDto
 import com.abixen.platform.core.domain.model.Layout
 import com.abixen.platform.core.domain.model.Page
-import com.abixen.platform.core.domain.model.PageBuilder
 import spock.lang.Specification
 
 class PageToPageDtoConverterTest extends Specification {
@@ -40,7 +39,7 @@ class PageToPageDtoConverterTest extends Specification {
         final Layout layout = [] as Layout
         final LayoutDto layoutDto = new LayoutDto()
 
-        final Page page = new PageBuilder()
+        final Page page = Page.builder()
                 .title()
                 .layout(layout)
                 .description("description")

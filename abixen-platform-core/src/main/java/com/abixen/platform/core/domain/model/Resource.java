@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
 import com.abixen.platform.common.domain.model.enumtype.ResourcePage;
 import com.abixen.platform.common.domain.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.common.domain.model.enumtype.ResourceType;
@@ -38,7 +39,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "resource")
 @SequenceGenerator(sequenceName = "resource_seq", name = "resource_seq", allocationSize = 1)
-public class Resource extends AuditingModel {
+public final class Resource extends AuditingModel {
 
     public static final int RESOURCE_RELATIVE_URL_MIN_LENGTH = 3;
     public static final int RESOURCE_RELATIVE_URL_MAX_LENGTH = 250;
@@ -69,7 +70,7 @@ public class Resource extends AuditingModel {
     @ManyToOne(fetch = FetchType.EAGER)
     private ModuleType moduleType;
 
-    Resource() {
+    private Resource() {
     }
 
     @Override
@@ -77,7 +78,7 @@ public class Resource extends AuditingModel {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -85,7 +86,7 @@ public class Resource extends AuditingModel {
         return relativeUrl;
     }
 
-    void setRelativeUrl(String relativeUrl) {
+    private void setRelativeUrl(String relativeUrl) {
         this.relativeUrl = relativeUrl;
     }
 
@@ -93,7 +94,7 @@ public class Resource extends AuditingModel {
         return resourcePageLocation;
     }
 
-    void setResourcePageLocation(ResourcePageLocation resourcePageLocation) {
+    private void setResourcePageLocation(ResourcePageLocation resourcePageLocation) {
         this.resourcePageLocation = resourcePageLocation;
     }
 
@@ -119,5 +120,43 @@ public class Resource extends AuditingModel {
 
     void setModuleType(ModuleType moduleType) {
         this.moduleType = moduleType;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<Resource> {
+
+        @Override
+        protected void initProduct() {
+            this.product = new Resource();
+        }
+
+        public Builder relativeUrl(String relativeUrl) {
+            this.product.setRelativeUrl(relativeUrl);
+            return this;
+        }
+
+        public Builder pageLocation(ResourcePageLocation resourcePageLocation) {
+            this.product.setResourcePageLocation(resourcePageLocation);
+            return this;
+        }
+
+        public Builder page(ResourcePage resourcePage) {
+            this.product.setResourcePage(resourcePage);
+            return this;
+        }
+
+        public Builder type(ResourceType resourceType) {
+            this.product.setResourceType(resourceType);
+            return this;
+        }
+
+        public Builder moduleType(ModuleType moduleType) {
+            this.product.setModuleType(moduleType);
+            return this;
+        }
+
     }
 }

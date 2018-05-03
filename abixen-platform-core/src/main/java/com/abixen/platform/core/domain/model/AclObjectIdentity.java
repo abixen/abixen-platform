@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
 import com.abixen.platform.common.domain.model.Model;
 
 import javax.persistence.Column;
@@ -31,7 +32,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "acl_object_identity")
 @SequenceGenerator(sequenceName = "acl_object_identity_seq", name = "acl_object_identity_seq", allocationSize = 1)
-public class AclObjectIdentity extends Model {
+public final class AclObjectIdentity extends Model {
 
     /**
      *
@@ -53,7 +54,7 @@ public class AclObjectIdentity extends Model {
     @Column(name = "object_id", nullable = false)
     private Long objectId;
 
-    AclObjectIdentity() {
+    private AclObjectIdentity() {
     }
 
     @Override
@@ -61,7 +62,7 @@ public class AclObjectIdentity extends Model {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -69,7 +70,7 @@ public class AclObjectIdentity extends Model {
         return aclClass;
     }
 
-    void setAclClass(AclClass aclClass) {
+    private void setAclClass(AclClass aclClass) {
         this.aclClass = aclClass;
     }
 
@@ -77,8 +78,30 @@ public class AclObjectIdentity extends Model {
         return objectId;
     }
 
-    void setObjectId(Long objectId) {
+    private void setObjectId(Long objectId) {
         this.objectId = objectId;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<AclObjectIdentity> {
+
+        @Override
+        protected void initProduct() {
+            this.product = new AclObjectIdentity();
+        }
+
+        public Builder aclClass(AclClass aclClass) {
+            this.product.setAclClass(aclClass);
+            return this;
+        }
+
+        public Builder objectId(Long objectId) {
+            this.product.setObjectId(objectId);
+            return this;
+        }
     }
 
 }
