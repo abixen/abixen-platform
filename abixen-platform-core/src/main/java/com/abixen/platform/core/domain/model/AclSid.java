@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
 import com.abixen.platform.common.domain.model.Model;
 import com.abixen.platform.common.domain.model.enumtype.AclSidType;
 
@@ -31,7 +32,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "acl_sid")
 @SequenceGenerator(sequenceName = "acl_sid_seq", name = "acl_sid_seq", allocationSize = 1)
-public class AclSid extends Model {
+public final class AclSid extends Model {
 
     /**
      *
@@ -54,7 +55,7 @@ public class AclSid extends Model {
     @Column(name = "sid_id", nullable = false)
     private Long sidId;
 
-    AclSid() {
+    private AclSid() {
     }
 
     @Override
@@ -62,7 +63,7 @@ public class AclSid extends Model {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -70,7 +71,7 @@ public class AclSid extends Model {
         return sidType;
     }
 
-    void setSidType(AclSidType sidType) {
+    private void setSidType(AclSidType sidType) {
         this.sidType = sidType;
     }
 
@@ -78,8 +79,33 @@ public class AclSid extends Model {
         return sidId;
     }
 
-    void setSidId(Long sidId) {
+    private void setSidId(Long sidId) {
         this.sidId = sidId;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<AclSid> {
+
+        private Builder() {
+        }
+
+        @Override
+        protected void initProduct() {
+            this.product = new AclSid();
+        }
+
+        public Builder sidId(Long sidId) {
+            this.product.setSidId(sidId);
+            return this;
+        }
+
+        public Builder aclSidType(AclSidType sidType) {
+            this.product.setSidType(sidType);
+            return this;
+        }
     }
 
 }

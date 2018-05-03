@@ -18,8 +18,8 @@ import com.abixen.platform.common.application.converter.AbstractConverter;
 import com.abixen.platform.common.application.converter.AuditingModelToSimpleAuditingDtoConverter;
 import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseDataSourceDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.database.DatabaseDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

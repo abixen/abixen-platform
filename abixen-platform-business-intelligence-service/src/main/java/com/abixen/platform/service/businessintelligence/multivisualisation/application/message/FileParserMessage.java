@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileParserMessage<T> {
-    private List<T> data = new ArrayList<T>();
+    private List<T> data = new ArrayList<>();
     private List<FileParseError> fileParseErrors = new ArrayList<>();
 
     public FileParserMessage() {

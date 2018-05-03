@@ -14,6 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "admin_sidebar_item")
 @SequenceGenerator(sequenceName = "admin_sidebar_item_seq", name = "admin_sidebar_item_seq", allocationSize = 1)
-public class AdminSidebarItem extends AuditingModel {
+public final class AdminSidebarItem extends AuditingModel {
 
     public static final int TITLE_MAX_LENGTH = 40;
     public static final int ANGULAR_JS_STATE_MAX_LENGTH = 255;
@@ -52,7 +53,7 @@ public class AdminSidebarItem extends AuditingModel {
     @Column(name = "icon_class", length = ICON_CLASS_MAX_LENGTH, nullable = false)
     private String iconClass;
 
-    AdminSidebarItem() {
+    private AdminSidebarItem() {
     }
 
     @Override
@@ -60,7 +61,7 @@ public class AdminSidebarItem extends AuditingModel {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -68,7 +69,7 @@ public class AdminSidebarItem extends AuditingModel {
         return title;
     }
 
-    void setTitle(String title) {
+    private void setTitle(String title) {
         this.title = title;
     }
 
@@ -76,7 +77,7 @@ public class AdminSidebarItem extends AuditingModel {
         return angularJsState;
     }
 
-    void setAngularJsState(String angularJsState) {
+    private void setAngularJsState(String angularJsState) {
         this.angularJsState = angularJsState;
     }
 
@@ -84,7 +85,7 @@ public class AdminSidebarItem extends AuditingModel {
         return orderIndex;
     }
 
-    void setOrderIndex(Double orderIndex) {
+    private void setOrderIndex(Double orderIndex) {
         this.orderIndex = orderIndex;
     }
 
@@ -92,8 +93,43 @@ public class AdminSidebarItem extends AuditingModel {
         return iconClass;
     }
 
-    void setIconClass(String iconClass) {
+    private void setIconClass(String iconClass) {
         this.iconClass = iconClass;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<AdminSidebarItem> {
+
+        private Builder() {
+        }
+
+        @Override
+        protected void initProduct() {
+            this.product = new AdminSidebarItem();
+        }
+
+        public Builder title(String title) {
+            this.product.setTitle(title);
+            return this;
+        }
+
+        public Builder angularJsState(String angularJsState) {
+            this.product.setAngularJsState(angularJsState);
+            return this;
+        }
+
+        public Builder orderIndex(Double orderIndex) {
+            this.product.setOrderIndex(orderIndex);
+            return this;
+        }
+
+        public Builder iconClass(String iconClass) {
+            this.product.setIconClass(iconClass);
+            return this;
+        }
+
+    }
 }

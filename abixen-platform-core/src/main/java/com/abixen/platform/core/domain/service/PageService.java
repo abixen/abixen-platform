@@ -14,26 +14,90 @@
 
 package com.abixen.platform.core.domain.service;
 
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.application.form.PageSearchForm;
+import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.domain.model.User;
+import com.abixen.platform.core.domain.repository.PageRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class PageService {
 
-public interface PageService {
+    private final AclService aclService;
+    private final ModuleService moduleService;
+    private final PageRepository pageRepository;
 
-    Page find(Long id);
+    @Autowired
+    public PageService(AclService aclService,
+                       ModuleService moduleService,
+                       PageRepository pageRepository) {
+        this.aclService = aclService;
+        this.moduleService = moduleService;
+        this.pageRepository = pageRepository;
+    }
 
-    List<Page> findAll(User authorizedUser);
+    public Page find(final Long id) {
+        log.debug("find() - id: {}", id);
 
-    org.springframework.data.domain.Page<Page> findAll(Pageable pageable, PageSearchForm pageSearchForm, User authorizedUser);
+        return pageRepository.findOne(id);
+    }
 
-    Page create(Page page);
+    public List<Page> findAll(final User authorizedUser) {
+        log.debug("findAll() - authorizedUser: {}", authorizedUser);
 
-    Page update(Page page);
+        return pageRepository.findAllSecured(authorizedUser, PermissionName.PAGE_VIEW);
+    }
 
-    void delete(Long id);
+    public org.springframework.data.domain.Page<Page> findAll(final Pageable pageable, final PageSearchForm pageSearchForm, final User authorizedUser) {
+        log.debug("findAll() - pageable: {}, pageSearchForm: {}, authorizedUser: {}", pageable, pageSearchForm, authorizedUser);
+
+        return pageRepository.findAllSecured(pageable, pageSearchForm, authorizedUser, PermissionName.PAGE_VIEW);
+    }
+
+    public Page create(final Page page) {
+        log.debug("create() - page: {}", page);
+
+        final Page createdPage = pageRepository.save(page);
+
+        aclService.createDefaultAcl(createdPage, new ArrayList<PermissionName>() {
+            {
+                add(PermissionName.PAGE_VIEW);
+                add(PermissionName.PAGE_EDIT);
+                add(PermissionName.PAGE_DELETE);
+                add(PermissionName.PAGE_CONFIGURATION);
+                add(PermissionName.PAGE_PERMISSION);
+            }
+        });
+
+        return createdPage;
+    }
+
+    public Page update(final Page page) {
+        log.debug("update() - page: {}", page);
+
+        //FIXME - check if flush needed
+        return pageRepository.saveAndFlush(page);
+    }
+
+    public void delete(final Long id) {
+        log.debug("delete() - id: {}", id);
+
+        final Page page = find(id);
+        final List<Module> pageModules = moduleService.findAll(page);
+
+        moduleService.deleteAll(pageModules);
+        pageRepository.delete(id);
+    }
 
 }

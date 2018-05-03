@@ -14,18 +14,19 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.impl
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceColumn
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DataSourceColumnRepository
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.DataSourceColumnService
 import spock.lang.Specification
 
 class DataSourceColumnServiceImplTest extends Specification {
 
     private DataSourceColumnRepository dataSourceColumnRepository
-    private DataSourceColumnServiceImpl dataSourceColumnService
+    private DataSourceColumnService dataSourceColumnService
 
     void setup() {
         dataSourceColumnRepository = Mock()
-        dataSourceColumnService = new DataSourceColumnServiceImpl(dataSourceColumnRepository)
+        dataSourceColumnService = new DataSourceColumnService(dataSourceColumnRepository)
     }
 
     void "should find DataSourceColumn"() {

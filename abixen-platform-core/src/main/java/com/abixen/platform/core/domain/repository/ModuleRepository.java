@@ -14,9 +14,9 @@
 
 package com.abixen.platform.core.domain.repository;
 
-import com.abixen.platform.core.application.form.ModuleSearchForm;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.core.application.form.ModuleSearchForm;
 import com.abixen.platform.core.domain.model.Module;
 import com.abixen.platform.core.domain.model.Page;
 import com.abixen.platform.core.domain.model.User;
@@ -24,7 +24,6 @@ import com.abixen.platform.core.infrastructure.repository.PlatformJpaRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -35,18 +34,18 @@ public interface ModuleRepository extends PlatformJpaRepository<Module, Long> {
         return findAll(pageable, moduleSearchForm, user, AclClassName.MODULE, permissionName);
     }
 
-    //FIXME - replace to @Query
-    List<Module> findByPage(Page page);
+    @Query("FROM Module m WHERE m.page = ?1")
+    List<Module> findAll(Page page);
 
-    @Query("FROM Module m WHERE m.page = :page AND m.id NOT IN (:ids)")
-    List<Module> findAllExcept(@Param("page") Page page, @Param("ids") List<Long> ids);
+    @Query("FROM Module m WHERE m.page = ?1 AND m.id NOT IN (?2)")
+    List<Module> findAllExcept(Page page, List<Long> ids);
 
-    @Query("DELETE FROM Module m WHERE m.page = :page AND m.id NOT IN (:ids)")
+    @Query("DELETE FROM Module m WHERE m.page = ?1 AND m.id NOT IN (?2)")
     @Modifying(clearAutomatically = true)
-    void removeAllExcept(@Param("page") Page page, @Param("ids") List<Long> ids);
+    void removeAllExcept(Page page, List<Long> ids);
 
-    @Query("DELETE FROM Module m WHERE m.page = :page")
+    @Query("DELETE FROM Module m WHERE m.page = ?1")
     @Modifying(clearAutomatically = true)
-    void removeAll(@Param("page") Page page);
+    void removeAll(Page page);
 
 }

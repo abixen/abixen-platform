@@ -14,19 +14,57 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.DatabaseConnectionRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface DatabaseConnectionService {
+import javax.transaction.Transactional;
 
-    DatabaseConnection find(Long id);
 
-    Page<DatabaseConnection> findAll(Pageable pageable);
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class DatabaseConnectionService {
 
-    DatabaseConnection create(DatabaseConnection databaseConnection);
+    private final DatabaseConnectionRepository databaseConnectionRepository;
 
-    DatabaseConnection update(DatabaseConnection databaseConnection);
+    @Autowired
+    public DatabaseConnectionService(DatabaseConnectionRepository databaseConnectionRepository) {
+        this.databaseConnectionRepository = databaseConnectionRepository;
+    }
 
-    void delete(Long id);
+    public DatabaseConnection find(final Long id) {
+        log.debug("find() - id: {}", id);
+
+        return databaseConnectionRepository.findOne(id);
+    }
+
+    public Page<DatabaseConnection> findAll(final Pageable pageable) {
+        log.debug("findAll() - pageable: {}", pageable);
+
+        return databaseConnectionRepository.findAll(pageable);
+    }
+
+    public DatabaseConnection create(final DatabaseConnection databaseConnection) {
+        log.debug("create() - databaseConnection: {}", databaseConnection);
+
+        return databaseConnectionRepository.save(databaseConnection);
+    }
+
+    public DatabaseConnection update(final DatabaseConnection databaseConnection) {
+        log.debug("update() - databaseConnection: {}", databaseConnection);
+
+        return databaseConnectionRepository.save(databaseConnection);
+    }
+
+    public void delete(final Long id) {
+        log.debug("delete() - id: {}", id);
+
+        databaseConnectionRepository.delete(id);
+    }
+
 }

@@ -16,10 +16,9 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSetSeriesColumnDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.ColumnType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.DataSetSeriesColumn
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.DataSetSeriesColumnBuilder
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.ColumnType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.DataSetSeriesColumn
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceColumn
 import spock.lang.Specification
 
 class DataSetSeriesColumnToDataSetSeriesColumnDtoConverterTest extends Specification {
@@ -47,7 +46,7 @@ class DataSetSeriesColumnToDataSetSeriesColumnDtoConverterTest extends Specifica
         given:
         final DataSourceColumn dataSourceColumn = [] as DataSourceColumn
 
-        final DataSetSeriesColumn dataSetSeriesColumn = new DataSetSeriesColumnBuilder()
+        final DataSetSeriesColumn dataSetSeriesColumn = DataSetSeriesColumn.builder()
                 .name("name")
                 .column(ColumnType.X, dataSourceColumn)
                 .build()

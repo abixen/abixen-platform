@@ -15,11 +15,11 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataValueDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValue
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueDateBuilder
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueDoubleBuilder
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueIntegerBuilder
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.data.DataValueStringBuilder
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data.DataValue
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data.DataValueDate
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data.DataValueDouble
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data.DataValueInteger
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data.DataValueString
 import spock.lang.Specification
 
 class DataValueToDataValueDtoConverterTest extends Specification {
@@ -44,7 +44,7 @@ class DataValueToDataValueDtoConverterTest extends Specification {
 
     void "should convert DataValue to DataValueDto<Integer> if value instanceof Integer"() {
         given:
-        final DataValue dataValue = new DataValueIntegerBuilder()
+        final DataValue dataValue = DataValueInteger.builder()
                 .value(Integer.valueOf(2))
                 .build()
 
@@ -61,7 +61,7 @@ class DataValueToDataValueDtoConverterTest extends Specification {
 
     void "should convert DataValue to DataValueDto<Double> if value instanceof Double"() {
         given:
-        final DataValue dataValue = new DataValueDoubleBuilder()
+        final DataValue dataValue = DataValueDouble.builder()
                 .value(Double.valueOf(2))
                 .build()
 
@@ -78,7 +78,7 @@ class DataValueToDataValueDtoConverterTest extends Specification {
 
     void "should convert DataValue to DataValueDto<String> if value instanceof String"() {
         given:
-        final DataValue dataValue = new DataValueStringBuilder()
+        final DataValue dataValue = DataValueString.builder()
                 .value("value")
                 .build()
 
@@ -95,7 +95,7 @@ class DataValueToDataValueDtoConverterTest extends Specification {
 
     void "should convert DataValue to DataValueDto<Date> if value instanceof Date"() {
         given:
-        final DataValue dataValue = new DataValueDateBuilder()
+        final DataValue dataValue = DataValueDate.builder()
                 .value(new Date())
                 .build()
 

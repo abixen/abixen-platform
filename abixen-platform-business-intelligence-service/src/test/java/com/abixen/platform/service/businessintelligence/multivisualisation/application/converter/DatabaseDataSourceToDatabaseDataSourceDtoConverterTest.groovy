@@ -18,11 +18,10 @@ import com.abixen.platform.common.application.converter.AuditingModelToSimpleAud
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseDataSourceDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSource
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSourceBuilder
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseConnection
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceColumn
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.database.DatabaseDataSource
 import spock.lang.Specification
 
 class DatabaseDataSourceToDatabaseDataSourceDtoConverterTest extends Specification {
@@ -59,12 +58,12 @@ class DatabaseDataSourceToDatabaseDataSourceDtoConverterTest extends Specificati
         final DataSourceColumn dataSourceColumn = [] as DataSourceColumn
         final Set<DataSourceColumn> dataSourceColumns = Collections.singleton(dataSourceColumn)
 
-        final DatabaseDataSource databaseDataSource = new DatabaseDataSourceBuilder()
+        final DatabaseDataSource databaseDataSource = DatabaseDataSource.builder()
                 .databaseConnection(databaseConnection)
                 .filter("filter")
                 .table("table")
                 .details("name", "description")
-                .paramters(DataSourceType.DB, "filter")
+                .parameters(DataSourceType.DB, "filter")
                 .columns(dataSourceColumns)
                 .build()
 

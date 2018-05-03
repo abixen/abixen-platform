@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.abixen.platform.common.domain.model.EntityBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,11 +28,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
-@JsonSerialize(as = Module.class)
 @Entity
 @Table(name = "module")
 @SequenceGenerator(sequenceName = "module_seq", name = "module_seq", allocationSize = 1)
-public class Module extends AuditingModel implements SecurableModel {
+public final class Module extends AuditingModel implements SecurableModel {
 
     public static final int MODULE_TITLE_MIN_LENGTH = 6;
     public static final int MODULE_TITLE_MAX_LENGTH = 40;
@@ -66,7 +65,7 @@ public class Module extends AuditingModel implements SecurableModel {
     @Column(name = "order_index", nullable = false)
     private Integer orderIndex;
 
-    Module() {
+    private Module() {
     }
 
     @Override
@@ -74,7 +73,7 @@ public class Module extends AuditingModel implements SecurableModel {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -82,7 +81,7 @@ public class Module extends AuditingModel implements SecurableModel {
         return title;
     }
 
-    void setTitle(String title) {
+    private void setTitle(String title) {
         this.title = title;
     }
 
@@ -90,7 +89,7 @@ public class Module extends AuditingModel implements SecurableModel {
         return description;
     }
 
-    void setDescription(String description) {
+    private void setDescription(String description) {
         this.description = description;
     }
 
@@ -98,7 +97,7 @@ public class Module extends AuditingModel implements SecurableModel {
         return moduleType;
     }
 
-    void setModuleType(ModuleType moduleType) {
+    private void setModuleType(ModuleType moduleType) {
         this.moduleType = moduleType;
     }
 
@@ -106,7 +105,7 @@ public class Module extends AuditingModel implements SecurableModel {
         return page;
     }
 
-    void setPage(Page page) {
+    private void setPage(Page page) {
         this.page = page;
     }
 
@@ -114,7 +113,7 @@ public class Module extends AuditingModel implements SecurableModel {
         return rowIndex;
     }
 
-    void setRowIndex(Integer rowIndex) {
+    private void setRowIndex(Integer rowIndex) {
         this.rowIndex = rowIndex;
     }
 
@@ -122,7 +121,7 @@ public class Module extends AuditingModel implements SecurableModel {
         return columnIndex;
     }
 
-    void setColumnIndex(Integer columnIndex) {
+    private void setColumnIndex(Integer columnIndex) {
         this.columnIndex = columnIndex;
     }
 
@@ -130,7 +129,7 @@ public class Module extends AuditingModel implements SecurableModel {
         return orderIndex;
     }
 
-    void setOrderIndex(Integer orderIndex) {
+    private void setOrderIndex(Integer orderIndex) {
         this.orderIndex = orderIndex;
     }
 
@@ -146,5 +145,47 @@ public class Module extends AuditingModel implements SecurableModel {
         setRowIndex(rowIndex);
         setColumnIndex(columnIndex);
         setOrderIndex(orderIndex);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<Module> {
+
+        private Builder() {
+        }
+
+        @Override
+        protected void initProduct() {
+            this.product = new Module();
+        }
+
+        public Builder title(String title) {
+            this.product.setTitle(title);
+            return this;
+        }
+
+        public Builder moduleType(ModuleType moduleType) {
+            this.product.setModuleType(moduleType);
+            return this;
+        }
+
+        public Builder page(Page page) {
+            this.product.setPage(page);
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.product.setDescription(description);
+            return this;
+        }
+
+        public Builder positionIndexes(Integer rowIndex, Integer columnIndex, Integer orderIndex) {
+            this.product.setRowIndex(rowIndex);
+            this.product.setColumnIndex(columnIndex);
+            this.product.setOrderIndex(orderIndex);
+            return this;
+        }
     }
 }

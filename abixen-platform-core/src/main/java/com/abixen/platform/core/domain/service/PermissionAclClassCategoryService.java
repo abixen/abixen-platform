@@ -14,11 +14,29 @@
 
 package com.abixen.platform.core.domain.service;
 
-
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
+import com.abixen.platform.core.domain.repository.PermissionAclClassCategoryRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface PermissionAclClassCategoryService {
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class PermissionAclClassCategoryService {
 
-    PermissionAclClassCategory find(String permissionAclClassCategoryName);
+    private final PermissionAclClassCategoryRepository permissionAclClassCategoryRepository;
+
+    @Autowired
+    public PermissionAclClassCategoryService(final PermissionAclClassCategoryRepository permissionAclClassCategoryRepository) {
+        this.permissionAclClassCategoryRepository = permissionAclClassCategoryRepository;
+    }
+
+    public PermissionAclClassCategory find(final String permissionAclClassCategoryName) {
+        log.debug("find() - permissionAclClassCategoryName: {}", permissionAclClassCategoryName);
+
+        return permissionAclClassCategoryRepository.find(permissionAclClassCategoryName);
+    }
 
 }

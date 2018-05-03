@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.dto;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataValueType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.DataValueType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

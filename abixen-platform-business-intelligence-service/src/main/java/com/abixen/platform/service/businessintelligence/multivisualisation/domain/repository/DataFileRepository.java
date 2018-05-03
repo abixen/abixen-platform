@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.file.DataFile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

@@ -17,14 +17,13 @@ package com.abixen.platform.core.application.form
 import com.abixen.platform.common.domain.model.enumtype.UserGender
 import com.abixen.platform.common.domain.model.enumtype.UserLanguage
 import com.abixen.platform.core.domain.model.User
-import com.abixen.platform.core.domain.model.UserBuilder
 import spock.lang.Specification
 
 class UserFormTest extends Specification {
 
     void "should build UserForm from User entity"() {
         given:
-        final User user = new UserBuilder()
+        final User user = User.builder()
                 .credentials("username", "password")
                 .personalData("firstName", "middleName", "lastName")
                 .additionalData(new Date(), "jobTitle", UserLanguage.ENGLISH, UserGender.MALE)

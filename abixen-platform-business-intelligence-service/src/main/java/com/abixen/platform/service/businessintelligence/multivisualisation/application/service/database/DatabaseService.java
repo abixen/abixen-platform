@@ -18,8 +18,8 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.appli
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.ChartConfigurationForm;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.form.DatabaseConnectionForm;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceColumn;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceColumn;
 
 import java.sql.Connection;
 import java.util.Map;

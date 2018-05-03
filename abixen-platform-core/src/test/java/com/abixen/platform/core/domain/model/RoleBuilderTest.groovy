@@ -24,7 +24,7 @@ class RoleBuilderTest extends Specification {
         final RoleType roleType = RoleType.ROLE_USER
 
         when:
-        Role role = new RoleBuilder()
+        Role role = Role.builder()
                 .name(name)
                 .type(roleType)
                 .build()

@@ -20,11 +20,11 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
-public class
-ModuleCommentDto {
+public class ModuleCommentDto {
     private Long id;
 
     @NotNull
@@ -38,7 +38,7 @@ ModuleCommentDto {
 
     private List<ModuleCommentDto> children;
 
-    private List<CommentVoteDto> voteDtos;
+    private Set<CommentVoteDto> voteDtos;
 
     private Date createdDate;
 

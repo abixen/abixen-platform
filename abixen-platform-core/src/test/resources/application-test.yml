@@ -2,6 +2,26 @@ liquibase:
   contexts: integrationTest
   change-log: "classpath:liquibase/master-changelog.xml"
 
+spring:
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      bindings:
+        deleteModule:
+          destination: module.core.dx
+      rabbit:
+        bindings:
+          deleteModule:
+            producer:
+              exchangeType: direct
+              bindQueue: false
+              routingKeyExpression: 'headers.simpDestination'
+
+stubrunner:
+  amqp:
+    enabled: true
+
 platform:
   core:
     jdbc:

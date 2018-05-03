@@ -1,0 +1,41 @@
+spring:
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      bindings:
+        deleteModuleInput:
+          destination: module.core.dx
+          group: businessIntelligence.deleteModule
+          consumer:
+            maxAttempts: 5
+            backOffInitialInterval: 1000
+            backOffMaxInterval: 10000
+            backOffMultiplier: 2
+      rabbit:
+        bindings:
+          deleteModuleInput:
+            consumer:
+              bindingRoutingKey: abixen-platform-business-intelligence-service
+              autoBindDlq: true
+              republishToDlq: true
+
+stubrunner:
+  ids:
+    - com.abixen.platform:abixen-platform-core:1.0-SNAPSHOT:stubs
+  ids-to-service-ids:
+    'com.abixen.platform:abixen-platform-core:1.0-SNAPSHOT:stubs': abixen-platform-core
+  work-offline: true
+  cloud:
+    enabled: false
+  camel:
+    enabled: false
+
+platform:
+  businessintelligence:
+    jdbc:
+      driverClassName: org.h2.Driver
+      dialect: org.hibernate.dialect.H2Dialect
+      databaseUrl: jdbc:h2:mem:abixen_platform_business_intelligence_service;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password:

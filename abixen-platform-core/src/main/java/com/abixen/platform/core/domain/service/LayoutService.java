@@ -14,27 +14,68 @@
 
 package com.abixen.platform.core.domain.service;
 
+import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.application.form.LayoutSearchForm;
 import com.abixen.platform.core.domain.model.Layout;
 import com.abixen.platform.core.domain.model.User;
+import com.abixen.platform.core.domain.repository.LayoutRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 
-public interface LayoutService {
+@Transactional
+@Slf4j
+@PlatformDomainService
+public class LayoutService {
 
-    Layout find(Long id);
+    private final LayoutRepository layoutRepository;
 
-    List<Layout> findAll(User authorizedUser);
 
-    Page<Layout> findAll(Pageable pageable, LayoutSearchForm layoutSearchForm, User authorizedUser);
+    @Autowired
+    public LayoutService(final LayoutRepository layoutRepository) {
+        this.layoutRepository = layoutRepository;
+    }
 
-    Layout create(Layout layout);
+    public Layout find(final Long id) {
+        log.debug("find() - id: {}", id);
 
-    Layout update(Layout layout);
+        return layoutRepository.findOne(id);
+    }
 
-    void delete(Long id);
+    public List<Layout> findAll(final User authorizedUser) {
+        log.debug("findAll() - authorizedUser: {}", authorizedUser);
+
+        return layoutRepository.findAllSecured(authorizedUser, PermissionName.LAYOUT_VIEW);
+    }
+
+    public Page<Layout> findAll(final Pageable pageable, final LayoutSearchForm layoutSearchForm, final User authorizedUser) {
+        log.debug("findAll() - pageable: {}, layoutSearchForm: {}, authorizedUser: {}", pageable, layoutSearchForm, authorizedUser);
+
+        return layoutRepository.findAllSecured(pageable, layoutSearchForm, authorizedUser, PermissionName.LAYOUT_VIEW);
+    }
+
+    public Layout create(final Layout layout) {
+        log.debug("create() - layout: {}", layout);
+
+        return layoutRepository.save(layout);
+    }
+
+    public Layout update(final Layout layout) {
+        log.debug("update() - layout: {}", layout);
+
+        return layoutRepository.save(layout);
+    }
+
+    public void delete(final Long id) {
+        log.debug("delete() - id: {}", id);
+
+        layoutRepository.delete(id);
+    }
 
 }

@@ -33,6 +33,6 @@ public interface AclEntryRepositoryCustom {
 
     List<AclEntry> findAll(AclClassName aclClassName, Long objectId);
 
-    int removeAclEntries(AclObjectIdentity aclObjectIdentity, AclSid aclSid);
+    void deleteAll(AclObjectIdentity aclObjectIdentity, AclSid aclSid);
 
 }

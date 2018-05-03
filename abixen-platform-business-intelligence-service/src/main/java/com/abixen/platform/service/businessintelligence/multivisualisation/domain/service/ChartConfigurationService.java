@@ -14,15 +14,60 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.ChartConfiguration;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.ChartConfiguration;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.ChartConfigurationRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface ChartConfigurationService {
 
-    ChartConfiguration find(final Long id);
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class ChartConfigurationService {
 
-    ChartConfiguration create(final ChartConfiguration chartConfiguration);
+    private final ChartConfigurationRepository chartConfigurationRepository;
 
-    ChartConfiguration update(final ChartConfiguration chartConfiguration);
+    @Autowired
+    public ChartConfigurationService(ChartConfigurationRepository chartConfigurationRepository) {
+        this.chartConfigurationRepository = chartConfigurationRepository;
+    }
 
-    void delete(final Long moduleId);
+    public ChartConfiguration find(final Long moduleId) {
+        log.debug("findDatabaseConnection() - moduleId: {}", moduleId);
+
+        return chartConfigurationRepository.findByModuleId(moduleId);
+    }
+
+    public ChartConfiguration create(final ChartConfiguration chartConfiguration) {
+        log.debug("create() - chartConfiguration: {}", chartConfiguration);
+
+        resolveReferenceInObject(chartConfiguration);
+
+        return chartConfigurationRepository.save(chartConfiguration);
+    }
+
+    public ChartConfiguration update(final ChartConfiguration chartConfiguration) {
+        log.debug("update() - chartConfiguration: {}", chartConfiguration);
+
+        resolveReferenceInObject(chartConfiguration);
+
+        return chartConfigurationRepository.save(chartConfiguration);
+    }
+
+    public void delete(final Long moduleId) {
+        log.debug("deleteChartConfiguration - moduleId: {}", moduleId);
+        final ChartConfiguration chartConfiguration = chartConfigurationRepository.findByModuleId(moduleId);
+        if (chartConfiguration != null) {
+            chartConfigurationRepository.delete(chartConfiguration);
+        }
+    }
+
+    private void resolveReferenceInObject(ChartConfiguration chartConfiguration) {
+        chartConfiguration.getDataSet().getDataSetSeries().forEach(dataSetSeries -> {
+            dataSetSeries.changeDataParameters(dataSetSeries.getFilter(), chartConfiguration.getDataSet());
+        });
+    }
+
 }

@@ -14,9 +14,10 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.database.DatabaseConnection;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseConnection;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface DatabaseConnectionRepository extends JpaRepository<DatabaseConnection, Long> {
+
 }

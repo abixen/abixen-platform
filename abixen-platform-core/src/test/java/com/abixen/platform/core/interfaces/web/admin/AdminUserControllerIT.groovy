@@ -126,6 +126,17 @@ class AdminUserControllerIT extends AbstractPlatformIT {
         updatedUserRolesForm.getUserRoles().size() == 1
         !updatedUserRolesForm.getUserRoles().get(0).isSelected()
         updatedUserRolesForm.getUserRoles().get(0).getRole().getId() == 1L
+
+        cleanup:
+        userRolesForm.getUserRoles().get(0).setSelected(true)
+        final HttpEntity<String> requestEntityCleanup = new HttpEntity<String>(userRolesForm)
+
+        template
+                .withBasicAuth(ADMIN_USERNAME, ADMIN_PASSWORD)
+                .exchange("http://localhost:${port}/api/control-panel/users/${userId}/roles",
+                HttpMethod.PUT,
+                requestEntityCleanup,
+                String.class)
     }
 
 }

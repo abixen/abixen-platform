@@ -11,7 +11,7 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="filter" type="clob"/>
+            <column name="filter" type="longvarchar"/>
             <column name="name" type="varchar(300)">
                 <constraints nullable="false"/>
             </column>

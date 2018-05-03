@@ -29,7 +29,7 @@ import java.util.List;
 @Setter
 @Component
 @EnableConfigurationProperties(RegisteredModuleServicesConfigurationProperties.class)
-@ConfigurationProperties(prefix = "platform.core.modules", locations = {"bootstrap.yml"})
+@ConfigurationProperties(prefix = "platform.core.modules")
 public class RegisteredModuleServicesConfigurationProperties {
 
     @NotNull

@@ -19,15 +19,17 @@ import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
 import com.abixen.platform.core.infrastructure.repository.PlatformJpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 
-
 public interface PermissionRepository extends PlatformJpaRepository<Permission, Long>, JpaSpecificationExecutor<Permission> {
 
-    List<Permission> findAllByPermissionAclClassCategory(PermissionAclClassCategory permissionAclClassCategory);
+    @Query("FROM Permission p WHERE p.permissionAclClassCategory = ?1")
+    List<Permission> findAll(PermissionAclClassCategory permissionAclClassCategory);
 
-    Permission findByPermissionName(PermissionName permissionName);
+    @Query("FROM Permission p WHERE p.permissionName = ?1")
+    Permission find(PermissionName permissionName);
 
 }

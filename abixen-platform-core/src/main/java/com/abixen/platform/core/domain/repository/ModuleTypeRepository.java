@@ -19,15 +19,18 @@ import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.model.User;
 import com.abixen.platform.core.infrastructure.repository.PlatformJpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 
 public interface ModuleTypeRepository extends PlatformJpaRepository<ModuleType, Long> {
 
-    ModuleType findByName(String name);
+    @Query("FROM ModuleType mt WHERE mt.name = ?1")
+    ModuleType find(String name);
 
     default List<ModuleType> findAllSecured(User user, PermissionName permissionName) {
         return findAll(user, AclClassName.MODULE_TYPE, permissionName);
     }
+
 }

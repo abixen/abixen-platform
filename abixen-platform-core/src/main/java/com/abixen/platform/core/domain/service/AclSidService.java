@@ -15,13 +15,41 @@
 package com.abixen.platform.core.domain.service;
 
 import com.abixen.platform.common.domain.model.enumtype.AclSidType;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.domain.model.AclSid;
+import com.abixen.platform.core.domain.repository.AclSidRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class AclSidService {
+
+    private final AclSidRepository aclSidRepository;
+
+    @Autowired
+    public AclSidService(AclSidRepository aclSidRepository) {
+        this.aclSidRepository = aclSidRepository;
+    }
 
 
-public interface AclSidService {
+    public AclSid find(final AclSidType aclSidType, final Long sidId) {
+        log.debug("find() - aclSidType: {}, sidId: {}", aclSidType, sidId);
 
-    AclSid find(AclSidType aclSidType, Long sidId);
+        return aclSidRepository.find(aclSidType, sidId);
+    }
 
-    AclSid create(AclSidType aclSidType, Long sidId);
+    public AclSid create(final AclSidType aclSidType, final Long sidId) {
+        log.debug("create() - aclSidType: {}, sidId: {}", aclSidType, sidId);
+
+        AclSid aclSid = AclSid.builder()
+                .sidId(sidId)
+                .aclSidType(aclSidType)
+                .build();
+
+        return aclSidRepository.save(aclSid);
+    }
 
 }

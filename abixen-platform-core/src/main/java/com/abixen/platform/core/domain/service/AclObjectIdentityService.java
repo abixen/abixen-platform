@@ -14,12 +14,30 @@
 
 package com.abixen.platform.core.domain.service;
 
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.domain.model.AclClass;
 import com.abixen.platform.core.domain.model.AclObjectIdentity;
+import com.abixen.platform.core.domain.repository.AclObjectIdentityRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class AclObjectIdentityService {
 
-public interface AclObjectIdentityService {
+    private final AclObjectIdentityRepository aclObjectIdentityRepository;
 
-    AclObjectIdentity find(AclClass aclClass, Long objectId);
+    @Autowired
+    public AclObjectIdentityService(AclObjectIdentityRepository aclObjectIdentityRepository) {
+        this.aclObjectIdentityRepository = aclObjectIdentityRepository;
+    }
+
+    public AclObjectIdentity find(final AclClass aclClass, final Long objectId) {
+        log.debug("find() - aclClass: {}, objectId: {}", aclClass, objectId);
+
+        return aclObjectIdentityRepository.find(aclClass, objectId);
+    }
 
 }

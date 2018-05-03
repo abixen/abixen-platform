@@ -14,19 +14,20 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.impl
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.file.FileDataSource
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.file.DataFile
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.FileDataSourceRepository
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.service.FileDataSourceService
 import spock.lang.Specification
 
 class FileDataSourceServiceImplTest extends Specification {
 
     private FileDataSourceRepository fileDataSourceRepository
-    private FileDataSourceServiceImpl fileDataSourceService
+    private FileDataSourceService fileDataSourceService
 
     void setup() {
         fileDataSourceRepository = Mock()
-        fileDataSourceService = new FileDataSourceServiceImpl(fileDataSourceRepository)
+        fileDataSourceService = new FileDataSourceService(fileDataSourceRepository)
     }
 
     void "should find FileDataSource"() {

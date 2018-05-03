@@ -14,13 +14,33 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.service;
 
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.file.DataFile;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.file.FileDataSource;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.file.DataFile;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.repository.FileDataSourceRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-public interface FileDataSourceService {
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class FileDataSourceService {
 
-    List<FileDataSource> find(final DataFile dataFile);
+    private final FileDataSourceRepository fileDataSourceRepository;
+
+    @Autowired
+    public FileDataSourceService(FileDataSourceRepository fileDataSourceRepository) {
+        this.fileDataSourceRepository = fileDataSourceRepository;
+    }
+
+
+    public List<FileDataSource> find(DataFile dataFile) {
+        log.debug("find() - dataFile: {}", dataFile);
+
+        return fileDataSourceRepository.findByDataFile(dataFile);
+    }
 
 }

@@ -14,6 +14,8 @@
 
 package com.abixen.platform.core.domain.model;
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +31,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "page")
 @SequenceGenerator(sequenceName = "page_seq", name = "page_seq", allocationSize = 1)
-public class Page extends AuditingModel implements SecurableModel {
+public final class Page extends AuditingModel implements SecurableModel {
 
     public static final int PAGE_TITLE_MAX_LENGTH = 40;
     public static final int PAGE_ICON_MAX_LENGTH = 40;
@@ -53,7 +55,7 @@ public class Page extends AuditingModel implements SecurableModel {
     @ManyToOne(fetch = FetchType.EAGER)
     private Layout layout;
 
-    Page() {
+    private Page() {
     }
 
     @Override
@@ -61,7 +63,7 @@ public class Page extends AuditingModel implements SecurableModel {
         return id;
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -69,7 +71,7 @@ public class Page extends AuditingModel implements SecurableModel {
         return icon;
     }
 
-    void setIcon(String icon) {
+    private void setIcon(String icon) {
         this.icon = icon;
     }
 
@@ -77,7 +79,7 @@ public class Page extends AuditingModel implements SecurableModel {
         return title;
     }
 
-    void setTitle(String title) {
+    private void setTitle(String title) {
         this.title = title;
     }
 
@@ -85,7 +87,7 @@ public class Page extends AuditingModel implements SecurableModel {
         return description;
     }
 
-    void setDescription(String description) {
+    private void setDescription(String description) {
         this.description = description;
     }
 
@@ -93,7 +95,7 @@ public class Page extends AuditingModel implements SecurableModel {
         return layout;
     }
 
-    void setLayout(Layout layout) {
+    private void setLayout(Layout layout) {
         this.layout = layout;
     }
 
@@ -111,5 +113,41 @@ public class Page extends AuditingModel implements SecurableModel {
 
     public void changeDescription(String description) {
         setDescription(description);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<Page> {
+
+        private Builder() {
+        }
+
+        @Override
+        protected void initProduct() {
+            this.product = new Page();
+        }
+
+        public Builder title(String title) {
+            this.product.setTitle(title);
+            return this;
+        }
+
+        public Builder layout(Layout layout) {
+            this.product.setLayout(layout);
+            return this;
+        }
+
+        public Builder icon(String icon) {
+            this.product.setIcon(icon);
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.product.setDescription(description);
+            return this;
+        }
+
     }
 }

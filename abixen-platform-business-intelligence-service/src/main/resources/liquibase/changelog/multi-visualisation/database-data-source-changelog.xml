@@ -8,7 +8,7 @@
 
     <changeSet author="MariuszKumor" id="database-data-source-v1">
         <createTable tableName="database_data_source">
-            <column name="filter" type="clob"/>
+            <column name="filter" type="longvarchar"/>
             <column name="selected_table" type="varchar(255)"/>
             <column name="id" type="bigint">
                 <constraints nullable="false"/>

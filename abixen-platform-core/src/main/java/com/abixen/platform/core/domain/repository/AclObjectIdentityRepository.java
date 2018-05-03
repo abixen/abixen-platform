@@ -17,11 +17,12 @@ package com.abixen.platform.core.domain.repository;
 import com.abixen.platform.core.domain.model.AclClass;
 import com.abixen.platform.core.domain.model.AclObjectIdentity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 
 public interface AclObjectIdentityRepository extends JpaRepository<AclObjectIdentity, Long> {
 
-
-    AclObjectIdentity findByAclClassAndObjectId(AclClass aclClass, Long objectId);
+    @Query("FROM AclObjectIdentity aoi WHERE aoi.aclClass = ?1 AND aoi.objectId = ?2")
+    AclObjectIdentity find(AclClass aclClass, Long objectId);
 
 }

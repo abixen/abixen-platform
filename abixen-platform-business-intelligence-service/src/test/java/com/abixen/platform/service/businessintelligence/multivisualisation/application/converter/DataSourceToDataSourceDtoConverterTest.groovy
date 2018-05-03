@@ -14,17 +14,13 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter
 
-import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseDataSourceDto
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.FileDataSourceDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSource
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.DataSourceBuilder
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSource
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.database.DatabaseDataSourceBuilder
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSource
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceBuilder
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceType
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSource
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.database.DatabaseDataSource
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.file.FileDataSource
 import spock.lang.Specification
 
 class DataSourceToDataSourceDtoConverterTest extends Specification {
@@ -53,8 +49,8 @@ class DataSourceToDataSourceDtoConverterTest extends Specification {
 
     void "should return result from DatabaseDataSourceConverter when dataSourceType is DB"() {
         given:
-        final DataSource dataSource = new DatabaseDataSourceBuilder()
-            .paramters(DataSourceType.DB, "filter")
+        final DataSource dataSource = DatabaseDataSource.builder()
+            .parameters(DataSourceType.DB, "filter")
             .build()
 
         final DatabaseDataSourceDto databaseDataSourceDto = [] as DatabaseDataSourceDto
@@ -74,8 +70,8 @@ class DataSourceToDataSourceDtoConverterTest extends Specification {
 
     void "should return result from FileDataSourceConverter when dataSourceType is FILE"() {
         given:
-        final DataSource dataSource = new FileDataSourceBuilder()
-                .paramters(DataSourceType.FILE, "filter")
+        final DataSource dataSource = FileDataSource.builder()
+                .parameters(DataSourceType.FILE, "filter")
                 .build()
 
         final FileDataSourceDto fileDataSourceDto = [] as FileDataSourceDto

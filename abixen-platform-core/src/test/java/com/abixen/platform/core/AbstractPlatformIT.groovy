@@ -15,12 +15,16 @@
 package com.abixen.platform.core
 
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
 import org.springframework.test.context.ActiveProfiles
 import spock.lang.Specification
 
 
 @ActiveProfiles("test")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+        classes = CoreApplication.class,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureStubRunner
 abstract class AbstractPlatformIT extends Specification {
 
     protected static final String ADMIN_USERNAME = "joe.brown@abixen.com"

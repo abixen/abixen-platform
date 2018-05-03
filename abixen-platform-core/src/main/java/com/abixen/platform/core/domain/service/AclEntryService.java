@@ -17,23 +17,57 @@ package com.abixen.platform.core.domain.service;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.AclSidType;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.domain.model.AclEntry;
 import com.abixen.platform.core.domain.model.AclObjectIdentity;
 import com.abixen.platform.core.domain.model.AclSid;
+import com.abixen.platform.core.domain.repository.AclEntryRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class AclEntryService {
 
-public interface AclEntryService {
+    private final AclEntryRepository aclEntryRepository;
 
-    List<AclEntry> findAll(final AclClassName aclClassName, final Long objectId);
+    @Autowired
+    public AclEntryService(AclEntryRepository aclEntryRepository) {
+        this.aclEntryRepository = aclEntryRepository;
+    }
 
-    List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, Long sidId, AclClassName aclClassName, Long objectId);
+    public List<AclEntry> findAll(final AclClassName aclClassName, final Long objectId) {
+        log.debug("findAll() - aclClassName: {}, objectId: {}", aclClassName, objectId);
 
-    List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, List<Long> sidIds, AclClassName aclClassName, Long objectId);
+        return aclEntryRepository.findAll();
+    }
 
-    AclEntry create(AclEntry aclEntry);
+    public List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, Long sidId, AclClassName aclClassName, Long objectId) {
+        log.debug("findAll() - permissionName: {}, aclSidType: {}, sidId: {}, aclClassName: {}, objectId: {}", permissionName, aclSidType, sidId, aclClassName, objectId);
 
-    void deleteAll(AclObjectIdentity aclObjectIdentity, AclSid aclSid);
+        return aclEntryRepository.findAll(permissionName, aclSidType, sidId, aclClassName, objectId);
+    }
+
+    public List<AclEntry> findAll(PermissionName permissionName, AclSidType aclSidType, List<Long> sidIds, AclClassName aclClassName, Long objectId) {
+        log.debug("findAll() - permissionName: {}, aclSidType: {}, sidIds: {}, aclClassName: {}, objectId: {}", permissionName, aclSidType, sidIds, aclClassName, objectId);
+
+        return aclEntryRepository.findAll(permissionName, aclSidType, sidIds, aclClassName, objectId);
+    }
+
+    public AclEntry create(final AclEntry aclEntry) {
+        log.debug("create() - aclEntry: {}", aclEntry);
+
+        return aclEntryRepository.save(aclEntry);
+    }
+
+    public void deleteAll(final AclObjectIdentity aclObjectIdentity, final AclSid aclSid) {
+        log.debug("deleteAll() - aclObjectIdentity: {}, aclSid: {}", aclObjectIdentity, aclSid);
+
+        aclEntryRepository.deleteAll(aclObjectIdentity, aclSid);
+    }
 
 }

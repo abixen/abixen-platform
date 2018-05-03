@@ -29,12 +29,15 @@ public class CommentToCommentDtoConverter extends AbstractConverter<Comment, Com
 
     private final AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter;
     private final ModuleToModuleDtoConverter moduleToModuleDtoConverter;
+    private final CommentVoteToCommentVoteDtoConverter commentVoteToCommentVoteDtoConverter;
 
     @Autowired
     public CommentToCommentDtoConverter(ModuleToModuleDtoConverter moduleToModuleDtoConverter,
-                                        AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter) {
+                                        AuditingModelToAuditingDtoConverter auditingModelToAuditingDtoConverter,
+                                        CommentVoteToCommentVoteDtoConverter commentVoteToCommentVoteDtoConverter) {
         this.moduleToModuleDtoConverter = moduleToModuleDtoConverter;
         this.auditingModelToAuditingDtoConverter = auditingModelToAuditingDtoConverter;
+        this.commentVoteToCommentVoteDtoConverter = commentVoteToCommentVoteDtoConverter;
     }
 
     @Override
@@ -49,7 +52,8 @@ public class CommentToCommentDtoConverter extends AbstractConverter<Comment, Com
                 .setId(comment.getId())
                 .setMessage(comment.getMessage())
                 .setParent(convert(comment.getParent()))
-                .setModule(moduleToModuleDtoConverter.convert(comment.getModule()));
+                .setModule(moduleToModuleDtoConverter.convert(comment.getModule()))
+                .setVotes(commentVoteToCommentVoteDtoConverter.convertToSet(comment.getVotes()));
 
 
         auditingModelToAuditingDtoConverter.convert(comment, commentDto);

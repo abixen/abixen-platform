@@ -15,25 +15,59 @@
 package com.abixen.platform.core.domain.service;
 
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
 import com.abixen.platform.core.application.form.PermissionSearchForm;
 import com.abixen.platform.core.domain.model.Permission;
 import com.abixen.platform.core.domain.model.PermissionAclClassCategory;
+import com.abixen.platform.core.domain.repository.PermissionRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class PermissionService {
 
-public interface PermissionService {
+    private final PermissionRepository permissionRepository;
 
-    Permission find(Long id);
+    @Autowired
+    public PermissionService(final PermissionRepository permissionRepository) {
+        this.permissionRepository = permissionRepository;
+    }
 
-    Permission find(PermissionName permissionName);
+    public Permission find(final Long id) {
+        log.debug("find() - id: {}", id);
 
-    List<Permission> findAll();
+        return permissionRepository.findOne(id);
+    }
 
-    List<Permission> findAll(final PermissionAclClassCategory permissionAclClassCategory);
+    public Permission find(final PermissionName permissionName) {
+        log.debug("find() - permissionName: {}", permissionName);
 
-    Page<Permission> findAll(Pageable pageable, PermissionSearchForm permissionSearchForm);
+        return permissionRepository.find(permissionName);
+    }
+
+    public List<Permission> findAll() {
+        log.debug("findAll()");
+
+        return permissionRepository.findAll();
+    }
+
+    public List<Permission> findAll(final PermissionAclClassCategory permissionAclClassCategory) {
+        log.debug("findAll() - permissionAclClassCategory: {}", permissionAclClassCategory);
+
+        return permissionRepository.findAll(permissionAclClassCategory);
+    }
+
+    public Page<Permission> findAll(final Pageable pageable, final PermissionSearchForm permissionSearchForm) {
+        log.debug("findAll() - pageable: {}, permissionSearchForm: {}", pageable, permissionSearchForm);
+
+        return permissionRepository.findAll(pageable, permissionSearchForm);
+    }
 
 }

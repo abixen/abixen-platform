@@ -14,26 +14,83 @@
 
 package com.abixen.platform.core.domain.service;
 
+import com.abixen.platform.common.domain.model.enumtype.AclSidType;
+import com.abixen.platform.common.infrastructure.annotation.PlatformDomainService;
+import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.core.application.form.RoleSearchForm;
 import com.abixen.platform.core.domain.model.Role;
+import com.abixen.platform.core.domain.repository.RoleRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
+@Transactional
+@PlatformDomainService
+public class RoleService {
 
-public interface RoleService {
+    private final RoleRepository roleRepository;
+    private final AclSidService aclSidService;
 
-    Role find(Long id);
+    @Autowired
+    public RoleService(RoleRepository roleRepository,
+                       AclSidService aclSidService) {
+        this.roleRepository = roleRepository;
+        this.aclSidService = aclSidService;
+    }
 
-    List<Role> findAll();
+    public Role find(final Long id) {
+        log.debug("find() - id: {}", id);
 
-    Page<Role> findAll(Pageable pageable, RoleSearchForm roleSearchForm);
+        return roleRepository.findOne(id);
+    }
 
-    Role create(Role role);
+    public List<Role> findAll() {
+        log.debug("findAll()");
 
-    Role update(Role role);
+        return roleRepository.findAll();
+    }
 
-    void delete(Long id);
+    public Page<Role> findAll(final Pageable pageable, final RoleSearchForm roleSearchForm) {
+        log.debug("findAll() - pageable: {}, roleSearchForm: {}", pageable, roleSearchForm);
+
+        return roleRepository.findAll(pageable, roleSearchForm);
+    }
+
+    public Role create(final Role role) {
+        log.debug("create() - role: {}", role);
+
+        Role createdRole = roleRepository.save(role);
+        aclSidService.create(AclSidType.ROLE, createdRole.getId());
+
+        return createdRole;
+    }
+
+    public Role update(final Role role) {
+        log.debug("update() - role: {}", role);
+
+        return roleRepository.save(role);
+    }
+
+    public void delete(final Long id) {
+        log.debug("delete() - id: {}", id);
+
+        try {
+            roleRepository.delete(id);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            if (e.getCause() instanceof ConstraintViolationException) {
+                log.warn("The role id: {} you want to remove is assigned to users.", id);
+                throw new PlatformRuntimeException("The role you want to remove is assigned to users.");
+            } else {
+                throw e;
+            }
+        }
+    }
 
 }

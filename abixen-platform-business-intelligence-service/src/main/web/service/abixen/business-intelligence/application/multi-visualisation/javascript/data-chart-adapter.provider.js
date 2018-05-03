@@ -102,10 +102,10 @@
         function buildMultiSeriesChartData(chartType, configurationData, data) {
             $log.debug('buildChartData for ' + chartType + 'Adapter started');
             var series = [];
-            configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
+            configurationData.dataSet.dataSetSeries.forEach(function (dataSetSeriesElement) {
                 $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
                 series.push({
-                    values: getValues(data, dataSetSeriesElement, configurationData.dataSetChart),
+                    values: getValues(data, dataSetSeriesElement, configurationData.dataSet),
                     key: dataSetSeriesElement.name
                 });
             });
@@ -117,9 +117,9 @@
         function buildSingleSeriesChartData(chartType, configurationData, data) {
             $log.debug('buildChartData for ' + chartType + 'Adapter started');
             var preparedData = [];
-            configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
+            configurationData.dataSet.dataSetSeries.forEach(function (dataSetSeriesElement) {
                 $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
-                preparedData = getValues(data, dataSetSeriesElement, configurationData.dataSetChart);
+                preparedData = getValues(data, dataSetSeriesElement, configurationData.dataSet);
             });
             $log.debug('preparedData: ', preparedData);
             $log.debug('buildChartData for ' + chartType + 'Adapter ended');
@@ -136,14 +136,14 @@
             return sum / data.length;
         }
 
-        function getPointData(dataElement, dataSetSeriesElement, index, dataSetChart) {
+        function getPointData(dataElement, dataSetSeriesElement, index, dataSet) {
             var x = null;
             var xLabel = null;
             var y = null;
             var yLabel = null;
-            if (dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name]) {
+            if (dataElement[dataSet.domainXSeriesColumn.dataSourceColumn.name]) {
                 x = index;
-                xLabel = dataElement[dataSetChart.domainXSeriesColumn.dataSourceColumn.name].value;
+                xLabel = dataElement[dataSet.domainXSeriesColumn.dataSourceColumn.name].value;
             }
             if (dataElement[dataSetSeriesElement.valueSeriesColumn.dataSourceColumn.name]) {
                 y = index;
@@ -178,11 +178,11 @@
             return (getDomainXDuplication(values, valuesElement) === null);
         }
 
-        function getValues(data, dataSetSeriesElement, dataSetChart) {
+        function getValues(data, dataSetSeriesElement, dataSet) {
             var values = [];
             var index = 0;
             data.forEach(function (dataElement) {
-                var valuesElement = getPointData(dataElement, dataSetSeriesElement, index, dataSetChart);
+                var valuesElement = getPointData(dataElement, dataSetSeriesElement, index, dataSet);
                 if (valuesElement && domainIsNotDuplicated(values, valuesElement)) {
                     values.push(valuesElement);
                     index++;
@@ -268,9 +268,9 @@
                 function buildChartData(configurationData, data) {
                     $log.debug('buildChartData for cumulativeLineChartAdapter started');
                     var series = [];
-                    configurationData.dataSetChart.dataSetSeries.forEach(function (dataSetSeriesElement) {
+                    configurationData.dataSet.dataSetSeries.forEach(function (dataSetSeriesElement) {
                         $log.debug('dataSetSeriesElement: ', dataSetSeriesElement);
-                        var values = getValues(data, dataSetSeriesElement, configurationData.dataSetChart);
+                        var values = getValues(data, dataSetSeriesElement, configurationData.dataSet);
                         series.push({
                             values: values,
                             mean: calculateMean(values),

@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.converter
 
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.FileDataSourceRowDto
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.impl.datasource.file.FileDataSourceRow
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.file.FileDataSourceRow
 
 import spock.lang.Specification
 

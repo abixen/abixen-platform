@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.dto;
 
 import com.abixen.platform.common.application.dto.SimpleAuditingDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DatabaseType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection.DatabaseType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

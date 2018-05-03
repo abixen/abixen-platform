@@ -15,6 +15,7 @@
 package com.abixen.platform.core.domain.model;
 
 
+import com.abixen.platform.common.domain.model.EntityBuilder;
 import com.abixen.platform.common.domain.model.enumtype.RoleType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -40,7 +41,7 @@ import java.util.Set;
 @Entity
 @Table(name = "role_")
 @SequenceGenerator(sequenceName = "role_seq", name = "role_seq", allocationSize = 1)
-public class Role extends AuditingModel {
+public final class Role extends AuditingModel {
 
     public static final int ROLE_NAME_MAX_LENGTH = 300;
 
@@ -62,10 +63,10 @@ public class Role extends AuditingModel {
     @JoinTable(name = "role_permission", joinColumns = {@JoinColumn(name = "role_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "permission_id", nullable = false, updatable = false)})
     private Set<Permission> permissions = new HashSet<>();
 
-    Role() {
+    private Role() {
     }
 
-    void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -73,7 +74,7 @@ public class Role extends AuditingModel {
         return id;
     }
 
-    void setRoleType(RoleType roleType) {
+    private void setRoleType(RoleType roleType) {
         this.roleType = roleType;
     }
 
@@ -81,7 +82,7 @@ public class Role extends AuditingModel {
         return roleType;
     }
 
-    void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -89,12 +90,12 @@ public class Role extends AuditingModel {
         return name;
     }
 
-    public Set<Permission> getPermissions() {
-        return permissions;
+    private void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 
-    void setPermissions(Set<Permission> permissions) {
-        this.permissions = permissions;
+    public Set<Permission> getPermissions() {
+        return permissions;
     }
 
     public void changeDetails(String name, RoleType type) {
@@ -105,5 +106,31 @@ public class Role extends AuditingModel {
     public void changePermissions(Set<Permission> permissions) {
         getPermissions().clear();
         getPermissions().addAll(permissions);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends EntityBuilder<Role> {
+
+        private Builder() {
+        }
+
+        @Override
+        protected void initProduct() {
+            this.product = new Role();
+        }
+
+        public Builder name(String name) {
+            this.product.setName(name);
+            return this;
+        }
+
+        public Builder type(RoleType roleType) {
+            this.product.setRoleType(roleType);
+            return this;
+        }
+
     }
 }

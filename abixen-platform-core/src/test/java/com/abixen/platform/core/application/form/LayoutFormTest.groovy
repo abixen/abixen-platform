@@ -15,14 +15,13 @@
 package com.abixen.platform.core.application.form
 
 import com.abixen.platform.core.domain.model.Layout
-import com.abixen.platform.core.domain.model.LayoutBuilder
 import spock.lang.Specification
 
 class LayoutFormTest extends Specification {
 
     void "should build LayoutForm from Layout entity"() {
         given:
-        final Layout layout = new LayoutBuilder()
+        final Layout layout = Layout.builder()
                 .iconFileName("iconFileName")
                 .content("content")
                 .title("title")

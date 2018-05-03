@@ -4,6 +4,27 @@ server:
 security:
   sessions: NEVER
 
+spring:
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      bindings:
+        deleteModuleInput:
+          destination: module.core.dx
+          group: businessIntelligence.deleteModule
+          consumer:
+            maxAttempts: 5
+            backOffInitialInterval: 1000
+            backOffMaxInterval: 10000
+            backOffMultiplier: 2
+      rabbit:
+        bindings:
+          deleteModuleInput:
+            consumer:
+              bindingRoutingKey: abixen-platform-business-intelligence-service
+              autoBindDlq: true
+              republishToDlq: true
 
 ---
 

@@ -16,7 +16,7 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.appl
 
 
 import com.abixen.platform.common.application.dto.SimpleAuditingDto;
-import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.enumtype.DataSourceType;
+import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSourceType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
