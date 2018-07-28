@@ -73,7 +73,24 @@ Abixen Platform is fully compatible with AWS cloud and utilizes the following se
    * **RDS** - database store for all components
    * **SES** - used for email communication
    
-![Abixen Platform AWS Deployment diagram](documentation-image/abixen-platform-on-aws.png "Abixen Platform AWS Deployment diagram")
+   ![Abixen Platform AWS Deployment diagram](documentation-image/abixen-platform-on-aws.png "Abixen Platform AWS Deployment diagram")
+   
+## CNCF Cloud Native Landscape compatible
+Abixen Platform can be containiized is fully compatible with the CNCF Cloud Native Landscape and utilizes the following components/sub-components and CNCF projects:
+
+- Cloud  – Public or Private - Bare Metal
+
+
+   * **Kubernetes** - open-source system for automating deployment, scaling, and management of containerized applications
+   * **ALB** - modern version of load balancer aligned with microservices architecture topology
+   * **ECS** - container orchestrator and scheduler for all services running as docker containers
+   * **ECR** - private container registry for docker images
+   * **Route53** - allows to use internal dns names for communication between microservices
+   * **CloudWatch** - used as a central monitoring and logging
+   * **Elasticache** - used internally by Abixen Platform components
+   * **RDS** - database store for all components
+   * **SES** - used for email communication
+   
 
 ## Logging and monitoring
 All containers from Abixen Platform send logs to [Elasticsearch](https://www.elastic.co) via [Logstash](https://www.elastic.co/products/logstash). You can use [Kibana's](https://www.elastic.co/products/kibana) interface as well.
