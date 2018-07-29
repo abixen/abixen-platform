@@ -78,7 +78,7 @@ Abixen Platform is fully compatible with AWS cloud and utilizes the following se
 ## CNCF Cloud Native Landscape compatible
 Abixen Platform can be containiized is fully compatible with the CNCF Cloud Native Landscape and utilizes the following components/sub-components and CNCF projects:
 
-- Cloud  – Public or Private - Bare Metal
+- Cloud  – Public or Private, Hybrid or Bare Metal
 
 
    * **Kubernetes** - open-source system for automating deployment, scaling, and management of containerized applications
@@ -91,7 +91,8 @@ Abixen Platform can be containiized is fully compatible with the CNCF Cloud Nati
    * **RDS** - database store for all components
    * **SES** - used for email communication
    
-
+https://github.com/cncf/landscape/raw/master/landscape/CloudNativeLandscape_latest.png
+For mre details on the 
 ## Logging and monitoring
 All containers from Abixen Platform send logs to [Elasticsearch](https://www.elastic.co) via [Logstash](https://www.elastic.co/products/logstash). You can use [Kibana's](https://www.elastic.co/products/kibana) interface as well.
 All metrics are exposed on each component with [Jolokia](http://jolokia.org) and fetched from there using [Telegraf](https://influxdata.com/telegraf-correlate-log-metrics-data-performance-bottlenecks/). They are sent to [InfluxDB](https://influxdata.com/) and are accessible on [Grafana](https://grafana.net) dashboards
