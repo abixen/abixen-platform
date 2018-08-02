@@ -76,21 +76,31 @@ Abixen Platform is fully compatible with AWS cloud and utilizes the following se
    ![Abixen Platform AWS Deployment diagram](documentation-image/abixen-platform-on-aws.png "Abixen Platform AWS Deployment diagram")
    
 ## CNCF Cloud Native Landscape compatible
-Abixen Platform can be containiized is fully compatible with the CNCF Cloud Native Landscape and utilizes the following components/sub-components and CNCF projects:
+Abixen Platform can be containerized to become fully compatible with CNCF Cloud Native Landscape and it's catogories and sub-catogories of cloud native components. The platform can execute based on the following OSS components and CNCF projects (both OSS and open standards): (this list is initially focused only on the **Infrastructure, Runtime, Orchestration & Management, Platforms and Observability and Analysis categories** of the CNCF Cloud Native Landscape)
 
-- Cloud  – Public or Private, Hybrid or Bare Metal
+- **Infrastructure catogory:**
+	Cloud - Public or Private, Hybrid or Bare Metal (i.e Canonical MaaS or OpenSatck on Bare Metal or any public cloud provider)
 
+- **Runtime catorgory:**
+	**Cloud Native Network sub-catogory** based on the open standard CNI
+	**Container Runtime sub-catogory** including OSS Containerd (docker), rkt and open standard CRI-O
+	**Cloud Native storage sub-catogory** including OSS Rook and/or traditional Swift-based storage options and open standard CSI
 
-   * **Kubernetes** - open-source system for automating deployment, scaling, and management of containerized applications
-   * **ALB** - modern version of load balancer aligned with microservices architecture topology
-   * **ECS** - container orchestrator and scheduler for all services running as docker containers
-   * **ECR** - private container registry for docker images
-   * **Route53** - allows to use internal dns names for communication between microservices
-   * **CloudWatch** - used as a central monitoring and logging
-   * **Elasticache** - used internally by Abixen Platform components
-   * **RDS** - database store for all components
-   * **SES** - used for email communication
-   
+- **Orchestration & Management catorgory:**
+	**Scheduling & Orchestration sub-catogory** including OSS Kubernetes and Hashicorp Nomad
+	**Cooridantion & Service Discovery sub-catogory** including OSS CoreDNS, etcd and/or Hashicorp Consul
+	**Service Management sub-catogory** including OSS envoy, linkerd, gRPC and/or and/or Ambassador and open standard OPA 
+
+- **Platforms catorgory:**
+	**PaaS/Container Service sub-catogory** including OSS Jhipster (for java objects) and/or OSS Kontena
+	**Certified Kubernetes - Distribyution sub-catogory** including OSS Rancher and/or OSS Canonical Distribution of Kubernetes
+	**Certified Kubernetes - Hosted sub-catogory** inclduing public cloud services AWS EKS, Azure ACS and/or Google Kubernetes Engine
+	
+- **Observability and Analysis catorgory:**
+	**Monitoring sub-catogory** inclduing OSS Prometheus, Grafana, InfluxDB, heapster
+	**Logging sub-catogory** inclduing OSS fluentd, Elastic
+	**Tracing sub-catogory** inclduing OSS OpenTracing, Jaeger, Zipkin
+     
 ![CNCF Cloud Native Landscape Diagram](https://github.com/cncf/landscape/raw/master/landscape/CloudNativeLandscape_latest.png "CNCF Cloud Native Landscape Diagram")
 For more details on the CNCF Cloud Native Landscape, go here - https://landscape.cncf.io/
 
