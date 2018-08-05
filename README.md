@@ -78,19 +78,19 @@ Abixen Platform is fully compatible with AWS cloud and utilizes the following se
 ## CNCF Cloud Native Landscape compatible
 Abixen Platform can be containerized to become fully compatible with CNCF Cloud Native Landscape and its categories and sub-categories of cloud native components. The platform can execute based on the following OSS components and CNCF projects (both OSS and open standards): (this list is initially focused only on the Infrastructure, Runtime, Orchestration & Management, Platforms and Observability and Analysis categories of the CNCF Cloud Native Landscape)
 
-•	Infrastructure category: Cloud - Public or Private, Hybrid or Bare Metal (i.e. Canonical MaaS or OpenStack on Bare Metal or any public cloud provider)
+•	**Infrastructure category:** Cloud - Public or Private, Hybrid or Bare Metal (i.e. Canonical MaaS or OpenStack on Bare Metal or any public cloud provider)
 
-•	Runtime category: Cloud Native Network sub-category based on the open standard CNI Container Runtime sub-category including OSS Containerd (docker), rkt and open standard CRI-O Cloud Native storage sub-category including OSS Rook and/or traditional Swift-based storage options and open standard CSI
+•	**Runtime category:** **Cloud Native Network sub-category** based on the open standard CNI **Container Runtime sub-category** including OSS Containerd (docker), rkt and open standard CRI-O **Cloud Native storage sub-category** including OSS Rook and/or traditional Swift-based storage options and open standard CSI
 
-•	Orchestration & Management category: Scheduling & Orchestration sub-category including OSS Kubernetes and Hashicorp Nomad Coordination & Service Discovery sub-category including OSS CoreDNS, etcd and/or Hashicorp Consul Service Management sub-category including OSS envoy, linkerd, gRPC and/or Ambassador and open standard OPA
+•	**Orchestration & Management category:** **cheduling & Orchestration sub-category** including OSS Kubernetes and Hashicorp Nomad **Coordination & Service Discovery sub-category** including OSS CoreDNS, etcd and/or Hashicorp Consul **Service Management sub-category** including OSS envoy, linkerd, gRPC and/or Ambassador and open standard OPA
 
-•	Platforms category: PaaS/Container Service sub-category including OSS Jhipster (for java objects) and/or OSS Kontena Certified Kubernetes - Distribution sub-category including OSS Rancher and/or OSS Canonical Distribution of Kubernetes Certified Kubernetes - Hosted sub-category including public cloud services AWS EKS, Azure ACS and/or Google Kubernetes Engine
+•	**Platforms category:** **PaaS/Container Service sub-category** including OSS Jhipster (for java objects) and/or OSS Kontena **ertified Kubernetes - Distribution sub-category** including OSS Rancher and/or OSS Canonical Distribution of Kubernetes **Certified Kubernetes - Hosted sub-category** including public cloud services AWS EKS, Azure ACS and/or Google Kubernetes Engine
 
-•	Observability and Analysis category: Monitoring sub-category including OSS Prometheus, Grafana, InfluxDB, heapster Logging sub-category including OSS fluentd, Elastic Tracing sub-category including OSS OpenTracing, Jaeger, Zipkin
+•	**Observability and Analysis category:** **Monitoring sub-category** including OSS Prometheus, Grafana, InfluxDB, heapster **ogging sub-category** including OSS fluentd, Elastic **racing sub-category** including OSS OpenTracing, Jaeger, Zipkin
 
      
 ![CNCF Cloud Native Landscape Diagram](https://github.com/cncf/landscape/raw/master/landscape/CloudNativeLandscape_latest.png "CNCF Cloud Native Landscape Diagram")
-For more details on the CNCF Cloud Native Landscape, go here - https://landscape.cncf.io/
+For more details on the CNCF Cloud Native Landscape, go here - **https://landscape.cncf.io/**
 
 ## Logging and monitoring
 All containers from Abixen Platform send logs to [Elasticsearch](https://www.elastic.co) via [Logstash](https://www.elastic.co/products/logstash). You can use [Kibana's](https://www.elastic.co/products/kibana) interface as well.
