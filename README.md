@@ -76,7 +76,7 @@ Abixen Platform is fully compatible with AWS cloud and utilizes the following se
    ![Abixen Platform AWS Deployment diagram](documentation-image/abixen-platform-on-aws.png "Abixen Platform AWS Deployment diagram")
    
 ## CNCF Cloud Native Landscape compatible
-Abixen Platform can be containerized to become fully compatible with CNCF Cloud Native Landscape and its categories and sub-categories of cloud native components. The platform can execute based on the following OSS components and CNCF projects (both OSS and open standards): (this list is initially focused only on the Infrastructure, Runtime, Orchestration & Management, Platforms and Observability and Analysis categories of the CNCF Cloud Native Landscape)
+The Abixen Platform can also be containerized to become fully compatible with CNCF Cloud Native Landscape and its categories and sub-categories of cloud native components. The platform can execute based on the following OSS components and CNCF projects (both OSS and open standards): (**this list of components is initially focused only on the Infrastructure, Runtime, Orchestration & Management, Platforms and Observability and Analysis categories of the CNCF Cloud Native Landscape)**
 
 •	**Infrastructure category:** Cloud - Public or Private, Hybrid or Bare Metal (i.e. Canonical MaaS or OpenStack on Bare Metal or any public cloud provider)
 
