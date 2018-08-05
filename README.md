@@ -87,7 +87,6 @@ The Abixen Platform can also be containerized to become fully compatible with CN
 •	**Platforms category:** **PaaS/Container Service sub-category** including OSS Jhipster (for java objects) and/or OSS Kontena **ertified Kubernetes - Distribution sub-category** including OSS Rancher and/or OSS Canonical Distribution of Kubernetes **Certified Kubernetes - Hosted sub-category** including public cloud services AWS EKS, Azure ACS and/or Google Kubernetes Engine
 
 •	**Observability and Analysis category:** **Monitoring sub-category** including OSS Prometheus, Grafana, InfluxDB, heapster **ogging sub-category** including OSS fluentd, Elastic **racing sub-category** including OSS OpenTracing, Jaeger, Zipkin
-
      
 ![CNCF Cloud Native Landscape Diagram](https://github.com/cncf/landscape/raw/master/landscape/CloudNativeLandscape_latest.png "CNCF Cloud Native Landscape Diagram")
 For more details on the CNCF Cloud Native Landscape, go here - https://landscape.cncf.io/
