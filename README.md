@@ -90,7 +90,7 @@ Abixen Platform can be containerized to become fully compatible with CNCF Cloud 
 
      
 ![CNCF Cloud Native Landscape Diagram](https://github.com/cncf/landscape/raw/master/landscape/CloudNativeLandscape_latest.png "CNCF Cloud Native Landscape Diagram")
-For more details on the CNCF Cloud Native Landscape, go here - **https://landscape.cncf.io/**
+For more details on the CNCF Cloud Native Landscape, go here - https://landscape.cncf.io/
 
 ## Logging and monitoring
 All containers from Abixen Platform send logs to [Elasticsearch](https://www.elastic.co) via [Logstash](https://www.elastic.co/products/logstash). You can use [Kibana's](https://www.elastic.co/products/kibana) interface as well.
