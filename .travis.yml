@@ -2,22 +2,17 @@ language: java
 sudo: required
 dist: trusty
 jdk:
-  - oraclejdk8
+- oraclejdk8
 install: true
-
-before_install:
- - chmod +x ./travis/script/build.sh
 
 env:
   global:
-    - SONAR_RUNNER_OPTS="-Xmx2048m -XX:MaxPermSize=1024m -XX:ReservedCodeCacheSize=512m"
-    - secure: "t8R19O/RoxWrMXPsxTf4BSrMEE/iuO/QGHi2IROHtuQYG0dPRlMF87/5Bn5YxeDdnpquCyMRXBuJkMg+vBjxxsOHRdegqIFLtJOFg1WAFNkbEHcvC8qjZI2x19j0VVDRz0+W1r8i1vXdeLWhbEYEHRQFwl2XtUmyz6LiWrSre0wajo/eO0ngcK1EJrGEiLrXPHlhIYPQEeXYb+H8tpEoQS3XKcmODuTVZtaZelbti+eN+YB/VQ79AUhxd5NjlJ0wIR8kOXbHtZnNzyiYNn5pldEuuPiMHs7H/uNLDZ/O7xmp6qBXuPbTL9Nnm25xL1aEcxByqZPBnR4yrzFg4cmg22MvfRDX5YRoIh6oNvUq7Jl0yJBbJeXnumm4xsybH1/z3sL6mW42ccryAQOdj8L+1lHLiW5I0l2V7wt464yDRAaEh9Z7aXtL5HXWR8tXYqcPtSFtNOLEi0hiMLH5iQ+8khRWFtEbjAp7CmLoKWAgb/6/je8S6dK/fdLNRmEOJtac5dGZyd6iBtHyJ/HaW4Nr+Qpq/9+1hiUXgmTOI/wOakOri4XMeHhQLt54sMH+TsXobSqwu03gJKPAXlEPD7BLqJzrWXOgL6jSvI4QPB9XOLwAnxjtzdaX9cP3tSZZoEWAlEiBHbb/o12xbasq6I/Od+p65q/iobsT8vh1mDe1V+w="
+  - SONAR_RUNNER_OPTS="-Xmx2048m -XX:MaxPermSize=1024m -XX:ReservedCodeCacheSize=512m"
 
-branches:
-  only:
-  - master
-  - tests-and-refactor
-  - v-1-0-wave-2-refactor
+addons:
+  sonarcloud:
+    token:
+      secure: "CGwFQYgztz794qXzotaRkRsDH6G3AsfeRr0SwNJdSljOAU1oB57iA6wV6BfUhCnt5dD+saoiZ8otCRq51BDn8Yij10M9rW0Eta3ig16O2CH3UOcWgilp9YV7HdiNZ4hU8hBIRB0Ph+lZN9X1IjJ/6UnHM/bCBkkioIkk8q3F2LxXLy0aCjptc9pgoUWZ4Dqw4ydmCF/dSyqaSfa5wQIje4NiCmaz8ptchhPIyPmFvlbZ/hna13gnxF1kAY23HxOB85G53GQOdbY1+MrROkW/s8tSVHQU9f59Q9qaTcPQXYM6tJFQuDUqidvCBCyHIjqtwKB6unhQ6efqqVizfCJ8M8YGSD3h2B24Dj9hFobRvZdPpBoWjBOOEP8jaWi1STfcTqD95tb03aPc7KkD3eD2J5Naqz+6Mu681kD94RYvnBYW6ZWRGVtEE25lI7nZvoplSoaBTQmvjV0wWo03P3XwSnnF1hDLQ+9nIr/CfMTSa65Kv68X1Wpjgw5xogo90a/ELSaAJlCgWeShiggHgi2BWBulhMNBTlf/ZldeJ4YD4V4U0/pxIKpn26bO8BG84hk2y9x6oKzKAsetdCzd2ZWHmTyK91wnSydM/5GRRsfuS+ENCPevxtqlQT6suzW6zbvOlJjKBMoaMF3hFlMacNGeQ3yxpvV52Y+eUfEf1JELWRw="
 
 script:
-  - ./travis/script/build.sh
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -DskipDocker -B -e -V
