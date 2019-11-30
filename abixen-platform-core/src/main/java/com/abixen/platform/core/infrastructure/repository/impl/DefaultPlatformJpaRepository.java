@@ -34,13 +34,13 @@ import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 
-public class PlatformJpaRepositoryImpl<T, ID extends Serializable>
+public class DefaultPlatformJpaRepository<T, ID extends Serializable>
         extends SimpleJpaRepository<T, ID> implements PlatformJpaRepository<T, ID> {
 
     //FIXME - unused?
     private final EntityManager entityManager;
 
-    public PlatformJpaRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
+    public DefaultPlatformJpaRepository(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
         super(entityInformation, entityManager);
         this.entityManager = entityManager;
     }

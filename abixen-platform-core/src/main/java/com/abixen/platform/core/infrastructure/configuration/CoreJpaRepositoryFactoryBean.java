@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.infrastructure.configuration;
 
-import com.abixen.platform.core.infrastructure.repository.impl.PlatformJpaRepositoryImpl;
+import com.abixen.platform.core.infrastructure.repository.impl.DefaultPlatformJpaRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
@@ -50,13 +50,13 @@ public class CoreJpaRepositoryFactoryBean<R extends JpaRepository<T, I>, T,
         }
 
         protected Class<?> getRepositoryBaseClass(RepositoryMetadata metadata) {
-            return PlatformJpaRepositoryImpl.class;
+            return DefaultPlatformJpaRepository.class;
         }
 
         @Override
-        protected PlatformJpaRepositoryImpl getTargetRepository(RepositoryInformation information) {
+        protected DefaultPlatformJpaRepository getTargetRepository(RepositoryInformation information) {
             JpaEntityInformation<?, Serializable> entityInformation = getEntityInformation(information.getDomainType());
-            return new PlatformJpaRepositoryImpl(entityInformation, em);
+            return new DefaultPlatformJpaRepository(entityInformation, em);
         }
 
 
