@@ -27,10 +27,11 @@ public abstract class AbstractConverter<Source, Target> {
         if(sources == null) {
             return null;
         }
-        List<Target> targets = new ArrayList<>(sources.size());
+        final List<Target> targets = new ArrayList<>(sources.size());
         for (Source source : sources) {
             targets.add(convert(source, parameters));
         }
+
         return targets;
     }
 
@@ -39,10 +40,11 @@ public abstract class AbstractConverter<Source, Target> {
     }
 
     public final Set<Target> convertToSet(Collection<Source> sources, Map<String, Object> parameters) {
-        Set<Target> targets = new HashSet<>(sources.size());
+        final Set<Target> targets = new HashSet<>(sources.size());
         for (Source source : sources) {
             targets.add(convert(source, parameters));
         }
+
         return targets;
     }
 
@@ -51,14 +53,14 @@ public abstract class AbstractConverter<Source, Target> {
     }
 
     public final Page<Target> convertToPage(Page<Source> sourcePage, Map<String, Object> parameters) {
-        List<Target> targets = new ArrayList(sourcePage.getContent().size());
+        final List<Target> targets = new ArrayList<>(sourcePage.getContent().size());
         for (Source source : sourcePage) {
             targets.add(convert(source, parameters));
         }
 
-        Pageable pageable = new PageRequest(sourcePage.getNumber(), sourcePage.getSize(), sourcePage.getSort());
-        Page<Target> targetPage = new PageImpl(targets, pageable, sourcePage.getTotalElements());
-        return targetPage;
+        final Pageable pageable = new PageRequest(sourcePage.getNumber(), sourcePage.getSize(), sourcePage.getSort());
+
+        return new PageImpl<>(targets, pageable, sourcePage.getTotalElements());
     }
 
     public Page<Target> convertToPage(Page<Source> sourcePage) {
