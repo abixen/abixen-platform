@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DatabaseConnectionDto;
@@ -66,31 +66,31 @@ public class DatabaseConnectionController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<DatabaseConnectionForm> createDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<DatabaseConnectionForm> createDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("createDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(databaseConnectionForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(databaseConnectionForm, formErrors);
         }
 
         final DatabaseConnectionForm createdDatabaseConnectionForm = databaseConnectionManagementService.createDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto<>(createdDatabaseConnectionForm);
+        return new FormValidationResultRepresentation<>(createdDatabaseConnectionForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<DatabaseConnectionForm> updateDatabaseConnection(@PathVariable("id") Long id, @RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<DatabaseConnectionForm> updateDatabaseConnection(@PathVariable("id") Long id, @RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("updateDatabaseConnection() - id: {}, databaseConnectionForm: {}", id, databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(databaseConnectionForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(databaseConnectionForm, formErrors);
         }
 
         final DatabaseConnectionForm updatedDatabaseConnectionForm = databaseConnectionManagementService.updateDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto<>(updatedDatabaseConnectionForm);
+        return new FormValidationResultRepresentation<>(updatedDatabaseConnectionForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -103,17 +103,17 @@ public class DatabaseConnectionController {
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public FormValidationResultDto<DatabaseConnectionForm> testDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<DatabaseConnectionForm> testDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("testDatabaseConnection() - databaseConnectionForm: {}", databaseConnectionForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(databaseConnectionForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(databaseConnectionForm, formErrors);
         }
 
         databaseConnectionManagementService.testDatabaseConnection(databaseConnectionForm);
 
-        return new FormValidationResultDto<>(databaseConnectionForm);
+        return new FormValidationResultRepresentation<>(databaseConnectionForm);
     }
 
     @RequestMapping(value = "/{id}/tables", method = RequestMethod.GET)

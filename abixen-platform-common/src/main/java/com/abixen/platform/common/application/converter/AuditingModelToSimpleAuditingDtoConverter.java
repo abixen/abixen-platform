@@ -15,8 +15,8 @@
 package com.abixen.platform.common.application.converter;
 
 
-import com.abixen.platform.common.application.dto.SimpleAuditingDto;
-import com.abixen.platform.common.application.dto.SimpleUserDto;
+import com.abixen.platform.common.application.representation.SimpleAuditingRepresentation;
+import com.abixen.platform.common.application.representation.SimpleUserRepresentation;
 import com.abixen.platform.common.infrastructure.integration.UserIntegrationClient;
 import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +33,9 @@ public class AuditingModelToSimpleAuditingDtoConverter {
         this.userIntegrationClient = userIntegrationClient;
     }
 
-    public SimpleAuditingDto convert(SimpleAuditingModel auditingModel, SimpleAuditingDto auditingDto) {
-        SimpleUserDto createdByDto = null;
-        SimpleUserDto lastModifiedByDto = null;
+    public SimpleAuditingRepresentation convert(SimpleAuditingModel auditingModel, SimpleAuditingRepresentation auditingDto) {
+        SimpleUserRepresentation createdByDto = null;
+        SimpleUserRepresentation lastModifiedByDto = null;
 
         if (auditingModel.getCreatedById() != null) {
             createdByDto = userIntegrationClient.getUserById(auditingModel.getCreatedById());

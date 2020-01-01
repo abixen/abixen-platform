@@ -14,7 +14,7 @@
 
 package com.abixen.platform.common.infrastructure.util;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
@@ -24,10 +24,10 @@ import java.util.List;
 
 public class ValidationUtil {
 
-    public static List<FormErrorDto> extractFormErrors(BindingResult result) {
-        List<FormErrorDto> formErrors = new ArrayList<>();
+    public static List<FormErrorRepresentation> extractFormErrors(BindingResult result) {
+        List<FormErrorRepresentation> formErrors = new ArrayList<>();
         for (FieldError fieldError : result.getFieldErrors()) {
-            formErrors.add(new FormErrorDto(fieldError));
+            formErrors.add(new FormErrorRepresentation(fieldError));
         }
         return formErrors;
     }

@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
@@ -66,32 +66,32 @@ public class ChartModuleConfigurationController {
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<ChartConfigurationForm> createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<ChartConfigurationForm> createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
         log.debug("createChartConfiguration() - chartConfigurationForm: {}", chartConfigurationForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(chartConfigurationForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(chartConfigurationForm, formErrors);
         }
 
         final ChartConfigurationForm createdChartConfigurationForm = chartConfigurationManagementService.createChartConfiguration(chartConfigurationForm);
 
-        return new FormValidationResultDto<>(createdChartConfigurationForm);
+        return new FormValidationResultRepresentation<>(createdChartConfigurationForm);
     }
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<ChartConfigurationForm> updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<ChartConfigurationForm> updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
         log.debug("updateChartConfiguration() - id: {}, chartConfigurationForm: {}", id, chartConfigurationForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(chartConfigurationForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(chartConfigurationForm, formErrors);
         }
 
         final ChartConfigurationForm updatedChartConfigurationForm = chartConfigurationManagementService.updateChartConfiguration(chartConfigurationForm);
 
-        return new FormValidationResultDto<>(updatedChartConfigurationForm);
+        return new FormValidationResultRepresentation<>(updatedChartConfigurationForm);
     }
 
 }

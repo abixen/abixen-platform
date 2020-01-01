@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.interfaces.web.common;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.UserDto;
@@ -58,17 +58,17 @@ public abstract class AbstractUserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<UserForm> create(@RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<UserForm> create(@RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
         log.debug("save() - userForm: " + userForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(userForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(userForm, formErrors);
         }
 
         UserForm createdUserForm = userManagementService.createUser(userForm);
 
-        return new FormValidationResultDto<>(createdUserForm);
+        return new FormValidationResultRepresentation<>(createdUserForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -79,17 +79,17 @@ public abstract class AbstractUserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<UserForm> update(@PathVariable Long id, @RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<UserForm> update(@PathVariable Long id, @RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
         log.debug("update() - id: " + id + ", userForm: " + userForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(userForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(userForm, formErrors);
         }
 
         UserForm updatedUserForm = userManagementService.updateUser(userForm);
 
-        return new FormValidationResultDto<>(updatedUserForm);
+        return new FormValidationResultRepresentation<>(updatedUserForm);
     }
 
     @RequestMapping(value = "/{id}/avatar/{hash}", method = RequestMethod.GET)
@@ -110,12 +110,12 @@ public abstract class AbstractUserController {
     }
 
     @RequestMapping(value = "/{id}/password", method = RequestMethod.POST)
-    public FormValidationResultDto<UserChangePasswordForm> changePassword(@PathVariable Long id, @RequestBody @Valid UserChangePasswordForm userChangePasswordForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<UserChangePasswordForm> changePassword(@PathVariable Long id, @RequestBody @Valid UserChangePasswordForm userChangePasswordForm, BindingResult bindingResult) {
         log.debug("changePassword() - id: " + id + ", changeUserPasswordForm: " + userChangePasswordForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(userChangePasswordForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(userChangePasswordForm, formErrors);
         }
 
         UserChangePasswordForm userChangePasswordFormResult;
@@ -123,13 +123,13 @@ public abstract class AbstractUserController {
         try {
             userChangePasswordFormResult = userManagementService.changeUserPassword(userChangePasswordForm);
         } catch (UsernameNotFoundException e) {
-            List<FormErrorDto> formErrors = new ArrayList<>();
-            FormErrorDto formErrorDto = new FormErrorDto("currentPassword", "WrongPassword", "Wrong password", userChangePasswordForm.getCurrentPassword());
-            formErrors.add(formErrorDto);
-            return new FormValidationResultDto<>(userChangePasswordForm, formErrors);
+            List<FormErrorRepresentation> formErrors = new ArrayList<>();
+            FormErrorRepresentation formErrorRepresentation = new FormErrorRepresentation("currentPassword", "WrongPassword", "Wrong password", userChangePasswordForm.getCurrentPassword());
+            formErrors.add(formErrorRepresentation);
+            return new FormValidationResultRepresentation<>(userChangePasswordForm, formErrors);
         }
 
-        return new FormValidationResultDto<>(userChangePasswordFormResult);
+        return new FormValidationResultRepresentation<>(userChangePasswordFormResult);
     }
 
     @RequestMapping(value = "/selected-language/{selectedLanguage}", method = RequestMethod.PUT)

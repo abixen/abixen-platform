@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.interfaces.web.admin;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.common.interfaces.web.page.PlatformPageImpl;
 import com.abixen.platform.core.application.dto.UserDto;
@@ -63,17 +63,17 @@ public class AdminUserController extends AbstractUserController {
     }
 
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.PUT)
-    public FormValidationResultDto<UserRolesForm> updateRoles(@PathVariable("id") Long id, @RequestBody @Valid UserRolesForm userRolesForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<UserRolesForm> updateRoles(@PathVariable("id") Long id, @RequestBody @Valid UserRolesForm userRolesForm, BindingResult bindingResult) {
         log.debug("updateRoles() - id: " + id + ", userRolesForm: " + userRolesForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(userRolesForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(userRolesForm, formErrors);
         }
 
         final UserRolesForm updatedUserRolesForm = userManagementService.updateUserRoles(userRolesForm);
 
-        return new FormValidationResultDto<>(updatedUserRolesForm);
+        return new FormValidationResultRepresentation<>(updatedUserRolesForm);
     }
 
     @RequestMapping(value = "/custom/username/{username}/", method = RequestMethod.GET)

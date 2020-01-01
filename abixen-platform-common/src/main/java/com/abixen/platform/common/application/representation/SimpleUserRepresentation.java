@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.abixen.platform.common.application.dto;
+package com.abixen.platform.common.application.representation;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @ToString
-public class SimpleUserDto {
+public class SimpleUserRepresentation {
 
     private Long id;
     private String username;

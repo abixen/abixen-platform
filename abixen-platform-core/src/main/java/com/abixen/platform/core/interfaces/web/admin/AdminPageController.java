@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.interfaces.web.admin;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.PageDto;
 import com.abixen.platform.core.application.form.PageForm;
@@ -67,31 +67,31 @@ public class AdminPageController extends AbstractPageController {
 
     @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.domain.model.impl.Page', 'PAGE_ADD')")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<PageForm> create(@RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<PageForm> create(@RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("create() - pageForm: {}", pageForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(pageForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(pageForm, formErrors);
         }
 
         final PageForm pageFormResult = pageManagementService.createPage(pageForm);
 
-        return new FormValidationResultDto<>(pageFormResult);
+        return new FormValidationResultRepresentation<>(pageFormResult);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<PageForm> update(@PathVariable("id") Long id, @RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<PageForm> update(@PathVariable("id") Long id, @RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("update() - id: {}, pageForm: {}", id, pageForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(pageForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(pageForm, formErrors);
         }
 
         final PageForm pageFormResult = pageManagementService.updatePage(pageForm);
 
-        return new FormValidationResultDto<>(pageFormResult);
+        return new FormValidationResultRepresentation<>(pageFormResult);
     }
 
 }

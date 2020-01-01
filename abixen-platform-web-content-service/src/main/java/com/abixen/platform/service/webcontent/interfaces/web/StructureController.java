@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.webcontent.interfaces.web;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.service.webcontent.application.dto.StructureDto;
 import com.abixen.platform.service.webcontent.application.form.StructureForm;
@@ -46,27 +46,27 @@ public class StructureController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<StructureForm> createStructure(@RequestBody @Valid StructureForm structureForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<StructureForm> createStructure(@RequestBody @Valid StructureForm structureForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(structureForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(structureForm, formErrors);
         }
 
         structureManagementService.createStructure(structureForm);
 
-        return new FormValidationResultDto<>(structureForm);
+        return new FormValidationResultRepresentation<>(structureForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<StructureForm> updateStructure(@PathVariable("id") Long id, @RequestBody @Valid StructureForm structureForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<StructureForm> updateStructure(@PathVariable("id") Long id, @RequestBody @Valid StructureForm structureForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(structureForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(structureForm, formErrors);
         }
 
         structureManagementService.updateStructure(structureForm);
 
-        return new FormValidationResultDto<>(structureForm);
+        return new FormValidationResultRepresentation<>(structureForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.application.dto;
+package com.abixen.platform.common.application.representation;
 
 import com.abixen.platform.common.application.form.Form;
 
@@ -20,23 +20,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FormValidationResultDto<T extends Form> {
+public class FormValidationResultRepresentation<T extends Form> {
 
     private T form;
 
-    private List<FormErrorDto> formErrors;
+    private List<FormErrorRepresentation> formErrors;
 
-    public FormValidationResultDto(T form, List<FormErrorDto> formErrors) {
+    public FormValidationResultRepresentation(T form, List<FormErrorRepresentation> formErrors) {
         this.form = form;
         this.formErrors = formErrors;
     }
 
-    public FormValidationResultDto(T form) {
+    public FormValidationResultRepresentation(T form) {
         this.form = form;
         this.formErrors = new ArrayList<>();
     }
 
-    public FormValidationResultDto() {
+    public FormValidationResultRepresentation() {
     }
 
     public T getForm() {
@@ -47,11 +47,11 @@ public class FormValidationResultDto<T extends Form> {
         this.form = form;
     }
 
-    public List<FormErrorDto> getFormErrors() {
+    public List<FormErrorRepresentation> getFormErrors() {
         return formErrors;
     }
 
-    public void setFormErrors(List<FormErrorDto> formErrors) {
+    public void setFormErrors(List<FormErrorRepresentation> formErrors) {
         this.formErrors = formErrors;
     }
 

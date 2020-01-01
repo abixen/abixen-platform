@@ -15,8 +15,8 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web;
 
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataSourceDto;
@@ -72,26 +72,26 @@ public class DataSourceController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<DataSourceForm> createDataSource(@RequestBody @Valid DataSourceForm dataSourceForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<DataSourceForm> createDataSource(@RequestBody @Valid DataSourceForm dataSourceForm, BindingResult bindingResult) {
         log.debug("createDataSource() - dataSourceForm: {}, bindingResult: {}", dataSourceForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(dataSourceForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(dataSourceForm, formErrors);
         }
 
         final DataSourceForm createdDataSourceForm = dataSourceManagementService.createDataSource(dataSourceForm);
 
-        return new FormValidationResultDto<>(createdDataSourceForm);
+        return new FormValidationResultRepresentation<>(createdDataSourceForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<DataSourceForm> updateDataSource(@PathVariable("id") Long id, @RequestBody @Valid DataSourceForm dataSourceForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<DataSourceForm> updateDataSource(@PathVariable("id") Long id, @RequestBody @Valid DataSourceForm dataSourceForm, BindingResult bindingResult) {
         log.debug("updateDataSource() - dataSourceForm: {}, bindingResult: {}", dataSourceForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(dataSourceForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(dataSourceForm, formErrors);
         }
 
         //FIXME - move to domain
@@ -105,7 +105,7 @@ public class DataSourceController {
                 throw e;
             }
         }
-        return new FormValidationResultDto<>(dataSourceForm);
+        return new FormValidationResultRepresentation<>(dataSourceForm);
     }
 
     @RequestMapping(value = "/preview", method = RequestMethod.POST)
