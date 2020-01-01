@@ -113,16 +113,7 @@ If so, we are ready to do short but powerful training for you from Abixen Platfo
 After the training you will be able to develop together with us the amazing Abixen Platform.
 Just mail us **info@platform.abixen.com**. In a message please let us know, why would you like to contribute and what could you bring to the project.
 
-# How to contribute to the repository
-Contributors wanted to join Abixen Platform project have to comply with a few rules: 
-
-* A preferred IDE is IntelliJ IDEA with default formatting styles
-* Committed source code must be high quality
-* Committed source code must be formatted
-* A commit has to solve an issue from the product backlog (if missing the issue there, please add previously)
-* In order to start contribution, a contributor has to fork the project
-* Once an issue is fixed, a contributor has to create a commit to his forked repository
-* In order to merge changes to the project repository, contributor has to create a pull request with the only one commit.  
+# [How to contribute to the repository](CONTRIBUTING.md)
 
 # License
 
