@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.abixen.platform.common.application.dto;
+package com.abixen.platform.common.application.representation;
 
 
 import lombok.Getter;
@@ -24,10 +24,10 @@ import java.util.Date;
 @Getter
 @Setter
 @Accessors(chain = true)
-public abstract class SimpleAuditingDto {
+public abstract class SimpleAuditingRepresentation {
 
-    private SimpleUserDto createdBy;
+    private SimpleUserRepresentation createdBy;
     private Date createdDate;
-    private SimpleUserDto lastModifiedBy;
+    private SimpleUserRepresentation lastModifiedBy;
     private Date lastModifiedDate;
 }

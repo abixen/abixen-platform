@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.interfaces.web;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileColumnDto;
 import com.abixen.platform.service.businessintelligence.multivisualisation.application.dto.DataFileDto;
@@ -72,31 +72,31 @@ public class DataFileController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<DataFileForm> createDataFile(@RequestBody @Valid DataFileForm fileDataForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<DataFileForm> createDataFile(@RequestBody @Valid DataFileForm fileDataForm, BindingResult bindingResult) {
         log.debug("createDataFile() - fileDataForm: {}, bindingResult: {}", fileDataForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(fileDataForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(fileDataForm, formErrors);
         }
 
         final DataFileForm createdFileDataForm = dataFileManagementService.createDataFile(fileDataForm);
 
-        return new FormValidationResultDto<>(createdFileDataForm);
+        return new FormValidationResultRepresentation<>(createdFileDataForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<DataFileForm> updateDataFile(@PathVariable("id") Long id, @RequestBody @Valid DataFileForm dataFileForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<DataFileForm> updateDataFile(@PathVariable("id") Long id, @RequestBody @Valid DataFileForm dataFileForm, BindingResult bindingResult) {
         log.debug("updateDataFile() - id: {}, dataFileForm: {}, bindingResult: {}", id, dataFileForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(dataFileForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(dataFileForm, formErrors);
         }
 
         final DataFileForm updatedFileDataForm = dataFileManagementService.updateDataFile(dataFileForm);
 
-        return new FormValidationResultDto<>(updatedFileDataForm);
+        return new FormValidationResultRepresentation<>(updatedFileDataForm);
     }
 
     @RequestMapping(value = "/{id}/columns", method = RequestMethod.GET)

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.interfaces.web.application
 
-import com.abixen.platform.common.application.dto.FormValidationResultDto
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation
 import com.abixen.platform.core.AbstractPlatformIT
 import com.abixen.platform.core.application.dto.DashboardDto
 import com.abixen.platform.core.application.dto.DashboardModuleDto
@@ -126,8 +126,8 @@ class DashboardControllerIT extends AbstractPlatformIT {
         responseEntity.getStatusCode() == HttpStatus.OK
 
         final ObjectMapper mapper = new ObjectMapper();
-        final FormValidationResultDto<DashboardForm> formValidationResultDto = mapper.readValue(responseEntity.getBody(),
-                new TypeReference<FormValidationResultDto<DashboardForm>>() {
+        final FormValidationResultRepresentation<DashboardForm> formValidationResultDto = mapper.readValue(responseEntity.getBody(),
+                new TypeReference<FormValidationResultRepresentation<DashboardForm>>() {
                 });
 
         formValidationResultDto.getFormErrors().size() == 0

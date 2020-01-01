@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.interfaces.web.admin;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.LayoutDto;
 import com.abixen.platform.core.application.form.LayoutForm;
@@ -70,31 +70,31 @@ public class AdminLayoutController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<LayoutForm> create(@RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<LayoutForm> create(@RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
         log.debug("create() - layoutForm: {}", layoutForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(layoutForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(layoutForm, formErrors);
         }
 
         final LayoutForm createdLayoutForm = layoutManagementService.createLayout(layoutForm);
 
-        return new FormValidationResultDto<>(createdLayoutForm);
+        return new FormValidationResultRepresentation<>(createdLayoutForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    FormValidationResultDto<LayoutForm> update(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
+    FormValidationResultRepresentation<LayoutForm> update(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
         log.debug("update() - id: {}, layoutForm: {}", id, layoutForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(layoutForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(layoutForm, formErrors);
         }
 
         final LayoutForm updatedLayoutForm = layoutManagementService.updateLayout(layoutForm);
 
-        return new FormValidationResultDto<>(updatedLayoutForm);
+        return new FormValidationResultRepresentation<>(updatedLayoutForm);
     }
 
     @RequestMapping(value = "/{id}/icon", method = RequestMethod.POST)

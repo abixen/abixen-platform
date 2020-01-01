@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.interfaces.web.application;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
 import com.abixen.platform.common.domain.model.enumtype.PermissionName;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
@@ -58,47 +58,47 @@ public class DashboardController {
 
     @PreAuthorize("hasPermission('" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public FormValidationResultDto<DashboardForm> create(@RequestBody @Valid DashboardForm dashboardForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<DashboardForm> create(@RequestBody @Valid DashboardForm dashboardForm, BindingResult bindingResult) {
         log.debug("create() - dashboardForm: {}", dashboardForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(dashboardForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(dashboardForm, formErrors);
         }
 
         final DashboardForm cratedDashboardForm = dashboardService.create(dashboardForm);
 
-        return new FormValidationResultDto<>(cratedDashboardForm);
+        return new FormValidationResultRepresentation<>(cratedDashboardForm);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<DashboardForm> update(@PathVariable("id") Long id, @RequestBody @Valid DashboardForm dashboardForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<DashboardForm> update(@PathVariable("id") Long id, @RequestBody @Valid DashboardForm dashboardForm, BindingResult bindingResult) {
         log.debug("update() - id: {}, dashboardForm: {}", id, dashboardForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(dashboardForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(dashboardForm, formErrors);
         }
 
         final DashboardForm updatedDashboardForm = dashboardService.update(dashboardForm);
 
-        return new FormValidationResultDto<>(updatedDashboardForm);
+        return new FormValidationResultRepresentation<>(updatedDashboardForm);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_CONFIGURATION + "')")
     @RequestMapping(value = "/{id}/configure", method = RequestMethod.PUT)
-    public FormValidationResultDto<DashboardForm> configure(@PathVariable("id") Long id, @RequestBody @Valid DashboardForm dashboardForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<DashboardForm> configure(@PathVariable("id") Long id, @RequestBody @Valid DashboardForm dashboardForm, BindingResult bindingResult) {
         log.debug("configure() - id: {}, dashboardForm: {}", id, dashboardForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(dashboardForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(dashboardForm, formErrors);
         }
 
         final DashboardForm updatedDashboardForm = dashboardService.configure(dashboardForm);
 
-        return new FormValidationResultDto<>(updatedDashboardForm);
+        return new FormValidationResultRepresentation<>(updatedDashboardForm);
     }
 
 }

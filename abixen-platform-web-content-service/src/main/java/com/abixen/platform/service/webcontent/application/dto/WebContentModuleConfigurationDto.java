@@ -13,7 +13,7 @@
  */
 package com.abixen.platform.service.webcontent.application.dto;
 
-import com.abixen.platform.common.application.dto.SimpleAuditingDto;
+import com.abixen.platform.common.application.representation.SimpleAuditingRepresentation;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @ToString
-public class WebContentModuleConfigurationDto extends SimpleAuditingDto {
+public class WebContentModuleConfigurationDto extends SimpleAuditingRepresentation {
 
     private Long id;
     private Long moduleId;

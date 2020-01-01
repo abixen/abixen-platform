@@ -14,45 +14,20 @@
 
 package com.abixen.platform.core.interfaces;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.core.application.dto.ModuleCommentDto;
-import com.abixen.platform.core.application.form.CommentForm;
-import com.abixen.platform.core.application.service.CommentManagementService;
-import com.abixen.platform.core.domain.model.Comment;
-import com.abixen.platform.core.domain.model.Module;
-import com.abixen.platform.core.interfaces.web.application.CommentController;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
-import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @Ignore
@@ -129,8 +104,8 @@ public class CommentControllerTest {
         JSONObject jsonObject = new JSONObject(commentsResponse.getResponse().getContentAsString());
 
         CommentForm resForm = mapper.readValue(jsonObject.get("form").toString(), CommentForm.class);
-        List<FormErrorDto> validErrors = mapper.readValue(jsonObject.get("formErrors").toString(),
-                mapper.getTypeFactory().constructCollectionType(ArrayList.class, FormErrorDto.class));
+        List<FormErrorRepresentation> validErrors = mapper.readValue(jsonObject.get("formErrors").toString(),
+                mapper.getTypeFactory().constructCollectionType(ArrayList.class, FormErrorRepresentation.class));
         assertNotNull(resForm);
         assertFalse(validErrors.isEmpty());
         assertTrue(resForm.getId() == null);
@@ -159,8 +134,8 @@ public class CommentControllerTest {
         JSONObject jsonObject = new JSONObject(commentsResponse.getResponse().getContentAsString());
 
         CommentForm resForm = mapper.readValue(jsonObject.get("form").toString(), CommentForm.class);
-        List<FormErrorDto> validErrors = mapper.readValue(jsonObject.get("formErrors").toString(),
-                mapper.getTypeFactory().constructCollectionType(ArrayList.class, FormErrorDto.class));
+        List<FormErrorRepresentation> validErrors = mapper.readValue(jsonObject.get("formErrors").toString(),
+                mapper.getTypeFactory().constructCollectionType(ArrayList.class, FormErrorRepresentation.class));
         assertNotNull(resForm);
         assertFalse(validErrors.isEmpty());
         assertEquals(resForm.getMessage(), "Test Text");

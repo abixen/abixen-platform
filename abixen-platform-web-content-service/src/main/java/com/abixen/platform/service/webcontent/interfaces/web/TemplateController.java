@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.webcontent.interfaces.web;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.service.webcontent.application.dto.TemplateDto;
 import com.abixen.platform.service.webcontent.application.form.TemplateForm;
@@ -46,27 +46,27 @@ public class TemplateController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<TemplateForm> createTemplate(@RequestBody @Valid TemplateForm templateForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<TemplateForm> createTemplate(@RequestBody @Valid TemplateForm templateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(templateForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(templateForm, formErrors);
         }
 
         templateManagementService.createTemplate(templateForm);
 
-        return new FormValidationResultDto<>(templateForm);
+        return new FormValidationResultRepresentation<>(templateForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<TemplateForm> updateTemplate(@PathVariable("id") Long id, @RequestBody @Valid TemplateForm templateForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<TemplateForm> updateTemplate(@PathVariable("id") Long id, @RequestBody @Valid TemplateForm templateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(templateForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(templateForm, formErrors);
         }
 
         templateManagementService.updateTemplate(templateForm);
 
-        return new FormValidationResultDto<>(templateForm);
+        return new FormValidationResultRepresentation<>(templateForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

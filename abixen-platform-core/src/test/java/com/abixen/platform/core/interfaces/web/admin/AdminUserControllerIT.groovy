@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.interfaces.web.admin
 
-import com.abixen.platform.common.application.dto.FormValidationResultDto
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation
 import com.abixen.platform.common.domain.model.enumtype.RoleType
 import com.abixen.platform.common.interfaces.web.page.PlatformPageImpl
 import com.abixen.platform.core.AbstractPlatformIT
@@ -115,8 +115,8 @@ class AdminUserControllerIT extends AbstractPlatformIT {
         responseEntity.getStatusCode() == HttpStatus.OK
 
         final ObjectMapper mapper = new ObjectMapper()
-        final FormValidationResultDto<UserRolesForm> formValidationResultDto = mapper.readValue(responseEntity.getBody(),
-                new TypeReference<FormValidationResultDto<UserRolesForm>>() {
+        final FormValidationResultRepresentation<UserRolesForm> formValidationResultDto = mapper.readValue(responseEntity.getBody(),
+                new TypeReference<FormValidationResultRepresentation<UserRolesForm>>() {
                 })
 
         formValidationResultDto.getFormErrors().size() == 0

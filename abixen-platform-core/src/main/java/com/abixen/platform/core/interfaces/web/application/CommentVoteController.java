@@ -15,8 +15,8 @@
 package com.abixen.platform.core.interfaces.web.application;
 
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.core.application.form.CommentVoteForm;
 import com.abixen.platform.core.application.service.CommentVoteManagementService;
@@ -45,17 +45,17 @@ public class CommentVoteController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<CommentVoteForm> createCommentVote(@RequestBody @Valid CommentVoteForm commentVoteForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<CommentVoteForm> createCommentVote(@RequestBody @Valid CommentVoteForm commentVoteForm, BindingResult bindingResult) {
         log.debug("createCommentVote() - commentVoteForm: {}", commentVoteForm);
 
         if (bindingResult.hasErrors()) {
-            final List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            final List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
 
-            return new FormValidationResultDto<>(commentVoteForm, formErrors);
+            return new FormValidationResultRepresentation<>(commentVoteForm, formErrors);
         }
         final CommentVoteForm createdForm = commentVoteManagementService.createCommentVote(commentVoteForm);
 
-        return new FormValidationResultDto<>(createdForm);
+        return new FormValidationResultRepresentation<>(createdForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -14,8 +14,8 @@
 
 package com.abixen.platform.service.webcontent.interfaces.web;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.service.webcontent.application.dto.WebContentDto;
 import com.abixen.platform.service.webcontent.application.form.WebContentForm;
@@ -53,30 +53,30 @@ public class ControlPanelWebContentController extends AbstractWebContentControll
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<WebContentForm> createWebContent(@RequestBody @Valid WebContentForm simpleWebContentForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<WebContentForm> createWebContent(@RequestBody @Valid WebContentForm simpleWebContentForm, BindingResult bindingResult) {
         log.debug("createSimpleWebContentForm() - simpleWebContentForm: {}", simpleWebContentForm);
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(simpleWebContentForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(simpleWebContentForm, formErrors);
         }
 
         webContentManagementService.createWebContent(simpleWebContentForm);
 
-        return new FormValidationResultDto<>(simpleWebContentForm);
+        return new FormValidationResultRepresentation<>(simpleWebContentForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<WebContentForm> updateWebContent(@PathVariable("id") Long id, @RequestBody @Valid WebContentForm simpleWebContentForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<WebContentForm> updateWebContent(@PathVariable("id") Long id, @RequestBody @Valid WebContentForm simpleWebContentForm, BindingResult bindingResult) {
         log.debug("updateSimpleWebContent() - id: {}, simpleWebContentForm: {}", id, simpleWebContentForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(simpleWebContentForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(simpleWebContentForm, formErrors);
         }
 
         webContentManagementService.updateWebContent(simpleWebContentForm);
 
-        return new FormValidationResultDto<>(simpleWebContentForm);
+        return new FormValidationResultRepresentation<>(simpleWebContentForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -14,42 +14,16 @@
 
 package com.abixen.platform.core.interfaces;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.domain.model.enumtype.CommentVoteType;
-import com.abixen.platform.core.application.dto.CommentDto;
-import com.abixen.platform.core.application.dto.CommentVoteDto;
-import com.abixen.platform.core.application.form.CommentVoteForm;
-import com.abixen.platform.core.application.service.CommentVoteManagementService;
-import com.abixen.platform.core.interfaces.web.application.CommentVoteController;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
-import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Ignore
 @WebAppConfiguration
@@ -138,8 +112,8 @@ public class CommentVoteControllerTest {
         JSONObject jsonObject = new JSONObject(commentsResponse.getResponse().getContentAsString());
 
         CommentVoteForm resForm = mapper.readValue(jsonObject.get("form").toString(), CommentVoteForm.class);
-        List<FormErrorDto> validErrors = mapper.readValue(jsonObject.get("formErrors").toString(),
-                mapper.getTypeFactory().constructCollectionType(ArrayList.class, FormErrorDto.class));
+        List<FormErrorRepresentation> validErrors = mapper.readValue(jsonObject.get("formErrors").toString(),
+                mapper.getTypeFactory().constructCollectionType(ArrayList.class, FormErrorRepresentation.class));
         assertNotNull(resForm);
         assertTrue(validErrors.isEmpty());
         assertTrue(resForm.getCommentVoteType().equals(CommentVoteType.POSITIVE));

@@ -12,28 +12,28 @@
  * details.
  */
 
-package com.abixen.platform.common.application.dto;
+package com.abixen.platform.common.application.representation;
 
 import org.springframework.validation.FieldError;
 
-public class FormErrorDto {
+public class FormErrorRepresentation {
 
     private String field;
     private String code;
     private String message;
     private Object rejectedValue;
 
-    public FormErrorDto() {
+    public FormErrorRepresentation() {
     }
 
-    public FormErrorDto(FieldError fieldError) {
+    public FormErrorRepresentation(FieldError fieldError) {
         this.field = fieldError.getField();
         this.code = fieldError.getCode();
         this.message = fieldError.getDefaultMessage();
         this.rejectedValue = fieldError.getRejectedValue();
     }
 
-    public FormErrorDto(String field, String code, String message, Object rejectedValue) {
+    public FormErrorRepresentation(String field, String code, String message, Object rejectedValue) {
         this.field = field;
         this.code = code;
         this.message = message;

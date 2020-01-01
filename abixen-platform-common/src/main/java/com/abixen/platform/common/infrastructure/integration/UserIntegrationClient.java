@@ -14,7 +14,7 @@
 
 package com.abixen.platform.common.infrastructure.integration;
 
-import com.abixen.platform.common.application.dto.SimpleUserDto;
+import com.abixen.platform.common.application.representation.SimpleUserRepresentation;
 import com.abixen.platform.common.interfaces.client.UserClient;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
@@ -33,11 +33,11 @@ public class UserIntegrationClient {
     }
 
     @HystrixCommand(fallbackMethod = "getUserByIdFallback")
-    public SimpleUserDto getUserById(Long id) {
+    public SimpleUserRepresentation getUserById(Long id) {
         return userClient.getUserById(id);
     }
 
-    private SimpleUserDto getUserByIdFallback(Long id) {
+    private SimpleUserRepresentation getUserByIdFallback(Long id) {
         log.error("getUserByIdFallback: {}", id);
         return null;
     }

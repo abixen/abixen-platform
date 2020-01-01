@@ -14,8 +14,8 @@
 
 package com.abixen.platform.core.interfaces.web.admin;
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.ModuleDto;
 import com.abixen.platform.core.application.form.ModuleForm;
@@ -62,17 +62,17 @@ public class ModuleController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<ModuleForm> updateM(@PathVariable("id") Long id, @RequestBody @Valid ModuleForm moduleForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<ModuleForm> updateM(@PathVariable("id") Long id, @RequestBody @Valid ModuleForm moduleForm, BindingResult bindingResult) {
         log.debug("update() - id: {}, moduleForm: {}", id, moduleForm);
 
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(moduleForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(moduleForm, formErrors);
         }
 
         final ModuleForm updatedModuleForm = moduleManagementService.updateModule(moduleForm);
 
-        return new FormValidationResultDto<>(updatedModuleForm);
+        return new FormValidationResultRepresentation<>(updatedModuleForm);
     }
 
 }

@@ -15,8 +15,8 @@
 package com.abixen.platform.core.interfaces.web.application;
 
 
-import com.abixen.platform.common.application.dto.FormErrorDto;
-import com.abixen.platform.common.application.dto.FormValidationResultDto;
+import com.abixen.platform.common.application.representation.FormErrorRepresentation;
+import com.abixen.platform.common.application.representation.FormValidationResultRepresentation;
 import com.abixen.platform.common.infrastructure.util.ValidationUtil;
 import com.abixen.platform.core.application.dto.ModuleCommentDto;
 import com.abixen.platform.core.application.form.CommentForm;
@@ -54,27 +54,27 @@ public class CommentController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public FormValidationResultDto<CommentForm> createComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<CommentForm> createComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(commentForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(commentForm, formErrors);
         }
 
         final CommentForm createdCommentForm = commentManagementService.createComment(commentForm);
 
-        return new FormValidationResultDto<>(createdCommentForm);
+        return new FormValidationResultRepresentation<>(createdCommentForm);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public FormValidationResultDto<CommentForm> updateComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
+    public FormValidationResultRepresentation<CommentForm> updateComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
-            return new FormValidationResultDto<>(commentForm, formErrors);
+            List<FormErrorRepresentation> formErrors = ValidationUtil.extractFormErrors(bindingResult);
+            return new FormValidationResultRepresentation<>(commentForm, formErrors);
         }
 
         final CommentForm updatedCommentForm = commentManagementService.updateComment(commentForm);
 
-        return new FormValidationResultDto<>(updatedCommentForm);
+        return new FormValidationResultRepresentation<>(updatedCommentForm);
     }
 
     //@PreAuthorize("hasPermission(#id, 'com.abixen.platform.core.domain.model.impl.Module', 'PAGE_DELETE')")

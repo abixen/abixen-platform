@@ -13,7 +13,7 @@
  */
 package com.abixen.platform.service.webcontent.application.dto;
 
-import com.abixen.platform.common.application.dto.SimpleAuditingDto;
+import com.abixen.platform.common.application.representation.SimpleAuditingRepresentation;
 import com.abixen.platform.service.webcontent.domain.model.WebContentType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -29,7 +29,7 @@ import lombok.experimental.Accessors;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "classType")
 @JsonSubTypes({@JsonSubTypes.Type(value = SimpleWebContentDto.class, name = "SIMPLE"),
         @JsonSubTypes.Type(value = AdvancedWebContentDto.class, name = "ADVANCED")})
-public class WebContentDto extends SimpleAuditingDto {
+public class WebContentDto extends SimpleAuditingRepresentation {
 
     protected Long id;
     protected WebContentType type;
