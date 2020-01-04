@@ -89,11 +89,6 @@ public final class DataFileColumn extends DataColumn {
         }
 
         @Override
-        public DataFileColumn build() {
-            return (DataFileColumn) super.build();
-        }
-
-        @Override
         protected void initProduct() {
             this.product = new DataFileColumn();
         }
