@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.infrastructure.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.DataValueType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -122,7 +122,7 @@ public final class DataSourceColumn implements Serializable {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<DataSourceColumn> {
+    public static final class Builder extends AbstractBuilder<DataSourceColumn> {
 
         private Builder() {
         }

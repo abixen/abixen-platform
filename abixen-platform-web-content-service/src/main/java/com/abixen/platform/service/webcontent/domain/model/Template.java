@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 
 import javax.persistence.Column;
@@ -89,7 +89,7 @@ public final class Template extends SimpleAuditingModel implements Serializable 
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<Template> {
+    public static final class Builder extends AbstractBuilder<Template> {
 
         private Builder() {
         }

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -151,7 +151,7 @@ public final class Module extends AuditingModel implements SecurableModel {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<Module> {
+    public static final class Builder extends AbstractBuilder<Module> {
 
         private Builder() {
         }

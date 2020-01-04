@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -96,7 +96,7 @@ public final class AclEntry extends AuditingModel {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<AclEntry> {
+    public static final class Builder extends AbstractBuilder<AclEntry> {
 
         private Builder() {
         }

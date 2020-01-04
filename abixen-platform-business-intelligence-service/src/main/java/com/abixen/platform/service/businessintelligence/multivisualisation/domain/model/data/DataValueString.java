@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
@@ -52,7 +52,7 @@ public final class DataValueString extends DataValue<String> {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<DataValueString> {
+    public static final class Builder extends AbstractBuilder<DataValueString> {
 
         private Builder() {
         }

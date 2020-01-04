@@ -15,7 +15,7 @@
 package com.abixen.platform.service.webcontent.domain.model;
 
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,7 +53,7 @@ public final class AdvancedWebContent extends WebContent implements Serializable
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<AdvancedWebContent> {
+    public static final class Builder extends AbstractBuilder<AdvancedWebContent> {
 
         private Builder() {
             this.product.setType(WebContentType.ADVANCED);

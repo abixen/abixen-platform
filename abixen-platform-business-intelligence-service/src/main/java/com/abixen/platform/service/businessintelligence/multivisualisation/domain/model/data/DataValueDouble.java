@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,7 +48,7 @@ public final class DataValueDouble extends DataValue<Double> {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<DataValueDouble> {
+    public static final class Builder extends AbstractBuilder<DataValueDouble> {
 
         private Builder() {
         }

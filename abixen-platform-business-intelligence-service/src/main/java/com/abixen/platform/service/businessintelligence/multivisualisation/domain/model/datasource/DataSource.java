@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 import com.abixen.platform.common.infrastructure.util.ModelKeys;
 
@@ -145,7 +145,7 @@ public class DataSource extends SimpleAuditingModel implements Serializable {
         setColumns(columns);
     }
 
-    public static class Builder extends EntityBuilder<DataSource> {
+    public static class Builder extends AbstractBuilder<DataSource> {
 
         protected Builder() {
         }

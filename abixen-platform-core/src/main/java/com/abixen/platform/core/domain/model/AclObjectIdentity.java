@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.Model;
 
 import javax.persistence.Column;
@@ -86,7 +86,7 @@ public final class AclObjectIdentity extends Model {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<AclObjectIdentity> {
+    public static final class Builder extends AbstractBuilder<AclObjectIdentity> {
 
         @Override
         protected void initProduct() {

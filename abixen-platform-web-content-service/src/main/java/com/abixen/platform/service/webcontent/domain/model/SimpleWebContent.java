@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.webcontent.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,7 +30,7 @@ public final class SimpleWebContent extends WebContent implements Serializable {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<SimpleWebContent> {
+    public static final class Builder extends AbstractBuilder<SimpleWebContent> {
 
         private Builder() {
             this.product.setType(WebContentType.SIMPLE);

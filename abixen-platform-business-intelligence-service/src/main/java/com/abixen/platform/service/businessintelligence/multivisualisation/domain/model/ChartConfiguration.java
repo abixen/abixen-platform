@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.datasource.DataSource;
 
@@ -161,7 +161,7 @@ public final class ChartConfiguration extends SimpleAuditingModel implements Ser
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<ChartConfiguration> {
+    public static final class Builder extends AbstractBuilder<ChartConfiguration> {
 
         private Builder() {
         }

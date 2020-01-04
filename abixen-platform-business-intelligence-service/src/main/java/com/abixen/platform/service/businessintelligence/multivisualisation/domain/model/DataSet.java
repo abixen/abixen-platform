@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.Model;
 
 import javax.persistence.CascadeType;
@@ -104,7 +104,7 @@ public final class DataSet extends Model {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<DataSet> {
+    public static final class Builder extends AbstractBuilder<DataSet> {
 
         private Builder() {
         }

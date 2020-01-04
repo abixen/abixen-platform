@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.connection;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 import com.abixen.platform.common.infrastructure.util.ModelKeys;
 import com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.util.ConnectionPasswordConverter;
@@ -193,7 +193,7 @@ public final class DatabaseConnection extends SimpleAuditingModel implements Ser
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<DatabaseConnection> {
+    public static final class Builder extends AbstractBuilder<DatabaseConnection> {
 
         private Builder() {
         }
