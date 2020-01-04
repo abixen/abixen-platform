@@ -108,11 +108,6 @@ public final class DataSetSeriesColumn implements Serializable {
         }
 
         @Override
-        public DataSetSeriesColumn build() {
-            return super.build();
-        }
-
-        @Override
         protected void initProduct() {
             this.product = new DataSetSeriesColumn();
         }

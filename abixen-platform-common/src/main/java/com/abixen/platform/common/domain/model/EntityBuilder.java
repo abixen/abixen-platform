@@ -15,19 +15,21 @@
 package com.abixen.platform.common.domain.model;
 
 
-
 public abstract class EntityBuilder<T> {
 
     protected T product;
 
-    {
+    public EntityBuilder() {
         initProduct();
     }
 
-    public T build() {
-        T product = assembleProduct();
-        T temp = product;
-        initProduct();
+    public final T build() {
+        final T temp = assembleProduct();
+        if (temp == null) {
+            throw new IllegalStateException("Only single build() call is allowed");
+        }
+        this.product = null;
+
         return temp;
     }
 
