@@ -24,15 +24,30 @@
         <postgresql.version>9.3-1102-jdbc4</postgresql.version>
         <spring-session.version>1.2.2.RELEASE</spring-session.version>
         <spring.cloud.contract.version>1.1.3.RELEASE</spring.cloud.contract.version>
+        <spring.security.acl.version>3.2.7.RELEASE</spring.security.acl.version>
+        <spring.retry.version>1.1.4.RELEASE</spring.retry.version>
         <start-class>com.abixen.platform.core.CoreApplication</start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen</docker.image.prefix>
         <log4j2.version>2.5</log4j2.version>
         <spock.version>1.1-groovy-2.4</spock.version>
         <cglib.version>3.2.5</cglib.version>
+        <ehcache.version>2.10.0</ehcache.version>
+        <h2.version>1.4.182</h2.version>
+        <opencsv.version>3.3</opencsv.version>
+        <netflix.feign.version>8.11.0</netflix.feign.version>
+        <javax.ws.rs-api.version>2.0</javax.ws.rs-api.version>
+        <commons.dbcp.version>1.4</commons.dbcp.version>
+        <jsoup.version>1.8.2</jsoup.version>
+        <gson.version>2.3.1</gson.version>
+        <commons-io.version>2.4</commons-io.version>
         <gmavenplus.version>1.5</gmavenplus.version>
+        <lombok.version>1.16.6</lombok.version>
+        <log4j-slf4j-imp.version>2.0.1</log4j-slf4j-imp.version>
+        <log4jdbc-log4j2-jdbc4.1.version>1.16</log4jdbc-log4j2-jdbc4.1.version>
         <maven.failsafe.version>2.18.1</maven.failsafe.version>
         <maven.surefire.version>2.20</maven.surefire.version>
+        <spring-boot-maven-plugin.version>1.5.7.RELEASE</spring-boot-maven-plugin.version>
         <liquibase.version>3.5.3</liquibase.version>
     </properties>
 
@@ -161,13 +176,13 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-acl</artifactId>
-            <version>3.2.7.RELEASE</version>
+            <version>${spring.security.acl.version}</version>
         </dependency>
 
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>2.10.0</version>
+            <version>${ehcache.version}</version>
         </dependency>
 
         <dependency>
@@ -179,7 +194,7 @@
         <dependency>
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>
-            <version>1.1.4.RELEASE</version>
+            <version>${spring.retry.version}</version>
         </dependency>
 
         <!-- Databases -->
@@ -191,49 +206,49 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.182</version>
+            <version>${h2.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
+            <version>${commons.dbcp.version}</version>
         </dependency>
 
         <!-- CSV files reader -->
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
-            <version>3.3</version>
+            <version>${opencsv.version}</version>
         </dependency>
 
         <!-- Database logger -->
         <dependency>
             <groupId>org.bgee.log4jdbc-log4j2</groupId>
             <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-            <version>1.16</version>
+            <version>${log4jdbc-log4j2-jdbc4.1.version}</version>
         </dependency>
 
         <!-- Jsoup HTML parser -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.8.2</version>
+            <version>${jsoup.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.3.1</version>
+            <version>${gson.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.4</version>
+            <version>${commons-io.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.6</version>
+            <version>${lombok.version}</version>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
@@ -244,17 +259,17 @@
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-jaxrs</artifactId>
-            <version>8.11.0</version>
+            <version>${netflix.feign.version}</version>
         </dependency>
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-jackson</artifactId>
-            <version>8.11.0</version>
+            <version>${netflix.feign.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0</version>
+            <version>${javax.ws.rs-api.version}</version>
         </dependency>
         <!-- Logger -->
         <dependency>
@@ -271,7 +286,7 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.0.1</version>
+            <version>${log4j-slf4j-imp.version}</version>
         </dependency>
 
         <!-- Tests -->
@@ -300,7 +315,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.5.7.RELEASE</version>
+                <version>${spring-boot-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
