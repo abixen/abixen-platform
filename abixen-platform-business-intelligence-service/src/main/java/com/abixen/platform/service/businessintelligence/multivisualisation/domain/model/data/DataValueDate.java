@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,7 +52,7 @@ public final class DataValueDate extends DataValue<Date> {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<DataValueDate> {
+    public static final class Builder extends AbstractBuilder<DataValueDate> {
 
         private Builder() {
         }

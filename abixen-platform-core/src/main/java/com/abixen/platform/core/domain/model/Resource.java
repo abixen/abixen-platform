@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.enumtype.ResourcePage;
 import com.abixen.platform.common.domain.model.enumtype.ResourcePageLocation;
 import com.abixen.platform.common.domain.model.enumtype.ResourceType;
@@ -126,7 +126,7 @@ public final class Resource extends AuditingModel {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<Resource> {
+    public static final class Builder extends AbstractBuilder<Resource> {
 
         @Override
         protected void initProduct() {

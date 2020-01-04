@@ -15,7 +15,7 @@
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.file;
 
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.audit.SimpleAuditingModel;
 import com.abixen.platform.common.infrastructure.util.ModelKeys;
 
@@ -106,7 +106,7 @@ public final class DataFile extends SimpleAuditingModel implements Serializable 
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<DataFile> {
+    public static final class Builder extends AbstractBuilder<DataFile> {
 
         private Builder() {
         }

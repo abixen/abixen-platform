@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model.data;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.infrastructure.util.ModelKeys;
 
 import javax.persistence.CascadeType;
@@ -110,7 +110,7 @@ public class DataColumn {
         return new Builder();
     }
 
-    public static class Builder extends EntityBuilder<DataColumn> {
+    public static class Builder extends AbstractBuilder<DataColumn> {
 
         protected Builder() {
         }

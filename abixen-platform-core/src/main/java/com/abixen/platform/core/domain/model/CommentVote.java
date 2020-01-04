@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.enumtype.CommentVoteType;
 
 import javax.persistence.Column;
@@ -84,7 +84,7 @@ public final class CommentVote extends AuditingModel {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<CommentVote> {
+    public static final class Builder extends AbstractBuilder<CommentVote> {
 
         private Builder() {
         }

@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.enumtype.UserGender;
 import com.abixen.platform.common.domain.model.enumtype.UserLanguage;
 import com.abixen.platform.common.domain.model.enumtype.UserState;
@@ -327,7 +327,7 @@ public final class User extends AuditingModel {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<User> {
+    public static final class Builder extends AbstractBuilder<User> {
 
         private Builder() {
         }

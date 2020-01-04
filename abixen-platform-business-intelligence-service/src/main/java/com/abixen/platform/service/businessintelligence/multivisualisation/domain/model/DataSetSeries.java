@@ -14,7 +14,7 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.infrastructure.util.ModelKeys;
 
 import javax.persistence.CascadeType;
@@ -118,7 +118,7 @@ public final class DataSetSeries implements Serializable {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<DataSetSeries> {
+    public static final class Builder extends AbstractBuilder<DataSetSeries> {
 
         private Builder() {
         }

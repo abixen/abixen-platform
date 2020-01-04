@@ -15,11 +15,11 @@
 package com.abixen.platform.common.domain.model;
 
 
-public abstract class EntityBuilder<T> {
+public abstract class AbstractBuilder<T> {
 
     protected T product;
 
-    public EntityBuilder() {
+    public AbstractBuilder() {
         initProduct();
     }
 

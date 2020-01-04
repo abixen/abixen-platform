@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.Model;
 import com.abixen.platform.common.domain.model.enumtype.AclSidType;
 
@@ -87,7 +87,7 @@ public final class AclSid extends Model {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<AclSid> {
+    public static final class Builder extends AbstractBuilder<AclSid> {
 
         private Builder() {
         }

@@ -15,7 +15,7 @@
 package com.abixen.platform.core.domain.model;
 
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import com.abixen.platform.common.domain.model.enumtype.RoleType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -112,7 +112,7 @@ public final class Role extends AuditingModel {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<Role> {
+    public static final class Builder extends AbstractBuilder<Role> {
 
         private Builder() {
         }

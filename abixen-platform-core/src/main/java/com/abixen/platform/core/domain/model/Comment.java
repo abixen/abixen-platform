@@ -14,7 +14,7 @@
 
 package com.abixen.platform.core.domain.model;
 
-import com.abixen.platform.common.domain.model.EntityBuilder;
+import com.abixen.platform.common.domain.model.AbstractBuilder;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.CascadeType;
@@ -116,7 +116,7 @@ public final class Comment extends AuditingModel {
         return new Builder();
     }
 
-    public static final class Builder extends EntityBuilder<Comment> {
+    public static final class Builder extends AbstractBuilder<Comment> {
 
         private Builder() {
         }
