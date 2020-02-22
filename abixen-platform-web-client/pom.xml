@@ -26,7 +26,7 @@
         <docker.image.prefix>abixen</docker.image.prefix>
         <log4j2.version>2.5</log4j2.version>
         <log4j-slf4j-version>2.0.1</log4j-slf4j-version>
-        <lombok-version>1.16.6</lombok-version>
+        <lombok-version>1.18.12</lombok-version>
     </properties>
 
 

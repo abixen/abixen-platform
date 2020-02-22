@@ -42,13 +42,14 @@
         <gson.version>2.3.1</gson.version>
         <commons-io.version>2.4</commons-io.version>
         <gmavenplus.version>1.5</gmavenplus.version>
-        <lombok.version>1.16.6</lombok.version>
+        <lombok.version>1.18.12</lombok.version>
         <log4j-slf4j-imp.version>2.0.1</log4j-slf4j-imp.version>
         <log4jdbc-log4j2-jdbc4.1.version>1.16</log4jdbc-log4j2-jdbc4.1.version>
         <maven.failsafe.version>2.18.1</maven.failsafe.version>
         <maven.surefire.version>2.20</maven.surefire.version>
         <spring-boot-maven-plugin.version>1.5.7.RELEASE</spring-boot-maven-plugin.version>
         <liquibase.version>3.5.3</liquibase.version>
+        <jaxb.version>2.3.1</jaxb.version>
     </properties>
 
     <dependencyManagement>
@@ -287,6 +288,18 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>${log4j-slf4j-imp.version}</version>
+        </dependency>
+
+        <!-- XML -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.version}</version>
         </dependency>
 
         <!-- Tests -->
