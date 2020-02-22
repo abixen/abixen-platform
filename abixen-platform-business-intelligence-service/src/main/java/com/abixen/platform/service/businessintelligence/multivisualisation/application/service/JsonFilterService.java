@@ -48,30 +48,30 @@ public class JsonFilterService {
     }
 
     protected String convertJsonToJpqlRecursive(Map<String, Object> jsonCriteriaMap, List<Object> parameters, Map<String, String> typeMapping) {
-        String query = "(";
+        StringBuilder query = new StringBuilder("(");
         int conditionArgumentNumber = 0;
         String currentOperator = "";
         for (String key : jsonCriteriaMap.keySet()) {
             if (key.equals("group")) {
-                query = query.substring(0, query.length() - 1);
-                query += convertJsonToJpqlRecursive((Map<String, Object>) jsonCriteriaMap.get(key), parameters, typeMapping);
-                query = query.substring(0, query.length() - 1);
+                query = new StringBuilder(query.substring(0, query.length() - 1));
+                query.append(convertJsonToJpqlRecursive((Map<String, Object>) jsonCriteriaMap.get(key), parameters, typeMapping));
+                query = new StringBuilder(query.substring(0, query.length() - 1));
             } else {
                 if (key.equals("operator")) {
                     currentOperator = jsonCriteriaMap.get(key).toString().toUpperCase();
                 } else if (key.equals("rules")) {
                     for (Object criteriaObject : (List) jsonCriteriaMap.get(key)) {
                         if (conditionArgumentNumber > 0) {
-                            query += currentOperator + " ";
+                            query.append(currentOperator).append(" ");
                         }
                         if (criteriaObject instanceof Map) {
                             Map<String, Object> criteriaMap = (Map<String, Object>) criteriaObject;
                             if (criteriaMap.keySet().contains("group")) {
-                                query += convertJsonToJpqlRecursive(criteriaMap, parameters, typeMapping);
+                                query.append(convertJsonToJpqlRecursive(criteriaMap, parameters, typeMapping));
                             } else {
                                 if (criteriaMap.get("field") != null && criteriaMap.get("condition") != null && criteriaMap.get("data") != null) {
                                     if (typeMapping == null) {
-                                        query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + criteriaMap.get("data") + " ";
+                                        query.append(criteriaMap.get("field").toString()).append(" ").append(criteriaMap.get("condition")).append(" ").append(criteriaMap.get("data")).append(" ");
                                     } else {
                                         String fieldTypeName = typeMapping.get(criteriaMap.get("field").toString().toUpperCase());
                                         String data = "";
@@ -80,7 +80,7 @@ public class JsonFilterService {
                                         } else {
                                             data = prepareDataSection(DataValueType.valueOf(fieldTypeName), criteriaMap.get("data").toString());
                                         }
-                                        query += criteriaMap.get("field").toString() + " " + criteriaMap.get("condition") + " " + data + " ";
+                                        query.append(criteriaMap.get("field").toString()).append(" ").append(criteriaMap.get("condition")).append(" ").append(data).append(" ");
                                     }
                                 }
                             }
@@ -88,13 +88,14 @@ public class JsonFilterService {
                         conditionArgumentNumber++;
                     }
                     if (query.substring(query.length() - 1, query.length()).equals(" ")) {
-                        query = query.substring(0, query.length() - 1);
+                        query = new StringBuilder(query.substring(0, query.length() - 1));
                     }
                 }
             }
         }
-        query += ")";
-        return query;
+        query.append(")");
+
+        return query.toString();
     }
 
     private String prepareDataSection(DataValueType dataValueType, String data) {
