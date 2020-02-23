@@ -34,7 +34,7 @@ public abstract class AbstractPageController {
     }
 
 
-    @PreAuthorize("hasPermission(#id, 'com.abixen.platform.core.domain.model.impl.Page', 'PAGE_DELETE')")
+    @PreAuthorize("hasPermission(#id, 'com.abixen.platform.core.domain.model.Page', 'PAGE_DELETE')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> delete(@PathVariable("id") long id) {
         log.debug("delete() - id: {}", id);
