@@ -24,6 +24,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <start-class>com.abixen.platform.eureka.PlatformEurekaApplication</start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
+        <jaxb.version>2.3.1</jaxb.version>
         <docker.image.prefix>abixen</docker.image.prefix>
     </properties>
 
@@ -43,6 +44,18 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka-server</artifactId>
+        </dependency>
+
+        <!-- XML -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.version}</version>
         </dependency>
     </dependencies>
 
