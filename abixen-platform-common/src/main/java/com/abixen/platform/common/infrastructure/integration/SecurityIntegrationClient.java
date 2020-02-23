@@ -43,8 +43,10 @@ public class SecurityIntegrationClient {
     private boolean hasPermissionFallback(String username,
                                           Long securableObjectId,
                                           AclClassName aclClassName,
-                                          String permissionName) {
-        log.error("hasPermissionFallback: {}", username);
+                                          String permissionName,
+                                          Throwable throwable) {
+        log.error("hasPermissionFallback - username: {}, securableObjectId: {}, aclClassName: {}, permissionName: {}", username, securableObjectId, aclClassName, permissionName, throwable);
+
         return false;
     }
 }
