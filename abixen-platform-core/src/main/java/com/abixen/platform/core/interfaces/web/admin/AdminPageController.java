@@ -65,7 +65,7 @@ public class AdminPageController extends AbstractPageController {
         return pageManagementService.findAllPages(pageable, pageSearchForm);
     }
 
-    @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.domain.model.impl.Page', 'PAGE_ADD')")
+    @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.domain.model.Page', 'PAGE_ADD')")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultRepresentation<PageForm> create(@RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("create() - pageForm: {}", pageForm);
