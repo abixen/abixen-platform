@@ -19,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+        <jaxb.version>2.3.1</jaxb.version>
         <start-class>com.abixen.platform.zipkin.PlatformZipkinApplication</start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen</docker.image.prefix>
@@ -60,6 +61,18 @@
             <groupId>org.jolokia</groupId>
             <artifactId>jolokia-core</artifactId>
          </dependency>
+
+        <!-- XML -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
