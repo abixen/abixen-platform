@@ -14,15 +14,13 @@
 
 package com.abixen.platform.service.businessintelligence.multivisualisation.application.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Set;
 
 @Getter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class DataSetDto {
