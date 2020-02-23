@@ -57,7 +57,7 @@ public class DashboardController {
     }
 
     @PreAuthorize("hasPermission('" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public FormValidationResultRepresentation<DashboardForm> create(@RequestBody @Valid DashboardForm dashboardForm, BindingResult bindingResult) {
         log.debug("create() - dashboardForm: {}", dashboardForm);
 
