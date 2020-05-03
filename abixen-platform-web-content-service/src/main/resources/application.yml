@@ -5,7 +5,7 @@ spring:
 abixen:
   platform:
     webcontent:
-      version: @project.version@
+      version: '@project.version@'
     adminSidebarItems:
       -
         name: web-content-sidebar-item

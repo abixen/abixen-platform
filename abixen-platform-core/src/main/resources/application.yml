@@ -1,7 +1,7 @@
 abixen:
   platform:
     core:
-      version: @project.version@
+      version: '@project.version@'
 spring:
   application:
     name: abixen-platform-core

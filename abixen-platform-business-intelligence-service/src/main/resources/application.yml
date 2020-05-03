@@ -5,7 +5,7 @@ spring:
 abixen:
   platform:
     businessintelligence:
-      version: @project.version@
+      version: '@project.version@'
     adminSidebarItems:
       -
         name: data-source-sidebar-item
