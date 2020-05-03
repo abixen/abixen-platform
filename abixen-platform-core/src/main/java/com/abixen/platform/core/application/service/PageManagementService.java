@@ -30,7 +30,6 @@ import com.abixen.platform.core.domain.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +60,6 @@ public class PageManagementService {
         this.pageToPageDtoConverter = pageToPageDtoConverter;
     }
 
-    @PostAuthorize("hasPermission(returnObject, '" + PermissionName.Values.PAGE_VIEW + "')")
     public PageDto findPage(Long id) {
         log.debug("findPage() - id: {}", id);
 
