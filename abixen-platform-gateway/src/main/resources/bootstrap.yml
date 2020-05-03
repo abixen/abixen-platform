@@ -8,7 +8,9 @@ logging:
       abixen:
         platform: DEBUG
 
-
+spring:
+  profiles:
+    active: dev
 ---
 
 
