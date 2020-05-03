@@ -5,7 +5,9 @@ logging:
         retry: DEBUG
     redis: DEBUG
 
-
+spring:
+  profiles:
+    active: dev
 ---
 
 
