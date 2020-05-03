@@ -5,4 +5,4 @@ spring:
 abixen:
   platform:
     webclient:
-      version: @project.version@
+      version: '@project.version@'
