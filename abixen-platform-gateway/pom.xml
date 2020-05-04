@@ -10,22 +10,13 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.7.RELEASE</version>
+        <artifactId>abixen-platform</artifactId>
+        <groupId>com.abixen</groupId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <abixen-platform-common.version>1.0-SNAPSHOT</abixen-platform-common.version>
-        <spring-session.version>1.2.2.RELEASE</spring-session.version>
-        <log4j2.version>2.5</log4j2.version>
         <start-class>com.abixen.platform.gateway.PlatformGatewayApplication</start-class>
-        <docker.plugin.version>0.4.13</docker.plugin.version>
-        <docker.image.prefix>abixen</docker.image.prefix>
-        <docker.skip>true</docker.skip>
     </properties>
 
 
