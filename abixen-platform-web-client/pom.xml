@@ -24,6 +24,7 @@
         <start-class>com.abixen.platform.client.web.PlatformWebClientApplication</start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen</docker.image.prefix>
+        <docker.skip>true</docker.skip>
         <log4j2.version>2.5</log4j2.version>
         <log4j-slf4j-version>2.0.1</log4j-slf4j-version>
         <lombok-version>1.18.12</lombok-version>
@@ -239,6 +240,7 @@
                             <include>${project.build.finalName}.war</include>
                         </resource>
                     </resources>
+                    <skipDocker>${docker.skip}</skipDocker>
                 </configuration>
             </plugin>
         </plugins>

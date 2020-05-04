@@ -26,6 +26,7 @@
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <jaxb.version>2.3.1</jaxb.version>
         <docker.image.prefix>abixen</docker.image.prefix>
+        <docker.skip>true</docker.skip>
     </properties>
 
     <dependencyManagement>
@@ -101,6 +102,7 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
+                    <skipDocker>${docker.skip}</skipDocker>
                 </configuration>
             </plugin>
         </plugins>

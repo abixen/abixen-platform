@@ -23,6 +23,7 @@
         <start-class>com.abixen.platform.hystrix.dashboard.PlatformHystrixDashboardApplication</start-class>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen</docker.image.prefix>
+        <docker.skip>true</docker.skip>
     </properties>
 
     <dependencyManagement>
@@ -128,6 +129,7 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
+                    <skipDocker>${docker.skip}</skipDocker>
                 </configuration>
             </plugin>
         </plugins>
