@@ -43,7 +43,7 @@
 		<docker.plugin.version>0.4.13</docker.plugin.version>
 		<docker.image.prefix>abixen</docker.image.prefix>
 		<docker.skip>true</docker.skip>
-		<log4j2.version>2.5</log4j2.version>
+		<log4j2.version>2.14.1</log4j2.version>
 		<spock.version>1.1-groovy-2.4</spock.version>
 		<cglib.version>3.2.5</cglib.version>
 		<ehcache.version>2.10.0</ehcache.version>
