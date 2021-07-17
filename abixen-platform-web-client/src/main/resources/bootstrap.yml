@@ -1,13 +1,7 @@
-spring:
-  view:
-    prefix: /WEB-INF/jsp/
-    suffix: .jsp
-
 logging:
   level:
     org:
-      springframework:
-        retry: DEBUG
+      springframework: TRACE
     redis: DEBUG
 
 

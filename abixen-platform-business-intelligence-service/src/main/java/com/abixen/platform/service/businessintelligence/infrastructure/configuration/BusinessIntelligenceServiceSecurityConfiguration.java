@@ -20,6 +20,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 
+@SuppressWarnings("squid:S4502")
 @EnableWebSecurity
 @Configuration
 public class BusinessIntelligenceServiceSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -27,6 +28,7 @@ public class BusinessIntelligenceServiceSecurityConfiguration extends WebSecurit
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/configuration").permitAll()
                 .antMatchers("/hystrix.stream").permitAll()

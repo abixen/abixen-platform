@@ -57,7 +57,7 @@ public class ModuleService {
     public Module find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return moduleRepository.findOne(id);
+        return moduleRepository.getById(id);
     }
 
     public List<Module> findAll(final com.abixen.platform.core.domain.model.Page page) {

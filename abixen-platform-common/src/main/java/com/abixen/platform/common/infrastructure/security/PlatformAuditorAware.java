@@ -19,11 +19,13 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Optional;
+
 
 public class PlatformAuditorAware implements AuditorAware<Long> {
 
     @Override
-    public Long getCurrentAuditor() {
+    public Optional<Long> getCurrentAuditor() {
         PlatformUser authorizedUser = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
@@ -31,9 +33,9 @@ public class PlatformAuditorAware implements AuditorAware<Long> {
         }
 
         if (authorizedUser == null) {
-            return null;
+            return Optional.empty();
         }
 
-        return authorizedUser.getId();
+        return Optional.ofNullable(authorizedUser.getId());
     }
 }

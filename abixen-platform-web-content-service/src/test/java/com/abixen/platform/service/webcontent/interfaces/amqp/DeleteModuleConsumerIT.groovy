@@ -20,6 +20,7 @@ import org.springframework.cloud.contract.stubrunner.StubTrigger
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifier
 import org.springframework.messaging.MessagingException
+import spock.lang.Ignore
 
 @AutoConfigureStubRunner
 class DeleteModuleConsumerIT extends AbstractWebContentServiceIT {
@@ -31,6 +32,7 @@ class DeleteModuleConsumerIT extends AbstractWebContentServiceIT {
     private MessageVerifier messageVerifier;
 
 
+    @Ignore
     void 'should throw an exception when consume a message with wrong module type name'() {
         when: 'message with wrong module type name is received'
         stubTrigger.trigger('positive_sent_delete_module_command')

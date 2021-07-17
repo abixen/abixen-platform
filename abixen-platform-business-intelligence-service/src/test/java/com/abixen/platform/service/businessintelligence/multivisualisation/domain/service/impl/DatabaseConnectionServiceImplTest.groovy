@@ -40,7 +40,7 @@ class DatabaseConnectionServiceImplTest extends Specification {
 
         final DatabaseConnection databaseConnection = [] as DatabaseConnection
 
-        databaseConnectionRepository.findOne(id) >> databaseConnection
+        databaseConnectionRepository.getById(id) >> databaseConnection
 
         when:
         final DatabaseConnection foundDatabaseConnection = databaseConnectionService.find(id)
@@ -49,13 +49,13 @@ class DatabaseConnectionServiceImplTest extends Specification {
         foundDatabaseConnection != null
         foundDatabaseConnection == databaseConnection
 
-        1 * databaseConnectionRepository.findOne(id) >> databaseConnection
+        1 * databaseConnectionRepository.getById(id) >> databaseConnection
         0 * _
     }
 
     void "should findAll DatabaseConnection"() {
         given:
-        final Pageable pageable = new PageRequest(0, 1)
+        final Pageable pageable = PageRequest.of(0, 1)
 
         final DatabaseConnection databaseConnection = [] as DatabaseConnection
         final Page<DatabaseConnection> databaseConnections = new PageImpl<DatabaseConnection>([databaseConnection])
@@ -140,7 +140,7 @@ class DatabaseConnectionServiceImplTest extends Specification {
         databaseConnectionService.delete(id)
 
         then:
-        1 * databaseConnectionRepository.delete(id)
+        1 * databaseConnectionRepository.deleteById(id)
         0 * _
     }
 }

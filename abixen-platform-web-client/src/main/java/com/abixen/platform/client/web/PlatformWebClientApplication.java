@@ -17,19 +17,17 @@ package com.abixen.platform.client.web;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.retry.annotation.EnableRetry;
 
 
 @EnableRetry
 @EnableZuulProxy
-@EnableEurekaClient
+@EnableDiscoveryClient
 @EnableFeignClients(basePackages = {"com.abixen.platform.client.web"})
-@EnableCircuitBreaker
 @SpringBootApplication
 public class PlatformWebClientApplication extends SpringBootServletInitializer {
 

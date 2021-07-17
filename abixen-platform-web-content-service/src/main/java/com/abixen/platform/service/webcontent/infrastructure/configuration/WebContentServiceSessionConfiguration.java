@@ -12,12 +12,24 @@
  * details.
  */
 
-package com.abixen.platform.client.web.configuration;
+package com.abixen.platform.service.webcontent.infrastructure.configuration;
 
-import com.abixen.platform.common.infrastructure.configuration.AbstractSleuthConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 
+
+@EnableRedisHttpSession
 @Configuration
-public class PlatformSleuthConfiguration extends AbstractSleuthConfiguration {
+public class WebContentServiceSessionConfiguration {
 
+    @Bean
+    public DefaultCookieSerializer cookieSerializer() {
+        final DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
+        cookieSerializer.setCookieName("SESSION");
+        cookieSerializer.setUseBase64Encoding(false);
+
+        return cookieSerializer;
+    }
 }

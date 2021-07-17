@@ -70,7 +70,7 @@ public class ModuleTypeService {
 
     public ModuleType find(Long id) {
         log.debug("find() - id: " + id);
-        return moduleTypeRepository.findOne(id);
+        return moduleTypeRepository.getById(id);
     }
 
     public List<ModuleTypeDto> findAll() {
@@ -111,7 +111,7 @@ public class ModuleTypeService {
     public void reload(Long id) {
         log.debug("reload() - id: " + id);
 
-        ModuleType moduleType = moduleTypeRepository.findOne(id);
+        ModuleType moduleType = moduleTypeRepository.getById(id);
 
         ModulesConfigurationProperties modulesConfigurationProperties = moduleConfigurationIntegrationClient.getModulesConfigurationProperties(moduleType.getServiceId());
 

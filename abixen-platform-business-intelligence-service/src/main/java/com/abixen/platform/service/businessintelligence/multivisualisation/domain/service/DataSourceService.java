@@ -42,7 +42,7 @@ public class DataSourceService {
     public DataSource find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return dataSourceRepository.findOne(id);
+        return dataSourceRepository.findById(id).orElse(null);
     }
 
     public Page<DataSource> findAll(final Pageable pageable, final DataSourceType dataSourceType) {
@@ -70,7 +70,7 @@ public class DataSourceService {
     public void delete(final Long id) {
         log.debug("delete() - id {}", id);
 
-        dataSourceRepository.delete(id);
+        dataSourceRepository.deleteById(id);
     }
 
 }

@@ -1,16 +1,11 @@
 logging:
   level:
-    org:
-      springframework:
-        retry: DEBUG
-    redis: DEBUG
-    com:
-      abixen:
-        platform: DEBUG
+    com.abixen: DEBUG
 
 spring:
   profiles:
     active: dev
+
 ---
 
 

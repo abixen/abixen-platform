@@ -15,13 +15,13 @@
 package com.abixen.platform.common.interfaces.client;
 
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-@FeignClient("abixen-platform-core")
+@FeignClient(value = "abixen-platform-core", contextId = "security")
 public interface SecurityClient {
 
     @RequestMapping(method = RequestMethod.GET,

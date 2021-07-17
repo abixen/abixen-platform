@@ -50,7 +50,7 @@ public class PageService {
     public Page find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return pageRepository.findOne(id);
+        return pageRepository.getById(id);
     }
 
     public List<Page> findAll(final User authorizedUser) {
@@ -97,7 +97,7 @@ public class PageService {
         final List<Module> pageModules = moduleService.findAll(page);
 
         moduleService.deleteAll(pageModules);
-        pageRepository.delete(id);
+        pageRepository.deleteById(id);
     }
 
 }

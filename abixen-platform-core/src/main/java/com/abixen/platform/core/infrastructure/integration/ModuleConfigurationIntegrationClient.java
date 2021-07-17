@@ -17,7 +17,6 @@ package com.abixen.platform.core.infrastructure.integration;
 import com.abixen.platform.core.interfaces.client.ModuleConfigurationService;
 import com.abixen.platform.core.interfaces.client.ModulesConfigurationProperties;
 import com.abixen.platform.core.infrastructure.exception.PlatformCoreException;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
@@ -35,7 +34,7 @@ public class ModuleConfigurationIntegrationClient {
     @Autowired(required = false)
     private DiscoveryClient discoveryClient;
 
-    @HystrixCommand(fallbackMethod = "getModulesConfigurationPropertiesFallback")
+    //@HystrixCommand(fallbackMethod = "getModulesConfigurationPropertiesFallback")
     public ModulesConfigurationProperties getModulesConfigurationProperties(String serviceName) {
         log.debug("getModulesConfigurationProperties: " + serviceName);
 

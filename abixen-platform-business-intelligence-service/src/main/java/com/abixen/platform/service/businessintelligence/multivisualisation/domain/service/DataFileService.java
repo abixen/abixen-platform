@@ -45,7 +45,7 @@ public class DataFileService {
     public DataFile find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return dataFileRepository.findOne(id);
+        return dataFileRepository.getById(id);
     }
 
     public Page<DataFile> findAll(final Pageable pageable) {
@@ -69,9 +69,9 @@ public class DataFileService {
     public void delete(final Long id) {
         log.debug("delete() - id: {}", id);
 
-        final List<FileDataSource> relatedFileDataSources = fileDataSourceService.find(dataFileRepository.findOne(id));
+        final List<FileDataSource> relatedFileDataSources = fileDataSourceService.find(dataFileRepository.getById(id));
         if (relatedFileDataSources.isEmpty()) {
-            dataFileRepository.delete(id);
+            dataFileRepository.deleteById(id);
         } else {
             throw new PlatformRuntimeException("You need to remove all data sources related to this data file");
         }

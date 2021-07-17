@@ -26,7 +26,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
@@ -50,7 +49,7 @@ public class DefaultPlatformJpaRepository<T, ID extends Serializable>
         Specification<T> searchFormSpecification = SearchFormSpecifications.getSpecification(searchForm);
         Specification<T> specification = AndSpecifications.getSpecification(searchFormSpecification, securedSpecification);
 
-        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll(Specifications.where(specification), pageable));
+        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll(Specification.where(specification), pageable));
     }
 
     public List<T> findAll(SearchForm searchForm, User user, AclClassName aclClassName, PermissionName permissionName) {
@@ -58,30 +57,30 @@ public class DefaultPlatformJpaRepository<T, ID extends Serializable>
         Specification<T> searchFormSpecification = SearchFormSpecifications.getSpecification(searchForm);
         Specification<T> specification = AndSpecifications.getSpecification(searchFormSpecification, securedSpecification);
 
-        return this.findAll(Specifications.where(specification));
+        return this.findAll(Specification.where(specification));
     }
 
     public Page<T> findAll(Pageable pageable, User user, AclClassName aclClassName, PermissionName permissionName) {
         Specification<T> securedSpecification = SecuredSpecifications.getSpecification(user, aclClassName, permissionName);
 
-        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll(Specifications.where(securedSpecification), pageable));
+        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll(Specification.where(securedSpecification), pageable));
     }
 
     public List<T> findAll(User user, AclClassName aclClassName, PermissionName permissionName) {
         Specification<T> securedSpecification = SecuredSpecifications.getSpecification(user, aclClassName, permissionName);
 
-        return this.findAll(Specifications.where(securedSpecification));
+        return this.findAll(Specification.where(securedSpecification));
     }
 
     public Page<T> findAll(Pageable pageable, SearchForm searchForm) {
         Specification<T> searchFormSpecification = SearchFormSpecifications.getSpecification(searchForm);
 
-        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll(Specifications.where(searchFormSpecification), pageable));
+        return (Page) (null == pageable ? new PageImpl(this.findAll()) : this.findAll(Specification.where(searchFormSpecification), pageable));
     }
 
     public List<T> findAll(SearchForm searchForm) {
         Specification<T> searchFormSpecification = SearchFormSpecifications.getSpecification(searchForm);
 
-        return this.findAll(Specifications.where(searchFormSpecification));
+        return this.findAll(Specification.where(searchFormSpecification));
     }
 }

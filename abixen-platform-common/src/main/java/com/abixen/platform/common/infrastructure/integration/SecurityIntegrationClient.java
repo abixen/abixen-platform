@@ -16,7 +16,6 @@ package com.abixen.platform.common.infrastructure.integration;
 
 import com.abixen.platform.common.interfaces.client.SecurityClient;
 import com.abixen.platform.common.domain.model.enumtype.AclClassName;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,21 +31,10 @@ public class SecurityIntegrationClient {
         this.securityClient = securityClient;
     }
 
-    @HystrixCommand(fallbackMethod = "hasPermissionFallback")
     public boolean hasPermission(String username,
                                  Long securableObjectId,
                                  AclClassName aclClassName,
                                  String permissionName) {
         return securityClient.hasPermission(username, securableObjectId, aclClassName, permissionName);
-    }
-
-    private boolean hasPermissionFallback(String username,
-                                          Long securableObjectId,
-                                          AclClassName aclClassName,
-                                          String permissionName,
-                                          Throwable throwable) {
-        log.error("hasPermissionFallback - username: {}, securableObjectId: {}, aclClassName: {}, permissionName: {}", username, securableObjectId, aclClassName, permissionName, throwable);
-
-        return false;
     }
 }

@@ -47,7 +47,7 @@ public class RoleService {
     public Role find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return roleRepository.findOne(id);
+        return roleRepository.getById(id);
     }
 
     public List<Role> findAll() {
@@ -81,7 +81,7 @@ public class RoleService {
         log.debug("delete() - id: {}", id);
 
         try {
-            roleRepository.delete(id);
+            roleRepository.deleteById(id);
         } catch (Throwable e) {
             e.printStackTrace();
             if (e.getCause() instanceof ConstraintViolationException) {

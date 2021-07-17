@@ -37,7 +37,7 @@ public class DataSourceColumnService {
     public DataSourceColumn find(Long id) {
         log.debug("find() - id: {}", id);
 
-        return dataSourceColumnRepository.findOne(id);
+        return dataSourceColumnRepository.getById(id);
     }
 
 }

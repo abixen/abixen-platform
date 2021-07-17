@@ -22,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 
+import java.util.Optional;
+
 @Slf4j
 public class PlatformAuditorAware implements AuditorAware<User> {
 
@@ -32,14 +34,14 @@ public class PlatformAuditorAware implements AuditorAware<User> {
     private SecurityService securityService;
 
     @Override
-    public User getCurrentAuditor() {
+    public Optional<User> getCurrentAuditor() {
         log.debug("getCurrentAuditor()");
 
         PlatformUser authorizedUser = securityService.getAuthorizedUser();
         if (authorizedUser == null) {
-            return null;
+            return Optional.empty();
         }
 
-        return userService.find(authorizedUser.getId());
+        return Optional.ofNullable(userService.find(authorizedUser.getId()));
     }
 }

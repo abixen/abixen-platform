@@ -37,7 +37,7 @@ public class WebContentService {
     public WebContent find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return webContentRepository.findOne(id);
+        return webContentRepository.getById(id);
     }
 
     public Page<WebContent> findAll(final Pageable pageable) {
@@ -61,6 +61,6 @@ public class WebContentService {
     public void delete(final Long id) {
         log.debug("delete() - id: {}", id);
 
-        webContentRepository.delete(id);
+        webContentRepository.deleteById(id);
     }
 }

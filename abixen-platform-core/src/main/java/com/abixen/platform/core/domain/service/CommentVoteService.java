@@ -44,7 +44,7 @@ public class CommentVoteService {
     public void delete(final Long id) {
         log.debug("delete() - id: {}", id);
 
-        commentVoteRepository.delete(id);
+        commentVoteRepository.deleteById(id);
     }
 
     public void deleteAllByCommentIds(final List<Long> commentIds) {

@@ -1,8 +1,15 @@
 spring:
   application:
     name: abixen-platform-web-client
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
 
 abixen:
   platform:
     webclient:
       version: '@project.version@'
+server:
+  servlet:
+    register-default-servlet: true

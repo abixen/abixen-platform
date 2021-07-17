@@ -23,6 +23,7 @@ import com.abixen.platform.core.domain.model.AclSid;
 import com.abixen.platform.core.domain.repository.custom.AclEntryRepositoryCustom;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -30,15 +31,16 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("aclEntryRepositoryImpl")
 @Slf4j
 @Transactional
-public class AclEntryRepositoryImpl implements AclEntryRepositoryCustom {
+public class AclEntryRepositoryCustomImpl implements AclEntryRepositoryCustom {
 
 
     private final EntityManager entityManager;
 
     @Autowired
-    public AclEntryRepositoryImpl(EntityManager entityManager) {
+    public AclEntryRepositoryCustomImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
