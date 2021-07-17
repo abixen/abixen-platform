@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Transactional
 @PlatformApplicationService
-class DashboardModuleService {
+public class DashboardModuleService {
 
     private final ModuleService moduleService;
     private final ModuleTypeService moduleTypeService;
@@ -45,7 +45,7 @@ class DashboardModuleService {
         this.moduleTypeService = moduleTypeService;
     }
 
-    List<Module> findAllModules(final Page page) {
+    public List<Module> findAllModules(final Page page) {
         log.debug("findAllModules() - page: {}", page);
 
         return moduleService.findAll(page);

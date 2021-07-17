@@ -85,7 +85,7 @@ class RoleManagementServiceTest extends Specification {
                 .build()
 
         final RoleDto roleDto = new RoleDto()
-        final Pageable pageable = new PageRequest(0, 1);
+        final Pageable pageable = PageRequest.of(0, 1);
         final RoleSearchForm roleSearchForm = new RoleSearchForm()
         final Page<Role> roles = new PageImpl<Role>([role])
         final Page<RoleDto> roleDtos = new PageImpl<RoleDto>([roleDto])

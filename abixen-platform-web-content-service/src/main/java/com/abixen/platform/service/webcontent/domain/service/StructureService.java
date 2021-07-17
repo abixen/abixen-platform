@@ -47,7 +47,7 @@ public class StructureService {
     public Structure find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return structureRepository.findOne(id);
+        return structureRepository.getById(id);
     }
 
     public Page<Structure> findAll(final Pageable pageable) {
@@ -86,7 +86,7 @@ public class StructureService {
 
     public void delete(final Long id) {
         log.debug("delete() - id: {}", id);
-        structureRepository.delete(id);
+        structureRepository.deleteById(id);
     }
 
     private void validateStructure(final Structure structure) {

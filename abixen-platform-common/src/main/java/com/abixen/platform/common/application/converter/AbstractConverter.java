@@ -58,7 +58,7 @@ public abstract class AbstractConverter<Source, Target> {
             targets.add(convert(source, parameters));
         }
 
-        final Pageable pageable = new PageRequest(sourcePage.getNumber(), sourcePage.getSize(), sourcePage.getSort());
+        final Pageable pageable = PageRequest.of(sourcePage.getNumber(), sourcePage.getSize(), sourcePage.getSort());
 
         return new PageImpl<>(targets, pageable, sourcePage.getTotalElements());
     }

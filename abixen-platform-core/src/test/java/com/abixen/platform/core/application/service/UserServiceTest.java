@@ -171,7 +171,7 @@ public class UserServiceTest {
         UserSearchForm searchForm = new UserSearchForm();
         searchForm.setSelectedLanguage(UserLanguage.ENGLISH);
 
-        Pageable pageable = new PageRequest(0, 10, Sort.Direction.ASC, "firstName");
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "firstName");
         Page<User> usersPage = userService.findAll(pageable, searchForm);
         log.debug("usersPage.getTotalElements(): {}", usersPage.getTotalElements());
 

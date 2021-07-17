@@ -42,7 +42,7 @@ class DataSourceServiceImplTest extends Specification {
 
         final DataSource dataSource = [] as DataSource
 
-        dataSourceRepository.findOne(id) >> dataSource
+        dataSourceRepository.getById(id) >> dataSource
 
         when:
         final DataSource foundDataSource = dataSourceService.find(id)
@@ -51,13 +51,13 @@ class DataSourceServiceImplTest extends Specification {
         foundDataSource != null
         foundDataSource == dataSource
 
-        1 * dataSourceRepository.findOne(id) >> dataSource
+        1 * dataSourceRepository.findById(id) >> Optional.of(dataSource)
         0 * _
     }
 
     void "should findAll Database DataSource when dataSourceType is not null"() {
         given:
-        final Pageable pageable = new PageRequest(0, 1)
+        final Pageable pageable = PageRequest.of(0, 1)
 
         final DataSourceType dataSourceType = DataSourceType.DB
 
@@ -79,7 +79,7 @@ class DataSourceServiceImplTest extends Specification {
 
     void "should findAll DataSource when dataSourceType is null"() {
         given:
-        final Pageable pageable = new PageRequest(0, 1)
+        final Pageable pageable = PageRequest.of(0, 1)
 
         final DataSourceType dataSourceType = null
 
@@ -165,7 +165,7 @@ class DataSourceServiceImplTest extends Specification {
         dataSourceService.delete(id)
 
         then:
-        1 * dataSourceRepository.delete(id)
+        1 * dataSourceRepository.deleteById(id)
         0 * _
     }
 }

@@ -46,7 +46,7 @@ class DataFileServiceImplTest extends Specification {
 
         final DataFile dataFile = [] as DataFile
 
-        dataFileRepository.findOne(id) >> dataFile
+        dataFileRepository.getById(id) >> dataFile
 
         when:
         final DataFile foundDataFile = dataFileService.find(id)
@@ -55,13 +55,13 @@ class DataFileServiceImplTest extends Specification {
         foundDataFile != null
         foundDataFile == dataFile
 
-        1 * dataFileRepository.findOne(id) >> dataFile
+        1 * dataFileRepository.getById(id) >> dataFile
         0 * _
     }
 
     void "should findAll DataFiles"() {
         given:
-        final Pageable pageable = new PageRequest(0, 1)
+        final Pageable pageable = PageRequest.of(0, 1)
 
         final DataFile dataFile = [] as DataFile
         final Page<DataFile> dataFiles = new PageImpl<DataFile>([dataFile])
@@ -136,16 +136,16 @@ class DataFileServiceImplTest extends Specification {
         final DataFile dataFile = [] as DataFile
         final List<FileDataSource> relatedFileDataSources = Collections.emptyList()
 
-        dataFileRepository.findOne(id) >> dataFile
+        dataFileRepository.getById(id) >> dataFile
         fileDataSourceService.find(dataFile) >> relatedFileDataSources
 
         when:
         dataFileService.delete(id)
 
         then:
-        1 * dataFileRepository.findOne(id) >> dataFile
+        1 * dataFileRepository.getById(id) >> dataFile
         1 * fileDataSourceService.find(dataFile) >> relatedFileDataSources
-        1 * dataFileRepository.delete(id)
+        1 * dataFileRepository.deleteById(id)
         0 * _
     }
 
@@ -157,7 +157,7 @@ class DataFileServiceImplTest extends Specification {
         final FileDataSource fileDataSource = [] as FileDataSource
         final List<FileDataSource> relatedFileDataSources = Collections.singletonList(fileDataSource)
 
-        dataFileRepository.findOne(id) >> dataFile
+        dataFileRepository.getById(id) >> dataFile
         fileDataSourceService.find(dataFile) >> relatedFileDataSources
 
         when:
@@ -166,7 +166,7 @@ class DataFileServiceImplTest extends Specification {
         then:
         final PlatformRuntimeException platformRuntimeException = thrown()
 
-        1 * dataFileRepository.findOne(id) >> dataFile
+        1 * dataFileRepository.getById(id) >> dataFile
         1 * fileDataSourceService.find(dataFile) >> relatedFileDataSources
         0 * _
     }

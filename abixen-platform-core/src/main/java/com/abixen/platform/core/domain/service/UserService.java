@@ -49,7 +49,7 @@ public class UserService {
     public User find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return userRepository.findOne(id);
+        return userRepository.getById(id);
     }
 
     public User find(final String username) {
@@ -79,7 +79,7 @@ public class UserService {
     public void delete(final Long id) {
         log.debug("delete() - id: {}", id);
 
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
 
     public void activate(final String userHashKey) {

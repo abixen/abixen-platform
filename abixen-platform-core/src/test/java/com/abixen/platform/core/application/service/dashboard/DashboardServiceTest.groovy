@@ -21,8 +21,6 @@ import com.abixen.platform.core.application.dto.DashboardModuleDto
 import com.abixen.platform.core.application.dto.LayoutDto
 import com.abixen.platform.core.application.dto.PageDto
 import com.abixen.platform.core.application.form.DashboardForm
-import com.abixen.platform.core.application.service.dashboard.DashboardModuleService
-import com.abixen.platform.core.application.service.dashboard.DashboardService
 import com.abixen.platform.core.domain.model.Layout
 import com.abixen.platform.core.domain.model.Module
 import com.abixen.platform.core.domain.model.Page
@@ -32,27 +30,18 @@ import spock.lang.Specification
 
 class DashboardServiceTest extends Specification {
 
-    private PageService pageService
-    private LayoutService layoutService
-    private DashboardModuleService dashboardModuleService
-    private PageToPageDtoConverter pageToPageDtoConverter
-    private ModuleToDashboardModuleDtoConverter moduleToDashboardModuleDtoConverter
-    private DashboardService dashboardService
-
-    void setup() {
-        pageService = Mock()
-        layoutService = Mock()
-        dashboardModuleService = Mock()
-        pageToPageDtoConverter = Mock()
-        moduleToDashboardModuleDtoConverter = Mock()
-        dashboardService = new DashboardService(
-                pageService,
-                layoutService,
-                dashboardModuleService,
-                pageToPageDtoConverter,
-                moduleToDashboardModuleDtoConverter
-        )
-    }
+    private PageService pageService = Mock()
+    private LayoutService layoutService = Mock()
+    private DashboardModuleService dashboardModuleService = Mock()
+    private PageToPageDtoConverter pageToPageDtoConverter = Mock()
+    private ModuleToDashboardModuleDtoConverter moduleToDashboardModuleDtoConverter = Mock()
+    private DashboardService dashboardService = new DashboardService(
+            pageService,
+            layoutService,
+            dashboardModuleService,
+            pageToPageDtoConverter,
+            moduleToDashboardModuleDtoConverter
+    )
 
 
     void "should find DashboardDto by page id"() {
@@ -69,11 +58,6 @@ class DashboardServiceTest extends Specification {
         final Page page = [id: pageId] as Page
         final PageDto pageDto = new PageDto()
         pageDto.id = pageId
-
-        pageService.find(pageId) >> page
-        dashboardModuleService.findAllModules(page) >> modules
-        moduleToDashboardModuleDtoConverter.convertToList(modules) >> dashboardModuleDtos
-        pageToPageDtoConverter.convert(page) >> pageDto
 
         when:
         final DashboardDto dashboardDto = dashboardService.find(pageId)

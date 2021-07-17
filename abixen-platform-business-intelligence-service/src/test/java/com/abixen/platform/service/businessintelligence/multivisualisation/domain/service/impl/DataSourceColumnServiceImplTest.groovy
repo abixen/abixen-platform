@@ -44,7 +44,7 @@ class DataSourceColumnServiceImplTest extends Specification {
         foundDataSourceColumn != null
         foundDataSourceColumn == dataSourceColumn
 
-        1 * dataSourceColumnRepository.findOne(id) >> dataSourceColumn
+        1 * dataSourceColumnRepository.getById(id) >> dataSourceColumn
         0 * _
     }
 }

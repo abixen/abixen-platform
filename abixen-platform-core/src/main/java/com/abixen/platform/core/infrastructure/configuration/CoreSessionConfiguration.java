@@ -11,19 +11,30 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.abixen.platform.core.infrastructure.configuration;
 
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.retry.annotation.EnableRetry;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 
 import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DEV;
 import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DOCKER;
 
+
 @Profile({DEV, DOCKER})
+@EnableRedisHttpSession
 @Configuration
-@EnableRetry
-@EnableEurekaClient
-public class CoreCloudIntegrationConfiguration {
+public class CoreSessionConfiguration {
+
+    @Bean
+    public DefaultCookieSerializer cookieSerializer() {
+        final DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
+        cookieSerializer.setCookieName("SESSION");
+        cookieSerializer.setUseBase64Encoding(false);
+
+        return cookieSerializer;
+    }
 }

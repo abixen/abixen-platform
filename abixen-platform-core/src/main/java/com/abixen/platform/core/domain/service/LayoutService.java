@@ -45,7 +45,7 @@ public class LayoutService {
     public Layout find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return layoutRepository.findOne(id);
+        return layoutRepository.getById(id);
     }
 
     public List<Layout> findAll(final User authorizedUser) {
@@ -75,7 +75,7 @@ public class LayoutService {
     public void delete(final Long id) {
         log.debug("delete() - id: {}", id);
 
-        layoutRepository.delete(id);
+        layoutRepository.deleteById(id);
     }
 
 }

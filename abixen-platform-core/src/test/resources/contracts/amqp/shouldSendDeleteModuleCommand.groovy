@@ -3,6 +3,7 @@ package contracts.amqp
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
+    ignored()
     label 'positive_sent_delete_module_command'
     input {
         triggeredBy('initializePositiveSendDeleteModuleCommand()')

@@ -43,7 +43,7 @@ public class PermissionService {
     public Permission find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return permissionRepository.findOne(id);
+        return permissionRepository.getById(id);
     }
 
     public Permission find(final PermissionName permissionName) {

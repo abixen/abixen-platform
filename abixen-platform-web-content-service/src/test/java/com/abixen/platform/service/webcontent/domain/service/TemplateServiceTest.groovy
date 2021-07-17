@@ -52,7 +52,7 @@ class TemplateServiceTest extends Specification {
         variables.contains('someName3')
         variables.contains('someName4')
 
-        1 * templateRepository.findOne(templateId) >> template
+        1 * templateRepository.getById(templateId) >> template
         0 * _
     }
 }

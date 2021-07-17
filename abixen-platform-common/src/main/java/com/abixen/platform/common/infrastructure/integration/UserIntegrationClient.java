@@ -16,7 +16,6 @@ package com.abixen.platform.common.infrastructure.integration;
 
 import com.abixen.platform.common.application.representation.SimpleUserRepresentation;
 import com.abixen.platform.common.interfaces.client.UserClient;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,14 +31,8 @@ public class UserIntegrationClient {
         this.userClient = userClient;
     }
 
-    @HystrixCommand(fallbackMethod = "getUserByIdFallback")
     public SimpleUserRepresentation getUserById(Long id) {
         return userClient.getUserById(id);
-    }
-
-    private SimpleUserRepresentation getUserByIdFallback(Long id) {
-        log.error("getUserByIdFallback: {}", id);
-        return null;
     }
 
 }

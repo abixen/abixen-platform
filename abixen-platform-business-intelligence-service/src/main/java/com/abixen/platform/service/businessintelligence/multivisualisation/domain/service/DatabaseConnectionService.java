@@ -40,7 +40,7 @@ public class DatabaseConnectionService {
     public DatabaseConnection find(final Long id) {
         log.debug("find() - id: {}", id);
 
-        return databaseConnectionRepository.findOne(id);
+        return databaseConnectionRepository.getById(id);
     }
 
     public Page<DatabaseConnection> findAll(final Pageable pageable) {
@@ -64,7 +64,7 @@ public class DatabaseConnectionService {
     public void delete(final Long id) {
         log.debug("delete() - id: {}", id);
 
-        databaseConnectionRepository.delete(id);
+        databaseConnectionRepository.deleteById(id);
     }
 
 }

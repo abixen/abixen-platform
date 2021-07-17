@@ -16,7 +16,6 @@ package com.abixen.platform.client.web.hystrix;
 
 import com.abixen.platform.client.web.client.ModuleTypeClient;
 import com.abixen.platform.client.web.model.ModuleType;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,15 +33,8 @@ public class ModuleTypeHystrixClient {
         this.moduleTypeClient = moduleTypeClient;
     }
 
-    @HystrixCommand(fallbackMethod = "getAllModuleTypesFallback")
     public List<ModuleType> getAllModuleTypes() {
         log.debug("getAllModuleTypes()");
         return moduleTypeClient.getAllModuleTypes();
-    }
-
-    private List<ModuleType> getAllModuleTypesFallback(Throwable e) {
-        log.error("getAllModuleTypesFallback()");
-        e.printStackTrace();
-        return null;
     }
 }

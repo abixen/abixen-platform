@@ -15,13 +15,13 @@
 package com.abixen.platform.common.interfaces.client;
 
 import com.abixen.platform.common.application.representation.SimpleUserRepresentation;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-@FeignClient("abixen-platform-core")
+@FeignClient(value = "abixen-platform-core", contextId = "user")
 public interface UserClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/api-intranet/users/{id}")

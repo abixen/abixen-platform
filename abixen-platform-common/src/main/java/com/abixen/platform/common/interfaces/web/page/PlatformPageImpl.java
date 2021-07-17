@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2010-present Abixen Systems. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -15,53 +15,42 @@
 package com.abixen.platform.common.interfaces.web.page;
 
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.data.domain.*;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 public class PlatformPageImpl<T> extends PageImpl<T> {
 
-    private int number;
-    private int size;
-    private int totalPages;
-    private int numberOfElements;
-    private long totalElements;
-    private boolean first;
-    private boolean last;
-    private List<T> content;
-    private Sort sort;
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public PlatformPageImpl(@JsonProperty("content") List<T> content,
+                            @JsonProperty("number") int number,
+                            @JsonProperty("size") int size,
+                            @JsonProperty("totalElements") Long totalElements,
+                            @JsonProperty("pageable") JsonNode pageable,
+                            @JsonProperty("last") boolean last,
+                            @JsonProperty("totalPages") int totalPages,
+                            @JsonProperty("sort") JsonNode sort,
+                            @JsonProperty("first") boolean first,
+                            @JsonProperty("empty") boolean empty) {
+
+        super(content, PageRequest.of(number, size), totalElements);
+    }
+
+    public PlatformPageImpl(List<T> content, Pageable pageable, long total) {
+        super(content, pageable, total);
+    }
+
+    public PlatformPageImpl(List<T> content) {
+        super(content);
+    }
 
     public PlatformPageImpl() {
-        super(Collections.EMPTY_LIST);
+        super(new ArrayList<>());
     }
 
-    public PlatformPageImpl(Page page) {
-        super(page.getContent(),
-                new PageRequest(page.getNumber(), page.getSize(), page.getSort()),
-                page.getTotalElements());
-        this.number = page.getNumber();
-        this.size = page.getSize();
-        this.totalPages = page.getTotalPages();
-        this.numberOfElements = page.getNumberOfElements();
-        this.totalElements = page.getTotalElements();
-        this.first = page.isFirst();
-        this.last = page.isLast();
-        this.content = page.getContent();
-        this.sort = page.getSort();
-    }
-
-    @JsonDeserialize(using = PlatformSortDeserializer.class)
-    public void setSort(Sort sort) {
-        this.sort = sort;
-    }
 
 }

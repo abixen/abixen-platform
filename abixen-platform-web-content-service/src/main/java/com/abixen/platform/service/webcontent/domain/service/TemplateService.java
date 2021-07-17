@@ -15,7 +15,6 @@
 package com.abixen.platform.service.webcontent.domain.service;
 
 import com.abixen.platform.common.infrastructure.exception.PlatformRuntimeException;
-import com.abixen.platform.common.infrastructure.exception.PlatformServiceRuntimeException;
 import com.abixen.platform.service.webcontent.application.form.TemplateForm;
 import com.abixen.platform.service.webcontent.domain.model.Template;
 import com.abixen.platform.service.webcontent.domain.repository.TemplateRepository;
@@ -68,13 +67,13 @@ public class TemplateService {
     public void deleteTemplate(Long templateId) {
         log.debug("deleteTemplate() - templateId: {}", templateId);
 
-        templateRepository.delete(templateId);
+        templateRepository.deleteById(templateId);
     }
 
     public Template findTemplate(Long templateId) {
         log.debug("findTemplateById() - templateId: {}", templateId);
 
-        return templateRepository.findOne(templateId);
+        return templateRepository.getById(templateId);
     }
 
     public Page<Template> findAllTemplates(Pageable pageable) {
@@ -92,10 +91,7 @@ public class TemplateService {
     public List<String> getTemplateVariables(Long templateId) {
         log.debug("findTemplateById() - templateId: {}", templateId);
 
-        final Template template = templateRepository.findOne(templateId);
-        if (template == null) {
-            throw new PlatformServiceRuntimeException(String.format("Template with id=%d not found", templateId));
-        }
+        final Template template = templateRepository.getById(templateId);
         final Set<String> templateVariablesSet = ParserUtil.evaluateEL(template.getContent());
 
         return new ArrayList<>(templateVariablesSet);

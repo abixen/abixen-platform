@@ -23,6 +23,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DEV;
 import static com.abixen.platform.common.infrastructure.util.PlatformProfiles.DOCKER;
 
+@SuppressWarnings("squid:S4502")
 @Profile({DEV, DOCKER})
 @EnableWebSecurity
 @Configuration
@@ -31,16 +32,17 @@ public class CoreSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors()
-                .and()
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api-intranet/**").permitAll()
                 .antMatchers("/api/control-panel/users/custom/username/*/").permitAll()
+                .antMatchers("/api/control-panel/users/**").permitAll()
                 .antMatchers("/api/control-panel/module-types/all").permitAll()
                 .antMatchers("/api/control-panel/securities/**").permitAll()
                 .antMatchers("/api/resources").permitAll()
                 .antMatchers("/api/user-activation/activate/*/").permitAll()
                 .antMatchers("/hystrix.stream").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic().disable();

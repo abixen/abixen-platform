@@ -18,18 +18,14 @@ import com.abixen.platform.service.webcontent.infrastructure.configuration.WebCo
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.retry.annotation.EnableRetry;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @EnableRetry
 @SpringBootApplication
-@EnableRedisHttpSession
 @EnableEurekaClient
-@EnableCircuitBreaker
 @EnableFeignClients(basePackages = {WebContentServicePackages.CLIENT})
 public class WebContentServiceApplication extends SpringBootServletInitializer {
 

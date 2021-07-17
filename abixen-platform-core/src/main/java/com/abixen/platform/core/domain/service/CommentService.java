@@ -45,7 +45,7 @@ public class CommentService {
     public Comment find(Long id) {
         log.debug("find() - id: {}", id);
 
-        return commentRepository.findOne(id);
+        return commentRepository.getById(id);
     }
 
     public List<Comment> findAllByModuleId(final Long moduleId) {

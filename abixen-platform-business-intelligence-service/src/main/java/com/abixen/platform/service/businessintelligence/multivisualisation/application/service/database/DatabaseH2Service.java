@@ -50,7 +50,7 @@ public class DatabaseH2Service extends AbstractDatabaseService implements Databa
         if (factory.unwrap(SessionFactory.class) == null) {
             throw new NullPointerException("factory is not a hibernate factory");
         }
-        loadSystemTableList(factory.unwrap(SessionFactory.class));
+        //loadSystemTableList(factory.unwrap(SessionFactory.class));
     }
 
     private void loadSystemTableList(SessionFactory sessionFactory) {
@@ -103,7 +103,7 @@ public class DatabaseH2Service extends AbstractDatabaseService implements Databa
             }
 
         } catch (SQLException exception) {
-            log.error("Connection Failed! Check output console");
+            log.error("Connection Failed! Check output console", exception);
             throw new DatabaseConnectionException(exception.getMessage());
         }
 
