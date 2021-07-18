@@ -24,18 +24,26 @@ spring:
         uri: http://business-intelligence-service:9091/service/abixen/business-intelligence/application
         predicates:
         - Path=/service/abixen/business-intelligence/application/**
+        filters:
+        - CircuitBreaker
       - id: businessIntelligenceApplicationApi
         uri: http://business-intelligence-service:9091/api/service/abixen/business-intelligence/application
         predicates:
         - Path=/api/service/abixen/business-intelligence/application/**
+        filters:
+        - CircuitBreaker
       - id: businessIntelligenceAdmin
         uri: http://business-intelligence-service:9091/service/abixen/business-intelligence/control-panel
         predicates:
         - Path=/service/abixen/business-intelligence/control-panel/**
+        filters:
+        - CircuitBreaker
       - id: businessIntelligenceAdminApi
         uri: http://business-intelligence-service:9091/api/service/abixen/business-intelligence/control-panel
         predicates:
         - Path=/api/service/abixen/business-intelligence/control-panel/**
+        filters:
+        - CircuitBreaker
       # End of Business Intelligence microservice
 
       # Begin of Web Content microservice
@@ -43,18 +51,26 @@ spring:
         uri: http://web-content-service:9092/service/abixen/web-content/application
         predicates:
         - Path=/service/abixen/web-content/application/**
+        filters:
+        - CircuitBreaker
       - id: webContentApplicationApi
         uri: http://web-content-service:9092/api/service/abixen/web-content/application
         predicates:
         - Path=/api/service/abixen/web-content/application/**
+        filters:
+        - CircuitBreaker
       - id: webContentAdmin
         uri: http://web-content-service:9092/service/abixen/web-content/control-panel
         predicates:
         - Path=/service/abixen/web-content/control-panel/**
+        filters:
+        - CircuitBreaker
       - id: webContentAdminApi
         uri: http://web-content-service:9092/api/service/abixen/web-content/control-panel
         predicates:
         - Path=/api/service/abixen/web-content/control-panel/**
+        filters:
+        - CircuitBreaker
       # End of Web Content microservice
 
       # End of custom module microservices
@@ -62,14 +78,8 @@ spring:
         uri: http://core:9000/api
         predicates:
         - Path=/api/**
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 60000
+        filters:
+        - CircuitBreaker
 
 eureka:
   instance:
@@ -104,18 +114,26 @@ spring:
         uri: http://localhost:9091/service/abixen/business-intelligence/application
         predicates:
         - Path=/service/abixen/business-intelligence/application/**
+        filters:
+        - CircuitBreaker
       - id: businessIntelligenceApplicationApi
         uri: http://localhost:9091/api/service/abixen/business-intelligence/application
         predicates:
         - Path=/api/service/abixen/business-intelligence/application/**
+        filters:
+        - CircuitBreaker
       - id: businessIntelligenceAdmin
         uri: http://localhost:9091/service/abixen/business-intelligence/control-panel
         predicates:
         - Path=/service/abixen/business-intelligence/control-panel/**
+        filters:
+        - CircuitBreaker
       - id: businessIntelligenceAdminApi
         uri: http://localhost:9091/api/service/abixen/business-intelligence/control-panel
         predicates:
         - Path=/api/service/abixen/business-intelligence/control-panel/**
+        filters:
+        - CircuitBreaker
       # End of Business Intelligence microservice
 
       # Begin of Web Content microservice
@@ -123,18 +141,26 @@ spring:
         uri: http://localhost:9092/service/abixen/web-content/application
         predicates:
         - Path=/service/abixen/web-content/application/**
+        filters:
+        - CircuitBreaker
       - id: webContentApplicationApi
         uri: http://localhost:9092/api/service/abixen/web-content/application
         predicates:
         - Path=/api/service/abixen/web-content/application/**
+        filters:
+        - CircuitBreaker
       - id: webContentAdmin
         uri: http://localhost:9092/service/abixen/web-content/control-panel
         predicates:
         - Path=/service/abixen/web-content/control-panel/**
+        filters:
+        - CircuitBreaker
       - id: webContentAdminApi
         uri: http://localhost:9092/api/service/abixen/web-content/control-panel
         predicates:
         - Path=/api/service/abixen/web-content/control-panel/**
+        filters:
+        - CircuitBreaker
       # End of Web Content microservice
 
       # End of custom module microservices
@@ -142,14 +168,9 @@ spring:
         uri: http://localhost:9000/api
         predicates:
         - Path=/api/**
+        filters:
+        - CircuitBreaker
 
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 60000
 eureka:
   instance:
     hostname: localhost
