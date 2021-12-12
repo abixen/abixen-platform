@@ -60,11 +60,11 @@
 		<lombok.version>1.18.18</lombok.version>
 		<log4j-slf4j-imp.version>2.0.1</log4j-slf4j-imp.version>
 		<log4jdbc-log4j2-jdbc4.1.version>1.16</log4jdbc-log4j2-jdbc4.1.version>
-		<maven.failsafe.version>2.18.1</maven.failsafe.version>
-		<maven.surefire.version>2.20</maven.surefire.version>
+		<maven.failsafe.version>3.0.0-M5</maven.failsafe.version>
+		<maven.surefire.version>3.0.0-M5</maven.surefire.version>
 		<liquibase.version>4.4.0</liquibase.version>
 		<jaxb.version>2.3.1</jaxb.version>
-		<jackson.version>2.12.3</jackson.version>
+		<jackson.version>2.13.0</jackson.version>
 	</properties>
 
 
