@@ -10,6 +10,10 @@ All you have to do in order to create an entirely new functionality is to implem
 Now you can register it in Abixen Platform and start using by delivered configuration wizards and CMS.
 There is also an Abixen Platform API, which allows you to accelerate the process of new microservices creation.
 
+A sample application built using Abixen Platform can look like in the following screenshot:
+![Abixen Platform Demo](documentation-image/abixen-platform-demo.png "Abixen Platform Demo")
+
+
 Abixen Platform's organizational division consists of pages and modules. 
 User with appropriate privileges can create any page and select a layout. 
 Finally, add to the page instances of modules deployed on Abixen Platform. 
