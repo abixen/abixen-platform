@@ -12,7 +12,9 @@ spring:
 
 
 spring:
-  profiles: docker
+  config:
+    activate:
+      on-profile: docker
   cloud:
     config:
       enabled: true
@@ -27,7 +29,9 @@ spring:
 ---
 
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
   cloud:
     config:
       enabled: true

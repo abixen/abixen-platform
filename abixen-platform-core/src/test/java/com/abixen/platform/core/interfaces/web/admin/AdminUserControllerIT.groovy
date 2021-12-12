@@ -88,9 +88,9 @@ class AdminUserControllerIT extends AbstractPlatformIT {
     void "should update user roles"() {
 
         given:
-        final HttpHeaders headers = createHeaders(ADMIN_USERNAME, ADMIN_PASSWORD)
+        HttpHeaders headers = createHeaders(ADMIN_USERNAME, ADMIN_PASSWORD)
 
-        final Long userId = 1L
+        Long userId = 1L
         final UserDto userDto = new UserDto()
                 .setId(userId)
 
@@ -104,7 +104,7 @@ class AdminUserControllerIT extends AbstractPlatformIT {
                 .setId(1L))
         newUserRoles.add(userRoleDto)
 
-        final UserRolesForm userRolesForm = new UserRolesForm()
+        UserRolesForm userRolesForm = new UserRolesForm()
         userRolesForm.setUser(userDto)
         userRolesForm.setUserRoles(newUserRoles)
 
