@@ -18,17 +18,17 @@ import com.abixen.platform.common.infrastructure.annotation.PlatformApplicationS
 import com.abixen.platform.core.domain.model.ModuleType;
 import com.abixen.platform.core.domain.repository.ResourceRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Slf4j
 @PlatformApplicationService
 public class ResourceService {
 
-    @Resource
+    @Autowired
     private ResourceRepository resourceRepository;
 
     public List<com.abixen.platform.core.domain.model.Resource> findAllResources() {

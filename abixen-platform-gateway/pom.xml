@@ -17,7 +17,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <spring.cloud.version>2020.0.3</spring.cloud.version>
+        <spring.cloud.version>2021.0.0</spring.cloud.version>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <docker.image.prefix>abixen</docker.image.prefix>
         <docker.skip>true</docker.skip>
