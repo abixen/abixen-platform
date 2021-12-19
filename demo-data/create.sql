@@ -50,7 +50,7 @@ ALTER TABLE sample_selling_data ADD CONSTRAINT pk__sample_selling_data__id PRIMA
 CREATE TABLE IF NOT EXISTS sample_visualisation_data (
    id BIGINT NOT NULL,
    group_ VARCHAR(30) NOT NULL,
-   value DOUBLE NOT NULL
+   value_ DOUBLE NOT NULL
 );
 ALTER TABLE sample_visualisation_data ADD CONSTRAINT pk__sample_visualisation_data__id PRIMARY KEY(id);
 
@@ -130,11 +130,11 @@ INSERT INTO sample_selling_data (id, revenue_gross, revenue_net, total_sales, sa
 INSERT INTO sample_selling_data (id, revenue_gross, revenue_net, total_sales, sales_day, salesman_name) VALUES (19, 16244.23, 2300.00, 329, '2014-01-04', 'Claudia U.');
 INSERT INTO sample_selling_data (id, revenue_gross, revenue_net, total_sales, sales_day, salesman_name) VALUES (20, 17332.23, 2700.00, 321, '2014-01-05', 'Gabriella J.');
 
-INSERT INTO sample_visualisation_data (id, group_, value) VALUES (1, 'A', -29.7660);
-INSERT INTO sample_visualisation_data (id, group_, value) VALUES (2, 'B', 68.0000);
-INSERT INTO sample_visualisation_data (id, group_, value) VALUES (3, 'C', 32.8078);
-INSERT INTO sample_visualisation_data (id, group_, value) VALUES (4, 'D', 166.4595);
-INSERT INTO sample_visualisation_data (id, group_, value) VALUES (5, 'E', 82.1943);
-INSERT INTO sample_visualisation_data (id, group_, value) VALUES (6, 'F', -98.0798);
-INSERT INTO sample_visualisation_data (id, group_, value) VALUES (7, 'G', -13.9257);
-INSERT INTO sample_visualisation_data (id, group_, value) VALUES (8, 'H', -5.1387);
+INSERT INTO sample_visualisation_data (id, group_, value_) VALUES (1, 'A', -29.7660);
+INSERT INTO sample_visualisation_data (id, group_, value_) VALUES (2, 'B', 68.0000);
+INSERT INTO sample_visualisation_data (id, group_, value_) VALUES (3, 'C', 32.8078);
+INSERT INTO sample_visualisation_data (id, group_, value_) VALUES (4, 'D', 166.4595);
+INSERT INTO sample_visualisation_data (id, group_, value_) VALUES (5, 'E', 82.1943);
+INSERT INTO sample_visualisation_data (id, group_, value_) VALUES (6, 'F', -98.0798);
+INSERT INTO sample_visualisation_data (id, group_, value_) VALUES (7, 'G', -13.9257);
+INSERT INTO sample_visualisation_data (id, group_, value_) VALUES (8, 'H', -5.1387);
