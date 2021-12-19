@@ -39,7 +39,7 @@ public final class DatabaseDataSource extends DataSource implements Serializable
     @Valid
     private DatabaseConnection databaseConnection;
 
-    @Column(name = "filter")
+    @Column(name = "filter_")
     private String filter;
 
     @Column(name = "selected_table")

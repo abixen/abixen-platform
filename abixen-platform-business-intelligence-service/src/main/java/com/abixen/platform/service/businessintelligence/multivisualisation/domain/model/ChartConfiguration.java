@@ -63,7 +63,7 @@ public final class ChartConfiguration extends SimpleAuditingModel implements Ser
     @Column(name = "axis_y_name")
     private String axisYName;
 
-    @Column(name = "filter")
+    @Column(name = "filter_")
     private String filter;
 
     @ManyToOne
