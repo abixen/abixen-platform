@@ -8,7 +8,7 @@
 
     <changeSet author="MariuszKumor" id="data-value-string-v1">
         <createTable tableName="data_value_string">
-            <column name="value" type="varchar(32)"/>
+            <column name="value_" type="varchar(32)"/>
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>

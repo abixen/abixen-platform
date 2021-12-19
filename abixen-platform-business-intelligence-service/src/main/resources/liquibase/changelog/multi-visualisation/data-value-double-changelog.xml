@@ -8,7 +8,7 @@
 
     <changeSet author="MariuszKumor" id="data-value-double-v1">
         <createTable tableName="data_value_double">
-            <column name="value" type="double"/>
+            <column name="value_" type="double"/>
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>

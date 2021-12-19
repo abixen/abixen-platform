@@ -30,7 +30,7 @@ public final class DataValueDate extends DataValue<Date> {
 
     private static final long serialVersionUID = -655187403228089633L;
 
-    @Column(name = "value", nullable = true)
+    @Column(name = "value_", nullable = true)
     private Date value;
 
     private DataValueDate() {

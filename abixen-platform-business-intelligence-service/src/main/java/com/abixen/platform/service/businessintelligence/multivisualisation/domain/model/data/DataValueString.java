@@ -33,7 +33,7 @@ public final class DataValueString extends DataValue<String> {
     private static final long serialVersionUID = 4578637099421599970L;
 
     @Length(min = 0, max = DATASOURCE_VALUE_STRING_MAX_LENGTH)
-    @Column(name = "value", length = DATASOURCE_VALUE_STRING_MAX_LENGTH)
+    @Column(name = "value_", length = DATASOURCE_VALUE_STRING_MAX_LENGTH)
     private String value;
 
     private DataValueString() {

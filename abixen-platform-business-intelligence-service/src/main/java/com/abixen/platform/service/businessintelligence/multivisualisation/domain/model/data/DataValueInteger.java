@@ -30,7 +30,7 @@ public final class DataValueInteger extends DataValue<Integer> {
 
     private static final long serialVersionUID = -4059158260855268805L;
 
-    @Column(name = "value", nullable = true)
+    @Column(name = "value_", nullable = true)
     private Integer value;
 
     private DataValueInteger() {
