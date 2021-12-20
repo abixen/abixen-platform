@@ -18,8 +18,10 @@ package com.abixen.platform.service.businessintelligence.multivisualisation.doma
 public enum DataValueType {
 
     STRING("STRING"),
+    CHARACTER_VARYING("CHARACTER_VARYING"),
     INTEGER("INTEGER"),
     DOUBLE("DOUBLE"),
+    DOUBLE_PRECISION("DOUBLE_PRECISION"),
     DATE("DATE");
 
     private final String name;

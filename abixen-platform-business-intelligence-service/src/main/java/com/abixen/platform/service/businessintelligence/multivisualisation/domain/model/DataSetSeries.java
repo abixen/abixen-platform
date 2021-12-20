@@ -51,7 +51,7 @@ public final class DataSetSeries implements Serializable {
     @JoinColumn(name = "value_column_id", nullable = false)
     private DataSetSeriesColumn valueSeriesColumn;
 
-    @Column(name = "filter", nullable = true)
+    @Column(name = "filter_", nullable = true)
     private String filter;
 
     @ManyToOne

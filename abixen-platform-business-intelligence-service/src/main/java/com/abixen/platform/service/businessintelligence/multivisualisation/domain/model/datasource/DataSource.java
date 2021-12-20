@@ -71,7 +71,7 @@ public class DataSource extends SimpleAuditingModel implements Serializable {
     @NotNull
     private DataSourceType dataSourceType;
 
-    @Column(name = "filter")
+    @Column(name = "filter_")
     private String filter;
 
     protected DataSource() {

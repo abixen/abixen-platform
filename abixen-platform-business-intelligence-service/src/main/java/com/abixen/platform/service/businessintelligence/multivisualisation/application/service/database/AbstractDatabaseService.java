@@ -237,7 +237,7 @@ abstract class AbstractDatabaseService {
         try {
             ResultSetMetaData resultSetMetaData = row.getMetaData();
             String columnTypeName = getValidColumnTypeName(row.findColumn(columnName), resultSetMetaData);
-            return getValueAsDataSourceValue(row, columnName, DataValueType.valueOf(columnTypeName));
+            return getValueAsDataSourceValue(row, columnName, DataValueType.valueOf(columnTypeName.replace(" ", "_")));
         } catch (SQLException e) {
             throw new DataSourceValueException("Error when getting value from column. " + e.getMessage());
         }
@@ -274,12 +274,14 @@ abstract class AbstractDatabaseService {
     private DataValueDto getValueAsDataSourceValue(ResultSet row, String columnName, DataValueType columnTypeName) throws SQLException {
         switch (columnTypeName) {
             case DOUBLE:
+            case DOUBLE_PRECISION:
                 return getValueAsDataSourceValueDoubleWeb(row, columnName);
             case DATE:
                 return getValueAsDataSourceValueDateWeb(row, columnName);
             case INTEGER:
                 return getValueAsDataSourceValueIntegerWeb(row, columnName);
             case STRING:
+            case CHARACTER_VARYING:
                 return getValueAsDataSourceValueStringWeb(row, columnName);
             default:
                 throw new NotImplementedException("Not recognized column type.");
