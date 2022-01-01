@@ -97,6 +97,12 @@ As well Mariusz Kumor decided to begin further development.
 The great motivation were flattering words of his friends, 
 also some companies about the project and its ideas.
 
+# Give a Star ⭐
+Creating this product I put emphasis primarily on quality and value for end users. It is also very important for me that the software is built based on the cutting-edge technologies (but in the same time stable ones) and the best design patterns and practices. As you can guess, it takes a lot of time, and the product is open source - so everyone can use the effects of my and other Contributors work for free. If you like this project, learned something or you are using it, please give it a star ⭐. This is the best motivation for me to continue on. Thank you!
+
+# Share It
+There are not many similar open source products like this type of application. If in your opinion this repository makes a difference and deserves it - please share it with your friends, mates and on social networks. I will be very grateful.
+
 # Known issues
 
 There are some known issues. We work on fixes and improvements.
