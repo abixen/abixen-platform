@@ -48,7 +48,7 @@
 		<spock.version>2.0-groovy-3.0</spock.version>
 		<cglib.version>3.2.5</cglib.version>
 		<ehcache.version>2.10.0</ehcache.version>
-		<h2.version>2.0.202</h2.version>
+		<h2.version>2.0.206</h2.version>
 		<opencsv.version>3.3</opencsv.version>
 		<netflix.feign.version>8.11.0</netflix.feign.version>
 		<javax.ws.rs-api.version>2.1.1</javax.ws.rs-api.version>

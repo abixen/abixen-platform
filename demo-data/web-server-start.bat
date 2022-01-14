@@ -1,1 +1,1 @@
-java -cp h2-2.0.202.jar org.h2.tools.Console -web -browser -webPort 8001
+java -cp h2-2.0.206.jar org.h2.tools.Console -web -browser -webPort 8001
