@@ -144,7 +144,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.25</version>
+            <version>8.0.28</version>
         </dependency>
         <!-- Due to Oracle license restrictions, the Oracle jdbc driver is not available
              from the public Maven repository. To use the Oracle jdbc driver with Maven
